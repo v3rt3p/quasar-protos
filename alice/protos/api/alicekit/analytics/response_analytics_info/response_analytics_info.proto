@@ -87,18 +87,13 @@ message TResponseAnalyticsInfo {
   reserved 40;
   reserved 41;
   reserved 42;
-  message AnalyticsInfoEntry {
-    string key = 1;
-    .NAlice.NAliceApi.TAliceAnalyticsInfo value = 2;
-  }
-
   message TWinnerScenario {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
-  repeated .NAlice.NAliceApi.TResponseAnalyticsInfo.AnalyticsInfoEntry AnalyticsInfo = 1;
-  .NAlice.NAliceApi.TResponseAnalyticsInfo.TWinnerScenario WinnerScenario = 10;
-  .NAlice.NAliceApi.TIoTUserInfo IoTUserInfo = 15;
-  string ChosenUtterance = 20;
+  map<string, .NAlice.NAliceApi.TAliceAnalyticsInfo> AnalyticsInfo = 1 [json_name = "analytics_info"];
+  .NAlice.NAliceApi.TResponseAnalyticsInfo.TWinnerScenario WinnerScenario = 10 [json_name = "winner_scenario"];
+  .NAlice.NAliceApi.TIoTUserInfo IoTUserInfo = 15 [json_name = "iot_user_info"];
+  string ChosenUtterance = 20 [json_name = "chosen_utterance"];
 }
 

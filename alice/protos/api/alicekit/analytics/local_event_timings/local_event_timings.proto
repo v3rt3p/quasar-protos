@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.analytics.local_event_timings";
+option java_outer_classname = "LocalEventTimingsProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/analytics/local_event_timings";
+
+message TLocalEventTimings {
+  message TEvent {
+    string Name = 1 [json_name = "name"];
+    int64 SteadyTimepointMs = 2 [json_name = "steady_timepoint_ms"];
+  }
+
+  repeated .NAlice.NAliceApi.TLocalEventTimings.TEvent Events = 1 [json_name = "events"];
+}
+

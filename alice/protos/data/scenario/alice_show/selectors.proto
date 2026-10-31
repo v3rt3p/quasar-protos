@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package NAlice.NData.NAliceShow;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.alice_show";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/alice_show";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDayPart {
+  enum EValue {
+    Undefined = 0;
+    Morning = 1;
+    Evening = 2;
+    Night = 3;
+    Ambiguous = 100;
+  }
+
+  .NAlice.NData.NAliceShow.TDayPart.EValue Value = 1 [json_name = "value"];
+}
+
+message TAge {
+  enum EValue {
+    Undefined = 0;
+    Children = 1;
+    Adult = 2;
+    Ambiguous = 100;
+  }
+
+  .NAlice.NData.NAliceShow.TAge.EValue Value = 1 [json_name = "value"];
+}
+

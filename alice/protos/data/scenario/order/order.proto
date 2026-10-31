@@ -1,0 +1,189 @@
+syntax = "proto3";
+
+package NAlice.NOrder;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.order";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/order";
+
+import "alice/protos/data/lat_lon.proto";
+import "alice/protos/data/entities/datetime.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDecimal {
+  uint32 Integer = 1 [json_name = "integer"];
+  uint32 Fractional = 2 [json_name = "fractional"];
+}
+
+message TOrder {
+  reserved "CreatedDate";
+  reserved "EtaPickupDateTimeRange";
+  reserved "EtaDateRange";
+  reserved "EtaPickupDateRange";
+  reserved "DeliveryType";
+  reserved 2;
+  reserved 14;
+  reserved 4;
+  reserved 10;
+  reserved 9;
+  message TContacts {
+    string Phone = 1 [json_name = "phone"];
+    string Auto = 2 [json_name = "auto"];
+  }
+
+  message TAddress {
+    .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon"];
+    string Country = 2 [json_name = "country"];
+    string City = 3 [json_name = "city"];
+    string Street = 4 [json_name = "street"];
+    string House = 5 [json_name = "house"];
+    string Entrance = 6 [json_name = "entrance"];
+  }
+
+  message TDelivery {
+    .NAlice.NOrder.TOrder.EDeliveryType DeliveryType = 1 [json_name = "delivery_type"];
+    .NAlice.NOrder.TOrder.TContacts CurierContacts = 2 [json_name = "curier_contacts"];
+    .NAlice.NData.TLatLon CurierLatLon = 3 [json_name = "curier_lat_lon"];
+    string SubProviderName = 4 [json_name = "sub_provider_name"];
+    .NAlice.NOrder.TOrder.ESubProviderType SubProviderType = 5 [json_name = "sub_provider_type"];
+  }
+
+  message TPrice {
+    reserved "Value";
+    reserved 1;
+    .NAlice.NOrder.TOrder.ECurrency Currency = 2 [json_name = "currency"];
+    .NAlice.NOrder.TDecimal DecimalValue = 3 [json_name = "decimal_value"];
+  }
+
+  message TItem {
+    reserved "Price";
+    reserved "DoNotReduceItemName";
+    reserved "DoNotShowItemName";
+    reserved 3;
+    reserved 7;
+    reserved 8;
+    message TPartnerOrderReference {
+      string ProviderName = 1 [json_name = "provider_name"];
+      string OrderId = 2 [json_name = "order_id"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    double Quantity = 4 [json_name = "quantity"];
+    .NAlice.NOrder.TOrder.TPrice ActualPrice = 5 [json_name = "actual_price"];
+    .NAlice.NOrder.TOrder.TPrice FullPrice = 6 [json_name = "full_price"];
+    .NAlice.NOrder.TOrder.TItem.TPartnerOrderReference PartnerOrderReference = 9 [json_name = "partner_order_reference"];
+    bool DoNotReduceTitle = 10 [json_name = "do_not_reduce_title"];
+    bool DoNotShowTitle = 11 [json_name = "do_not_show_title"];
+  }
+
+  message TDateTimeRange {
+    reserved "FromDate";
+    reserved "ToDate";
+    reserved 2;
+    reserved 3;
+    .NAlice.TSysDatetimeValue FromDateTime = 4 [json_name = "from_date_time"];
+    .NAlice.TSysDatetimeValue ToDateTime = 5 [json_name = "to_date_time"];
+  }
+
+  enum EStatus {
+    UnknownStatus = 0;
+    Created = 1;
+    Assembling = 2;
+    Assembled = 3;
+    PerformerFound = 4;
+    Delivering = 5;
+    DeliveryArrived = 6;
+    Succeeded = 7;
+    Canceled = 8;
+    Failed = 9;
+    Unpaid = 10;
+    Processing = 11;
+    Pickup = 12;
+    OnDemand = 13;
+    DeliveryDelayed = 14;
+    Cooking = 15;
+  }
+
+  enum ECurrency {
+    UnknownCurrency = 0;
+    Rub = 1;
+  }
+
+  enum EDeliveryType {
+    UnknownDeliveryType = 0;
+    FootCurier = 1;
+    AutoCurier = 2;
+    Curier = 7;
+    Rover = 3;
+    Self = 4;
+    SelfPostamat = 5;
+    SelfPickupPoint = 6;
+    SelfStore = 9;
+    SelfPost = 10;
+    Digital = 11;
+  }
+
+  enum ESubProviderType {
+    UnknownSubProviderType = 0;
+    Restaurant = 1;
+    Retail = 2;
+  }
+
+  string Id = 1 [json_name = "id"];
+  .NAlice.TSysDatetimeValue CreatedDateTime = 12 [json_name = "created_date_time"];
+  .NAlice.TSysDatetimeValue StatusUpdateDateTime = 15 [json_name = "status_update_date_time"];
+  .NAlice.NOrder.TOrder.EStatus Status = 5 [json_name = "status"];
+  .NAlice.NOrder.TOrder.TPrice Price = 6 [json_name = "price"];
+  .NAlice.NOrder.TOrder.TAddress TargetAddress = 7 [json_name = "target_address"];
+  repeated .NAlice.NOrder.TOrder.TItem Items = 8 [json_name = "items"];
+  .NAlice.NOrder.TOrder.TDelivery Delivery = 11 [json_name = "delivery"];
+  .NAlice.TSysDatetimeValue PickupLimitDateTime = 16 [json_name = "pickup_limit_date_time"];
+  bool IsLocalTimeUsed = 17 [json_name = "is_local_time_used"];
+  oneof Eta {
+    int32 EtaSeconds = 3 [json_name = "eta_seconds"];
+    .NAlice.NOrder.TOrder.TDateTimeRange EtaDateTimeRange = 13 [json_name = "eta_date_time_range"];
+  }
+}
+
+message TProviderOrderResponse {
+  string ProviderName = 1 [json_name = "provider_name"];
+  repeated .NAlice.NOrder.TOrder Orders = 2 [json_name = "orders"];
+}
+
+message TSearchProduct {
+  message TSubcategory {
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    optional string DeepLink = 3 [json_name = "deep_link"];
+  }
+
+  message TCatalogPath {
+    .NAlice.NOrder.TSearchProduct.TSubcategory Category = 1 [json_name = "category"];
+    .NAlice.NOrder.TSearchProduct.TSubcategory Subcategory = 2 [json_name = "subcategory"];
+  }
+
+  string Id = 1 [json_name = "id"];
+  string Type = 2 [json_name = "type"];
+  string Image = 3 [json_name = "image"];
+  string Title = 4 [json_name = "title"];
+  string Description = 5 [json_name = "description"];
+  string Source = 6 [json_name = "source"];
+  bool DoNotShowTitle = 7 [json_name = "do_not_show_title"];
+  repeated .NAlice.NOrder.TSearchProduct.TSubcategory Subcategories = 8 [json_name = "subcategories"];
+  string Price = 9 [json_name = "price"];
+  double QuantityLimit = 10 [json_name = "quantity_limit"];
+  repeated .NAlice.NOrder.TSearchProduct.TCatalogPath CatalogPaths = 11 [json_name = "catalog_paths"];
+}
+
+message TProviderSearchResponse {
+  repeated .NAlice.NOrder.TSearchProduct Items = 1 [json_name = "items"];
+}
+
+enum ENotificationType {
+  EN_UNDEFINED = 0;
+  EN_COURIER_IS_COMMING = 1;
+  EN_ORDER_BEING_LATE = 2;
+  EN_ORDER_CANCELED = 3;
+  EN_ORDER_UNDER_THE_DOOR = 4;
+}
+

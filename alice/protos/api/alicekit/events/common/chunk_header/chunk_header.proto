@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.events.common.chunk_header";
+option java_outer_classname = "ChunkHeader";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/common/chunk_header";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TChunkHeader {
+  optional uint64 ChunkId = 1 [json_name = "chunk_id"];
+  optional uint32 SubStreamId = 2 [json_name = "sub_stream_id"];
+}
+

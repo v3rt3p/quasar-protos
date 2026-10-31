@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+message TAlice2ModeInfo {
+  enum EMode {
+    Undefined = 0;
+    Base = 1;
+    Pro = 2;
+    External = 3;
+    DeepResearch = 5;
+  }
+
+  .quark.core.proto.TAlice2ModeInfo.EMode Mode = 1;
+  string Preset = 2;
+  optional string HackMode = 3;
+}
+

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.events.server_chunk_meta";
+option java_outer_classname = "ServerChunkMeta";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/server_chunk_meta";
+
+import "alice/protos/api/alicekit/events/common/chunk_header/chunk_header.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TServerChunkMeta {
+  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header"];
+}
+

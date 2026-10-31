@@ -2,14 +2,11 @@ syntax = "proto3";
 
 package proto;
 
+option go_package = "a.yandex-team.ru/smart_devices/libs/zigbee/model/proto;zigbeemodelpb";
+
 import "smart_devices/libs/zigbee/model/proto/device.proto";
 
 message ServerContainer {
-  message DevicesEntry {
-    string key = 1;
-    .proto.ZigbeeDevice value = 2;
-  }
-
   enum NetworkType {
     UNKNOWN = 0;
     PLAIN = 1;
@@ -18,6 +15,6 @@ message ServerContainer {
 
   .proto.ServerContainer.NetworkType network_type = 1;
   bytes network_data = 2;
-  repeated .proto.ServerContainer.DevicesEntry devices = 3;
+  map<string, .proto.ZigbeeDevice> devices = 3;
 }
 

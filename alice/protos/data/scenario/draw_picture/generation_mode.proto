@@ -11,6 +11,7 @@ message TDrawPicture {
     Remix = 1;
     Editing = 2;
     Combining = 3;
+    Video = 4;
   }
 
 }

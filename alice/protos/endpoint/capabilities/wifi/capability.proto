@@ -17,51 +17,51 @@ message TWifiCapability {
 
   message TState {
     message TNetwork {
-      string Ssid = 1;
+      string Ssid = 1 [json_name = "ssid"];
     }
 
-    .NAlice.TWifiCapability.TState.TNetwork CurrentNetwork = 1;
+    .NAlice.TWifiCapability.TState.TNetwork CurrentNetwork = 1 [json_name = "current_network"];
   }
 
   message TNetworkInfo {
-    string Ssid = 1;
-    string Psk = 2;
-    bool AllowAutoConnect = 3;
-    bool Hidden = 4;
-    optional .NAlice.TWifiCapability.EWifiType SecurityProtocol = 5;
+    string Ssid = 1 [json_name = "ssid"];
+    string Psk = 2 [json_name = "psk"];
+    bool AllowAutoConnect = 3 [json_name = "allow_auto_connect"];
+    bool Hidden = 4 [json_name = "hidden"];
+    optional .NAlice.TWifiCapability.EWifiType SecurityProtocol = 5 [json_name = "security_protocol"];
   }
 
   message TConnectToNetworkDirective {
-    string Ssid = 1;
+    string Ssid = 1 [json_name = "ssid"];
   }
 
   message TSetWifiConfigurationDirective {
-    repeated .NAlice.TWifiCapability.TNetworkInfo Networks = 1;
-    string WifiHash = 2;
+    repeated .NAlice.TWifiCapability.TNetworkInfo Networks = 1 [json_name = "networks"];
+    string WifiHash = 2 [json_name = "wifi_hash"];
   }
 
   message TForceSyncWifiConfigurationDirective {
   }
 
   message TUpdateStateEvent {
-    .NAlice.TWifiCapability Capability = 1;
+    .NAlice.TWifiCapability Capability = 1 [json_name = "capability"];
   }
 
   message TSyncWifiConfigurationEvent {
     message TFirstSyncInfo {
       message TNetwork {
-        string Ssid = 1;
+        string Ssid = 1 [json_name = "ssid"];
       }
 
-      .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo.TNetwork CurrentNetwork = 1;
+      .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo.TNetwork CurrentNetwork = 1 [json_name = "current_network"];
     }
 
-    .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo FirstSyncInfo = 1;
+    .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo FirstSyncInfo = 1 [json_name = "first_sync_info"];
   }
 
   message TConnectionFailureEvent {
-    string Ssid = 1;
-    .NAlice.TWifiCapability.EConnectionFailureCause Cause = 2;
+    string Ssid = 1 [json_name = "ssid"];
+    .NAlice.TWifiCapability.EConnectionFailureCause Cause = 2 [json_name = "cause"];
   }
 
   enum EConnectionFailureCause {
@@ -77,8 +77,8 @@ message TWifiCapability {
     OPEN = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TWifiCapability.TParameters Parameters = 2;
-  .NAlice.TWifiCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWifiCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWifiCapability.TState State = 3 [json_name = "state"];
 }
 

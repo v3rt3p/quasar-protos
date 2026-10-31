@@ -13,7 +13,7 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioFilePlayerCapability {
   message TParameters {
-    repeated .NAlice.TAudioFilePlayerCapability.EStoredSound StoredSounds = 1;
+    repeated .NAlice.TAudioFilePlayerCapability.EStoredSound StoredSounds = 1 [json_name = "stored_sounds"];
   }
 
   message TState {
@@ -22,24 +22,24 @@ message TAudioFilePlayerCapability {
   message TLocalAudioFilePlayDirective {
     reserved "StoredSound";
     reserved 1;
-    string Name = 4;
-    .NAlice.EDirectiveChannel Channel = 2;
-    bool Looped = 3;
-    uint32 PlayTimes = 5;
+    string Name = 4 [json_name = "name"];
+    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel"];
+    bool Looped = 3 [json_name = "looped"];
+    uint32 PlayTimes = 5 [json_name = "play_times"];
     oneof Sound {
-      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7;
-      string FileName = 6;
+      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play"];
+      string FileName = 6 [json_name = "file_name"];
     }
   }
 
   message TLocalAudioFileStopDirective {
     reserved "StoredSound";
     reserved 1;
-    string Name = 3;
-    .NAlice.EDirectiveChannel Channel = 2;
+    string Name = 3 [json_name = "name"];
+    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel"];
     oneof Sound {
-      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7;
-      string FileName = 6;
+      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play"];
+      string FileName = 6 [json_name = "file_name"];
     }
   }
 
@@ -147,10 +147,13 @@ message TAudioFilePlayerCapability {
     StoppedSearchingForWifi = 100;
     CO2CalibrationStarted = 101;
     CO2CalibrationFinished = 102;
+    HotChargingPort = 103;
+    Stolen = 104;
+    FlickerNoise = 105;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAudioFilePlayerCapability.TParameters Parameters = 2;
-  .NAlice.TAudioFilePlayerCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAudioFilePlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAudioFilePlayerCapability.TState State = 3 [json_name = "state"];
 }
 

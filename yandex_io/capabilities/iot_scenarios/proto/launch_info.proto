@@ -2,39 +2,34 @@ syntax = "proto3";
 
 package quasar.proto;
 
-import "alice/megamind/protos/speechkit/directives.proto";
+import "alice/protos/api/alicekit/directives/directive.proto";
 import "alice/protos/endpoint/capabilities/iot_scenarios/capability.proto";
 import "alice/protos/data/iot/scenario.proto";
 import "yandex_io/sdk/directive_sequencer/protos/directive.proto";
 
 message TDirectiveLaunchInfo {
-  .NAlice.NSpeechKit.TDirective Directive = 1;
-  .quasar.proto.Directive SdkDirective = 4;
-  .NAlice.TIotScenariosCapability.EStepStatus Status = 2;
-  .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult.EDirectiveExecStatus Result = 3;
+  .NAlice.NAliceApi.TDirective Directive = 1 [json_name = "directive"];
+  .quasar.proto.Directive SdkDirective = 4 [json_name = "sdk_directive"];
+  .NAlice.TIotScenariosCapability.EStepStatus Status = 2 [json_name = "status"];
+  .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult.EDirectiveExecStatus Result = 3 [json_name = "result"];
 }
 
 message TOptionalDirectiveLaunchInfo {
-  .NAlice.NSpeechKit.TDirective OptionalDirective = 1;
-  .quasar.proto.Directive OptionalSdkDirective = 3;
-  repeated .quasar.proto.TDirectiveLaunchInfo InternalDirectivesLaunchInfo = 2;
+  .NAlice.NAliceApi.TDirective OptionalDirective = 1 [json_name = "optional_directive"];
+  .quasar.proto.Directive OptionalSdkDirective = 3 [json_name = "optional_sdk_directive"];
+  repeated .quasar.proto.TDirectiveLaunchInfo InternalDirectivesLaunchInfo = 2 [json_name = "internal_directives_launch_info"];
 }
 
 message TStepLaunchInfo {
-  repeated .quasar.proto.TDirectiveLaunchInfo SubstepLaunchInfo = 1;
+  repeated .quasar.proto.TDirectiveLaunchInfo SubstepLaunchInfo = 1 [json_name = "substep_launch_info"];
 }
 
 message TLaunchInfo {
-  message StepIndexToOptionalDirectiveEntry {
-    uint32 key = 1;
-    .quasar.proto.TOptionalDirectiveLaunchInfo value = 2;
-  }
-
-  repeated .quasar.proto.TStepLaunchInfo StepLaunchInfo = 1;
-  repeated .quasar.proto.TLaunchInfo.StepIndexToOptionalDirectiveEntry StepIndexToOptionalDirective = 6;
-  uint64 CurrentStepIndex = 5;
-  .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 2;
-  uint64 LaunchStartTimeMs = 3;
-  bool IsSaveLaunchProgressRequired = 4;
+  repeated .quasar.proto.TStepLaunchInfo StepLaunchInfo = 1 [json_name = "step_launch_info"];
+  map<uint32, .quasar.proto.TOptionalDirectiveLaunchInfo> StepIndexToOptionalDirective = 6 [json_name = "step_index_to_optional_directive"];
+  uint64 CurrentStepIndex = 5 [json_name = "current_step_index"];
+  .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 2 [json_name = "triggered_condition"];
+  uint64 LaunchStartTimeMs = 3 [json_name = "launch_start_time_ms"];
+  bool IsSaveLaunchProgressRequired = 4 [json_name = "is_save_launch_progress_required"];
 }
 

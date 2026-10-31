@@ -37,45 +37,45 @@ message TSemanticFrame {
     reserved 5;
     reserved 6;
     reserved 7;
-    string Name = 1;
-    string Type = 2;
-    string Value = 3;
+    string Name = 1 [json_name = "name"];
+    string Type = 2 [json_name = "type"];
+    string Value = 3 [json_name = "value"];
   }
 
-  string Name = 1;
-  repeated .NAlice.NAliceApi.TSemanticFrame.TSlot Slots = 2;
+  string Name = 1 [json_name = "name"];
+  repeated .NAlice.NAliceApi.TSemanticFrame.TSlot Slots = 2 [json_name = "slots"];
 }
 
 message TTypedSemanticFrame {
   reserved 56788;
   oneof Type {
-    .NAlice.TGetCallerNameSemanticFrame GetCallerNameSemanticFrame = 7;
-    .NAlice.TMusicPlaySemanticFrame MusicPlaySemanticFrame = 8;
-    .NAlice.TPlayerNextTrackSemanticFrame PlayerNextTrackSemanticFrame = 16;
-    .NAlice.TPlayerPrevTrackSemanticFrame PlayerPrevTrackSemanticFrame = 17;
-    .NAlice.TIoTDiscoveryStartSemanticFrame IoTDiscoveryStartSemanticFrame = 31;
-    .NAlice.TIoTDiscoveryFailureSemanticFrame IoTDiscoveryFailureSemanticFrame = 33;
-    .NAlice.TOnboardingStartingCriticalUpdateSemanticFrame OnboardingStartingCriticalUpdateSemanticFrame = 36;
-    .NAlice.TOnboardingStartingConfigureSuccessSemanticFrame OnboardingStartingConfigureSuccessSemanticFrame = 37;
-    .NAlice.TRadioPlaySemanticFrame RadioPlaySemanticFrame = 38;
-    .NAlice.TSoundLouderSemanticFrame SoundLouderSemanticFrame = 42;
-    .NAlice.TSoundQuiterSemanticFrame SoundQuiterSemanticFrame = 43;
-    .NAlice.TPlayerContinueSemanticFrame PlayerContinueSemanticFrame = 53;
-    .NAlice.TPlayerShuffleSemanticFrame PlayerShuffleSemanticFrame = 55;
-    .NAlice.TPlayerReplaySemanticFrame PlayerReplaySemanticFrame = 56;
-    .NAlice.TPlayerRepeatSemanticFrame PlayerRepeatSemanticFrame = 58;
-    .NAlice.TPlayerUnshuffleSemanticFrame PlayerUnshuffleSemanticFrame = 64;
-    .NAlice.TStartIotTuyaBroadcastSemanticFrame StartIotTuyaBroadcastSemanticFrame = 102;
-    .NAlice.TRestoreIotNetworksSemanticFrame RestoreIotNetworksSemanticFrame = 104;
-    .NAlice.TSaveIotNetworksSemanticFrame SaveIotNetworksSemanticFrame = 105;
-    .NAlice.TGuestEnrollmentStartSemanticFrame GuestEnrollmentStartSemanticFrame = 106;
-    .NAlice.TEndpointEventsBatchSemanticFrame EndpointEventsBatchSemanticFrame = 127;
-    .NAlice.TGetEqualizerSettingsSemanticFrame GetEqualizerSettingsSemanticFrame = 138;
-    .NAlice.TOnboardingGetGreetingsSemanticFrame OnboardingGetGreetingsSemanticFrame = 140;
-    .NAlice.TEnrollmentStatusSemanticFrame EnrollmentStatusSemanticFrame = 156;
-    .NAlice.TGuestEnrollmentFinishSemanticFrame GuestEnrollmentFinishSemanticFrame = 165;
-    .NAlice.TVoiceActivityDetectorSemanticFrame VoiceActivityDetectorSemanticFrame = 263;
-    .NAlice.TOnboardingAddNetworkSuccessSemanticFrame OnboardingAddNetworkSuccessSemanticFrame = 368;
+    .NAlice.TGetCallerNameSemanticFrame GetCallerNameSemanticFrame = 7 [json_name = "get_caller_name"];
+    .NAlice.TMusicPlaySemanticFrame MusicPlaySemanticFrame = 8 [json_name = "music_play_semantic_frame"];
+    .NAlice.TPlayerNextTrackSemanticFrame PlayerNextTrackSemanticFrame = 16 [json_name = "player_next_track_semantic_frame"];
+    .NAlice.TPlayerPrevTrackSemanticFrame PlayerPrevTrackSemanticFrame = 17 [json_name = "player_prev_track_semantic_frame"];
+    .NAlice.TIoTDiscoveryStartSemanticFrame IoTDiscoveryStartSemanticFrame = 31 [json_name = "iot_discovery_start"];
+    .NAlice.TIoTDiscoveryFailureSemanticFrame IoTDiscoveryFailureSemanticFrame = 33 [json_name = "iot_discovery_failure"];
+    .NAlice.TOnboardingStartingCriticalUpdateSemanticFrame OnboardingStartingCriticalUpdateSemanticFrame = 36 [json_name = "onboarding_starting_critical_update"];
+    .NAlice.TOnboardingStartingConfigureSuccessSemanticFrame OnboardingStartingConfigureSuccessSemanticFrame = 37 [json_name = "onboarding_starting_configure_success"];
+    .NAlice.TRadioPlaySemanticFrame RadioPlaySemanticFrame = 38 [json_name = "radio_play_semantic_frame"];
+    .NAlice.TSoundLouderSemanticFrame SoundLouderSemanticFrame = 42 [json_name = "sound_louder_semantic_frame"];
+    .NAlice.TSoundQuiterSemanticFrame SoundQuiterSemanticFrame = 43 [json_name = "sound_quiter_semantic_frame"];
+    .NAlice.TPlayerContinueSemanticFrame PlayerContinueSemanticFrame = 53 [json_name = "player_continue_semantic_frame"];
+    .NAlice.TPlayerShuffleSemanticFrame PlayerShuffleSemanticFrame = 55 [json_name = "player_shuffle_semantic_frame"];
+    .NAlice.TPlayerReplaySemanticFrame PlayerReplaySemanticFrame = 56 [json_name = "player_replay_semantic_frame"];
+    .NAlice.TPlayerRepeatSemanticFrame PlayerRepeatSemanticFrame = 58 [json_name = "player_repeat_semantic_frame"];
+    .NAlice.TPlayerUnshuffleSemanticFrame PlayerUnshuffleSemanticFrame = 64 [json_name = "player_unshuffle_semantic_frame"];
+    .NAlice.TStartIotTuyaBroadcastSemanticFrame StartIotTuyaBroadcastSemanticFrame = 102 [json_name = "start_iot_tuya_broadcast_semantic_frame"];
+    .NAlice.TRestoreIotNetworksSemanticFrame RestoreIotNetworksSemanticFrame = 104 [json_name = "restore_iot_networks_semantic_frame"];
+    .NAlice.TSaveIotNetworksSemanticFrame SaveIotNetworksSemanticFrame = 105 [json_name = "save_iot_networks_semantic_frame"];
+    .NAlice.TGuestEnrollmentStartSemanticFrame GuestEnrollmentStartSemanticFrame = 106 [json_name = "guest_enrollment_start_semantic_frame"];
+    .NAlice.TEndpointEventsBatchSemanticFrame EndpointEventsBatchSemanticFrame = 127 [json_name = "endpoint_events_batch_semantic_frame"];
+    .NAlice.TGetEqualizerSettingsSemanticFrame GetEqualizerSettingsSemanticFrame = 138 [json_name = "get_equalizer_settings_semantic_frame"];
+    .NAlice.TOnboardingGetGreetingsSemanticFrame OnboardingGetGreetingsSemanticFrame = 140 [json_name = "onboarding_get_greetings_semantic_frame"];
+    .NAlice.TEnrollmentStatusSemanticFrame EnrollmentStatusSemanticFrame = 156 [json_name = "multiaccount_enrollment_status_semantic_frame"];
+    .NAlice.TGuestEnrollmentFinishSemanticFrame GuestEnrollmentFinishSemanticFrame = 165 [json_name = "guest_enrollment_finish_semantic_frame"];
+    .NAlice.TVoiceActivityDetectorSemanticFrame VoiceActivityDetectorSemanticFrame = 263 [json_name = "voice_activity_detector_semantic_frame"];
+    .NAlice.TOnboardingAddNetworkSuccessSemanticFrame OnboardingAddNetworkSuccessSemanticFrame = 368 [json_name = "onboarding_add_network_success_semantic_frame"];
   }
 }
 
@@ -86,8 +86,8 @@ message TSemanticFrameRequestData {
   reserved 3;
   reserved 4;
   reserved 6;
-  .NAlice.NAliceApi.TTypedSemanticFrame TypedSemanticFrame = 1;
-  .NAlice.TAnalyticsTrackingModule Analytics = 2;
-  .NAlice.TRequestParams RequestParams = 5;
+  .NAlice.NAliceApi.TTypedSemanticFrame TypedSemanticFrame = 1 [json_name = "typed_semantic_frame"];
+  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics"];
+  .NAlice.TRequestParams RequestParams = 5 [json_name = "request_params"];
 }
 

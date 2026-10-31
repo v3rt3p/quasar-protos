@@ -2,16 +2,13 @@ syntax = "proto3";
 
 package proto;
 
+option go_package = "a.yandex-team.ru/smart_devices/libs/zigbee/model/proto;zigbeemodelpb";
+
 import "google/protobuf/timestamp.proto";
 
 message ZigbeeDevice {
   message DeviceInfo {
-    message EndpointsEntry {
-      uint32 key = 1;
-      .proto.ZigbeeDevice.Endpoint value = 2;
-    }
-
-    repeated .proto.ZigbeeDevice.DeviceInfo.EndpointsEntry endpoints = 6;
+    map<uint32, .proto.ZigbeeDevice.Endpoint> endpoints = 6;
     optional uint32 application_version = 1;
     optional uint32 stack_version = 2;
     optional uint32 hw_version = 3;
@@ -21,12 +18,7 @@ message ZigbeeDevice {
   }
 
   message Endpoint {
-    message ClustersEntry {
-      uint32 key = 1;
-      .proto.ZigbeeDevice.Cluster value = 2;
-    }
-
-    repeated .proto.ZigbeeDevice.Endpoint.ClustersEntry clusters = 1;
+    map<uint32, .proto.ZigbeeDevice.Cluster> clusters = 1;
   }
 
   message Attribute {
@@ -35,32 +27,19 @@ message ZigbeeDevice {
   }
 
   message Cluster {
-    message LegacyAttributesEntry {
-      uint32 key = 1;
-      bytes value = 2;
-    }
-
-    message AttributesEntry {
-      uint32 key = 1;
-      .proto.ZigbeeDevice.Attribute value = 2;
-    }
-
-    repeated .proto.ZigbeeDevice.Cluster.LegacyAttributesEntry LegacyAttributes = 1;
-    repeated .proto.ZigbeeDevice.Cluster.AttributesEntry Attributes = 2;
+    map<uint32, bytes> LegacyAttributes = 1;
+    map<uint32, .proto.ZigbeeDevice.Attribute> Attributes = 2;
   }
 
   message DeviceConfig {
-    message EndpointFingerprintsEntry {
-      uint32 key = 1;
-      bytes value = 2;
-    }
-
     repeated uint32 removed_endpoints = 1;
-    repeated .proto.ZigbeeDevice.DeviceConfig.EndpointFingerprintsEntry endpoint_fingerprints = 2;
+    map<uint32, bytes> endpoint_fingerprints = 2;
+    optional uint32 PassiveTimeoutSec = 3;
   }
 
   .proto.ZigbeeDevice.DeviceInfo info = 1;
   .google.protobuf.Timestamp last_seen = 2;
   .proto.ZigbeeDevice.DeviceConfig config = 3;
+  uint32 last_seen_channel = 4;
 }
 

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package NAlice.NData.NConnectorsConsent;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.connectors_consent";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/connectors_consent";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TConnectorsConsentConfig {
+  message TConnectorConsent {
+    .NAlice.NData.NConnectorsConsent.EConnectorType ConnectorType = 1 [json_name = "connector_type"];
+    bool ConsentGranted = 2 [json_name = "consent_granted"];
+    uint64 ConnectedAt = 3 [json_name = "connected_at"];
+    uint64 UpdatedAt = 4 [json_name = "updated_at"];
+    bool TrainAllowed = 5 [json_name = "train_allowed"];
+  }
+
+  repeated .NAlice.NData.NConnectorsConsent.TConnectorsConsentConfig.TConnectorConsent ConnectorConsents = 1 [json_name = "connector_consents"];
+}
+
+enum EConnectorType {
+  CONNECTOR_TYPE_UNDEFINED = 0;
+  CONNECTOR_TYPE_MAIL = 1;
+}
+

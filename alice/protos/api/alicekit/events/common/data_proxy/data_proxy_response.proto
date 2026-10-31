@@ -12,8 +12,8 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDataProxyResponse {
   message TStreamHeaders {
-    optional uint64 ContentSize = 1;
-    optional string ContentType = 2;
+    optional uint64 ContentSize = 1 [json_name = "content_size"];
+    optional string ContentType = 2 [json_name = "content_type"];
   }
 
   enum EStatusCode {
@@ -24,8 +24,8 @@ message TDataProxyResponse {
     KeyNotFound = 4;
   }
 
-  optional .NAlice.NAliceApi.TDataProxyResponse.EStatusCode Status = 1;
-  optional .NAlice.NAliceApi.TDataProxyResponse.TStreamHeaders Headers = 2;
-  optional .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 10;
+  optional .NAlice.NAliceApi.TDataProxyResponse.EStatusCode Status = 1 [json_name = "status"];
+  optional .NAlice.NAliceApi.TDataProxyResponse.TStreamHeaders Headers = 2 [json_name = "headers"];
+  optional .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 10 [json_name = "environment_state"];
 }
 

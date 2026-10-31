@@ -17,21 +17,21 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TPhoneCallsCapability {
   message TCredentials {
     oneof Credentials {
-      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 1;
-      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 2;
+      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 1 [json_name = "sip_credentials"];
+      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 2 [json_name = "mts_credentials"];
     }
   }
 
   message TSupportedProtocol {
-    .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 1;
-    .NAlice.TPhoneCallsCapability.EProtocol Protocol = 2;
-    .NAlice.NTelecom.EProvider TelecomProvider = 3;
-    bool OnDemandConnection = 4;
-    repeated .NAlice.TPhoneCallsCapability.EMediaType SupportedMedia = 5;
+    .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 1 [json_name = "provider"];
+    .NAlice.TPhoneCallsCapability.EProtocol Protocol = 2 [json_name = "protocol"];
+    .NAlice.NTelecom.EProvider TelecomProvider = 3 [json_name = "telecom_provider"];
+    bool OnDemandConnection = 4 [json_name = "require_connection"];
+    repeated .NAlice.TPhoneCallsCapability.EMediaType SupportedMedia = 5 [json_name = "supported_media"];
   }
 
   message TParameters {
-    repeated .NAlice.TPhoneCallsCapability.TSupportedProtocol SupportedProtocols = 1;
+    repeated .NAlice.TPhoneCallsCapability.TSupportedProtocol SupportedProtocols = 1 [json_name = "supported_protocols"];
   }
 
   message TMediaState {
@@ -41,24 +41,24 @@ message TPhoneCallsCapability {
       SoftwareMute = 2;
     }
 
-    bool IsMicMuted = 1;
-    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 2;
+    bool IsMicMuted = 1 [json_name = "is_mic_muted"];
+    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 2 [json_name = "mute_source"];
   }
 
   message TCallParams {
-    repeated .NAlice.TPhoneCallsCapability.EMediaType MediaTypes = 1;
+    repeated .NAlice.TPhoneCallsCapability.EMediaType MediaTypes = 1 [json_name = "media_type"];
   }
 
   message TCall {
     reserved "PhoneNumber";
     reserved 2;
-    string Id = 1;
-    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 3;
-    bool IsConfirmed = 4;
-    string AccountId = 5;
-    .NAlice.NTelecom.TCallInfo CallInfo = 6;
-    .NAlice.TPhoneCallsCapability.TMediaState MediaState = 7;
-    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 8;
+    string Id = 1 [json_name = "call_id"];
+    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 3 [json_name = "provider_contact_info"];
+    bool IsConfirmed = 4 [json_name = "is_confirmed"];
+    string AccountId = 5 [json_name = "account_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info"];
+    .NAlice.TPhoneCallsCapability.TMediaState MediaState = 7 [json_name = "media_state"];
+    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 8 [json_name = "call_params"];
   }
 
   message TAccount {
@@ -78,161 +78,161 @@ message TPhoneCallsCapability {
       ValidationFailed = 3;
     }
 
-    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 2;
-    bool IsConnected = 3;
-    .NAlice.TPhoneCallsCapability.TAccount.EConnectStatus ConnectStatus = 6;
-    .NAlice.TPhoneCallsCapability.TAccount.EDisconnectReason DisconnectReason = 7;
-    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 4;
-    string Id = 5;
+    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 2 [json_name = "protocol"];
+    bool IsConnected = 3 [json_name = "is_connected"];
+    .NAlice.TPhoneCallsCapability.TAccount.EConnectStatus ConnectStatus = 6 [json_name = "connect_status"];
+    .NAlice.TPhoneCallsCapability.TAccount.EDisconnectReason DisconnectReason = 7 [json_name = "disconnect_reason"];
+    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 4 [json_name = "provider_contact_info"];
+    string Id = 5 [json_name = "id"];
   }
 
   message TState {
-    .NAlice.TPhoneCallsCapability.TAccount Account = 1;
-    .NAlice.TPhoneCallsCapability.TCall CurrentCall = 2;
-    .NAlice.TPhoneCallsCapability.TCall IncomingCall = 3;
-    .NAlice.TPhoneCallsCapability.TCall OutgoingCall = 4;
-    repeated .NAlice.TPhoneCallsCapability.TAccount Accounts = 5;
+    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account"];
+    .NAlice.TPhoneCallsCapability.TCall CurrentCall = 2 [json_name = "current_call"];
+    .NAlice.TPhoneCallsCapability.TCall IncomingCall = 3 [json_name = "incoming_call"];
+    .NAlice.TPhoneCallsCapability.TCall OutgoingCall = 4 [json_name = "outgoing_call"];
+    repeated .NAlice.TPhoneCallsCapability.TAccount Accounts = 5 [json_name = "accounts"];
   }
 
   message TSipCredentials {
     reserved "OAuthToken";
     reserved 6;
     message THeader {
-      string Name = 1;
-      string Value = 2;
+      string Name = 1 [json_name = "name"];
+      string Value = 2 [json_name = "value"];
     }
 
-    string Number = 1;
-    string Password = 2;
-    string Realm = 3;
-    string RegistrarIP = 4;
-    string AppID = 5;
-    repeated .NAlice.TPhoneCallsCapability.TSipCredentials.THeader SipHeaders = 7;
+    string Number = 1 [json_name = "number"];
+    string Password = 2 [json_name = "password"];
+    string Realm = 3 [json_name = "realm"];
+    string RegistrarIP = 4 [json_name = "registrar_ip"];
+    string AppID = 5 [json_name = "app_id"];
+    repeated .NAlice.TPhoneCallsCapability.TSipCredentials.THeader SipHeaders = 7 [json_name = "sip_headers"];
   }
 
   message TMtsCredentials {
     message TAuthorization {
       message TPermanentCredentials {
-        string InstanceId = 1;
-        string MyConnectToken = 2;
-        string AcsToken = 3;
-        string Msisdn = 4;
-        string PartnerId = 5;
-        uint64 ExpirationTimestampSec = 6;
+        string InstanceId = 1 [json_name = "instance_id"];
+        string MyConnectToken = 2 [json_name = "my_connect_token"];
+        string AcsToken = 3 [json_name = "acs_token"];
+        string Msisdn = 4 [json_name = "msisdn"];
+        string PartnerId = 5 [json_name = "partner_id"];
+        uint64 ExpirationTimestampSec = 6 [json_name = "expiration_timestamp_sec"];
       }
 
       oneof Authorization {
-        string OttToken = 1;
-        .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization.TPermanentCredentials PermanentCredentials = 2;
+        string OttToken = 1 [json_name = "ott_token"];
+        .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization.TPermanentCredentials PermanentCredentials = 2 [json_name = "permanent_credentials"];
       }
     }
 
     message TLocation {
-      .NAlice.NData.TLatLon LatLon = 1;
-      uint64 TimestampSec = 2;
+      .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon"];
+      uint64 TimestampSec = 2 [json_name = "timestamp_sec"];
     }
 
-    .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization Authorization = 1;
-    string UserAgent = 2;
-    string DeviceId = 3;
-    .NAlice.TPhoneCallsCapability.TMtsCredentials.TLocation Location = 4;
-    string Server = 5;
-    .NAlice.NData.TLatLon LaasRealLocation = 7;
-    optional string WssUrl = 6;
+    .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization Authorization = 1 [json_name = "authorization"];
+    string UserAgent = 2 [json_name = "user_agent"];
+    string DeviceId = 3 [json_name = "device_id"];
+    .NAlice.TPhoneCallsCapability.TMtsCredentials.TLocation Location = 4 [json_name = "location"];
+    string Server = 5 [json_name = "server"];
+    .NAlice.NData.TLatLon LaasRealLocation = 7 [json_name = "laas_real_location"];
+    optional string WssUrl = 6 [json_name = "wss_url"];
   }
 
   message TAddAccountDirective {
-    string Name = 1;
-    string CredentialsKey = 3;
-    string AccountId = 4;
-    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 6;
-    .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 7;
+    string Name = 1 [json_name = "name"];
+    string CredentialsKey = 3 [json_name = "credentials_key"];
+    string AccountId = 4 [json_name = "account_id"];
+    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 6 [json_name = "protocol"];
+    .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 7 [json_name = "lifetime_policy"];
     oneof Credentials {
-      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 2;
-      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 5;
+      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 2 [json_name = "sip_credentials"];
+      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 5 [json_name = "mts_credentials"];
     }
   }
 
   message TConnectDirective {
-    string Name = 1;
-    string AccountId = 2;
-    string ForcedTerminalId = 3;
+    string Name = 1 [json_name = "name"];
+    string AccountId = 2 [json_name = "account_id"];
+    string ForcedTerminalId = 3 [json_name = "forced_terminal_id"];
   }
 
   message TDeleteAccountDirective {
-    string Name = 1;
-    string AccountId = 2;
+    string Name = 1 [json_name = "name"];
+    string AccountId = 2 [json_name = "account_id"];
   }
 
   message TRefreshAccountDirective {
-    string Name = 1;
-    string AccountId = 2;
+    string Name = 1 [json_name = "name"];
+    string AccountId = 2 [json_name = "account_id"];
   }
 
   message TMakeCallDirective {
-    string Name = 1;
-    string Number = 2;
-    .NAlice.NTelecom.TProviderContact ProviderContact = 3;
-    string CallId = 4;
-    string AccountId = 5;
-    .NAlice.NTelecom.TCallInfo CallInfo = 6;
-    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 10;
-    repeated .NAlice.NAliceApi.TDirective OnAccepted = 7;
-    repeated .NAlice.NAliceApi.TDirective OnDeclined = 8;
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 9;
+    string Name = 1 [json_name = "name"];
+    string Number = 2 [json_name = "number"];
+    .NAlice.NTelecom.TProviderContact ProviderContact = 3 [json_name = "provider_contact"];
+    string CallId = 4 [json_name = "call_id"];
+    string AccountId = 5 [json_name = "account_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info"];
+    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 10 [json_name = "call_params"];
+    repeated .NAlice.NAliceApi.TDirective OnAccepted = 7 [json_name = "on_accepted"];
+    repeated .NAlice.NAliceApi.TDirective OnDeclined = 8 [json_name = "on_declined"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 9 [json_name = "on_ended"];
   }
 
   message TAcceptCallDirective {
     reserved "Call";
     reserved 2;
-    string Name = 1;
-    string CallId = 3;
-    .NAlice.NTelecom.TCallInfo CallInfo = 4;
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 5;
+    string Name = 1 [json_name = "name"];
+    string CallId = 3 [json_name = "call_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 4 [json_name = "call_info"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended"];
   }
 
   message THangUpCallDirective {
     reserved "Call";
     reserved 2;
-    string Name = 1;
-    string CallId = 3;
+    string Name = 1 [json_name = "name"];
+    string CallId = 3 [json_name = "call_id"];
   }
 
   message TProcessIncomingCallDirective {
     reserved 4;
-    string Name = 1;
-    string CallId = 2;
-    .NAlice.NTelecom.TCallInfo CallInfo = 3;
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 5;
-    repeated .NAlice.NAliceApi.TDirective OnAccepted = 6;
+    string Name = 1 [json_name = "name"];
+    string CallId = 2 [json_name = "call_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 3 [json_name = "call_info"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended"];
+    repeated .NAlice.NAliceApi.TDirective OnAccepted = 6 [json_name = "on_accepted"];
   }
 
   message TIgnoreIncomingCallDirective {
-    string Name = 1;
-    string CallId = 2;
+    string Name = 1 [json_name = "name"];
+    string CallId = 2 [json_name = "call_id"];
   }
 
   message TOpenDeviceCallUiDirective {
     message TCallableDeviceInfo {
-      string DeviceId = 1;
-      string DeviceName = 2;
-      string DevicePlatform = 3;
-      string RoomName = 4;
-      string HouseholdName = 5;
-      string DeviceIconUrl = 6;
-      bool RadioNannyEnabled = 7;
-      bool DropInEnabled = 8;
+      string DeviceId = 1 [json_name = "device_id"];
+      string DeviceName = 2 [json_name = "device_name"];
+      string DevicePlatform = 3 [json_name = "device_platform"];
+      string RoomName = 4 [json_name = "room_name"];
+      string HouseholdName = 5 [json_name = "household_name"];
+      string DeviceIconUrl = 6 [json_name = "device_icon_url"];
+      bool RadioNannyEnabled = 7 [json_name = "radio_nanny_enabled"];
+      bool DropInEnabled = 8 [json_name = "drop_in_enabled"];
     }
 
-    string Name = 1;
-    .NAlice.TPhoneCallsCapability.TOpenDeviceCallUiDirective.TCallableDeviceInfo DeviceInfo = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TPhoneCallsCapability.TOpenDeviceCallUiDirective.TCallableDeviceInfo DeviceInfo = 2 [json_name = "device_info"];
   }
 
   message TSetMicMuteDirective {
-    string Name = 1;
-    bool IsMicMuted = 2;
-    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 3;
-    string CallId = 4;
+    string Name = 1 [json_name = "name"];
+    bool IsMicMuted = 2 [json_name = "is_mic_muted"];
+    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 3 [json_name = "mute_source"];
+    string CallId = 4 [json_name = "call_id"];
   }
 
   message TPhoneCallsAddAccountEvent {
@@ -241,10 +241,10 @@ message TPhoneCallsCapability {
       Failed = 1;
     }
 
-    string CredentialsKey = 1;
-    .NAlice.TPhoneCallsCapability.TPhoneCallsAddAccountEvent.EStatus Status = 2;
-    string AccountId = 3;
-    string Message = 4;
+    string CredentialsKey = 1 [json_name = "credentials_key"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsAddAccountEvent.EStatus Status = 2 [json_name = "status"];
+    string AccountId = 3 [json_name = "account_id"];
+    string Message = 4 [json_name = "message"];
   }
 
   message TPhoneCallsDeleteAccountEvent {
@@ -253,9 +253,9 @@ message TPhoneCallsCapability {
       Failed = 1;
     }
 
-    .NAlice.TPhoneCallsCapability.TPhoneCallsDeleteAccountEvent.EStatus Status = 1;
-    string AccountId = 2;
-    string Message = 3;
+    .NAlice.TPhoneCallsCapability.TPhoneCallsDeleteAccountEvent.EStatus Status = 1 [json_name = "status"];
+    string AccountId = 2 [json_name = "account_id"];
+    string Message = 3 [json_name = "message"];
   }
 
   message TPhoneCallsAccountInvalidateEvent {
@@ -266,21 +266,34 @@ message TPhoneCallsCapability {
       WifiChange = 3;
     }
 
-    string AccountId = 1;
-    .NAlice.TPhoneCallsCapability.TPhoneCallsAccountInvalidateEvent.EReason Reason = 3;
+    string AccountId = 1 [json_name = "account_id"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsAccountInvalidateEvent.EReason Reason = 3 [json_name = "reason"];
   }
 
   message TPhoneCallsRegStateChangedEvent {
-    .NAlice.TPhoneCallsCapability.TAccount Account = 1;
-    int32 StatusCode = 2;
+    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account"];
+    int32 StatusCode = 2 [json_name = "status_code"];
   }
 
   message TPhoneCallsCallFailedEvent {
+    enum EReason {
+      UnknownReason = 0;
+      ConnectionTimeout = 1;
+      CallInProgress = 2;
+      AccountNotFound = 3;
+      AccountNotConnected = 4;
+      NotRegistered = 5;
+      CallNotFound = 6;
+      InternalError = 7;
+    }
+
+    .NAlice.TPhoneCallsCapability.TPhoneCallsCallFailedEvent.EReason Reason = 1 [json_name = "reason"];
+    string CallId = 2 [json_name = "call_id"];
   }
 
   message TPhoneCallsCallEndedEvent {
-    string CallId = 1;
-    int32 StatusCode = 2;
+    string CallId = 1 [json_name = "call_id"];
+    int32 StatusCode = 2 [json_name = "status_code"];
   }
 
   enum EProtocol {
@@ -308,8 +321,8 @@ message TPhoneCallsCapability {
     Video = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TPhoneCallsCapability.TParameters Parameters = 2;
-  .NAlice.TPhoneCallsCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TPhoneCallsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TPhoneCallsCapability.TState State = 3 [json_name = "state"];
 }
 

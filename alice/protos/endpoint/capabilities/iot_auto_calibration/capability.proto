@@ -13,29 +13,29 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotAutoCalibrationCapability {
   message TParameters {
-    bool BlocksInterface = 1;
+    bool BlocksInterface = 1 [json_name = "blocks_interface"];
   }
 
   message TState {
-    .NAlice.TIotAutoCalibrationCapability.EState State = 1;
-    bool RecalibrationEnabled = 2;
+    .NAlice.TIotAutoCalibrationCapability.EState State = 1 [json_name = "state"];
+    bool RecalibrationEnabled = 2 [json_name = "recalibration_enabled"];
   }
 
   message TStartIotAutoCalibrationDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TSetRecalibrationEnabledDirective {
-    string Name = 1000;
-    bool Enabled = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TResetCalibrationDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAutoCalibrationCapability Capability = 1;
+    .NAlice.TIotAutoCalibrationCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EState {
@@ -44,8 +44,8 @@ message TIotAutoCalibrationCapability {
     CALIBRATED = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotAutoCalibrationCapability.TParameters Parameters = 2;
-  .NAlice.TIotAutoCalibrationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotAutoCalibrationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotAutoCalibrationCapability.TState State = 3 [json_name = "state"];
 }
 

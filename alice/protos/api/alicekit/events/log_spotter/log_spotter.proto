@@ -14,34 +14,34 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLogSpotter {
   message TExtraPayload {
-    .NAlice.NAliceApi.TDeviceState DeviceState = 1;
-    .NAlice.TExperimentsProto Experiments = 2;
-    optional string QuasmodromGroup = 3;
-    optional string QuasmodromSubgroup = 4;
-    optional string TestBuckets = 5;
-    optional string Testids = 6;
-    optional string Context = 7;
-    optional string CallId = 8;
-    optional string DurationMs = 9;
+    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state"];
+    .NAlice.TExperimentsProto Experiments = 2 [json_name = "experiments"];
+    optional string QuasmodromGroup = 3 [json_name = "quasmodrom_group"];
+    optional string QuasmodromSubgroup = 4 [json_name = "quasmodrom_subgroup"];
+    optional string TestBuckets = 5 [json_name = "test_buckets"];
+    optional string Testids = 6 [json_name = "testids"];
+    optional string Context = 7 [json_name = "context"];
+    optional string CallId = 8 [json_name = "callId"];
+    optional string DurationMs = 9 [json_name = "durationMs"];
   }
 
   message TExtra {
-    .google.protobuf.Struct RawPayload = 1;
-    .NAlice.NAliceApi.TLogSpotter.TExtraPayload Payload = 2;
+    .google.protobuf.Struct RawPayload = 1 [json_name = "raw_payload"];
+    .NAlice.NAliceApi.TLogSpotter.TExtraPayload Payload = 2 [json_name = "payload"];
   }
 
-  .NAlice.NAliceApi.TLogSpotter.TExtra Extra = 1;
-  optional string Format = 2;
-  optional string Transcript = 3;
-  optional string Source = 4;
-  optional string Firmware = 5;
-  optional string Lang = 6;
-  optional string VinsMessageId = 7;
-  optional int32 Priority = 8;
-  optional string BtDeviceName = 9;
-  optional string BtDeviceClass = 10;
-  optional bool ExternalSoundAccess = 11;
-  optional string EndpointId = 12;
-  optional bool IsServiceRawData = 13;
+  .NAlice.NAliceApi.TLogSpotter.TExtra Extra = 1 [json_name = "extra"];
+  optional string Format = 2 [json_name = "format"];
+  optional string Transcript = 3 [json_name = "transcript"];
+  optional string Source = 4 [json_name = "source"];
+  optional string Firmware = 5 [json_name = "firmware"];
+  optional string Lang = 6 [json_name = "lang"];
+  optional string VinsMessageId = 7 [json_name = "vinsMessageId"];
+  optional int32 Priority = 8 [json_name = "priority"];
+  optional string BtDeviceName = 9 [json_name = "btDeviceName"];
+  optional string BtDeviceClass = 10 [json_name = "btDeviceClass"];
+  optional bool ExternalSoundAccess = 11 [json_name = "externalSoundAccess"];
+  optional string EndpointId = 12 [json_name = "endpoint_id"];
+  optional bool IsServiceRawData = 13 [json_name = "isServiceRawData"];
 }
 

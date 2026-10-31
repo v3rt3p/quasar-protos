@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TaximeterCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/taximeter;taximeterspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTaximeterCapability {
+  message TParameters {
+  }
+
+  message TState {
+    message TZeroInfoItem {
+      string Text = 1 [json_name = "text"];
+      bool IsNew = 2 [json_name = "is_new"];
+      string Deeplink = 3 [json_name = "deeplink"];
+    }
+
+    map<string, string> Meta = 1 [json_name = "meta"];
+    repeated .NAlice.TTaximeterCapability.TState.TZeroInfoItem ZeroInfo = 2 [json_name = "zero_info"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTaximeterCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTaximeterCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package NAlice.NData.NTron;
+
+option java_package = "ru.yandex.alice.protos.data.tron";
+option go_package = "a.yandex-team.ru/alice/protos/data/tron";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTronRegularNoteTrigger {
+  message TCronTrigger {
+    string CronExpression = 1 [json_name = "cron_expression"];
+    optional uint64 StartInvocation = 2 [json_name = "start_invocation"];
+    optional uint64 EndInvocation = 3 [json_name = "end_invocation"];
+  }
+
+  oneof Value {
+    .NAlice.NData.NTron.TTronRegularNoteTrigger.TCronTrigger CronTrigger = 1 [json_name = "cron_trigger"];
+  }
+}
+
+enum ETronTaskType {
+  TTT_NONE = 0;
+  TTT_SUBTASK = 1;
+  TTT_NOTE = 2;
+}
+
+enum EProgressStatus {
+  PS_NONE = 0;
+  PS_NOT_DONE = 1;
+  PS_DONE = 2;
+}
+
+enum ENoteParentType {
+  NPT_NONE = 0;
+  NPT_REGULAR_NOTE_PRESET = 1;
+}
+
+enum EDeletionStatus {
+  DS_NONE = 0;
+  DS_DELETED = 100;
+}
+
+enum EOverrideEmbedderNode {
+  OEN_NONE = 0;
+  OEN_TERRAMORPH_EMBEDDER = 1;
+  OEN_TERRAMORPH_EMBEDDER_2 = 2;
+  OEN_CURRENT_DOC_EMBEDDER = 3;
+}
+
+enum ETagType {
+  TT_NONE = 0;
+  TT_SOURCE = 1;
+  TT_CONVERSATION_ID = 2;
+  TT_CATEGORY = 3;
+}
+

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceWatchCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_watch;alicewatchpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceWatchCapability {
+  message TParameters {
+  }
+
+  message TState {
+    bool SideButtonActivationEnabled = 1 [json_name = "side_button_activation_enabled"];
+    bool SpotterActivationEnabled = 2 [json_name = "spotter_activation_enabled"];
+    .NAlice.TAliceWatchCapability.EResponseMode ResponseMode = 3 [json_name = "response_mode"];
+  }
+
+  message TSetAliceWatchStateDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.TAliceWatchCapability.TState State = 2 [json_name = "state"];
+  }
+
+  enum EResponseMode {
+    UnknownResponseMode = 0;
+    TextOnly = 1;
+    VoiceAndText = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceWatchCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceWatchCapability.TState State = 3 [json_name = "state"];
+}
+

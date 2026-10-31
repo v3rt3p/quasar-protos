@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "HybridAsrProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/hybrid_asr;hybrid_asrpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message THybridAsrCapability {
+  message TParameters {
+    optional bool EnabledHybridAsr = 1 [json_name = "enabled_hybrid_asr"];
+    optional string LingwareVersion = 2 [json_name = "lingware_version"];
+    optional string LingwareHash = 3 [json_name = "lingware_hash"];
+    optional string DeviceType = 4 [json_name = "device_type"];
+    optional bool UltimatelyEnabledHybridAsr = 5 [json_name = "ultimately_enabled_hybrid_asr"];
+  }
+
+  message TState {
+    repeated string PreparedHybridPartials = 1 [json_name = "prepared_hybrid_partials"];
+  }
+
+  message TRecognitionResultEvent {
+    string Partial = 1 [json_name = "partial"];
+    bool EndOfUtterance = 2 [json_name = "end_of_utterance"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.THybridAsrCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.THybridAsrCapability.TState State = 3 [json_name = "state"];
+}
+

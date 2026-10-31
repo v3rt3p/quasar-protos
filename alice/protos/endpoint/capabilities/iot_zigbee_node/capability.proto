@@ -12,21 +12,23 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotZigbeeNodeCapability {
   message TParameters {
-    .NAlice.TIotZigbeeNodeCapability.TType Type = 1;
+    .NAlice.TIotZigbeeNodeCapability.TType Type = 1 [json_name = "type"];
   }
 
   message TSignalQuality {
-    .NAlice.TIotZigbeeNodeCapability.ESignalQualityStatus SignalQualityStatus = 1;
-    uint32 Lqi = 2;
-    int32 Rssi = 3;
+    .NAlice.TIotZigbeeNodeCapability.ESignalQualityStatus SignalQualityStatus = 1 [json_name = "signal_quality_status"];
+    uint32 Lqi = 2 [json_name = "lqi"];
+    int32 Rssi = 3 [json_name = "rssi"];
   }
 
   message TState {
-    .NAlice.TIotZigbeeNodeCapability.TSignalQuality SignalQuality = 1;
+    .NAlice.TIotZigbeeNodeCapability.TSignalQuality SignalQuality = 1 [json_name = "signal_quality"];
+    uint32 Channel = 2 [json_name = "channel"];
+    bool IsActive = 3 [json_name = "is_active"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZigbeeNodeCapability Capability = 1;
+    .NAlice.TIotZigbeeNodeCapability Capability = 1 [json_name = "capability"];
   }
 
   enum TType {
@@ -44,8 +46,8 @@ message TIotZigbeeNodeCapability {
     Excellent = 5;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotZigbeeNodeCapability.TParameters Parameters = 2;
-  .NAlice.TIotZigbeeNodeCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotZigbeeNodeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotZigbeeNodeCapability.TState State = 3 [json_name = "state"];
 }
 

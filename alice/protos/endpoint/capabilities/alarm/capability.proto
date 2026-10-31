@@ -15,79 +15,92 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAlarmCapability {
   message TParameters {
-    repeated .NAlice.NData.TDefaultSound AvailableDefaultSounds = 1;
+    repeated .NAlice.NData.TDefaultSound AvailableDefaultSounds = 1 [json_name = "available_default_sounds"];
   }
 
   message TState {
-    repeated .NAlice.NData.TAlarm Alarms = 1;
-    repeated .NAlice.NData.TTimerDescription Timers = 2;
-    .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 3;
-    bool MediaCurrentlyPlaying = 4;
+    repeated .NAlice.NData.TAlarm Alarms = 1 [json_name = "alarms"];
+    repeated .NAlice.NData.TTimerDescription Timers = 2 [json_name = "timers"];
+    .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 3 [json_name = "alarm_sound_settings"];
+    bool MediaCurrentlyPlaying = 4 [json_name = "media_currently_playing"];
   }
 
   message TAlarmSoundSettingsUpdateDirective {
-    string Name = 1;
-    .NAlice.NData.TAlarmSoundSettings Settings = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TAlarmSoundSettings Settings = 2 [json_name = "settings"];
   }
 
   message TAlarmUpdateSoundLevelDirective {
-    string Name = 1;
-    .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 2 [json_name = "sound_level_info"];
   }
 
   message TAlarmUpdateDirective {
-    string Name = 1;
-    repeated .NAlice.NData.TAlarm Alarms = 2;
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.NData.TAlarm Alarms = 2 [json_name = "alarms"];
   }
 
   message TAlarmSnoozeDirective {
-    string Name = 1;
-    string AlarmId = 2;
-    uint32 DurationSec = 3;
+    string Name = 1 [json_name = "name"];
+    string AlarmId = 2 [json_name = "alarm_id"];
+    uint32 DurationSec = 3 [json_name = "duration_sec"];
   }
 
   message TAlarmStopDirective {
-    string Name = 1;
-    optional bool StopMedia = 2;
+    string Name = 1 [json_name = "name"];
+    optional bool StopMedia = 2 [json_name = "stop_media"];
   }
 
   message TAlarmAddDirective {
-    string Name = 1;
-    .NAlice.NData.TAlarm Alarm = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TAlarm Alarm = 2 [json_name = "alarm"];
   }
 
   message TAlarmCancelDirective {
-    string Name = 1;
-    string AlarmId = 2;
+    string Name = 1 [json_name = "name"];
+    string AlarmId = 2 [json_name = "alarm_id"];
   }
 
   message TTimerSetDirective {
-    string Name = 1;
-    .NAlice.NData.TTimerDescription Timer = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TTimerDescription Timer = 2 [json_name = "timer"];
   }
 
   message TTimerCancelDirective {
-    string Name = 1;
-    string TimerId = 2;
+    string Name = 1 [json_name = "name"];
+    string TimerId = 2 [json_name = "timer_id"];
   }
 
   message TTimerPauseDirective {
-    string Name = 1;
-    string TimerId = 2;
+    string Name = 1 [json_name = "name"];
+    string TimerId = 2 [json_name = "timer_id"];
   }
 
   message TTimerResumeDirective {
-    string Name = 1;
-    string TimerId = 2;
+    string Name = 1 [json_name = "name"];
+    string TimerId = 2 [json_name = "timer_id"];
   }
 
   message TTimerStopDirective {
-    string Name = 1;
-    string TimerId = 2;
+    string Name = 1 [json_name = "name"];
+    string TimerId = 2 [json_name = "timer_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAlarmCapability.TParameters Parameters = 2;
-  .NAlice.TAlarmCapability.TState State = 3;
+  message TAlarmApproachingEvent {
+    string AlarmId = 1 [json_name = "alarm_id"];
+  }
+
+  message TAlarmFiredEvent {
+    string AlarmId = 1 [json_name = "alarm_id"];
+  }
+
+  message TCondition {
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
+    string AlarmId = 2 [json_name = "alarm_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAlarmCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAlarmCapability.TState State = 3 [json_name = "state"];
 }
 

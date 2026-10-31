@@ -19,12 +19,12 @@ message TExecuteDirective {
     }
 
     oneof Policy {
-      .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy.TOnStartedPolicy OnStartedPolicy = 1;
-      .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy.TOnFinishedPolicy OnFinishedPolicy = 2;
+      .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy.TOnStartedPolicy OnStartedPolicy = 1 [json_name = "on_started_policy"];
+      .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy.TOnFinishedPolicy OnFinishedPolicy = 2 [json_name = "on_finished_policy"];
     }
   }
 
-  .NAlice.NAliceApi.TDirective Directive = 1;
-  .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy ResponsePolicy = 2;
+  .NAlice.NAliceApi.TDirective Directive = 1 [json_name = "directive"];
+  .NAlice.NAliceApi.TExecuteDirective.TResponsePolicy ResponsePolicy = 2 [json_name = "response_policy"];
 }
 

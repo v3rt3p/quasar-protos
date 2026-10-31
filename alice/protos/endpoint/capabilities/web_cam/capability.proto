@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TWebCamCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/web_cam;webcampb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TWebCamCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TPlayHlsStreamDirective {
+    string Name = 1000 [json_name = "name"];
+    string CameraName = 1 [json_name = "camera_name"];
+    string Description = 2 [json_name = "description"];
+    string PlayUri = 3 [json_name = "play_uri"];
+    string CameraDeviceId = 4 [json_name = "camera_device_id"];
+  }
+
+  message TPlayWebRTCStreamDirective {
+    string Name = 1000 [json_name = "name"];
+    string CameraName = 1 [json_name = "camera_name"];
+    string Description = 2 [json_name = "description"];
+    string CameraID = 3 [json_name = "camera_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWebCamCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWebCamCapability.TState State = 3 [json_name = "state"];
+}
+

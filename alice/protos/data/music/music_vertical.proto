@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package NAlice.NData.NMusic.NNative;
+
+option java_package = "ru.yandex.alice.protos.data.music";
+option go_package = "a.yandex-team.ru/alice/protos/data/music";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/wrappers.proto";
+
+message TCentaurMusicVerticalData {
+  repeated .NAlice.NData.NMusic.NNative.THorizontalMusicBlockData HorizontalMusicBlockData = 1 [json_name = "horizontal_music_block_data"];
+}
+
+message THorizontalMusicBlockData {
+  string Type = 1 [json_name = "type"];
+  string Title = 2 [json_name = "title"];
+  repeated .NAlice.NData.NMusic.NNative.TCentaurMainScreenGalleryMusicCardData CentaurMainScreenGalleryMusicCardData = 3 [json_name = "centaur_main_screen_gallery_music_card_data"];
+}
+
+message TCentaurMainScreenGalleryMusicCardData {
+  reserved "TypedAction";
+  reserved 5;
+  message TArtistInfo {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+  }
+
+  string Id = 1 [json_name = "id"];
+  string ImageUrl = 2 [json_name = "image_url"];
+  string Type = 3 [json_name = "type"];
+  string Title = 4 [json_name = "title"];
+  .google.protobuf.StringValue Modified = 6 [json_name = "modified"];
+  .google.protobuf.UInt32Value LikesCount = 7 [json_name = "likes_count"];
+  repeated string Genres = 8 [json_name = "genres"];
+  .google.protobuf.StringValue ReleaseDate = 9 [json_name = "release_date"];
+  repeated .NAlice.NData.NMusic.NNative.TCentaurMainScreenGalleryMusicCardData.TArtistInfo Artists = 10 [json_name = "artists"];
+  string BlockType = 11 [json_name = "block_type"];
+}
+

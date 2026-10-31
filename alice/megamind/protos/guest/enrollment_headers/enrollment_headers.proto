@@ -9,15 +9,15 @@ option go_package = "a.yandex-team.ru/alice/megamind/protos/guest/enrollment_hea
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEnrollmentHeader {
-  string PersonId = 1;
-  string Version = 2;
-  .NAlice.EUserType UserType = 3;
-  bool EnrollmentSoundIsPresent = 4;
-  bool SupportsSharing = 5;
+  string PersonId = 1 [json_name = "person_id"];
+  string Version = 2 [json_name = "version"];
+  .NAlice.EUserType UserType = 3 [json_name = "user_type"];
+  bool EnrollmentSoundIsPresent = 4 [json_name = "enrollment_sound_is_present"];
+  bool SupportsSharing = 5 [json_name = "supports_sharing"];
 }
 
 message TEnrollmentHeaders {
-  repeated .NAlice.TEnrollmentHeader Headers = 1;
+  repeated .NAlice.TEnrollmentHeader Headers = 1 [json_name = "headers"];
 }
 
 enum EUserType {

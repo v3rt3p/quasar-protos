@@ -22,31 +22,31 @@ import "alice/protos/div/div_variables.proto";
 
 message TLayeredDivUICapability {
   message TAsset {
-    string ResourceName = 1;
+    string ResourceName = 1 [json_name = "resource_name"];
   }
 
   message TParameters {
-    bool SupportsCardStashing = 1;
-    .NAlice.TDivActions SupportedDivActions = 2;
-    .NAlice.TDivCustoms SupportedDivCustoms = 3;
-    .NAlice.TDivExtensions SupportedDivExtensions = 4;
-    .NAlice.TDivVariables SupportedDivVariables = 5;
-    repeated .NAlice.TLayeredDivUICapability.TAsset AvailableAssets = 6;
-    bool SupportsGoLeftDirective = 7;
-    bool SupportsMusicMyWaveSunIcon = 8;
+    bool SupportsCardStashing = 1 [json_name = "supports_card_stashing"];
+    .NAlice.TDivActions SupportedDivActions = 2 [json_name = "supported_div_actions"];
+    .NAlice.TDivCustoms SupportedDivCustoms = 3 [json_name = "supported_div_customs"];
+    .NAlice.TDivExtensions SupportedDivExtensions = 4 [json_name = "supported_div_extensions"];
+    .NAlice.TDivVariables SupportedDivVariables = 5 [json_name = "supported_div_variables"];
+    repeated .NAlice.TLayeredDivUICapability.TAsset AvailableAssets = 6 [json_name = "available_assets"];
+    bool SupportsGoLeftDirective = 7 [json_name = "supports_go_left_directive"];
+    bool SupportsMusicMyWaveSunIcon = 8 [json_name = "supports_music_my_wave_sun_icon"];
   }
 
   message TState {
-    .NAlice.TDiv2Size availableSize = 1;
-    repeated .NAlice.TDiv2Id StashedCards = 2;
-    uint32 ScreeenDPI = 3;
-    repeated .NAlice.TLayeredDivUICapability.ENavigationType CurrentCardAvaliableNavigations = 4;
-    uint32 StatusBarSize = 5;
+    .NAlice.TDiv2Size availableSize = 1 [json_name = "available_size"];
+    repeated .NAlice.TDiv2Id StashedCards = 2 [json_name = "stashed_cards"];
+    uint32 ScreeenDPI = 3 [json_name = "screen_dpi"];
+    repeated .NAlice.TLayeredDivUICapability.ENavigationType CurrentCardAvaliableNavigations = 4 [json_name = "current_card_avaliable_navigations"];
+    uint32 StatusBarSize = 5 [json_name = "status_bar_size"];
   }
 
   message TDivUIShowViewDirective {
     message TRenderRequestParams {
-      string CardId = 1;
+      string CardId = 1 [json_name = "card_id"];
     }
 
     enum EInactivityTimeout {
@@ -83,50 +83,50 @@ message TLayeredDivUICapability {
       DeflatesAllAbove = 2;
     }
 
-    string Name = 1;
-    .NAlice.NData.TLayer Layer = 3;
-    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EInactivityTimeout InactivityTimeout = 4;
-    string ActionSpaceId = 5;
-    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EStashInteraction StashInteraction = 6;
-    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EOverlayBehaviour OverlayBehaviour = 8;
-    repeated .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EGestureInteraction GestureInteraction = 9;
-    repeated string TerminateActions = 10;
-    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EStackInteraction StackInteraction = 11;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TLayer Layer = 3 [json_name = "layer"];
+    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EInactivityTimeout InactivityTimeout = 4 [json_name = "inactivity_timeout"];
+    string ActionSpaceId = 5 [json_name = "action_space_id"];
+    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EStashInteraction StashInteraction = 6 [json_name = "stash_interaction"];
+    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EOverlayBehaviour OverlayBehaviour = 8 [json_name = "overlay_behaviour"];
+    repeated .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EGestureInteraction GestureInteraction = 9 [json_name = "gesture_interaction"];
+    repeated string TerminateActions = 10 [json_name = "terminate_actions"];
+    .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.EStackInteraction StackInteraction = 11 [json_name = "stack_interaction"];
     oneof DivCard {
-      .NAlice.TDiv2Card Div2Card = 2;
-      .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.TRenderRequestParams RenderRequestParams = 7;
+      .NAlice.TDiv2Card Div2Card = 2 [json_name = "div2_card"];
+      .NAlice.TLayeredDivUICapability.TDivUIShowViewDirective.TRenderRequestParams RenderRequestParams = 7 [json_name = "render_request_params"];
     }
   }
 
   message TDivUIPatchViewDirective {
-    string Name = 1;
-    .NAlice.TDiv2Patch Div2Patch = 2;
-    .NAlice.TDiv2Id ApplyTo = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Patch Div2Patch = 2 [json_name = "div2_patch"];
+    .NAlice.TDiv2Id ApplyTo = 3 [json_name = "apply_to"];
   }
 
   message TDivUIHideViewDirective {
-    string Name = 1;
-    .NAlice.NData.TLayer Layer = 2;
-    .NAlice.TDiv2Id Identifier = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TLayer Layer = 2 [json_name = "layer"];
+    .NAlice.TDiv2Id Identifier = 3 [json_name = "identifier"];
   }
 
   message TDivUIHideAllViewsDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TDivUIStashViewDirective {
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
   }
 
   message TDivUIUnstashViewDirective {
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
   }
 
   message TDivUICallTerminateActionsDirective {
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
   }
 
   message TDivUICallActionsGroupsDirective {
@@ -134,9 +134,9 @@ message TLayeredDivUICapability {
       Terminate = 0;
     }
 
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
-    repeated .NAlice.TLayeredDivUICapability.TDivUICallActionsGroupsDirective.ActionsGroup ActionsGroups = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
+    repeated .NAlice.TLayeredDivUICapability.TDivUICallActionsGroupsDirective.ActionsGroup ActionsGroups = 3 [json_name = "actions_groups"];
   }
 
   enum ENavigationType {
@@ -145,8 +145,8 @@ message TLayeredDivUICapability {
     Backward = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLayeredDivUICapability.TParameters Parameters = 2;
-  .NAlice.TLayeredDivUICapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLayeredDivUICapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLayeredDivUICapability.TState State = 3 [json_name = "state"];
 }
 

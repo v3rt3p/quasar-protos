@@ -20,15 +20,15 @@ message TVideoCallCapability {
   }
 
   message TState {
-    repeated .NAlice.TVideoCallCapability.TProviderState ProviderStates = 1;
-    repeated .NAlice.TVideoCallCapability.TProviderCall Incoming = 2;
-    .NAlice.TVideoCallCapability.TProviderCall Current = 3;
-    .NAlice.TVideoCallCapability.TProviderCall Outgoing = 4;
+    repeated .NAlice.TVideoCallCapability.TProviderState ProviderStates = 1 [json_name = "provider_states"];
+    repeated .NAlice.TVideoCallCapability.TProviderCall Incoming = 2 [json_name = "incoming"];
+    .NAlice.TVideoCallCapability.TProviderCall Current = 3 [json_name = "current"];
+    .NAlice.TVideoCallCapability.TProviderCall Outgoing = 4 [json_name = "outgoing"];
   }
 
   message TProviderState {
     oneof ProviderState {
-      .NAlice.TVideoCallCapability.TTelegramProviderState TelegramProviderState = 1;
+      .NAlice.TVideoCallCapability.TTelegramProviderState TelegramProviderState = 1 [json_name = "telegram_provider_state"];
     }
   }
 
@@ -39,46 +39,46 @@ message TVideoCallCapability {
         Success = 1;
       }
 
-      string UserId = 1;
-      .NAlice.TVideoCallCapability.TTelegramProviderState.TLogin.EState State = 2;
-      bool FullContactsUploadFinished = 3;
-      repeated .NAlice.TVideoCallCapability.TTelegramProviderState.TRecentContactData RecentContacts = 4;
-      string DisplayName = 5;
-      string Login = 6;
-      repeated .NAlice.NData.TRecentCall Recents = 7;
+      string UserId = 1 [json_name = "user_id"];
+      .NAlice.TVideoCallCapability.TTelegramProviderState.TLogin.EState State = 2 [json_name = "state"];
+      bool FullContactsUploadFinished = 3 [json_name = "full_contacts_upload_finished"];
+      repeated .NAlice.TVideoCallCapability.TTelegramProviderState.TRecentContactData RecentContacts = 4 [json_name = "recent_contacts"];
+      string DisplayName = 5 [json_name = "display_name"];
+      string Login = 6 [json_name = "login"];
+      repeated .NAlice.NData.TRecentCall Recents = 7 [json_name = "recents"];
     }
 
     message TContactSyncProgress {
     }
 
     message TRecentContactData {
-      string UserId = 1;
+      string UserId = 1 [json_name = "user_id"];
     }
 
-    .NAlice.TVideoCallCapability.TTelegramProviderState.TLogin Login = 1;
-    .NAlice.TVideoCallCapability.TTelegramProviderState.TContactSyncProgress ContactSync = 2;
+    .NAlice.TVideoCallCapability.TTelegramProviderState.TLogin Login = 1 [json_name = "login"];
+    .NAlice.TVideoCallCapability.TTelegramProviderState.TContactSyncProgress ContactSync = 2 [json_name = "contact_sync"];
   }
 
   message TTelegramVideoCallOwnerData {
-    string CallId = 1;
-    string UserId = 2;
+    string CallId = 1 [json_name = "call_id"];
+    string UserId = 2 [json_name = "user_id"];
   }
 
   message TProviderCall {
     message TTelegramCallData {
       message TRecipientData {
-        string UserId = 1;
-        string DisplayName = 2;
-        bool MicMuted = 3;
-        bool VideoEnabled = 4;
+        string UserId = 1 [json_name = "user_id"];
+        string DisplayName = 2 [json_name = "display_name"];
+        bool MicMuted = 3 [json_name = "mic_muted"];
+        bool VideoEnabled = 4 [json_name = "video_enabled"];
       }
 
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .NAlice.TVideoCallCapability.TProviderCall.TTelegramCallData.TRecipientData Recipient = 2;
-      bool MicMuted = 3;
-      bool VideoEnabled = 4;
-      bool AudioCall = 5;
-      bool AutoCropEnabled = 6;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .NAlice.TVideoCallCapability.TProviderCall.TTelegramCallData.TRecipientData Recipient = 2 [json_name = "recipient"];
+      bool MicMuted = 3 [json_name = "mic_muted"];
+      bool VideoEnabled = 4 [json_name = "video_enabled"];
+      bool AudioCall = 5 [json_name = "audio_call"];
+      bool AutoCropEnabled = 6 [json_name = "auto_crop_enabled"];
     }
 
     enum EState {
@@ -87,183 +87,183 @@ message TVideoCallCapability {
       Established = 2;
     }
 
-    .NAlice.TVideoCallCapability.TProviderCall.EState State = 1;
+    .NAlice.TVideoCallCapability.TProviderCall.EState State = 1 [json_name = "state"];
     oneof ProviderCallData {
-      .NAlice.TVideoCallCapability.TProviderCall.TTelegramCallData TelegramCallData = 2;
+      .NAlice.TVideoCallCapability.TProviderCall.TTelegramCallData TelegramCallData = 2 [json_name = "telegram_call_data"];
     }
   }
 
   message TStartVideoCallLoginDirective {
     message TTelegramStartLoginData {
-      string Id = 1;
-      optional .google.protobuf.Struct OnFailCallback = 2;
+      string Id = 1 [json_name = "id"];
+      optional .google.protobuf.Struct OnFailCallback = 2 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TStartVideoCallLoginDirective.TTelegramStartLoginData TelegramStartLoginData = 1;
+      .NAlice.TVideoCallCapability.TStartVideoCallLoginDirective.TTelegramStartLoginData TelegramStartLoginData = 1 [json_name = "telegram_start_login_data"];
     }
   }
 
   message TVideoCallLogoutDirective {
     message TTelegramLogoutData {
-      .google.protobuf.Struct OnFailCallback = 1;
+      .google.protobuf.Struct OnFailCallback = 1 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TVideoCallLogoutDirective.TTelegramLogoutData TelegramLogoutData = 1;
+      .NAlice.TVideoCallCapability.TVideoCallLogoutDirective.TTelegramLogoutData TelegramLogoutData = 1 [json_name = "telegram_logout_data"];
     }
   }
 
   message TStartVideoCallDirective {
     message TTelegramStartVideoCallData {
-      string Id = 1;
-      string UserId = 2;
-      string RecipientUserId = 3;
-      bool VideoEnabled = 7;
-      .google.protobuf.Struct OnAcceptedCallback = 4;
-      .google.protobuf.Struct OnDiscardedCallback = 5;
-      .google.protobuf.Struct OnFailCallback = 6;
-      .google.protobuf.Struct OnEndedCallback = 8;
+      string Id = 1 [json_name = "id"];
+      string UserId = 2 [json_name = "user_id"];
+      string RecipientUserId = 3 [json_name = "recipient_user_id"];
+      bool VideoEnabled = 7 [json_name = "video_enabled"];
+      .google.protobuf.Struct OnAcceptedCallback = 4 [json_name = "on_accepted_callback"];
+      .google.protobuf.Struct OnDiscardedCallback = 5 [json_name = "on_discarded_callback"];
+      .google.protobuf.Struct OnFailCallback = 6 [json_name = "on_fail_callback"];
+      .google.protobuf.Struct OnEndedCallback = 8 [json_name = "on_ended_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TStartVideoCallDirective.TTelegramStartVideoCallData TelegramStartVideoCallData = 1;
+      .NAlice.TVideoCallCapability.TStartVideoCallDirective.TTelegramStartVideoCallData TelegramStartVideoCallData = 1 [json_name = "telegram_start_video_call_data"];
     }
   }
 
   message TProcessIncomingVideoCallDirective {
     message TProcessIncomingVideoCallData {
-      string CallId = 1;
-      string UserId = 2;
-      .google.protobuf.Struct OnEndedCallback = 3;
+      string CallId = 1 [json_name = "call_id"];
+      string UserId = 2 [json_name = "user_id"];
+      .google.protobuf.Struct OnEndedCallback = 3 [json_name = "on_ended_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TProcessIncomingVideoCallDirective.TProcessIncomingVideoCallData TelegramProcessIncomingVideoCallData = 1;
+      .NAlice.TVideoCallCapability.TProcessIncomingVideoCallDirective.TProcessIncomingVideoCallData TelegramProcessIncomingVideoCallData = 1 [json_name = "telegram_process_incoming_video_call_data"];
     }
   }
 
   message TAcceptVideoCallDirective {
     message TTelegramAcceptVideoCallData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TAcceptVideoCallDirective.TTelegramAcceptVideoCallData TelegramAcceptVideoCallData = 1;
+      .NAlice.TVideoCallCapability.TAcceptVideoCallDirective.TTelegramAcceptVideoCallData TelegramAcceptVideoCallData = 1 [json_name = "telegram_accept_video_call_data"];
     }
   }
 
   message TDiscardVideoCallDirective {
     message TTelegramDiscardVideoCallData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TDiscardVideoCallDirective.TTelegramDiscardVideoCallData TelegramDiscardVideoCallData = 1;
+      .NAlice.TVideoCallCapability.TDiscardVideoCallDirective.TTelegramDiscardVideoCallData TelegramDiscardVideoCallData = 1 [json_name = "telegram_discard_video_call_data"];
     }
   }
 
   message TMuteMicDirective {
     message TTelegramMuteMicData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TMuteMicDirective.TTelegramMuteMicData TelegramMuteMicData = 1;
+      .NAlice.TVideoCallCapability.TMuteMicDirective.TTelegramMuteMicData TelegramMuteMicData = 1 [json_name = "telegram_mute_mic_data"];
     }
   }
 
   message TUnmuteMicDirective {
     message TTelegramUnmuteMicData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TUnmuteMicDirective.TTelegramUnmuteMicData TelegramUnmuteMicData = 1;
+      .NAlice.TVideoCallCapability.TUnmuteMicDirective.TTelegramUnmuteMicData TelegramUnmuteMicData = 1 [json_name = "telegram_unmute_mic_data"];
     }
   }
 
   message TTurnOnVideoDirective {
     message TTelegramTurnOnVideoData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TTurnOnVideoDirective.TTelegramTurnOnVideoData TelegramMuteTurnOnVideoData = 1;
+      .NAlice.TVideoCallCapability.TTurnOnVideoDirective.TTelegramTurnOnVideoData TelegramMuteTurnOnVideoData = 1 [json_name = "telegram_turn_on_video_data"];
     }
   }
 
   message TTurnOffVideoDirective {
     message TTelegramTurnOffVideoData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TTurnOffVideoDirective.TTelegramTurnOffVideoData TelegramMuteTurnOffVideoData = 1;
+      .NAlice.TVideoCallCapability.TTurnOffVideoDirective.TTelegramTurnOffVideoData TelegramMuteTurnOffVideoData = 1 [json_name = "telegram_turn_off_video_data"];
     }
   }
 
   message TTurnOnAutoCropDirective {
     message TTelegramTurnOnAutoCropData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TTurnOnAutoCropDirective.TTelegramTurnOnAutoCropData TelegramTurnOnAutoCropData = 1;
+      .NAlice.TVideoCallCapability.TTurnOnAutoCropDirective.TTelegramTurnOnAutoCropData TelegramTurnOnAutoCropData = 1 [json_name = "telegram_turn_on_auto_crop_data"];
     }
   }
 
   message TTurnOffAutoCropDirective {
     message TTelegramTurnOffAutoCropData {
-      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1;
-      .google.protobuf.Struct OnSuccessCallback = 2;
-      .google.protobuf.Struct OnFailCallback = 3;
+      .NAlice.TVideoCallCapability.TTelegramVideoCallOwnerData CallOwnerData = 1 [json_name = "call_owner_data"];
+      .google.protobuf.Struct OnSuccessCallback = 2 [json_name = "on_success_callback"];
+      .google.protobuf.Struct OnFailCallback = 3 [json_name = "on_fail_callback"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TTurnOffAutoCropDirective.TTelegramTurnOffAutoCropData TelegramTurnOffAutoCropData = 1;
+      .NAlice.TVideoCallCapability.TTurnOffAutoCropDirective.TTelegramTurnOffAutoCropData TelegramTurnOffAutoCropData = 1 [json_name = "telegram_turn_off_auto_crop_data"];
     }
   }
 
   message TSetActionOnCallEndDirective {
     message TTelegramSetActionOnCallEndData {
-      .google.protobuf.Any Action = 1;
+      .google.protobuf.Any Action = 1 [json_name = "action"];
     }
 
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
     oneof ProviderData {
-      .NAlice.TVideoCallCapability.TSetActionOnCallEndDirective.TTelegramSetActionOnCallEndData TelegramSetActionOnCallEndData = 1;
+      .NAlice.TVideoCallCapability.TSetActionOnCallEndDirective.TTelegramSetActionOnCallEndData TelegramSetActionOnCallEndData = 1 [json_name = "telegram_set_action_on_call_end_data"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TVideoCallCapability.TParameters Parameters = 2;
-  .NAlice.TVideoCallCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVideoCallCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVideoCallCapability.TState State = 3 [json_name = "state"];
 }
 

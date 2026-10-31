@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CategoryCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/category;categorypb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCategoryCapability {
+  message TParameters {
+  }
+
+  message TState {
+    repeated .NAlice.TCategoryCapability.Category Categories = 1 [json_name = "categories"];
+    optional .NAlice.TCategoryCapability.Category CurrentCategory = 2 [json_name = "current_category"];
+    optional bool IsCategoriesVisible = 3 [json_name = "is_categories_visible"];
+  }
+
+  message Category {
+    string CategoryId = 1 [json_name = "category_id"];
+    optional string CategoryName = 2 [json_name = "category_name"];
+  }
+
+  message TOpenCategoryDirective {
+    string Name = 1000 [json_name = "name"];
+    string CategoryId = 1 [json_name = "category_id"];
+  }
+
+  message TShowTvCategoriesDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message THideTvCategoriesDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TShowWhatYouCanDirective {
+    string Name = 1000 [json_name = "name"];
+    string VideoUrl = 1 [json_name = "video_url"];
+    string PlaceholderUrl = 2 [json_name = "placeholder_url"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TCategoryCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TCategoryCapability.TState State = 3 [json_name = "state"];
+}
+

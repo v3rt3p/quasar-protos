@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VinylProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/vinyl;vinylpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVinylCapability {
+  message TParameters {
+  }
+
+  message TState {
+    bool IsVinylPlayer = 1 [json_name = "is_vinyl_player"];
+    bool IsJogWheelActive = 2 [json_name = "is_jog_wheel_active"];
+  }
+
+  message TTurnOnVinylDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TTurnOffVinylDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TVinylJogWheelForwardDirective {
+  }
+
+  message TVinylJogWheelReverseDirective {
+  }
+
+  message VinylJogWheelEvent {
+    int32 Direction = 1;
+    int64 PositionMs = 2;
+    double PlaybackRate = 3;
+    bool IsMoving = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVinylCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVinylCapability.TState State = 3 [json_name = "state"];
+}
+

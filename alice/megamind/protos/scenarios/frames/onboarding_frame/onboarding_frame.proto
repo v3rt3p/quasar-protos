@@ -19,31 +19,31 @@ message TOnboardingTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TOnboardingTypeSlot.EValue TypeValue = 1;
+    .NAlice.TOnboardingTypeSlot.EValue TypeValue = 1 [json_name = "type_value"];
   }
 }
 
 message TOnboardingGetGreetingsSemanticFrame {
-  .NAlice.TOnboardingTypeSlot OnboardingType = 1;
-  .NAlice.TBoolSlot IsTextExpected = 2;
+  .NAlice.TOnboardingTypeSlot OnboardingType = 1 [json_name = "onboarding_type"];
+  .NAlice.TBoolSlot IsTextExpected = 2 [json_name = "is_text_expected"];
 }
 
 message TOnboardingGetPromoSemanticFrame {
-  .NAlice.TStringSlot PromoId = 1;
+  .NAlice.TStringSlot PromoId = 1 [json_name = "promo_id"];
 }
 
 message TOnboardingStartingConfigureSuccessSemanticFrame {
 }
 
 message TOnboardingStartingCriticalUpdateSemanticFrame {
-  .NAlice.TBoolSlot IsFirstSetup = 1;
+  .NAlice.TBoolSlot IsFirstSetup = 1 [json_name = "is_first_setup"];
 }
 
 message TOnboardingAddNetworkSuccessSemanticFrame {
 }
 
 message TOnboardingWhatCanYouDoSemanticFrame {
-  .NAlice.TUInt32Slot PhraseIndex = 1;
-  .NAlice.TStringSlot RequiredTag = 2;
+  .NAlice.TUInt32Slot PhraseIndex = 1 [json_name = "phrase_index"];
+  .NAlice.TStringSlot RequiredTag = 2 [json_name = "required_tag"];
 }
 

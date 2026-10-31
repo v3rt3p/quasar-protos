@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.yandex_io.capabilities.local_iot.actions_database.protos.scheduled_action_data";
+option java_outer_classname = "ScheduledActionData";
+
+import "alice/protos/api/alicekit/directives/directive.proto";
+import "alice/protos/endpoint/capabilities/local_iot/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScheduledActionData {
+  .NAlice.TLocalIoTCapability.TScheduledAction ScheduledAction = 1 [json_name = "scheduled_action"];
+  .NAlice.NAliceApi.TDirective OnScheduledActionCallback = 2 [json_name = "on_scheduled_action_callback"];
+}
+

@@ -11,12 +11,7 @@ option objc_class_prefix = "GPB";
 option csharp_namespace = "Google.Protobuf.WellKnownTypes";
 
 message Struct {
-  message FieldsEntry {
-    string key = 1;
-    .google.protobuf.Value value = 2;
-  }
-
-  repeated .google.protobuf.Struct.FieldsEntry fields = 1;
+  map<string, .google.protobuf.Value> fields = 1;
 }
 
 message Value {

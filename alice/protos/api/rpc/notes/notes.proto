@@ -1,0 +1,540 @@
+syntax = "proto3";
+
+package NAlice.NNotes.NApi;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.notes";
+option java_outer_classname = "NotesApi";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/notes";
+
+import "google/protobuf/timestamp.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/notes/common.proto";
+import "alice/protos/data/scenario/reminders/extensions.proto";
+import "alice/protos/data/tron/common.proto";
+import "alice/protos/data/tron/tags.proto";
+import "alice/protos/data/tron/tron_technical_info.proto";
+
+message TUserSettings {
+  bool SendMobileNotifications = 1 [json_name = "send_mobile_notifications"];
+}
+
+message TSubtask {
+  string Text = 2 [json_name = "text"];
+  bool Done = 3 [json_name = "done"];
+  optional string SubtaskId = 1 [json_name = "subtask_id"];
+}
+
+message TReminder {
+  oneof Trigger {
+    int64 OffsetSeconds = 2 [json_name = "offset_seconds"];
+    string LocalDateTime = 3 [json_name = "local_date_time"];
+  }
+  optional string ReminderId = 1 [json_name = "reminder_id"];
+  optional .NAlice.NData.NReminders.TPlaySettings PlaySettings = 4 [json_name = "play_settings"];
+}
+
+message TTag {
+  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value"];
+  optional string TagId = 1 [json_name = "tag_id"];
+}
+
+message TNote {
+  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 9 [json_name = "subtasks"];
+  repeated .NAlice.NNotes.NApi.TReminder Reminders = 10 [json_name = "reminders"];
+  repeated .NAlice.NNotes.NApi.TTag Tags = 15 [json_name = "tags"];
+  repeated string PublicHomeIds = 18 [json_name = "public_home_ids"];
+  optional string NoteId = 1 [json_name = "note_id"];
+  optional string Title = 2 [json_name = "title"];
+  optional string Text = 3 [json_name = "text"];
+  optional string Deadline = 4 [json_name = "deadline"];
+  optional bool Pinned = 5 [json_name = "pinned"];
+  optional .NAlice.NNotes.NApi.ENoteStatus Status = 6 [json_name = "status"];
+  optional string CreatedDateTime = 7 [json_name = "created_date_time"];
+  optional string UpdatedDateTime = 8 [json_name = "updated_date_time"];
+  optional string Schedule = 11 [json_name = "schedule"];
+  optional string NoteHash = 12 [json_name = "note_hash"];
+  optional string SheduleNoteId = 13 [json_name = "schedule_note_id"];
+  optional bool Doable = 14 [json_name = "doable"];
+  optional .NAlice.NData.NTron.NNotes.TTronTechnicalInfo TechnicalInfo = 16 [json_name = "technical_info"];
+  optional bool IsPersonal = 17 [json_name = "is_personal"];
+}
+
+message TNoteDraft {
+  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 5 [json_name = "subtasks"];
+  repeated .NAlice.NNotes.NApi.TTag Tags = 7 [json_name = "tags"];
+  optional string DraftId = 1 [json_name = "draft_id"];
+  optional string CreatedDateTime = 2 [json_name = "created_date_time"];
+  optional string Deadline = 10 [json_name = "deadline"];
+  optional string DraftTitle = 3 [json_name = "draft_title"];
+  optional string DraftText = 4 [json_name = "draft_text"];
+  optional string Schedule = 6 [json_name = "schedule"];
+  optional .NAlice.NData.NTron.EProgressStatus ProgressStatus = 8 [json_name = "progress_status"];
+  optional .NAlice.NData.NNotes.ETimeStatus TimeStatus = 9 [json_name = "time_status"];
+  optional bool IsPersonal = 11 [json_name = "is_personal"];
+}
+
+message TSyncEntry {
+  string NoteId = 1 [json_name = "note_id"];
+  string NoteHash = 2 [json_name = "note_hash"];
+}
+
+message TSyncNotesRequest {
+  repeated .NAlice.NNotes.NApi.TSyncEntry SyncEntries = 1 [json_name = "sync_entries"];
+}
+
+message TSyncNotesResponse {
+  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToCreate = 1 [json_name = "notes_to_create"];
+  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToUpdate = 2 [json_name = "notes_to_update"];
+  repeated string NoteIdsToDelete = 3 [json_name = "note_ids_to_delete"];
+  .NAlice.NNotes.NApi.TUserSettings UserSettings = 4 [json_name = "user_settings"];
+  optional .NAlice.NNotes.NApi.EError Error = 5 [json_name = "error"];
+}
+
+message TGetNotesBatchRequest {
+  repeated string NoteIds = 1 [json_name = "notes_ids"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request"];
+}
+
+message TGetNotesBatchResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TSearchNotesRequest {
+  string SearchRequest = 1 [json_name = "search_request"];
+}
+
+message TSearchNotesResponse {
+  enum TEmptyNotesReason {
+    ENR_UNSPECIFIED = 0;
+    ENR_NOTES_COUNT_IS_0 = 1;
+    ENR_ABOVE_DISTANCE_THRESHHOLD = 2;
+    ENR_INTERNAL = 3;
+  }
+
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  .NAlice.NNotes.NApi.TSearchNotesResponse.TEmptyNotesReason EmptyNotesReason = 2 [json_name = "empty_notes_reason"];
+}
+
+message TGetNotesToolRequest {
+  enum ESortOrder {
+    SO_NOT_SPECIFIED = 0;
+    SO_UPDATE_TIME_DESC = 1;
+    SO_CREATION_TIME_ASC = 2;
+    SO_CREATION_TIME_DESC = 3;
+  }
+
+  repeated string NotesIds = 4 [json_name = "notes_ids"];
+  repeated .NAlice.NData.NTron.EProgressStatus Status = 5 [json_name = "status"];
+  .NAlice.NNotes.NApi.TGetNotesToolRequest.ESortOrder SortOrder = 8 [json_name = "sort_order"];
+  optional string StartDatetime = 1 [json_name = "start_datetime"];
+  optional string EndDatetime = 2 [json_name = "end_datetime"];
+  optional string SearchQuery = 3 [json_name = "search_query"];
+  optional bool HasReminders = 6 [json_name = "has_reminders"];
+  optional string ContinuationToken = 7 [json_name = "continuation_token"];
+}
+
+message TGetNotesToolResponse {
+  enum EError {
+    UNKNOWN = 0;
+    INVALID_REQUEST = 1;
+    INVALID_CONTINUATION_TOKEN = 2;
+    INTERNAL = 3;
+  }
+
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TGetNotesToolResponse.EError Error = 3 [json_name = "error"];
+  optional string ErrorDescription = 4 [json_name = "error_description"];
+  optional uint64 TotalNotesCount = 5 [json_name = "total_notes_count"];
+}
+
+message TProgressStatuses {
+  repeated .NAlice.NData.NTron.EProgressStatus Statuses = 1 [json_name = "statuses"];
+}
+
+message TGetNotesRequest {
+  enum ESortOrder {
+    SO_UPDATE_TIME_DESC = 0;
+    SO_CREATION_TIME_ASC = 1;
+    SO_CREATION_TIME_DESC = 2;
+  }
+
+  string ContinuationToken = 1 [json_name = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 3 [json_name = "tag_filters"];
+  .NAlice.NNotes.NApi.TGetNotesRequest.ESortOrder SortOrder = 7 [json_name = "sort_order"];
+  oneof CompletionFilter {
+    bool HideCompleted = 2 [json_name = "hide_completed"];
+    .NAlice.NNotes.NApi.TProgressStatuses ProgressStatuses = 6 [json_name = "progress_statuses"];
+  }
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request"];
+  optional bool IsPersonal = 5 [json_name = "is_personal"];
+}
+
+message TGetNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  string ContinuationToken = 3 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count"];
+}
+
+message TCreateNoteRequest {
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
+  bool GenerateTitle = 2 [json_name = "generate_title"];
+}
+
+message TCreateNoteResponse {
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TUpdateNoteRequest {
+  message TPublicHomeIds {
+    repeated string HomeIds = 1 [json_name = "home_ids"];
+  }
+
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.TUpdateNoteRequest.TPublicHomeIds PublicHomeIds = 2 [json_name = "public_home_ids"];
+}
+
+message TUpdateNoteResponse {
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TDeleteNotesRequest {
+  repeated string NoteIds = 1 [json_name = "note_ids"];
+}
+
+message TDeleteNotesResponse {
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+}
+
+message TForTestsOnlyPermanentlyEraseAllNotesRequest {
+  optional uint64 Limit = 1 [json_name = "limit"];
+}
+
+message TForTestsOnlyPermanentlyEraseAllNotesResponse {
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+}
+
+message TUpdateSubtaskRequest {
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
+  string NoteId = 2 [json_name = "note_id"];
+}
+
+message TUpdateSubtaskResponse {
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
+  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TCreateSubtaskRequest {
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
+  string NoteId = 2 [json_name = "note_id"];
+}
+
+message TCreateSubtaskResponse {
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
+  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TDeleteSubtaskRequest {
+  string NoteId = 1 [json_name = "note_id"];
+  string SubtaskId = 2 [json_name = "subtask_id"];
+}
+
+message TDeleteSubtaskResponse {
+  .NAlice.NNotes.NApi.TNote Note = 2 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+}
+
+message TGetCalendarNotesRequest {
+  bool HideCompleted = 4 [json_name = "hide_completed"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 5 [json_name = "tag_filters"];
+  bool NearestNotesOnly = 6 [json_name = "nearest_notes_only"];
+  oneof ContinuationToken {
+    string ForwardContinuationToken = 1 [json_name = "forward_continuation_token"];
+    string BackwardContinuationToken = 2 [json_name = "backward_continuation_token"];
+  }
+  optional string LocalDateTime = 3 [json_name = "local_date_time"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 7 [json_name = "base_request"];
+  optional bool IsPersonal = 8 [json_name = "is_personal"];
+}
+
+message TGetCalendarNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  repeated .NAlice.NNotes.NApi.TNote UndatedNotes = 7 [json_name = "undated_notes"];
+  optional string ForwardContinuationToken = 2 [json_name = "forward_continuation_token"];
+  optional string BackwardContinuationToken = 3 [json_name = "backward_continuation_token"];
+  optional bool RunOutOfForwardNotes = 4 [json_name = "run_out_of_forward_notes"];
+  optional bool RunOutOfBackwardNotes = 5 [json_name = "run_out_of_backward_notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 6 [json_name = "error"];
+  optional uint64 TotalNotesCount = 8 [json_name = "total_notes_count"];
+}
+
+message TDeleteAllNotesRequest {
+  repeated string ExcludedNoteIds = 1 [json_name = "excluded_note_ids"];
+  repeated .NAlice.NNotes.NApi.ENoteType NoteTypes = 2 [json_name = "note_types"];
+}
+
+message TDeleteAllNotesResponse {
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+}
+
+message TToggleNotesRequest {
+  enum EToggleMode {
+    TM_UNSPECIFIED = 0;
+    TM_OVERDUE_REGULAR_INSTANCE = 1;
+    TM_TARGETED = 2;
+  }
+
+  repeated string NoteIds = 1 [json_name = "note_ids"];
+  bool IsDone = 2 [json_name = "is_done"];
+  .NAlice.NNotes.NApi.TToggleNotesRequest.EToggleMode ToggleMode = 3 [json_name = "toggle_mode"];
+}
+
+message TToggleNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TUpdateNoteRemindersRequest {
+  string NoteId = 1 [json_name = "note_id"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToAdd = 2 [json_name = "reminders_to_add"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToDelete = 3 [json_name = "reminders_to_delete"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToUpdate = 4 [json_name = "reminders_to_update"];
+}
+
+message TUpdateNoteRemindersResponse {
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TGetCompletedNotesRequest {
+  string ContinuationToken = 1 [json_name = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal"];
+}
+
+message TGetCompletedNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
+}
+
+message TGetPlainNoteDraftsRequest {
+  string ContinuationToken = 1 [json_name = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue Tags = 2;
+}
+
+message TGetPlainNoteDraftsResponse {
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
+  string ContinuationToken = 3 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TGetNoteDraftsByIdsRequest {
+  repeated string DraftIds = 1 [json_name = "draft_ids"];
+}
+
+message TGetNoteDraftsByIdsResponse {
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TGetNotesDeviceInfoRequest {
+}
+
+message THousehold {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  bool IsOwn = 3 [json_name = "is_own"];
+  string Type = 4 [json_name = "type"];
+}
+
+message TRoom {
+  string Id = 1 [json_name = "id"];
+  string HouseholdId = 2 [json_name = "household_id"];
+  string Name = 3 [json_name = "name"];
+}
+
+message TDevice {
+  string TargetId = 1 [json_name = "target_id"];
+  string Name = 2 [json_name = "name"];
+  string HouseholdId = 3 [json_name = "household_id"];
+  string RoomId = 4 [json_name = "room_id"];
+  string Type = 5 [json_name = "type"];
+  string IconUrl = 6 [json_name = "icon_url"];
+  optional bool IsOnline = 7 [json_name = "is_online"];
+  optional bool CanSelect = 8 [json_name = "can_select"];
+  optional string DisabledReason = 9 [json_name = "disabled_reason"];
+}
+
+message TGetNotesDeviceInfoResponse {
+  repeated .NAlice.NNotes.NApi.THousehold Households = 1 [json_name = "households"];
+  repeated .NAlice.NNotes.NApi.TRoom Rooms = 2 [json_name = "rooms"];
+  repeated .NAlice.NNotes.NApi.TDevice Devices = 3 [json_name = "devices"];
+}
+
+message TAcceptNoteDraftsRequest {
+  repeated string DraftIds = 1 [json_name = "draft_ids"];
+}
+
+message TAcceptNoteDraftsResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TDeleteNoteDraftsRequest {
+  repeated string DraftIds = 1 [json_name = "draft_ids"];
+  repeated .NAlice.NData.NTron.TTronTagValue ContainingAllTags = 2 [json_name = "containing_all_tags"];
+  repeated .NAlice.NData.NTron.TTronTagValue ContainingAnyTags = 3 [json_name = "containing_any_tags"];
+}
+
+message TDeleteNoteDraftsResponse {
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+}
+
+message TGetOverdueNotesRequest {
+  string ContinuationToken = 1 [json_name = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal"];
+}
+
+message TGetOverdueNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
+  optional uint64 TotalOverdueCount = 4 [json_name = "total_overdue_count"];
+}
+
+message TGetDoableNotesRequest {
+  bool HideCompleted = 1 [json_name = "hide_completed"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
+  string ContinuationToken = 5 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal"];
+}
+
+message TGetDoableNotesResponse {
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
+  string ContinuationToken = 3 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count"];
+}
+
+message TBaseBackendRequest {
+  string HashPuid = 1 [json_name = "hash_puid"];
+  .google.protobuf.Timestamp Timestamp = 2 [json_name = "timestamp"];
+  string Timezone = 3 [json_name = "timezone"];
+}
+
+message TBatchCreateNoteDraftsRequest {
+  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 1 [json_name = "base_request"];
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 2 [json_name = "drafts"];
+}
+
+message TBatchCreateNoteDraftsResponse {
+  message TErrorDraft {
+    .NAlice.NNotes.NApi.TNoteDraft Draft = 1 [json_name = "draft"];
+    .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  }
+
+  repeated .NAlice.NNotes.NApi.TNoteDraft SuccessDrafts = 1 [json_name = "success_drafts"];
+  repeated .NAlice.NNotes.NApi.TBatchCreateNoteDraftsResponse.TErrorDraft ErrorDrafts = 2 [json_name = "error_drafts"];
+}
+
+message TDeleteAllNoteDraftsFromConversationsRequest {
+  repeated string ConversationIds = 1 [json_name = "conversation_ids"];
+  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request"];
+}
+
+message TDeleteAllNoteDraftsFromConversationsResponse {
+  uint32 Limit = 1 [json_name = "limit"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+message TListNoteDraftsRequest {
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 1 [json_name = "tag_filters"];
+  .NAlice.NNotes.NApi.ENotesSection Section = 2 [json_name = "section"];
+  string ContinuationToken = 3 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request"];
+  optional bool IsPersonal = 5 [json_name = "is_personal"];
+}
+
+message TListNoteDraftsResponse {
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
+  string ContinuationToken = 2 [json_name = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
+  optional uint64 TotalDraftsCount = 4 [json_name = "total_drafts_count"];
+}
+
+message TGetConversationCountersRequest {
+  repeated string ConversationIds = 1 [json_name = "conversation_ids"];
+}
+
+message TGetConversationCountersResponse {
+  message TConversationCounter {
+    string ConversationId = 1 [json_name = "conversation_id"];
+    uint64 TasksCount = 2 [json_name = "tasks_count"];
+    uint64 NotesCount = 3 [json_name = "notes_count"];
+  }
+
+  repeated .NAlice.NNotes.NApi.TGetConversationCountersResponse.TConversationCounter Counters = 1 [json_name = "counters"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+}
+
+enum EError {
+  UNKNOWN = 0;
+  NOTES_LIMIT_EXCEEDED = 1;
+  NOTE_TITLE_TOO_LONG = 2;
+  NOTE_TEXT_TOO_LONG = 3;
+  EMPTY_TEXT_AND_TITLE_ERROR = 4;
+  SUBTASK_TEXT_TOO_LONG = 5;
+  TOO_MANY_SUBTASKS = 6;
+  REMINDER_TO_PAST = 7;
+  REMINDER_OFFSET_EXCEEDS_REGULARITY_PERIOD = 8;
+  SUBTASK_NOT_FOUND = 9;
+  NOTE_NOT_FOUND = 10;
+  REMINDER_IN_UNSCHEDULED_NOTE = 11;
+  ORM_INTERNAL = 12;
+  BLANK_SUBTASK_TEXT = 13;
+  TOO_MANY_REMINDERS = 14;
+  NOTE_IS_NOT_DOABLE = 15;
+  TOO_MANY_NOTES_CHANGED_AT_ONCE = 16;
+  UNEXPECTED_NOTE_TYPE = 17;
+  INVALID_SCHEDULE = 18;
+  DRAFT_NOT_FOUND = 19;
+  INVALID_CONTINUATION_TOKEN = 20;
+  NOTES_SECTION_NOT_SUPPORTED = 21;
+  OVERDUE_INVARIANT_VIOLATED = 22;
+  REMINDER_PLAY_SETTINGS_WITHOUT_TARGETS = 23;
+  PERSONAL_NOTE_REMINDER_WITH_DEVICE_TARGETS = 24;
+  SCHEDULE_IN_NOT_DOABLE_NOTE = 25;
+}
+
+enum ENoteStatus {
+  NONE = 0;
+  INCOMPLETE = 1;
+  COMPLETED = 2;
+  EXPIRED = 3;
+}
+
+enum ENoteType {
+  NT_UNKNOWN = 0;
+  NT_TASK = 1;
+  NT_PLAIN = 2;
+}
+
+enum ENotesSection {
+  NS_UNKNOWN = 0;
+  NS_ALL_BY_CREATED_DESC = 1;
+  NS_TIMED_IN_TIMELINE_ORDER = 2;
+  NS_UNTIMED_BY_CREATED_DESC = 3;
+  NS_TIMED_BY_CREATED_DESC = 4;
+}
+

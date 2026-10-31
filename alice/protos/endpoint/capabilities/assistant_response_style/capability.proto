@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AssistantResponseStyleCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/assistant_response_style;assistantresponsestylepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAssistantResponseStyleCapability {
+  message TParameters {
+  }
+
+  message TState {
+    message TSettings {
+      .NAlice.TAssistantResponseStyleCapability.EAssistantResponseStyle ResponseStyle = 1 [json_name = "response_style"];
+    }
+
+    .NAlice.TAssistantResponseStyleCapability.TState.TSettings Settings = 1 [json_name = "settings"];
+  }
+
+  enum EAssistantResponseStyle {
+    Default = 0;
+    ChildOriented = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAssistantResponseStyleCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAssistantResponseStyleCapability.TState State = 3 [json_name = "state"];
+}
+

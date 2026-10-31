@@ -7,6 +7,7 @@ option java_outer_classname = "ClientSubscriptionStateProto";
 option java_multiple_files = true;
 option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/client_subscription_state";
 
+import "alice/protos/api/incognito_mode/incognito_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientSubscriptionState {
@@ -19,15 +20,20 @@ message TClientSubscriptionState {
       }
 
       oneof State {
-        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TPing Ping = 1;
-        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TFullContent FullContent = 2;
+        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TPing Ping = 1 [json_name = "ping"];
+        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TFullContent FullContent = 2 [json_name = "full_content"];
       }
     }
 
-    string Id = 1;
-    .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState State = 2;
+    string Id = 1 [json_name = "id"];
+    .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState State = 2 [json_name = "state"];
   }
 
-  repeated .NAlice.NAliceApi.TClientSubscriptionState.TSubscription Subscriptions = 1;
+  message TAdditionalOptions {
+    .NAlice.TIncognitoOptions IncognitoOptions = 1 [json_name = "incognito_options"];
+  }
+
+  repeated .NAlice.NAliceApi.TClientSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions"];
+  .NAlice.NAliceApi.TClientSubscriptionState.TAdditionalOptions AdditionalOptions = 2 [json_name = "additional_options"];
 }
 

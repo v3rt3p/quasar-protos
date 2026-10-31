@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "InformersCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/informers;informerspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/scenario/weather/weather.proto";
+import "alice/protos/data/timezone.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TInformersCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TUpdateInformerDirective {
+    string Name = 1000 [json_name = "name"];
+    oneof InformerState {
+      .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state"];
+      .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state"];
+    }
+  }
+
+  message TUpdateAllInformersDirective {
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state"];
+    .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state"];
+  }
+
+  message TReminderInformerState {
+    string ReminderText = 1 [json_name = "reminder_text"];
+    uint64 ReminderDate = 2 [json_name = "reminder_date"];
+    uint32 RemindersCounter = 3 [json_name = "reminders_counter"];
+    .NAlice.NData.TDateTime ShootAt = 4 [json_name = "shoot_at"];
+  }
+
+  message TWeatherInformerState {
+    string Degrees = 1 [json_name = "degrees"];
+    string Icon = 2 [json_name = "icon"];
+    double Temperature = 3 [json_name = "temperature"];
+    string IconType = 5 [json_name = "icon_type"];
+    .NAlice.NData.TWeatherCondition Condition = 6 [json_name = "condition"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TInformersCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TInformersCapability.TState State = 3 [json_name = "state"];
+}
+

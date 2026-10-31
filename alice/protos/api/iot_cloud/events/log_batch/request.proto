@@ -11,14 +11,14 @@ import "google/protobuf/timestamp.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotCloudLogBatchRequest {
-  .NAlice.NIotCloud.TIotCloudLogBatch LogBatch = 1;
+  .NAlice.NIotCloud.TIotCloudLogBatch LogBatch = 1 [json_name = "log_batch"];
 }
 
 message TIotCloudLogMessage {
   message TField {
-    string Key = 1;
+    string Key = 1 [json_name = "key"];
     oneof Value {
-      string StringValue = 2;
+      string StringValue = 2 [json_name = "string_value"];
     }
   }
 
@@ -31,13 +31,13 @@ message TIotCloudLogMessage {
     FATAL = 5;
   }
 
-  .NAlice.NIotCloud.TIotCloudLogMessage.ELogLevel Level = 1;
-  string Message = 2;
-  repeated .NAlice.NIotCloud.TIotCloudLogMessage.TField Fields = 3;
-  optional .google.protobuf.Timestamp Timestamp = 4;
+  .NAlice.NIotCloud.TIotCloudLogMessage.ELogLevel Level = 1 [json_name = "level"];
+  string Message = 2 [json_name = "message"];
+  repeated .NAlice.NIotCloud.TIotCloudLogMessage.TField Fields = 3 [json_name = "fields"];
+  optional .google.protobuf.Timestamp Timestamp = 4 [json_name = "timestamp"];
 }
 
 message TIotCloudLogBatch {
-  repeated .NAlice.NIotCloud.TIotCloudLogMessage Messages = 1;
+  repeated .NAlice.NIotCloud.TIotCloudLogMessage Messages = 1 [json_name = "messages"];
 }
 

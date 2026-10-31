@@ -20,22 +20,22 @@ message TStreamControl {
       NO_SPEECH = 5;
     }
 
-    .NAlice.NAliceApi.TStreamControl.TActionClose.EReason Reason = 1;
+    .NAlice.NAliceApi.TStreamControl.TActionClose.EReason Reason = 1 [json_name = "reason"];
   }
 
   message TActionSpotterEnd {
   }
 
   message TActionLazyTTS {
-    int64 ChunkSize = 1;
+    int64 ChunkSize = 1 [json_name = "chunk_size"];
   }
 
-  int64 StreamId = 1;
-  string MessageId = 2;
+  int64 StreamId = 1 [json_name = "stream_id"];
+  string MessageId = 2 [json_name = "message_id"];
   oneof Action {
-    .NAlice.NAliceApi.TStreamControl.TActionClose Close = 3;
-    .NAlice.NAliceApi.TStreamControl.TActionSpotterEnd SpotterEnd = 4;
-    .NAlice.NAliceApi.TStreamControl.TActionLazyTTS LazyTTS = 5;
+    .NAlice.NAliceApi.TStreamControl.TActionClose Close = 3 [json_name = "close"];
+    .NAlice.NAliceApi.TStreamControl.TActionSpotterEnd SpotterEnd = 4 [json_name = "spotter_end"];
+    .NAlice.NAliceApi.TStreamControl.TActionLazyTTS LazyTTS = 5 [json_name = "lazy_tts"];
   }
 }
 

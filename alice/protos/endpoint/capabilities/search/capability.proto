@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SearchCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/search;searchpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/common_multisearch/multisearch.proto";
+import "alice/protos/data/common_search/feature.proto";
+import "alice/protos/data/tv/search/tv_search_result.proto";
+
+message TSearchCapability {
+  message TParameters {
+    repeated .NAlice.EMultiSearchContent SupportedContentTypes = 1 [json_name = "supported_content_types"];
+    repeated .NAlice.ESearchFeatures Features = 2 [json_name = "features"];
+  }
+
+  message TState {
+    enum ESearchState {
+      Empty = 0;
+      HasData = 1;
+    }
+
+    enum ESearchSource {
+      Droideka = 0;
+      AliceDroideka = 1;
+      AliceRPC = 2;
+    }
+
+    string SearchQuery = 1 [json_name = "search_query"];
+    .NAlice.TSearchCapability.TState.ESearchState SearchState = 2 [json_name = "search_state"];
+    .NAlice.TSearchCapability.TState.ESearchSource SearchSource = 3 [json_name = "search_source"];
+  }
+
+  message TOpenSearchDirective {
+    string SearchQuery = 1 [json_name = "search_query"];
+    .NAlice.TTvSearchResultData SearchResultData = 2 [json_name = "search_result"];
+    string Name = 3 [json_name = "name"];
+    optional string HostFiltration = 4 [json_name = "host_filtration"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSearchCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSearchCapability.TState State = 3 [json_name = "state"];
+}
+

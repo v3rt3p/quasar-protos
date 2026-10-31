@@ -10,7 +10,7 @@ import "alice/protos/endpoint/events/events.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THistoricalEventsRequest {
-  repeated .NAlice.TEndpointEvents Batch = 1;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
 }
 
 message THistoricalEventsResponse {

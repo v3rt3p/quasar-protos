@@ -8,12 +8,12 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimezone {
-  string TimezoneName = 1;
-  int64 OffsetSeconds = 2;
+  string TimezoneName = 1 [json_name = "timezone_name"];
+  int64 OffsetSeconds = 2 [json_name = "offset_seconds"];
 }
 
 message TDateTime {
-  uint64 Epoch = 1;
-  string TimeZone = 2;
+  uint64 Epoch = 1 [json_name = "epoch"];
+  string TimeZone = 2 [json_name = "timezone"];
 }
 

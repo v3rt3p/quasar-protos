@@ -6,22 +6,24 @@ option java_package = "ru.yandex.alice.megamind.protos.user";
 option java_outer_classname = "UserData";
 option go_package = "a.yandex-team.ru/alice/megamind/protos/user";
 
-import "alice/megamind/protos/blackbox/blackbox.proto";
+import "alice/library/blackbox/proto/blackbox.proto";
 import "alice/library/censor/protos/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
+import "alice/megamind/protos/blackbox/blackbox.proto";
 import "alice/protos/api/datum/personal_data.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserData {
-  .NAlice.TBlackBoxUserInfo UserInfo = 1;
+  .NAlice.TBlackBoxUserInfo UserInfo = 1 [json_name = "user_info"];
   oneof OptionalRawPersonalData {
-    string RawPersonalData = 2;
+    string RawPersonalData = 2 [json_name = "raw_personal_data"];
   }
   oneof OptionalMementoData {
-    string MementoData = 3;
+    string MementoData = 3 [json_name = "memento"];
   }
-  optional .NAlice.ECredentialStatus BlackboxStatus = 4;
-  optional string BlackboxStatusReason = 5;
-  optional .NAlice.NDatumApi.TDatumPersonalData DatumPersonalData = 6;
+  optional .NAlice.TBlackBoxFullUserInfoProto FullUserInfo = 7 [json_name = "full_user_info"];
+  optional .NAlice.ECredentialStatus BlackboxStatus = 4 [json_name = "blackbox_status"];
+  optional string BlackboxStatusReason = 5 [json_name = "blackbox_status_reason"];
+  optional .NAlice.NDatumApi.TDatumPersonalData DatumPersonalData = 6 [json_name = "datum_personal_data"];
 }
 

@@ -13,10 +13,10 @@ import "google/protobuf/any.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCapabilityUpdateState {
-  string RequestMessageId = 1;
-  string EndpointId = 2;
-  .google.protobuf.Any Capability = 3;
-  .NAlice.TAnyCapabilityHolder AnyCapability = 5;
-  .NAlice.TCapability.ECapabilityType CapabilityType = 4;
+  string RequestMessageId = 1 [json_name = "requestMessageId"];
+  string EndpointId = 2 [json_name = "endpoint_id"];
+  .google.protobuf.Any Capability = 3 [json_name = "capability"];
+  .NAlice.TAnyCapabilityHolder AnyCapability = 5 [json_name = "any_capability"];
+  .NAlice.TCapability.ECapabilityType CapabilityType = 4 [json_name = "capability_type"];
 }
 

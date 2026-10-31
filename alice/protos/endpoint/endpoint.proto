@@ -29,31 +29,31 @@ message TEndpoint {
       }
 
       oneof Tag {
-        .NAlice.TEndpoint.TMeta.TTag.ELayoutTag Layout = 1;
+        .NAlice.TEndpoint.TMeta.TTag.ELayoutTag Layout = 1 [json_name = "layout"];
       }
     }
 
-    .NAlice.TEndpoint.EEndpointType Type = 1;
-    .NAlice.TEndpoint.TDeviceInfo DeviceInfo = 2;
-    .NAlice.TEndpoint.EAccessType AccessType = 3;
-    repeated .NAlice.TEndpoint.TMeta.TTag Tags = 4;
-    .NAlice.TClientInfoProto ClientInfo = 5;
+    .NAlice.TEndpoint.EEndpointType Type = 1 [json_name = "type"];
+    .NAlice.TEndpoint.TDeviceInfo DeviceInfo = 2 [json_name = "device_info"];
+    .NAlice.TEndpoint.EAccessType AccessType = 3 [json_name = "access_type"];
+    repeated .NAlice.TEndpoint.TMeta.TTag Tags = 4 [json_name = "tags"];
+    .NAlice.TClientInfoProto ClientInfo = 5 [json_name = "client_info"];
   }
 
   message TStatus {
-    .NAlice.TEndpoint.EEndpointStatus Status = 1;
-    .google.protobuf.Timestamp UpdatedAt = 2;
+    .NAlice.TEndpoint.EEndpointStatus Status = 1 [json_name = "status"];
+    .google.protobuf.Timestamp UpdatedAt = 2 [json_name = "updated_at"];
   }
 
   message TDeviceInfo {
-    string Manufacturer = 1;
-    string Model = 2;
-    string HwVersion = 3;
-    string SwVersion = 4;
-    .NAlice.EProtocol Protocol = 5;
-    string SerialNumber = 6;
-    .NAlice.NData.EColor Color = 7;
-    string SetupCodePayload = 8;
+    string Manufacturer = 1 [json_name = "manufacturer"];
+    string Model = 2 [json_name = "model"];
+    string HwVersion = 3 [json_name = "hw_version"];
+    string SwVersion = 4 [json_name = "sw_version"];
+    .NAlice.EProtocol Protocol = 5 [json_name = "protocol"];
+    string SerialNumber = 6 [json_name = "serial_number"];
+    .NAlice.NData.EColor Color = 7 [json_name = "color"];
+    string SetupCodePayload = 8 [json_name = "setup_code_payload"];
   }
 
   enum EEndpointStatus {
@@ -95,6 +95,12 @@ message TEndpoint {
     WaterValveDeviceType = 29;
     WaterMeterDeviceType = 30;
     RelayDeviceType = 31;
+    PowerSourceUpsDeviceType = 32;
+    AeroGrillDeviceType = 33;
+    ElectricGrillDeviceType = 37;
+    WearableAudioRecorderEndpointType = 34;
+    DoorLockDeviceType = 35;
+    SmartwatchEndpointType = 36;
   }
 
   enum EAccessType {
@@ -105,10 +111,10 @@ message TEndpoint {
     Virtual = 4;
   }
 
-  string Id = 1;
-  .NAlice.TEndpoint.TMeta Meta = 2;
-  repeated .google.protobuf.Any Capabilities = 3;
-  repeated .NAlice.TAnyCapabilityHolder AnyCapabilities = 5;
-  .NAlice.TEndpoint.TStatus Status = 4;
+  string Id = 1 [json_name = "id"];
+  .NAlice.TEndpoint.TMeta Meta = 2 [json_name = "meta"];
+  repeated .google.protobuf.Any Capabilities = 3 [json_name = "capabilities"];
+  repeated .NAlice.TAnyCapabilityHolder AnyCapabilities = 5 [json_name = "any_capabilities"];
+  .NAlice.TEndpoint.TStatus Status = 4 [json_name = "status"];
 }
 

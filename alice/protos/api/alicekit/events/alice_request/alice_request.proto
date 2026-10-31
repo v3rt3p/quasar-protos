@@ -22,6 +22,7 @@ import "alice/protos/api/alicekit/common/environment_state/environment_state.pro
 import "alice/protos/api/alicekit/common/uniproxy_options/uniproxy_options.proto";
 import "alice/protos/api/biometry/options.proto";
 import "alice/protos/api/files/file_info.proto";
+import "alice/protos/api/incognito_mode/incognito_options.proto";
 import "alice/protos/api/speech_mode/session/speech_session.proto";
 import "alice/protos/data/dialog_type/dialog_type.proto";
 import "alice/protos/data/event_source/event_source.proto";
@@ -75,13 +76,13 @@ message TAliceRequestProto {
     reserved 5;
     reserved 6;
     reserved 7;
-    optional string RequestId = 1;
-    optional string PrevReqId = 2;
-    optional uint32 SequenceNumber = 3;
-    optional string DialogId = 4;
-    optional string FolderId = 10;
-    optional .NAlice.NData.EDialogType DialogType = 8;
-    optional string DialogShareId = 9;
+    optional string RequestId = 1 [json_name = "request_id"];
+    optional string PrevReqId = 2 [json_name = "prev_req_id"];
+    optional uint32 SequenceNumber = 3 [json_name = "sequence_number"];
+    optional string DialogId = 4 [json_name = "dialog_id"];
+    optional string FolderId = 10 [json_name = "folder_id"];
+    optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type"];
+    optional string DialogShareId = 9 [json_name = "dialog_share_id"];
   }
 
   message TRequest {
@@ -113,6 +114,10 @@ message TAliceRequestProto {
       reserved "SessionIdCookie";
       reserved "SpotterRms";
       reserved "ActiveUserOptions";
+      reserved "DatumPersonalData";
+      reserved "SaeCookie";
+      reserved "CookiesCollection";
+      reserved "CompanyId";
       reserved 2;
       reserved 7;
       reserved 8;
@@ -127,6 +132,10 @@ message TAliceRequestProto {
       reserved 21;
       reserved 22;
       reserved 27;
+      reserved 29;
+      reserved 30;
+      reserved 31;
+      reserved 32;
       message TBassOptions {
         reserved "ClientIP";
         reserved "MegamindCgi";
@@ -140,66 +149,67 @@ message TAliceRequestProto {
         reserved 8;
         reserved 10;
         reserved 11;
-        repeated string Cookies = 4;
-        optional string UserAgent = 1;
-        optional uint32 FiltrationLevel = 2;
-        optional double ScreenScaleFactor = 5;
-        optional int32 RegionId = 9;
-        optional string SearchRegion = 12;
+        repeated string Cookies = 4 [json_name = "cookies"];
+        optional string UserAgent = 1 [json_name = "user_agent"];
+        optional uint32 FiltrationLevel = 2 [json_name = "filtration_level"];
+        optional double ScreenScaleFactor = 5 [json_name = "screen_scale_factor"];
+        optional int32 RegionId = 9 [json_name = "region_id"];
+        optional string SearchRegion = 12 [json_name = "search_region"];
       }
 
       message TPermission {
         reserved 56788;
         oneof PermissionStatus {
-          bool Granted = 1;
-          bool Status = 3;
+          bool Granted = 1 [json_name = "granted"];
+          bool Status = 3 [json_name = "status"];
         }
-        optional string Name = 2;
+        optional string Name = 2 [json_name = "name"];
       }
 
-      .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3;
-      repeated string SupportedFeatures = 4;
-      repeated string UnsupportedFeatures = 5;
-      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig QuasarAuxiliaryConfig = 11;
-      repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 14;
-      .NAlice.TGuestOptions GuestUserOptions = 19;
-      repeated .NAlice.TUserOptions UsersOptions = 28;
-      optional string OAuthToken = 1;
-      optional string DivKitVersion = 6;
-      optional string ICookie = 15;
-      optional int32 SpeakersCount = 23;
-      optional string OriginDomain = 26;
+      .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3 [json_name = "bass_options"];
+      repeated string SupportedFeatures = 4 [json_name = "supported_features"];
+      repeated string UnsupportedFeatures = 5 [json_name = "unsupported_features"];
+      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig QuasarAuxiliaryConfig = 11 [json_name = "quasar_auxiliary_config"];
+      repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 14 [json_name = "permissions"];
+      .NAlice.TGuestOptions GuestUserOptions = 19 [json_name = "guest_user_options"];
+      repeated .NAlice.TUserOptions UsersOptions = 28 [json_name = "users_options"];
+      optional string OAuthToken = 1 [json_name = "oauth_token"];
+      optional string DivKitVersion = 6 [json_name = "divkit_version"];
+      optional string ICookie = 15 [json_name = "icookie"];
+      optional int32 SpeakersCount = 23 [json_name = "speakers_count"];
+      optional string OriginDomain = 26 [json_name = "origin_domain"];
+      optional .NAlice.TIncognitoOptions IncognitoOptions = 33 [json_name = "incognito_options"];
     }
 
-    .NAlice.TEvent Event = 1;
-    .NAlice.TLocation Location = 2;
+    .NAlice.TEvent Event = 1 [json_name = "event"];
+    .NAlice.TLocation Location = 2 [json_name = "location"];
     .NAlice.TExperimentsProto Experiments = 3;
-    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5;
-    bool ResetSession = 7;
-    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17;
-    .NAlice.TOndeviceBiometryOptions BiometryOptions = 21;
+    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5 [json_name = "additional_options"];
+    bool ResetSession = 7 [json_name = "reset_session"];
+    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options"];
+    .NAlice.TOndeviceBiometryOptions BiometryOptions = 21 [json_name = "biometry_options"];
     oneof DeviceStateType {
-      .NAlice.NAliceApi.TDeviceState DeviceState = 4;
-      bytes DeviceStateRaw = 18;
+      .NAlice.NAliceApi.TDeviceState DeviceState = 4 [json_name = "device_state"];
+      bytes DeviceStateRaw = 18 [json_name = "device_state_raw"];
     }
     oneof EnvironmentStateType {
-      .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 16;
-      bytes EnvironmentStateRaw = 19;
+      .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 16 [json_name = "environment_state"];
+      bytes EnvironmentStateRaw = 19 [json_name = "environment_state_raw"];
     }
-    optional bool VoiceSession = 6;
-    optional string ActivationType = 14;
-    optional string MegamindCookies = 15;
+    optional bool VoiceSession = 6 [json_name = "voice_session"];
+    optional string ActivationType = 14 [json_name = "activation_type"];
+    optional string MegamindCookies = 15 [json_name = "megamind_cookies"];
   }
 
   message TAdvancedAsrOptions {
     reserved "BiometryGroup";
     reserved 7;
-    repeated string Grammar = 4;
-    optional bool PartialResults = 1;
-    optional bool ManualPunctuation = 2;
-    optional bool Capitalize = 3;
-    optional uint64 UtteranceSilence = 5;
-    optional string Biometry = 6;
+    repeated string Grammar = 4 [json_name = "grammar"];
+    optional bool PartialResults = 1 [json_name = "partial_results"];
+    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation"];
+    optional bool Capitalize = 3 [json_name = "capitalize"];
+    optional uint64 UtteranceSilence = 5 [json_name = "utterance_silence"];
+    optional string Biometry = 6 [json_name = "biometry"];
   }
 
   message TDialogHistoryBlock {
@@ -208,43 +218,44 @@ message TAliceRequestProto {
     message TFileDescription {
       reserved "Extension";
       reserved 2;
-      optional string Title = 1;
-      optional string Guid = 3;
-      optional .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 4;
-      optional uint64 UploadTimestamp = 5;
-      optional string ProcessedContent = 6;
-      optional string PreviewUrl = 7;
-      optional uint64 SizeBytes = 8;
-      optional string MimeType = 9;
-      optional .NAlice.NApi.NFiles.TFileInfo.EFileType FileType = 10;
-      optional .NAlice.NApi.NFiles.TFileInfo.TSource Source = 12;
-      optional .NAlice.NApi.NFiles.TFileInfo.TSource Result = 13;
-      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures Features = 14;
+      optional string Title = 1 [json_name = "title"];
+      optional string Guid = 3 [json_name = "guid"];
+      optional .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 4 [json_name = "status"];
+      optional uint64 UploadTimestamp = 5 [json_name = "upload_timestamp"];
+      optional string ProcessedContent = 6 [json_name = "processed_content"];
+      optional string PreviewUrl = 7 [json_name = "preview_url"];
+      optional uint64 SizeBytes = 8 [json_name = "size_bytes"];
+      optional string MimeType = 9 [json_name = "mime_type"];
+      optional .NAlice.NApi.NFiles.TFileInfo.EFileType FileType = 10 [json_name = "file_type"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TSource Source = 12 [json_name = "source"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TSource Result = 13 [json_name = "result"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures Features = 14 [json_name = "features"];
+      optional string ShareId = 16 [json_name = "share_id"];
     }
 
-    repeated .NAlice.TAliceRequestProto.TDialogHistoryBlock.TFileDescription ChatFiles = 2;
+    repeated .NAlice.TAliceRequestProto.TDialogHistoryBlock.TFileDescription ChatFiles = 2 [json_name = "chat_files"];
   }
 
-  .NAlice.TAliceRequestProto.THeader Header = 1;
-  .NAlice.TClientInfoProto Application = 2;
-  .NAlice.TAliceRequestProto.TRequest Request = 3;
-  .NAlice.TEventSource EventSource = 11;
-  .NAlice.TEnrollmentHeaders EnrollmentHeaders = 12;
-  bool EnableSpotterValidation = 15;
-  .NAlice.TAliceRequestProto.TAdvancedAsrOptions AdvancedAsrOptions = 25;
-  .NAlice.TAliceRequestProto.TDialogHistoryBlock DialogHistoryBlock = 30;
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34;
-  optional string Firmware = 13;
-  optional string VoiceInputMessageId = 14;
-  optional string SpotterPhrase = 16;
-  optional string EmbeddedSpotterInfo = 17;
-  optional string Lang = 18;
-  optional string Topic = 19;
-  optional bool DisableAntimat = 20;
-  optional bool Punctuation = 21;
-  optional string Format = 22;
-  optional bool RecognizeMusicOnly = 23;
-  optional string Tags = 24;
-  optional .NAlice.TSpeechSession SpeechSession = 41;
+  .NAlice.TAliceRequestProto.THeader Header = 1 [json_name = "header"];
+  .NAlice.TClientInfoProto Application = 2 [json_name = "application"];
+  .NAlice.TAliceRequestProto.TRequest Request = 3 [json_name = "request"];
+  .NAlice.TEventSource EventSource = 11 [json_name = "event_source"];
+  .NAlice.TEnrollmentHeaders EnrollmentHeaders = 12 [json_name = "enrollment_headers"];
+  bool EnableSpotterValidation = 15 [json_name = "enable_spotter_validation"];
+  .NAlice.TAliceRequestProto.TAdvancedAsrOptions AdvancedAsrOptions = 25 [json_name = "advancedASROptions"];
+  .NAlice.TAliceRequestProto.TDialogHistoryBlock DialogHistoryBlock = 30 [json_name = "dialog_history_block"];
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34 [json_name = "alice_2_settings"];
+  optional string Firmware = 13 [json_name = "firmware"];
+  optional string VoiceInputMessageId = 14 [json_name = "voiceInputMessageId"];
+  optional string SpotterPhrase = 16 [json_name = "spotter_phrase"];
+  optional string EmbeddedSpotterInfo = 17 [json_name = "embedded_spotter_info"];
+  optional string Lang = 18 [json_name = "lang"];
+  optional string Topic = 19 [json_name = "topic"];
+  optional bool DisableAntimat = 20 [json_name = "disableAntimatNormalizer"];
+  optional bool Punctuation = 21 [json_name = "punctuation"];
+  optional string Format = 22 [json_name = "format"];
+  optional bool RecognizeMusicOnly = 23 [json_name = "recognize_music_only"];
+  optional string Tags = 24 [json_name = "tags"];
+  optional .NAlice.TSpeechSession SpeechSession = 41 [json_name = "speech_session"];
 }
 

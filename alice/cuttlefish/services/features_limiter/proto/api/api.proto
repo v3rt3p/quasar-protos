@@ -1,0 +1,405 @@
+syntax = "proto3";
+
+package NAlice.NFeaturesLimiter.NProto.NApi;
+
+option java_package = "ru.yandex.alice.cuttlefish.services.features_limiter.proto.api";
+option go_package = "a.yandex-team.ru/alice/cuttlefish/services/features_limiter/proto/api";
+
+import "alice/cuttlefish/services/features_limiter/proto/api/dynamic_quota.proto";
+import "alice/megamind/protos/common/experiments/experiments.proto";
+import "alice/protos/endpoint/capabilities/alice_limits/capability.proto";
+import "alice/ydb_orm/client/proto/types/object.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLimitedFeature {
+  .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 1;
+}
+
+message TSettings {
+  bool DoNotAcquireQuota = 1;
+  bool ForceBlockingModeClientFlag = 2;
+  bool ForceTooManyRequestsClientFlag = 3;
+  bool ForceTooManyRequestsExceptTextGenerationBaseClientFlag = 4;
+  bool AddCurrentLoadInfo = 5;
+  bool ForceAllowClientFlag = 6;
+}
+
+message TDropPercentInfo {
+  bool Dropped = 1 [json_name = "dropped"];
+  uint32 DropPercent = 2 [json_name = "drop_percent"];
+  uint32 GeneratedRandomPercent = 3 [json_name = "generated_random_percent"];
+}
+
+message TCanPassRequest {
+  reserved "SendBanners";
+  reserved 3;
+  string UserId = 1;
+  .NAlice.NFeaturesLimiter.NProto.NApi.EUserClass UserClass = 2;
+}
+
+message TGProxyRequest {
+  string LimitedFeature = 1 [json_name = "limited_feature"];
+  string DoNotAcquireQuota = 2 [json_name = "do_not_acquire_quota"];
+  string RequestId = 3 [json_name = "request_id"];
+  bool SendBanners = 4 [json_name = "send_banners"];
+}
+
+message TAddonQuota {
+  uint64 RequestsUsed = 1 [json_name = "requests_used"];
+  uint64 RequestsLimit = 2 [json_name = "requests_limit"];
+  .NYdbOrm.NClient.NProto.TYdbTimestamp MinFirstRequestTime = 4 [json_name = "min_first_request_timestamp"];
+  uint64 EndTimeSeconds = 5 [json_name = "end_time_seconds"];
+  optional uint64 RefreshTimestampSeconds = 3 [json_name = "refresh_timestamp_seconds"];
+}
+
+message TUserQuota {
+  uint64 RequestsUsed = 1 [json_name = "requests_used"];
+  uint64 RequestsLimit = 2 [json_name = "requests_limit"];
+  .NYdbOrm.NClient.NProto.TYdbTimestamp MinFirstRequestTime = 4 [json_name = "min_first_request_timestamp"];
+  string UserId = 5 [json_name = "user_id"];
+  uint64 EndTimeSeconds = 6 [json_name = "end_time_seconds"];
+  optional uint64 RefreshTimestampSeconds = 3 [json_name = "refresh_timestamp_seconds"];
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TAddonQuota AddonQuota = 7 [json_name = "addon_quota"];
+}
+
+message TCurrentLoadInfo {
+  message TPriorityLoad {
+    .NAlice.NFeaturesLimiter.NProto.NApi.EPriority Priority = 1 [json_name = "priority"];
+    uint64 Value = 2 [json_name = "value"];
+  }
+
+  uint64 TotalFeatureQuota = 1 [json_name = "total_feature_quota"];
+  uint64 RpsLimiterRequestsSum = 2 [json_name = "rps_limiter_requests_sum"];
+  uint64 IntervalMilliseconds = 3 [json_name = "interval_milliseconds"];
+  repeated .NAlice.NFeaturesLimiter.NProto.NApi.TCurrentLoadInfo.TPriorityLoad LoadByPriorities = 4 [json_name = "load_by_priorities"];
+}
+
+message TCanPassResponse {
+  .NAlice.NFeaturesLimiter.NProto.NApi.EDecision Decision = 1 [json_name = "decision"];
+  .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature Feature = 2 [json_name = "feature"];
+  .NAlice.NFeaturesLimiter.NProto.NApi.EUserClass UserClass = 3 [json_name = "user_class"];
+  .NAlice.NFeaturesLimiter.NProto.NApi.ERequestType RequestType = 4 [json_name = "request_type"];
+  .NAlice.NFeaturesLimiter.NProto.NApi.EPriority Priority = 5 [json_name = "priority"];
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TUserQuota UserQuota = 6 [json_name = "user_quota"];
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TDropPercentInfo DropPercentInfo = 7 [json_name = "drop_percent_info"];
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TCurrentLoadInfo CurrentLoadInfo = 8 [json_name = "current_load_info"];
+  optional .NAlice.TAliceLimitsCapability.TLimitUpdatedDirective LimitUpdateBannerDirective = 9 [json_name = "limit_update_banner_directive"];
+  optional uint64 IncrementValue = 10 [json_name = "increment_value"];
+  optional string RequestId = 11 [json_name = "request_id"];
+}
+
+message TMaxAvailablePriorityRequest {
+  bool Available = 1;
+  .NAlice.NFeaturesLimiter.NProto.NApi.EPriority Priority = 2;
+  .NAlice.NFeaturesLimiter.NProto.NApi.ERequestType RequestType = 3;
+  .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 6;
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TUserQuota UserQuota = 4;
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TDropPercentInfo DropPercentInfo = 5;
+}
+
+message TLocation {
+  string Location = 1;
+}
+
+message TSuccess {
+}
+
+message TUserQuotaInfo {
+  message TAddon {
+    uint64 EndTimeSeconds = 1;
+    optional .NAlice.NFeaturesLimiter.NProto.NApi.EAddonsScope AddonScope = 2;
+  }
+
+  repeated .NAlice.NFeaturesLimiter.NProto.NApi.TUserQuotaInfo.TAddon Addons = 2;
+  optional uint64 EndTimeSeconds = 1;
+}
+
+message TFeatureLimiterRequest {
+  string UserId = 1;
+  .NAlice.NFeaturesLimiter.NProto.NApi.EUserClass UserClass = 2;
+  .NAlice.TExperimentsProto Experiments = 3;
+  .NAlice.NFeaturesLimiter.NProto.NApi.TLimitedFeature LimitedFeature = 4;
+  uint32 RpsPriorityIncrease = 10;
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.TUserQuotaInfo UserQuotaInfo = 5;
+  optional bool DoNotAcquireQuota = 6;
+  optional string RequestId = 7;
+  optional bool SendBanners = 8;
+  optional uint64 IncrementValue = 9;
+}
+
+message TTryAddInflightRequestRequest {
+  string LimitedFeature = 1 [json_name = "limited_feature"];
+  string RequestId = 2 [json_name = "request_id"];
+  uint64 TtlMicroseconds = 3 [json_name = "ttl_microseconds"];
+}
+
+message TUpdateInflightRequestRequest {
+  string LimitedFeature = 1 [json_name = "limited_feature"];
+  string RequestId = 2 [json_name = "request_id"];
+  uint64 TtlMicroseconds = 3 [json_name = "ttl_microseconds"];
+}
+
+message TRequestId {
+  string RequestId = 1;
+}
+
+message TTtl {
+  uint64 Microseconds = 1;
+}
+
+message TEndTimes {
+  uint64 UserQuotaEndTime = 1;
+  optional uint64 AddonEndTime = 2;
+}
+
+message TRpsLimiter {
+  uint64 IntervalMilliseconds = 1;
+}
+
+message TIncrementValue {
+  uint64 IncrementValue = 1;
+}
+
+message TGetDecisionRequest {
+  string RequestId = 1 [json_name = "request_id"];
+  optional .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 2 [json_name = "limited_feature"];
+}
+
+message TGetDecisionResponse {
+  string RequestId = 1 [json_name = "request_id"];
+  repeated .NAlice.NFeaturesLimiter.NProto.NApi.TCanPassResponse Responses = 2 [json_name = "responses"];
+}
+
+message TFeaturesContext {
+  message TFeatureContext {
+    .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 1;
+    .NAlice.NFeaturesLimiter.NProto.NApi.TEndTimes EndTimes = 2;
+    string RequestId = 3;
+    bool SendBanners = 4;
+    uint64 IncrementValue = 5;
+    .NAlice.NFeaturesLimiter.NProto.NApi.TSettings Settings = 6;
+    string UserId = 7;
+    .NAlice.NFeaturesLimiter.NProto.NApi.EUserClass UserClass = 8;
+    repeated string LoadLocations = 9;
+    uint32 RpsPriorityIncrease = 10;
+  }
+
+  repeated .NAlice.NFeaturesLimiter.NProto.NApi.TFeaturesContext.TFeatureContext Features = 1;
+}
+
+message TReportBackendStateRequest {
+  .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 1;
+  uint64 ObservedAtTimestampMilliseconds = 2;
+  uint64 Backlog = 3;
+  string Location = 4;
+  uint64 RequestsQuota = 5;
+  oneof Arguments {
+    .NAlice.NFeaturesLimiter.NProto.NApi.TStaticArguments StaticArguments = 6;
+    .NAlice.NFeaturesLimiter.NProto.NApi.TPidArguments PidArguments = 7;
+    .NAlice.NFeaturesLimiter.NProto.NApi.TPlainArguments PlainArguments = 8;
+  }
+}
+
+message TResetUsedQuotaRequest {
+  string UserId = 1;
+  .NAlice.NFeaturesLimiter.NProto.NApi.ELimitedFeature LimitedFeature = 2;
+}
+
+message TResetUsedQuotaResponse {
+  bool QuotaReset = 1 [json_name = "quota_reset"];
+}
+
+enum ELimitedFeature {
+  LF_UNKNOWN = 0;
+  LF_TEXT_GENERATION = 1;
+  LF_REASONING = 2;
+  LF_PICTURES_GENERATION = 3;
+  LF_FILES = 4;
+  LF_MUSE = 5;
+  LF_ENGLISH_TUTOR = 6;
+  LF_MEMORY = 7;
+  LF_BILINGUAL = 8;
+  LF_LIFE_PHOTO = 9;
+  LF_PICTURE_STYLE = 10;
+  LF_PICTURE_EDITOR = 11;
+  LF_HIGH_RES_TTS = 12;
+  LF_SPEECH_GPT = 13;
+  LF_DEEP_RESEARCH = 14;
+  LF_ECOM_AGENT = 15;
+  LF_BOOKING_AGENT = 16;
+  LF_PRODUCTIVITY_AGENT = 17;
+  LF_BROWSER_PRODUCTIVITY_AGENT = 18;
+  LF_TEXT_GENERATION_BASE = 19;
+  LF_LIFE_PHOTO_PP = 20;
+  LF_LIFE_PHOTO_ALICE_APP = 21;
+  LF_LIFE_PHOTO_STAFF = 22;
+  LF_TEXT_GENERATION_NEURO = 23;
+  LF_LIFE_PHOTO_M_BRO = 24;
+  LF_LIFE_PHOTO_D_BRO = 25;
+  LF_PHOTOS = 26;
+  LF_DEEP_RESEARCH_DAYS = 27;
+  LF_THREESIXTY_NONE = 28;
+  LF_THREESIXTY_S = 29;
+  LF_THREESIXTY_L = 30;
+  LF_THREESIXTY_XL = 31;
+  LF_THREESIXTY_XXL = 32;
+  LF_BOOKING_OPERATOR_AGENT = 33;
+  LF_BOOKING_DAYS_STRICT = 34;
+  LF_BOOKING_DAYS_WIDE = 35;
+  LF_CHAT_NAMES_SUMMARIZER = 36;
+  LF_BOOKING_DAYS = 37;
+  LF_BOOKING_OPERATOR_DAYS = 38;
+  LF_PHOTOS_UPLOAD = 39;
+  LF_FILES_UPLOAD = 40;
+  LF_EDUCATION_LEARN_LM_AGENT = 41;
+  LF_THREESIXTY = 42;
+  LF_DEEP_RESEARCH_5_MIN = 43;
+  LF_SPEECH_INPUT_ASR = 44;
+  LF_EDITING_MODE_GENERATION = 45;
+  LF_WEATHER_AGENT = 46;
+  LF_CHARACTER = 47;
+  LF_DEEP_RESEARCH_5_MIN_WITH_ADDONS = 48;
+  LF_LIFE_PHOTO_UNLIMIT = 49;
+  LF_SIDE_BY_SIDE_DAY = 50;
+  LF_SIDE_BY_SIDE_WEEK = 51;
+  LF_FILES_REASONING = 52;
+  LF_SPEECH_INPUT_VAD = 53;
+  LF_DIALOG_FEEDBACK = 54;
+  LF_NEUROLEGAL = 55;
+  LF_GROCERY_AGENT = 56;
+  LF_DEEPRESEARCH_PRE_CHECK = 57;
+  LF_TAXI_AGENT = 58;
+  LF_PICTURE_COMBINING = 59;
+  LF_LIFE_PHOTO_720P = 60;
+  LF_NEUROLEGAL_DAYS = 61;
+  LF_SPORT_AGENT = 62;
+  LF_ECOM_SHOPPING_AGENT = 63;
+  LF_PHOTOS_SUBSCRIPTION_SMALL = 64;
+  LF_PHOTOS_SUBSCRIPTION_BIG = 65;
+  LF_JEEVES_DAYS = 66;
+  LF_TEXT_GENERATION_FULLMESH = 67;
+  LF_MARKET_ALICE_AGENT = 68;
+  LF_DELIVERY_CHAT_AGENT = 69;
+  LF_GC_FINANCE_AGENT = 70;
+  LF_GC_GAS_AGENT = 71;
+  LF_GC_DEEP_RESEARCH_FLASH_AGENT = 72;
+  LF_GC_EXPERIMENT_AGENT_SLOT_1 = 73;
+  LF_GC_EXPERIMENT_AGENT_SLOT_2 = 74;
+  LF_GC_ECOM_HUCKSTER_AGENT = 75;
+  LF_OPERATOR_AGENT = 76;
+  LF_OPERATOR_DAYS = 77;
+  LF_CALL_AGENT = 78;
+  LF_CALL_AGENT_DAYS = 79;
+  LF_ECOM_REGULAR_PURCHASES_AGENT = 80;
+  LF_GLM_AGENT = 81;
+  LF_GLM_AGENT_CLF_PATH = 82;
+  LF_EGE_AGENT = 83;
+  LF_BANNER_SUBSCRIPTION = 84;
+  LF_BANNER_SUBSCRIPTION_WEEK = 85;
+  LF_SBS_SHADOW_MIRRORING = 86;
+  LF_CALL_AGENT_PHONE_HOURS = 87;
+  LF_JEEVES_DREAMER_AGENT = 88;
+  LF_SIDE_BY_SIDE_COMMON = 89;
+  LF_NOTA_RECORDED_TIME = 90;
+  LF_CODE_SANDBOX_ERM = 91;
+  LF_CODE_SANDBOX_JEEVES = 92;
+  LF_CODE_SANDBOX_TRAIN = 93;
+  LF_GLM_5_2_8_CARDS = 94;
+  LF_GLM_5_2_3_75_CARDS = 95;
+  LF_GLM_5_2_2_5_CARDS = 96;
+  LF_DEEPSEEK_3_75_CARDS_KIT = 97;
+  LF_QWEN_3_75_CARDS_KIT = 98;
+  LF_GLM_5_3_3_75_CARDS_KIT = 99;
+  LF_GLM_5_3_3_75_CARDS_KIT_LLM_VLM = 100;
+  LF_PRO_SUMMARIZER = 101;
+  LF_BANNER_COUNTER = 102;
+  LF_JEEVES_SCHEDULER = 103;
+  LF_GLM_5_3_40_LLM_VLM_NEW_CLF = 104;
+  LF_GLM_5_3_50_LLM_VLM_NEW_CLF = 105;
+  LF_GLM_5_3_20_LLM_OLD_CLF = 106;
+  LF_GLM_5_3_20_LLM_VLM_OLD_CLF = 107;
+  LF_GLM_5_3_40_LLM_VLM_OLD_CLF = 108;
+  LF_GLM_5_3_40_LLM_OLD_CLF = 109;
+  LF_JEEVES_SCHEDULER_INFLIGHT = 110;
+  LF_OPERATOR_REQUEST = 111;
+  LF_ECOM_LOOKUP_OFFERS = 112;
+  LF_URM_AGENT = 113;
+  LF_URM_MOSKA_1 = 114;
+  LF_URM_MOSKA_2 = 115;
+  LF_URM_MOSKA_3 = 116;
+  LF_URM_MOSKA_4 = 117;
+  LF_URM_MOSKA_5 = 118;
+  LF_ECOM_PROMO_AGENT = 119;
+}
+
+enum EUserClass {
+  UC_UNKNOWN = 0;
+  UC_NO_LOGIN = 1;
+  UC_LOGIN = 2;
+  UC_PLUS = 3;
+  UC_ALICE_PRO = 4;
+  UC_POSSIBLE_FRAUDER = 5;
+  UC_ROBOT = 6;
+  UC_B2B = 7;
+  UC_NOTA_PRO = 8;
+  UC_NOTA_MAXI = 9;
+  UC_CUSTOM_1 = 10;
+  UC_CUSTOM_2 = 11;
+  UC_CUSTOM_3 = 12;
+}
+
+enum ERequestType {
+  RT_UNKNOWN = 0;
+  RT_FIRST = 1;
+  RT_HIGH_PRIORITY = 2;
+  RT_AVAILABLE = 3;
+}
+
+enum EPriority {
+  P_UNKNOWN = 0;
+  P_1 = 1;
+  P_2 = 2;
+  P_3 = 3;
+  P_4 = 4;
+  P_5 = 5;
+  P_6 = 6;
+  P_7 = 7;
+  P_8 = 8;
+  P_9 = 9;
+  P_10 = 10;
+  P_11 = 11;
+  P_12 = 12;
+}
+
+enum EDecision {
+  D_UNKNOWN = 0;
+  D_ALLOW = 1;
+  D_TOO_MANY_REQUESTS = 2;
+  D_NOT_AWAILABLE_FOR_USER = 3;
+}
+
+enum ESubscriptionScope {
+  SS_UNKNOWN = 0;
+  SS_ALICE = 1;
+  SS_NOTA = 2;
+}
+
+enum EAddonsScope {
+  AS_UNKNOWN = 0;
+  AS_LIFE_PHOTO = 1;
+  AS_DEEP_RESEARCH = 2;
+  AS_NEUROLEGAL = 3;
+  AS_PHOTO_INPUT = 4;
+  AS_CHARACTERS = 5;
+}
+
+enum EBannerVariableContent {
+  BVT_UNKNOWN = 0;
+  BVT_QUOTA_UPDATE_DATA_TEXT = 1;
+  BVT_ADDON_END_DATE_TEXT = 6;
+  BVT_REQUESTS_LEFT_NUM = 2;
+  BVT_REQUESTS_USED_NUM = 3;
+  BVT_ADDON_REQUESTS_LEFT_NUM = 4;
+  BVT_ADDON_REQUESTS_USED_NUM = 5;
+}
+

@@ -10,10 +10,10 @@ import "alice/library/yt/extensions/alice_options.proto";
 
 message TOrigin {
   oneof OptionalDeviceId {
-    string DeviceId = 1;
+    string DeviceId = 1 [json_name = "device_id"];
   }
   oneof OptionalUuid {
-    string Uuid = 2;
+    string Uuid = 2 [json_name = "uuid"];
   }
 }
 

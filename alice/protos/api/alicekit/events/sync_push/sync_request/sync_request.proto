@@ -16,11 +16,11 @@ message TSyncRequest {
   message TGetClientInfoOptions {
   }
 
-  .NAlice.NAliceApi.TSyncRequest.TGetClientInfoOptions GetClientInfoOptions = 4;
+  .NAlice.NAliceApi.TSyncRequest.TGetClientInfoOptions GetClientInfoOptions = 4 [json_name = "get_client_info_options"];
   oneof Request {
-    .NAlice.NAliceApi.TGetDeviceState GetDeviceState = 1;
-    .NAlice.NAliceApi.TExecuteDirective ExecuteDirective = 2;
-    .NAlice.NAliceApi.TExecuteDirectiveChain ExecuteDirectiveChain = 3;
+    .NAlice.NAliceApi.TGetDeviceState GetDeviceState = 1 [json_name = "get_device_state"];
+    .NAlice.NAliceApi.TExecuteDirective ExecuteDirective = 2 [json_name = "execute_directive"];
+    .NAlice.NAliceApi.TExecuteDirectiveChain ExecuteDirectiveChain = 3 [json_name = "execute_directive_chain"];
   }
 }
 

@@ -17,26 +17,38 @@ message TIntonationSpottingCapability {
   message TParameters {
   }
 
+  message TSettings {
+    optional bool Enabled = 1 [json_name = "enabled"];
+    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms"];
+  }
+
   message TState {
     reserved "ActivationReason";
     reserved 3;
-    bool IsIntonationSpottingEnabled = 1;
-    .NAlice.NData.ESpotterThresholdType Threshold = 2;
-    .NAlice.NData.ESpotterEnablingReason EnablingReason = 4;
+    bool IsIntonationSpottingEnabled = 1 [json_name = "is_intonation_spotting_enabled"];
+    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold"];
+    .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason"];
+    .NAlice.TIntonationSpottingCapability.TSettings Settings = 5 [json_name = "settings"];
   }
 
   message TSetIntonationSpottingDirective {
     reserved "ActivationReason";
     reserved 3;
-    string Name = 1000;
-    bool EnableIntonationSpotting = 1;
-    .NAlice.NData.ESpotterThresholdType Threshold = 2;
-    optional .NAlice.NData.ESpotterEnablingReason EnablingReason = 4;
-    optional uint32 EnableTimeMs = 5;
+    string Name = 1000 [json_name = "name"];
+    bool EnableIntonationSpotting = 1 [json_name = "enable_intonation_spotting"];
+    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold"];
+    optional .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason"];
+    optional uint32 EnableTimeMs = 5 [json_name = "enable_time_ms"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIntonationSpottingCapability.TParameters Parameters = 2;
-  .NAlice.TIntonationSpottingCapability.TState State = 3;
+  message TSetIntonationSpottingSettingsDirective {
+    string Name = 1000 [json_name = "name"];
+    optional bool Enabled = 1 [json_name = "enabled"];
+    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIntonationSpottingCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIntonationSpottingCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -27,7 +27,7 @@ message TOperatingFeatures {
   optional bool IsAliceShow = 2;
   optional bool IsFairytale = 3;
   optional bool IsTrackRemovedOnDislike = 4;
-  optional bool IsAudiobook = 5;
+  optional bool IsAudiobook = 5 [json_name = "is_audiobook"];
 }
 
 message TPlaybackEntity {

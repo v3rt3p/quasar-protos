@@ -13,25 +13,25 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotUxLayoutCapability {
   message TParameters {
-    uint32 MinIndex = 1;
-    uint32 MaxIndex = 2;
+    uint32 MinIndex = 1 [json_name = "min_index"];
+    uint32 MaxIndex = 2 [json_name = "max_index"];
   }
 
   message TState {
-    uint32 Index = 1;
+    uint32 Index = 1 [json_name = "index"];
   }
 
   message TSetUxLayoutDirective {
-    string Name = 1000;
-    uint32 Index = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 Index = 1 [json_name = "index"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotUxLayoutCapability Capability = 1;
+    .NAlice.TIotUxLayoutCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotUxLayoutCapability.TParameters Parameters = 2;
-  .NAlice.TIotUxLayoutCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotUxLayoutCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotUxLayoutCapability.TState State = 3 [json_name = "state"];
 }
 

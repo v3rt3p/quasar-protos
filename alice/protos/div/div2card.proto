@@ -14,41 +14,26 @@ import "alice/protos/div/div_external_variable_sources.proto";
 message TDiv2Card {
   message Template {
     oneof TemplateBody {
-      .google.protobuf.Struct Body = 1;
-      string StringBody = 2;
+      .google.protobuf.Struct Body = 1 [json_name = "body"];
+      string StringBody = 2 [json_name = "string_body"];
     }
-  }
-
-  message GlobalTemplatesEntry {
-    string key = 1;
-    .NAlice.TDiv2Card.Template value = 2;
   }
 
   message TDivPalette {
-    message DarkEntry {
-      string key = 1;
-      string value = 2;
-    }
-
-    message LightEntry {
-      string key = 1;
-      string value = 2;
-    }
-
-    repeated .NAlice.TDiv2Card.TDivPalette.DarkEntry Dark = 1;
-    repeated .NAlice.TDiv2Card.TDivPalette.LightEntry Light = 2;
+    map<string, string> Dark = 1 [json_name = "dark"];
+    map<string, string> Light = 2 [json_name = "light"];
   }
 
-  bool HideBorders = 2;
-  string Text = 3;
-  repeated .NAlice.TDiv2Card.GlobalTemplatesEntry GlobalTemplates = 4;
-  string CardName = 5;
-  .NAlice.TDiv2Id Id = 7;
-  .NAlice.TDiv2Card.TDivPalette Palette = 8;
-  repeated .NAlice.TDivExternalVariable ExternalVariables = 9;
+  bool HideBorders = 2 [json_name = "hide_borders"];
+  string Text = 3 [json_name = "text"];
+  map<string, .NAlice.TDiv2Card.Template> GlobalTemplates = 4 [json_name = "global_templates"];
+  string CardName = 5 [json_name = "card_name"];
+  .NAlice.TDiv2Id Id = 7 [json_name = "id"];
+  .NAlice.TDiv2Card.TDivPalette Palette = 8 [json_name = "palette"];
+  repeated .NAlice.TDivExternalVariable ExternalVariables = 9 [json_name = "external_variables"];
   oneof Div2Body {
-    .google.protobuf.Struct Body = 1;
-    string StringBody = 6;
+    .google.protobuf.Struct Body = 1 [json_name = "body"];
+    string StringBody = 6 [json_name = "string_body"];
   }
 }
 

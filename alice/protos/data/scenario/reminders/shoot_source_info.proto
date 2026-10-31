@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package NAlice.NData.NReminders;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.reminders";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/reminders";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRemindersShootSourceInfo {
+  message TSendPolicyType {
+    enum ESendPolicyType {
+      Unknown = 0;
+      Single = 1;
+      Cron = 2;
+    }
+
+  }
+
+  message TPushNotificationSourceInfo {
+  }
+
+  message TSchedulerMatrixSourceInfo {
+    string JobId = 1 [json_name = "job_id"];
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TSendPolicyType.ESendPolicyType SendPolicyType = 2 [json_name = "send_policy_type"];
+  }
+
+  message TSchedulerMatrixXivaSourceInfo {
+    string JobId = 1 [json_name = "job_id"];
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TSendPolicyType.ESendPolicyType SendPolicyType = 2 [json_name = "send_policy_type"];
+  }
+
+  message TSchedulerTechTaskSourceInfo {
+    string ReminderJobId = 2 [json_name = "reminder_job_id"];
+    optional string TechJobId = 1 [json_name = "tech_job_id"];
+  }
+
+  oneof SourceInfo {
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TPushNotificationSourceInfo DeviceStateSourceInfo = 1 [json_name = "push_notification_source_info"];
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TSchedulerMatrixSourceInfo MatrixSourceInfo = 2 [json_name = "scheduler_matrix_source_info"];
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TSchedulerMatrixXivaSourceInfo MatrixXivaSourceInfo = 3 [json_name = "scheduler_matrix_xiva_source_info"];
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo.TSchedulerTechTaskSourceInfo SchedulerTechTaskSourceInfo = 4 [json_name = "scheduler_tech_task_source_info"];
+  }
+}
+

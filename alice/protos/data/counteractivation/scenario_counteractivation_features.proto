@@ -9,14 +9,16 @@ option go_package = "a.yandex-team.ru/alice/protos/data/counteractivation";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScenarioCounteractivationFeatures {
-  bool HasScreenRelatedAnswer = 1;
-  bool CurrentlyPlayingRelated = 2;
-  bool PreferBetterAcoustics = 3;
-  bool HasSuitableAlarmState = 4;
-  bool IsPlayerStopCommand = 5;
-  bool IsActiveCall = 7;
+  bool HasScreenRelatedAnswer = 1 [json_name = "has_screen_related_answer"];
+  bool CurrentlyPlayingRelated = 2 [json_name = "currently_playing_related"];
+  bool PreferBetterAcoustics = 3 [json_name = "prefer_better_acoustics"];
+  bool HasSuitableAlarmState = 4 [json_name = "has_suitable_alarm_state"];
+  bool IsPlayerStopCommand = 5 [json_name = "is_player_stop_command"];
+  bool IsActiveCall = 7 [json_name = "is_active_call"];
+  bool IsIrrelevant = 8 [json_name = "is_irrelevant"];
+  bool IsGeneralConversation = 9 [json_name = "is_general_conversation"];
   oneof OptionalSecondsSinceLastPlayback {
-    double SecondsSinceLastPlayback = 6;
+    double SecondsSinceLastPlayback = 6 [json_name = "seconds_since_last_playback"];
   }
 }
 

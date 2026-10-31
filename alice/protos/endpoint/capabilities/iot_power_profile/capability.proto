@@ -16,16 +16,16 @@ message TIotPowerProfileCapability {
   }
 
   message TState {
-    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1;
+    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile"];
   }
 
   message TSetProfileDirective {
-    string Name = 1000;
-    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotPowerProfileCapability Capability = 1;
+    .NAlice.TIotPowerProfileCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EProfile {
@@ -36,8 +36,8 @@ message TIotPowerProfileCapability {
     FullPowerDetectedByHw = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotPowerProfileCapability.TParameters Parameters = 2;
-  .NAlice.TIotPowerProfileCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotPowerProfileCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotPowerProfileCapability.TState State = 3 [json_name = "state"];
 }
 

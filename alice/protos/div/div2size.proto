@@ -9,7 +9,7 @@ option go_package = "a.yandex-team.ru/alice/protos/div";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDiv2Size {
-  double Width = 1;
-  double Height = 2;
+  double Width = 1 [json_name = "width"];
+  double Height = 2 [json_name = "height"];
 }
 

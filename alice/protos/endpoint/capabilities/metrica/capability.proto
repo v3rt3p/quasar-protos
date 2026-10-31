@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MetricaCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/metrica;metricaspb";
+
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMetricaCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TMetricaEvent {
+    string Name = 1 [json_name = "name"];
+    .google.protobuf.Struct Body = 3 [json_name = "body"];
+  }
+
+  message TSendMetricaEventDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.TMetricaCapability.TMetricaEvent Event = 2 [json_name = "event"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMetricaCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMetricaCapability.TState State = 3 [json_name = "state"];
+}
+

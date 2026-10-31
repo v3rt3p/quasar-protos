@@ -6,6 +6,7 @@ option java_package = "ru.yandex.quasar.protobuf";
 option java_outer_classname = "DirectiveProto";
 
 import "alice/protos/data/event_source/event_source.proto";
+import "alice/protos/data/dialog_type/dialog_type.proto";
 import "alice/protos/api/source/source.proto";
 
 message Directive {
@@ -13,11 +14,6 @@ message Directive {
   reserved 13;
   reserved 17;
   reserved 24;
-  message TagsEntry {
-    optional string key = 1;
-    optional string value = 2;
-  }
-
   optional string name = 1;
   optional string analytics_context_name = 2;
   optional string type = 3;
@@ -36,9 +32,12 @@ message Directive {
   optional string directive_id = 21;
   optional bool block_subsequent_prefetch = 22;
   optional string pers_id = 23;
-  repeated .quasar.proto.Directive.TagsEntry tags = 26;
+  map<string, string> tags = 26;
   optional .NAlice.NAliceApi.TSourceInfo source_info = 27;
   optional bool attach_to_multiroom = 28;
+  optional string dialog_id = 29;
+  optional .NAlice.NData.EDialogType dialog_type = 30;
+  optional bool is_parallel = 31 [default = false];
   repeated string room_device_ids = 15;
   optional string multiroom_session_id = 16;
   oneof payload_type {

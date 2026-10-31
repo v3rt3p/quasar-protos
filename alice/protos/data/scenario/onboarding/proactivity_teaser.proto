@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.onboarding";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/onboarding";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/any.proto";
+
+message TProactivityTeaserData {
+  string Title = 1 [json_name = "title"];
+  string Description = 2 [json_name = "action_id"];
+  string SkillDescription = 5 [json_name = "skill_description"];
+  string BackgroundImageUrl = 3 [json_name = "background_image_url"];
+  .google.protobuf.Any TypedAction = 4 [json_name = "typed_action"];
+}
+

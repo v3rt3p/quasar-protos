@@ -17,8 +17,8 @@ message TDeferedAliceResponseProto {
   reserved "Sessions";
   reserved 5;
   message TChatHistoryResponseKey {
-    optional string HistoryMessageId = 1;
-    optional uint64 Timestamp = 2;
+    optional string HistoryMessageId = 1 [json_name = "history_message_id"];
+    optional uint64 Timestamp = 2 [json_name = "timestamp"];
   }
 
   message TBaseResponse {
@@ -30,26 +30,27 @@ message TDeferedAliceResponseProto {
     reserved 6;
     reserved 9;
     reserved 10;
-    repeated .NAlice.NAliceApi.TCard Cards = 3;
-    bool ShouldListen = 5;
-    repeated .NAlice.NAliceApi.TSuggest Suggests = 7;
-    repeated .NAlice.NAliceApi.TDirective Directives = 8;
-    optional string Text = 1;
-    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 11;
+    repeated .NAlice.NAliceApi.TCard Cards = 3 [json_name = "cards"];
+    bool ShouldListen = 5 [json_name = "should_listen"];
+    repeated .NAlice.NAliceApi.TSuggest Suggests = 7 [json_name = "suggests"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 8 [json_name = "directives"];
+    optional string Text = 1 [json_name = "text"];
+    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 11 [json_name = "request_annotation"];
   }
 
   message TCancelResponse {
-    bool Cancel = 1;
-    repeated .NAlice.NAliceApi.TDirective Directives = 2;
+    bool Cancel = 1 [json_name = "cancel"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
   }
 
-  uint32 ResponsePartialNum = 3;
-  bool IsLast = 4;
-  string RequestId = 6;
-  repeated .NAlice.NAliceApi.TDeferedAliceResponseProto.TChatHistoryResponseKey ChatHistoryResponseKeys = 15;
+  uint32 ResponsePartialNum = 3 [json_name = "response_partial_num"];
+  bool IsLast = 4 [json_name = "is_last"];
+  string RequestId = 6 [json_name = "request_id"];
+  repeated .NAlice.NAliceApi.TDeferedAliceResponseProto.TChatHistoryResponseKey ChatHistoryResponseKeys = 15 [json_name = "chat_history_response_keys"];
+  bool ContainsSensitiveDataInResponse = 18 [json_name = "contains_sensitive_data_in_response"];
   oneof TDeferredResponse {
-    .NAlice.NAliceApi.TDeferedAliceResponseProto.TBaseResponse BaseResponse = 1;
-    .NAlice.NAliceApi.TDeferedAliceResponseProto.TCancelResponse CancelResponse = 2;
+    .NAlice.NAliceApi.TDeferedAliceResponseProto.TBaseResponse BaseResponse = 1 [json_name = "base_response"];
+    .NAlice.NAliceApi.TDeferedAliceResponseProto.TCancelResponse CancelResponse = 2 [json_name = "cancel_response"];
   }
 }
 

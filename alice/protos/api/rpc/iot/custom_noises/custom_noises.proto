@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.iot.custom_noises";
+option java_outer_classname = "CustomNoises";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/iot/custom_noises;customnoisespb";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCustomNoise {
+  string Id = 1 [json_name = "id"];
+  repeated .NAlice.TSample Samples = 2 [json_name = "samples"];
+}
+
+message TSample {
+  string Id = 1 [json_name = "id"];
+  bytes Data = 2 [json_name = "data"];
+}
+
+message TIoTGetCustomNoiseSamplesByIdsRequest {
+  repeated string Ids = 1 [json_name = "ids"];
+}
+
+message TIoTGetCustomNoiseSamplesByIdsResponse {
+  repeated .NAlice.TSample Samples = 1 [json_name = "samples"];
+}
+
+message TIoTGetCustomNoisesByIdsRequest {
+  repeated string Ids = 1 [json_name = "ids"];
+}
+
+message TIoTGetCustomNoisesByIdsResponse {
+  repeated .NAlice.TCustomNoise Noises = 1 [json_name = "noises"];
+}
+
+message TIoTUploadCustomNoiseRecordingRequest {
+  string SessionId = 1 [json_name = "session_id"];
+  bytes Data = 2 [json_name = "data"];
+}
+
+message TIoTUploadCustomNoiseRecordingResponse {
+}
+

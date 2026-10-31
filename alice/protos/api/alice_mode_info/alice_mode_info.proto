@@ -17,15 +17,15 @@ message TAlice2ModeInfo {
     DeepResearch = 5;
   }
 
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo.EMode Mode = 1;
-  string Preset = 2;
-  optional string HackMode = 3;
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo.EMode Mode = 1 [json_name = "mode"];
+  string Preset = 2 [json_name = "preset"];
+  optional string HackMode = 3 [json_name = "hack_mode"];
 }
 
 message TAlice2TrialState {
-  uint32 LeftCount = 1;
-  uint32 Limit = 2;
-  uint32 TimeLimitSec = 3;
+  uint32 LeftCount = 1 [json_name = "left_count"];
+  uint32 Limit = 2 [json_name = "limit"];
+  uint32 TimeLimitSec = 3 [json_name = "time_limit_sec"];
 }
 
 enum EUserPriorityType {

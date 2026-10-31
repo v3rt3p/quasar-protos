@@ -9,7 +9,7 @@ option go_package = "a.yandex-team.ru/alice/protos/div";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDiv2Id {
-  string CardName = 1;
-  string CardId = 2;
+  string CardName = 1 [json_name = "card_name"];
+  string CardId = 2 [json_name = "card_id"];
 }
 

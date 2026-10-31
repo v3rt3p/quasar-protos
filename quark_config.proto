@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package quark.core;
+
+option java_package = "com.yandex.quark.proto";
+option java_outer_classname = "JniObjects";
+
+import "alice/protos/data/color/color.proto";
+
+message Paths {
+  optional string working_directory_path = 1;
+  optional string config_path = 2;
+}
+
+message QuarkConfig {
+  optional .quark.core.Paths paths = 1;
+  optional string device_id = 2;
+  map<string, string> config_placeholders = 3;
+  optional string locale_string = 4;
+  optional string country_string = 5;
+  optional bool download_sounds = 6;
+  optional string hardware_revision = 7;
+  optional bool enable_sound_logger = 8;
+  optional bool wait_for_auth_to_register = 9;
+  optional string uuid = 10;
+  optional string icookie = 11;
+  optional string cached_system_config = 12;
+  optional bool use_network_ipc = 13;
+  optional string quark_version = 14;
+  optional .NAlice.NData.EColor device_color = 15;
+}
+

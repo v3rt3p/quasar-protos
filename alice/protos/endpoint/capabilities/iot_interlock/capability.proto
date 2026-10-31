@@ -16,20 +16,20 @@ message TIotInterlockCapability {
   }
 
   message TState {
-    bool Value = 1;
+    bool Value = 1 [json_name = "value"];
   }
 
   message TSetIotInterlockDirective {
-    string Name = 1000;
-    bool Value = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Value = 1 [json_name = "value"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotInterlockCapability Capability = 1;
+    .NAlice.TIotInterlockCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotInterlockCapability.TParameters Parameters = 2;
-  .NAlice.TIotInterlockCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotInterlockCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotInterlockCapability.TState State = 3 [json_name = "state"];
 }
 

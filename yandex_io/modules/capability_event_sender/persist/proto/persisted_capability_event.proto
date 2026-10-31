@@ -5,20 +5,14 @@ package quasar.proto;
 option java_package = "ru.yandex.quasar.protobuf";
 option java_outer_classname = "PersistedCapabilityEventProto";
 
-import "alice/protos/endpoint/capability.proto";
+import "alice/protos/endpoint/events/any_capability_event.proto";
 import "google/protobuf/timestamp.proto";
-
-message TAnyEvent {
-  bytes RawEvent = 1;
-  .NAlice.TCapability.EEventType EventType = 2;
-  .NAlice.TCapability.ECapabilityType CapabilityType = 3;
-}
 
 message PersistedCapabilityEvent {
   reserved "Event";
   reserved 1;
   .google.protobuf.Timestamp Timestamp = 2;
   uint32 EndpointId = 3;
-  optional .quasar.proto.TAnyEvent AnyEvent = 4;
+  optional .NAlice.TAnyCapabilityEventHolder AnyEvent = 4;
 }
 

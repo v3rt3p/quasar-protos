@@ -8,6 +8,6 @@ option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THashPuids {
-  optional string Alice = 1;
+  optional string Alice = 1 [json_name = "alice"];
 }
 

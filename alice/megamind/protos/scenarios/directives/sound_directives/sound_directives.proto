@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package NAlice.NScenarios;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.directives.sound_directives";
+option java_outer_classname = "SoundDirectivesProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/directives/sound_directives";
+
+import "alice/megamind/protos/scenarios/directives/common/extensions.proto";
+import "alice/megamind/protos/scenarios/directives/common/location_info.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSoundMuteDirective {
+  string Name = 1 [json_name = "name"];
+}
+
+message TSoundUnmuteDirective {
+  string Name = 1 [json_name = "name"];
+}
+
+message TSoundSetLevelDirective {
+  string Name = 1 [json_name = "name"];
+  int32 NewLevel = 2 [json_name = "new_level"];
+  string MultiroomSessionId = 3 [json_name = "multiroom_session_id"];
+  string RoomId = 4 [json_name = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 5 [json_name = "location_info"];
+  optional int32 NewPercentLevel = 6 [json_name = "new_percent_level"];
+  optional bool IsWhisper = 7 [json_name = "is_whisper"];
+}
+
+message TSoundQuiterDirective {
+  string Name = 1 [json_name = "name"];
+  string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
+  string RoomId = 3 [json_name = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info"];
+}
+
+message TSoundLouderDirective {
+  string Name = 1 [json_name = "name"];
+  string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
+  string RoomId = 3 [json_name = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info"];
+}
+

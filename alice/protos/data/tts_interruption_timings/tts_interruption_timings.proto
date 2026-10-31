@@ -10,12 +10,12 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsInterruptionTimings {
   message TTiming {
-    string Word = 1;
-    uint64 StartMs = 2;
-    uint64 FinishMs = 3;
+    string Word = 1 [json_name = "word"];
+    uint64 StartMs = 2 [json_name = "start_ms"];
+    uint64 FinishMs = 3 [json_name = "finish_ms"];
   }
 
-  repeated .NAlice.TTtsInterruptionTimings.TTiming Timings = 1;
-  uint64 TriggerMs = 2;
+  repeated .NAlice.TTtsInterruptionTimings.TTiming Timings = 1 [json_name = "timings"];
+  uint64 TriggerMs = 2 [json_name = "trigger_ms"];
 }
 

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "YaBooksCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/ya_books;ya_booksspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TYaBooksCapability {
+  message TParameters {
+  }
+
+  message TextBook {
+    string BookUuid = 1 [json_name = "book_uuid"];
+    string DocumentUuid = 2 [json_name = "document_uuid"];
+    string Cfi = 3 [json_name = "cfi"];
+  }
+
+  message AudioBook {
+    string BookUuid = 1 [json_name = "book_uuid"];
+    string DocumentUuid = 2 [json_name = "document_uuid"];
+    uint32 Seconds = 3 [json_name = "seconds"];
+    uint32 TrackNumber = 4 [json_name = "track_number"];
+  }
+
+  message TState {
+    string Scenario = 1 [json_name = "scenario"];
+    .NAlice.TYaBooksCapability.TextBook TextBook = 2 [json_name = "text_book"];
+    .NAlice.TYaBooksCapability.AudioBook AudioBook = 3 [json_name = "audio_book"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TYaBooksCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TYaBooksCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -7,20 +7,26 @@ option java_outer_classname = "SpeechControl";
 option java_multiple_files = true;
 option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/speech_control";
 
+import "alice/protos/api/alicekit/events/client_chunk_meta/client_chunk_meta.proto";
+import "google/protobuf/duration.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSpeechControl {
   message TBegin {
-    uint64 ChunkId = 1;
+    uint64 ChunkId = 1 [json_name = "chunk_id"];
+    .NAlice.NAliceApi.TClientChunkMeta ChunkMeta = 2 [json_name = "chunk_meta"];
+    .google.protobuf.Duration AudioOffset = 3 [json_name = "audio_offset"];
   }
 
   message TResult {
-    bool EndOfUtt = 1;
-    uint64 ChunkId = 2;
+    bool EndOfUtt = 1 [json_name = "endOfUtt"];
+    uint64 ChunkId = 2 [json_name = "chunk_id"];
+    .NAlice.NAliceApi.TClientChunkMeta ChunkMeta = 3 [json_name = "chunk_meta"];
+    .google.protobuf.Duration AudioOffset = 4 [json_name = "audio_offset"];
   }
 
   message TRecognition {
-    string Text = 1;
+    string Text = 1 [json_name = "text"];
   }
 
   message TCancel {
@@ -30,11 +36,11 @@ message TSpeechControl {
   }
 
   oneof Message {
-    .NAlice.NAliceApi.TSpeechControl.TBegin Begin = 1;
-    .NAlice.NAliceApi.TSpeechControl.TResult Result = 2;
-    .NAlice.NAliceApi.TSpeechControl.TRecognition Recognition = 3;
-    .NAlice.NAliceApi.TSpeechControl.TCancel Cancel = 4;
-    .NAlice.NAliceApi.TSpeechControl.TFinish Finish = 5;
+    .NAlice.NAliceApi.TSpeechControl.TBegin Begin = 1 [json_name = "begin"];
+    .NAlice.NAliceApi.TSpeechControl.TResult Result = 2 [json_name = "result"];
+    .NAlice.NAliceApi.TSpeechControl.TRecognition Recognition = 3 [json_name = "recognition"];
+    .NAlice.NAliceApi.TSpeechControl.TCancel Cancel = 4 [json_name = "cancel"];
+    .NAlice.NAliceApi.TSpeechControl.TFinish Finish = 5 [json_name = "finish"];
   }
 }
 

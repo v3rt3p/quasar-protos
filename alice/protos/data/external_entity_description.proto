@@ -15,24 +15,24 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TExternalEntityDescription {
   message TEntityItem {
     message TEntityItemPhrase {
-      string Phrase = 1;
+      string Phrase = 1 [json_name = "phrase"];
     }
 
     message TEntityValue {
-      string StringValue = 1;
+      string StringValue = 1 [json_name = "string_value"];
     }
 
-    .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityValue Value = 1;
-    repeated .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityItemPhrase Phrases = 2;
+    .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityValue Value = 1 [json_name = "value"];
+    repeated .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityItemPhrase Phrases = 2 [json_name = "phrases"];
     oneof Meta {
-      .NAlice.TVideoGalleryItemMeta VideoMeta = 3;
-      .NAlice.TTvChannelItemMeta TvChannelMeta = 4;
-      .NAlice.TRecentTvItemMeta RecentTvItemMeta = 5;
-      .NAlice.TRemindersMeta RemindersMeta = 6;
+      .NAlice.TVideoGalleryItemMeta VideoMeta = 3 [json_name = "video_meta"];
+      .NAlice.TTvChannelItemMeta TvChannelMeta = 4 [json_name = "tv_channel_meta"];
+      .NAlice.TRecentTvItemMeta RecentTvItemMeta = 5 [json_name = "recent_tv_item_meta"];
+      .NAlice.TRemindersMeta RemindersMeta = 6 [json_name = "reminders_meta"];
     }
   }
 
-  string Name = 1;
-  repeated .NAlice.NData.TExternalEntityDescription.TEntityItem Items = 2;
+  string Name = 1 [json_name = "name"];
+  repeated .NAlice.NData.TExternalEntityDescription.TEntityItem Items = 2 [json_name = "items"];
 }
 

@@ -13,6 +13,7 @@ enum ECountry {
   COUNTRY_TR = 4;
   COUNTRY_EG = 5;
   COUNTRY_UZ = 6;
+  COUNTRY_AE = 7;
 }
 
 enum ELocale {
@@ -24,5 +25,6 @@ enum ELocale {
   LOCALE_TR_TR = 5;
   LOCALE_AR_EG = 6;
   LOCALE_UZ_UZ = 7;
+  LOCALE_AR_AE = 8;
 }
 

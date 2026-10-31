@@ -6,52 +6,74 @@ option java_package = "ru.yandex.alice.protos.api.files";
 option go_package = "a.yandex-team.ru/alice/protos/api/files";
 
 import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/library/censor/protos/extension.proto";
 import "alice/protos/data/scenario/draw_picture/generation_mode.proto";
+import "alice/protos/api/rpc/file_service/voice_cloning/voice_data.proto";
 
 message TFileInfo {
   message TSource {
     message TS3Source {
-      string S3Bucket = 1;
-      string S3Key = 2;
+      string S3Bucket = 1 [json_name = "s3_bucket"];
+      string S3Key = 2 [json_name = "s3_key"];
     }
 
     message TAvatarSource {
-      string AvatarId = 1;
-      string AvatarNamespace = 2;
-      optional uint64 GroupId = 3;
+      string AvatarId = 1 [json_name = "avatar_id"];
+      string AvatarNamespace = 2 [json_name = "avatar_namespace"];
+      optional uint64 GroupId = 3 [json_name = "group_id"];
     }
 
     message TExternalUrlSource {
-      string Url = 1;
+      string Url = 1 [json_name = "url"];
     }
 
     oneof Source {
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TS3Source S3Source = 1;
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TAvatarSource AvatarSource = 2;
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TExternalUrlSource ExternalUrlSource = 3;
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TS3Source S3Source = 1 [json_name = "s3_source"];
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TAvatarSource AvatarSource = 2 [json_name = "avatar_source"];
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TExternalUrlSource ExternalUrlSource = 3 [json_name = "external_url_source"];
     }
   }
 
   message TFeatures {
     message TBinaryClassifierResult {
-      string Id = 1;
-      bool Result = 2;
+      string Id = 1 [json_name = "id"];
+      bool Result = 2 [json_name = "result"];
     }
 
     message TImageClassifiersResult {
-      repeated .NAlice.NApi.NFiles.TFileInfo.TFeatures.TBinaryClassifierResult BinaryClassifiersResults = 1;
+      repeated .NAlice.NApi.NFiles.TFileInfo.TFeatures.TBinaryClassifierResult BinaryClassifiersResults = 1 [json_name = "binary_classifiers_results"];
     }
 
     message TDrawPictureFeatures {
-      .NAlice.TDrawPicture.EGenerationMode GenerationMode = 1;
+      .NAlice.TDrawPicture.EGenerationMode GenerationMode = 1 [json_name = "generation_mode"];
     }
 
-    bool IsEcomUrl = 1;
-    .NAlice.NApi.NFiles.TFileInfo.EParsedResultFormat ParsedResultFormat = 2;
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TImageClassifiersResult ImageClassifiersResult = 3;
-    bool IsParsedByClient = 5;
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDrawPictureFeatures DrawPictureFeatures = 6;
-    optional string OriginalUrl = 4;
+    message TDialogAppFeatures {
+      string DialogAppId = 1 [json_name = "dialog_app_id"];
+    }
+
+    message TProductFeatures {
+      message TProductId {
+        optional string HatterId = 1 [json_name = "hatter_id"];
+        optional string SkuId = 2 [json_name = "sku_id"];
+        optional string WareMd5 = 3 [json_name = "ware_md5"];
+      }
+
+      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures.TProductId ProductId = 1 [json_name = "product_id"];
+    }
+
+    bool IsEcomUrl = 1 [json_name = "is_ecom_url"];
+    .NAlice.NApi.NFiles.TFileInfo.EParsedResultFormat ParsedResultFormat = 2 [json_name = "parsed_result_format"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TImageClassifiersResult ImageClassifiersResult = 3 [json_name = "image_classifiers_result"];
+    bool IsParsedByClient = 5 [json_name = "is_parsed_by_client"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDrawPictureFeatures DrawPictureFeatures = 6 [json_name = "draw_picture_features"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDialogAppFeatures DialogAppFeatures = 8 [json_name = "dialog_app_features"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures ProductFeatures = 9 [json_name = "product_features"];
+    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceEmbedding VoiceEmbeddings = 11 [json_name = "voice_embeddings"];
+    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata VoiceMetadata = 12 [json_name = "voice_metadata"];
+    optional string OriginalUrl = 4 [json_name = "original_url"];
+    optional bool IndexCreated = 7 [json_name = "index_created"];
+    optional string TextPreview = 10 [json_name = "text_preview"];
   }
 
   enum EFileType {
@@ -70,6 +92,10 @@ message TFileInfo {
     DrawPicture = 3;
     SplitView = 4;
     SmartCamera = 5;
+    BrowserActionsAgent = 6;
+    BrowserHistoryAgent = 7;
+    TextEditor = 8;
+    VoiceCloning = 9;
   }
 
   enum EParsedResultFormat {

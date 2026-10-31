@@ -16,14 +16,14 @@ message TSmartVolumeCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TProcessSmartVolumeDirective {
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSmartVolumeCapability.TParameters Parameters = 2;
-  .NAlice.TSmartVolumeCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSmartVolumeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSmartVolumeCapability.TState State = 3 [json_name = "state"];
 }
 

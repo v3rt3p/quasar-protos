@@ -12,48 +12,49 @@ import "alice/library/yt/extensions/alice_options.proto";
 
 message TProviderContact {
   message TTelephoneId {
-    string Phone = 1;
+    string Phone = 1 [json_name = "phone"];
   }
 
   message TMessengerId {
-    string DeviceId = 1;
-    string Guid = 2;
+    string DeviceId = 1 [json_name = "device_id"];
+    string Guid = 2 [json_name = "guid"];
   }
 
   message TAtsId {
-    string Login = 1;
-    string CallId = 2;
-    string Domain = 3;
+    string Login = 1 [json_name = "login"];
+    string CallId = 2 [json_name = "call_id"];
+    string Domain = 3 [json_name = "domain"];
   }
 
-  string Name = 1;
+  string Name = 1 [json_name = "name"];
   oneof ProviderId {
-    .NAlice.NTelecom.TProviderContact.TTelephoneId TelephoneId = 2;
-    .NAlice.NTelecom.TProviderContact.TMessengerId MessengerId = 3;
-    .NAlice.NTelecom.TProviderContact.TAtsId AtsId = 4;
+    .NAlice.NTelecom.TProviderContact.TTelephoneId TelephoneId = 2 [json_name = "telephone_id"];
+    .NAlice.NTelecom.TProviderContact.TMessengerId MessengerId = 3 [json_name = "messenger_id"];
+    .NAlice.NTelecom.TProviderContact.TAtsId AtsId = 4 [json_name = "ats_id"];
   }
 }
 
 message TProviderContactInfo {
-  .NAlice.NTelecom.TProviderContact ProviderContact = 1;
-  bool CanBeTexted = 2;
-  bool CanBeCalled = 3;
+  .NAlice.NTelecom.TProviderContact ProviderContact = 1 [json_name = "provider_contact"];
+  bool CanBeTexted = 2 [json_name = "can_be_texted"];
+  bool CanBeCalled = 3 [json_name = "can_be_called"];
 }
 
 message TCallInfo {
   message TDevice {
-    string DeviceName = 1;
-    string DevicePlatform = 2;
-    .NAlice.NData.EColor Color = 6;
-    string DeviceIconUrl = 7;
-    string IotPlatform = 8;
-    optional string DeviceColor = 3;
-    optional string RoomName = 4;
-    optional string HouseholdName = 5;
+    string DeviceName = 1 [json_name = "device_name"];
+    string DevicePlatform = 2 [json_name = "device_platform"];
+    .NAlice.NData.EColor Color = 6 [json_name = "color"];
+    string DeviceIconUrl = 7 [json_name = "device_icon_url"];
+    string IotPlatform = 8 [json_name = "iot_platform"];
+    string DeviceId = 9 [json_name = "device_id"];
+    optional string DeviceColor = 3 [json_name = "device_color"];
+    optional string RoomName = 4 [json_name = "room_name"];
+    optional string HouseholdName = 5 [json_name = "household_name"];
   }
 
   message TUser {
-    string UserName = 1;
+    string UserName = 1 [json_name = "user_name"];
   }
 
   enum ECallType {
@@ -62,18 +63,26 @@ message TCallInfo {
     CT_Radionanny = 2;
   }
 
-  .NAlice.NTelecom.TCallInfo.ECallType CallType = 1;
+  enum ECallerDeviceType {
+    CDT_Unknown = 0;
+    CDT_Station = 1;
+    CDT_User = 2;
+    CDT_Intercom = 3;
+  }
+
+  .NAlice.NTelecom.TCallInfo.ECallType CallType = 1 [json_name = "call_type"];
+  .NAlice.NTelecom.TCallInfo.ECallerDeviceType CallerDeviceType = 107 [json_name = "caller_device_type"];
   oneof Call {
-    .NAlice.NTelecom.TCallInfo.TDevice Device = 101;
-    .NAlice.NTelecom.TCallInfo.TUser User = 102;
+    .NAlice.NTelecom.TCallInfo.TDevice Device = 101 [json_name = "device"];
+    .NAlice.NTelecom.TCallInfo.TUser User = 102 [json_name = "user"];
   }
   oneof Caller {
-    .NAlice.NTelecom.TCallInfo.TDevice CallerDevice = 103;
-    .NAlice.NTelecom.TCallInfo.TUser CallerUser = 104;
+    .NAlice.NTelecom.TCallInfo.TDevice CallerDevice = 103 [json_name = "caller_device"];
+    .NAlice.NTelecom.TCallInfo.TUser CallerUser = 104 [json_name = "caller_user"];
   }
   oneof Callee {
-    .NAlice.NTelecom.TCallInfo.TDevice CalleeDevice = 105;
-    .NAlice.NTelecom.TCallInfo.TUser CalleeUser = 106;
+    .NAlice.NTelecom.TCallInfo.TDevice CalleeDevice = 105 [json_name = "callee_device"];
+    .NAlice.NTelecom.TCallInfo.TUser CalleeUser = 106 [json_name = "callee_user"];
   }
 }
 

@@ -10,6 +10,7 @@ import "yandex_io/protos/alice_event/alice_event.proto";
 import "yandex_io/protos/fast_command.proto";
 import "yandex_io/protos/model_objects.proto";
 import "yandex_io/protos/capabilities/device_state_capability.proto";
+import "yandex_io/protos/video_summary/video_summary.proto";
 import "yandex_io/sdk/private/endpoint_storage/protos/endpoint.proto";
 import "yandex_io/sdk/directive_sequencer/protos/directive.proto";
 import "alice/library/restriction_level/protos/content_settings.proto";
@@ -33,18 +34,6 @@ import "alice/megamind/protos/common/experiments/experiments.proto";
 import "alice/megamind/protos/guest/enrollment_headers/enrollment_headers.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/struct.proto";
-
-message SoundFormat {
-  enum Type {
-    UNKNOWN = 0;
-    PCM = 1;
-    OPUS = 2;
-    RAW = 3;
-    HEADERLESS_OPUS_STREAM = 4;
-    HEADERLESS_OPUS_STREAM_BYTE_SIZE = 5;
-  }
-
-}
 
 message SoundQuality {
   enum Quality {
@@ -198,6 +187,7 @@ message Remoting {
     optional .NAlice.NAliceApi.TAliceRequest alice_request = 20;
     optional bool force = 21;
     optional .NAlice.TFileUploadCapability.TStartFileUploadDirective start_file_upload_directive = 22;
+    optional .NAlice.TAliceCapability.TStartRecognizeDirective start_recognize_directive = 23;
   }
 
   message AliceCapabilityListenerMethod {
@@ -258,6 +248,7 @@ message Remoting {
 
     optional .quasar.proto.Remoting.FastCommandRequesterMethod.Method method = 1;
     optional .NAlice.TEventSource event_source = 4;
+    optional string request_id = 5;
     oneof command {
       string string_command = 2;
       .quasar.proto.FastCommand fast_command = 3;
@@ -385,6 +376,7 @@ message Remoting {
     reserved 30;
     reserved 25;
     reserved 47;
+    reserved 11;
     message SupportedFeatures {
       repeated string values = 1;
     }
@@ -432,7 +424,6 @@ message Remoting {
       .quasar.proto.Remoting.DeviceStateCapabilityMethod.UnsupportedFeatures unsupported_features = 8;
       .NAlice.NAliceApi.TDeviceState.TVideo video_state = 9;
       .NAlice.NAliceApi.TDeviceState.TRcuState rcu_state = 10;
-      .NAlice.NAliceApi.TDeviceState.TScreen screen_state = 11;
       .NAlice.NAliceApi.TDeviceState.TMultiroom multiroom_state = 12;
       .NAlice.NAliceApi.TDeviceState.TPackagesState packages_state = 13;
       .NAlice.TExperimentsProto experiments = 14;
@@ -487,13 +478,6 @@ message Remoting {
   }
 
   message VocalizerCapabilityListenerMethod {
-    message SoundInfo {
-      optional int64 channel_count = 1;
-      optional int64 sample_rate = 2;
-      optional int64 sample_size = 3;
-      optional .quasar.proto.SoundFormat.Type type = 4;
-    }
-
     enum Method {
       ON_PLAYING_BEGIN = 0;
       ON_PLAYING_DONE = 1;
@@ -505,8 +489,54 @@ message Remoting {
     optional .quasar.proto.Remoting.VocalizerCapabilityListenerMethod.Method method = 1;
     optional int32 error_code = 2;
     optional string error_message = 3;
-    optional .quasar.proto.Remoting.VocalizerCapabilityListenerMethod.SoundInfo sound_info = 4;
+    optional .quasar.proto.SoundInfo sound_info = 4;
     optional bytes buffer = 5;
+  }
+
+  message RoutingAudioPlayerMethod {
+    enum Method {
+      ADD_PLAYER = 0;
+      REMOVE_PLAYER = 1;
+    }
+
+    optional .quasar.proto.Remoting.RoutingAudioPlayerMethod.Method method = 1;
+    optional string endpoint_id = 2;
+    optional string player_object_id = 3;
+  }
+
+  message AudioPlayerMethod {
+    enum Method {
+      PLAY = 0;
+      PAUSE = 1;
+      CANCEL = 2;
+      PLAY_DATA = 3;
+      SET_DATA_END = 4;
+      SET_VOLUME = 5;
+    }
+
+    optional .quasar.proto.Remoting.AudioPlayerMethod.Method method = 1;
+    optional .quasar.proto.SoundInfo sound_info = 2;
+    optional bytes buffer = 3;
+    optional .NAlice.TEventSource event_source = 4;
+    optional float volume = 5;
+  }
+
+  message AudioPlayerListenerMethod {
+    enum Method {
+      ON_PLAYING_BEGIN = 0;
+      ON_PLAYING_PAUSED = 1;
+      ON_PLAYING_RESUMED = 2;
+      ON_PLAYING_DONE = 3;
+      ON_PLAYING_DATA = 4;
+      ON_PLAYING_ERROR = 5;
+      ON_BUFFER_UNDERRUN = 6;
+    }
+
+    optional .quasar.proto.Remoting.AudioPlayerListenerMethod.Method method = 1;
+    optional .quasar.proto.SoundInfo sound_info = 2;
+    optional bytes buffer = 3;
+    optional int32 error_code = 4;
+    optional string error_message = 5;
   }
 
   message DirectiveSequencerMethod {
@@ -550,6 +580,7 @@ message Remoting {
 
     optional .quasar.proto.Remoting.TandemCapabilityListenerMethod.Method method = 1;
     optional .NAlice.TDeviceStateCapability.TState state = 2;
+    optional .NAlice.TVideoSummary follower_video = 3;
   }
 
   message ClockStorageMethod {
@@ -630,6 +661,9 @@ message Remoting {
     .quasar.proto.Remoting.FastCommandRequesterMethod fast_command_requester_method = 32;
     .quasar.proto.Remoting.FastCommandRequesterListenerMethod fast_command_requester_listener_method = 33;
     .quasar.proto.Remoting.TimingsManagerMethod timings_manager_method = 34;
+    .quasar.proto.Remoting.RoutingAudioPlayerMethod routing_audio_player_method = 35;
+    .quasar.proto.Remoting.AudioPlayerMethod audio_player_method = 36;
+    .quasar.proto.Remoting.AudioPlayerListenerMethod audio_player_listener_method = 37;
   }
 }
 

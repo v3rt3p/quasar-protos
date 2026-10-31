@@ -16,23 +16,23 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEnrollmentStatusTypeSlot {
   oneof Value {
-    .NAlice.NData.NIoT.TEnrollmentStatus EnrollmentStatus = 1;
+    .NAlice.NData.NIoT.TEnrollmentStatus EnrollmentStatus = 1 [json_name = "enrollment_status"];
   }
 }
 
 message TEnrollmentStatusSemanticFrame {
-  .NAlice.TStringSlot Puid = 1;
-  .NAlice.TEnrollmentStatusTypeSlot Status = 2;
-  .NAlice.TStringSlot ActiveEnrollmentPersId = 3;
+  .NAlice.TStringSlot Puid = 1 [json_name = "puid"];
+  .NAlice.TEnrollmentStatusTypeSlot Status = 2 [json_name = "status"];
+  .NAlice.TStringSlot ActiveEnrollmentPersId = 3 [json_name = "active_enrollment_pers_id"];
 }
 
 message TSelectEnrollmentTypeSemanticFrame {
-  .NAlice.TStringSlot EncryptedCode = 1;
-  .NAlice.TStringSlot Signature = 2;
-  .NAlice.TStringSlot EncryptedSessionKey = 3;
-  .NAlice.TStringSlot Puid = 4;
-  .NAlice.TTokenTypeSlot TokenType = 5;
-  .NAlice.TStringSlot UserType = 6;
+  .NAlice.TStringSlot EncryptedCode = 1 [json_name = "encrypted_code"];
+  .NAlice.TStringSlot Signature = 2 [json_name = "signature"];
+  .NAlice.TStringSlot EncryptedSessionKey = 3 [json_name = "encrypted_session_key"];
+  .NAlice.TStringSlot Puid = 4 [json_name = "puid"];
+  .NAlice.TTokenTypeSlot TokenType = 5 [json_name = "token_type"];
+  .NAlice.TStringSlot UserType = 6 [json_name = "user_type"];
 }
 
 message TCancelEnrollmentSemanticFrame {
@@ -42,7 +42,7 @@ message TVoiceprintEnrollmentDoneSemanticFrame {
 }
 
 message TGuestEnrollmentStartSemanticFrame {
-  .NAlice.TStringSlot Puid = 1;
+  .NAlice.TStringSlot Puid = 1 [json_name = "puid"];
 }
 
 message TGuestEnrollmentFinishSemanticFrame {

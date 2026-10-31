@@ -17,24 +17,24 @@ message TSensorSoundAlarmMuteCapability {
   }
 
   message TState {
-    bool Mute = 1;
+    bool Mute = 1 [json_name = "mute"];
   }
 
   message TMuteDirective {
-    string Name = 1000;
-    bool Mute = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Mute = 1 [json_name = "mute"];
   }
 
   message TToggleDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSensorSoundAlarmMuteCapability Capability = 1;
+    .NAlice.TSensorSoundAlarmMuteCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSensorSoundAlarmMuteCapability.TParameters Parameters = 2;
-  .NAlice.TSensorSoundAlarmMuteCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSensorSoundAlarmMuteCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSensorSoundAlarmMuteCapability.TState State = 3 [json_name = "state"];
 }
 

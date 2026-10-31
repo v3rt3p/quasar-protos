@@ -76,5 +76,7 @@ enum EEventType {
   AudioTranscriptionInputRequest = 66;
   AudioTranscriptionInputResponse = 67;
   FinishRequest = 68;
+  DeferredTtsGenerate = 69;
+  ChunkAck = 70;
 }
 

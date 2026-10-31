@@ -9,6 +9,6 @@ import "alice/protos/data/scenario/reminders/state.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRemindersMeta {
-  repeated .NAlice.NData.NReminders.TState.TReminder Reminders = 1;
+  repeated .NAlice.NData.NReminders.TState.TReminder Reminders = 1 [json_name = "reminders"];
 }
 

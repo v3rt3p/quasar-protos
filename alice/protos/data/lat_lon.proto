@@ -8,8 +8,8 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLatLon {
-  double Latitude = 1;
-  double Longitude = 2;
-  double Accuracy = 3;
+  double Latitude = 1 [json_name = "latitude"];
+  double Longitude = 2 [json_name = "longitude"];
+  double Accuracy = 3 [json_name = "accuracy"];
 }
 

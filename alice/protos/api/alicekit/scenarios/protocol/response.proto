@@ -1,0 +1,190 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.scenario.protocol";
+option java_outer_classname = "ScenarioResponseProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/scenarios/protocol";
+
+import "alice/protos/api/alicekit/analytics/local_event_timings/local_event_timings.proto";
+import "alice/protos/api/alicekit/analytics/scenario_analytics_info/scenario_analytics_info.proto";
+import "alice/protos/api/alicekit/directives/directive.proto";
+import "alice/protos/api/alicekit/scenarios/frames/frame.proto";
+import "google/protobuf/any.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLayout {
+  reserved "Cards";
+  reserved "ShouldListen";
+  reserved "Suggests";
+  reserved "Directives";
+  reserved "ContainsSensitiveData";
+  reserved "Div2Templates";
+  reserved "SuggestButtons";
+  reserved "DirectivesExecutionPolicy";
+  reserved "ContentProperties";
+  reserved "Div2Palette";
+  reserved "RenderParams";
+  reserved "EffectiveLanguage";
+  reserved 1;
+  reserved 3;
+  reserved 4;
+  reserved 5;
+  reserved 6;
+  reserved 7;
+  reserved 8;
+  reserved 9;
+  reserved 10;
+  reserved 11;
+  reserved 12;
+  reserved 13;
+  string OutputSpeech = 2 [json_name = "output_speech"];
+}
+
+message TScenarioResponseBody {
+  reserved "Actions";
+  reserved "Frame";
+  reserved "ActionSpaces";
+  reserved "DialogData";
+  reserved "SummarizerMeta";
+  reserved "SemanticFrame";
+  reserved "State";
+  reserved "ExpectsRequest";
+  reserved "FrameActions";
+  reserved "StackEngine";
+  reserved "Entities";
+  reserved "ServerDirectives";
+  reserved "ScenarioData";
+  reserved "ContextualData";
+  reserved "ConditionalActions";
+  reserved "GrpcResponse";
+  reserved "ResponseErrorMessage";
+  reserved "ExternalEntitiesDescription";
+  reserved "CounteractivationFeatures";
+  reserved "DeferredResponseArguments";
+  reserved "ForceServerRequest";
+  reserved 6;
+  reserved 10;
+  reserved 13;
+  reserved 21;
+  reserved 24;
+  reserved 2;
+  reserved 3;
+  reserved 7;
+  reserved 8;
+  reserved 9;
+  reserved 11;
+  reserved 12;
+  reserved 14;
+  reserved 15;
+  reserved 16;
+  reserved 17;
+  reserved 18;
+  reserved 19;
+  reserved 20;
+  reserved 22;
+  reserved 23;
+  .NAlice.NAliceApi.TScenarioAnalyticsInfo AnalyticsInfo = 4 [json_name = "analytics_info"];
+  oneof Response {
+    .NAlice.NAliceApi.TLayout Layout = 1 [json_name = "layout"];
+  }
+}
+
+message TScenarioError {
+  string Message = 1 [json_name = "message"];
+  string Type = 2 [json_name = "type"];
+}
+
+message TScenarioRunResponse {
+  reserved "CombineIntent";
+  reserved "DeferredResponseArguments";
+  reserved "UserInfo";
+  reserved "Version";
+  reserved "DialogData";
+  reserved "CounteractivationFeatures";
+  reserved 6;
+  reserved 11;
+  reserved 7;
+  reserved 8;
+  reserved 10;
+  reserved 12;
+  message TFeatures {
+    reserved "MusicFeatures";
+    reserved "VideoFeatures";
+    reserved "Intent";
+    reserved "VinsFeatures";
+    reserved "SearchFeatures";
+    reserved "PlayerFeatures";
+    reserved "GCFeatures";
+    reserved "IgnoresExpectedRequest";
+    reserved 7;
+    reserved 8;
+    reserved 2;
+    reserved 3;
+    reserved 4;
+    reserved 5;
+    reserved 6;
+    reserved 9;
+    reserved 10;
+    reserved 11;
+    bool IsIrrelevant = 1 [json_name = "is_irrelevant"];
+  }
+
+  .NAlice.NAliceApi.TScenarioRunResponse.TFeatures Features = 1 [json_name = "features"];
+  oneof Response {
+    .NAlice.NAliceApi.TScenarioResponseBody ResponseBody = 2 [json_name = "response_body"];
+    .google.protobuf.Any ApplyArguments = 4 [json_name = "apply_arguments"];
+    .NAlice.NAliceApi.TScenarioError Error = 5 [json_name = "error"];
+  }
+}
+
+message TScenarioApplyResponse {
+  reserved "Version";
+  reserved 3;
+  oneof Response {
+    .NAlice.NAliceApi.TScenarioResponseBody ResponseBody = 1 [json_name = "response"];
+    .NAlice.NAliceApi.TScenarioError Error = 2 [json_name = "error"];
+  }
+}
+
+message TLocalError {
+  enum ECode {
+    ErrorOk = 0;
+    ErrorClassifierFailed = 1;
+    ErrorClassifierIrrelevant = 2;
+    ErrorClassifierTimeout = 3;
+    ErrorScenarioIrrelevant = 4;
+    ErrorScenarioRunFailed = 5;
+    ErrorScenarioRunTimeout = 6;
+    ErrorScenarioApplyFailed = 7;
+    ErrorScenarioApplyTimeout = 8;
+    ErrorNoLocalDirectives = 9;
+    ErrorEmptyTextInput = 10;
+    ErrorNoScenario = 11;
+    ErrorAllScenariosFailed = 12;
+  }
+
+  .NAlice.NAliceApi.TLocalError.ECode Code = 1 [json_name = "code"];
+  string Message = 2 [json_name = "message"];
+}
+
+message TLocalAnalytics {
+  .NAlice.NAliceApi.TLocalEventTimings Timings = 1 [json_name = "timings"];
+  repeated .NAlice.NAliceApi.TSemanticFrame MatchedSemanticFrames = 2 [json_name = "matched_semantic_frames"];
+}
+
+message TLocalScenarioRunResponse {
+  .NAlice.NAliceApi.TScenarioRunResponse ScenarioRunResponse = 1 [json_name = "scenario_run_response"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+  .NAlice.NAliceApi.TLocalError Error = 3 [json_name = "error"];
+  .NAlice.NAliceApi.TLocalAnalytics Analytics = 4 [json_name = "analytics"];
+}
+
+message TLocalScenarioApplyResponse {
+  .NAlice.NAliceApi.TScenarioApplyResponse ScenarioApplyResponse = 1 [json_name = "scenario_apply_response"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+  .NAlice.NAliceApi.TLocalError Error = 3 [json_name = "error"];
+  .NAlice.NAliceApi.TLocalAnalytics Analytics = 4 [json_name = "analytics"];
+}
+

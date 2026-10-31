@@ -16,11 +16,15 @@ message TAggregate {
   message THubMeta {
   }
 
-  string MainEndpointId = 1;
-  repeated string EndpointIDs = 2;
+  message TTandemMeta {
+  }
+
+  string MainEndpointId = 1 [json_name = "main_endpoint_id"];
+  repeated string EndpointIDs = 2 [json_name = "endpoint_ids"];
   oneof Meta {
-    .NAlice.TAggregate.TCompositeMeta CompositeMeta = 3;
-    .NAlice.TAggregate.THubMeta HubMeta = 4;
+    .NAlice.TAggregate.TCompositeMeta CompositeMeta = 3 [json_name = "composite_meta"];
+    .NAlice.TAggregate.THubMeta HubMeta = 4 [json_name = "hub_meta"];
+    .NAlice.TAggregate.TTandemMeta TandemMeta = 5 [json_name = "tandem_meta"];
   }
 }
 

@@ -9,6 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/common/uniproxy_
 
 import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/api/alicekit/common/uniproxy_options/uniproxy_bidirectional_options.proto";
+import "alice/protos/api/dialog_history/dialog_options/dialog_options.proto";
 
 message TUniproxyOptions {
   reserved "GuestContextLoadOptions";
@@ -18,36 +20,38 @@ message TUniproxyOptions {
   reserved 6;
   reserved 7;
   message TContextLoadOptions {
-    bool UseBlackbox = 1;
-    bool UseCachalotMMSession = 2;
-    bool UseContacts = 3;
-    bool UseDatasync = 4;
-    bool UseFlagsJson = 5;
-    bool UseIotUserInfo = 6;
-    bool UseLaas = 7;
-    bool UseMemento = 8;
-    bool UseNotifications = 9;
+    bool UseBlackbox = 1 [json_name = "use_blackbox"];
+    bool UseCachalotMMSession = 2 [json_name = "use_cachalot_mm_session"];
+    bool UseContacts = 3 [json_name = "use_contacts"];
+    bool UseDatasync = 4 [json_name = "use_datasync"];
+    bool UseFlagsJson = 5 [json_name = "use_flags_json"];
+    bool UseIotUserInfo = 6 [json_name = "use_iot_user_info"];
+    bool UseLaas = 7 [json_name = "use_laas"];
+    bool UseMemento = 8 [json_name = "use_memento"];
+    bool UseNotifications = 9 [json_name = "use_notifications"];
   }
 
   message TCapabilityUpdatesOptions {
     message TCapabilityUpdateInfo {
-      .NAlice.TCapability.ECapabilityType CapabilityType = 1;
+      .NAlice.TCapability.ECapabilityType CapabilityType = 1 [json_name = "capability_type"];
     }
 
-    repeated .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions.TCapabilityUpdateInfo WaitClientCapabilityUpdates = 1;
+    repeated .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions.TCapabilityUpdateInfo WaitClientCapabilityUpdates = 1 [json_name = "wait_client_capability_updates"];
   }
 
   message TBackgroundResponseStreamingOptions {
     message TRequestWithShownNewDialog {
     }
 
-    .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions.TRequestWithShownNewDialog RequestWithShownNewDialog = 1;
+    .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions.TRequestWithShownNewDialog RequestWithShownNewDialog = 1 [json_name = "request_with_shown_new_dialog"];
   }
 
-  .NAlice.NAliceApi.TUniproxyOptions.TContextLoadOptions OwnerContextLoadOptions = 2;
-  .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions CapabilityUpdatesOptions = 8;
-  .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions BackgroundResponseStreamingOptions = 9;
-  optional string MegamindUrl = 1;
-  optional bool WaitClientApproval = 4;
+  .NAlice.NAliceApi.TUniproxyOptions.TContextLoadOptions OwnerContextLoadOptions = 2 [json_name = "owner_context_load_options"];
+  .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions CapabilityUpdatesOptions = 8 [json_name = "capability_updates_options"];
+  .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions BackgroundResponseStreamingOptions = 9 [json_name = "background_response_streaming_options"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions BidirectionalOptions = 10 [json_name = "bidirectional_options"];
+  .NAlice.NApi.NDialogHistory.TDialogOptions DialogOptions = 11 [json_name = "dialog_options"];
+  optional string MegamindUrl = 1 [json_name = "megamind_url"];
+  optional bool WaitClientApproval = 4 [json_name = "wait_client_approval"];
 }
 

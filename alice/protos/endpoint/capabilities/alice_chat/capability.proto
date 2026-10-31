@@ -1,0 +1,263 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat;alicechatpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/cuttlefish/services/features_limiter/proto/api/api.proto";
+import "alice/protos/api/alicekit/directives/directive.proto";
+import "alice/protos/api/alice_mode_info/alice_mode_info.proto";
+import "alice/protos/data/dialog_state/dialog_state.proto";
+import "alice/protos/div/div2card.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatCapability {
+  message TParameters {
+    optional bool SupportsRichSuggests = 1 [json_name = "supports_rich_suggests"];
+    optional bool SupportsRichAnswers = 2 [json_name = "supports_rich_answers"];
+    optional bool SupportsRichSummary = 3 [json_name = "supports_rich_summary"];
+  }
+
+  message TChatNavigationEntry {
+    enum EType {
+      Unknown = 0;
+      Chat = 1;
+      ChatList = 2;
+      Skill = 3;
+      ChatFolder = 4;
+    }
+
+    .NAlice.TAliceChatCapability.TChatNavigationEntry.EType Type = 1 [json_name = "type"];
+    string Title = 2 [json_name = "title"];
+    bool CanNavigateBack = 3 [json_name = "can_navigate_back"];
+    string Id = 4 [json_name = "id"];
+  }
+
+  message TNavigationState {
+    .NAlice.TAliceChatCapability.TChatNavigationEntry TopmostNavigationEntry = 1 [json_name = "topmost_navigation_entry"];
+  }
+
+  message TState {
+    bool IsChatActive = 1 [json_name = "is_chat_active"];
+    .NAlice.TAliceChatCapability.TNavigationState NavigationState = 2 [json_name = "navigation_state"];
+    .NAlice.TDialogState ActiveChatDialogContext = 3 [json_name = "active_chat_dialog_context"];
+  }
+
+  message TFillChatInputDirective {
+    string Name = 1 [json_name = "name"];
+    string Text = 2 [json_name = "text"];
+  }
+
+  message TShowProPurchaseScreenDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TShowFullscreenImageGalleryDirective {
+    message TButton {
+      string Title = 1 [json_name = "title"];
+      string IconUrl = 2 [json_name = "icon_url"];
+      bool IsEnabled = 4 [json_name = "is_enabled"];
+      .NAlice.NAliceApi.TDirective Directive = 3 [json_name = "directive"];
+    }
+
+    message TImage {
+      string ImageUrl = 1 [json_name = "image_url"];
+      repeated .NAlice.TAliceChatCapability.TShowFullscreenImageGalleryDirective.TButton Buttons = 2 [json_name = "buttons"];
+    }
+
+    string Name = 1 [json_name = "name"];
+    uint32 CurrentImage = 2 [json_name = "current_image"];
+    repeated .NAlice.TAliceChatCapability.TShowFullscreenImageGalleryDirective.TImage Images = 3 [json_name = "images"];
+  }
+
+  message TZoomImageDirective {
+    string Name = 1 [json_name = "name"];
+    int32 Step = 2 [json_name = "step"];
+  }
+
+  message TDownloadImageDirective {
+    string Name = 1 [json_name = "name"];
+    string ImageUrl = 2 [json_name = "image_url"];
+  }
+
+  message TShareImageDirective {
+    string Name = 1 [json_name = "name"];
+    string ImageUrl = 2 [json_name = "image_url"];
+  }
+
+  message TShowPromoScreenDirective {
+    string Name = 1 [json_name = "name"];
+    string PromoId = 2 [json_name = "promo_id"];
+  }
+
+  message TSetChatRequestModeDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo.EMode Mode = 2 [json_name = "mode"];
+    .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo RequestModeInfo = 3 [json_name = "request_mode_info"];
+    string Id = 4 [json_name = "id"];
+  }
+
+  message TAddChatDiv2CardDirective {
+    message TRenderRequestParams {
+      string CardId = 1 [json_name = "card_id"];
+    }
+
+    string Name = 1 [json_name = "name"];
+    string DialogId = 4 [json_name = "dialog_id"];
+    oneof DivCard {
+      .NAlice.TDiv2Card Div2Card = 2 [json_name = "div2_card"];
+      .NAlice.TAliceChatCapability.TAddChatDiv2CardDirective.TRenderRequestParams RenderRequestParams = 3 [json_name = "render_request_params"];
+    }
+  }
+
+  message TFinishChatDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TLimitExceededBannerDirective {
+    string Name = 1 [json_name = "name"];
+    string Text = 2 [json_name = "text"];
+    string Title = 3 [json_name = "title"];
+    .NAlice.NFeaturesLimiter.NProto.NApi.EDecision Decision = 4 [json_name = "decision"];
+  }
+
+  message TFewRequestsLeftBannerDirective {
+    string Name = 1 [json_name = "name"];
+    uint64 RequestsUsed = 2 [json_name = "requests_used"];
+    uint64 RequestsLimit = 3 [json_name = "requests_limit"];
+    uint64 RefreshTimestampSeconds = 4 [json_name = "refresh_timestamp_seconds"];
+    string Text = 5 [json_name = "text"];
+  }
+
+  message TOpenChatListDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TCreateNewChatDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TChatNavigateBackDirective {
+    string Name = 1 [json_name = "name"];
+    string NavigationEntryId = 2 [json_name = "navigation_entry_id"];
+  }
+
+  message TShowBannerDirective {
+    string Name = 1 [json_name = "name"];
+    string Text = 2 [json_name = "text"];
+    string Title = 3 [json_name = "title"];
+    string Type = 4 [json_name = "type"];
+  }
+
+  message TShowModalDirective {
+    message TButton {
+      reserved "Directives";
+      reserved 2;
+      string Text = 1 [json_name = "text"];
+      repeated .NAlice.NAliceApi.TDirective Actions = 3 [json_name = "actions"];
+    }
+
+    string Name = 1 [json_name = "name"];
+    string Type = 2 [json_name = "type"];
+    string Title = 3 [json_name = "title"];
+    repeated .NAlice.TAliceChatCapability.TShowModalDirective.TButton Buttons = 7 [json_name = "buttons"];
+    optional string Description = 4 [json_name = "description"];
+    optional bool PreventClose = 5 [json_name = "prevent_close"];
+    optional bool ShowOnce = 6 [json_name = "show_once"];
+    optional uint32 ShowTimeout = 8 [json_name = "show_timeout"];
+  }
+
+  message TShowNotificationDirective {
+    message TButton {
+      string Text = 1 [json_name = "text"];
+      repeated .NAlice.NAliceApi.TDirective Actions = 2 [json_name = "actions"];
+    }
+
+    message TLink {
+      string Text = 1 [json_name = "text"];
+      repeated .NAlice.NAliceApi.TDirective Actions = 3 [json_name = "actions"];
+      optional string Href = 2 [json_name = "href"];
+    }
+
+    string Name = 1 [json_name = "name"];
+    string Type = 2 [json_name = "type"];
+    string Title = 3 [json_name = "title"];
+    repeated .NAlice.TAliceChatCapability.TShowNotificationDirective.TButton Buttons = 6 [json_name = "buttons"];
+    repeated .NAlice.TAliceChatCapability.TShowNotificationDirective.TLink Links = 7 [json_name = "links"];
+    optional string Description = 4 [json_name = "description"];
+    optional bool ShowOnce = 5 [json_name = "show_once"];
+    optional uint32 ShowTimeout = 8 [json_name = "show_timeout"];
+  }
+
+  message TLoginWithCallbackDirective {
+    string Name = 1 [json_name = "name"];
+    string Text = 2 [json_name = "text"];
+    string Title = 3 [json_name = "title"];
+    repeated .NAlice.NAliceApi.TDirective CallbacksDirectives = 4 [json_name = "callbacks_directives"];
+  }
+
+  message TVideoFragment {
+    optional string VideoId = 1 [json_name = "video_id"];
+    optional double SeekTime = 2 [json_name = "seek_time"];
+  }
+
+  message TTextFragment {
+    optional string Text = 1 [json_name = "text"];
+  }
+
+  message TScrollToFragmentDirective {
+    string Name = 1 [json_name = "name"];
+    string ContentUrl = 2 [json_name = "content_url"];
+    string NavigationToFragmentUrl = 3 [json_name = "navigation_to_fragment_url"];
+    oneof Fragment {
+      .NAlice.TAliceChatCapability.TTextFragment TextFragment = 4 [json_name = "text_fragment"];
+      .NAlice.TAliceChatCapability.TVideoFragment VideoFragment = 5 [json_name = "video_fragment"];
+    }
+  }
+
+  message TScrollToTopDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TScreenshotTakenDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TOpenSerpViewDirective {
+    enum ESerpViewType {
+      UnknownSerpViewType = 0;
+      SerpEthicNews = 1;
+      SerpEthicCelebs = 2;
+      SerpEthicPorno = 3;
+      SerpEthicVpn = 4;
+    }
+
+    string Name = 1 [json_name = "name"];
+    string Url = 2 [json_name = "url"];
+    string Query = 3 [json_name = "query"];
+    .NAlice.TAliceChatCapability.TOpenSerpViewDirective.ESerpViewType SerpViewType = 4 [json_name = "serp_view_type"];
+  }
+
+  message TSuggestReaskDirective {
+    enum EReason {
+      R_UNKNOWN = 0;
+      R_LIMIT_ALMOST_EXCEEDED = 1;
+    }
+
+    string Name = 1 [json_name = "name"];
+    string RequestId = 2 [json_name = "request_id"];
+    .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo ModeInfo = 3 [json_name = "mode_info"];
+    string Text = 4 [json_name = "text"];
+    .NAlice.TAliceChatCapability.TSuggestReaskDirective.EReason Reason = 5 [json_name = "reason"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceChatCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceChatCapability.TState State = 3 [json_name = "state"];
+}
+

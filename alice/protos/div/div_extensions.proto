@@ -25,10 +25,10 @@ message TTextWithShadowExtension {
 }
 
 message TDivExtensions {
-  .NAlice.TScrollableGalleryExtension ScrollableGalleryExtension = 1;
-  .NAlice.TFocusExtension FocusExtension = 2;
-  .NAlice.TClockTimeExtension ClockTimeExtension = 3;
-  .NAlice.TExpiringViewExtension ExpiringViewExtension = 4;
-  .NAlice.TTextWithShadowExtension TextWithShadowExtension = 5;
+  .NAlice.TScrollableGalleryExtension ScrollableGalleryExtension = 1 [json_name = "scrollable_gallery_extension"];
+  .NAlice.TFocusExtension FocusExtension = 2 [json_name = "focus_extension"];
+  .NAlice.TClockTimeExtension ClockTimeExtension = 3 [json_name = "clock_time_extension"];
+  .NAlice.TExpiringViewExtension ExpiringViewExtension = 4 [json_name = "expiring_view_extension"];
+  .NAlice.TTextWithShadowExtension TextWithShadowExtension = 5 [json_name = "text_shadow_extension"];
 }
 

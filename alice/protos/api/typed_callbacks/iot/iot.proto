@@ -13,37 +13,37 @@ import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TActionDeviceResult {
-  string ID = 1;
-  string Status = 2;
+  string ID = 1 [json_name = "id"];
+  string Status = 2 [json_name = "status"];
 }
 
 message TScenarioActionDeviceResultCallback {
-  string LaunchID = 1;
-  repeated .NAlice.TActionDeviceResult DeviceResults = 2;
-  uint64 StepIndex = 3;
+  string LaunchID = 1 [json_name = "launch_id"];
+  repeated .NAlice.TActionDeviceResult DeviceResults = 2 [json_name = "device_results"];
+  uint64 StepIndex = 3 [json_name = "step_index"];
 }
 
 message TFinishDiscoveryCallback {
-  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1;
-  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2;
-  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3;
-  string SystemInfo = 4;
-  uint32 CallbackId = 5;
-  string SessionId = 6;
-  repeated .NAlice.TAggregate DiscoveredAggregates = 7;
-  .NAlice.TIotDiscoveryCapability.EMode Mode = 8;
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks"];
+  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints"];
+  string SystemInfo = 4 [json_name = "system_info"];
+  uint32 CallbackId = 5 [json_name = "callback_id"];
+  string SessionId = 6 [json_name = "session_id"];
+  repeated .NAlice.TAggregate DiscoveredAggregates = 7 [json_name = "discovered_aggregates"];
+  .NAlice.TIotDiscoveryCapability.EMode Mode = 8 [json_name = "mode"];
 }
 
 message TFinishSystemDiscoveryCallback {
-  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1;
-  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2;
-  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3;
-  string SystemInfo = 4;
-  uint32 CallbackId = 5;
-  repeated .NAlice.TAggregate DiscoveredAggregates = 6;
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks"];
+  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints"];
+  string SystemInfo = 4 [json_name = "system_info"];
+  uint32 CallbackId = 5 [json_name = "callback_id"];
+  repeated .NAlice.TAggregate DiscoveredAggregates = 6 [json_name = "discovered_aggregates"];
 }
 
 message TCancelDiscoveryCallback {
-  repeated string SessionIds = 1;
+  repeated string SessionIds = 1 [json_name = "session_ids"];
 }
 

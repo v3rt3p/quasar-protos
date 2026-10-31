@@ -14,15 +14,15 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TTextCard {
-  string Text = 1;
-  bool ProgressivePrinting = 2;
+  string Text = 1 [json_name = "text"];
+  bool ProgressivePrinting = 2 [json_name = "progressive_printing"];
 }
 
 message TDivCard {
   reserved "StringBody";
   reserved 1;
-  string Text = 2;
-  .google.protobuf.Struct Body = 3;
+  string Text = 2 [json_name = "text"];
+  .google.protobuf.Struct Body = 3 [json_name = "body"];
 }
 
 message TTextWithButtonsCard {
@@ -33,40 +33,42 @@ message TTextWithButtonsCard {
         NewLine = 1;
       }
 
-      string ImageUrl = 1;
-      .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme.EPlacement Placement = 2;
+      string ImageUrl = 1 [json_name = "image_url"];
+      .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme.EPlacement Placement = 2 [json_name = "placement"];
     }
 
-    string Type = 1;
-    string Title = 2;
-    repeated .NAlice.NAliceApi.TDirective Directives = 3;
-    string Text = 4;
-    .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme Theme = 5;
+    string Type = 1 [json_name = "type"];
+    string Title = 2 [json_name = "title"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives"];
+    string Text = 4 [json_name = "text"];
+    .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme Theme = 5 [json_name = "theme"];
   }
 
-  string Text = 1;
-  repeated .NAlice.NAliceApi.TTextWithButtonsCard.TButton buttons = 2;
+  string Text = 1 [json_name = "text"];
+  repeated .NAlice.NAliceApi.TTextWithButtonsCard.TButton buttons = 2 [json_name = "buttons"];
 }
 
 message TRichJsonCard {
   reserved "View";
   reserved 2;
-  string Body = 1;
-  bool HideBorders = 3;
+  string Body = 1 [json_name = "body"];
+  bool HideBorders = 3 [json_name = "hide_borders"];
 }
 
 message TNeuroStructuredBlocksCard {
   reserved "StructuredData";
   reserved 1;
-  string PlainText = 2;
-  string JsonStructuredData = 3;
-  string JsonRephraseItems = 4;
-  string JsonSourceData = 5;
+  string PlainText = 2 [json_name = "plain_text"];
+  string JsonStructuredData = 3 [json_name = "json_structured_data"];
+  string JsonRephraseItems = 4 [json_name = "json_rephrase_items"];
+  string JsonSourceData = 5 [json_name = "json_source_data"];
+  bool RenderEnableFlush = 6 [json_name = "render_enable_flush"];
+  string RenderItemsPerSecond = 7 [json_name = "render_items_per_second"];
 }
 
 message TSourcesCard {
-  repeated string Sources = 1;
-  optional string JsonSourceData = 2;
+  repeated string Sources = 1 [json_name = "sources"];
+  optional string JsonSourceData = 2 [json_name = "json_source_data"];
 }
 
 message TModeCard {
@@ -76,41 +78,41 @@ message TModeCard {
       LIVE = 1;
     }
 
-    .NAlice.NAliceApi.TModeCard.TRequestMode.EMode Mode = 1;
+    .NAlice.NAliceApi.TModeCard.TRequestMode.EMode Mode = 1 [json_name = "mode"];
   }
 
   oneof Mode {
-    .NAlice.NAliceApi.TModeCard.TRequestMode RequestMode = 1;
+    .NAlice.NAliceApi.TModeCard.TRequestMode RequestMode = 1 [json_name = "request_mode"];
   }
 }
 
 message TRichUICard {
   message TRenderData {
-    string JsonData = 1;
+    string JsonData = 1 [json_name = "json_data"];
   }
 
   message TState {
-    string JsonData = 1;
+    string JsonData = 1 [json_name = "json_data"];
   }
 
-  string UIComponentName = 1;
-  .NAlice.NAliceApi.TRichUICard.TRenderData Data = 2;
-  .NAlice.NAliceApi.TRichUICard.TState State = 3;
+  string UIComponentName = 1 [json_name = "uicomponent_name"];
+  .NAlice.NAliceApi.TRichUICard.TRenderData Data = 2 [json_name = "data"];
+  .NAlice.NAliceApi.TRichUICard.TState State = 3 [json_name = "state"];
 }
 
 message TCard {
-  string CardId = 1;
+  string CardId = 1 [json_name = "card_id"];
   oneof Card {
-    .NAlice.NAliceApi.TTextCard TextCard = 2;
-    .NAlice.TDiv2Card Div2Card = 3;
-    .NAlice.NAliceApi.TDivCard DivCard = 4;
-    .NAlice.NAliceApi.TTextWithButtonsCard TextWithButtonsCard = 5;
-    .NAlice.NAliceApi.TRichJsonCard RichJsonCard = 6;
-    .NAlice.NAliceApi.TSourcesCard SourcesCard = 7;
-    .NAlice.NAliceApi.TModeCard ModeCard = 9;
-    .NAlice.NAliceApi.TNeuroStructuredBlocksCard NeuroStructuredBlocksCard = 10;
-    .NAlice.NAliceApi.TRichUICard RichUICard = 11;
+    .NAlice.NAliceApi.TTextCard TextCard = 2 [json_name = "text_card"];
+    .NAlice.TDiv2Card Div2Card = 3 [json_name = "div2_card"];
+    .NAlice.NAliceApi.TDivCard DivCard = 4 [json_name = "div_card"];
+    .NAlice.NAliceApi.TTextWithButtonsCard TextWithButtonsCard = 5 [json_name = "text_with_buttons_card"];
+    .NAlice.NAliceApi.TRichJsonCard RichJsonCard = 6 [json_name = "rich_json_card"];
+    .NAlice.NAliceApi.TSourcesCard SourcesCard = 7 [json_name = "sources_card"];
+    .NAlice.NAliceApi.TModeCard ModeCard = 9 [json_name = "mode_card"];
+    .NAlice.NAliceApi.TNeuroStructuredBlocksCard NeuroStructuredBlocksCard = 10 [json_name = "neuro_structured_blocks_card"];
+    .NAlice.NAliceApi.TRichUICard RichUICard = 11 [json_name = "rich_uicard"];
   }
-  optional bool DontAddToChatHistory = 8;
+  optional bool DontAddToChatHistory = 8 [json_name = "dont_add_to_chat_history"];
 }
 

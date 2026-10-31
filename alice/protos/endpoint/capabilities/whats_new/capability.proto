@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "WhatsNewCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/whats_new;whatsnewpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/tv/whats_new/whats_new.proto";
+
+message TWhatsNewCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TShowWhatsNewDirective {
+    string Name = 1 [json_name = "name"];
+    string Id = 2 [json_name = "whats_new_id"];
+    .NAlice.NTv.TWhatsNewContent WhatsNewContent = 3 [json_name = "whats_new_content"];
+  }
+
+  message TShowWhatsNewInSourcesDirective {
+    string Name = 1 [json_name = "name"];
+    string Id = 2 [json_name = "whats_new_id"];
+    .NAlice.NTv.TWhatsNewContent WhatsNewContent = 3 [json_name = "whats_new_content"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWhatsNewCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWhatsNewCapability.TState State = 3 [json_name = "state"];
+}
+

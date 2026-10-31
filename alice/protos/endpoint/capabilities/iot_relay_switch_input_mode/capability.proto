@@ -16,16 +16,16 @@ message TIotRelaySwitchInputModeCapability {
   }
 
   message TState {
-    .NAlice.TIotRelaySwitchInputModeCapability.EMode Mode = 1;
+    .NAlice.TIotRelaySwitchInputModeCapability.EMode Mode = 1 [json_name = "mode"];
   }
 
   message TSetModeDirective {
-    string Name = 1000;
-    .NAlice.TIotRelaySwitchInputModeCapability.EMode Mode = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotRelaySwitchInputModeCapability.EMode Mode = 1 [json_name = "mode"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotRelaySwitchInputModeCapability Capability = 1;
+    .NAlice.TIotRelaySwitchInputModeCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EMode {
@@ -35,8 +35,8 @@ message TIotRelaySwitchInputModeCapability {
     PulseWireless = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotRelaySwitchInputModeCapability.TParameters Parameters = 2;
-  .NAlice.TIotRelaySwitchInputModeCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotRelaySwitchInputModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotRelaySwitchInputModeCapability.TState State = 3 [json_name = "state"];
 }
 

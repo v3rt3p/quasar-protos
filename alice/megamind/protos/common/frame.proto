@@ -1,0 +1,3170 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option java_outer_classname = "FrameProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/megamind/protos/common/frame_request_params.proto";
+import "alice/megamind/protos/common/iot.proto";
+import "alice/megamind/protos/scenarios/frames/auto_frame/auto_frame.proto";
+import "alice/megamind/protos/scenarios/frames/bluetooth_frame/bluetooth_frame.proto";
+import "alice/megamind/protos/scenarios/frames/call_commands_frame/call_commands_frame.proto";
+import "alice/megamind/protos/scenarios/frames/endpoint_events_frame/endpoint_events_frame.proto";
+import "alice/megamind/protos/scenarios/frames/enrollment_frame/enrollment_frame.proto";
+import "alice/megamind/protos/scenarios/frames/iot_frame/iot_frame.proto";
+import "alice/megamind/protos/scenarios/frames/media_frame/media_frame.proto";
+import "alice/megamind/protos/scenarios/frames/music_frame/music_frame.proto";
+import "alice/megamind/protos/scenarios/frames/onboarding_frame/onboarding_frame.proto";
+import "alice/megamind/protos/scenarios/frames/radio_frame/radio_frame.proto";
+import "alice/megamind/protos/scenarios/frames/sound_commands_frame/sound_commands_frame.proto";
+import "alice/megamind/protos/scenarios/frames/speech_activity_frame/speech_activity_frame.proto";
+import "alice/megamind/protos/scenarios/frames/common/common.proto";
+import "alice/protos/analytics/client_analytics/tv_client_carousel_analytics.proto";
+import "alice/protos/api/request_parts/atm.proto";
+import "alice/protos/api/request_parts/origin.proto";
+import "alice/protos/api/request_parts/request_params.proto";
+import "alice/protos/api/rpc/kids_tv_limits/kids_tv_limits.proto";
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "alice/protos/data/language/language.proto";
+import "alice/protos/data/lat_lon.proto";
+import "alice/protos/data/contacts.proto";
+import "alice/protos/data/news_provider.proto";
+import "alice/protos/data/scenario/alarm/alarm.proto";
+import "alice/protos/data/scenario/alice_show/selectors.proto";
+import "alice/protos/data/scenario/centaur/my_screen/widgets.proto";
+import "alice/protos/data/scenario/centaur/teasers/teaser_settings.proto";
+import "alice/protos/data/scenario/child_education/common.proto";
+import "alice/protos/data/scenario/music/content_id.proto";
+import "alice/protos/data/scenario/music/topic.proto";
+import "alice/protos/data/scenario/order/order.proto";
+import "alice/protos/data/scenario/reminders/extensions.proto";
+import "alice/protos/data/scenario/reminders/shoot_source_info.proto";
+import "alice/protos/data/scenario/route/route.proto";
+import "alice/protos/data/tv/tags/data/catalog_tag.proto";
+import "alice/protos/data/tv_feature_boarding/template.proto";
+import "alice/protos/data/video_call/video_call.proto";
+import "alice/protos/endpoint/events/events.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/descriptor.proto";
+
+message TSlotValue {
+  reserved 56788;
+  string Type = 1 [json_name = "type"];
+  oneof Value {
+    string String = 2 [json_name = "string"];
+  }
+}
+
+message TInt32Slot {
+  reserved 56788;
+  oneof Value {
+    int32 Int32Value = 1 [json_name = "int32_value"];
+  }
+}
+
+message TJsonSlot {
+  reserved 56788;
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TReminderSyncActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Scenario = 1;
+    Login = 2;
+    Logout = 3;
+    DisableSyncAndWipeMine = 4;
+    EnableSync = 5;
+  }
+
+  oneof Value {
+    .NAlice.TReminderSyncActionSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    .NAlice.NData.NReminders.ERemindersSyncAction ActionValue = 2 [json_name = "action_value"];
+  }
+}
+
+message TRemindersSelectionSlot {
+  enum EValue {
+    unknown = 0;
+    all = 1;
+  }
+
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "selection_num_value"];
+    .NAlice.TRemindersSelectionSlot.EValue EnumValue = 2 [json_name = "selection_enum_value"];
+  }
+}
+
+message TReminderTypeSlot {
+  enum EValue {
+    unknown = 0;
+    repeat = 1;
+  }
+
+  oneof Value {
+    .NAlice.TReminderTypeSlot.EValue EnumValue = 1 [json_name = "reminder_type_value"];
+  }
+}
+
+message TCustomDayPartSlot {
+  enum EValue {
+    unknown = 0;
+    morning = 1;
+    mornings = 2;
+    day = 3;
+    evening = 4;
+    evenings = 5;
+    night = 6;
+    nights = 7;
+    whole_day = 8;
+  }
+
+  oneof Value {
+    .NAlice.TCustomDayPartSlot.EValue EnumValue = 1 [json_name = "day_part_value"];
+  }
+}
+
+message TSysDateSlot {
+  oneof Value {
+    string Date = 1 [json_name = "date_value"];
+    string Weekdays = 2 [json_name = "weekdays_value"];
+    .NAlice.TCustomDayPartSlot.EValue DayPart = 3 [json_name = "day_part_value"];
+  }
+}
+
+message TSysTimeSlot {
+  oneof Value {
+    string Time = 1 [json_name = "time_value"];
+  }
+}
+
+message TChildEducationGameSelectAnswerSlot {
+  oneof Value {
+    string SelectedAnswer = 1 [json_name = "selected_answer_value"];
+  }
+}
+
+message TRemindersCancelGeneralSemanticFrame {
+  .NAlice.TSysDateSlot Date = 1 [json_name = "date"];
+  .NAlice.TSysTimeSlot Time = 2 [json_name = "time"];
+  .NAlice.TRemindersSelectionSlot Selection = 3 [json_name = "selection"];
+  .NAlice.TReminderTypeSlot ReminderType = 4 [json_name = "reminder_type"];
+}
+
+message TRemindersCancelEllipsisSemanticFrame {
+  .NAlice.TSysDateSlot Date = 1 [json_name = "date"];
+  .NAlice.TSysTimeSlot Time = 2 [json_name = "time"];
+  .NAlice.TRemindersSelectionSlot Selection = 3 [json_name = "selection"];
+  .NAlice.TReminderTypeSlot ReminderType = 4 [json_name = "reminder_type"];
+}
+
+message TRemindersListGeneralSemanticFrame {
+  .NAlice.TSysDateSlot Date = 1 [json_name = "date"];
+  .NAlice.TSysTimeSlot Time = 2 [json_name = "time"];
+  .NAlice.TReminderTypeSlot ReminderType = 3 [json_name = "reminder_type"];
+  .NAlice.TInt32Slot TriesLeft = 4 [json_name = "tries_left"];
+}
+
+message TRemindersCreateEllipsisSemanticFrame {
+  .NAlice.TSysDateSlot Date = 1 [json_name = "date"];
+  .NAlice.TSysTimeSlot Time = 2 [json_name = "time"];
+  .NAlice.TCustomDayPartSlot DayPart = 3 [json_name = "day_part"];
+  .NAlice.TStringSlot Text = 4 [json_name = "text"];
+  .NAlice.TReminderTypeSlot ReminderType = 5 [json_name = "reminder_type"];
+}
+
+message TRemindersCreateGeneralSemanticFrame {
+  .NAlice.TSysDateSlot Date = 1 [json_name = "date"];
+  .NAlice.TSysTimeSlot Time = 2 [json_name = "time"];
+  .NAlice.TCustomDayPartSlot DayPart = 3 [json_name = "day_part"];
+  .NAlice.TStringSlot Text = 4 [json_name = "text"];
+  .NAlice.TReminderTypeSlot ReminderType = 5 [json_name = "reminder_type"];
+}
+
+message TReminderCancelTypeSlot {
+  enum EValue {
+    Unknown = 0;
+    CancelLast = 1;
+    CancelAll = 2;
+  }
+
+  oneof Value {
+    .NAlice.TReminderCancelTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TNotificationSlot {
+  reserved 56788;
+  oneof Value {
+    string SubscriptionValue = 1 [json_name = "subscription_value"];
+  }
+}
+
+message TVideoSlot {
+  reserved 56788;
+  oneof Value {
+    string NewValue = 1 [json_name = "new_value"];
+  }
+}
+
+message TDateTimeSlot {
+  reserved 56788;
+  oneof Value {
+    string DateTimeValue = 1 [json_name = "datetime_value"];
+  }
+}
+
+message TUnitsTimeSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string UnitsTimeValue = 2 [json_name = "units_time_value"];
+  }
+}
+
+message TNewsProviderSlot {
+  oneof Value {
+    .NAlice.NData.TNewsProvider NewsProviderValue = 1 [json_name = "news_provider_value"];
+  }
+}
+
+message TTopicSlot {
+  oneof Value {
+    .NAlice.NData.NMusic.TTopic TopicValue = 1 [json_name = "topic_value"];
+  }
+}
+
+message TDayPartSlot {
+  oneof Value {
+    .NAlice.NData.NAliceShow.TDayPart.EValue DayPartValue = 1 [json_name = "day_part_value"];
+  }
+}
+
+message TAgeSlot {
+  oneof Value {
+    .NAlice.NData.NAliceShow.TAge.EValue AgeValue = 1 [json_name = "age_value"];
+  }
+}
+
+message TOrderNotificationTypeSlot {
+  oneof Value {
+    .NAlice.NOrder.ENotificationType OrderNotificationTypeValue = 1 [json_name = "order_notification_type_value"];
+  }
+}
+
+message TAppData {
+  oneof Value {
+    string AppDataValue = 1 [json_name = "app_data_value"];
+  }
+}
+
+message THardcodedResponseName {
+  oneof Value {
+    string HardcodedResponseNameValue = 1 [json_name = "hardcoded_response_value"];
+  }
+}
+
+message TWhatSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string NamedLocationValue = 2 [json_name = "named_location_value"];
+  }
+}
+
+message TWhereSlot {
+  oneof Value {
+    string WhereValue = 1 [json_name = "where_value"];
+    string SpecialLocationValue = 2 [json_name = "special_location_value"];
+    .NAlice.NData.TLatLon LatLonValue = 3 [json_name = "lat_lon_value"];
+    string StringValue = 4 [json_name = "string_value"];
+  }
+}
+
+message TRouteTypeSlot {
+  enum EValue {
+    unknown = 0;
+    auto = 1;
+    public_transport = 2;
+    pedestrian = 3;
+    non_pedestrian = 4;
+    direct = 5;
+  }
+
+  oneof Value {
+    .NAlice.TRouteTypeSlot.EValue RouteType = 1 [json_name = "route_type"];
+  }
+}
+
+message TRouteActionTypeSlot {
+  enum EValue {
+    unknown = 0;
+    how_long = 1;
+    how_far = 2;
+    other = 3;
+  }
+
+  oneof Value {
+    .NAlice.TRouteActionTypeSlot.EValue RouteActionType = 1 [json_name = "route_action_type"];
+  }
+}
+
+message TConfirmationSlot {
+  enum EValue {
+    unknown = 0;
+    yes = 1;
+    no = 2;
+  }
+
+  oneof Value {
+    .NAlice.TConfirmationSlot.EValue Confirmation = 1 [json_name = "confirmation"];
+  }
+}
+
+message TStartIotDiscoveryRequestSlot {
+  oneof Value {
+    .NAlice.TStartIotDiscoveryRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TFinishIotDiscoveryRequestSlot {
+  oneof Value {
+    .NAlice.TFinishIotDiscoveryRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TForgetIotEndpointsRequestSlot {
+  oneof Value {
+    .NAlice.TForgetIotEndpointsRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TEndpointStateUpdatesRequestSlot {
+  oneof Value {
+    .NAlice.TEndpointStateUpdatesRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TEndpointCapabilityEventsSlot {
+  oneof Value {
+    .NAlice.TEndpointCapabilityEvents EventsValue = 1 [json_name = "events_value"];
+  }
+}
+
+message TIotYandexIOActionRequestSlot {
+  oneof Value {
+    .NAlice.TIoTYandexIOActionRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TTvChosenTemplateSlot {
+  oneof Value {
+    .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 1 [json_name = "tandem_promo_template"];
+  }
+}
+
+message TIoTDeviceActionsBatchSlot {
+  oneof Value {
+    .NAlice.TIoTDeviceActionsBatch BatchValue = 1 [json_name = "batch_value"];
+  }
+}
+
+message TContentIdSlot {
+  oneof Value {
+    .NAlice.NData.NMusic.TContentId ContentIdValue = 1 [json_name = "content_id_value"];
+  }
+}
+
+message TFixlistInfoSlot {
+  oneof Value {
+    string FixlistInfoValue = 1 [json_name = "fixlist_info_value"];
+  }
+}
+
+message TTargetTypeSlot {
+  enum EValue {
+    unknown = 0;
+    track = 1;
+    album = 2;
+    artist = 3;
+    playlist = 4;
+    radio = 5;
+  }
+
+  oneof Value {
+    .NAlice.TTargetTypeSlot.EValue TargetTypeValue = 1 [json_name = "target_type_value"];
+  }
+}
+
+message TActionRequestSlot {
+  enum EValue {
+    unknown = 0;
+    autoplay = 1;
+    like = 2;
+    dislike = 3;
+  }
+
+  oneof Value {
+    .NAlice.TActionRequestSlot.EValue ActionRequestValue = 1 [json_name = "action_request_value"];
+  }
+}
+
+message TNeedSimilarSlot {
+  enum EValue {
+    unknown = 0;
+    need_similar = 1;
+  }
+
+  oneof Value {
+    .NAlice.TNeedSimilarSlot.EValue NeedSimilarValue = 1 [json_name = "need_similar_value"];
+  }
+}
+
+message TRepeatSlot {
+  enum EValue {
+    unknown = 0;
+    repeat = 1;
+  }
+
+  oneof Value {
+    .NAlice.TRepeatSlot.EValue RepeatValue = 1 [json_name = "repeat_value"];
+  }
+}
+
+message TOrderSlot {
+  enum EValue {
+    unknown = 0;
+    shuffle = 1;
+  }
+
+  oneof Value {
+    .NAlice.TOrderSlot.EValue OrderValue = 1 [json_name = "order_value"];
+  }
+}
+
+message TFairytaleThemeSlot {
+  enum EValue {
+    unknown = 0;
+    bedtime = 1;
+  }
+
+  oneof Value {
+    .NAlice.TFairytaleThemeSlot.EValue FairytaleThemeValue = 1 [json_name = "fairytale_theme_value"];
+  }
+}
+
+message TChildEducationGameTypeSlot {
+  oneof Value {
+    .NAlice.NData.NChildEducation.EGameType GameType = 1 [json_name = "game_type_value"];
+  }
+}
+
+message TSelectVideoFromGallerySemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+  .NAlice.TNumSlot VideoIndex = 2 [json_name = "video_index"];
+  .NAlice.TBoolSlot SilentResponse = 3 [json_name = "silent_response"];
+}
+
+message TOpenCurrentVideoSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+  .NAlice.TBoolSlot SilentResponse = 2 [json_name = "silent_response"];
+}
+
+message TOpenCurrentTrailerSemanticFrame {
+  reserved "PlayFeatureTrailerAction";
+  reserved 2;
+  .NAlice.TBoolSlot SilentResponse = 1 [json_name = "silent_response"];
+  optional .NAlice.TStringSlot OntoId = 3 [json_name = "onto_id"];
+}
+
+message TPlayCurrentVideoSemanticFrame {
+}
+
+message TFindCurrentVideoSemanticFrame {
+}
+
+message TPlayTrailerSemanticFrame {
+}
+
+message TOrderNotificationSemanticFrame {
+  .NAlice.TStringSlot ProviderName = 1 [json_name = "provider_name"];
+  .NAlice.TStringSlot OrderId = 2 [json_name = "order_id"];
+  .NAlice.TOrderNotificationTypeSlot OrderNotificationType = 3 [json_name = "order_notification_type"];
+}
+
+message TCancelOrderSemanticFrame {
+}
+
+message TCallCurierSemanticFrame {
+}
+
+message TMakeOrderSemanticFrame {
+  .NAlice.TStringSlot ProviderName = 1 [json_name = "provider_name"];
+}
+
+message TVideoPlayerFinishedSemanticFrame {
+  .NAlice.TBoolSlot SilentResponse = 1 [json_name = "silent_response"];
+}
+
+message TVideoPaymentConfirmedSemanticFrame {
+  .NAlice.TBoolSlot SilentResponse = 1 [json_name = "silent_response"];
+}
+
+message TSearchSemanticFrame {
+  .NAlice.TStringSlot Query = 1 [json_name = "query"];
+}
+
+message TIoTBroadcastStartSemanticFrame {
+  .NAlice.TStringSlot PairingToken = 1 [json_name = "pairing_token"];
+  .NAlice.TUInt32Slot TimeoutMs = 2 [json_name = "timeout_ms"];
+}
+
+message TIoTBroadcastSuccessSemanticFrame {
+  .NAlice.TStringSlot DevicesID = 1 [json_name = "devices_id"];
+  .NAlice.TStringSlot ProductIDs = 2 [json_name = "product_ids"];
+}
+
+message TIoTBroadcastFailureSemanticFrame {
+  .NAlice.TUInt32Slot TimeoutMs = 2 [json_name = "timeout_ms"];
+  .NAlice.TStringSlot Reason = 3 [json_name = "reason"];
+}
+
+message TIoTDiscoverySuccessSemanticFrame {
+  .NAlice.TStringSlot DeviceIDs = 1 [json_name = "device_ids"];
+  .NAlice.TStringSlot ProductIDs = 2 [json_name = "product_ids"];
+  .NAlice.TStringSlot DeviceType = 3 [json_name = "device_type"];
+}
+
+message TStartIotDiscoverySemanticFrame {
+  .NAlice.TStartIotDiscoveryRequestSlot Request = 1 [json_name = "request"];
+  .NAlice.TStringSlot SessionID = 2 [json_name = "session_id"];
+}
+
+message TStopIotDiscoverySemanticFrame {
+  .NAlice.TStringSlot SessionID = 2 [json_name = "session_id"];
+}
+
+message TFinishIotDiscoverySemanticFrame {
+  .NAlice.TFinishIotDiscoveryRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TFinishIotSystemDiscoverySemanticFrame {
+  .NAlice.TFinishIotDiscoveryRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TPutMoneyOnPhoneSemanticFrame {
+  .NAlice.TSysNumSlot Amount = 1 [json_name = "amount"];
+  .NAlice.TStringSlot PhoneNumber = 2 [json_name = "phone_number"];
+}
+
+message TTellMePromoCodeSmartBulbSemanticFrame {
+}
+
+message TTellMePromoCodeTypeSlot {
+  enum EValue {
+    Unknown = 0;
+    Lavka = 1;
+    Eda = 2;
+    SmartBulb = 3;
+    General = 4;
+    Station = 5;
+  }
+
+  oneof Value {
+    .NAlice.TTellMePromoCodeTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TTellMePromoCodeSemanticFrame {
+  .NAlice.TTellMePromoCodeTypeSlot TellMePromoCodeType = 1 [json_name = "tell_me_promo_code_type"];
+}
+
+message TTellMeInformationAboutTinkoffBusinessSemanticFrame {
+}
+
+message TDeleteIotNetworksSemanticFrame {
+}
+
+message TForgetIotEndpointsSemanticFrame {
+  .NAlice.TForgetIotEndpointsRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TIotYandexIOActionSemanticFrame {
+  .NAlice.TIotYandexIOActionRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TIotScenarioStepActionsSemanticFrame {
+  .NAlice.TStringSlot LaunchID = 1 [json_name = "launch_id"];
+  .NAlice.TUInt32Slot StepIndex = 2 [json_name = "step_index"];
+  .NAlice.TIoTDeviceActionsBatchSlot DeviceActionsBatch = 3 [json_name = "device_actions_batch"];
+}
+
+message TEndpointStateUpdatesSemanticFrame {
+  .NAlice.TEndpointStateUpdatesRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TCapabilityEventSemanticFrame {
+  reserved "Event";
+  reserved 1;
+}
+
+message TEndpointCapabilityEventsSemanticFrame {
+  .NAlice.TEndpointCapabilityEventsSlot Events = 1 [json_name = "events"];
+}
+
+message TMordoviaHomeScreenSemanticFrame {
+  .NAlice.TStringSlot DeviceID = 1 [json_name = "device_id"];
+}
+
+message TNewsSemanticFrame {
+  .NAlice.TStringSlot Topic = 1 [json_name = "topic"];
+  .NAlice.TNumSlot MaxCount = 2 [json_name = "max_count"];
+  .NAlice.TBoolSlot SkipIntroAndEnding = 3 [json_name = "skip_intro_and_ending"];
+  .NAlice.TNewsProviderSlot Provider = 4 [json_name = "provider"];
+  .NAlice.TWhereSlot Where = 5 [json_name = "where"];
+  .NAlice.TBoolSlot DisableVoiceButtons = 6 [json_name = "disable_voice_buttons"];
+  .NAlice.TBoolSlot GoBack = 7 [json_name = "go_back"];
+  .NAlice.TNumSlot NewsIdx = 8 [json_name = "news_idx"];
+  .NAlice.TBoolSlot SingleNews = 9 [json_name = "single_news"];
+}
+
+message TAddAccountSemanticFrame {
+  .NAlice.TStringSlot JwtToken = 1 [json_name = "jwt_token"];
+  .NAlice.TTokenTypeSlot TokenType = 2 [json_name = "token_type"];
+  .NAlice.TBoolSlot Encrypted = 3 [json_name = "encrypted"];
+  .NAlice.TStringSlot EncryptedCode = 4 [json_name = "encrypted_code"];
+  .NAlice.TStringSlot Signature = 5 [json_name = "signature"];
+  .NAlice.TStringSlot EncryptedSessionKey = 6 [json_name = "encrypted_session_key"];
+}
+
+message TRemoveAccountSemanticFrame {
+  .NAlice.TStringSlot Puid = 1 [json_name = "puid"];
+}
+
+message TCentaurCollectCardsSemanticFrame {
+  .NAlice.TStringSlot CarouselId = 1 [json_name = "carousel_id"];
+  .NAlice.TBoolSlot IsScheduledUpdate = 2 [json_name = "is_scheduled_update"];
+  .NAlice.TBoolSlot IsGetSettingsRequest = 3 [json_name = "is_get_settings_request"];
+}
+
+message TWidgetPositionSlot {
+  oneof Value {
+    .NAlice.NData.TWidgetPosition WidgetPositionValue = 1 [json_name = "widget_position_value"];
+  }
+}
+
+message TCentaurCollectMainScreenSemanticFrame {
+  .NAlice.TWidgetPositionSlot WidgetGalleryPosition = 1 [json_name = "widget_gallery_position"];
+  .NAlice.TWidgetConfigDataSlot WidgetConfigDataSlot = 2 [json_name = "widget_config_data_slot"];
+  .NAlice.TWidgetPositionSlot WidgetMainScreenPosition = 3 [json_name = "widget_main_screen_position"];
+}
+
+message TCentaurCollectUpperShutterSemanticFrame {
+}
+
+message TCentaurGetCardSemanticFrame {
+  .NAlice.TStringSlot CarouselId = 1 [json_name = "carousel_id"];
+}
+
+message TCentaurCollectWidgetGallerySemanticFrame {
+  .NAlice.TNumSlot Column = 1 [json_name = "column"];
+  .NAlice.TNumSlot Row = 2 [json_name = "row"];
+}
+
+message TWidgetDataSlot {
+  oneof Value {
+    .NAlice.NData.TCentaurWidgetData WidgetDataValue = 1 [json_name = "widget_data_value"];
+  }
+}
+
+message TWidgetConfigDataSlot {
+  oneof Value {
+    .NAlice.NData.TCentaurWidgetConfigData WidgetConfigDataValue = 1 [json_name = "widget_config_data_value"];
+  }
+}
+
+message TCatalogTagSlot {
+  oneof Value {
+    .NAlice.NTv.TCatalogTags CatalogTags = 1 [json_name = "catalog_tags"];
+  }
+}
+
+message TCentaurAddWidgetFromGallerySemanticFrame {
+  .NAlice.TNumSlot Column = 1 [json_name = "column"];
+  .NAlice.TNumSlot Row = 2 [json_name = "row"];
+  .NAlice.TWidgetDataSlot WidgetDataSlot = 3 [json_name = "widget_data_slot"];
+  .NAlice.TWidgetConfigDataSlot WidgetConfigDataSlot = 4 [json_name = "widget_config_data_slot"];
+}
+
+message TScenariosForTeasersSlot {
+  oneof Value {
+    .NAlice.NData.TTeaserSettingsData TeaserSettingsData = 1 [json_name = "teaser_settings_data"];
+  }
+}
+
+message TCentaurSetTeaserConfigurationSemanticFrame {
+  .NAlice.TScenariosForTeasersSlot ScenariosForTeasersSlot = 1 [json_name = "scenarios_for_teasers_slot"];
+}
+
+message TCentaurCollectTeasersPreviewSemanticFrame {
+}
+
+message TExternalAppSlot {
+  oneof Value {
+    string ExternalAppValue = 1 [json_name = "external_app_value"];
+  }
+}
+
+message TOpenSmartDeviceExternalAppFrame {
+  .NAlice.TExternalAppSlot Application = 1 [json_name = "application"];
+}
+
+message TOpenSmartDeviceExternalAppUniversalFrame {
+  .NAlice.TStringSlot ApplicationName = 1 [json_name = "application_name"];
+}
+
+message TMusicOnboardingSemanticFrame {
+  .NAlice.TBoolSlot KeepOnboardingSequence = 1 [json_name = "keep_onboarding_sequence"];
+}
+
+message TMusicOnboardingArtistsSemanticFrame {
+}
+
+message TMusicOnboardingGenresSemanticFrame {
+}
+
+message TMusicOnboardingTracksSemanticFrame {
+}
+
+message TMusicOnboardingTracksReaskSemanticFrame {
+  .NAlice.TNumSlot TrackIndex = 1 [json_name = "track_index"];
+  .NAlice.TStringSlot TrackId = 2 [json_name = "track_id"];
+}
+
+message TMusicAnnounceDisableSemanticFrame {
+}
+
+message TMusicAnnounceEnableSemanticFrame {
+}
+
+message TOpenTandemSettingSemanticFrame {
+}
+
+message TOpenSmartSpeakerSettingSemanticFrame {
+}
+
+message TExternalSkillActivateSemanticFrame {
+  .NAlice.TStringSlot ActivationPhrase = 1 [json_name = "activation_phrase"];
+}
+
+message TExternalSkillEpisodeForShowRequestSemanticFrame {
+  .NAlice.TStringSlot SkillId = 1 [json_name = "skill_id"];
+}
+
+message TMusicPlayFixlistSemanticFrame {
+  .NAlice.TFixlistInfoSlot SpecialAnswerInfo = 1 [json_name = "special_answer_info"];
+}
+
+message TMusicPlayAnaphoraSemanticFrame {
+  .NAlice.TActionRequestSlot ActionRequest = 1 [json_name = "action_request"];
+  .NAlice.TRepeatSlot Repeat = 2 [json_name = "repeat"];
+  .NAlice.TTargetTypeSlot TargetType = 3 [json_name = "target_type"];
+  .NAlice.TNeedSimilarSlot NeedSimilar = 4 [json_name = "need_similar"];
+  .NAlice.TOrderSlot Order = 5 [json_name = "order"];
+}
+
+message TMusicPlayFairytaleSemanticFrame {
+  .NAlice.TFairytaleThemeSlot FairytaleTheme = 1 [json_name = "fairytale_theme"];
+  .NAlice.TBoolSlot ForBabies = 2 [json_name = "for_babies"];
+}
+
+message TNannyBedtimeStorySemanticFrame {
+}
+
+message TNannyPlayOnDemandSemanticFrame {
+  .NAlice.TStringSlot ObjectId = 1 [json_name = "object_id"];
+  .NAlice.TStringSlot ObjectType = 2 [json_name = "object_type"];
+}
+
+message TNannyTimeToSleepSemanticFrame {
+}
+
+message TNannyWakeUpSemanticFrame {
+}
+
+message TStartMultiroomSemanticFrame {
+  repeated .NAlice.TLocationSlot LocationRoom = 1 [json_name = "location_room"];
+  repeated .NAlice.TLocationSlot LocationGroup = 2 [json_name = "location_group"];
+  repeated .NAlice.TLocationSlot LocationDevice = 3 [json_name = "location_device"];
+  .NAlice.TLocationSlot LocationEverywhere = 4 [json_name = "location_everywhere"];
+}
+
+message TActivationTypedSemanticFrameSlot {
+  oneof Value {
+    .NAlice.TPutMoneyOnPhoneSemanticFrame PutMoneyOnPhoneSemanticFrame = 1 [json_name = "put_money_on_phone_value"];
+    .NAlice.TGenesisBanRequestSemanticFrame GenesisBanRequestSemanticFrame = 2 [json_name = "genesis_ban_request_value"];
+    .NAlice.TGenesisSoftExitSemanticFrame GenesisSoftExitSemanticFrame = 3 [json_name = "genesis_soft_exit_value"];
+    .NAlice.TActivateTextGenerationSessionSemanticFrame ActivateTextGenerationSessionSemanticFrame = 4 [json_name = "activate_text_generation_session_value"];
+    .NAlice.TGenesisCareerOpportunitySemanticFrame GenesisCareerOpportunitySemanticFrame = 5 [json_name = "genesis_career_opportunity_value"];
+    .NAlice.TStartEcomAssistantSemanticFrame StartEcomAssistantSemanticFrame = 6 [json_name = "start_ecom_assistant_value"];
+  }
+}
+
+message TExternalSkillFixedActivateSemanticFrame {
+  .NAlice.TStringSlot FixedSkillId = 1 [json_name = "fixed_skill_id"];
+  .NAlice.TStringSlot ActivationCommand = 2 [json_name = "activation_command"];
+  .NAlice.TStringSlot Payload = 3 [json_name = "payload"];
+  .NAlice.TActivationSourceTypeSlot ActivationSourceType = 4 [json_name = "activation_source_type"];
+  .NAlice.TActivationTypedSemanticFrameSlot ActivationTypedSemanticFrame = 5 [json_name = "activation_typed_semantic_frame"];
+}
+
+message TActivationSourceTypeSlot {
+  oneof Value {
+    string ActivationSourceType = 1 [json_name = "activation_source_type"];
+  }
+}
+
+message TVideoPlaySemanticFrame {
+  .NAlice.TStringSlot ContentType = 1 [json_name = "content_type"];
+  .NAlice.TStringSlot Action = 2 [json_name = "action"];
+  .NAlice.TStringSlot SearchText = 3 [json_name = "search_text"];
+  .NAlice.TNumSlot Season = 4 [json_name = "season"];
+  .NAlice.TNumSlot Episode = 5 [json_name = "episode"];
+  .NAlice.TVideoSlot New = 6 [json_name = "new"];
+  .NAlice.TStringSlot ContentProvider = 7 [json_name = "content_provider"];
+}
+
+message TWeatherSemanticFrame {
+  .NAlice.TDateTimeSlot When = 1 [json_name = "when"];
+  .NAlice.TStringSlot CarouselId = 2 [json_name = "carousel_id"];
+  .NAlice.TWhereSlot Where = 3 [json_name = "where"];
+  .NAlice.TBoolSlot IsStashUpdate = 4 [json_name = "is_stash_update"];
+}
+
+message TFindPoiSemanticFrame {
+  .NAlice.TWhatSlot What = 1 [json_name = "what"];
+  .NAlice.TStringSlot ObjectId = 2 [json_name = "object_id"];
+  .NAlice.TStringSlot Yclid = 3 [json_name = "yclid"];
+  .NAlice.TStringSlot BannerId = 4 [json_name = "banner_id"];
+}
+
+message TShowTrafficSemanticFrame {
+}
+
+message THardcodedMorningShowSemanticFrame {
+  .NAlice.TNumSlot Offset = 1 [json_name = "offset"];
+  .NAlice.TStringSlot ShowType = 2 [json_name = "show_type"];
+  .NAlice.THardcodedShowSerializedSettingsSlot NewsProvider = 3 [json_name = "news_provider"];
+  .NAlice.THardcodedShowSerializedSettingsSlot Topic = 4 [json_name = "topic"];
+  .NAlice.TNumSlot NextTrackIndex = 5 [json_name = "next_track_index"];
+}
+
+message THardcodedShowSerializedSettingsSlot {
+  oneof Value {
+    string SerializedData = 1 [json_name = "data_value"];
+  }
+}
+
+message TAliceShowActivateSemanticFrame {
+  .NAlice.TNewsProviderSlot NewsProvider = 1 [json_name = "news_provider"];
+  .NAlice.TTopicSlot Topic = 2 [json_name = "topic"];
+  .NAlice.TDayPartSlot DayPart = 3 [json_name = "day_part"];
+  .NAlice.TAgeSlot Age = 4 [json_name = "age"];
+}
+
+message TAppsFixlistSemanticFrame {
+  .NAlice.TAppData AppData = 1 [json_name = "app_data"];
+}
+
+message TFastCommandFastNextTrackSemanticFrame {
+  .NAlice.TBoolSlot SetPause = 1 [json_name = "set_pause"];
+  .NAlice.TBoolSlot DisableAnimation = 2 [json_name = "disable_animation"];
+}
+
+message TFastCommandStrictPauseSemanticFrame {
+}
+
+message TPlayerLikeSemanticFrame {
+  .NAlice.TContentIdSlot ContentId = 1 [json_name = "content_id"];
+}
+
+message TPlayerRemoveLikeSemanticFrame {
+  .NAlice.TContentIdSlot ContentId = 1 [json_name = "content_id"];
+}
+
+message TPlayerDislikeSemanticFrame {
+  .NAlice.TContentIdSlot ContentId = 1 [json_name = "content_id"];
+}
+
+message TPlayerRemoveDislikeSemanticFrame {
+  .NAlice.TContentIdSlot ContentId = 1 [json_name = "content_id"];
+  .NAlice.TContentIdSlot ContentToPlayAfter = 2 [json_name = "content_to_play_after"];
+}
+
+message TPlayerSongsByThisArtistSemanticFrame {
+}
+
+message TMusicPlayerDisableLyricsSemanticFrame {
+}
+
+message TMusicPlayerEnableLyricsSemanticFrame {
+}
+
+message TMusicActivateLitresSkillSemanticFrame {
+}
+
+message TMusicPlayDjSetSemanticFrame {
+}
+
+message TMusicPlayKaraokeSemanticFrame {
+}
+
+message TMusicEnableKaraokeModeSemanticFrame {
+}
+
+message TMusicDisableKaraokeModeSemanticFrame {
+}
+
+message TPlayerSongsFromThisAlbumSemanticFrame {
+}
+
+message TPlayerWhatIsPlayingSemanticFrame {
+}
+
+message TPlayerWhatIsThisSongAboutSemanticFrame {
+}
+
+message TMusicPlayerReplaySemanticFrame {
+}
+
+message TRemindersCancelSemanticFrame {
+  .NAlice.TStringSlot Ids = 1 [json_name = "ids"];
+  .NAlice.TReminderCancelTypeSlot Type = 2 [json_name = "type"];
+}
+
+message TRemindersListSemanticFrame {
+  reserved "Countdown";
+  reserved 1;
+  .NAlice.TStringSlot Date = 2 [json_name = "date"];
+  .NAlice.TStringSlot Time = 3 [json_name = "time"];
+  .NAlice.TInt32Slot TriesLeft = 4 [json_name = "tries_left"];
+}
+
+message TLanguageEnumSlot {
+  oneof Value {
+    .NAlice.ELang EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TShootSourceInfoSlot {
+  oneof Value {
+    .NAlice.NData.NReminders.TRemindersShootSourceInfo ShootSourceInfo = 1 [json_name = "shoot_source_info"];
+  }
+}
+
+message TRemindersOnShootSemanticFrame {
+  reserved "Opaque";
+  reserved 6;
+  .NAlice.TStringSlot Id = 1 [json_name = "id"];
+  .NAlice.TStringSlot Text = 2 [json_name = "text"];
+  .NAlice.TStringSlot Epoch = 3 [json_name = "epoch"];
+  .NAlice.TStringSlot TimeZone = 4 [json_name = "timezone"];
+  .NAlice.TStringSlot OriginDeviceId = 5 [json_name = "origin_device_id"];
+  .NAlice.TInt64Slot ClientTimeDeltaSeconds = 7 [json_name = "client_time_delta_seconds"];
+  .NAlice.TLanguageEnumSlot Language = 8 [json_name = "language"];
+  .NAlice.TShootSourceInfoSlot ShootSourceInfo = 9 [json_name = "shoot_source_info"];
+}
+
+message TRemindersPrepareShootSemanticFrame {
+  reserved "MatrixJobId";
+  reserved 2;
+  .NAlice.TStringSlot Id = 1 [json_name = "id"];
+  .NAlice.TShootSourceInfoSlot ShootSourceInfo = 3 [json_name = "shoot_source_info"];
+}
+
+message TRemindersSyncSemanticFrame {
+  reserved "CurrentVersion";
+  reserved 1;
+  .NAlice.TReminderSyncActionSlot Action = 2 [json_name = "action"];
+  .NAlice.TInt32Slot TriesLeft = 3 [json_name = "tries_left"];
+}
+
+message TNotesSyncSemanticFrame {
+}
+
+message TRemindersLogSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+  .NAlice.TBoolSlot Success = 2 [json_name = "success"];
+  .NAlice.TStringSlot Id = 3 [json_name = "id"];
+}
+
+message TRewindTypeSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string RewindTypeValue = 2 [json_name = "rewind_type_value"];
+  }
+}
+
+message TPlayerRewindSemanticFrame {
+  .NAlice.TUnitsTimeSlot Time = 1 [json_name = "time"];
+  .NAlice.TRewindTypeSlot RewindType = 2 [json_name = "rewind_type"];
+}
+
+message TMusicPlayerAddToPlaylistSemanticFrame {
+  .NAlice.TStringSlot Playlist = 1 [json_name = "playlist"];
+  .NAlice.TBoolSlot NeedLike = 2 [json_name = "need_like"];
+}
+
+message TMusicPlayerChangeChapterNumberSemanticFrame {
+  .NAlice.TSysNumSlot ChapterNumber = 1 [json_name = "chapter_number"];
+}
+
+message TMusicPlayerChangeTrackVersionSemanticFrame {
+  message TCustomTrackVersionSlot {
+    enum EValue {
+      unknown = 0;
+      original = 1;
+      remix = 2;
+      live = 3;
+    }
+
+    oneof Value {
+      .NAlice.TMusicPlayerChangeTrackVersionSemanticFrame.TCustomTrackVersionSlot.EValue TrackVersionValue = 2 [json_name = "track_version_value"];
+    }
+  }
+
+  .NAlice.TMusicPlayerChangeTrackVersionSemanticFrame.TCustomTrackVersionSlot TrackVersion = 1 [json_name = "track_version"];
+}
+
+message TMusicPlayerChangeTrackNumberSemanticFrame {
+  message TCustomOffsetSlot {
+    enum EValue {
+      unknown = 0;
+      newest = 1;
+    }
+
+    oneof Value {
+      .NAlice.TMusicPlayerChangeTrackNumberSemanticFrame.TCustomOffsetSlot.EValue OffsetValue = 2 [json_name = "offset_value"];
+    }
+  }
+
+  .NAlice.TMusicPlayerChangeTrackNumberSemanticFrame.TCustomOffsetSlot Offset = 1 [json_name = "offset"];
+}
+
+message TDoNothingSemanticFrame {
+}
+
+message TNotificationsSubscribeSemanticFrame {
+  .NAlice.TStringSlot Accept = 1 [json_name = "accept"];
+  .NAlice.TNotificationSlot NotificationSubscription = 2 [json_name = "notification_subscription"];
+}
+
+message TSetupRcuStatusSemanticFrame {
+  .NAlice.TSetupRcuStatusSlot Status = 1 [json_name = "status"];
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuAutoStatusSemanticFrame {
+  .NAlice.TSetupRcuStatusSlot Status = 1 [json_name = "status"];
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuCheckStatusSemanticFrame {
+  .NAlice.TSetupRcuStatusSlot Status = 1 [json_name = "status"];
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuAdvancedStatusSemanticFrame {
+  .NAlice.TSetupRcuStatusSlot Status = 1 [json_name = "status"];
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuManualStartSemanticFrame {
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuAutoStartSemanticFrame {
+  .NAlice.TStringSlot TvModel = 1 [json_name = "tv_model"];
+  .NAlice.TLanguageEnumSlot UserLanguage = 2 [json_name = "user_language"];
+}
+
+message TSetupRcuStatusSlot {
+  reserved 56788;
+  enum EValue {
+    Success = 0;
+    Error = 1;
+    InactiveTimeout = 2;
+  }
+
+  oneof Value {
+    .NAlice.TSetupRcuStatusSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TLinkARemoteSemanticFrame {
+  .NAlice.TStringSlot LinkType = 1 [json_name = "link_type"];
+}
+
+message TRequestTechnicalSupportSemanticFrame {
+}
+
+message TTriggerSoundSetLevelSemanticFrame {
+  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase"];
+}
+
+message TGetTimeSemanticFrame {
+  .NAlice.TWhereSlot Where = 5 [json_name = "where"];
+}
+
+message THowToSubscribeSemanticFrame {
+}
+
+message TGetSmartTvCategoriesSemanticFrame {
+}
+
+message TGetSmartTvCarouselSemanticFrame {
+  .NAlice.TStringSlot CarouselId = 1 [json_name = "carousel_id"];
+  .NAlice.TStringSlot DocCacheHash = 2 [json_name = "docs_cache_hash"];
+  .NAlice.TStringSlot CarouselType = 3 [json_name = "carousel_type"];
+  .NAlice.TStringSlot Filter = 4 [json_name = "filter"];
+  .NAlice.TStringSlot Tag = 5 [json_name = "tag"];
+  .NAlice.TBoolSlot AvailableOnly = 6 [json_name = "available_only"];
+  .NAlice.TNumSlot MoreUrlLimit = 7 [json_name = "more_url_limit"];
+  .NAlice.TNumSlot Limit = 8 [json_name = "limit"];
+  .NAlice.TNumSlot Offset = 9 [json_name = "offset"];
+  .NAlice.TBoolSlot KidMode = 10 [json_name = "kid_mode"];
+  .NAlice.TNumSlot RestrictionAge = 11 [json_name = "restriction_age"];
+}
+
+message TGetSmartTvCarouselsSemanticFrame {
+  .NAlice.TStringSlot CategoryId = 1 [json_name = "category_id"];
+  .NAlice.TNumSlot MaxItemsCount = 2 [json_name = "max_items_count"];
+  .NAlice.TStringSlot CacheHash = 3 [json_name = "cache_hash"];
+  .NAlice.TStringSlot PurchasesAvailableOnly = 4 [json_name = "purchases_available_only"];
+  .NAlice.TNumSlot Limit = 5 [json_name = "limit"];
+  .NAlice.TNumSlot Offset = 6 [json_name = "offset"];
+  .NAlice.TBoolSlot KidMode = 7 [json_name = "kid_mode"];
+  .NAlice.TNumSlot RestrictionAge = 8 [json_name = "restriction_age"];
+  .NAlice.TNumSlot ExternalCarouselOffset = 9 [json_name = "external_carousel_offset"];
+}
+
+message TIoTScenariosPhraseActionSemanticFrame {
+  .NAlice.TStringSlot Phrase = 1 [json_name = "phrase"];
+}
+
+message TIoTScenariosTextActionSemanticFrame {
+  .NAlice.TStringSlot Text = 1 [json_name = "text"];
+}
+
+message TIoTScenariosLaunchActionSemanticFrame {
+  .NAlice.TStringSlot LaunchID = 1 [json_name = "launch_id"];
+  .NAlice.TUInt32Slot StepIndex = 2 [json_name = "step_index"];
+  .NAlice.TStringSlot Instance = 3 [json_name = "instance"];
+  .NAlice.TStringSlot Value = 4 [json_name = "value"];
+}
+
+message TIoTCapabilityActionSlot {
+  oneof Value {
+    .NAlice.TIoTCapabilityAction CapabilityActionValue = 1 [json_name = "capability_action_value"];
+  }
+}
+
+message TIoTScenarioSpeakerActionSemanticFrame {
+  .NAlice.TStringSlot LaunchID = 1 [json_name = "launch_id"];
+  .NAlice.TUInt32Slot StepIndex = 2 [json_name = "step_index"];
+  .NAlice.TIoTCapabilityActionSlot CapabilityAction = 3 [json_name = "capability_action"];
+}
+
+message TAlarmSetAliceShowSemanticFrame {
+}
+
+message TRepeatAfterMeSemanticFrame {
+  .NAlice.TStringSlot Text = 1 [json_name = "text"];
+  .NAlice.TStringSlot Voice = 2 [json_name = "voice"];
+  .NAlice.TStringSlot SourceRequestId = 3 [json_name = "source_request_id"];
+}
+
+message TMediaPlaySemanticFrame {
+  .NAlice.TStringSlot TuneId = 1 [json_name = "tune_id"];
+  .NAlice.TStringSlot LocationId = 2 [json_name = "location_id"];
+}
+
+message TTurnClockFaceOnSemanticFrame {
+}
+
+message TTurnClockFaceOffSemanticFrame {
+}
+
+message TIoTDeviceActionRequestSlot {
+  oneof Value {
+    .NAlice.TIoTDeviceActionRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TIoTDeviceActionSemanticFrame {
+  .NAlice.TIoTDeviceActionRequestSlot Request = 1 [json_name = "request"];
+}
+
+message TWhisperSaySomethingSemanticFrame {
+}
+
+message TWhisperTurnOffSemanticFrame {
+}
+
+message TWhisperTurnOnSemanticFrame {
+}
+
+message TWhisperWhatIsItSemanticFrame {
+}
+
+message TTimeCapsuleNextStepSemanticFrame {
+}
+
+message TTimeCapsuleStopSemanticFrame {
+}
+
+message TTimeCapsuleStartSemanticFrame {
+}
+
+message TTimeCapsuleResumeSemanticFrame {
+}
+
+message TTimeCapsuleSkipQuestionSemanticFrame {
+}
+
+message TTimeCapsuleOpenSemanticFrame {
+}
+
+message TActivateGenerativeTaleSemanticFrame {
+  .NAlice.TStringSlot Character = 1 [json_name = "generative_tale_character"];
+}
+
+message THardcodedResponseSemanticFrame {
+  .NAlice.THardcodedResponseName HardcodedResponseName = 1 [json_name = "hardcoded_response_name"];
+}
+
+message TSkillSessionRequestSemanticFrame {
+}
+
+message TSkillWildcardSemanticFrame {
+}
+
+message TSearchAgreeSemanticFrame {
+}
+
+message TProactivityDeclineSemanticFrame {
+}
+
+message TGoBackwardCommandSemanticFrame {
+}
+
+message TGoForwardCommandSemanticFrame {
+}
+
+message TGoUpCommandSemanticFrame {
+}
+
+message TGoDownCommandSemanticFrame {
+}
+
+message TSmartScreenCloseCardSemanticFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TSmartScreenGoBackwardSemanticFrame {
+}
+
+message TConfirmDeviceFamilyNotify {
+}
+
+message TUpdateContactsRequestSlot {
+  oneof Value {
+    .NAlice.NData.TUpdateContactsRequest RequestValue = 1 [json_name = "request_value"];
+  }
+}
+
+message TUploadContactsRequestSemanticFrame {
+  reserved "Request";
+  reserved 1;
+  .NAlice.TUpdateContactsRequestSlot UploadRequest = 2 [json_name = "upload_request"];
+}
+
+message TUpdateContactsRequestSemanticFrame {
+  .NAlice.TUpdateContactsRequestSlot UpdateRequest = 1 [json_name = "update_request"];
+}
+
+message TExternalSkillForceDeactivateSemanticFrame {
+  .NAlice.TStringSlot DialogId = 1 [json_name = "dialog_id"];
+  .NAlice.TBoolSlot SilentResponse = 2 [json_name = "silent_response"];
+}
+
+message TVideoCallProviderSlot {
+  enum EValue {
+    Unknown = 0;
+    Telegram = 1;
+  }
+
+  oneof Value {
+    .NAlice.TVideoCallProviderSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TVideoCallLoginFailedSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+}
+
+message TVideoCallOutgoingAcceptedSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+  .NAlice.TStringSlot CallId = 2 [json_name = "call_id"];
+  .NAlice.TStringSlot UserId = 3 [json_name = "user_id"];
+  .NAlice.TProviderContactSlot Contact = 4 [json_name = "contact"];
+}
+
+message TVideoCallOutgoingFailedSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+}
+
+message TVideoCallEndedSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+}
+
+message TVideoCallIncomingAcceptFailedSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+  .NAlice.TStringSlot CallId = 2 [json_name = "call_id"];
+}
+
+message TVideoCallItemNameSlot {
+  oneof Value {
+    string ItemName = 1 [json_name = "item_name_value"];
+  }
+}
+
+message TPhoneCallSemanticFrame {
+  .NAlice.TVideoCallItemNameSlot ItemName = 1 [json_name = "item_name"];
+}
+
+message TProviderContactSlot {
+  oneof Value {
+    .NAlice.NData.TProviderContactData ContactData = 1 [json_name = "contact_data"];
+  }
+}
+
+message TVideoCallToSemanticFrame {
+  .NAlice.TProviderContactSlot FixedContact = 1 [json_name = "fixed_contact"];
+  .NAlice.TBoolSlot VideoEnabled = 2 [json_name = "video_enabled"];
+}
+
+message TOpenAddressBookSemanticFrame {
+}
+
+message TProviderContactListSlot {
+  oneof Value {
+    .NAlice.NData.TProviderContactList ContactList = 1 [json_name = "contact_list"];
+  }
+}
+
+message TVideoCallSetFavoritesSemanticFrame {
+  .NAlice.TStringSlot UserId = 1 [json_name = "user_id"];
+  .NAlice.TProviderContactListSlot Favorites = 2 [json_name = "favorites"];
+}
+
+message TVideoCallIncomingSemanticFrame {
+  .NAlice.TVideoCallProviderSlot Provider = 1 [json_name = "provider"];
+  .NAlice.TStringSlot CallId = 2 [json_name = "call_id"];
+  .NAlice.TStringSlot UserId = 3 [json_name = "user_id"];
+  .NAlice.TProviderContactSlot Caller = 4 [json_name = "caller"];
+  .NAlice.TBoolSlot AudioCall = 5 [json_name = "audio_call"];
+}
+
+message TMessengerCallAcceptSemanticFrame {
+}
+
+message TVideoCallMuteMicSemanticFrame {
+}
+
+message TVideoCallUnmuteMicSemanticFrame {
+}
+
+message TVideoCallVideoEnableSemanticFrame {
+}
+
+message TVideoCallVideoDisableSemanticFrame {
+}
+
+message TMessengerCallDiscardSemanticFrame {
+}
+
+message TMessengerCallHangupSemanticFrame {
+}
+
+message TVideoCallSelectContactForCallSemanticFrame {
+  .NAlice.TContactItemSlot ContactItem = 1 [json_name = "contact_item"];
+}
+
+message TInfoConciergeConnectWifiIntentSemanticFrame {
+}
+
+message TInfoConciergeInformationAboutBreakfastIntentSemanticFrame {
+}
+
+message TInfoConciergeInformationAboutHotelIntentSemanticFrame {
+}
+
+message TInfoConciergeRequestAmenitiesIntentSemanticFrame {
+}
+
+message TInfoConciergeCallReceptionIntentSemanticFrame {
+}
+
+message TChildEducationSelectCurrentScenarioSemanticFrame {
+}
+
+message TBabyEducationMenuSemanticFrame {
+  optional .NAlice.TChildEducationGameTypeSlot GameType = 1 [json_name = "game_type"];
+  optional .NAlice.TStringSlot PromoPhrase = 2 [json_name = "promo_phrase"];
+}
+
+message TWildWestMultiplicationTableSemanticFrame {
+}
+
+message TWildWestShootoutSemanticFrame {
+}
+
+message TChildEducationMenuSemanticFrame {
+  optional .NAlice.TStringSlot PromoPhrase = 1 [json_name = "promo_phrase"];
+  optional .NAlice.TChildEducationGameTypeSlot GameType = 2 [json_name = "game_type"];
+  optional .NAlice.TStringSlot Glitch = 3 [json_name = "glitch"];
+}
+
+message TStoryTellingSemanticFrame {
+}
+
+message TGameITakeWithMeSemanticFrame {
+}
+
+message TGameTrueOrFalseSemanticFrame {
+}
+
+message TGameMainWordsSemanticFrame {
+}
+
+message TGameSnowBallSemanticFrame {
+}
+
+message TGameGuessMeSemanticFrame {
+}
+
+message TGameWhatIsExcessSemanticFrame {
+}
+
+message TGameFrankfurterSemanticFrame {
+}
+
+message TChildEducationGameSelectAnswerSemanticFrame {
+  reserved "SelectedAnswer";
+  reserved 1;
+  repeated .NAlice.TChildEducationGameSelectAnswerSlot SelectedAnswers = 2 [json_name = "selected_answers"];
+}
+
+message TSwitchVideoPlayerTrackSemanticFrame {
+  .NAlice.TStringSlot VideoTrack = 1 [json_name = "video_track"];
+  .NAlice.TStringSlot AudioTrack = 2 [json_name = "audio_track"];
+  .NAlice.TStringSlot SubtitlesTrack = 3 [json_name = "subtitles_track"];
+}
+
+message TVideoComandChangeTrackSemanticFrame {
+  .NAlice.TAudioTrackSlot Audio = 1 [json_name = "audio"];
+  .NAlice.TSubtitlesTrackSlot Subtitles = 2 [json_name = "subtitles"];
+  .NAlice.TAudioTrackSlot AudioTrackId = 3 [json_name = "audio_track_id"];
+  .NAlice.TSubtitlesTrackSlot SubtitlesTrackId = 4 [json_name = "subtitles_track_id"];
+}
+
+message TVideoComandChangeQualitySemanticFrame {
+  .NAlice.TVideoTrackSlot Video = 1 [json_name = "video"];
+  .NAlice.TVideoTrackSlot QualityTrackId = 2 [json_name = "quality_track_id"];
+}
+
+message TVideoComandShowVideoSettingsSemanticFrame {
+  .NAlice.TVideoCommandTrackTypeSlot TrackType = 1 [json_name = "track_type"];
+}
+
+message TVideoCommandTrackTypeSlot {
+  enum ETrackType {
+    unknown = 0;
+    video = 1;
+    audio = 2;
+    subtitles = 3;
+    speed = 4;
+  }
+
+  oneof Value {
+    .NAlice.TVideoCommandTrackTypeSlot.ETrackType TrackType = 1 [json_name = "track_type"];
+  }
+}
+
+message TContactItemSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TAudioTrackSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string Audio = 2 [json_name = "audio"];
+  }
+}
+
+message TSubtitlesTrackSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string Subtitles = 2 [json_name = "subtitles"];
+  }
+}
+
+message TVideoTrackSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    string Quality = 2 [json_name = "quality"];
+  }
+}
+
+message TTvMainSelectGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+  .NAlice.TSelectedVideoActionSlot Action = 2 [json_name = "action"];
+}
+
+message TTvMainWhatsNewRepeatSemanticFrame {
+}
+
+message TTvMainWhatsNewSelectButtonSemanticFrame {
+  .NAlice.TWhatsNewSelectedButtonSlot WhatsNewSelectedButton = 1 [json_name = "whats_new_selected_button"];
+}
+
+message TTvMainDetailsGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+}
+
+message TTvMainPlayGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+}
+
+message TTvMainWatchListAddGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+}
+
+message TTvMainWatchListRemoveGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+}
+
+message TTvMainHideItemFromDelayedConditionalSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+}
+
+message TDeviceConfigIntonationSpottingEnabledSemanticFrame {
+}
+
+message TDeviceConfigIntonationSpottingInterruptionEnabledSemanticFrame {
+}
+
+message TTvMainHideItemFromDelayedEffectSemanticFrame {
+  .NAlice.TTvClientCarouselAnalyticsSlot ClientAnalytics = 6 [json_name = "client_analytics"];
+  optional .NAlice.TStringSlot KpId = 1 [json_name = "kp_id"];
+  optional .NAlice.TStringSlot Url = 2 [json_name = "url"];
+  optional .NAlice.TStringSlot Source = 3 [json_name = "source"];
+  optional .NAlice.TStringSlot ChannelUri = 4 [json_name = "channel_uri"];
+  optional .NAlice.TStringSlot AppPackage = 5 [json_name = "app_package"];
+  optional .NAlice.TStringSlot ContentId = 7 [json_name = "content_id"];
+  optional .NAlice.TStringSlot ExternalAppVideoId = 8 [json_name = "external_app_video_id"];
+  optional .NAlice.TStringSlot MusicId = 9 [json_name = "music_id"];
+  optional .NAlice.TStringSlot ChannelContentId = 10 [json_name = "channel_content_id"];
+}
+
+message TTvMainSelectMusicGalleryItemSemanticFrame {
+  .NAlice.TSelectedGalleryItemSlot SelectedGalleryItem = 1 [json_name = "selected_gallery_item"];
+  .NAlice.TSelectedMusicActionSlot Action = 2 [json_name = "action"];
+}
+
+message TWhatsNewSelectedButtonSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TSelectedGalleryItemSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TSelectTvChannelFrame {
+  .NAlice.TSelectedTvChannelSlot SelectedTvChannel = 1 [json_name = "selected_tv_channel"];
+}
+
+message TSelectedTvChannelSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TAddTvChannelToFavouritesFrame {
+  .NAlice.TFavouriteTvChannelSlot FavouriteTvChannel = 1 [json_name = "favourite_tv_channel"];
+}
+
+message TFavouriteTvChannelSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TTvMainPlayFeatureItemSemanticFrame {
+  .NAlice.TPlayFeatureItemActionSlot PlayFeatureItemAction = 1 [json_name = "play_feature_item_action"];
+}
+
+message TPlayFeatureItemActionSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TTvMainDetailsFeatureItemSemanticFrame {
+  .NAlice.TDetailsFeatureItemActionSlot DetailsFeatureItemAction = 1 [json_name = "details_feature_item_action"];
+}
+
+message TDetailsFeatureItemActionSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TTvClientCarouselAnalyticsSlot {
+  oneof Value {
+    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 1 [json_name = "client_analytics"];
+  }
+}
+
+message TTvAddToWatchListSemanticFrame {
+  .NAlice.TStringSlot ContentId = 1 [json_name = "content_id"];
+  .NAlice.TStringSlot OntoId = 2 [json_name = "onto_id"];
+  .NAlice.TTvClientCarouselAnalyticsSlot ClientAnalyticsSlot = 4 [json_name = "client_analytics"];
+  optional .NAlice.TStringSlot Title = 3 [json_name = "title"];
+}
+
+message TTvDeleteFromWatchListSemanticFrame {
+  .NAlice.TStringSlot ContentId = 1 [json_name = "content_id"];
+  .NAlice.TStringSlot OntoId = 2 [json_name = "onto_id"];
+  .NAlice.TTvClientCarouselAnalyticsSlot ClientAnalyticsSlot = 4 [json_name = "client_analytics"];
+  optional .NAlice.TStringSlot Title = 3 [json_name = "title"];
+}
+
+message TTvPlayFeatureTrailerSemanticFrame {
+  .NAlice.TStringSlot ContentId = 1 [json_name = "content_id"];
+  .NAlice.TStringSlot OntoId = 2 [json_name = "onto_id"];
+  .NAlice.TTvClientCarouselAnalyticsSlot ClientAnalyticsSlot = 3 [json_name = "client_analytics"];
+}
+
+message TTvUpdateInstallSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TTvUpdateOkSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TTvUpdateLaterSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TTvUpdateHideSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TTvUpdateSkipSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TTvUpdateRetrySemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+}
+
+message TOpenTvTabSemanticFrame {
+  .NAlice.TTabNameSlot TabName = 1 [json_name = "tab_name"];
+}
+
+message TTabNameSlot {
+  oneof Value {
+    string TabName = 1 [json_name = "tab_name"];
+  }
+}
+
+message TShowRouteSemanticFrame {
+  .NAlice.TWhatSlot WhatFrom = 1 [json_name = "what_from"];
+  .NAlice.TWhereSlot WhereFrom = 2 [json_name = "where_from"];
+  .NAlice.TWhatSlot WhatTo = 3 [json_name = "what_to"];
+  .NAlice.TWhereSlot WhereTo = 4 [json_name = "where_to"];
+  .NAlice.TWhatSlot WhatVia = 5 [json_name = "what_via"];
+  .NAlice.TWhereSlot WhereVia = 6 [json_name = "where_via"];
+  .NAlice.TRouteTypeSlot RouteType = 7 [json_name = "route_type"];
+  .NAlice.TRouteActionTypeSlot RouteActionType = 8 [json_name = "route_action_type"];
+  .NAlice.TConfirmationSlot Confirmation = 9 [json_name = "confirmation"];
+}
+
+message TAlarmShowSemanticFrame {
+}
+
+message TAlarmShowCancelSemanticFrame {
+}
+
+message TTimerShowSemanticFrame {
+}
+
+message TTimerShowCancelSemanticFrame {
+}
+
+message TTimerShowPauseSemanticFrame {
+}
+
+message TTimerShowResumeSemanticFrame {
+}
+
+message TOpenSeriesScreenFrame {
+}
+
+message THelpToCreateSemanticFrame {
+}
+
+message TGenesisBanRequestSemanticFrame {
+}
+
+message TGenesisCareerOpportunitySemanticFrame {
+}
+
+message TGenesisSoftExitSemanticFrame {
+}
+
+message TGenesisGenerationTypeSlot {
+  enum EValue {
+    Unknown = 0;
+    Letter = 1;
+    Comment = 2;
+    Post = 3;
+    Message = 4;
+    Feedback = 5;
+    Advertisement = 6;
+  }
+
+  oneof Value {
+    .NAlice.TGenesisGenerationTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TActivateTextGenerationSessionSemanticFrame {
+  .NAlice.TGenesisGenerationTypeSlot GenesisGenerationType = 1 [json_name = "genesis_generation_type"];
+  optional .NAlice.TStringSlot Prompt = 2 [json_name = "prompt"];
+}
+
+message TStartEcomAssistantSemanticFrame {
+  optional .NAlice.TStringSlot Request = 1 [json_name = "request"];
+}
+
+message TTvChannelsSelectedProgramSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TTvChannelsSelectProgramSemanticFrame {
+  .NAlice.TTvChannelsSelectedProgramSlot SelectedProgram = 1 [json_name = "selected_program"];
+}
+
+message TVideoNumberSlot {
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "num_value"];
+  }
+}
+
+message TVideoSelectByNumberSemanticFrame {
+  reserved "VideoNumber";
+  reserved 1;
+  .NAlice.TVideoNumberSlot VideoNumberSlot = 2 [json_name = "video_number"];
+}
+
+message TClosePageSemanticFrame {
+}
+
+message TMusicPlayerShowArtistSemanticFrame {
+}
+
+message TYoutubeContextSearchSemanticFrame {
+}
+
+message TStopsStopSoftSemanticFrame {
+}
+
+message TAccountItemSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TVideoOpenSelectionSemanticFrame {
+  .NAlice.TVideoOpenSelectionSlot VideoSelection = 1 [json_name = "video_selection"];
+}
+
+message TVideoOpenSelectionSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TYoutubeSwitchToSelectedAccountSemanticFrame {
+  .NAlice.TAccountItemSlot AccountItem = 1 [json_name = "account_item"];
+}
+
+message TYoutubeOpenTabSemanticFrame {
+  reserved "TabName";
+  reserved 1;
+  .NAlice.TYoutubeOpenTabSlot PageName = 2 [json_name = "string_value"];
+}
+
+message TYoutubeOpenSubscriptionsSemanticFrame {
+}
+
+message TYoutubeOpenTranslationsSemanticFrame {
+}
+
+message TYoutubeOpenWatchLaterSemanticFrame {
+}
+
+message TYoutubeOpenLibrarySemanticFrame {
+}
+
+message TYoutubeOpenHistorySemanticFrame {
+}
+
+message TYoutubeOpenMainTabSemanticFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TYoutubeOpenMoreSemanticFrame {
+}
+
+message TYoutubeOpenMusicSemanticFrame {
+}
+
+message TYoutubeOpenSearchSemanticFrame {
+}
+
+message TYoutubeOpenPlaylistsSemanticFrame {
+}
+
+message TYoutubeOpenTabSlot {
+  reserved "TabEnumName";
+  reserved 1;
+  oneof Value {
+    .NAlice.TStringSlot TabName = 2 [json_name = "string_value"];
+  }
+}
+
+message TYoutubeOpenChannelSemanticFrame {
+  reserved "ChannelName";
+  reserved 1;
+  .NAlice.TYoutubeOpenChannelSlot YoutubeChannelName = 2 [json_name = "string_value"];
+}
+
+message TYoutubeSearchChannelSemanticFrame {
+  reserved "ChannelName";
+  reserved 1;
+  .NAlice.TYoutubeOpenChannelSlot YoutubeChannelName = 2 [json_name = "string_value"];
+  .NAlice.TStringSlot SearchChannelName = 3 [json_name = "search_channel_name"];
+}
+
+message TYoutubeOpenChannelSlot {
+  oneof Value {
+    .NAlice.TStringSlot ChannelName = 1 [json_name = "string_value"];
+  }
+}
+
+message TYoutubeItemSelectionSemanticFrame {
+  .NAlice.TSysNumSlot ButtonNumberSlot = 1 [json_name = "button_number"];
+}
+
+message TYoutubeCloseAppSemanticFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TAccessibleVoiceOpenCartoonsFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TAccessibleVoiceOpenMoviesFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TAccessibleVoiceOpenSeriesFrame {
+  .NAlice.TStringSlot Application = 1 [json_name = "application"];
+}
+
+message TYoutubeSearchQuerySemanticFrame {
+  .NAlice.TStringSlot Query = 1 [json_name = "query"];
+  .NAlice.TStringSlot Application = 2 [json_name = "application"];
+}
+
+message TBrowserAddToTableauSemanticFrame {
+}
+
+message TBrowserClearHistorySemanticFrame {
+}
+
+message TBrowserScrollDownSemanticFrame {
+}
+
+message TBrowserScrollUpSemanticFrame {
+}
+
+message TAccessibleVoiceOpenMainTabSemanticFrame {
+}
+
+message TBrowserRemoveFromTableauSemanticFrame {
+}
+
+message TBrowserCloseAppSemanticFrame {
+}
+
+message TBrowserSearchQuerySemanticFrame {
+  .NAlice.TStringSlot Query = 1 [json_name = "query"];
+}
+
+message TBrowserRefreshPageSemanticFrame {
+}
+
+message TBrowserControlTabActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Open = 1;
+    Close = 2;
+    Restore = 3;
+    Switch = 4;
+    Move = 5;
+    Pin = 6;
+    Unpin = 7;
+    List = 8;
+    FindDuplicates = 9;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlTabActionSlot.EValue EnumValue = 1 [json_name = "tab_action_value"];
+  }
+}
+
+message TBrowserControlTabActionSemanticFrame {
+  .NAlice.TBrowserControlTabActionSlot Action = 1 [json_name = "action"];
+}
+
+message TBrowserControlOpenUrlSemanticFrame {
+  .NAlice.TStringSlot Target = 1 [json_name = "target"];
+}
+
+message TBrowserControlWindowActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Open = 1;
+    Close = 2;
+    Restore = 3;
+    Switch = 4;
+    Move = 5;
+    Pin = 6;
+    List = 7;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlWindowActionSlot.EValue EnumValue = 1 [json_name = "window_action_value"];
+  }
+}
+
+message TBrowserControlWindowActionSemanticFrame {
+  .NAlice.TBrowserControlWindowActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TStringSlot Index = 2 [json_name = "index"];
+}
+
+message TBrowserControlTabGroupActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Create = 1;
+    Delete = 2;
+    Rename = 3;
+    Sort = 4;
+    List = 5;
+    AddTo = 6;
+    Restore = 7;
+    Switch = 8;
+    Unpin = 9;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlTabGroupActionSlot.EValue EnumValue = 1 [json_name = "tab_group_action_value"];
+  }
+}
+
+message TBrowserControlTabGroupActionSemanticFrame {
+  .NAlice.TBrowserControlTabGroupActionSlot Action = 1 [json_name = "action"];
+}
+
+message TBrowserControlThemeSlot {
+  enum EValue {
+    Unknown = 0;
+    Dark = 1;
+    Light = 2;
+    Transparent = 3;
+    Yellow = 4;
+    Red = 5;
+    Blue = 6;
+    Green = 7;
+    Orange = 8;
+    Purple = 9;
+    Pink = 10;
+    Colored = 11;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlThemeSlot.EValue EnumValue = 1 [json_name = "theme_value"];
+  }
+}
+
+message TBrowserControlChangeThemeSemanticFrame {
+  .NAlice.TBrowserControlThemeSlot Theme = 1 [json_name = "theme"];
+}
+
+message TBrowserControlListThemesSemanticFrame {
+}
+
+message TBrowserControlBrowsingDataSlot {
+  enum EValue {
+    Unknown = 0;
+    Cache = 1;
+    Cookies = 2;
+    Downloads = 3;
+    SiteData = 4;
+    History = 5;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlBrowsingDataSlot.EValue EnumValue = 1 [json_name = "browsing_data_value"];
+  }
+}
+
+message TBrowserControlClearBrowsingDataSemanticFrame {
+  .NAlice.TBrowserControlBrowsingDataSlot DataType = 1 [json_name = "data_type"];
+}
+
+message TBrowserControlBookmarksActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Show = 1;
+    Hide = 2;
+    Add = 3;
+    Remove = 4;
+    List = 5;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlBookmarksActionSlot.EValue EnumValue = 1 [json_name = "bookmarks_action_value"];
+  }
+}
+
+message TBrowserControlBookmarksTargetSlot {
+  enum EValue {
+    Unknown = 0;
+    Bookmark = 1;
+    Panel = 2;
+  }
+
+  oneof Value {
+    .NAlice.TBrowserControlBookmarksTargetSlot.EValue EnumValue = 1 [json_name = "bookmarks_target_value"];
+  }
+}
+
+message TBrowserControlBookmarksActionSemanticFrame {
+  .NAlice.TBrowserControlBookmarksActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TBrowserControlBookmarksTargetSlot Target = 2 [json_name = "target"];
+}
+
+message TBrowserControlSetDefaultBrowserSemanticFrame {
+}
+
+message TBrowserControlBrowserVersionSemanticFrame {
+}
+
+message TAnnounceAtLocationWildcardSemanticFrame {
+}
+
+message TSendAnnounceAtLocationSemanticFrame {
+  .NAlice.TStringSlot DeviceId = 1 [json_name = "device_id"];
+}
+
+message TSelectAccountItemSemanticFrame {
+  .NAlice.TAccountItemSlot SelectedAccountItem = 1 [json_name = "selected_account_item"];
+}
+
+message TSwitchChannelFuncSemanticFrame {
+}
+
+message TDeviceNotificationReadCurrentSemanticFrame {
+}
+
+message TStreamingTranslationStartSemanticFrame {
+}
+
+message TStreamingTranslationStopSemanticFrame {
+}
+
+message TDeviceNotificationReadNextSemanticFrame {
+}
+
+message TDeviceNotificationConfirmSemanticFrame {
+}
+
+message TOpenEarphonesSettingSemanticFrame {
+}
+
+message TTypedSemanticFrame {
+  reserved "MockResponseSemanticFrame";
+  reserved "GuestEnrollmentStrartSemanticFrame";
+  reserved "ZenContextSearchStartSemanticFrame";
+  reserved "VideoCardDetailSemanticFrame";
+  reserved "VideoThinCardDetailSmanticFrame";
+  reserved "GetPhotoFrameSemanticFrame";
+  reserved "VideoDontPlayNext";
+  reserved "VideoRaterSemanticFrame";
+  reserved "StartFaceRecodringSemanticFrame";
+  reserved 56788;
+  reserved 65;
+  reserved 99;
+  reserved 70;
+  reserved 76;
+  reserved 81;
+  reserved 45;
+  reserved 342;
+  reserved 22;
+  reserved 426;
+  oneof Type {
+    .NAlice.TSearchSemanticFrame SearchSemanticFrame = 1 [json_name = "search_semantic_frame"];
+    .NAlice.TIoTBroadcastStartSemanticFrame IoTBroadcastStartSemanticFrame = 2 [json_name = "iot_broadcast_start"];
+    .NAlice.TIoTBroadcastSuccessSemanticFrame IoTBroadcastSuccessSemanticFrame = 3 [json_name = "iot_broadcast_success"];
+    .NAlice.TIoTBroadcastFailureSemanticFrame IoTBroadcastFailureSemanticFrame = 4 [json_name = "iot_broadcast_failure"];
+    .NAlice.TMordoviaHomeScreenSemanticFrame MordoviaHomeScreenSemanticFrame = 5 [json_name = "mordovia_home_screen"];
+    .NAlice.TNewsSemanticFrame NewsSemanticFrame = 6 [json_name = "news_semantic_frame"];
+    .NAlice.TGetCallerNameSemanticFrame GetCallerNameSemanticFrame = 7 [json_name = "get_caller_name"];
+    .NAlice.TMusicPlaySemanticFrame MusicPlaySemanticFrame = 8 [json_name = "music_play_semantic_frame"];
+    .NAlice.TExternalSkillActivateSemanticFrame ExternalSkillActivateSemanticFrame = 9 [json_name = "external_skill_activate_semantic_frame"];
+    .NAlice.TVideoPlaySemanticFrame VideoPlaySemanticFrame = 10 [json_name = "video_play_semantic_frame"];
+    .NAlice.TWeatherSemanticFrame WeatherSemanticFrame = 11 [json_name = "weather_semantic_frame"];
+    .NAlice.THardcodedMorningShowSemanticFrame HardcodedMorningShowSemanticFrame = 12 [json_name = "morning_show_semantic_frame"];
+    .NAlice.TSelectVideoFromGallerySemanticFrame SelectVideoFromGallerySemanticFrame = 13 [json_name = "select_video"];
+    .NAlice.TOpenCurrentVideoSemanticFrame OpenCurrentVideoSemanticFrame = 14 [json_name = "open_current_video"];
+    .NAlice.TVideoPaymentConfirmedSemanticFrame VideoPaymentConfirmedSemanticFrame = 15 [json_name = "video_payment_confirmed"];
+    .NAlice.TPlayerNextTrackSemanticFrame PlayerNextTrackSemanticFrame = 16 [json_name = "player_next_track_semantic_frame"];
+    .NAlice.TPlayerPrevTrackSemanticFrame PlayerPrevTrackSemanticFrame = 17 [json_name = "player_prev_track_semantic_frame"];
+    .NAlice.TPlayerLikeSemanticFrame PlayerLikeSemanticFrame = 18 [json_name = "player_like_semantic_frame"];
+    .NAlice.TPlayerDislikeSemanticFrame PlayerDislikeSemanticFrame = 19 [json_name = "player_dislike_semantic_frame"];
+    .NAlice.TDoNothingSemanticFrame DoNothingSemanticFrame = 20 [json_name = "do_nothing_semantic_frame"];
+    .NAlice.TNotificationsSubscribeSemanticFrame NotificationsSubscribeSemanticFrame = 21 [json_name = "notifications_subscribe_semantic_frame"];
+    .NAlice.TSetupRcuStatusSemanticFrame SetupRcuStatusSemanticFrame = 23 [json_name = "setup_rcu.status"];
+    .NAlice.TSetupRcuAutoStatusSemanticFrame SetupRcuAutoStatusSemanticFrame = 24 [json_name = "setup_rcu_auto.status"];
+    .NAlice.TSetupRcuCheckStatusSemanticFrame SetupRcuCheckStatusSemanticFrame = 25 [json_name = "setup_rcu_check.status"];
+    .NAlice.TSetupRcuAdvancedStatusSemanticFrame SetupRcuAdvancedStatusSemanticFrame = 26 [json_name = "setup_rcu_advanced.status"];
+    .NAlice.TSetupRcuManualStartSemanticFrame SetupRcuManualStartSemanticFrame = 27 [json_name = "setup_rcu_manual.start"];
+    .NAlice.TSetupRcuAutoStartSemanticFrame SetupRcuAutoStartSemanticFrame = 28 [json_name = "setup_rcu_auto.start"];
+    .NAlice.TLinkARemoteSemanticFrame LinkARemoteSemanticFrame = 29 [json_name = "link_a_remote"];
+    .NAlice.TRequestTechnicalSupportSemanticFrame RequestTechnicalSupportSemanticFrame = 30 [json_name = "request_technical_support"];
+    .NAlice.TIoTDiscoveryStartSemanticFrame IoTDiscoveryStartSemanticFrame = 31 [json_name = "iot_discovery_start"];
+    .NAlice.TIoTDiscoverySuccessSemanticFrame IoTDiscoverySuccessSemanticFrame = 32 [json_name = "iot_discovery_success"];
+    .NAlice.TIoTDiscoveryFailureSemanticFrame IoTDiscoveryFailureSemanticFrame = 33 [json_name = "iot_discovery_failure"];
+    .NAlice.TExternalSkillFixedActivateSemanticFrame ExternalSkillFixedActivateSemanticFrame = 34 [json_name = "external_skill_fixed_activate_semantic_frame"];
+    .NAlice.TOpenCurrentTrailerSemanticFrame OpenCurrentTrailerSemanticFrame = 35 [json_name = "open_current_trailer"];
+    .NAlice.TOnboardingStartingCriticalUpdateSemanticFrame OnboardingStartingCriticalUpdateSemanticFrame = 36 [json_name = "onboarding_starting_critical_update"];
+    .NAlice.TOnboardingStartingConfigureSuccessSemanticFrame OnboardingStartingConfigureSuccessSemanticFrame = 37 [json_name = "onboarding_starting_configure_success"];
+    .NAlice.TRadioPlaySemanticFrame RadioPlaySemanticFrame = 38 [json_name = "radio_play_semantic_frame"];
+    .NAlice.TCentaurCollectCardsSemanticFrame CentaurCollectCardsSemanticFrame = 39 [json_name = "centaur_collect_cards"];
+    .NAlice.TCentaurGetCardSemanticFrame CentaurGetCardSemanticFrame = 40 [json_name = "centaur_get_card"];
+    .NAlice.TVideoPlayerFinishedSemanticFrame VideoPlayerFinishedSemanticFrame = 41 [json_name = "quasar.video_player.finished"];
+    .NAlice.TSoundLouderSemanticFrame SoundLouderSemanticFrame = 42 [json_name = "sound_louder_semantic_frame"];
+    .NAlice.TSoundQuiterSemanticFrame SoundQuiterSemanticFrame = 43 [json_name = "sound_quiter_semantic_frame"];
+    .NAlice.TSoundSetLevelSemanticFrame SoundSetLevelSemanticFrame = 44 [json_name = "sound_set_level_semantic_frame"];
+    .NAlice.TCentaurCollectMainScreenSemanticFrame CentaurCollectMainScreenSemanticFrame = 46 [json_name = "centaur_collect_main_screen"];
+    .NAlice.TGetTimeSemanticFrame GetTimeSemanticFrame = 47 [json_name = "get_time_semantic_frame"];
+    .NAlice.THowToSubscribeSemanticFrame HowToSubscribeSemanticFrame = 48 [json_name = "how_to_subscribe_semantic_frame"];
+    .NAlice.TMusicOnboardingSemanticFrame MusicOnboardingSemanticFrame = 49 [json_name = "music_onboarding_semantic_frame"];
+    .NAlice.TMusicOnboardingArtistsSemanticFrame MusicOnboardingArtistsSemanticFrame = 50 [json_name = "music_onboarding_artists_semantic_frame"];
+    .NAlice.TMusicOnboardingGenresSemanticFrame MusicOnboardingGenresSemanticFrame = 51 [json_name = "music_onboarding_genres_semantic_frame"];
+    .NAlice.TMusicOnboardingTracksSemanticFrame MusicOnboardingTracksSemanticFrame = 52 [json_name = "music_onboarding_tracks_semantic_frame"];
+    .NAlice.TPlayerContinueSemanticFrame PlayerContinueSemanticFrame = 53 [json_name = "player_continue_semantic_frame"];
+    .NAlice.TPlayerWhatIsPlayingSemanticFrame PlayerWhatIsPlayingSemanticFrame = 54 [json_name = "player_what_is_playing_semantic_frame"];
+    .NAlice.TPlayerShuffleSemanticFrame PlayerShuffleSemanticFrame = 55 [json_name = "player_shuffle_semantic_frame"];
+    .NAlice.TPlayerReplaySemanticFrame PlayerReplaySemanticFrame = 56 [json_name = "player_replay_semantic_frame"];
+    .NAlice.TPlayerRewindSemanticFrame PlayerRewindSemanticFrame = 57 [json_name = "player_rewind_semantic_frame"];
+    .NAlice.TPlayerRepeatSemanticFrame PlayerRepeatSemanticFrame = 58 [json_name = "player_repeat_semantic_frame"];
+    .NAlice.TGetSmartTvCategoriesSemanticFrame GetSmartTvCategoriesSemanticFrame = 59 [json_name = "get_smart_tv_categories_semantic_frame"];
+    .NAlice.TIoTScenariosPhraseActionSemanticFrame IoTScenariosPhraseActionSemanticFrame = 60 [json_name = "iot_scenarios_phrase_action_semantic_frame"];
+    .NAlice.TIoTScenariosTextActionSemanticFrame IoTScenariosTextActionSemanticFrame = 61 [json_name = "iot_scenarios_text_action_semantic_frame"];
+    .NAlice.TIoTScenariosLaunchActionSemanticFrame IoTScenariosLaunchActionSemanticFrame = 62 [json_name = "iot_scenarios_launch_action_semantic_frame"];
+    .NAlice.TAlarmSetAliceShowSemanticFrame AlarmSetAliceShowSemanticFrame = 63 [json_name = "alarm_set_alice_show_semantic_frame"];
+    .NAlice.TPlayerUnshuffleSemanticFrame PlayerUnshuffleSemanticFrame = 64 [json_name = "player_unshuffle_semantic_frame"];
+    .NAlice.TRemindersOnShootSemanticFrame RemindersOnShootSemanticFrame = 66 [json_name = "reminders_on_shoot_semantic_frame"];
+    .NAlice.TRepeatAfterMeSemanticFrame RepeatAfterMeSemanticFrame = 67 [json_name = "repeat_after_me_semantic_frame"];
+    .NAlice.TMediaPlaySemanticFrame MediaPlaySemanticFrame = 68 [json_name = "media_play_semantic_frame"];
+    .NAlice.TAliceShowActivateSemanticFrame AliceShowActivateSemanticFrame = 69 [json_name = "alice_show_activate_semantic_frame"];
+    .NAlice.TGetSmartTvCarouselSemanticFrame GetSmartTvCarouselSemanticFrame = 71 [json_name = "get_smart_tv_carousel_semantic_frame"];
+    .NAlice.TGetSmartTvCarouselsSemanticFrame GetSmartTvCarouselsSemanticFrame = 72 [json_name = "get_smart_tv_carousels_semantic_frame"];
+    .NAlice.TAppsFixlistSemanticFrame AppsFixlistSemanticFrame = 73 [json_name = "apps_fixlist_semantic_frame"];
+    .NAlice.TPlayerPauseSemanticFrame PlayerPauseSemanticFrame = 74 [json_name = "player_pause_semantic_frame"];
+    .NAlice.TIoTScenarioSpeakerActionSemanticFrame IoTScenarioSpeakerActionSemanticFrame = 75 [json_name = "iot_scenario_speaker_action_semantic_frame"];
+    .NAlice.TTurnClockFaceOnSemanticFrame TurnClockFaceOnSemanticFrame = 77 [json_name = "turn_clock_face_on_semantic_frame"];
+    .NAlice.TTurnClockFaceOffSemanticFrame TurnClockFaceOffSemanticFrame = 78 [json_name = "turn_clock_face_off_semantic_frame"];
+    .NAlice.TRemindersCancelSemanticFrame RemindersOnCancelSemanticFrame = 79 [json_name = "reminders_on_cancel_semantic_frame"];
+    .NAlice.TIoTDeviceActionSemanticFrame IoTDeviceActionSemanticFrame = 80 [json_name = "iot_device_action_semantic_frame"];
+    .NAlice.TWhisperSaySomethingSemanticFrame WhisperSaySomethingSemanticFrame = 82 [json_name = "whisper_say_something_semantic_frame"];
+    .NAlice.TWhisperTurnOffSemanticFrame WhisperTurnOffSemanticFrame = 83 [json_name = "whisper_turn_off_semantic_frame"];
+    .NAlice.TWhisperTurnOnSemanticFrame WhisperTurnOnSemanticFrame = 84 [json_name = "whisper_turn_on_semantic_frame"];
+    .NAlice.TWhisperWhatIsItSemanticFrame WhisperWhatIsItSemanticFrame = 85 [json_name = "whisper_what_is_it_semantic_frame"];
+    .NAlice.TTimeCapsuleNextStepSemanticFrame TimeCapsuleNextStepSemanticFrame = 86 [json_name = "time_capsule_next_step_semantic_frame"];
+    .NAlice.TTimeCapsuleStopSemanticFrame TimeCapsuleStopSemanticFrame = 87 [json_name = "time_capsule_stop_semantic_frame"];
+    .NAlice.TActivateGenerativeTaleSemanticFrame ActivateGenerativeTaleSemanticFrame = 88 [json_name = "activate_generative_tale_semantic_frame"];
+    .NAlice.TStartIotDiscoverySemanticFrame StartIotDiscoverySemanticFrame = 89 [json_name = "start_iot_discovery_semantic_frame"];
+    .NAlice.TFinishIotDiscoverySemanticFrame FinishIotDiscoverySemanticFrame = 90 [json_name = "finish_iot_discovery_semantic_frame"];
+    .NAlice.TForgetIotEndpointsSemanticFrame ForgetIotEndpointsSemanticFrame = 91 [json_name = "forget_iot_endpoints_semantic_frame"];
+    .NAlice.THardcodedResponseSemanticFrame HardcodedResponseSemanticFrame = 92 [json_name = "hardcoded_response_semantic_frame"];
+    .NAlice.TIotYandexIOActionSemanticFrame IotYandexIOActionSemanticFrame = 93 [json_name = "iot_yandex_io_action_semantic_frame"];
+    .NAlice.TTimeCapsuleStartSemanticFrame TimeCapsuleStartSemanticFrame = 94 [json_name = "time_capsule_start_semantic_frame"];
+    .NAlice.TTimeCapsuleResumeSemanticFrame TimeCapsuleResumeSemanticFrame = 95 [json_name = "time_capsule_resume_semantic_frame"];
+    .NAlice.TAddAccountSemanticFrame AddAccountSemanticFrame = 96 [json_name = "multiaccount_add_account_semantic_frame"];
+    .NAlice.TRemoveAccountSemanticFrame RemoveAccountSemanticFrame = 97 [json_name = "multiaccount_remove_account_semantic_frame"];
+    .NAlice.TEndpointStateUpdatesSemanticFrame EndpointStateUpdatesSemanticFrame = 98 [json_name = "endpoint_state_updates_semantic_frame"];
+    .NAlice.TTimeCapsuleSkipQuestionSemanticFrame TimeCapsuleSkipQuestionSemanticFrame = 100 [json_name = "time_capsule_skip_question_semantic_frame"];
+    .NAlice.TSkillSessionRequestSemanticFrame SkillSessionRequestSemanticFrame = 101 [json_name = "skill_session_request_semantic_frame"];
+    .NAlice.TStartIotTuyaBroadcastSemanticFrame StartIotTuyaBroadcastSemanticFrame = 102 [json_name = "start_iot_tuya_broadcast_semantic_frame"];
+    .NAlice.TOpenSmartDeviceExternalAppFrame OpenSmartDeviceExternalAppFrame = 103 [json_name = "open_smart_device_external_app_frame"];
+    .NAlice.TRestoreIotNetworksSemanticFrame RestoreIotNetworksSemanticFrame = 104 [json_name = "restore_iot_networks_semantic_frame"];
+    .NAlice.TSaveIotNetworksSemanticFrame SaveIotNetworksSemanticFrame = 105 [json_name = "save_iot_networks_semantic_frame"];
+    .NAlice.TGuestEnrollmentStartSemanticFrame GuestEnrollmentStartSemanticFrame = 106 [json_name = "guest_enrollment_start_semantic_frame"];
+    .NAlice.TTvPromoTemplateRequestSemanticFrame TvPromoTemplateRequestSemanticFrame = 107 [json_name = "tv_promo_request_semantic_frame"];
+    .NAlice.TTvPromoTemplateShownReportSemanticFrame TvPromoTemplateShownReportSemanticFrame = 108 [json_name = "tv_promo_template_shown_report_semantic_frame"];
+    .NAlice.TUploadContactsRequestSemanticFrame UploadContactsRequestSemanticFrame = 109 [json_name = "upload_contacts_request_semantic_frame"];
+    .NAlice.TDeleteIotNetworksSemanticFrame DeleteIotNetworksSemanticFrame = 110 [json_name = "delete_iot_networks_semantic_frame"];
+    .NAlice.TCentaurCollectWidgetGallerySemanticFrame CentaurCollectWidgetGallerySemanticFrame = 111 [json_name = "centaur_collect_widget_gallery_semantic_frame"];
+    .NAlice.TCentaurAddWidgetFromGallerySemanticFrame CentaurAddWidgetFromGallerySemanticFrame = 112 [json_name = "centaur_add_widget_from_gallery_semantic_frame"];
+    .NAlice.TUpdateContactsRequestSemanticFrame UpdateContactsRequestSemanticFrame = 113 [json_name = "update_contacts_request_semantic_frame"];
+    .NAlice.TRemindersListSemanticFrame RemindersListSemanticFrame = 114 [json_name = "reminders_list_semantic_frame"];
+    .NAlice.TCapabilityEventSemanticFrame CapabilityEventSemanticFrame = 115 [json_name = "capability_event_semantic_frame"];
+    .NAlice.TExternalSkillForceDeactivateSemanticFrame ExternalSkillForceDeactivateSemanticFrame = 116 [json_name = "external_skill_force_deactivate_semantic_frame"];
+    .NAlice.TGetVideoGalleriesSemanticFrame GetVideoGalleries = 117 [json_name = "get_video_galleries_semantic_frame"];
+    .NAlice.TEndpointCapabilityEventsSemanticFrame EndpointCapabilityEventsSemanticFrame = 118 [json_name = "endpoint_capability_events_semantic_frame"];
+    .NAlice.TMusicAnnounceDisableSemanticFrame MusicAnnounceDisableSemanticFrame = 119 [json_name = "music_announce_disable_semantic_frame"];
+    .NAlice.TMusicAnnounceEnableSemanticFrame MusicAnnounceEnableSemanticFrame = 120 [json_name = "music_announce_enable_semantic_frame"];
+    .NAlice.TGetTvSearchResultSemanticFrame GetTvSearchResult = 121 [json_name = "get_tv_search_result"];
+    .NAlice.TSwitchTvChannelSemanticFrame SwitchTvChannelSemanticFrame = 122 [json_name = "switch_tv_channel_semantic_frame"];
+    .NAlice.TConvertSemanticFrame ConvertSemanticFrame = 123 [json_name = "convert_semantic_frame"];
+    .NAlice.TGetVideoGallerySemanticFrame GetVideoGallerySemanticFrame = 124 [json_name = "get_video_gallery_semantic_frame"];
+    .NAlice.TMusicOnboardingTracksReaskSemanticFrame MusicOnboardingTracksReaskSemanticFrame = 125 [json_name = "music_onboarding_tracks_reask_semantic_frame"];
+    .NAlice.TTestSemanticFrame TestSemanticFrame = 126 [json_name = "test_semantic_frame"];
+    .NAlice.TEndpointEventsBatchSemanticFrame EndpointEventsBatchSemanticFrame = 127 [json_name = "endpoint_events_batch_semantic_frame"];
+    .NAlice.TMediaSessionPlaySemanticFrame MediaSessionPlaySemanticFrame = 128 [json_name = "media_session_play_semantic_frame"];
+    .NAlice.TMediaSessionPauseSemanticFrame MediaSessionPauseSemanticFrame = 129 [json_name = "media_session_pause_semantic_frame"];
+    .NAlice.TFmRadioPlaySemanticFrame FmRadioPlaySemanticFrame = 130 [json_name = "fm_radio_play_semantic_frame"];
+    .NAlice.TVideoCallLoginFailedSemanticFrame VideoCallLoginFailedSemanticFrame = 131 [json_name = "video_call_login_failed_semantic_frame"];
+    .NAlice.TVideoCallOutgoingAcceptedSemanticFrame VideoCallOutgoingAcceptedSemanticFrame = 132 [json_name = "video_call_outgoing_accepted_semantic_frame"];
+    .NAlice.TVideoCallOutgoingFailedSemanticFrame VideoCallOutgoingFailedSemanticFrame = 133 [json_name = "video_call_outgoing_failed_semantic_frame"];
+    .NAlice.TVideoCallIncomingAcceptFailedSemanticFrame VideoCallIncomingAcceptFailedSemanticFrame = 134 [json_name = "video_call_incoming_accept_failed_semantic_frame"];
+    .NAlice.TIotScenarioStepActionsSemanticFrame IotScenarioStepActionsSemanticFrame = 135 [json_name = "iot_scenario_step_actions_semantic_frame"];
+    .NAlice.TPhoneCallSemanticFrame PhoneCallSemanticFrame = 136 [json_name = "phone_call_semantic_frame"];
+    .NAlice.TOpenAddressBookSemanticFrame OpenAddressBookSemanticFrame = 137 [json_name = "open_address_book_semantic_frame"];
+    .NAlice.TGetEqualizerSettingsSemanticFrame GetEqualizerSettingsSemanticFrame = 138 [json_name = "get_equalizer_settings_semantic_frame"];
+    .NAlice.TVideoCallToSemanticFrame VideoCallToSemanticFrame = 139 [json_name = "video_call_to_semantic_frame"];
+    .NAlice.TOnboardingGetGreetingsSemanticFrame OnboardingGetGreetingsSemanticFrame = 140 [json_name = "onboarding_get_greetings_semantic_frame"];
+    .NAlice.TOpenTandemSettingSemanticFrame OpenTandemSettingSemanticFrame = 141 [json_name = "open_tandem_setting_semantic_frame"];
+    .NAlice.TOpenSmartSpeakerSettingSemanticFrame OpenSmartSpeakerSettingSemanticFrame = 142 [json_name = "open_smart_speaker_setting_semantic_frame"];
+    .NAlice.TFinishIotSystemDiscoverySemanticFrame FinishIotSystemDiscoverySemanticFrame = 143 [json_name = "finish_iot_system_discovery_semantic_frame"];
+    .NAlice.TVideoCallSetFavoritesSemanticFrame VideoCallSetFavoritesSemanticFrame = 144 [json_name = "video_call_set_favorites_semantic_frame"];
+    .NAlice.TVideoCallIncomingSemanticFrame VideoCallIncomingSemanticFrame = 145 [json_name = "video_call_incoming_semantic_frame"];
+    .NAlice.TMessengerCallAcceptSemanticFrame MessengerCallAcceptSemanticFrame = 146 [json_name = "messenger_call_accept_semantic_frame"];
+    .NAlice.TMessengerCallDiscardSemanticFrame MessengerCallDiscardSemanticFrame = 147 [json_name = "messenger_call_discard_semantic_frame"];
+    .NAlice.TTvLongTapTutorialSemanticFrame TvLongTapTutorialSemanticFrame = 148 [json_name = "tv_long_tap_tutorial_semantic_frame"];
+    .NAlice.TOnboardingWhatCanYouDoSemanticFrame OnboardingWhatCanYouDoSemanticFrame = 149 [json_name = "onboarding_what_can_you_do_semantic_frame"];
+    .NAlice.TMessengerCallHangupSemanticFrame MessengerCallHangupSemanticFrame = 150 [json_name = "messenger_call_hangup_semantic_frame"];
+    .NAlice.TPutMoneyOnPhoneSemanticFrame PutMoneyOnPhoneSemanticFrame = 151 [json_name = "put_money_on_phone_semantic_frame"];
+    .NAlice.TOrderNotificationSemanticFrame OrderNotificationSemanticFrame = 152 [json_name = "order_notification_semantic_frame"];
+    .NAlice.TPlayerRemoveLikeSemanticFrame PlayerRemoveLikeSemanticFrame = 153 [json_name = "player_remove_like_semantic_frame"];
+    .NAlice.TPlayerRemoveDislikeSemanticFrame PlayerRemoveDislikeSemanticFrame = 154 [json_name = "player_remove_dislike_semantic_frame"];
+    .NAlice.TCentaurCollectUpperShutterSemanticFrame CentaurCollectUpperShutterSemanticFrame = 155 [json_name = "centaur_collect_upper_shutter"];
+    .NAlice.TEnrollmentStatusSemanticFrame EnrollmentStatusSemanticFrame = 156 [json_name = "multiaccount_enrollment_status_semantic_frame"];
+    .NAlice.TGalleryVideoSelectSemanticFrame GalleryVideoSelectSemanticFrame = 157 [json_name = "gallery_video_select_semantic_frame"];
+    .NAlice.TPlayerSongsByThisArtistSemanticFrame PlayerSongsByThisArtistSemanticFrame = 158 [json_name = "player_songs_by_this_artist_semantic_frame"];
+    .NAlice.TExternalSkillEpisodeForShowRequestSemanticFrame ExternalSkillEpisodeForShowRequestSemanticFrame = 159 [json_name = "external_skill_episode_for_show_request_semantic_frame"];
+    .NAlice.TMusicPlayFixlistSemanticFrame MusicPlayFixlistSemanticFrame = 160 [json_name = "music_play_fixlist_semantic_frame"];
+    .NAlice.TMusicPlayAnaphoraSemanticFrame MusicPlayAnaphoraSemanticFrame = 161 [json_name = "music_play_anaphora_semantic_frame"];
+    .NAlice.TMusicPlayFairytaleSemanticFrame MusicPlayFairytaleSemanticFrame = 162 [json_name = "music_play_fairytale_semantic_frame"];
+    .NAlice.TStartMultiroomSemanticFrame StartMultiroomSemanticFrame = 163 [json_name = "start_multiroom_semantic_frame"];
+    .NAlice.TPlayerWhatIsThisSongAboutSemanticFrame PlayerWhatIsThisSongAboutSemanticFrame = 164 [json_name = "player_what_is_this_song_about_semantic_frame"];
+    .NAlice.TGuestEnrollmentFinishSemanticFrame GuestEnrollmentFinishSemanticFrame = 165 [json_name = "guest_enrollment_finish_semantic_frame"];
+    .NAlice.TCentaurSetTeaserConfigurationSemanticFrame CentaurSetTeaserConfigurationSemanticFrame = 166 [json_name = "centaur_set_teaser_configuration"];
+    .NAlice.TCentaurCollectTeasersPreviewSemanticFrame CentaurCollectTeasersPreviewSemanticFrame = 167 [json_name = "centaur_collect_teasers_preview"];
+    .NAlice.TCancelOrderSemanticFrame CancelOrderSemanticFrame = 168 [json_name = "cancel_order_semantic_frame"];
+    .NAlice.TCallCurierSemanticFrame CallCurierSemanticFrame = 169 [json_name = "call_curier_semantic_frame"];
+    .NAlice.TMakeOrderSemanticFrame MakeOrderSemanticFrame = 170 [json_name = "make_order_semantic_frame"];
+    .NAlice.TGetVideoTaggedGallerySemanticFrame GetVideoTaggedGallerySemanticFrame = 171 [json_name = "get_video_tagged_gallery_semantic_frame"];
+    .NAlice.TVideoCallMuteMicSemanticFrame VideoCallMuteMicSemanticFrame = 172 [json_name = "video_call_mute_mic_semantic_frame"];
+    .NAlice.TVideoCallUnmuteMicSemanticFrame VideoCallUnmuteMicSemanticFrame = 173 [json_name = "video_call_unmute_mic_semantic_frame"];
+    .NAlice.TVideoCallVideoEnableSemanticFrame VideoCallVideoEnableSemanticFrame = 174 [json_name = "video_call_video_enable_semantic_frame"];
+    .NAlice.TVideoCallVideoDisableSemanticFrame VideoCallVideoDisableSemanticFrame = 175 [json_name = "video_call_video_disable_semantic_frame"];
+    .NAlice.TGuruHelpToChooseSemanticFrame GuruHelpToChooseSemanticFrame = 176 [json_name = "guru_help_to_choose_semantic_frame"];
+    .NAlice.TPlaySelectedVideoSemanticFrame PlaySelectedVideoSemanticFrame = 177 [json_name = "play_selected_video"];
+    .NAlice.TGetVideoEpisodeSeriesFrame GetVideoEpisodeSeriesFrame = 178 [json_name = "get_video_episode_series_frame"];
+    .NAlice.TMessengerCallToSemanticFrame MessengerCallToSemanticFrame = 179 [json_name = "messenger_call_to_semantic_frame"];
+    .NAlice.TMessengerCallToNannySemanticFrame MessengerCallToNannySemanticFrame = 180 [json_name = "messenger_call_to_nanny_semantic_frame"];
+    .NAlice.TAlarmCancelSemanticFrame AlarmCancelSemanticFrame = 181 [json_name = "alarm_cancel_semantic_frame"];
+    .NAlice.TTimerCancelSemanticFrame TimerCancelSemanticFrame = 182 [json_name = "timer_cancel_semantic_frame"];
+    .NAlice.TTimerPauseSemanticFrame TimerPauseSemanticFrame = 183 [json_name = "timer_pause_semantic_frame"];
+    .NAlice.TTimerResumeSemanticFrame TimerResumeSemanticFrame = 184 [json_name = "timer_resume_semantic_frame"];
+    .NAlice.TShowTrafficSemanticFrame ShowTrafficSemanticFrame = 185 [json_name = "show_traffic_semantic_frame"];
+    .NAlice.TRemindersSyncSemanticFrame RemindersSyncSemanticFrame = 186 [json_name = "reminders_sync_semantic_frame"];
+    .NAlice.TAlarmSnoozeRelSemanticFrame AlarmSnoozeRelSemanticFrame = 187 [json_name = "alarm_snooze_rel_semantic_frame"];
+    .NAlice.TStartSessionSemanticFrame StartSessionSemanticFrame = 188 [json_name = "start_session_semantic_frame"];
+    .NAlice.TFindPoiSemanticFrame FindPoiSemanticFrame = 189 [json_name = "find_poi_semantic_frame"];
+    .NAlice.TVideoOpenByOntoIdFrame VideoOpenByOntoIdFrame = 190 [json_name = "video_open_by_onto_id_frame"];
+    .NAlice.TVideoCallSelectContactForCallSemanticFrame VideoCallSelectContactForCallSemanticFrame = 191 [json_name = "video_call_select_contact_for_call_semantic_frame"];
+    .NAlice.TRemindersLogSemanticFrame RemindersLogSemanticFrame = 192 [json_name = "reminders_log_semantic_frame"];
+    .NAlice.TInfoConciergeConnectWifiIntentSemanticFrame InfoConciergeConnectWifiIntentSemanticFrame = 193 [json_name = "info_concierge_connect_wifi_intent_semantic_frame"];
+    .NAlice.TStoryTellingSemanticFrame StoryTellingSemanticFrame = 194 [json_name = "story_telling_semantic_frame"];
+    .NAlice.TInfoConciergeInformationAboutBreakfastIntentSemanticFrame InfoConciergeInformationAboutBreakfastIntentSemanticFrame = 195 [json_name = "info_concierge_information_about_breakfast_intent_semantic_frame"];
+    .NAlice.TGameITakeWithMeSemanticFrame GameITakeWithMeSemanticFrame = 196 [json_name = "game_i_take_with_me_semantic_frame"];
+    .NAlice.TMessengerCallWhatIsNannySemanticFrame MessengerCallWhatIsNannySemanticFrame = 197 [json_name = "messenger_call_what_is_nanny_semantic_frame"];
+    .NAlice.TTimeCapsuleOpenSemanticFrame TimeCapsuleOpenSemanticFrame = 198 [json_name = "time_capsule_open_semantic_frame"];
+    .NAlice.TSwitchVideoPlayerTrackSemanticFrame SwitchVideoPlayerTrackSemanticFrame = 199 [json_name = "switch_video_player_track_semantic_frame"];
+    .NAlice.TVideoComandChangeTrackSemanticFrame VideoComandChangeTrackSemanticFrame = 200 [json_name = "video_comand_change_track_semantic_frame"];
+    .NAlice.TVideoComandChangeQualitySemanticFrame VideoComandChangeQualitySemanticFrame = 201 [json_name = "video_comand_change_quality_semantic_frame"];
+    .NAlice.TGameTrueOrFalseSemanticFrame GameTrueOrFalseSemanticFrame = 202 [json_name = "game_true_or_false_semantic_frame"];
+    .NAlice.TOnboardingGetPromoSemanticFrame OnboardingGetPromoSemanticFrame = 203 [json_name = "onboarding_get_promo_semantic_frame"];
+    .NAlice.TGameMainWordsSemanticFrame GameMainWordsSemanticFrame = 204 [json_name = "game_main_words_semantic_frame"];
+    .NAlice.TTellMePromoCodeSmartBulbSemanticFrame TellMePromoCodeSmartBulbSemanticFrame = 205 [json_name = "tell_me_promo_code_smart_bulb_semantic_frame"];
+    .NAlice.TSkillWildcardSemanticFrame SkillWildcardSemanticFrame = 206 [json_name = "skill_wildcard_semantic_frame"];
+    .NAlice.TTvMainSelectGalleryItemSemanticFrame TvMainSelectGalleryItemSemanticFrame = 207 [json_name = "tv_main_select_gallery_item_semantic_frame"];
+    .NAlice.TShowRouteSemanticFrame ShowRouteSemanticFrame = 208 [json_name = "show_route_semantic_frame"];
+    .NAlice.TInfoConciergeInformationAboutHotelIntentSemanticFrame InfoConciergeInformationAboutHotelIntentSemanticFrame = 209 [json_name = "info_concierge_information_about_hotel_intent_semantic_frame"];
+    .NAlice.TMusicPlayerReplaySemanticFrame MusicPlayerReplaySemanticFrame = 210 [json_name = "music_player_replay_semantic_frame"];
+    .NAlice.TTvMainPlayFeatureItemSemanticFrame TvMainPlayFeatureItemSemanticFrame = 211 [json_name = "tv_main_play_feature_item_semantic_frame"];
+    .NAlice.TGameSnowBallSemanticFrame GameSnowBallSemanticFrame = 212 [json_name = "game_snow_ball_semantic_frame"];
+    .NAlice.TNannyBedtimeStorySemanticFrame NannyBedtimeStorySemanticFrame = 213 [json_name = "nanny_bedtime_story_semantic_frame"];
+    .NAlice.TNannyTimeToSleepSemanticFrame NannyTimeToSleepSemanticFrame = 214 [json_name = "nanny_time_to_sleep_semantic_frame"];
+    .NAlice.TNannyWakeUpSemanticFrame NannyWakeUpSemanticFrame = 215 [json_name = "nanny_wake_up_semantic_frame"];
+    .NAlice.TInfoConciergeRequestAmenitiesIntentSemanticFrame InfoConciergeRequestAmenitiesSemanticFrame = 216 [json_name = "info_concierge_request_amenities_intent_semantic_frame"];
+    .NAlice.TKeyboardGetGreetingsSemanticFrame KeyboardGetGreetingsSemanticFrame = 217 [json_name = "keyboard_get_greetings_semantic_frame"];
+    .NAlice.TInfoConciergeCallReceptionIntentSemanticFrame InfoConciergeCallReceptionIntentSemanticFrame = 218 [json_name = "info_concierge_call_reception_intent_semantic_frame"];
+    .NAlice.TTvMainDetailsFeatureItemSemanticFrame TvMainDetailsFeatureItemSemanticFrame = 219 [json_name = "tv_main_details_feature_item_semantic_frame"];
+    .NAlice.TAlarmShowSemanticFrame AlarmShowSemanticFrame = 220 [json_name = "alarm_show_semantic_frame"];
+    .NAlice.TTimerShowSemanticFrame TimerShowSemanticFrame = 221 [json_name = "timer_show_semantic_frame"];
+    .NAlice.TOpenSeriesScreenFrame OpenSeriesScreenFrame = 222 [json_name = "open_series_screen_frame"];
+    .NAlice.TSelectTvChannelFrame SelectTvChannelFrame = 223 [json_name = "select_tv_channel_frame"];
+    .NAlice.TTvAddToWatchListSemanticFrame TvAddToWatchListSemanticFrame = 224 [json_name = "add_to_watch_list_semantic_frame"];
+    .NAlice.TTvDeleteFromWatchListSemanticFrame TvDeleteFromWatchListSemanticFrame = 225 [json_name = "delete_from_watch_list_semantic_frame"];
+    .NAlice.TGameGuessMeSemanticFrame GameGuessMeSemanticFrame = 226 [json_name = "game_guess_me_semantic_frame"];
+    .NAlice.TChildEducationSelectCurrentScenarioSemanticFrame ChildEducationSelectCurrentScenarioSemanticFrame = 227 [json_name = "child_education_select_current_scenario_semantic_frame"];
+    .NAlice.TMusicPlayerAddToPlaylistSemanticFrame MusicPlayerAddToPlaylistSemanticFrame = 228 [json_name = "music_player_add_to_playlist_semantic_frame"];
+    .NAlice.TGameWhatIsExcessSemanticFrame GameWhatIsExcessSemanticFrame = 229 [json_name = "game_what_is_excess_semantic_frame"];
+    .NAlice.TGameFrankfurterSemanticFrame GameFrankfurterSemanticFrame = 230 [json_name = "game_frankfurter_semantic_frame"];
+    .NAlice.TNannyPlayOnDemandSemanticFrame NannyPlayOnDemandSemanticFrame = 231 [json_name = "nanny_play_on_demand_semantic_frame"];
+    .NAlice.TTvPlayFeatureTrailerSemanticFrame TvPlayFeatureTrailerSemanticFrame = 232 [json_name = "tv_play_feature_trailer_semantic_frame"];
+    .NAlice.TChildEducationMenuSemanticFrame ChildEducationMenuSemanticFrame = 233 [json_name = "child_education_menu_semantic_frame"];
+    .NAlice.THelpToCreateSemanticFrame HelpToCreateSemanticFrame = 234 [json_name = "help_to_create_semantic_frame"];
+    .NAlice.TGenesisBanRequestSemanticFrame GenesisBanRequestSemanticFrame = 235 [json_name = "genesis_ban_request_semantic_frame"];
+    .NAlice.TPlayerSongsFromThisAlbumSemanticFrame PlayerSongsFromThisAlbumSemanticFrame = 236 [json_name = "player_songs_from_this_album_semantic_frame"];
+    .NAlice.TGenesisSoftExitSemanticFrame GenesisSoftExitSemanticFrame = 237 [json_name = "genesis_soft_exit_semantic_frame"];
+    .NAlice.TNotificationsReadSemanticFrame NotificationsReadSemanticFrame = 238 [json_name = "notifications_read_semantic_frame"];
+    .NAlice.TAlarmShowCancelSemanticFrame AlarmShowCancelSemanticFrame = 239 [json_name = "alarm_show_cancel_semantic_frame"];
+    .NAlice.TVideoOpenInExternalCinemaSemanticFrame VideoOpenInExternalCinemaSemanticFrame = 240 [json_name = "video_open_in_external_cinema_semantic_frame"];
+    .NAlice.TTaxiOrderSemanticFrame TaxiOrderSemanticFrame = 241 [json_name = "taxi_order_semantic_frame"];
+    .NAlice.TGoBackwardCommandSemanticFrame GoBackwardCommandSemanticFrame = 242 [json_name = "go_backward_semantic_frame"];
+    .NAlice.TActivateTextGenerationSessionSemanticFrame ActivateTextGenerationSessionSemanticFrame = 243 [json_name = "activate_text_generation_session_semantic_frame"];
+    .NAlice.TVideoSearchInBrowserSemanticFrame VideoSearchInBrowserSemanticFrame = 244 [json_name = "video_search_in_browser_semantic_frame"];
+    .NAlice.TRemindersCancelGeneralSemanticFrame RemindersCancelGeneralSemanticFrame = 245 [json_name = "reminders_cancel_general_semantic_frame"];
+    .NAlice.TRemindersListGeneralSemanticFrame RemindersListGeneralSemanticFrame = 246 [json_name = "reminders_list_general_semantic_frame"];
+    .NAlice.TRemindersCreateGeneralSemanticFrame RemindersCreateGeneralSemanticFrame = 247 [json_name = "reminders_create_general_semantic_frame"];
+    .NAlice.TTellMePromoCodeSemanticFrame TellMePromoCodeSemanticFrame = 248 [json_name = "tell_me_promo_code_semantic_frame"];
+    .NAlice.TTimerShowCancelSemanticFrame TimerShowCancelSemanticFrame = 249 [json_name = "timer_show_cancel_semantic_frame"];
+    .NAlice.TTimerShowPauseSemanticFrame TimerShowPauseSemanticFrame = 250 [json_name = "timer_show_pause_semantic_frame"];
+    .NAlice.TTimerShowResumeSemanticFrame TimerShowResumeSemanticFrame = 251 [json_name = "timer_show_resume_semantic_frame"];
+    .NAlice.TAlarmCancelEllipsisSemanticFrame AlarmCancelEllipsisSemanticFrame = 252 [json_name = "alarm_cancel_ellipsis_semantic_frame"];
+    .NAlice.TTimerCancelEllipsisSemanticFrame TimerCancelEllipsisSemanticFrame = 253 [json_name = "timer_cancel_ellipsis_semantic_frame"];
+    .NAlice.TTimerPauseEllipsisSemanticFrame TimerPauseEllipsisSemanticFrame = 254 [json_name = "timer_pause_ellipsis_semantic_frame"];
+    .NAlice.TTimerResumeEllipsisSemanticFrame TimerResumeEllipsisSemanticFrame = 255 [json_name = "timer_resume_ellipsis_semantic_frame"];
+    .NAlice.TTvChannelsSelectProgramSemanticFrame TvChannelsSelectProgramSemanticFrame = 256 [json_name = "tv_channels_select_program_semantic_frame"];
+    .NAlice.TTvUpdateInstallSemanticFrame TvUpdateInstallSemanticFrame = 257 [json_name = "tv_update_install_semantic_frame"];
+    .NAlice.TTvUpdateOkSemanticFrame TvUpdateOkSemanticFrame = 258 [json_name = "tv_update_ok_semantic_frame"];
+    .NAlice.TTvUpdateLaterSemanticFrame TvUpdateLaterSemanticFrame = 259 [json_name = "tv_update_later_semantic_frame"];
+    .NAlice.TTvUpdateHideSemanticFrame TvUpdateHideSemanticFrame = 260 [json_name = "tv_update_hide_semantic_frame"];
+    .NAlice.TTvUpdateSkipSemanticFrame TvUpdateSkipSemanticFrame = 261 [json_name = "tv_update_skip_semantic_frame"];
+    .NAlice.TTvUpdateRetrySemanticFrame TvUpdateRetrySemanticFrame = 262 [json_name = "tv_update_retry_semantic_frame"];
+    .NAlice.TVoiceActivityDetectorSemanticFrame VoiceActivityDetectorSemanticFrame = 263 [json_name = "voice_activity_detector_semantic_frame"];
+    .NAlice.TTriggerSoundSetLevelSemanticFrame TriggerSoundSetLevelSemanticFrame = 264 [json_name = "trigger_sound_set_level_semantic_frame"];
+    .NAlice.TSelectCatalogTagsSemanticFrame SelectCatalogTagsSemanticFrame = 265 [json_name = "select_catalog_tags_semantic_frame"];
+    .NAlice.TRemindersCancelEllipsisSemanticFrame RemindersCancelEllipsisSemanticFrame = 266 [json_name = "reminders_cancel_ellipsis_semantic_frame"];
+    .NAlice.TMusicPlayerChangeChapterNumberSemanticFrame MusicPlayerChangeChapterNumberSemanticFrame = 267 [json_name = "music_player_change_chapter_number_semantic_frame"];
+    .NAlice.TSmartScreenCloseCardSemanticFrame SmartScreenCloseCardSemanticFrame = 268 [json_name = "smart_screen_close_card_semantic_frame"];
+    .NAlice.TVideoSelectByNumberSemanticFrame VideoSelectByNumberSemanticFrame = 269 [json_name = "video_select_by_number_semantic_frame"];
+    .NAlice.TAliceResponseLikeSemanticFrame AliceResponseLikeSemanticFrame = 270 [json_name = "alice_response_like_semantic_frame"];
+    .NAlice.TAliceResponseDislikeSemanticFrame AliceResponseDislikeSemanticFrame = 271 [json_name = "alice_response_dislike_semantic_frame"];
+    .NAlice.TTellMeInformationAboutTinkoffBusinessSemanticFrame TellMeInformationAboutTinkoffBusinessSemanticFrame = 272 [json_name = "alice_promo_campaign_information_about_tinkoff_business_semantic_frame"];
+    .NAlice.TRemindersCreateEllipsisSemanticFrame RemindersCreateEllipsisSemanticFrame = 273 [json_name = "reminders_create_ellipsis_semantic_frame"];
+    .NAlice.TGenesisCareerOpportunitySemanticFrame GenesisCareerOpportunitySemanticFrame = 274 [json_name = "genesis_career_opportunity_semantic_frame"];
+    .NAlice.TCallToSemanticFrame CallToSemanticFrame = 275 [json_name = "call_to_semantic_frame"];
+    .NAlice.TCallToNannySemanticFrame CallToNannySemanticFrame = 276 [json_name = "call_to_nanny_semantic_frame"];
+    .NAlice.TCallToDropinSemanticFrame CallToDropinSemanticFrame = 277 [json_name = "call_to_dropin_semantic_frame"];
+    .NAlice.TSearchAgreeSemanticFrame SearchAgreeSemanticFrame = 278 [json_name = "search_agree_semantic_frame"];
+    .NAlice.TClosePageSemanticFrame ClosePageSemanticFrame = 279 [json_name = "close_page_semantic_frame"];
+    .NAlice.TStartEcomAssistantSemanticFrame StartEcomAssistantSemanticFrame = 280 [json_name = "start_ecom_assistant_semantic_frame"];
+    .NAlice.TAddCatalogTagsSemanticFrame AddCatalogTagsSemanticFrame = 281 [json_name = "add_catalog_tags_semantic_frame"];
+    .NAlice.TRemoveCatalogTagsSemanticFrame RemoveCatalogTagsSemanticFrame = 282 [json_name = "remove_catalog_tags_semantic_frame"];
+    .NAlice.TIoTScenarioRunFrame IoTScenarioRunFrame = 283 [json_name = "iot_scenario_run_frame"];
+    .NAlice.TScreensaverAddInteractiveWidgetSemanticFrame ScreensaverAddInteractiveWidgetSemanticFrame = 284 [json_name = "screensaver_add_interactive_widget_semantic_frame"];
+    .NAlice.TScreensaverRemoveInteractiveWidgetSemanticFrame ScreensaverRemoveInteractiveWidgetSemanticFrame = 285 [json_name = "screensaver_remove_interactive_widget_semantic_frame"];
+    .NAlice.TAliceResponseSaveSemanticFrame AliceResponseSaveSemanticFrame = 286 [json_name = "alice_response_save_semantic_frame"];
+    .NAlice.TChildEducationGameSelectAnswerSemanticFrame ChildEducationGameSelectAnswerSemanticFrame = 287 [json_name = "child_education_game_select_answer_semantic_frame"];
+    .NAlice.TScreensaverRemoveAllWidgetsSemanticFrame ScreensaverRemoveAllWidgetsSemanticFrame = 288 [json_name = "screensaver_remove_all_widgets_semantic_frame"];
+    .NAlice.TScreensaverTrapSemanticFrame ScreensaverTrapSemanticFrame = 289 [json_name = "screensaver_trap_semantic_frame"];
+    .NAlice.TScreensaverAddAllWidgetsSemanticFrame ScreensaverAddAllWidgetsSemanticFrame = 290 [json_name = "screensaver_add_all_widgets_semantic_frame"];
+    .NAlice.TMusicPlayerDisableLyricsSemanticFrame MusicPlayerDisableLyricsSemanticFrame = 291 [json_name = "music_player_disable_lyrics_semantic_frame"];
+    .NAlice.TAliceAccessibleVoiceMakeClickFrame AliceAccessibleVoiceMakeClickFrame = 292 [json_name = "alice_accessible_voice_make_click_frame"];
+    .NAlice.TTvMainSelectMusicGalleryItemSemanticFrame TvMainSelectMusicGalleryItemSemanticFrame = 293 [json_name = "tv_main_select_music_gallery_item_semantic_frame"];
+    .NAlice.TTvMainDetailsGalleryItemSemanticFrame TvMainDetailsGalleryItemSemanticFrame = 294 [json_name = "tv_main_details_gallery_item_semantic_frame"];
+    .NAlice.TTvMainPlayGalleryItemSemanticFrame TvMainPlayGalleryItemSemanticFrame = 295 [json_name = "tv_main_play_gallery_item_semantic_frame"];
+    .NAlice.TTvMainWatchListAddGalleryItemSemanticFrame TvMainWatchListAddGalleryItemSemanticFrame = 296 [json_name = "tv_main_watch_list_add_gallery_item_semantic_frame"];
+    .NAlice.TTvMainWatchListRemoveGalleryItemSemanticFrame TvMainWatchListRemoveGalleryItemSemanticFrame = 297 [json_name = "tv_main_watch_list_remove_gallery_item_semantic_frame"];
+    .NAlice.TMusicPlayerEnableLyricsSemanticFrame MusicPlayerEnableLyricsSemanticFrame = 298 [json_name = "music_player_enable_lyrics_semantic_frame"];
+    .NAlice.TMusicPlayerShowArtistSemanticFrame MusicPlayerShowArtistSemanticFrame = 299 [json_name = "music_player_show_artist_semantic_frame"];
+    .NAlice.TVideoSearchByCurrentVideoSemanticFrame VideoSearchByCurrentVideoSemanticFrame = 300 [json_name = "video_search_by_current_video_semantic_frame"];
+    .NAlice.TYoutubeContextSearchSemanticFrame YoutubeContextSearchSemanticFrame = 301 [json_name = "youtube_context_search_semantic_frame"];
+    .NAlice.TStopsStopSoftSemanticFrame StopsStopSoftSemanticFrame = 302 [json_name = "stops_stop_soft_semantic_frame"];
+    .NAlice.TVideoWhereElseToWatchSemanticFrame VideoWhereElseToWatchSemanticFrame = 303 [json_name = "video_where_else_to_watch_semantic_frame"];
+    .NAlice.TRemindersPrepareShootSemanticFrame RemindersPrepareShootSemanticFrame = 304 [json_name = "reminders_prepare_shoot_semantic_frame"];
+    .NAlice.TYoutubeSwitchToSelectedAccountSemanticFrame YoutubeSwitchToSelectedAccountSemanticFrame = 305 [json_name = "youtube_switch_to_selected_account_semantic_frame"];
+    .NAlice.TScreensaverWhatPictureSemanticFrame ScreensaverWhatPictureSemanticFrame = 306 [json_name = "screensaver_what_picture_semantic_frame"];
+    .NAlice.TYoutubeOpenTabSemanticFrame YoutubeOpenTabSemanticFrame = 307 [json_name = "youtube_open_tab_semantic_frame"];
+    .NAlice.TYoutubeOpenSubscriptionsSemanticFrame YoutubeOpenSubscriptionsSemanticFrame = 308 [json_name = "youtube_open_subscriptions_semantic_frame"];
+    .NAlice.TYoutubeOpenChannelSemanticFrame YoutubeOpenChannelSemanticFrame = 309 [json_name = "youtube_open_channel_semantic_frame"];
+    .NAlice.TFastCommandFastNextTrackSemanticFrame FastCommandFastNextTrackSemanticFrame = 310 [json_name = "fast_command_fast_next_track_semantic_frame"];
+    .NAlice.TYoutubeOpenWatchLaterSemanticFrame YoutubeOpenWatchLaterSemanticFrame = 311 [json_name = "youtube_open_watch_later_semantic_frame"];
+    .NAlice.TYoutubeOpenLibrarySemanticFrame YoutubeOpenLibrarySemanticFrame = 312 [json_name = "youtube_open_library_semantic_frame"];
+    .NAlice.TYoutubeOpenSearchSemanticFrame YoutubeOpenSearchSemanticFrame = 313 [json_name = "youtube_open_search_semantic_frame"];
+    .NAlice.TYoutubeOpenPlaylistsSemanticFrame YoutubeOpenPlaylistsSemanticFrame = 314 [json_name = "youtube_open_playlists_semantic_frame"];
+    .NAlice.TVideoComandShowVideoSettingsSemanticFrame VideoComandShowVideoSettingsSemanticFrame = 315 [json_name = "video_command_show_video_settings_semantic_frame"];
+    .NAlice.TYoutubeSearchChannelSemanticFrame YoutubeSearchChannelSemanticFrame = 316 [json_name = "youtube_search_channel_semantic_frame"];
+    .NAlice.TSpeedFasterSemanticFrame SpeedFasterSemanticFrame = 317 [json_name = "speed_faster_semantic_frame"];
+    .NAlice.TSpeedSlowerSemanticFrame SpeedSlowerSemanticFrame = 318 [json_name = "speed_slower_semantic_frame"];
+    .NAlice.TSpeedGetLevelSemanticFrame SpeedGetLevelSemanticFrame = 319 [json_name = "speed_get_level_semantic_frame"];
+    .NAlice.TSpeedSetLevelSemanticFrame SpeedSetLevelSemanticFrame = 320 [json_name = "speed_set_level_semantic_frame"];
+    .NAlice.TYoutubeOpenHistorySemanticFrame YoutubeOpenHistorySemanticFrame = 321 [json_name = "youtube_open_history_semantic_frame"];
+    .NAlice.TYoutubeOpenMainTabSemanticFrame YoutubeOpenMainTabSemanticFrame = 322 [json_name = "youtube_open_main_tab_semantic_frame"];
+    .NAlice.TMusicActivateLitresSkillSemanticFrame MusicActivateLitresSkillSemanticFrame = 323 [json_name = "music_activate_litres_skill_semantic_frame"];
+    .NAlice.TStopIotDiscoverySemanticFrame StopIotDiscoverySemanticFrame = 324 [json_name = "stop_iot_discovery_semantic_frame"];
+    .NAlice.TOpenSmartDeviceExternalAppUniversalFrame OpenSmartDeviceExternalAppUniversalFrame = 325 [json_name = "open_smart_device_external_app_universal_frame"];
+    .NAlice.TScreensaverOpenSettingsSemanticFrame ScreensaverOpenSettingsSemanticFrame = 326 [json_name = "screensaver_open_settings_semantic_frame"];
+    .NAlice.TYoutubeOpenTranslationsSemanticFrame YoutubeOpenTranslationsSemanticFrame = 327 [json_name = "youtube_open_translations_semantic_frame"];
+    .NAlice.TSelectEnrollmentTypeSemanticFrame SelectEnrollmentTypeSemanticFrame = 328 [json_name = "select_enrollment_type_semantic_frame"];
+    .NAlice.TMusicPlayKaraokeSemanticFrame MusicPlayKaraokeSemanticFrame = 329 [json_name = "music_play_karaoke_semantic_frame"];
+    .NAlice.TMusicEnableKaraokeModeSemanticFrame MusicEnableKaraokeModeSemanticFrame = 330 [json_name = "music_enable_karaoke_mode_semantic_frame"];
+    .NAlice.TMusicDisableKaraokeModeSemanticFrame MusicDisableKaraokeModeSemanticFrame = 331 [json_name = "music_disable_karaoke_mode_semantic_frame"];
+    .NAlice.TYoutubeOpenMoreSemanticFrame YoutubeOpenMoreSemanticFrame = 332 [json_name = "youtube_open_more_semantic_frame"];
+    .NAlice.TBabyEducationMenuSemanticFrame BabyEducationMenuSemanticFrame = 333 [json_name = "baby_education_menu_semantic_frame"];
+    .NAlice.TYoutubeOpenMusicSemanticFrame YoutubeOpenMusicSemanticFrame = 334 [json_name = "youtube_open_music_semantic_frame"];
+    .NAlice.TAnnounceAtLocationWildcardSemanticFrame AnnounceAtLocationWildcardSemanticFrame = 335 [json_name = "announce_at_location_wildcard_semantic_frame"];
+    .NAlice.TSendAnnounceAtLocationSemanticFrame SendAnnounceAtLocationSemanticFrame = 336 [json_name = "send_announce_at_location_semantic_frame"];
+    .NAlice.TPlayTrailerSemanticFrame PlayTrailerSemanticFrame = 337 [json_name = "play_trailer_semantic_frame"];
+    .NAlice.TPlayCurrentVideoSemanticFrame PlayCurrentVideoSemanticFrame = 338 [json_name = "play_current_video_semantic_frame"];
+    .NAlice.TYoutubeItemSelectionSemanticFrame YoutubeItemSelectionSemanticFrame = 339 [json_name = "youtube_item_selection_semantic_frame"];
+    .NAlice.TYoutubeCloseAppSemanticFrame YoutubeCloseAppSemanticFrame = 340 [json_name = "youtube_close_app_semantic_frame"];
+    .NAlice.TSetSeatHeatingStateSemanticFrame SetSeatHeatingStateSemanticFrame = 341 [json_name = "set_seat_heating_state_semantic_frame"];
+    .NAlice.TVideoDontPlayNextSemanticFrame VideoDontPlayNextSemanticFrame = 343 [json_name = "video_dont_play_next_semantic_frame"];
+    .NAlice.TTvMainWhatsNewSelectButtonSemanticFrame TvMainWhatsNewSelectButtonSemanticFrame = 344 [json_name = "tv_main_whats_new_select_button_semantic_frame"];
+    .NAlice.TTvMainWhatsNewRepeatSemanticFrame TvMainWhatsNewRepeatSemanticFrame = 345 [json_name = "tv_main_whats_new_repeat_semantic_frame"];
+    .NAlice.TBrowserCloseAppSemanticFrame BrowserCloseAppSemanticFrame = 346 [json_name = "browser_close_app_semantic_frame"];
+    .NAlice.TSelectAccountItemSemanticFrame SelectAccountItemSemanticFrame = 347 [json_name = "select_account_item_semantic_frame"];
+    .NAlice.TCancelEnrollmentSemanticFrame CancelEnrollmentSemanticFrame = 348 [json_name = "cancel_enrollment_semantic_frame"];
+    .NAlice.TBrowserSearchQuerySemanticFrame BrowserSearchQuerySemanticFrame = 349 [json_name = "browser_search_query_semantic_frame"];
+    .NAlice.TYoutubeSearchQuerySemanticFrame YoutubeSearchQuerySemanticFrame = 350 [json_name = "youtube_search_query_semantic_frame"];
+    .NAlice.THvacAirHeatingSemanticFrame HvacAirHeatingSemanticFrame = 351 [json_name = "hvac_air_heating_semantic_frame"];
+    .NAlice.TGoForwardCommandSemanticFrame GoForwardCommandSemanticFrame = 352 [json_name = "go_forward_semantic_frame"];
+    .NAlice.TGoUpCommandSemanticFrame GoUpCommandSemanticFrame = 353 [json_name = "go_up_semantic_frame"];
+    .NAlice.TGoDownCommandSemanticFrame GoDownCommandSemanticFrame = 354 [json_name = "go_down_semantic_frame"];
+    .NAlice.TBrowserRefreshPageSemanticFrame BrowserRefreshPageSemanticFrame = 355 [json_name = "browser_refresh_page_semantic_frame"];
+    .NAlice.THvacSetDefrosterStateSemanticFrame HvacSetDefrosterStateSemanticFrame = 356 [json_name = "hvac_set_defroster_state_semantic_frame"];
+    .NAlice.THvacAirDirectionSemanticFrame HvacAirDirectionSemanticFrame = 357 [json_name = "hvac_air_direction_semantic_frame"];
+    .NAlice.THvacAirFanSpeedSemanticFrame HvacAirFanSpeedSemanticFrame = 358 [json_name = "hvac_air_fan_speed_semantic_frame"];
+    .NAlice.TBodySideMirrorsSemanticFrame BodySideMirrorsSemanticFrame = 359 [json_name = "body_side_mirrors_semantic_frame"];
+    .NAlice.TEstablishConnectionSemanticFrame EstablishConnectionSemanticFrame = 360 [json_name = "establish_connection_semantic_frame"];
+    .NAlice.TFastCommandsEnableSemanticFrame FastCommandsEnableSemanticFrame = 361 [json_name = "fast_commands_enable_semantic_frame"];
+    .NAlice.TBodySetTrunkPositionSemanticFrame BodySetTrunkPositionSemanticFrame = 362 [json_name = "body_set_trunk_position_semantic_frame"];
+    .NAlice.TFastCommandsEnableMusicSemanticFrame FastCommandsEnableMusicSemanticFrame = 363 [json_name = "fast_commands_enable_music_semantic_frame"];
+    .NAlice.TSetSeatVentilationStateSemanticFrame SetSeatVentilationStateSemanticFrame = 364 [json_name = "set_seat_ventilation_state_semantic_frame"];
+    .NAlice.TBodySunVisorRegulationSemanticFrame BodySunVisorRegulationSemanticFrame = 365 [json_name = "body_sun_visor_regulation_semantic_frame"];
+    .NAlice.TBodyTrapdoorRegulationSemanticFrame BodyTrapdoorRegulationSemanticFrame = 366 [json_name = "body_trapdoor_regulation_semantic_frame"];
+    .NAlice.TBodyWindowRegulationSemanticFrame BodyWindowRegulationSemanticFrame = 367 [json_name = "body_window_regulation_semantic_frame"];
+    .NAlice.TOnboardingAddNetworkSuccessSemanticFrame OnboardingAddNetworkSuccessSemanticFrame = 368 [json_name = "onboarding_add_network_success_semantic_frame"];
+    .NAlice.TVideoCallEndedSemanticFrame VideoCallEndedSemanticFrame = 369 [json_name = "video_call_ended_semantic_frame"];
+    .NAlice.TProactivityDeclineSemanticFrame ProactivityDeclineSemanticFrame = 370 [json_name = "proactivity_decline_semantic_frame"];
+    .NAlice.TFindCurrentVideoSemanticFrame FindCurrentVideoSemanticFrame = 371 [json_name = "find_current_video_semantic_frame"];
+    .NAlice.TDirectHitcountSemanticFrame DirectHitcountSemanticFrame = 372 [json_name = "direct_hitcount_semantic_frame"];
+    .NAlice.TSmartScreenGoBackwardSemanticFrame SmartScreenGoBackwardSemanticFrame = 373 [json_name = "smart_screen_go_backward_semantic_frame"];
+    .NAlice.TConfirmDeviceFamilyNotify ConfirmDeviceFamilyNotify = 374 [json_name = "confirm_device_family_notify_semantic_frame"];
+    .NAlice.THvacSteeringWheelHeatingSemanticFrame HvacSteeringWheelHeatingSemanticFrame = 375 [json_name = "hvac_steering_wheel_heating_semantic_frame"];
+    .NAlice.TAutoConditoningSystemSemanticFrame AutoConditoningSystemSemanticFrame = 376 [json_name = "auto_conditoning_system_semantic_frame"];
+    .NAlice.TVoiceprintEnrollmentDoneSemanticFrame VoiceprintEnrollmentDoneSemanticFrame = 377 [json_name = "voiceprint_enrollment_done_semantic_frame"];
+    .NAlice.TAutoSetRecirculationModeSemanticFrame AutoSetRecirculationModeSemanticFrame = 378 [json_name = "auto_set_recirculation_mode_semantic_frame"];
+    .NAlice.TAutoSwitchRecirculationModeSemanticFrame AutoSwitchRecirculationModeSemanticFrame = 379 [json_name = "auto_switch_recirculation_mode_semantic_frame"];
+    .NAlice.TConditioningSystemSemanticFrame ConditioningSystemSemanticFrame = 380 [json_name = "conditioning_system_semantic_frame"];
+    .NAlice.TCoolingSystemSemanticFrame CoolingSystemSemanticFrame = 381 [json_name = "cooling_system_semantic_frame"];
+    .NAlice.TKidsTvLimitsSendResponseSemanticFrame KidsTvLimitsSendResponseSemanticFrame = 382 [json_name = "kids_tv_limits_send_response_semantic_frame"];
+    .NAlice.TSwitchChannelFuncSemanticFrame SwitchChannelFuncSemanticFrame = 383 [json_name = "switch_channel_func_semantic_frame"];
+    .NAlice.TOpenTvTabSemanticFrame OpenTvTabSemanticFrame = 384 [json_name = "open_tv_tab_semantic_frame"];
+    .NAlice.TBodyTrapdoorVentilationSemanticFrame BodyTrapdoorVentilationSemanticFrame = 385 [json_name = "body_trapdoor_ventilation_semantic_frame"];
+    .NAlice.TAutoGetTemperatureSemanticFrame AutoGetTemperatureSemanticFrame = 386 [json_name = "auto_get_temperature_semantic_frame"];
+    .NAlice.TAutoMassageSeatSpeedSemanticFrame AutoMassageSeatSpeedSemanticFrame = 387 [json_name = "auto_massage_seat_speed_semantic_frame"];
+    .NAlice.TAutoMassageModeSemanticFrame AutoMassageModeSemanticFrame = 388 [json_name = "auto_massage_mode_semantic_frame"];
+    .NAlice.TAutoMassageSeatStateSemanticFrame AutoMassageSeatStateSemanticFrame = 389 [json_name = "auto_massage_seat_state_semantic_frame"];
+    .NAlice.TAccessibleVoiceOpenCartoonsFrame AccessibleVoiceOpenCartoonsFrame = 390 [json_name = "accessible_voice_open_cartoons_frame"];
+    .NAlice.TAccessibleVoiceOpenMoviesFrame AccessibleVoiceOpenMoviesFrame = 391 [json_name = "accessible_voice_open_movies_frame"];
+    .NAlice.TAccessibleVoiceOpenSeriesFrame AccessibleVoiceOpenSeriesFrame = 392 [json_name = "accessible_voice_open_series_frame"];
+    .NAlice.TKidsTvLimitsOpenProlongationScreenSemanticFrame KidsTvLimitsOpenProlongationScreenSemanticFrame = 393 [json_name = "kids_tv_limits_open_prolongation_screen_semantic_frame"];
+    .NAlice.TKidsTvLimitsProlongTimeLimitSemanticFrame KidsTvLimitsProlongTimeLimitSemanticFrame = 394 [json_name = "kids_tv_limits_prolong_time_limit_semantic_frame"];
+    .NAlice.TKidsTvLimitsSendUnblockRequestSemanticFrame KidsTvLimitsSendUnblockRequestSemanticFrame = 395 [json_name = "kids_tv_limits_send_unblock_request_semantic_frame"];
+    .NAlice.TOpenSelectedMusicSemanticFrame OpenSelectedMusicSemanticFrame = 396 [json_name = "open_selected_music_semantic_frame"];
+    .NAlice.TAutoHudStateSemanticFrame AutoHudStateSemanticFrame = 397 [json_name = "auto_hud_state_semantic_frame"];
+    .NAlice.TAutoHudBrightnessSemanticFrame AutoHudBrightnessSemanticFrame = 398 [json_name = "auto_hud_brightness_semantic_frame"];
+    .NAlice.TAutoHudHeightSemanticFrame AutoHudHeightSemanticFrame = 399 [json_name = "auto_hud_height_semantic_frame"];
+    .NAlice.TAutoHudModeSemanticFrame AutoHudModeSemanticFrame = 400 [json_name = "auto_hud_mode_semantic_frame"];
+    .NAlice.TBluetoothOnSemanticFrame BluetoothOnSemanticFrame = 401 [json_name = "bluetooth_on_semantic_frame"];
+    .NAlice.TWildWestMultiplicationTableSemanticFrame WildWestMultiplicationTableSemanticFrame = 402 [json_name = "wild_west_multiplication_table_semantic_frame"];
+    .NAlice.TAutoSetAmbientLightingStateSemanticFrame AutoSetAmbientLightingStateSemanticFrame = 403 [json_name = "auto_set_ambient_lighting_state_semantic_frame"];
+    .NAlice.TAutoChangeAmbientLightingColorSemanticFrame AutoChangeAmbientLightingColorSemanticFrame = 404 [json_name = "auto_change_ambient_lighting_color_semantic_frame"];
+    .NAlice.TAppStoreClickInstallSemanticFrame AppStoreClickInstallSemanticFrame = 405 [json_name = "app_store_click_install_semantic_frame"];
+    .NAlice.TBrowserAddToTableauSemanticFrame BrowserAddToTableauSemanticFrame = 406 [json_name = "browser_add_to_tableau_semantic_frame"];
+    .NAlice.TBrowserRemoveFromTableauSemanticFrame BrowserRemoveFromTableauSemanticFrame = 407 [json_name = "browser_remove_from_tableau_semantic_frame"];
+    .NAlice.TAutoSetInstrumentPanelBrightnessSemanticFrame AutoSetInstrumentPanelBrightnessSemanticFrame = 408 [json_name = "auto_set_instrument_panel_brightness_semantic_frame"];
+    .NAlice.TTurnOnBookmateSemanticFrame TurnOnBookmateSemanticFrame = 409 [json_name = "turn_on_bookmate_semantic_frame"];
+    .NAlice.TBrowserClearHistorySemanticFrame BrowserClearHistorySemanticFrame = 410 [json_name = "browser_clear_history_semantic_frame"];
+    .NAlice.TOpenMusicSearchSectionSemanticFrame OpenMusicSearchSectionSemanticFrame = 411 [json_name = "open_music_search_section_semantic_frame"];
+    .NAlice.TMusicPlayerChangeTrackVersionSemanticFrame MusicPlayerChangeTrackVersionSemanticFrame = 412 [json_name = "music_player_change_track_version_semantic_frame"];
+    .NAlice.TMusicPlayerChangeTrackNumberSemanticFrame MusicPlayerChangeTrackNumberSemanticFrame = 413 [json_name = "music_player_change_track_number_semantic_frame"];
+    .NAlice.TBrowserScrollDownSemanticFrame BrowserScrollDownSemanticFrame = 414 [json_name = "browser_scroll_down_semantic_frame"];
+    .NAlice.TBrowserScrollUpSemanticFrame BrowserScrollUpSemanticFrame = 415 [json_name = "browser_scroll_up_semantic_frame"];
+    .NAlice.TAccessibleVoiceOpenMainTabSemanticFrame AccessibleVoiceOpenMainTabSemanticFrame = 416 [json_name = "accessible_voice_open_main_tab_semantic_frame"];
+    .NAlice.TFastCommandStrictPauseSemanticFrame FastCommandStrictPauseSemanticFrame = 417 [json_name = "fast_command_strict_pause_semantic_frame"];
+    .NAlice.TVideoOpenSelectionSemanticFrame VideoOpenSelectionSemanticFrame = 418 [json_name = "video_open_selection_semantic_frame"];
+    .NAlice.TWildWestShootoutSemanticFrame WildWestShootoutSemanticFrame = 419 [json_name = "wild_west_shootout_semantic_frame"];
+    .NAlice.TMusicGenreBookRecommendationsSemanticFrame MusicGenreBookRecommendationsSemanticFrame = 420 [json_name = "music_genre_book_recommendations_semantic_frame"];
+    .NAlice.TUnlockIntercomSemanticFrame UnlockIntercomSemanticFrame = 421 [json_name = "unlock_intercom_semantic_frame"];
+    .NAlice.TMusicBookRecommendationsSemanticFrame MusicBookRecommendationsSemanticFrame = 422 [json_name = "music_book_recommendations_semantic_frame"];
+    .NAlice.TMusicPlayGenreBookRecommendationsSemanticFrame MusicPlayGenreBookRecommendationsSemanticFrame = 423 [json_name = "music_play_genre_book_recommendations_semantic_frame"];
+    .NAlice.TMusicPlayBookRecommendationsSemanticFrame MusicPlayBookRecommendationsSemanticFrame = 424 [json_name = "music_play_book_recommendations_semantic_frame"];
+    .NAlice.TFastCommandsEnableMusicFeedbackSemanticFrame FastCommandsEnableMusicFeedbackSemanticFrame = 425 [json_name = "fast_commands_enable_music_feedback_semantic_frame"];
+    .NAlice.TStartFaceRecordingSemanticFrame StartFaceRecordingSemanticFrame = 427 [json_name = "start_face_recording_semantic_frame"];
+    .NAlice.THvacAirDirectionSwitchSemanticFrame HvacAirDirectionSwitchSemanticFrame = 428 [json_name = "hvac_air_direction_switch_semantic_frame"];
+    .NAlice.TAutoSetPanoramicDisplayStateSemanticFrame AutoSetPanoramicDisplayStateSemanticFrame = 429 [json_name = "auto_set_panoramic_display_state_semantic_frame"];
+    .NAlice.TAutoInfoGetFuelAndChargeLevelSemanticFrame AutoInfoGetFuelAndChargeLevelSemanticFrame = 430 [json_name = "auto_info_get_fuel_and_charge_level_semantic_frame"];
+    .NAlice.TAutoInfoGetRangeRemainingSemanticFrame AutoInfoGetRangeRemainingSemanticFrame = 431 [json_name = "auto_info_get_range_remaining_semantic_frame"];
+    .NAlice.THvacHotOrColdSemanticFrame HvacHotOrColdSemanticFrame = 432 [json_name = "hvac_hot_or_cold_semantic_frame"];
+    .NAlice.THvacAutoSeatHeatingSemanticFrame HvacAutoSeatHeatingSemanticFrame = 433 [json_name = "hvac_auto_seat_heating_semantic_frame"];
+    .NAlice.THvacAutoSeatVentilationSemanticFrame HvacAutoSeatVentilationSemanticFrame = 434 [json_name = "hvac_auto_seat_ventilation_semantic_frame"];
+    .NAlice.TNotesSyncSemanticFrame NotesSyncSemanticFrame = 435 [json_name = "notes_sync_semantic_frame"];
+    .NAlice.TTvMainHideItemFromDelayedConditionalSemanticFrame TvMainHideItemFromDelayedConditionalSemanticFrame = 436 [json_name = "tv_main_hide_item_from_delayed_conditional_semantic_frame"];
+    .NAlice.TTvMainHideItemFromDelayedEffectSemanticFrame TvMainHideItemFromDelayedEffectSemanticFrame = 437 [json_name = "tv_main_hide_item_from_delayed_effect_semantic_frame"];
+    .NAlice.TDeviceConfigIntonationSpottingEnabledSemanticFrame DeviceConfigIntonationSpottingEnabledSemanticFrame = 438 [json_name = "device_config_intonation_spotting_enabled_semantic_frame"];
+    .NAlice.TDeviceConfigIntonationSpottingInterruptionEnabledSemanticFrame DeviceConfigIntonationSpottingInterruptionEnabledSemanticFrame = 439 [json_name = "device_config_intonation_spotting_interruption_enabled_semantic_frame"];
+    .NAlice.TMusicPlayDjSetSemanticFrame MusicPlayDjSetSemanticFrame = 440 [json_name = "music_play_dj_set_semantic_frame"];
+    .NAlice.TDeviceNotificationReadCurrentSemanticFrame DeviceNotificationReadCurrentSemanticFrame = 441 [json_name = "device_notification_read_current_semantic_frame"];
+    .NAlice.TDeviceNotificationReadNextSemanticFrame DeviceNotificationReadNextSemanticFrame = 442 [json_name = "device_notification_read_next_semantic_frame"];
+    .NAlice.TDeviceNotificationConfirmSemanticFrame DeviceNotificationConfirmSemanticFrame = 443 [json_name = "device_notification_confirm_semantic_frame"];
+    .NAlice.TOpenEarphonesSettingSemanticFrame OpenEarphonesSettingSemanticFrame = 444 [json_name = "open_earphones_setting_semantic_frame"];
+    .NAlice.TStreamingTranslationStartSemanticFrame StreamingTranslationStartSemanticFrame = 445 [json_name = "streaming_translation_start_semantic_frame"];
+    .NAlice.TAddTvChannelToFavouritesFrame AddTvChannelToFavouritesFrame = 446 [json_name = "add_tv_channel_to_favourites_frame"];
+    .NAlice.TStreamingTranslationStopSemanticFrame StreamingTranslationStopSemanticFrame = 447 [json_name = "streaming_translation_stop_semantic_frame"];
+    .NAlice.TAutoSetFridgeStateSemanticFrame AutoSetFridgeStateSemanticFrame = 448 [json_name = "auto_set_fridge_state_semantic_frame"];
+    .NAlice.TAutoSetMirrorHeatingStateSemanticFrame AutoSetMirrorHeatingStateSemanticFrame = 449 [json_name = "auto_set_mirror_heating_state_semantic_frame"];
+    .NAlice.TAutoGetTireStatusSemanticFrame AutoGetTireStatusSemanticFrame = 450 [json_name = "auto_get_tire_status_semantic_frame"];
+    .NAlice.TAutoInfoTotalMileageSemanticFrame AutoInfoTotalMileageSemanticFrame = 451 [json_name = "auto_info_total_mileage_semantic_frame"];
+    .NAlice.TAutoSetWirelessChargingStateSemanticFrame AutoSetWirelessChargingStateSemanticFrame = 452 [json_name = "auto_set_wireless_charging_state_semantic_frame"];
+    .NAlice.TAutoSetAirPurificationStateSemanticFrame AutoSetAirPurificationStateSemanticFrame = 453 [json_name = "auto_set_air_purification_state_semantic_frame"];
+    .NAlice.TAutoSetAirFreshenerStateSemanticFrame AutoSetAirFreshenerStateSemanticFrame = 454 [json_name = "auto_set_air_freshener_state_semantic_frame"];
+    .NAlice.TAutoSetAirFreshenerIntensitySemanticFrame AutoSetAirFreshenerIntensitySemanticFrame = 455 [json_name = "auto_set_air_freshener_intensity_semantic_frame"];
+    .NAlice.TAutoSetHeatingSystemStateSemanticFrame AutoSetHeatingSystemStateSemanticFrame = 456 [json_name = "auto_set_heating_system_state_semantic_frame"];
+    .NAlice.TAutoSetAcMaxStateSemanticFrame AutoSetAcMaxStateSemanticFrame = 457 [json_name = "auto_set_ac_max_state_semantic_frame"];
+    .NAlice.TAutoSetClimateEcoModeStateSemanticFrame AutoSetClimateEcoModeStateSemanticFrame = 458 [json_name = "auto_set_climate_eco_mode_state_semantic_frame"];
+    .NAlice.TAutoChangeAromaSemanticFrame AutoChangeAromaSemanticFrame = 459 [json_name = "auto_change_aroma_semantic_frame"];
+    .NAlice.TAutoSetAutomaticDefrostingStateSemanticFrame AutoSetAutomaticDefrostingStateSemanticFrame = 460 [json_name = "auto_set_automatic_defrosting_state_semantic_frame"];
+    .NAlice.TAutoSetAirQualitySystemStateSemanticFrame AutoSetAirQualitySystemStateSemanticFrame = 461 [json_name = "auto_set_air_quality_system_state_semantic_frame"];
+    .NAlice.TAutoSetHvacTemperatureSyncStateSemanticFrame AutoSetHvacTemperatureSyncStateSemanticFrame = 462 [json_name = "auto_set_hvac_temperature_sync_state_semantic_frame"];
+  }
+}
+
+message TSemanticFrame {
+  reserved "Entities";
+  reserved 4;
+  message TSlot {
+    string Name = 1 [json_name = "name"];
+    string Type = 2 [json_name = "type"];
+    string Value = 3 [json_name = "value"];
+    repeated string AcceptedTypes = 4 [json_name = "accepted_types"];
+    bool IsRequested = 5 [json_name = "is_requested"];
+    .NAlice.TSlotValue TypedValue = 6 [json_name = "typed_value"];
+    bool IsFilled = 7 [json_name = "is_filled"];
+  }
+
+  string Name = 1 [json_name = "name"];
+  repeated .NAlice.TSemanticFrame.TSlot Slots = 2 [json_name = "slots"];
+  .NAlice.TTypedSemanticFrame TypedSemanticFrame = 5 [json_name = "typed_semantic_frame"];
+  bool IsFromRephrasedUtterance = 6 [json_name = "is_from_rephrased_utterance"];
+}
+
+message TSemanticFrameRequestData {
+  message TOnChainFinishEvent {
+    oneof Event {
+      .NAlice.TTypedCallbackRequest TypedCallbackRequest = 1 [json_name = "typed_callback_request"];
+    }
+  }
+
+  .NAlice.TTypedSemanticFrame TypedSemanticFrame = 1 [json_name = "typed_semantic_frame"];
+  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics"];
+  .NAlice.TOrigin Origin = 3 [json_name = "origin"];
+  .NAlice.TFrameRequestParams Params = 4 [json_name = "params"];
+  .NAlice.TRequestParams RequestParams = 5 [json_name = "request_params"];
+  .NAlice.TSemanticFrameRequestData.TOnChainFinishEvent OnChainFinish = 6 [json_name = "on_chain_finish"];
+}
+
+message TTvPromoTemplateRequestSemanticFrame {
+  .NAlice.TTvChosenTemplateSlot ChosenTemplate = 1 [json_name = "chosen_template"];
+}
+
+message TTvPromoTemplateShownReportSemanticFrame {
+  reserved "ShowTemplateTimestampMillis";
+  reserved 1;
+  .NAlice.TTvChosenTemplateSlot ChosenTemplate = 2 [json_name = "chosen_template"];
+}
+
+message TGetVideoGalleriesSemanticFrame {
+  .NAlice.TStringSlot CategoryId = 1 [json_name = "category_id"];
+  .NAlice.TNumSlot MaxItemsPerGallery = 2 [json_name = "max_items_per_gallery"];
+  .NAlice.TNumSlot Offset = 3 [json_name = "offset"];
+  .NAlice.TNumSlot Limit = 4 [json_name = "limit"];
+  .NAlice.TStringSlot CacheHash = 5 [json_name = "cache_hash"];
+  .NAlice.TStringSlot FromScreenId = 6 [json_name = "from_screen_id"];
+  .NAlice.TStringSlot ParentFromScreenId = 7 [json_name = "parent_from_screen_id"];
+  .NAlice.TBoolSlot KidModeEnabled = 8 [json_name = "kid_mode_enabled"];
+  .NAlice.TStringSlot RestrictionAge = 9 [json_name = "restriction_age"];
+}
+
+message TGetVideoGallerySemanticFrame {
+  .NAlice.TStringSlot Id = 1 [json_name = "id"];
+  .NAlice.TNumSlot Offset = 2 [json_name = "offset"];
+  .NAlice.TNumSlot Limit = 3 [json_name = "limit"];
+  .NAlice.TStringSlot CacheHash = 4 [json_name = "cache_hash"];
+  .NAlice.TStringSlot FromScreenId = 5 [json_name = "from_screen_id"];
+  .NAlice.TStringSlot ParentFromScreenId = 6 [json_name = "parent_from_screen_id"];
+  .NAlice.TNumSlot CarouselPosition = 7 [json_name = "carousel_position"];
+  .NAlice.TStringSlot CarouselTitle = 8 [json_name = "carousel_title"];
+  .NAlice.TBoolSlot KidModeEnabled = 9 [json_name = "kid_mode_enabled"];
+  .NAlice.TStringSlot RestrictionAge = 10 [json_name = "restriction_age"];
+  .NAlice.TCatalogTagSlot SelectedTags = 11 [json_name = "selected_tags"];
+}
+
+message TGetVideoTaggedGallerySemanticFrame {
+  .NAlice.TStringSlot Id = 1 [json_name = "id"];
+  .NAlice.TNumSlot Offset = 2 [json_name = "offset"];
+  .NAlice.TNumSlot Limit = 3 [json_name = "limit"];
+  .NAlice.TStringSlot CacheHash = 4 [json_name = "cache_hash"];
+  .NAlice.TStringSlot FromScreenId = 5 [json_name = "from_screen_id"];
+  .NAlice.TStringSlot ParentFromScreenId = 6 [json_name = "parent_from_screen_id"];
+  .NAlice.TNumSlot CarouselPosition = 7 [json_name = "carousel_position"];
+  .NAlice.TStringSlot CarouselTitle = 8 [json_name = "carousel_title"];
+  .NAlice.TBoolSlot KidModeEnabled = 9 [json_name = "kid_mode_enabled"];
+  .NAlice.TStringSlot RestrictionAge = 10 [json_name = "restriction_age"];
+  .NAlice.TCatalogTagSlot SelectedTags = 11 [json_name = "selected_tags"];
+}
+
+message TSelectedCatalogTagSlot {
+  oneof Value {
+    .NAlice.NTv.TCatalogTag CatalogTag = 1 [json_name = "catalog_tag"];
+    .NAlice.TStringSlot CatalogTagId = 2 [json_name = "catalog_tag_id"];
+  }
+}
+
+message TSelectCatalogTagsSemanticFrame {
+  repeated .NAlice.TSelectedCatalogTagSlot SelectedTags = 1 [json_name = "selected_tags"];
+}
+
+message TAddCatalogTagsSemanticFrame {
+  repeated .NAlice.TSelectedCatalogTagSlot AddedTags = 1 [json_name = "added_tags"];
+}
+
+message TRemoveCatalogTagsSemanticFrame {
+  repeated .NAlice.TSelectedCatalogTagSlot RemovedTags = 1 [json_name = "removed_tags"];
+}
+
+message TScreensaverAddInteractiveWidgetSemanticFrame {
+  .NAlice.TStringSlot WidgetName = 1 [json_name = "widget_name"];
+}
+
+message TScreensaverRemoveInteractiveWidgetSemanticFrame {
+  .NAlice.TStringSlot WidgetName = 1 [json_name = "widget_name"];
+}
+
+message TScreensaverRemoveAllWidgetsSemanticFrame {
+}
+
+message TScreensaverTrapSemanticFrame {
+}
+
+message TScreensaverAddAllWidgetsSemanticFrame {
+}
+
+message TScreensaverWhatPictureSemanticFrame {
+}
+
+message TScreensaverOpenSettingsSemanticFrame {
+}
+
+message TTestSemanticFrame {
+  .NAlice.TStringSlot Dummy = 1 [json_name = "dummy"];
+}
+
+message TGetTvSearchResultSemanticFrame {
+  .NAlice.TStringSlot SearchText = 1 [json_name = "search_text"];
+  .NAlice.TStringSlot RestrictionMode = 2 [json_name = "restriction_mode"];
+  .NAlice.TStringSlot RestrictionAge = 3 [json_name = "restriction_age"];
+  .NAlice.TStringSlot SearchEntref = 4 [json_name = "search_entref"];
+  repeated .NAlice.TStringSlot ExcludeOntoIds = 5 [json_name = "exclude_onto_ids"];
+}
+
+message TSwitchTvChannelSemanticFrame {
+  .NAlice.TStringSlot Uri = 1 [json_name = "uri"];
+  .NAlice.TStringSlot Title = 2 [json_name = "title"];
+}
+
+message TCurrencySlot {
+  oneof Value {
+    string CurrencyValue = 1 [json_name = "currency_value"];
+  }
+}
+
+message TConvertSemanticFrame {
+  .NAlice.TCurrencySlot TypeFrom = 1 [json_name = "type_from"];
+  .NAlice.TCurrencySlot TypeTo = 2 [json_name = "type_to"];
+  .NAlice.TNumSlot AmountFrom = 3 [json_name = "amount_from"];
+}
+
+message TMediaSessionPlaySemanticFrame {
+  .NAlice.TStringSlot MediaSessionId = 1 [json_name = "media_session_id"];
+}
+
+message TMediaSessionPauseSemanticFrame {
+  .NAlice.TStringSlot MediaSessionId = 1 [json_name = "media_session_id"];
+}
+
+message TGuruCategorySlot {
+  oneof Value {
+    string CategoryValue = 1 [json_name = "category_value"];
+  }
+}
+
+message TProceedGuruSearchSlot {
+  message TProceedInfo {
+    string CatalogLabel = 1 [json_name = "goods_category"];
+    repeated int32 AnswersId = 2 [json_name = "answers_id"];
+  }
+
+  oneof Value {
+    .NAlice.TProceedGuruSearchSlot.TProceedInfo ProceedInfo = 1 [json_name = "proceed_info"];
+  }
+}
+
+message TGuruHelpToChooseSemanticFrame {
+  .NAlice.TGuruCategorySlot Category = 1 [json_name = "category"];
+  .NAlice.TProceedGuruSearchSlot ProceedSearch = 2 [json_name = "proceed_search"];
+}
+
+message TStartSessionSemanticFrame {
+}
+
+message TNotificationsReadSemanticFrame {
+  .NAlice.TBoolSlot FromOnboarding = 1 [json_name = "from_onboarding"];
+  .NAlice.TBoolSlot HasPreviousNotification = 2 [json_name = "has_previous_notification"];
+}
+
+message TTvLongTapTutorialSemanticFrame {
+}
+
+message TGalleryVideoSelectSemanticFrame {
+  .NAlice.TStringSlot Action = 1 [json_name = "action"];
+  .NAlice.TStringSlot ProviderItemId = 2 [json_name = "provider_item_id"];
+  .NAlice.TStringSlot EmbedUri = 3 [json_name = "embed_uri"];
+  .NAlice.TNumSlot Duration = 11 [json_name = "duration"];
+  .NAlice.TTvClientCarouselAnalyticsSlot ClientAnalyticsSlot = 12 [json_name = "client_analytics"];
+  .NAlice.TNumSlot Season = 13 [json_name = "season"];
+  .NAlice.TBoolSlot DisableLoader = 14 [json_name = "disable_loader"];
+  .NAlice.TStringSlot Doc2docUrl = 17 [json_name = "doc2doc_url"];
+  .NAlice.TStringSlot VideoId = 18 [json_name = "video_id"];
+  optional .NAlice.TStringSlot OntoId = 4 [json_name = "onto_id"];
+  optional .NAlice.TStringSlot ContentType = 5 [json_name = "content_type"];
+  optional .NAlice.TStringSlot Title = 6 [json_name = "title"];
+  optional .NAlice.TStringSlot Html = 7 [json_name = "html"];
+  optional .NAlice.TStringSlot Hosting = 8 [json_name = "hosting"];
+  optional .NAlice.TStringSlot Id = 9 [json_name = "id"];
+  optional .NAlice.TStringSlot PlayerId = 10 [json_name = "player_id"];
+  optional .NAlice.TStringSlot AgeLimit = 15 [json_name = "age_limit"];
+  optional .NAlice.TBoolSlot IsNotReleased = 16 [json_name = "is_not_released"];
+  optional .NAlice.TBoolSlot IsPorn = 19 [json_name = "is_porn"];
+  optional .NAlice.TStringSlot PromoCinemaCode = 20 [json_name = "promo_cinema_code"];
+  optional .NAlice.TBoolSlot IsCatchup = 21 [json_name = "is_catchup"];
+  optional .NAlice.TStringSlot PaymentTargetId = 22 [json_name = "payment_target_id"];
+  optional .NAlice.TInt64Slot StartTimeMs = 23 [json_name = "start_time_ms"];
+  optional .NAlice.TStringSlot Category = 24 [json_name = "category"];
+  optional .NAlice.TStringSlot RecomReqId = 25 [json_name = "recom_req_id"];
+  optional .NAlice.TStringSlot SourceOntoId = 26 [json_name = "source_onto_id"];
+  optional .NAlice.TNumSlot Episode = 27 [json_name = "episode"];
+}
+
+message TSelectedVideoActionSlot {
+  reserved "StringValue";
+  reserved 1;
+  enum EValue {
+    Unknown = 0;
+    Play = 1;
+    Open = 2;
+    WatchListAdd = 3;
+    WatchListDelete = 4;
+    RemoveFromDelayed = 5;
+  }
+
+  oneof Value {
+    .NAlice.TSelectedVideoActionSlot.EValue EnumValue = 2 [json_name = "enum_value"];
+  }
+}
+
+message TSelectedMusicActionSlot {
+  enum EValue {
+    Unknown = 0;
+    Play = 1;
+    Open = 2;
+  }
+
+  oneof Value {
+    .NAlice.TSelectedMusicActionSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TSelectedVideoTitleSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TPlaySelectedVideoSemanticFrame {
+  .NAlice.TSelectedVideoActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSelectedVideoTitleSlot Title = 2 [json_name = "title"];
+}
+
+message TGetVideoEpisodeSeriesFrame {
+  .NAlice.TStringSlot ProviderItemId = 1 [json_name = "provider_item_id"];
+  .NAlice.TStringSlot ContentId = 2 [json_name = "content_id"];
+  .NAlice.TStringSlot VideoName = 3 [json_name = "video_name"];
+  .NAlice.TNumSlot EpisodeNum = 4 [json_name = "episode_num"];
+  .NAlice.TBoolSlot OnlyEpisodePatch = 5 [json_name = "only_episode_patch"];
+  .NAlice.TStringSlot OntoId = 6 [json_name = "onto_id"];
+}
+
+message TMessengerCallToSemanticFrame {
+  .NAlice.TLocationSlot Device = 1 [json_name = "device"];
+}
+
+message TMessengerCallToNannySemanticFrame {
+  .NAlice.TLocationSlot Device = 1 [json_name = "device"];
+}
+
+message CallToOriginSlot {
+  enum EValue {
+    Default = 0;
+    FamilyTracker = 1;
+  }
+
+  oneof Value {
+    .NAlice.CallToOriginSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TCallToSemanticFrame {
+  .NAlice.TLocationSlot Device = 1 [json_name = "device"];
+  .NAlice.CallToOriginSlot Origin = 2 [json_name = "origin"];
+}
+
+message TCallToNannySemanticFrame {
+  .NAlice.TLocationSlot Device = 1 [json_name = "device"];
+}
+
+message TCallToDropinSemanticFrame {
+  .NAlice.TLocationSlot Device = 1 [json_name = "device"];
+}
+
+message TForcedCallSlot {
+  message TForcedCall {
+    string CallId = 1 [json_name = "call_id"];
+    string Domain = 2 [json_name = "domain"];
+    string SystemUser = 3 [json_name = "system_user"];
+  }
+
+  message TForcedTerminalId {
+    string TerminalId = 1 [json_name = "terminal_id"];
+  }
+
+  oneof Value {
+    .NAlice.TForcedCallSlot.TForcedCall ForcedCall = 1 [json_name = "forced_call"];
+    .NAlice.TForcedCallSlot.TForcedTerminalId ForcedTerminalId = 2 [json_name = "forced_terminal_id"];
+  }
+}
+
+message TEstablishConnectionSemanticFrame {
+  reserved "CallerId";
+  reserved 2;
+  .NAlice.TForcedCallSlot ForcedCallSlot = 1 [json_name = "forced_call_slot"];
+}
+
+message TUnlockIntercomSemanticFrame {
+  optional .NAlice.TStringSlot CallId = 1 [json_name = "call_id"];
+}
+
+message TKidsTvLimitsAnswerSlot {
+  oneof Value {
+    .NAlice.TLimitProlongationAnswer Answer = 1 [json_name = "answer"];
+  }
+}
+
+message TKidsTvLimitsSendResponseSemanticFrame {
+  .NAlice.TKidsTvLimitsAnswerSlot AnswerSlot = 1 [json_name = "answer_slot"];
+}
+
+message TKidsTvLimitsOpenProlongationScreenSemanticFrame {
+}
+
+message TKidsTvLimitsProlongTimeLimitSemanticFrame {
+  .NAlice.TUnitsTimeSlot TimeSlot = 1 [json_name = "time_slot"];
+}
+
+message TKidsTvLimitsSendUnblockRequestSemanticFrame {
+  .NAlice.TBoolSlot IsCooldownSlot = 1 [json_name = "is_cooldown_slot"];
+}
+
+message TMessengerCallWhatIsNannySemanticFrame {
+}
+
+message TAlarmIdSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+    .NAlice.NData.TAlarm AlarmDescriptionValue = 2 [json_name = "alarm_description_value"];
+  }
+}
+
+message TAlarmCancelSemanticFrame {
+  .NAlice.TAlarmIdSlot AlarmId = 1 [json_name = "alarm_id"];
+}
+
+message TAlarmCancelEllipsisSemanticFrame {
+}
+
+message TAlarmSnoozeRelSemanticFrame {
+  .NAlice.TUnitsTimeSlot Time = 1 [json_name = "time"];
+}
+
+message TTimerCancelSemanticFrame {
+  .NAlice.TStringSlot TimerId = 1 [json_name = "timer_id"];
+}
+
+message TTimerCancelEllipsisSemanticFrame {
+}
+
+message TTimerPauseSemanticFrame {
+  .NAlice.TStringSlot TimerId = 1 [json_name = "timer_id"];
+}
+
+message TTimerPauseEllipsisSemanticFrame {
+}
+
+message TTimerResumeSemanticFrame {
+  .NAlice.TStringSlot TimerId = 1 [json_name = "timer_id"];
+}
+
+message TTimerResumeEllipsisSemanticFrame {
+}
+
+message TVideoOpenByOntoIdFrame {
+  .NAlice.TStringSlot OntoId = 1 [json_name = "onto_id"];
+}
+
+message TKeyboardGetGreetingsSemanticFrame {
+}
+
+message TExternalCinemaSlot {
+  oneof Value {
+    string Code = 1 [json_name = "code"];
+  }
+}
+
+message TVideoOpenInExternalCinemaSemanticFrame {
+  .NAlice.TExternalCinemaSlot ExternalCinemaSlot = 1 [json_name = "external_cinema_slot"];
+}
+
+message TVideoSearchInBrowserSemanticFrame {
+}
+
+message TVideoSearchByCurrentVideoSemanticFrame {
+}
+
+message TVideoWhereElseToWatchSemanticFrame {
+}
+
+message TResolvedLocationSlot {
+  oneof Value {
+    .NAlice.NData.TResolvedLocation Geo = 1 [json_name = "geo"];
+  }
+}
+
+message TTaxiOrderSemanticFrame {
+  .NAlice.TWhatSlot WhatFrom = 1 [json_name = "what_from"];
+  .NAlice.TWhereSlot WhereFrom = 2 [json_name = "where_from"];
+  .NAlice.TWhatSlot WhatTo = 3 [json_name = "what_to"];
+  .NAlice.TWhereSlot WhereTo = 4 [json_name = "where_to"];
+  .NAlice.TResolvedLocationSlot ResolvedLocationFrom = 5 [json_name = "resolved_location_from"];
+  .NAlice.TResolvedLocationSlot ResolvedLocationTo = 6 [json_name = "resolved_location_to"];
+}
+
+message TAliceResponseLikeSemanticFrame {
+  .NAlice.TStringSlot RequestId = 1 [json_name = "request_id"];
+}
+
+message TAliceResponseDislikeSemanticFrame {
+  .NAlice.TStringSlot RequestId = 1 [json_name = "request_id"];
+}
+
+message TIoTScenarioRunFrame {
+  .NAlice.TStringSlot ScenarioId = 1 [json_name = "scenario_id"];
+}
+
+message TAliceResponseSaveSemanticFrame {
+  .NAlice.TStringSlot RequestId = 1 [json_name = "request_id"];
+  repeated .NAlice.TStringSlot SourceUrls = 2 [json_name = "source_urls"];
+}
+
+message TAliceAccessibleVoiceMakeClickFrame {
+  reserved "ButtonId";
+  reserved 2;
+  .NAlice.TStringSlot ButtonName = 1 [json_name = "button_name"];
+  optional .NAlice.TSysNumSlot ButtonIdSlot = 3 [json_name = "button_id_slot"];
+}
+
+message TSpeedFasterSemanticFrame {
+  oneof Value {
+    .NAlice.TDoubleSlot AbsoluteChange = 1 [json_name = "absolute_change"];
+    .NAlice.TDoubleSlot RelativeChange = 2 [json_name = "relative_change"];
+  }
+}
+
+message TSpeedSlowerSemanticFrame {
+  oneof Value {
+    .NAlice.TDoubleSlot AbsoluteChange = 1 [json_name = "absolute_change"];
+    .NAlice.TDoubleSlot RelativeChange = 2 [json_name = "relative_change"];
+  }
+}
+
+message TSpeedSetLevelSemanticFrame {
+  .NAlice.TDoubleSlot Level = 1 [json_name = "level"];
+}
+
+message TSpeedGetLevelSemanticFrame {
+}
+
+message TVideoDontPlayNextSemanticFrame {
+}
+
+message TFastCommandsEnableSemanticFrame {
+}
+
+message TFastCommandsEnableMusicSemanticFrame {
+}
+
+message TFastCommandsEnableMusicFeedbackSemanticFrame {
+}
+
+message TDirectHitcountSemanticFrame {
+  .NAlice.TStringSlot HitCounterUrl = 1 [json_name = "hit_counter_url"];
+}
+
+message TSelectedMusicTitleSlot {
+  oneof Value {
+    string StringValue = 1 [json_name = "string_value"];
+  }
+}
+
+message TOpenSelectedMusicSemanticFrame {
+  .NAlice.TSelectedMusicActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSelectedMusicTitleSlot Title = 2 [json_name = "title"];
+}
+
+message TMusicSearchContentTypeSlot {
+  enum EValue {
+    Undefined = 0;
+    All = 1;
+    Track = 2;
+    Artist = 3;
+    Album = 4;
+    Playlist = 5;
+    Podcast = 6;
+    Audiobook = 7;
+    Clip = 8;
+  }
+
+  oneof Value {
+    .NAlice.TMusicSearchContentTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+  }
+}
+
+message TOpenMusicSearchSectionSemanticFrame {
+  .NAlice.TMusicSearchContentTypeSlot ContentType = 1 [json_name = "content_type"];
+}
+
+message TAppStoreClickInstallSemanticFrame {
+}
+
+message TAudiobookGenreSlot {
+  oneof Value {
+    string AudiobookGenreValue = 1 [json_name = "audiobook_genre_value"];
+  }
+}
+
+message TMusicGenreBookRecommendationsSemanticFrame {
+  .NAlice.TAudiobookGenreSlot AudiobookGenre = 1 [json_name = "audiobook_genre"];
+}
+
+message TMusicBookRecommendationsSemanticFrame {
+}
+
+message TMusicPlayGenreBookRecommendationsSemanticFrame {
+  .NAlice.TAudiobookGenreSlot AudiobookGenre = 1 [json_name = "audiobook_genre"];
+}
+
+message TMusicPlayBookRecommendationsSemanticFrame {
+}
+
+message TStartFaceRecordingSemanticFrame {
+}
+

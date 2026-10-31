@@ -21,9 +21,9 @@ message TTtsSpeak {
     CHUNK_WITH_META = 1;
   }
 
-  string Format = 1;
-  bool LazyTtsStreaming = 2;
-  .NAlice.NAliceApi.TTtsSpeak.ESoundChunkType SoundChunkType = 6;
-  optional uint32 SubStreamId = 7;
+  string Format = 1 [json_name = "format"];
+  bool LazyTtsStreaming = 2 [json_name = "lazy_tts_streaming"];
+  .NAlice.NAliceApi.TTtsSpeak.ESoundChunkType SoundChunkType = 6 [json_name = "sound_chunk_type"];
+  optional uint32 SubStreamId = 7 [json_name = "sub_stream_id"];
 }
 

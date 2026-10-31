@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AppStateCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/app_state;appstatepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAppStateCapability {
+  message TParameters {
+  }
+
+  message TState {
+    enum EAppState {
+      Unknown = 0;
+      Background = 1;
+      Foreground = 2;
+    }
+
+    .NAlice.TAppStateCapability.TState.EAppState CurrentAppState = 1 [json_name = "current_app_state"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAppStateCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAppStateCapability.TState State = 3 [json_name = "state"];
+}
+

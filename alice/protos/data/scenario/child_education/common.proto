@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package NAlice.NData.NChildEducation;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.child_education";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/child_education";
+
+enum EGameType {
+  UNKNOWN_GAME = 0;
+  STORY_TELLING = 1;
+  I_TAKE_WITH_ME = 2;
+  TRUE_OR_FALSE = 3;
+  SNOW_BALL = 4;
+  GUESS_ME = 5;
+  WHAT_IS_EXCESS = 6;
+  FRANKFURTER = 7;
+  COMPOSING = 8;
+  DRAWING = 9;
+  STRANGE_PURCHASE = 10;
+  WHERE_IS_ERROR = 11;
+  MERCHANT_LIAR = 12;
+  ENGLISH = 13;
+  EDIBLE_NON_EDIBLE = 14;
+  SIMPLE_RIDDLE = 15;
+  GUESS_BY_SOUND = 16;
+  ANIMAL_COUNTING = 17;
+  FABLES = 18;
+  BABY_STORY_TELLING = 19;
+  LAST_OF_US = 20;
+  SUNKEN_ZOO = 21;
+  WILD_WEST_MULTIPLICATION_TABLE = 22;
+  ORDER_IN_THE_CLOSET = 23;
+  MAGIC_THERMOMETER = 24;
+  CURIOUS_GLASSES = 25;
+  FORGETFUL_SORCERER = 26;
+  WORD_MIXER = 27;
+}
+
+enum EDifficultyType {
+  UNKNOWN_DIFFICULTY = 0;
+  EASY = 1;
+  HARD = 2;
+  TUTORIAL = 3;
+}
+
+enum EScenarioStage {
+  INTERNAL_BETA_2023 = 0;
+  WAITLIST_2023 = 1;
+  PRODUCTION = 2;
+}
+
+enum EGameMode {
+  CHILD_EDUCATION = 0;
+  BABY_EDUCATION = 1;
+  SCHOOL_KNOWLEDGE = 2;
+}
+

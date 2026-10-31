@@ -12,10 +12,10 @@ import "google/protobuf/descriptor.proto";
 message TDivExternalVariable {
   message TStartValue {
     oneof Value {
-      int64 Integer = 1;
-      string String = 2;
-      double Double = 3;
-      bool Boolean = 4;
+      int64 Integer = 1 [json_name = "integer"];
+      string String = 2 [json_name = "string"];
+      double Double = 3 [json_name = "double"];
+      bool Boolean = 4 [json_name = "boolean"];
     }
   }
 
@@ -41,32 +41,32 @@ message TDivExternalVariable {
     IotMotionEventTime = 18;
   }
 
-  string Name = 1;
-  .NAlice.TDivExternalVariable.TStartValue StartValue = 2;
+  string Name = 1 [json_name = "name"];
+  .NAlice.TDivExternalVariable.TStartValue StartValue = 2 [json_name = "start_value"];
   oneof Source {
-    .NAlice.TClockTimeDivExternalSource ClockTimeSource = 3;
-    .NAlice.TTimerStateDivExternalSource TimerStateSource = 4;
-    .NAlice.TTimerRemainingFormattedDivExternalSource TimerRemainingFormattedSource = 5;
-    .NAlice.TIotOnOffDivExternalSource IotOnOffSource = 6;
-    .NAlice.TIotLevelDivExternalSource IotLevelSource = 7;
-    .NAlice.TIotBatteryPercentageDivExternalSource IotBatteryPercentageSource = 8;
-    .NAlice.TIotBatteryVoltageDivExternalSource IotBatteryVoltageSource = 9;
-    .NAlice.TIotMotionExternalSource IotMotionSource = 10;
-    .NAlice.TIotButtonEventExternalSource IotButtonEventSource = 11;
-    .NAlice.TIotButtonEventTimeExternalSource IotButtonEventTimeSource = 12;
-    .NAlice.TIotWaterLeakSensorEventExternalSource IotWaterLeakSensorEventSource = 13;
-    .NAlice.TIotWaterLeakSensorEventTimeExternalSource IotWaterLeakSensorEventTimeSource = 14;
-    .NAlice.TIotOpenSensorEventExternalSource IotOpenSensorEventSource = 15;
-    .NAlice.TIotOpenSensorEventTimeExternalSource IotOpenSensorEventTimeSource = 16;
-    .NAlice.TIotOpeningSensorEventExternalSource IotOpeningSensorEventSource = 17;
-    .NAlice.TIotOpeningSensorEventTimeExternalSource IotOpeningSensorEventTimeSource = 18;
-    .NAlice.TIotMotionEventExternalSource IotMotionEventSource = 19;
-    .NAlice.TIotMotionEventTimeExternalSource IotMotionEventTimeSource = 20;
+    .NAlice.TClockTimeDivExternalSource ClockTimeSource = 3 [json_name = "clock_time"];
+    .NAlice.TTimerStateDivExternalSource TimerStateSource = 4 [json_name = "timer_state"];
+    .NAlice.TTimerRemainingFormattedDivExternalSource TimerRemainingFormattedSource = 5 [json_name = "timer_remaining_formatted"];
+    .NAlice.TIotOnOffDivExternalSource IotOnOffSource = 6 [json_name = "iot_on_off"];
+    .NAlice.TIotLevelDivExternalSource IotLevelSource = 7 [json_name = "iot_level"];
+    .NAlice.TIotBatteryPercentageDivExternalSource IotBatteryPercentageSource = 8 [json_name = "iot_battery_percentage"];
+    .NAlice.TIotBatteryVoltageDivExternalSource IotBatteryVoltageSource = 9 [json_name = "iot_battery_voltage"];
+    .NAlice.TIotMotionExternalSource IotMotionSource = 10 [json_name = "iot_motion"];
+    .NAlice.TIotButtonEventExternalSource IotButtonEventSource = 11 [json_name = "iot_button_event"];
+    .NAlice.TIotButtonEventTimeExternalSource IotButtonEventTimeSource = 12 [json_name = "iot_button_event_time"];
+    .NAlice.TIotWaterLeakSensorEventExternalSource IotWaterLeakSensorEventSource = 13 [json_name = "iot_water_leak_sensor_event"];
+    .NAlice.TIotWaterLeakSensorEventTimeExternalSource IotWaterLeakSensorEventTimeSource = 14 [json_name = "iot_water_leak_sensor_event_time"];
+    .NAlice.TIotOpenSensorEventExternalSource IotOpenSensorEventSource = 15 [json_name = "iot_open_sensor_event"];
+    .NAlice.TIotOpenSensorEventTimeExternalSource IotOpenSensorEventTimeSource = 16 [json_name = "iot_open_sensor_event_time"];
+    .NAlice.TIotOpeningSensorEventExternalSource IotOpeningSensorEventSource = 17 [json_name = "iot_opening_sensor_event"];
+    .NAlice.TIotOpeningSensorEventTimeExternalSource IotOpeningSensorEventTimeSource = 18 [json_name = "iot_opening_sensor_event_time"];
+    .NAlice.TIotMotionEventExternalSource IotMotionEventSource = 19 [json_name = "iot_motion_event"];
+    .NAlice.TIotMotionEventTimeExternalSource IotMotionEventTimeSource = 20 [json_name = "iot_motion_event_time"];
   }
 }
 
 message TClockTimeDivExternalSource {
-  string Pattern = 2;
+  string Pattern = 2 [json_name = "pattern"];
 }
 
 message TTimerStateDivExternalSource {
@@ -76,71 +76,71 @@ message TTimerStateDivExternalSource {
     Paused = 2;
   }
 
-  string TimerId = 2;
+  string TimerId = 2 [json_name = "timer_id"];
 }
 
 message TTimerRemainingFormattedDivExternalSource {
-  string TimerId = 2;
+  string TimerId = 2 [json_name = "timer_id"];
 }
 
 message TIotOnOffDivExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotLevelDivExternalSource {
-  string EndpointId = 1;
-  .NAlice.TLevelCapability.EInstance Instance = 2;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  .NAlice.TLevelCapability.EInstance Instance = 2 [json_name = "instance"];
 }
 
 message TIotBatteryPercentageDivExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotBatteryVoltageDivExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotMotionExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotMotionEventExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotMotionEventTimeExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotButtonEventExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotButtonEventTimeExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotWaterLeakSensorEventExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotWaterLeakSensorEventTimeExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotOpenSensorEventExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotOpenSensorEventTimeExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotOpeningSensorEventExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TIotOpeningSensorEventTimeExternalSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 

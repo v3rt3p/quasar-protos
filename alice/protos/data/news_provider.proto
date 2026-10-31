@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data";
+option go_package = "a.yandex-team.ru/alice/protos/data";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TNewsProvider {
+  string NewsSource = 1 [json_name = "news_source"];
+  string Rubric = 2 [json_name = "rubric"];
+}
+

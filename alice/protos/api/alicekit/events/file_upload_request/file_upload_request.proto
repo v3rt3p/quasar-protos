@@ -9,23 +9,27 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/file_uplo
 
 import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/censor/protos/extension.proto";
+import "alice/protos/api/files/file_info.proto";
 
 message TFileUploadRequest {
   message TFileUploadStart {
-    bool SpecialEventOnInvalidFileMimeTypeOrSize = 10000;
-    optional string Title = 1;
-    optional string MimeType = 2;
-    optional uint64 Size = 3;
-    optional string OAuthToken = 100;
+    bool SpecialEventOnInvalidFileMimeTypeOrSize = 10000 [json_name = "special_event_on_invalid_file_mime_type_or_size"];
+    optional string Title = 1 [json_name = "title"];
+    optional string MimeType = 2 [json_name = "mime_type"];
+    optional uint64 Size = 3 [json_name = "size"];
+    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 4 [json_name = "origin"];
+    optional string AppId = 5 [json_name = "app_id"];
+    optional string DialogAppId = 6 [json_name = "dialog_app_id"];
+    optional string OAuthToken = 100 [json_name = "oauth_token"];
   }
 
   message TChunkUploadFinish {
-    optional bool IsLast = 1;
+    optional bool IsLast = 1 [json_name = "is_last"];
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TFileUploadRequest.TFileUploadStart FileUploadStart = 1;
-    .NAlice.NAliceApi.TFileUploadRequest.TChunkUploadFinish ChunkUploadFinish = 2;
+    .NAlice.NAliceApi.TFileUploadRequest.TFileUploadStart FileUploadStart = 1 [json_name = "file_upload_start"];
+    .NAlice.NAliceApi.TFileUploadRequest.TChunkUploadFinish ChunkUploadFinish = 2 [json_name = "chunk_upload_finish"];
   }
 }
 

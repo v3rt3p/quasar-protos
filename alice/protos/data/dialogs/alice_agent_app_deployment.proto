@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NData.NDialogs;
+
+option java_package = "ru.yandex.alice.protos.data.dialogs";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/dialogs";
+
+enum EAliceAgentAppDeployment {
+  DEPLOYMENT_UNSPECIFIED = 0;
+  DEPLOYMENT_PUBLISHED = 1;
+  DEPLOYMENT_DRAFT = 2;
+}
+

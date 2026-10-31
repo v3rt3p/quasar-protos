@@ -9,70 +9,70 @@ import "alice/library/censor/protos/extension.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGeoPoint {
-  double Longitude = 1;
-  double Latitude = 2;
+  double Longitude = 1 [json_name = "longitude"];
+  double Latitude = 2 [json_name = "latitude"];
 }
 
 message TFullAddress {
-  string FullAddress = 1;
+  string FullAddress = 1 [json_name = "full_address"];
 }
 
 message TCustomLabel {
-  string Name = 1;
-  repeated string Tags = 2;
+  string Name = 1 [json_name = "name"];
+  repeated string Tags = 2 [json_name = "tags"];
 }
 
 message TUpdateDatumAddressRequest {
   reserved "CustomLabel";
   reserved 4;
   oneof LocationType {
-    .NAlice.NDatumApi.TFullAddress Address = 1;
-    .NAlice.NDatumApi.TGeoPoint GeoPoint = 2;
+    .NAlice.NDatumApi.TFullAddress Address = 1 [json_name = "address"];
+    .NAlice.NDatumApi.TGeoPoint GeoPoint = 2 [json_name = "geo_point"];
   }
   oneof Label {
-    .NAlice.NDatumApi.EPassportLabels PassportLabel = 3;
-    .NAlice.NDatumApi.TCustomLabel AliceLabel = 5;
+    .NAlice.NDatumApi.EPassportLabels PassportLabel = 3 [json_name = "passport_label"];
+    .NAlice.NDatumApi.TCustomLabel AliceLabel = 5 [json_name = "alice_label"];
   }
 }
 
 message TAdditionalAddressDetails {
-  optional int32 RegionId = 1;
-  optional int32 PreciseRegionId = 2;
-  optional string Country = 3;
-  optional string Area = 4;
-  optional string ZipCode = 5;
-  optional string City = 6;
-  optional string Metro = 7;
-  optional string Street = 8;
-  optional string Building = 9;
-  optional string Intercom = 10;
-  optional string Floor = 11;
-  optional string Room = 12;
-  optional string Comment = 13;
-  optional string Block = 14;
-  optional string Estate = 15;
-  optional string Wing = 16;
-  optional string Region = 17;
-  optional string District = 18;
-  optional string Uri = 19;
+  optional int32 RegionId = 1 [json_name = "regionID"];
+  optional int32 PreciseRegionId = 2 [json_name = "preciseRegionID"];
+  optional string Country = 3 [json_name = "country"];
+  optional string Area = 4 [json_name = "area"];
+  optional string ZipCode = 5 [json_name = "zipCode"];
+  optional string City = 6 [json_name = "city"];
+  optional string Metro = 7 [json_name = "metro"];
+  optional string Street = 8 [json_name = "street"];
+  optional string Building = 9 [json_name = "building"];
+  optional string Intercom = 10 [json_name = "intercom"];
+  optional string Floor = 11 [json_name = "floor"];
+  optional string Room = 12 [json_name = "room"];
+  optional string Comment = 13 [json_name = "comment"];
+  optional string Block = 14 [json_name = "block"];
+  optional string Estate = 15 [json_name = "estate"];
+  optional string Wing = 16 [json_name = "wing"];
+  optional string Region = 17 [json_name = "region"];
+  optional string District = 18 [json_name = "district"];
+  optional string Uri = 19 [json_name = "uri"];
 }
 
 message TFullAddressInfo {
-  .NAlice.NDatumApi.TFullAddress AddressString = 1;
-  .NAlice.NDatumApi.TGeoPoint GeoPoint = 2;
-  .NAlice.NDatumApi.TAdditionalAddressDetails AdditionalAddressDetails = 3;
+  .NAlice.NDatumApi.TFullAddress AddressString = 1 [json_name = "address_string"];
+  .NAlice.NDatumApi.TGeoPoint GeoPoint = 2 [json_name = "geo_point"];
+  .NAlice.NDatumApi.TAdditionalAddressDetails AdditionalAddressDetails = 3 [json_name = "additional_address_details"];
 }
 
 message TDatumAddressesListItem {
-  .NAlice.NDatumApi.TFullAddressInfo Address = 1;
+  .NAlice.NDatumApi.TFullAddressInfo Address = 1 [json_name = "address"];
   oneof Label {
-    .NAlice.NDatumApi.EPassportLabels PassportLabel = 2;
-    .NAlice.NDatumApi.TCustomLabel AliceLabel = 3;
+    .NAlice.NDatumApi.EPassportLabels PassportLabel = 2 [json_name = "passport_label"];
+    .NAlice.NDatumApi.TCustomLabel AliceLabel = 3 [json_name = "alice_label"];
   }
 }
 
 message TDatumAddressesList {
-  repeated .NAlice.NDatumApi.TDatumAddressesListItem Items = 1;
+  repeated .NAlice.NDatumApi.TDatumAddressesListItem Items = 1 [json_name = "items"];
 }
 
 enum EPassportLabels {

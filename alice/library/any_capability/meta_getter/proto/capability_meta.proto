@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/endpoint/capability.proto";
+
+message TCapabilityWithMeta {
+  .NAlice.TCapability.TMeta Meta = 1;
+}
+

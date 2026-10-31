@@ -10,9 +10,10 @@ import "alice/protos/data/dialog_type/dialog_type.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDialogState {
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2ModeInfo = 4;
-  optional string DialogId = 1;
-  optional string FolderId = 2;
-  optional .NAlice.NData.EDialogType DialogType = 3;
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2ModeInfo = 4 [json_name = "alice2_mode_info"];
+  optional string DialogId = 1 [json_name = "dialog_id"];
+  optional string FolderId = 2 [json_name = "folder_id"];
+  optional .NAlice.NData.EDialogType DialogType = 3 [json_name = "dialog_type"];
+  optional string CharacterId = 5 [json_name = "character_id"];
 }
 

@@ -15,94 +15,84 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotScenariosCapability {
   message TParameters {
-    repeated .NAlice.NIot.TLocalScenarioCondition.EConditionType SupportedConditionTypes = 1;
-    repeated .NAlice.TCapability.EEventType SupportedCapabilityEventConditions = 2;
+    repeated .NAlice.NIot.TLocalScenarioCondition.EConditionType SupportedConditionTypes = 1 [json_name = "supported_condition_types"];
+    repeated .NAlice.TCapability.EEventType SupportedCapabilityEventConditions = 2 [json_name = "supported_capability_event_conditions"];
   }
 
   message TState {
-    repeated .NAlice.NIot.TLocalScenario Scenarios = 1;
+    repeated .NAlice.NIot.TLocalScenario Scenarios = 1 [json_name = "scenarios"];
   }
 
   message TLocalStepsFinishedEvent {
-    message StepResultsEntry {
-      uint32 key = 1;
-      .NAlice.NIot.TLocalScenario.TStepResult value = 2;
-    }
-
-    string LaunchID = 1;
-    uint64 LaunchTimestampSeconds = 7;
-    string ScenarioID = 2;
-    repeated .NAlice.TIotScenariosCapability.TLocalStepsFinishedEvent.StepResultsEntry StepResults = 3;
-    uint32 StepIndex = 4;
-    .NAlice.TIotScenariosCapability.EStepStatus StepStatus = 5;
-    .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 6;
+    string LaunchID = 1 [json_name = "launch_id"];
+    uint64 LaunchTimestampSeconds = 7 [json_name = "launch_timestamp_seconds"];
+    string ScenarioID = 2 [json_name = "scenario_id"];
+    map<uint32, .NAlice.NIot.TLocalScenario.TStepResult> StepResults = 3 [json_name = "step_results"];
+    uint32 StepIndex = 4 [json_name = "step_index"];
+    .NAlice.TIotScenariosCapability.EStepStatus StepStatus = 5 [json_name = "step_status"];
+    .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 6 [json_name = "triggered_condition"];
   }
 
   message TExecuteNonLocalStepEvent {
-    message StepResultsEntry {
-      uint32 key = 1;
-      .NAlice.NIot.TLocalScenario.TStepResult value = 2;
-    }
-
-    string LaunchID = 1;
-    uint64 LaunchTimestampSeconds = 6;
-    string ScenarioID = 2;
-    repeated .NAlice.TIotScenariosCapability.TExecuteNonLocalStepEvent.StepResultsEntry StepResults = 3;
-    uint32 StepIndex = 4;
-    .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 5;
+    string LaunchID = 1 [json_name = "launch_id"];
+    uint64 LaunchTimestampSeconds = 6 [json_name = "launch_timestamp_seconds"];
+    string ScenarioID = 2 [json_name = "scenario_id"];
+    map<uint32, .NAlice.NIot.TLocalScenario.TStepResult> StepResults = 3 [json_name = "step_results"];
+    uint32 StepIndex = 4 [json_name = "step_index"];
+    .NAlice.NIot.TLocalScenarioCondition TriggeredCondition = 5 [json_name = "triggered_condition"];
   }
 
   message TConfirmLocalScenariosEvent {
-    repeated string LocalScenarioIDs = 1;
-    repeated string NonLocalScenarioIDs = 2;
+    repeated string LocalScenarioIDs = 1 [json_name = "local_scenario_ids"];
+    repeated string NonLocalScenarioIDs = 2 [json_name = "non_local_scenario_ids"];
   }
 
   message TRestoreLocalScenariosEvent {
   }
 
   message TConfirmLocalScenariosActivityEvent {
-    repeated string ActiveIDs = 1;
-    repeated string InactiveIDs = 2;
+    repeated string ActiveIDs = 1 [json_name = "active_ids"];
+    repeated string InactiveIDs = 2 [json_name = "inactive_ids"];
   }
 
   message TAddIotScenariosDirective {
-    string Name = 1000;
-    repeated .NAlice.NIot.TLocalScenario Scenarios = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.NIot.TLocalScenario Scenarios = 1 [json_name = "scenarios"];
   }
 
   message TRemoveIotScenariosDirective {
-    string Name = 1000;
-    repeated string IDs = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated string IDs = 1 [json_name = "ids"];
   }
 
   message TSyncIotScenariosDirective {
-    string Name = 1000;
-    repeated .NAlice.NIot.TLocalScenario Scenarios = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.NIot.TLocalScenario Scenarios = 1 [json_name = "scenarios"];
   }
 
   message TContinueScenarioLaunchDirective {
     reserved "ScenarioID";
     reserved 2;
-    string Name = 1000;
-    string LaunchID = 1;
-    uint32 StepIndex = 3;
+    string Name = 1000 [json_name = "name"];
+    string LaunchID = 1 [json_name = "launch_id"];
+    uint32 StepIndex = 3 [json_name = "step_index"];
   }
 
   message TSetIotScenariosActivityDirective {
-    string Name = 1000;
-    repeated string ActiveIDs = 1;
-    repeated string InactiveIDs = 2;
+    string Name = 1000 [json_name = "name"];
+    repeated string ActiveIDs = 1 [json_name = "active_ids"];
+    repeated string InactiveIDs = 2 [json_name = "inactive_ids"];
   }
 
   message TSendExecuteNonLocalStepEventDirective {
-    string Name = 1000;
-    uint32 StepIndex = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 StepIndex = 1 [json_name = "step_index"];
   }
 
   message TSendLocalStepsFinishedEventDirective {
-    string Name = 1000;
-    uint32 StepIndex = 1;
-    .NAlice.TIotScenariosCapability.EStepStatus StepStatus = 2;
+    string Name = 1000 [json_name = "name"];
+    uint32 StepIndex = 1 [json_name = "step_index"];
+    .NAlice.TIotScenariosCapability.EStepStatus StepStatus = 2 [json_name = "step_status"];
   }
 
   message TWaitScenarioDelayDirective {
@@ -112,10 +102,10 @@ message TIotScenariosCapability {
       ContinueScenario = 2;
     }
 
-    string Name = 1000;
-    uint32 DelaySeconds = 1;
-    .NAlice.TIotScenariosCapability.TWaitScenarioDelayDirective.EDelayFinishedPolicy DelayFinishedPolicy = 2;
-    optional .google.protobuf.Timestamp StartTimestamp = 3;
+    string Name = 1000 [json_name = "name"];
+    uint32 DelaySeconds = 1 [json_name = "delay_seconds"];
+    .NAlice.TIotScenariosCapability.TWaitScenarioDelayDirective.EDelayFinishedPolicy DelayFinishedPolicy = 2 [json_name = "delay_finished_policy"];
+    optional .google.protobuf.Timestamp StartTimestamp = 3 [json_name = "start_timestamp"];
   }
 
   message TOptionalDirective {
@@ -124,9 +114,9 @@ message TIotScenariosCapability {
       SomeDeviceUnreachable = 1;
     }
 
-    string Name = 1000;
-    .NAlice.TIotScenariosCapability.TOptionalDirective.ERunPolicy RunPolicy = 1;
-    repeated .google.protobuf.Any Directives = 2;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotScenariosCapability.TOptionalDirective.ERunPolicy RunPolicy = 1 [json_name = "run_policy"];
+    repeated .google.protobuf.Any Directives = 2 [json_name = "directives"];
   }
 
   message TEffectiveTimeFilter {
@@ -136,11 +126,11 @@ message TIotScenariosCapability {
       Unlimited = 2;
     }
 
-    uint32 StartTimeSeconds = 1;
-    uint32 DurationSeconds = 5;
-    uint32 EndTimeSeconds = 2;
-    repeated string DaysOfWeek = 3;
-    .NAlice.TIotScenariosCapability.TEffectiveTimeFilter.ETriggerPolicy TriggerPolicy = 4;
+    uint32 StartTimeSeconds = 1 [json_name = "start_time_seconds"];
+    uint32 DurationSeconds = 5 [json_name = "duration_seconds"];
+    uint32 EndTimeSeconds = 2 [json_name = "end_time_seconds"];
+    repeated string DaysOfWeek = 3 [json_name = "days_of_week"];
+    .NAlice.TIotScenariosCapability.TEffectiveTimeFilter.ETriggerPolicy TriggerPolicy = 4 [json_name = "trigger_policy"];
   }
 
   enum EStepStatus {
@@ -150,8 +140,8 @@ message TIotScenariosCapability {
     Finished = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotScenariosCapability.TParameters Parameters = 2;
-  .NAlice.TIotScenariosCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotScenariosCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotScenariosCapability.TState State = 3 [json_name = "state"];
 }
 

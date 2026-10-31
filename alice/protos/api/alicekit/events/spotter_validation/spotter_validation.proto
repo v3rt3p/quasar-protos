@@ -19,7 +19,7 @@ message TSpotterValidation {
     Ok = 1;
   }
 
-  .NAlice.NAliceApi.TSpotterValidation.EResult Result = 1;
-  optional bool CanceledCauseOfMultiactivation = 3;
+  .NAlice.NAliceApi.TSpotterValidation.EResult Result = 1 [json_name = "result"];
+  optional bool CanceledCauseOfMultiactivation = 3 [json_name = "canceled_cause_of_multiactivation"];
 }
 

@@ -10,44 +10,39 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAcInfo {
   message TMode {
-    .NAlice.NIr.EAcMode Mode = 1;
-    repeated .NAlice.NIr.EAcSpeed Speeds = 4;
-    optional uint32 TemperatureMin = 2;
-    optional uint32 TemperatureMax = 3;
+    .NAlice.NIr.EAcMode Mode = 1 [json_name = "mode"];
+    repeated .NAlice.NIr.EAcSpeed Speeds = 4 [json_name = "speed"];
+    optional uint32 TemperatureMin = 2 [json_name = "temperature_min"];
+    optional uint32 TemperatureMax = 3 [json_name = "temperature_max"];
   }
 
-  repeated .NAlice.NIr.TAcInfo.TMode Modes = 1;
-  optional uint32 SwingMin = 2;
-  optional uint32 SwingMax = 3;
+  repeated .NAlice.NIr.TAcInfo.TMode Modes = 1 [json_name = "modes"];
+  optional uint32 SwingMin = 2 [json_name = "swing_min"];
+  optional uint32 SwingMax = 3 [json_name = "swing_max"];
 }
 
 message TAcState {
-  bool Power = 1;
-  .NAlice.NIr.EAcMode Mode = 2;
-  optional uint32 Temperature = 3;
-  optional .NAlice.NIr.EAcSpeed Speed = 4;
-  optional uint32 Swing = 5;
+  bool Power = 1 [json_name = "power"];
+  .NAlice.NIr.EAcMode Mode = 2 [json_name = "mode"];
+  optional uint32 Temperature = 3 [json_name = "temperature"];
+  optional .NAlice.NIr.EAcSpeed Speed = 4 [json_name = "speed"];
+  optional uint32 Swing = 5 [json_name = "swing"];
 }
 
 message TRemoteData {
   message TPulse {
-    repeated uint32 A = 1;
-    repeated uint32 B = 2;
+    repeated uint32 A = 1 [json_name = "a"];
+    repeated uint32 B = 2 [json_name = "b"];
   }
 
-  message KeysEntry {
-    uint32 key = 1;
-    .NAlice.NIr.TRemoteData.TPulse value = 2;
-  }
-
-  uint32 Frequency = 1;
-  repeated .NAlice.NIr.TRemoteData.KeysEntry Keys = 2;
-  bytes AcData = 3;
+  uint32 Frequency = 1 [json_name = "frequency"];
+  map<uint32, .NAlice.NIr.TRemoteData.TPulse> Keys = 2 [json_name = "keys"];
+  bytes AcData = 3 [json_name = "ac_data"];
 }
 
 message TRemote {
-  .NAlice.NIr.EDeviceType Type = 1;
-  .NAlice.NIr.TRemoteData Data = 2;
+  .NAlice.NIr.EDeviceType Type = 1 [json_name = "type"];
+  .NAlice.NIr.TRemoteData Data = 2 [json_name = "data"];
 }
 
 enum EDeviceType {

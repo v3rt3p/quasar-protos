@@ -18,7 +18,7 @@ message TDefaultSound {
     ALARM_FROM_ALICE = 4;
   }
 
-  .NAlice.NData.TDefaultSound.ESoundType SoundType = 1;
+  .NAlice.NData.TDefaultSound.ESoundType SoundType = 1 [json_name = "sound_type"];
 }
 
 message TAlarmSoundSettings {
@@ -26,49 +26,49 @@ message TAlarmSoundSettings {
     reserved "MediaType";
     reserved 3;
     message TServerAction {
-      string Name = 1;
-      .google.protobuf.Struct Payload = 2;
-      bool NotPrefetchable = 3;
+      string Name = 1 [json_name = "name"];
+      .google.protobuf.Struct Payload = 2 [json_name = "payload"];
+      bool NotPrefetchable = 3 [json_name = "not_prefetchable"];
     }
 
-    .google.protobuf.Struct RawInfo = 1;
+    .google.protobuf.Struct RawInfo = 1 [json_name = "raw_info"];
     oneof Media {
-      .NAlice.NData.TAlarmSoundSettings.TMediaSettings.TServerAction ServerAction = 2;
-      .NAlice.NData.TDefaultSound DefaultSound = 4;
+      .NAlice.NData.TAlarmSoundSettings.TMediaSettings.TServerAction ServerAction = 2 [json_name = "server_action"];
+      .NAlice.NData.TDefaultSound DefaultSound = 4 [json_name = "default_sound"];
     }
   }
 
   message TSoundLevelInfo {
-    uint32 MinSoundLevel = 1;
-    uint32 MaxSoundLevel = 2;
-    uint32 VolumeStepMs = 3;
-    float MinPercentSoundLevel = 4;
-    float MaxPercentSoundLevel = 5;
+    uint32 MinSoundLevel = 1 [json_name = "min_sound_level"];
+    uint32 MaxSoundLevel = 2 [json_name = "max_sound_level"];
+    uint32 VolumeStepMs = 3 [json_name = "volume_step_ms"];
+    float MinPercentSoundLevel = 4 [json_name = "min_percent_sound_level"];
+    float MaxPercentSoundLevel = 5 [json_name = "max_percent_sound_level"];
   }
 
-  .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 1;
-  .NAlice.NData.TAlarmSoundSettings.TMediaSettings MediaSettings = 2;
+  .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 1 [json_name = "sound_level_info"];
+  .NAlice.NData.TAlarmSoundSettings.TMediaSettings MediaSettings = 2 [json_name = "media_settings"];
 }
 
 message TAlarm {
   reserved "Enabled";
   reserved 4;
   message TDate {
-    uint32 Year = 1;
-    uint32 Month = 2;
-    uint32 Day = 3;
+    uint32 Year = 1 [json_name = "year"];
+    uint32 Month = 2 [json_name = "month"];
+    uint32 Day = 3 [json_name = "day"];
   }
 
   message TTime {
-    uint32 Hours = 1;
-    uint32 Minutes = 2;
-    uint32 Seconds = 3;
+    uint32 Hours = 1 [json_name = "hours"];
+    uint32 Minutes = 2 [json_name = "minutes"];
+    uint32 Seconds = 3 [json_name = "seconds"];
   }
 
   message TActivationDay {
     oneof ActivationDay {
-      .NAlice.NData.TAlarm.EWeekday Weekday = 1;
-      .NAlice.NData.TAlarm.TDate Date = 2;
+      .NAlice.NData.TAlarm.EWeekday Weekday = 1 [json_name = "weekday"];
+      .NAlice.NData.TAlarm.TDate Date = 2 [json_name = "date"];
     }
   }
 
@@ -78,13 +78,13 @@ message TAlarm {
       NON_MEDIA = 1;
     }
 
-    string SerializedAction = 1;
-    .NAlice.NData.TAlarm.TAlarmAction.EExecutionMode ExecutionMode = 2;
-    optional uint32 OffsetSeconds = 3;
+    string SerializedAction = 1 [json_name = "serialized_action"];
+    .NAlice.NData.TAlarm.TAlarmAction.EExecutionMode ExecutionMode = 2 [json_name = "execution_mode"];
+    optional uint32 OffsetSeconds = 3 [json_name = "offset_seconds"];
   }
 
   message TSnoozeMetaInfo {
-    string SnoozedAlarmId = 1;
+    string SnoozedAlarmId = 1 [json_name = "snoozed_alarm_id"];
   }
 
   enum EWeekday {
@@ -98,17 +98,18 @@ message TAlarm {
     SUNDAY = 7;
   }
 
-  string AlarmId = 1;
-  .NAlice.NData.TAlarm.TTime LocalTime = 2;
-  .NAlice.NData.TTimezone Timezone = 7;
-  bool CurrentlyPlaying = 3;
-  repeated .NAlice.NData.TAlarm.TActivationDay ActivationDays = 5;
-  repeated .NAlice.NData.TAlarm.TAlarmAction AlarmActions = 6;
-  .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 8;
-  bool Disabled = 9;
-  string Title = 10;
-  uint64 EditTimestamp = 11;
-  .NAlice.NData.TAlarm.TSnoozeMetaInfo SnoozeMetaInfo = 13;
-  optional uint32 SnoozeTime = 12;
+  string AlarmId = 1 [json_name = "alarm_id"];
+  .NAlice.NData.TAlarm.TTime LocalTime = 2 [json_name = "local_time"];
+  .NAlice.NData.TTimezone Timezone = 7 [json_name = "timezone"];
+  bool CurrentlyPlaying = 3 [json_name = "currently_playing"];
+  repeated .NAlice.NData.TAlarm.TActivationDay ActivationDays = 5 [json_name = "activation_days"];
+  repeated .NAlice.NData.TAlarm.TAlarmAction AlarmActions = 6 [json_name = "alarm_actions"];
+  .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 8 [json_name = "alarm_sound_settings"];
+  bool Disabled = 9 [json_name = "disabled"];
+  string Title = 10 [json_name = "title"];
+  uint64 EditTimestamp = 11 [json_name = "edit_timestamp"];
+  .NAlice.NData.TAlarm.TSnoozeMetaInfo SnoozeMetaInfo = 13 [json_name = "snooze_meta_info"];
+  optional uint32 SnoozeTime = 12 [json_name = "snooze_time"];
+  optional uint32 ApproachingOffset = 14 [json_name = "approaching_offset"];
 }
 

@@ -17,18 +17,18 @@ message TLocalizationCapability {
   }
 
   message TState {
-    .NAlice.NData.ECountry Country = 1;
-    .NAlice.NData.ELocale Locale = 2;
+    .NAlice.NData.ECountry Country = 1 [json_name = "country"];
+    .NAlice.NData.ELocale Locale = 2 [json_name = "locale"];
   }
 
   message TSetLocalizationDirective {
-    .NAlice.NData.ECountry Country = 1;
-    .NAlice.NData.ELocale Locale = 2;
-    string Name = 3;
+    .NAlice.NData.ECountry Country = 1 [json_name = "country"];
+    .NAlice.NData.ELocale Locale = 2 [json_name = "locale"];
+    string Name = 3 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLocalizationCapability.TParameters Parameters = 2;
-  .NAlice.TLocalizationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLocalizationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLocalizationCapability.TState State = 3 [json_name = "state"];
 }
 

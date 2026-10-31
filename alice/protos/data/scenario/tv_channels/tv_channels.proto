@@ -12,29 +12,29 @@ import "alice/protos/extensions/extensions.proto";
 import "alice/protos/data/tv/channels/common.proto";
 
 message TProgramWrapper {
-  .NAlice.NTv.TProgramItem Program = 1;
-  repeated .NAlice.TVoiceControl VoiceControls = 2;
+  .NAlice.NTv.TProgramItem Program = 1 [json_name = "program"];
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
 }
 
 message TChannelWrapper {
-  .NAlice.NTv.TChannel Channel = 1;
-  repeated .NAlice.TVoiceControl VoiceControls = 2;
-  repeated .NAlice.NData.NTvChannels.TProgramWrapper Programs = 3;
+  .NAlice.NTv.TChannel Channel = 1 [json_name = "channel"];
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+  repeated .NAlice.NData.NTvChannels.TProgramWrapper Programs = 3 [json_name = "programs"];
 }
 
 message TTvGetChannelsResponse {
-  repeated .NAlice.NTv.TCategory Categories = 1;
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2;
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
 }
 
 message TTvChannelsListData {
-  repeated .NAlice.NTv.TCategory Categories = 1;
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2;
-  .NAlice.NTv.TChannel CurrentlyPlaying = 3;
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
+  .NAlice.NTv.TChannel CurrentlyPlaying = 3 [json_name = "currently_playing"];
 }
 
 message TCentaurChannelsListData {
-  repeated .NAlice.NTv.TCategory Categories = 1;
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2;
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
 }
 

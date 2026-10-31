@@ -19,31 +19,32 @@ message TBatteryCapability {
     enum EChargingMode {
       Default = 0;
       FastCharging = 1;
+      SlowCharging = 2;
     }
 
-    optional double Percentage = 1;
-    optional double Voltage = 2;
-    optional bool IsCharging = 3;
-    optional .NAlice.TBatteryCapability.TState.EChargingMode ChargingMode = 4;
+    optional double Percentage = 1 [json_name = "percentage"];
+    optional double Voltage = 2 [json_name = "voltage"];
+    optional bool IsCharging = 3 [json_name = "is_charging"];
+    optional .NAlice.TBatteryCapability.TState.EChargingMode ChargingMode = 4 [json_name = "charging_mode"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TBatteryCapability Capability = 1;
+    .NAlice.TBatteryCapability Capability = 1 [json_name = "capability"];
   }
 
   message TCondition {
-    .google.protobuf.DoubleValue LowerBound = 1;
-    .google.protobuf.DoubleValue UpperBound = 2;
-    double Hysteresis = 3;
+    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound"];
+    double Hysteresis = 3 [json_name = "hysteresis"];
   }
 
   message TPowerLevelFilter {
-    .google.protobuf.DoubleValue LowerBound = 1;
-    .google.protobuf.DoubleValue UpperBound = 2;
+    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TBatteryCapability.TParameters Parameters = 2;
-  .NAlice.TBatteryCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBatteryCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBatteryCapability.TState State = 3 [json_name = "state"];
 }
 

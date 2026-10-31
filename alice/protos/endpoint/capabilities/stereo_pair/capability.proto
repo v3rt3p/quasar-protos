@@ -16,11 +16,11 @@ message TStereoPairCapability {
   }
 
   message TState {
-    .NAlice.TStereoPairCapability.ERole Role = 1;
-    .NAlice.TStereoPairCapability.EChannel Channel = 2;
-    .NAlice.TStereoPairCapability.EConnectivity Connectivity = 3;
-    .NAlice.TStereoPairCapability.EStatus Status = 4;
-    string PartnerEndpointId = 5;
+    .NAlice.TStereoPairCapability.ERole Role = 1 [json_name = "role"];
+    .NAlice.TStereoPairCapability.EChannel Channel = 2 [json_name = "channel"];
+    .NAlice.TStereoPairCapability.EConnectivity Connectivity = 3 [json_name = "connectivity"];
+    .NAlice.TStereoPairCapability.EStatus Status = 4 [json_name = "status"];
+    string PartnerEndpointId = 5 [json_name = "partner_endpoint_id"];
   }
 
   message TStereoPairNoConnectionNotificationDirective {
@@ -43,15 +43,15 @@ message TStereoPairCapability {
     }
 
     message TCustomEventOnLeader {
-      string Name = 1;
+      string Name = 1 [json_name = "name"];
     }
 
     oneof Action {
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStartConversationOnLeader StartConversationOnLeader = 1;
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStopConversationOnLeader StopConversationOnLeader = 2;
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TToggleConversationOnLeader ToggleConversationOnLeader = 3;
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TFinishConversationOnLeader FinishConversationOnLeader = 4;
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TCustomEventOnLeader CustomEventOnLeader = 5;
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStartConversationOnLeader StartConversationOnLeader = 1 [json_name = "start_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStopConversationOnLeader StopConversationOnLeader = 2 [json_name = "stop_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TToggleConversationOnLeader ToggleConversationOnLeader = 3 [json_name = "toggle_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TFinishConversationOnLeader FinishConversationOnLeader = 4 [json_name = "finish_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TCustomEventOnLeader CustomEventOnLeader = 5 [json_name = "custom_event_on_leader"];
     }
   }
 
@@ -65,8 +65,8 @@ message TStereoPairCapability {
       EVENT_TRIPLE_CLICK = 5;
     }
 
-    .NAlice.TStereoPairCapability.TStereoPairUserEvent.EEvent Event = 1;
-    string Payload = 2;
+    .NAlice.TStereoPairCapability.TStereoPairUserEvent.EEvent Event = 1 [json_name = "event"];
+    string Payload = 2 [json_name = "payload"];
   }
 
   enum ERole {
@@ -96,8 +96,8 @@ message TStereoPairCapability {
     STATUS_READY = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TStereoPairCapability.TParameters Parameters = 2;
-  .NAlice.TStereoPairCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TStereoPairCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TStereoPairCapability.TState State = 3 [json_name = "state"];
 }
 

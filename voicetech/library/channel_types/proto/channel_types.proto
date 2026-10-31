@@ -14,5 +14,6 @@ enum AudioInputChannelType {
   VQE_BACKGROUND_NOISE_REDUCER = 8;
   VQE_OMNI_WITH_GAIN = 9;
   VQE_STATE = 10;
+  VQE_ZONE = 11;
 }
 

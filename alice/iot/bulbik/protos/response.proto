@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package NAlice.NBulbik;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios";
+option java_outer_classname = "ResponseProto";
+option go_package = "a.yandex-team.ru/alice/iot/bulbik/protos";
+
+import "alice/protos/api/alicekit/directives/directive.proto";
+import "google/protobuf/any.proto";
+
+message TScenarioResponseBody {
+  repeated .NAlice.NAliceApi.TDirective Directives = 1 [json_name = "directives"];
+  bytes IoTUserInfoSerialized = 2 [json_name = "iot_user_info_serialized"];
+  string OutputSpeech = 3 [json_name = "output_speech"];
+  bytes AnalyticsInfo = 4 [json_name = "analytics_info"];
+}
+
+message TScenarioError {
+  string Message = 1 [json_name = "message"];
+  string Type = 2 [json_name = "type"];
+}
+
+message TScenarioRunResponse {
+  bool IsIrrelevant = 1 [json_name = "is_irrelevant"];
+  string Version = 4 [json_name = "version"];
+  oneof Response {
+    .google.protobuf.Any ApplyArguments = 2 [json_name = "apply_arguments"];
+    .NAlice.NBulbik.TScenarioError Error = 3 [json_name = "error"];
+  }
+}
+
+message TScenarioApplyResponse {
+  string Version = 3 [json_name = "version"];
+  oneof Response {
+    .NAlice.NBulbik.TScenarioResponseBody ResponseBody = 1 [json_name = "response"];
+    .NAlice.NBulbik.TScenarioError Error = 2 [json_name = "error"];
+  }
+}
+

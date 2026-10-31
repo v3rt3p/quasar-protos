@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package NAlice.NScenarios;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.typed_callback";
+option java_outer_classname = "TypedCallbackRequestDataProto";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/typed_callback";
+
+import "alice/protos/api/request_parts/atm.proto";
+import "alice/protos/api/request_parts/origin.proto";
+import "alice/protos/api/request_parts/request_params.proto";
+import "google/protobuf/any.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTypedCallbackRequestData {
+  .google.protobuf.Any TypedCallback = 1 [json_name = "typed_callback"];
+  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics"];
+  .NAlice.TOrigin Origin = 3 [json_name = "origin"];
+  .NAlice.TRequestParams RequestParams = 4 [json_name = "request_params"];
+}
+

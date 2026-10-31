@@ -12,23 +12,18 @@ import "google/protobuf/struct.proto";
 message TDiv2Patch {
   message Template {
     oneof TemplateBody {
-      .google.protobuf.Struct Body = 1;
-      string StringBody = 2;
+      .google.protobuf.Struct Body = 1 [json_name = "body"];
+      string StringBody = 2 [json_name = "string_body"];
     }
   }
 
-  message GlobalTemplatesEntry {
-    string key = 1;
-    .NAlice.TDiv2Patch.Template value = 2;
-  }
-
-  string Templates = 4;
-  repeated .NAlice.TDiv2Patch.GlobalTemplatesEntry GlobalTemplates = 6;
-  string CardName = 2;
-  string CardId = 3;
+  string Templates = 4 [json_name = "templates"];
+  map<string, .NAlice.TDiv2Patch.Template> GlobalTemplates = 6 [json_name = "global_templates"];
+  string CardName = 2 [json_name = "card_name"];
+  string CardId = 3 [json_name = "card_id"];
   oneof Div2PatchBody {
-    .google.protobuf.Struct Body = 1;
-    string StringBody = 5;
+    .google.protobuf.Struct Body = 1 [json_name = "body"];
+    string StringBody = 5 [json_name = "string_body"];
   }
 }
 

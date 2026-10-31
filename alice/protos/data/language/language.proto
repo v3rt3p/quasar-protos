@@ -12,7 +12,9 @@ enum ELang {
   L_KAZ = 10;
   L_TUR = 44;
   L_UZB = 47;
+  L_KIR = 48;
   L_ARA = 55;
   L_ARZ = 127;
+  L_ARE = 156;
 }
 

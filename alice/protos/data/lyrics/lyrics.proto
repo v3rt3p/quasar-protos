@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.lyrics";
+option go_package = "a.yandex-team.ru/alice/protos/data/lyrics";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLyrics {
+  message TSongLine {
+    uint32 OffsetMilliseconds = 1 [json_name = "offset_milliseconds"];
+    string Text = 2 [json_name = "text"];
+  }
+
+  string Id = 1 [json_name = "id"];
+  repeated .NAlice.NData.TLyrics.TSongLine SongLines = 2 [json_name = "song_lines"];
+  repeated string Writers = 3 [json_name = "writers"];
+  string Source = 4 [json_name = "source"];
+}
+

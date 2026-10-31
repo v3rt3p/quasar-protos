@@ -14,36 +14,36 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotBallastConfigurationCapability {
   message TParameters {
-    .NAlice.TRange PhysicalRange = 1;
+    .NAlice.TRange PhysicalRange = 1 [json_name = "physical_range"];
   }
 
   message TState {
-    double Min = 1;
-    double Max = 2;
+    double Min = 1 [json_name = "min"];
+    double Max = 2 [json_name = "max"];
   }
 
   message TSetIotBallastMinDirective {
-    string Name = 1000;
-    double Min = 1;
+    string Name = 1000 [json_name = "name"];
+    double Min = 1 [json_name = "min"];
   }
 
   message TSetIotBallastMaxDirective {
-    string Name = 1000;
-    double Max = 1;
+    string Name = 1000 [json_name = "name"];
+    double Max = 1 [json_name = "max"];
   }
 
   message TSetIotBallastMinMaxDirective {
-    string Name = 1000;
-    double Min = 1;
-    double Max = 2;
+    string Name = 1000 [json_name = "name"];
+    double Min = 1 [json_name = "min"];
+    double Max = 2 [json_name = "max"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotBallastConfigurationCapability Capability = 1;
+    .NAlice.TIotBallastConfigurationCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotBallastConfigurationCapability.TParameters Parameters = 2;
-  .NAlice.TIotBallastConfigurationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotBallastConfigurationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotBallastConfigurationCapability.TState State = 3 [json_name = "state"];
 }
 

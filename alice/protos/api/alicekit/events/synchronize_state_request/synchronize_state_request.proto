@@ -16,19 +16,19 @@ import "alice/protos/api/alicekit/events/common/event_type/event_type.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSynchronizeStateRequest {
-  string OAuthToken = 1;
-  string ApiKey = 2;
-  .NAlice.TClientInfoProto Application = 3;
-  repeated string SupportedFeatures = 4;
-  bool SoundLogging = 5;
-  .NAlice.TExperimentsProto Experiments = 6;
-  repeated .NAlice.NAliceApi.EEventType SupportedServerEvents = 7;
-  repeated .NAlice.TUserOptions UsersOptions = 8;
-  .NAlice.TClientAnalyticsInfoProto ClientAnalyticsInfo = 12;
-  optional string ICookie = 9;
-  optional string YexpCookie = 10;
-  optional string SaeCookie = 11;
-  optional string YBrowserExperiments = 13;
-  optional string XYBrowserExperiments = 14;
+  string OAuthToken = 1 [json_name = "oauth_token"];
+  string ApiKey = 2 [json_name = "api_key"];
+  .NAlice.TClientInfoProto Application = 3 [json_name = "application"];
+  repeated string SupportedFeatures = 4 [json_name = "supported_features"];
+  bool SoundLogging = 5 [json_name = "sound_logging"];
+  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments"];
+  repeated .NAlice.NAliceApi.EEventType SupportedServerEvents = 7 [json_name = "supported_server_events"];
+  repeated .NAlice.TUserOptions UsersOptions = 8 [json_name = "users_options"];
+  .NAlice.TClientAnalyticsInfoProto ClientAnalyticsInfo = 12 [json_name = "client_analytics_info"];
+  optional string ICookie = 9 [json_name = "icookie"];
+  optional string YexpCookie = 10 [json_name = "yexp_cookie"];
+  optional string SaeCookie = 11 [json_name = "sae_cookie"];
+  optional string YBrowserExperiments = 13 [json_name = "y_browser_experiments"];
+  optional string XYBrowserExperiments = 14 [json_name = "x_y_browser_experiments"];
 }
 

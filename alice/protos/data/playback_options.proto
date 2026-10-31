@@ -9,10 +9,10 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPlaybackOptions {
   message TSpeedOptions {
-    bool ChangeSupport = 1;
+    bool ChangeSupport = 1 [json_name = "change_support"];
   }
 
-  string PlaybackStarterUserId = 1;
-  .NAlice.NData.TPlaybackOptions.TSpeedOptions SpeedOptions = 2;
+  string PlaybackStarterUserId = 1 [json_name = "playback_starter_user_id"];
+  .NAlice.NData.TPlaybackOptions.TSpeedOptions SpeedOptions = 2 [json_name = "speed_options"];
 }
 

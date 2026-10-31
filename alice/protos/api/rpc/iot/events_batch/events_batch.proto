@@ -11,8 +11,8 @@ import "alice/protos/endpoint/events/events.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIoTEventsBatchRequest {
-  repeated .NAlice.TEndpointEvents Batch = 1;
-  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
+  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2 [json_name = "environment_state"];
 }
 
 message TIoTEventsBatchResponse {

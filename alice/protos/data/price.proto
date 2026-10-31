@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data";
+option go_package = "a.yandex-team.ru/alice/protos/data";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDecimal {
+  string DecimalValue = 1 [json_name = "decimal_value"];
+}
+
+message TPrice {
+  enum ECurrency {
+    UnknownCurrency = 0;
+    Rub = 1;
+  }
+
+  .NAlice.NData.TDecimal Value = 1 [json_name = "value"];
+  .NAlice.NData.TPrice.ECurrency Currency = 2 [json_name = "currency"];
+}
+

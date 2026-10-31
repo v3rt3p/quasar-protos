@@ -12,12 +12,12 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TState {
   message TWeekdaysTriggerPolicy {
-    repeated uint64 InitivalInvocations = 1;
+    repeated uint64 InitivalInvocations = 1 [json_name = "initial_invocations"];
   }
 
   message TTriggerPolicy {
     oneof Type {
-      .NAlice.NData.NReminders.TState.TWeekdaysTriggerPolicy WeekdaysTriggerPolicy = 1;
+      .NAlice.NData.NReminders.TState.TWeekdaysTriggerPolicy WeekdaysTriggerPolicy = 1 [json_name = "weekdays_trigger_policy"];
     }
   }
 
@@ -26,37 +26,27 @@ message TState {
     reserved "ClientTimeDeltaSeconds";
     reserved 3;
     reserved 7;
-    string Id = 1;
-    string Text = 2;
-    string TimeZone = 4;
-    string Origin = 5;
-    uint64 ShootAt = 6;
-    .NAlice.NData.NReminders.TReminderExtensions Extensions = 8;
-    repeated string OriginPlatformFeatures = 9;
-    .NAlice.ELang Language = 11;
-    optional .NAlice.NData.NReminders.TState.TTriggerPolicy TriggerPolicy = 10;
-    optional bool IsXiva = 12;
+    string Id = 1 [json_name = "id"];
+    string Text = 2 [json_name = "text"];
+    string TimeZone = 4 [json_name = "timezone"];
+    string Origin = 5 [json_name = "origin"];
+    uint64 ShootAt = 6 [json_name = "shoot_at"];
+    .NAlice.NData.NReminders.TReminderExtensions Extensions = 8 [json_name = "extensions"];
+    repeated string OriginPlatformFeatures = 9 [json_name = "origin_platform_features"];
+    .NAlice.ELang Language = 11 [json_name = "language"];
+    optional .NAlice.NData.NReminders.TState.TTriggerPolicy TriggerPolicy = 10 [json_name = "trigger_policy"];
+    optional bool IsXiva = 12 [json_name = "is_xiva"];
   }
 
   message TSurfaceSyncState {
-    .NAlice.NData.NReminders.ERemindersSyncState State = 1;
-    .google.protobuf.Timestamp CreatedAt = 2;
+    .NAlice.NData.NReminders.ERemindersSyncState State = 1 [json_name = "state"];
+    .google.protobuf.Timestamp CreatedAt = 2 [json_name = "created_at"];
   }
 
-  message CancelledEntry {
-    string key = 1;
-    uint64 value = 2;
-  }
-
-  message SurfacesSyncStateEntry {
-    string key = 1;
-    .NAlice.NData.NReminders.TState.TSurfaceSyncState value = 2;
-  }
-
-  repeated .NAlice.NData.NReminders.TState.TReminder Reminders = 1;
-  repeated .NAlice.NData.NReminders.TState.CancelledEntry Cancelled = 2;
-  repeated .NAlice.NData.NReminders.TState.SurfacesSyncStateEntry SurfacesSyncState = 3;
-  .NAlice.NData.NReminders.TRemindersSettings RemindersSettings = 4;
+  repeated .NAlice.NData.NReminders.TState.TReminder Reminders = 1 [json_name = "reminders"];
+  map<string, uint64> Cancelled = 2 [json_name = "cancelled"];
+  map<string, .NAlice.NData.NReminders.TState.TSurfaceSyncState> SurfacesSyncState = 3 [json_name = "surfaces_sync_state"];
+  .NAlice.NData.NReminders.TRemindersSettings RemindersSettings = 4 [json_name = "reminders_settings"];
 }
 
 message TRemindersSettings {
@@ -67,9 +57,9 @@ message TRemindersSettings {
     All = 3;
   }
 
-  bool SendMobileNotification = 1;
-  .NAlice.NData.NReminders.TRemindersSettings.EPlayOn PlayOn = 2;
-  repeated string DeviceIds = 3;
-  int32 OrmMigrationVersion = 4;
+  bool SendMobileNotification = 1 [json_name = "send_mobile_notification"];
+  .NAlice.NData.NReminders.TRemindersSettings.EPlayOn PlayOn = 2 [json_name = "play_on"];
+  repeated string DeviceIds = 3 [json_name = "device_ids"];
+  int32 OrmMigrationVersion = 4 [json_name = "orm_migration_version"];
 }
 

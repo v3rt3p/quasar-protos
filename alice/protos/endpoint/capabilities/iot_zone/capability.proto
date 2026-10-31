@@ -15,44 +15,44 @@ import "alice/protos/data/iot/geometry.proto";
 
 message TIotZoneCapability {
   message TZone {
-    uint32 ID = 1;
-    bool Enabled = 2;
-    bool Mutable = 5;
-    .NAlice.TIotZoneCapability.EZoneType Type = 3;
-    .NAlice.NIot.TZoneShape Shape = 4;
+    uint32 ID = 1 [json_name = "id"];
+    bool Enabled = 2 [json_name = "enabled"];
+    bool Mutable = 5 [json_name = "mutable"];
+    .NAlice.TIotZoneCapability.EZoneType Type = 3 [json_name = "type"];
+    .NAlice.NIot.TZoneShape Shape = 4 [json_name = "shape"];
   }
 
   message TParameters {
-    optional uint32 MaxPresenceOccupancyZonesCount = 1;
-    optional uint32 MaxPresenceNoiseZonesCount = 2;
+    optional uint32 MaxPresenceOccupancyZonesCount = 1 [json_name = "max_presence_occupancy_zones_count"];
+    optional uint32 MaxPresenceNoiseZonesCount = 2 [json_name = "max_presence_noise_zones_count"];
   }
 
   message TState {
-    repeated .NAlice.TIotZoneCapability.TZone Zones = 1;
+    repeated .NAlice.TIotZoneCapability.TZone Zones = 1 [json_name = "zones"];
   }
 
   message TIotCreateZoneDirective {
-    .NAlice.TIotZoneCapability.EZoneType Type = 1;
-    .NAlice.NIot.TZoneShape Shape = 2;
-    bool Enabled = 3;
+    .NAlice.TIotZoneCapability.EZoneType Type = 1 [json_name = "type"];
+    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape"];
+    bool Enabled = 3 [json_name = "enabled"];
   }
 
   message TIotUpdateZoneDirective {
-    uint32 ID = 1;
-    .NAlice.NIot.TZoneShape Shape = 2;
+    uint32 ID = 1 [json_name = "id"];
+    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape"];
   }
 
   message TIotDeleteZoneDirective {
-    uint32 ID = 1;
+    uint32 ID = 1 [json_name = "id"];
   }
 
   message TIotToggleZoneDirective {
-    uint32 ID = 1;
-    bool Enabled = 2;
+    uint32 ID = 1 [json_name = "id"];
+    bool Enabled = 2 [json_name = "enabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZoneCapability Capability = 1;
+    .NAlice.TIotZoneCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EZoneType {
@@ -61,8 +61,8 @@ message TIotZoneCapability {
     PresenceNoiseZoneType = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotZoneCapability.TParameters Parameters = 2;
-  .NAlice.TIotZoneCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotZoneCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotZoneCapability.TState State = 3 [json_name = "state"];
 }
 

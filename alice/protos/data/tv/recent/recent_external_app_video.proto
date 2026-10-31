@@ -22,19 +22,19 @@ message TRecentExternalAppVideoItem {
     WILL_WATCH = 3;
   }
 
-  string Id = 1;
-  string PackageName = 2;
-  string Title = 3;
-  string AppIconUri = 7;
-  string IntentUri = 8;
-  bool IsLive = 9;
-  int64 DurationMs = 10;
-  int64 PositionMs = 11;
-  .NAlice.NTv.TRecentExternalAppVideoItem.EAspectRatio PosterAspectRatio = 12;
-  .NAlice.NTv.TRecentExternalAppVideoItem.ERecentType ItemRecentType = 13;
-  string AppName = 14;
-  optional string PosterUri = 4;
-  optional string ThumbnailUri = 5;
-  optional string PreviewVideoUri = 6;
+  string Id = 1 [json_name = "id"];
+  string PackageName = 2 [json_name = "package_name"];
+  string Title = 3 [json_name = "title"];
+  string AppIconUri = 7 [json_name = "app_icon_uri"];
+  string IntentUri = 8 [json_name = "intent_uri"];
+  bool IsLive = 9 [json_name = "is_live"];
+  int64 DurationMs = 10 [json_name = "duration_ms"];
+  int64 PositionMs = 11 [json_name = "position_ms"];
+  .NAlice.NTv.TRecentExternalAppVideoItem.EAspectRatio PosterAspectRatio = 12 [json_name = "poster_aspect_ratio"];
+  .NAlice.NTv.TRecentExternalAppVideoItem.ERecentType ItemRecentType = 13 [json_name = "recent_type"];
+  string AppName = 14 [json_name = "app_name"];
+  optional string PosterUri = 4 [json_name = "poster_uri"];
+  optional string ThumbnailUri = 5 [json_name = "thumbnail_uri"];
+  optional string PreviewVideoUri = 6 [json_name = "preview_video_uri"];
 }
 

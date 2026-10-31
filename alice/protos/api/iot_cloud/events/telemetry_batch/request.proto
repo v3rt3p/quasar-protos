@@ -11,31 +11,31 @@ import "google/protobuf/timestamp.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotCloudTelemetryBatchRequest {
-  .NAlice.NIotCloud.TIotCloudTelemetryBatch TelemetryBatch = 1;
+  .NAlice.NIotCloud.TIotCloudTelemetryBatch TelemetryBatch = 1 [json_name = "telemetry_batch"];
 }
 
 message TIotCloudTelemetryEvent {
   message TField {
-    string Key = 1;
+    string Key = 1 [json_name = "key"];
     oneof Value {
-      string StringValue = 2;
+      string StringValue = 2 [json_name = "string_value"];
     }
   }
 
   message TValue {
     oneof Value {
-      double CounterValue = 1;
-      string StringValue = 2;
+      double CounterValue = 1 [json_name = "counter_value"];
+      string StringValue = 2 [json_name = "string_value"];
     }
   }
 
-  string Name = 1;
-  .NAlice.NIotCloud.TIotCloudTelemetryEvent.TValue Value = 2;
-  repeated .NAlice.NIotCloud.TIotCloudTelemetryEvent.TField Fields = 3;
-  optional .google.protobuf.Timestamp Timestamp = 4;
+  string Name = 1 [json_name = "name"];
+  .NAlice.NIotCloud.TIotCloudTelemetryEvent.TValue Value = 2 [json_name = "value"];
+  repeated .NAlice.NIotCloud.TIotCloudTelemetryEvent.TField Fields = 3 [json_name = "fields"];
+  optional .google.protobuf.Timestamp Timestamp = 4 [json_name = "timestamp"];
 }
 
 message TIotCloudTelemetryBatch {
-  repeated .NAlice.NIotCloud.TIotCloudTelemetryEvent Events = 1;
+  repeated .NAlice.NIotCloud.TIotCloudTelemetryEvent Events = 1 [json_name = "events"];
 }
 

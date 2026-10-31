@@ -16,35 +16,37 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVoiceEnrollmentCapability {
   message TParameters {
-    bool SupportsShareDirective = 1;
+    bool SupportsShareDirective = 1 [json_name = "supports_share_directive"];
+    bool SuppressFinishResponse = 2 [json_name = "suppress_finish_response"];
   }
 
   message TState {
+    bool EnrollmentInProgress = 1 [json_name = "enrollment_in_progress"];
   }
 
   message TEnrollmentStartDirective {
-    uint32 TimeoutMs = 1;
-    uint64 Puid = 2;
+    uint32 TimeoutMs = 1 [json_name = "timeout_ms"];
+    uint64 Puid = 2 [json_name = "puid"];
   }
 
   message TEnrollmentFinishDirective {
-    string PersId = 1;
-    bool SendGuestEnrollmentFinishFrame = 2;
+    string PersId = 1 [json_name = "pers_id"];
+    bool SendGuestEnrollmentFinishFrame = 2 [json_name = "send_guest_enrollment_finish_frame"];
   }
 
   message TEnrollmentCancelDirective {
   }
 
   message TEnrollmentShareDirective {
-    string Name = 1000;
-    uint64 Puid = 1;
-    string UserName = 2;
-    .NAlice.NData.NVoiceprint.EGender Gender = 3;
-    repeated string DeviceIds = 4;
+    string Name = 1000 [json_name = "name"];
+    uint64 Puid = 1 [json_name = "puid"];
+    string UserName = 2 [json_name = "user_name"];
+    .NAlice.NData.NVoiceprint.EGender Gender = 3 [json_name = "gender"];
+    repeated string DeviceIds = 4 [json_name = "device_ids"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TVoiceEnrollmentCapability.TParameters Parameters = 2;
-  .NAlice.TVoiceEnrollmentCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVoiceEnrollmentCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVoiceEnrollmentCapability.TState State = 3 [json_name = "state"];
 }
 

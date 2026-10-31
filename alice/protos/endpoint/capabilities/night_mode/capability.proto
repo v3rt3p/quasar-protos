@@ -17,17 +17,17 @@ message TNightModeCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TSetNightModeDirective {
-    string Name = 1000;
-    bool Enabled = 1;
-    bool ManuallyToggled = 2;
+    string Name = 1000 [json_name = "name"];
+    bool Enabled = 1 [json_name = "enabled"];
+    bool ManuallyToggled = 2 [json_name = "manually_toggled"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNightModeCapability.TParameters Parameters = 2;
-  .NAlice.TNightModeCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNightModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNightModeCapability.TState State = 3 [json_name = "state"];
 }
 

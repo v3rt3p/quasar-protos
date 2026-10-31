@@ -22,24 +22,24 @@ message TKidsCapability {
       Awakening = 1;
     }
 
-    .NAlice.TKidsCapability.TState.EStateType StateType = 1;
+    .NAlice.TKidsCapability.TState.EStateType StateType = 1 [json_name = "state_type"];
   }
 
   message TKidsStartAwakeningDirective {
-    string Name = 1000;
-    string TrackUrl = 1;
-    .NAlice.NAliceApi.TDirective Callback = 5;
-    uint32 InitialPercentVolumeLevel = 2;
-    uint32 FinalPercentVolumeLevel = 3;
-    uint32 TimeoutSeconds = 4;
+    string Name = 1000 [json_name = "name"];
+    string TrackUrl = 1 [json_name = "track_url"];
+    .NAlice.NAliceApi.TDirective Callback = 5 [json_name = "callback"];
+    uint32 InitialPercentVolumeLevel = 2 [json_name = "initial_percent_volume_level"];
+    uint32 FinalPercentVolumeLevel = 3 [json_name = "final_percent_volume_level"];
+    uint32 TimeoutSeconds = 4 [json_name = "timeout_seconds"];
   }
 
   message TKidsStopAwakeningDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TKidsCapability.TParameters Parameters = 2;
-  .NAlice.TKidsCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TKidsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TKidsCapability.TState State = 3 [json_name = "state"];
 }
 

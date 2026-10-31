@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+package quark.core.proto;
+
+option java_package = "ru.yandex.quasar.protobuf";
+option java_outer_classname = "AliceProTrialProtos";
+
+message AliceProTrialState {
+  optional uint64 left_count = 1;
+  optional uint64 limit = 2;
+}
+

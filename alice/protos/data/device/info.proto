@@ -10,42 +10,52 @@ import "alice/protos/data/color/color.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDeviceStatusInfo {
-  .NAlice.EDeviceState Status = 1;
-  double Updated = 2;
-  bool Reportable = 3;
-  double Changed = 4;
-  .NAlice.EDeviceState ParentStatus = 5;
+  .NAlice.EDeviceState Status = 1 [json_name = "status"];
+  double Updated = 2 [json_name = "updated"];
+  bool Reportable = 3 [json_name = "reportable"];
+  double Changed = 4 [json_name = "changed"];
+  .NAlice.EDeviceState ParentStatus = 5 [json_name = "parent_status"];
 }
 
 message TUserDeviceInfo {
-  string Manufacturer = 1;
-  string Model = 2;
-  string HwVersion = 3;
-  string SwVersion = 4;
-  uint32 ProductID = 5;
-  uint32 VendorID = 6;
-  string SerialNumber = 7;
+  string Manufacturer = 1 [json_name = "manufacturer"];
+  string Model = 2 [json_name = "model"];
+  string HwVersion = 3 [json_name = "hw_version"];
+  string SwVersion = 4 [json_name = "sw_version"];
+  uint32 ProductID = 5 [json_name = "product_id"];
+  uint32 VendorID = 6 [json_name = "vendor_id"];
+  string SerialNumber = 7 [json_name = "serial_number"];
+}
+
+message TDeviceRenderInfo {
+  message TIcon {
+    string ID = 1 [json_name = "id"];
+    string Color = 2 [json_name = "color"];
+  }
+
+  .NAlice.TDeviceRenderInfo.TIcon Icon = 1 [json_name = "icon"];
 }
 
 message TUserQuasarInfo {
-  string DeviceId = 1;
-  string Platform = 2;
-  .NAlice.NData.EColor QuasarColor = 4;
+  string DeviceId = 1 [json_name = "device_id"];
+  string Platform = 2 [json_name = "platform"];
+  .NAlice.NData.EColor QuasarColor = 4 [json_name = "quasar_color"];
 }
 
 message TUserSharingInfo {
   reserved "Roles";
   reserved 4;
-  uint64 OwnerID = 1;
-  uint64 GuestID = 3;
-  string HouseholdID = 2;
-  repeated .NAlice.TUserSharingInfoRole SubjectRoles = 5;
+  uint64 OwnerID = 1 [json_name = "owner_id"];
+  uint64 GuestID = 3 [json_name = "guest_id"];
+  string HouseholdID = 2 [json_name = "household_id"];
+  repeated .NAlice.TUserSharingInfoRole SubjectRoles = 5 [json_name = "subject_roles"];
+  string HouseholdName = 6 [json_name = "household_name"];
 }
 
 message TUserSharingInfoRole {
-  string Type = 1;
-  optional string SubjectID = 2;
-  optional string Subject = 3;
+  string Type = 1 [json_name = "type"];
+  optional string SubjectID = 2 [json_name = "subject_id"];
+  optional string Subject = 3 [json_name = "subject"];
 }
 
 enum EDeviceState {
@@ -66,6 +76,7 @@ enum EUserDeviceType {
   HumidifierDeviceType = 6;
   VacuumCleanerDeviceType = 7;
   CookingDeviceType = 8;
+  ElectricGrillDeviceType = 130;
   KettleDeviceType = 9;
   CoffeeMakerDeviceType = 10;
   ThermostatDeviceType = 11;
@@ -177,5 +188,19 @@ enum EUserDeviceType {
   YandexStationBrukvaDeviceType = 113;
   YandexStationRepaDeviceType = 114;
   YandexNotaDeviceType = 115;
+  PowerSourceUpsDeviceType = 120;
+  YandexMonocleDeviceType = 121;
+  YandexMonocleLiteDeviceType = 122;
+  AeroGrillDeviceType = 123;
+  YandexStationStarlingDeviceType = 124;
+  WaterLeakageSafetySystemDeviceType = 125;
+  YandexCameraBooDeviceType = 126;
+  YandexStationMuffinDeviceType = 127;
+  RemoteCarGlassDeviceType = 128;
+  WaterValveDeviceType = 129;
+  BlueberryDeviceType = 131;
+  BlueberryLeftHeadphoneDeviceType = 132;
+  BlueberryRightHeadphoneDeviceType = 133;
+  BlueberryCaseDeviceType = 134;
 }
 

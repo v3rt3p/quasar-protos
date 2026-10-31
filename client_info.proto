@@ -1,0 +1,25 @@
+syntax = "proto2";
+
+package QuarkProtos;
+
+option java_package = "com.yandex.quasar.protobuf";
+option java_outer_classname = "ClientInfoProtos";
+
+message ClientInfoJniProto {
+  optional string app_id = 1;
+  optional string app_version = 2;
+  optional string platform = 3;
+  optional string device_id = 4;
+  optional string device_model = 5;
+  optional string os_version = 6;
+  optional string lang = 7;
+  optional string uuid = 8;
+  optional string timezone = 9;
+  optional string device_manufacturer = 10;
+  optional string device_color = 11;
+  optional string quasmodrom_group = 12;
+  optional string quasmodrom_subgroup = 13;
+  optional string device_firmware = 14;
+  optional string integration_type = 15;
+}
+

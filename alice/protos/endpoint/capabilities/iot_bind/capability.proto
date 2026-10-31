@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "IotBindCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_bind;iotbindpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/iot_bind/iot_bind.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotBindCapability {
+  message TBindType {
+    .NAlice.NIotBind.TIotBindKey BindKey = 1 [json_name = "bind_key"];
+    .NAlice.TIotBindCapability.EConstraint Constraint = 2 [json_name = "constraint"];
+  }
+
+  message TBind {
+    .NAlice.TIotBindCapability.TBindType Type = 1 [json_name = "type"];
+    string DestinationEndpointId = 2 [json_name = "destination_endpoint_id"];
+  }
+
+  message TParameters {
+    repeated .NAlice.TIotBindCapability.TBindType SupportedBindTypes = 1 [json_name = "supported_bind_types"];
+  }
+
+  message TState {
+    repeated .NAlice.TIotBindCapability.TBind Binds = 1 [json_name = "binds"];
+  }
+
+  message TBindDirective {
+    string Name = 1000 [json_name = "name"];
+    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id"];
+    uint32 ClusterId = 2 [json_name = "cluster_id"];
+  }
+
+  message TUnbindDirective {
+    string Name = 1000 [json_name = "name"];
+    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id"];
+    uint32 ClusterId = 2 [json_name = "cluster_id"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TIotBindCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EConstraint {
+    NO_CONSTRAINT = 0;
+    CONSTANT_EXCLUSIVE_LOCK = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotBindCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotBindCapability.TState State = 3 [json_name = "state"];
+}
+

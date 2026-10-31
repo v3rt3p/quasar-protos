@@ -17,15 +17,16 @@ message TWaterLeakSensorCapability {
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
   }
 
   message TResetLeakDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TTriggerLeakDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
+    optional string SourceName = 1 [json_name = "source_name"];
   }
 
   message TWaterLeakSensorLeakEvent {
@@ -35,11 +36,11 @@ message TWaterLeakSensorCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TWaterLeakSensorCapability.TParameters Parameters = 2;
-  .NAlice.TWaterLeakSensorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWaterLeakSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWaterLeakSensorCapability.TState State = 3 [json_name = "state"];
 }
 

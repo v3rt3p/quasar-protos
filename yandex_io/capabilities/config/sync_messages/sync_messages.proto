@@ -8,11 +8,19 @@ message ConfigCapabilityEvents {
     required string value = 2;
   }
 
+  message PeripheralBackendConfig {
+    optional string name = 1;
+    required string value = 2;
+    optional string device_id = 3;
+    optional string platform = 4;
+  }
+
   message GetSyncInfoRequestStatus {
     enum Status {
       OK = 1;
       NETWORK_ERROR = 2;
       AUTH_FAILED = 3;
+      BACKEND_ERROR = 4;
     }
 
     required .quasar.proto.ConfigCapabilityEvents.GetSyncInfoRequestStatus.Status status = 1;
@@ -27,6 +35,8 @@ message ConfigCapabilityEvents {
     optional bool guest_mode = 6;
     optional string group = 7;
     optional string network_info = 8;
+    optional string token = 9;
+    optional bool family = 10;
   }
 
   message AccountDevicesList {
@@ -36,12 +46,16 @@ message ConfigCapabilityEvents {
   repeated .quasar.proto.ConfigCapabilityEvents.BackendConfig system_configs = 1;
   repeated .quasar.proto.ConfigCapabilityEvents.BackendConfig device_configs = 2;
   repeated .quasar.proto.ConfigCapabilityEvents.BackendConfig account_configs = 3;
+  repeated .quasar.proto.ConfigCapabilityEvents.PeripheralBackendConfig peripheral_system_configs = 12;
+  repeated .quasar.proto.ConfigCapabilityEvents.PeripheralBackendConfig peripheral_device_configs = 13;
+  repeated .quasar.proto.ConfigCapabilityEvents.PeripheralBackendConfig peripheral_account_configs = 14;
   optional .quasar.proto.ConfigCapabilityEvents.GetSyncInfoRequestStatus get_sync_info_status = 4;
   optional string subscription_info = 5;
   optional string alice_pro_subscription_info = 6;
   optional string auxiliary_config = 7;
   optional string group_config = 8;
   optional string camera_subscription_info = 10;
+  optional string prefetched_configs = 11;
   optional .quasar.proto.ConfigCapabilityEvents.AccountDevicesList account_devices_list = 9;
 }
 
@@ -51,6 +65,12 @@ message ConfigCapabilitySubscriptions {
 
   message ConfigSubscriptionMessage {
     optional string config_name = 1;
+  }
+
+  message PeripheralSubscriptionMessage {
+    optional string config_name = 1;
+    optional string device_id = 2;
+    optional string platform = 3;
   }
 
   optional .quasar.proto.ConfigCapabilitySubscriptions.ConfigSubscriptionMessage subscribe_to_device_config = 1;
@@ -74,5 +94,14 @@ message ConfigCapabilitySubscriptions {
   optional string set_ab_testing_cookie = 19;
   optional .quasar.proto.ConfigCapabilitySubscriptions.EmptyMessage subscribe_to_camera_subscription_info = 20;
   optional .quasar.proto.ConfigCapabilitySubscriptions.EmptyMessage unsubscribe_from_camera_subscription_info = 21;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.EmptyMessage subscribe_to_full_prefetched_configs = 22;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.EmptyMessage unsubscribe_from_full_prefetched_configs = 23;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage subscribe_to_peripheral_device_config = 24;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage unsubscribe_from_peripheral_device_config = 25;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage subscribe_to_peripheral_system_config = 26;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage unsubscribe_from_peripheral_system_config = 27;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage subscribe_to_peripheral_account_config = 28;
+  optional .quasar.proto.ConfigCapabilitySubscriptions.PeripheralSubscriptionMessage unsubscribe_from_peripheral_account_config = 29;
+  optional string set_yexp_cookie = 30;
 }
 

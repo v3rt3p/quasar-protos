@@ -11,7 +11,7 @@ import "google/protobuf/struct.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetVideoGalleriesRequest {
-  string CategoryId = 1;
+  string CategoryId = 1 [json_name = "category_id"];
 }
 
 message TSearchResultItem {
@@ -24,26 +24,26 @@ message TSearchResultItem {
     collection = 5;
   }
 
-  bool Visible = 1;
-  int32 Number = 2;
-  .NAlice.TSearchResultItem.EItemType ContentType = 3;
+  bool Visible = 1 [json_name = "visible"];
+  int32 Number = 2 [json_name = "number"];
+  .NAlice.TSearchResultItem.EItemType ContentType = 3 [json_name = "content_type"];
   oneof Item {
-    .NAlice.TVideoItem VideoItem = 21;
-    .NAlice.TPersonItem PersonItem = 22;
-    .NAlice.TCollectionItem CollectionItem = 23;
-    .NAlice.TOttVideoItem OttVideoItem = 24;
-    .NAlice.TWebVideoItem SearchVideoItem = 25;
+    .NAlice.TVideoItem VideoItem = 21 [json_name = "video_item"];
+    .NAlice.TPersonItem PersonItem = 22 [json_name = "person_item"];
+    .NAlice.TCollectionItem CollectionItem = 23 [json_name = "collection_item"];
+    .NAlice.TOttVideoItem OttVideoItem = 24 [json_name = "ott_video_item"];
+    .NAlice.TWebVideoItem SearchVideoItem = 25 [json_name = "search_video_item"];
   }
 }
 
 message TSearchResultGallery {
-  string Title = 1;
-  bool Visible = 2;
-  repeated .NAlice.TSearchResultItem Items = 3;
-  .google.protobuf.Struct DivJson = 4;
+  string Title = 1 [json_name = "title"];
+  bool Visible = 2 [json_name = "visible"];
+  repeated .NAlice.TSearchResultItem Items = 3 [json_name = "items"];
+  .google.protobuf.Struct DivJson = 4 [json_name = "div_json"];
 }
 
 message TSearchResultData {
-  repeated .NAlice.TSearchResultGallery Galleries = 1;
+  repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
 }
 

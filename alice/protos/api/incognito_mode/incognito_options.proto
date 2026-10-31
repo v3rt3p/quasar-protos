@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.api.incognito_mode";
+option java_outer_classname = "IncognitoOptions";
+option go_package = "a.yandex-team.ru/alice/protos/api/incognito_mode";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIncognitoOptions {
+  bool Enabled = 1 [json_name = "enabled"];
+}
+

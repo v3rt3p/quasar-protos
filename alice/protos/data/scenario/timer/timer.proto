@@ -9,7 +9,7 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimerDescription {
   message TTimerAction {
-    string SerializedAction = 1;
+    string SerializedAction = 1 [json_name = "serialized_action"];
   }
 
   enum ETimerType {
@@ -17,16 +17,16 @@ message TTimerDescription {
     COMMAND = 1;
   }
 
-  string TimerId = 1;
-  uint64 UpdateTimestamp = 9;
-  uint64 StartTimestamp = 2;
-  uint32 Duration = 3;
-  uint32 Remaining = 4;
-  bool CurrentlyPlaying = 5;
-  bool Paused = 6;
-  .NAlice.NData.TTimerDescription.ETimerType TimerType = 7;
-  repeated .NAlice.NData.TTimerDescription.TTimerAction TimerActions = 8;
-  string Title = 10;
-  bool Disabled = 11;
+  string TimerId = 1 [json_name = "timer_id"];
+  uint64 UpdateTimestamp = 9 [json_name = "update_timestamp"];
+  uint64 StartTimestamp = 2 [json_name = "start_timestamp"];
+  uint32 Duration = 3 [json_name = "duration"];
+  uint32 Remaining = 4 [json_name = "remaining"];
+  bool CurrentlyPlaying = 5 [json_name = "currently_playing"];
+  bool Paused = 6 [json_name = "paused"];
+  .NAlice.NData.TTimerDescription.ETimerType TimerType = 7 [json_name = "timer_type"];
+  repeated .NAlice.NData.TTimerDescription.TTimerAction TimerActions = 8 [json_name = "timer_actions"];
+  string Title = 10 [json_name = "title"];
+  bool Disabled = 11 [json_name = "disabled"];
 }
 

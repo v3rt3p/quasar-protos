@@ -16,39 +16,39 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMotionCapability {
   message TParameters {
-    .NAlice.TPositiveIntegerRange MotionDetectionIntervalRangeSec = 1;
-    repeated .NAlice.TMotionCapability.TSetting SupportedSettings = 2;
+    .NAlice.TPositiveIntegerRange MotionDetectionIntervalRangeSec = 1 [json_name = "motion_detection_interval_range_sec"];
+    repeated .NAlice.TMotionCapability.TSetting SupportedSettings = 2 [json_name = "supported_settings"];
   }
 
   message TState {
-    uint32 MotionDetectionIntervalSec = 1;
-    .NAlice.TTypedCapabilityEvent LastEvent = 2;
-    repeated .NAlice.TMotionCapability.TSetting Settings = 3;
+    uint32 MotionDetectionIntervalSec = 1 [json_name = "motion_detection_interval_sec"];
+    .NAlice.TTypedCapabilityEvent LastEvent = 2 [json_name = "last_event"];
+    repeated .NAlice.TMotionCapability.TSetting Settings = 3 [json_name = "settings"];
   }
 
   message TSetting {
     message TAdvancedDetectionParams {
-      uint32 MotionEventCount = 1;
-      uint32 TimeWindowSec = 2;
+      uint32 MotionEventCount = 1 [json_name = "motion_event_count"];
+      uint32 TimeWindowSec = 2 [json_name = "time_window_sec"];
     }
 
     oneof Setting {
-      uint32 MotionDetectionIntervalSec = 1;
-      uint32 OccupiedToUnoccupiedDelaySec = 2;
-      .NAlice.TMotionCapability.ESensitivityLevel SensitivityLevel = 3;
-      .NAlice.TMotionCapability.EDetectionRangeLevel RangeLevel = 4;
-      .NAlice.TMotionCapability.TSetting.TAdvancedDetectionParams AdvancedParameters = 10;
+      uint32 MotionDetectionIntervalSec = 1 [json_name = "MotionDetectionIntervalSec"];
+      uint32 OccupiedToUnoccupiedDelaySec = 2 [json_name = "OccupiedToUnoccupiedDelaySec"];
+      .NAlice.TMotionCapability.ESensitivityLevel SensitivityLevel = 3 [json_name = "SensitivityLevel"];
+      .NAlice.TMotionCapability.EDetectionRangeLevel RangeLevel = 4 [json_name = "RangeLevel"];
+      .NAlice.TMotionCapability.TSetting.TAdvancedDetectionParams AdvancedParameters = 10 [json_name = "AdvancedParameters"];
     }
   }
 
   message TSetMotionDetectionInterval {
-    string Name = 1000;
-    uint32 MotionDetectionIntervalSec = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 MotionDetectionIntervalSec = 1 [json_name = "motion_detection_interval_sec"];
   }
 
   message TSetMotionSettingDirective {
-    string Name = 1000;
-    .NAlice.TMotionCapability.TSetting Setting = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TMotionCapability.TSetting Setting = 1 [json_name = "setting"];
   }
 
   message TMotionDetectedEvent {
@@ -61,7 +61,7 @@ message TMotionCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
   enum ESensitivityLevel {
@@ -78,8 +78,8 @@ message TMotionCapability {
     RangeFar = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TMotionCapability.TParameters Parameters = 2;
-  .NAlice.TMotionCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMotionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMotionCapability.TState State = 3 [json_name = "state"];
 }
 

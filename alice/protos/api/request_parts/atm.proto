@@ -24,9 +24,9 @@ message TAnalyticsTrackingModule {
     VAD = 12;
   }
 
-  string ProductScenario = 1;
-  .NAlice.TAnalyticsTrackingModule.EOrigin Origin = 2;
-  string Purpose = 3;
-  string OriginInfo = 4;
+  string ProductScenario = 1 [json_name = "product_scenario"];
+  .NAlice.TAnalyticsTrackingModule.EOrigin Origin = 2 [json_name = "origin"];
+  string Purpose = 3 [json_name = "purpose"];
+  string OriginInfo = 4 [json_name = "origin_info"];
 }
 

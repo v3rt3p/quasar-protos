@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.centaur.my_screen";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/centaur/my_screen";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCentaurWidgetData {
+  message TVacantWidgetData {
+  }
+
+  message TMusicWidgetData {
+  }
+
+  message TNotificationWidgetData {
+  }
+
+  message TWeatherWidgetData {
+  }
+
+  message TNewsWidgetData {
+  }
+
+  message TTrafficWidgetData {
+  }
+
+  message TVideoCallWidgetData {
+  }
+
+  message TOpenWebviewWidgetData {
+    oneof Source {
+      string Application = 1 [json_name = "application"];
+      string Url = 2 [json_name = "url"];
+    }
+  }
+
+  bool Fixed = 1 [json_name = "fixed"];
+  oneof WidgetTypeData {
+    .NAlice.NData.TCentaurWidgetData.TVacantWidgetData VacantWidgetData = 2 [json_name = "vacant_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TMusicWidgetData MusicWidgetData = 3 [json_name = "music_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TNotificationWidgetData NotificationWidgetData = 4 [json_name = "notification_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TWeatherWidgetData WeatherWidgetData = 5 [json_name = "weather_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TNewsWidgetData NewsWidgetData = 6 [json_name = "news_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TOpenWebviewWidgetData OpenWebviewWidgetData = 7 [json_name = "open_webview_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TTrafficWidgetData TrafficWidgetData = 8 [json_name = "traffic_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TVideoCallWidgetData VideoCallWidgetData = 9 [json_name = "video_call_widget_data"];
+  }
+}
+
+message TCentaurWidgetConfigData {
+  message TCustomWidgetTypeData {
+  }
+
+  string Id = 1 [json_name = "id"];
+  string WidgetType = 2 [json_name = "widget_type"];
+  .NAlice.NData.TCentaurWidgetConfigData.TCustomWidgetTypeData CustomWidgetTypeData = 3 [json_name = "custom_widget_type_data"];
+  bool Fixed = 4 [json_name = "fixed"];
+}
+
+message TWidgetPosition {
+  int32 Column = 1 [json_name = "column"];
+  int32 Row = 2 [json_name = "row"];
+}
+

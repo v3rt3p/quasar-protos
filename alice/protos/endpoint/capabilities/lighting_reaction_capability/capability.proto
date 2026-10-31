@@ -14,52 +14,52 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TLightingReactionCapability {
   message TSetting {
     message TDndRespectSetting {
-      bool Enabled = 1;
+      bool Enabled = 1 [json_name = "enabled"];
     }
 
     oneof Setting {
-      .NAlice.TLightingReactionCapability.TSetting.TDndRespectSetting DndRespect = 1;
+      .NAlice.TLightingReactionCapability.TSetting.TDndRespectSetting DndRespect = 1 [json_name = "dnd_respect"];
     }
   }
 
   message TParameters {
-    repeated .NAlice.TLightingReactionCapability.EWeather SupportedWeather = 1;
-    repeated .NAlice.TLightingReactionCapability.TSetting SupportedSettings = 2;
+    repeated .NAlice.TLightingReactionCapability.EWeather SupportedWeather = 1 [json_name = "supported_weather"];
+    repeated .NAlice.TLightingReactionCapability.TSetting SupportedSettings = 2 [json_name = "supported_settings"];
   }
 
   message TReactionEvent {
-    .NAlice.TLightingReactionCapability.EEvent Event = 1;
-    bool Enabled = 2;
+    .NAlice.TLightingReactionCapability.EEvent Event = 1 [json_name = "event"];
+    bool Enabled = 2 [json_name = "enabled"];
   }
 
   message TState {
-    repeated .NAlice.TLightingReactionCapability.EEvent EnabledEvents = 1;
-    repeated .NAlice.TLightingReactionCapability.TReactionEvent Events = 2;
-    repeated .NAlice.TLightingReactionCapability.TSetting Settings = 3;
+    repeated .NAlice.TLightingReactionCapability.EEvent EnabledEvents = 1 [json_name = "enabled_events"];
+    repeated .NAlice.TLightingReactionCapability.TReactionEvent Events = 2 [json_name = "events"];
+    repeated .NAlice.TLightingReactionCapability.TSetting Settings = 3 [json_name = "settings"];
   }
 
   message TSetEventsDirective {
-    string Name = 1000;
-    repeated .NAlice.TLightingReactionCapability.EEvent Events = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TLightingReactionCapability.EEvent Events = 1 [json_name = "events"];
   }
 
   message TSetReactionEventsDirective {
-    string Name = 1000;
-    repeated .NAlice.TLightingReactionCapability.TReactionEvent ReactionEvents = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TLightingReactionCapability.TReactionEvent ReactionEvents = 1 [json_name = "reaction_events"];
   }
 
   message TPlayWeatherDirective {
-    string Name = 1000;
-    .NAlice.TLightingReactionCapability.EWeather Weather = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TLightingReactionCapability.EWeather Weather = 1 [json_name = "weather"];
   }
 
   message TSetReactionSettingDirective {
-    string Name = 1000;
-    .NAlice.TLightingReactionCapability.TSetting Setting = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TLightingReactionCapability.TSetting Setting = 1 [json_name = "setting"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLightingReactionCapability Capability = 1;
+    .NAlice.TLightingReactionCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EWeather {
@@ -80,8 +80,8 @@ message TLightingReactionCapability {
     EVENT_WEATHER = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLightingReactionCapability.TParameters Parameters = 2;
-  .NAlice.TLightingReactionCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLightingReactionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLightingReactionCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -1,7 +1,0 @@
-syntax = "proto3";
-
-option java_package = "ru.yandex.library.cpp.protobuf.json.proto";
-option go_package = "a.yandex-team.ru/library/cpp/protobuf/json/proto;enum_options";
-
-import "google/protobuf/descriptor.proto";
-

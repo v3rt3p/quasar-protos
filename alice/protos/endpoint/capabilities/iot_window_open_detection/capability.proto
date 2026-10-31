@@ -16,17 +16,17 @@ message TIotWindowOpenDetectionCapability {
   }
 
   message TState {
-    bool Enable = 1;
-    bool IsOpen = 2;
+    bool Enable = 1 [json_name = "enable"];
+    bool IsOpen = 2 [json_name = "is_open"];
   }
 
   message TSetIotWindowOpenDetectionDirective {
-    string Name = 1000;
-    bool Enable = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Enable = 1 [json_name = "enable"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotWindowOpenDetectionCapability Capability = 1;
+    .NAlice.TIotWindowOpenDetectionCapability Capability = 1 [json_name = "capability"];
   }
 
   message TCondition {
@@ -35,11 +35,11 @@ message TIotWindowOpenDetectionCapability {
       CloseCondition = 1;
     }
 
-    .NAlice.TIotWindowOpenDetectionCapability.TCondition.EState State = 1;
+    .NAlice.TIotWindowOpenDetectionCapability.TCondition.EState State = 1 [json_name = "state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotWindowOpenDetectionCapability.TParameters Parameters = 2;
-  .NAlice.TIotWindowOpenDetectionCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotWindowOpenDetectionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotWindowOpenDetectionCapability.TState State = 3 [json_name = "state"];
 }
 

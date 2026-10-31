@@ -19,42 +19,42 @@ message TGeoSyncCapability {
   }
 
   message TState {
-    .NAlice.NData.TLatLon Location = 1;
-    .NAlice.NData.TLatLon LaasRealLocation = 5;
-    .NAlice.NData.TTimezone Timezone = 2;
-    bool TimezoneIsLocked = 3;
-    .NAlice.TGeoSyncCapability.TNextTimezone NextTimezone = 4;
+    .NAlice.NData.TLatLon Location = 1 [json_name = "location"];
+    .NAlice.NData.TLatLon LaasRealLocation = 5 [json_name = "laas_real_location"];
+    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
+    bool TimezoneIsLocked = 3 [json_name = "timezone_is_locked"];
+    .NAlice.TGeoSyncCapability.TNextTimezone NextTimezone = 4 [json_name = "next_timezone"];
   }
 
   message TSetLocationDirective {
-    .NAlice.NData.TLatLon Location = 1;
-    .NAlice.NData.TLatLon LaasRealLocation = 3;
-    string Name = 2;
+    .NAlice.NData.TLatLon Location = 1 [json_name = "location"];
+    .NAlice.NData.TLatLon LaasRealLocation = 3 [json_name = "laas_real_location"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TSetTimezoneDirective {
     message TNextTimezone {
-      .google.protobuf.Timestamp Epoch = 1;
-      .NAlice.NData.TTimezone Timezone = 2;
+      .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch"];
+      .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
     }
 
-    .NAlice.NData.TTimezone Timezone = 1;
-    string Name = 2;
-    .NAlice.TGeoSyncCapability.TSetTimezoneDirective.TNextTimezone NextTimezone = 4;
+    .NAlice.NData.TTimezone Timezone = 1 [json_name = "timezone"];
+    string Name = 2 [json_name = "name"];
+    .NAlice.TGeoSyncCapability.TSetTimezoneDirective.TNextTimezone NextTimezone = 4 [json_name = "next_timezone"];
   }
 
   message TNextTimezone {
-    .google.protobuf.Timestamp SwitchTimestamp = 1;
-    .NAlice.NData.TTimezone Timezone = 2;
+    .google.protobuf.Timestamp SwitchTimestamp = 1 [json_name = "switch_timestamp"];
+    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
   }
 
   message TSetGmtDirective {
-    .google.protobuf.Timestamp Epoch = 1;
-    string Name = 2;
+    .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch"];
+    string Name = 2 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TGeoSyncCapability.TParameters Parameters = 2;
-  .NAlice.TGeoSyncCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TGeoSyncCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TGeoSyncCapability.TState State = 3 [json_name = "state"];
 }
 

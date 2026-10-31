@@ -20,12 +20,7 @@ message TBioCapability {
   }
 
   message TState {
-    message EnrollmentsEntry {
-      string key = 1;
-      .NAlice.TEnrollmentHeader value = 2;
-    }
-
-    repeated .NAlice.TBioCapability.TState.EnrollmentsEntry Enrollments = 1;
+    map<string, .NAlice.TEnrollmentHeader> Enrollments = 1 [json_name = "enrollments"];
   }
 
   message TBioStartSoundEnrollmentDirective {
@@ -38,59 +33,60 @@ message TBioCapability {
       OAuthToken = 2;
     }
 
-    string Name = 1000;
-    string EncryptedCode = 1;
-    string Signature = 2;
-    string EncryptedSessionKey = 3;
-    string Puid = 4;
-    .NAlice.TBioCapability.TMultiaccountAddAccountDirective.ETokenType TokenType = 5;
-    string UserType = 6;
+    string Name = 1000 [json_name = "name"];
+    string EncryptedCode = 1 [json_name = "encrypted_code"];
+    string Signature = 2 [json_name = "signature"];
+    string EncryptedSessionKey = 3 [json_name = "encrypted_session_key"];
+    string Puid = 4 [json_name = "puid"];
+    .NAlice.TBioCapability.TMultiaccountAddAccountDirective.ETokenType TokenType = 5 [json_name = "token_type"];
+    string UserType = 6 [json_name = "user_type"];
   }
 
   message TMultiaccountRemoveAccountDirective {
-    string Name = 1;
-    uint64 Puid = 2;
+    string Name = 1 [json_name = "name"];
+    uint64 Puid = 2 [json_name = "puid"];
   }
 
   message TMultiaccountRemoveAccountPersIdDirective {
-    string Name = 1;
-    string PersId = 2;
+    string Name = 1 [json_name = "name"];
+    string PersId = 2 [json_name = "pers_id"];
   }
 
   message TEnrollmentStartDirective {
-    uint32 TimeoutMs = 1;
+    uint32 TimeoutMs = 1 [json_name = "timeout_ms"];
+    uint64 Puid = 2 [json_name = "puid"];
   }
 
   message TEnrollmentCancelDirective {
   }
 
   message TEnrollmentFinishDirective {
-    string PersId = 1;
-    bool SendGuestEnrollmentFinishFrame = 2;
+    string PersId = 1 [json_name = "pers_id"];
+    bool SendGuestEnrollmentFinishFrame = 2 [json_name = "send_guest_enrollment_finish_frame"];
   }
 
   message TShareEnrolledPersonDirective {
-    string Name = 1000;
-    uint64 Puid = 1;
-    string UserName = 2;
-    .NAlice.NData.NVoiceprint.EGender Gender = 3;
-    repeated string DeviceIds = 4;
+    string Name = 1000 [json_name = "name"];
+    uint64 Puid = 1 [json_name = "puid"];
+    string UserName = 2 [json_name = "user_name"];
+    .NAlice.NData.NVoiceprint.EGender Gender = 3 [json_name = "gender"];
+    repeated string DeviceIds = 4 [json_name = "device_ids"];
   }
 
   message TAddEnrolledPersonDirective {
     reserved "Puid";
     reserved 2;
-    string Name = 1000;
-    string Code = 1;
-    string PersId = 3;
-    string UserName = 4;
-    .NAlice.EUserType UserType = 7;
-    .NAlice.NData.NVoiceprint.EGender Gender = 5;
-    bytes EnrollmentAudio = 6;
+    string Name = 1000 [json_name = "name"];
+    string Code = 1 [json_name = "code"];
+    string PersId = 3 [json_name = "pers_id"];
+    string UserName = 4 [json_name = "user_name"];
+    .NAlice.EUserType UserType = 7 [json_name = "user_type"];
+    .NAlice.NData.NVoiceprint.EGender Gender = 5 [json_name = "gender"];
+    bytes EnrollmentAudio = 6 [json_name = "enrollment_audio"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TBioCapability.TParameters Parameters = 2;
-  .NAlice.TBioCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBioCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBioCapability.TState State = 3 [json_name = "state"];
 }
 

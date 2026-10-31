@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.endpoint_subscription";
+option java_outer_classname = "EndpointSubscription";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/iot/endpoint_subscription;endpointsubscriptionpb";
+
+import "alice/protos/api/alicekit/iot/endpoint_protocol/endpoint_protocol.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSubscribeIoTEndpointsRequest {
+  reserved "UseBackendEndpointId";
+  reserved 3;
+  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions"];
+  bool RefreshTtl = 2 [json_name = "refresh_ttl"];
+}
+
+message TSubscribeIoTEndpointsResponse {
+  message TEndpointResponse {
+    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status"];
+    .NAlice.NAliceApi.TEndpointState EndpointState = 2 [json_name = "endpoint_state"];
+  }
+
+  repeated .NAlice.TSubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses"];
+  uint64 TtlSeconds = 2 [json_name = "ttl_seconds"];
+}
+
+message TUnsubscribeIoTEndpointsRequest {
+  reserved "UseBackendEndpointId";
+  reserved 2;
+  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions"];
+}
+
+message TUnsubscribeIoTEndpointsResponse {
+  message TEndpointResponse {
+    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status"];
+  }
+
+  repeated .NAlice.TUnsubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses"];
+}
+

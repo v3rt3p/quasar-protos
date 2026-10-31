@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.screen";
+option java_outer_classname = "ScreenProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/screen";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAppInfo {
+  string AppPackage = 1 [json_name = "app_package"];
+  string AppName = 2 [json_name = "app_name"];
+}
+
+message TScreenInfo {
+  oneof Screen {
+    .NAlice.TVideoPlayer VideoPlayer = 1 [json_name = "video_player"];
+    .NAlice.TMusicPlayer MusicPlayer = 2 [json_name = "music_player"];
+    .NAlice.TBluetoothStreaming BluetoothStreaming = 3 [json_name = "bluetooth_streaming"];
+    .NAlice.TSearchResults SearchResults = 4 [json_name = "search_results"];
+    .NAlice.TTvMain TvMain = 5 [json_name = "tv_main"];
+    .NAlice.TVideoDetails VideoDetails = 6 [json_name = "video_details"];
+    .NAlice.TTvCatalog TvCatalog = 7 [json_name = "tv_catalog"];
+    .NAlice.TTvSideOptions TvSideOptions = 8 [json_name = "tv_side_options"];
+    .NAlice.TTvExpandedCollection TvExpandedCollection = 9 [json_name = "tv_expanded_collection"];
+    .NAlice.TTvChannelGrid TvChannelGrid = 10 [json_name = "tv_channel_grid"];
+    .NAlice.TTvChannelList TvChannelList = 11 [json_name = "tv_channel_list"];
+    .NAlice.TTvUpdate TvUpdate = 12 [json_name = "tv_update"];
+    .NAlice.TScreensaver Screensaver = 13 [json_name = "screensaver"];
+    .NAlice.TTvCategory TvCategory = 14 [json_name = "tv_category"];
+    .NAlice.TExternalApp ExternalApp = 15 [json_name = "external_app"];
+  }
+}
+
+message TVideoPlayer {
+}
+
+message TMusicPlayer {
+}
+
+message TBluetoothStreaming {
+}
+
+message TSearchResults {
+}
+
+message TTvMain {
+}
+
+message TVideoDetails {
+}
+
+message TTvCatalog {
+}
+
+message TTvSideOptions {
+}
+
+message TTvExpandedCollection {
+}
+
+message TTvChannelGrid {
+}
+
+message TTvChannelList {
+}
+
+message TTvUpdate {
+}
+
+message TScreensaver {
+}
+
+message TTvCategory {
+}
+
+message TExternalApp {
+}
+

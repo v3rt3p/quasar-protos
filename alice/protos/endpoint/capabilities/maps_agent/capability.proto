@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MapsAgentProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/maps_agent;mapsagentpb";
+
+import "google/protobuf/any.proto";
+import "alice/protos/data/lat_lon.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMapsAgentCapability {
+  message TParameters {
+  }
+
+  message TState {
+    message TSpan {
+      double LatDelta = 1 [json_name = "lat_delta"];
+      double LonDelta = 2 [json_name = "lon_delta"];
+    }
+
+    message TAgentFlag {
+      string Key = 1 [json_name = "key"];
+      string Value = 2 [json_name = "value"];
+    }
+
+    message TInsetBoxInfo {
+      string RequestId = 1 [json_name = "request_id"];
+    }
+
+    .NAlice.NData.TLatLon CameraPosition = 1 [json_name = "camera_position"];
+    .NAlice.TMapsAgentCapability.TState.TSpan CameraSpan = 2 [json_name = "camera_span"];
+    repeated .NAlice.TMapsAgentCapability.TState.TAgentFlag AgentFlags = 3 [json_name = "agent_flags"];
+    .NAlice.TMapsAgentCapability.TState.TInsetBoxInfo InsetBoxInfo = 4 [json_name = "inset_box_info"];
+  }
+
+  message TShowAgentPinsDirective {
+    message TBoundingBox {
+      .NAlice.NData.TLatLon LowerCorner = 1 [json_name = "lower_corner"];
+      .NAlice.NData.TLatLon UpperCorner = 2 [json_name = "upper_corner"];
+    }
+
+    message TSubtitleItem {
+      string Type = 1 [json_name = "type"];
+      map<string, string> Properties = 3 [json_name = "properties"];
+      optional string Text = 2 [json_name = "text"];
+    }
+
+    message TDecorations {
+      enum EClosedStatus {
+        CLOSED_STATUS_UNKNOWN = 0;
+        CLOSED_STATUS_PERMANENT = 1;
+        CLOSED_STATUS_TEMPORARY = 2;
+      }
+
+      .google.protobuf.Any PinHints = 1 [json_name = "pin_hints"];
+      map<string, string> BrandedImageData = 2 [json_name = "branded_image_data"];
+      string ShortName = 3 [json_name = "short_name"];
+      bool IsClosedNow = 4 [json_name = "is_closed_now"];
+      optional .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations.EClosedStatus ClosedStatus = 5 [json_name = "closed_status"];
+    }
+
+    message TAgentPin {
+      string Id = 1 [json_name = "id"];
+      .NAlice.NData.TLatLon Point = 2 [json_name = "point"];
+      float priority = 3 [json_name = "priority"];
+      string Title = 4 [json_name = "title"];
+      repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TSubtitleItem SubtitleItems = 5 [json_name = "subtitle_items"];
+      string Uri = 7 [json_name = "uri"];
+      string Deeplink = 8 [json_name = "deeplink"];
+      .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations Decorations = 9 [json_name = "decorations"];
+      string LogId = 10 [json_name = "log_id"];
+      optional string Category = 6 [json_name = "category"];
+    }
+
+    .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TBoundingBox BoundingBox = 1 [json_name = "bounding_box"];
+    repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TAgentPin Pins = 2 [json_name = "pins"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMapsAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMapsAgentCapability.TState State = 3 [json_name = "state"];
+}
+

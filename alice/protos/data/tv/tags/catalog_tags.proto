@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv.tags";
+option java_outer_classname = "CatalogTags";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/tags";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+import "alice/protos/data/tv/tags/data/catalog_tag.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TGetTagsRequest {
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags"];
+  bool KidModeEnabled = 2 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 3 [json_name = "restriction_age"];
+}
+
+message TGetTagsResponse {
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags"];
+  repeated .NAlice.NTv.TCatalogTag AvailableTags = 2 [json_name = "available_tags"];
+  repeated .NAlice.TVoiceControl VoiceControls = 3 [json_name = "voice_controls"];
+}
+

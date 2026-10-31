@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "HealthCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/health;healthpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/health_data/health_metrics.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message THealthCapability {
+  message TParameters {
+  }
+
+  message TState {
+    optional .NAlice.NData.NHealthData.TVitals Vitals = 1 [json_name = "vitals"];
+    optional .NAlice.NData.NHealthData.TSleep Sleep = 2 [json_name = "sleep"];
+    optional .NAlice.NData.NHealthData.TActivity Activity = 3 [json_name = "activity"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.THealthCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.THealthCapability.TState State = 3 [json_name = "state"];
+}
+

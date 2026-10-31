@@ -19,15 +19,15 @@ message TServerSubscriptionState {
       }
 
       oneof State {
-        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TActive Active = 1;
-        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TReady Ready = 2;
+        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TActive Active = 1 [json_name = "active"];
+        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TReady Ready = 2 [json_name = "ready"];
       }
     }
 
-    string Id = 1;
-    .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState State = 2;
+    string Id = 1 [json_name = "id"];
+    .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState State = 2 [json_name = "state"];
   }
 
-  repeated .NAlice.NAliceApi.TServerSubscriptionState.TSubscription Subscriptions = 1;
+  repeated .NAlice.NAliceApi.TServerSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions"];
 }
 

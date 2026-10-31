@@ -15,11 +15,11 @@ message TBrickCapability {
   }
 
   message TState {
-    .NAlice.TBrickCapability.EBrickStatus BrickStatus = 1;
-    string DisabledReason = 2;
-    string StatusUrl = 3;
-    bool SubscriptionMode = 4;
-    .NAlice.TBrickCapability.ESubscriptionStatus SubscriptionStatus = 5;
+    .NAlice.TBrickCapability.EBrickStatus BrickStatus = 1 [json_name = "brick_status"];
+    string DisabledReason = 2 [json_name = "disabled_reason"];
+    string StatusUrl = 3 [json_name = "status_url"];
+    bool SubscriptionMode = 4 [json_name = "subscription_mode"];
+    .NAlice.TBrickCapability.ESubscriptionStatus SubscriptionStatus = 5 [json_name = "subscription_status"];
   }
 
   enum EBrickStatus {
@@ -27,6 +27,7 @@ message TBrickCapability {
     Brick = 1;
     NotBrick = 2;
     BrickByTTL = 3;
+    BrickStolen = 4;
   }
 
   enum ESubscriptionStatus {
@@ -35,8 +36,8 @@ message TBrickCapability {
     SubscriptionEnabled = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TBrickCapability.TParameters Parameters = 2;
-  .NAlice.TBrickCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBrickCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBrickCapability.TState State = 3 [json_name = "state"];
 }
 

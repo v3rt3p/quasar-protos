@@ -14,57 +14,57 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TVideoItemDebugInfo {
-  string WebPageUrl = 1;
-  string SearchReqId = 2;
+  string WebPageUrl = 1 [json_name = "web_page_url"];
+  string SearchReqId = 2 [json_name = "search_reqid"];
 }
 
 message TMiscIds {
-  string Kinopoisk = 1;
-  string KinopoiskUUID = 2;
-  string IMDB = 3;
-  string OntoId = 4;
+  string Kinopoisk = 1 [json_name = "kinopoisk"];
+  string KinopoiskUUID = 2 [json_name = "kinopoisk_uuid"];
+  string IMDB = 3 [json_name = "imdb"];
+  string OntoId = 4 [json_name = "onto_id"];
 }
 
 message TLightVideoItem {
-  string Type = 1;
-  string ProviderName = 2;
-  string ProviderItemId = 3;
-  string TvShowSeasonId = 4;
-  string TvShowItemId = 5;
-  string HumanReadableId = 6;
-  .NAlice.TMiscIds MiscIds = 7;
-  uint32 Available = 8;
-  uint32 PriceFrom = 9;
-  uint32 Episode = 10;
-  uint32 Season = 11;
-  uint32 ProviderNumber = 12;
-  uint32 Unauthorized = 13;
-  string AudioLanguage = 14;
-  string SubtitlesLanguage = 15;
+  string Type = 1 [json_name = "type"];
+  string ProviderName = 2 [json_name = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id"];
+  string TvShowSeasonId = 4 [json_name = "tv_show_season_id"];
+  string TvShowItemId = 5 [json_name = "tv_show_item_id"];
+  string HumanReadableId = 6 [json_name = "human_readable_id"];
+  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids"];
+  uint32 Available = 8 [json_name = "available"];
+  uint32 PriceFrom = 9 [json_name = "price_from"];
+  uint32 Episode = 10 [json_name = "episode"];
+  uint32 Season = 11 [json_name = "season"];
+  uint32 ProviderNumber = 12 [json_name = "provider_number"];
+  uint32 Unauthorized = 13 [json_name = "unauthorized"];
+  string AudioLanguage = 14 [json_name = "audio_language"];
+  string SubtitlesLanguage = 15 [json_name = "subtitles_language"];
 }
 
 message TSeasonsItem {
-  uint64 Number = 1;
+  uint64 Number = 1 [json_name = "number"];
 }
 
 message TVideoRelated {
-  string Related = 1;
-  string RelatedVideo = 2;
-  string RelatedFamily = 3;
-  string RelatedOrigText = 4;
-  string RelatedSrc = 5;
-  string RelatedUrl = 6;
-  int32 RelatedVfp = 7;
-  string Text = 8;
+  string Related = 1 [json_name = "related"];
+  string RelatedVideo = 2 [json_name = "relatedVideo"];
+  string RelatedFamily = 3 [json_name = "related_family"];
+  string RelatedOrigText = 4 [json_name = "related_orig_text"];
+  string RelatedSrc = 5 [json_name = "related_src"];
+  string RelatedUrl = 6 [json_name = "related_url"];
+  int32 RelatedVfp = 7 [json_name = "related_vfp"];
+  string Text = 8 [json_name = "text"];
 }
 
 message TVideoExtra {
-  .NAlice.TVideoRelated Related = 1;
+  .NAlice.TVideoRelated Related = 1 [json_name = "related"];
 }
 
 message TVideoProgress {
-  double Played = 1;
-  double Duration = 2;
+  double Played = 1 [json_name = "played"];
+  double Duration = 2 [json_name = "duration"];
 }
 
 message TWatchedVideoItem {
@@ -77,27 +77,27 @@ message TWatchedVideoItem {
   reserved 9;
   reserved 12;
   reserved 13;
-  string ProviderName = 2;
-  string ProviderItemId = 3;
-  uint32 Episode = 10;
-  uint32 Season = 11;
-  .NAlice.TVideoProgress Progress = 14;
-  uint32 Timestamp = 15;
-  string PlayUri = 16;
-  string AudioLanguage = 17;
-  string SubtitlesLanguage = 18;
-  string Kind = 19;
-  string Name = 20;
-  string CoverUrl = 21;
-  string Type = 22;
-  string VideoId = 23;
-  .NAlice.TMiscIds MiscIds = 24;
-  string Genre = 26;
-  .NAlice.TVideoFeature Features = 29;
-  string AgeLimit = 30;
-  optional string EmbedUri = 25;
-  optional string Doc2docUrl = 27;
-  optional string SourceHost = 28;
+  string ProviderName = 2 [json_name = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id"];
+  uint32 Episode = 10 [json_name = "episode"];
+  uint32 Season = 11 [json_name = "season"];
+  .NAlice.TVideoProgress Progress = 14 [json_name = "progress"];
+  uint32 Timestamp = 15 [json_name = "timestamp"];
+  string PlayUri = 16 [json_name = "play_uri"];
+  string AudioLanguage = 17 [json_name = "audio_language"];
+  string SubtitlesLanguage = 18 [json_name = "subtitles_language"];
+  string Kind = 19 [json_name = "kind"];
+  string Name = 20 [json_name = "name"];
+  string CoverUrl = 21 [json_name = "cover_url"];
+  string Type = 22 [json_name = "type"];
+  string VideoId = 23 [json_name = "video_id"];
+  .NAlice.TMiscIds MiscIds = 24 [json_name = "misc_ids"];
+  string Genre = 26 [json_name = "genre"];
+  .NAlice.TVideoFeature Features = 29 [json_name = "features"];
+  string AgeLimit = 30 [json_name = "age_limit"];
+  optional string EmbedUri = 25 [json_name = "embed_uri"];
+  optional string Doc2docUrl = 27 [json_name = "doc2doc_url"];
+  optional string SourceHost = 28 [json_name = "source_host"];
 }
 
 message TWatchedTvShowItem {
@@ -111,50 +111,50 @@ message TWatchedTvShowItem {
   reserved 12;
   reserved 13;
   reserved 16;
-  string ProviderName = 2;
-  string ProviderItemId = 3;
-  uint32 Episode = 10;
-  uint32 Season = 11;
-  .NAlice.TWatchedVideoItem Item = 14;
-  .NAlice.TWatchedVideoItem TvShowItem = 15;
-  string AudioLanguage = 17;
-  string SubtitlesLanguage = 18;
+  string ProviderName = 2 [json_name = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id"];
+  uint32 Episode = 10 [json_name = "episode"];
+  uint32 Season = 11 [json_name = "season"];
+  .NAlice.TWatchedVideoItem Item = 14 [json_name = "item"];
+  .NAlice.TWatchedVideoItem TvShowItem = 15 [json_name = "tv_show_item"];
+  string AudioLanguage = 17 [json_name = "audio_language"];
+  string SubtitlesLanguage = 18 [json_name = "subtitles_language"];
 }
 
 message TSkippableFragment {
-  double StartTime = 1;
-  double EndTime = 2;
-  string Type = 3;
-  string Result = 4;
+  double StartTime = 1 [json_name = "start_time"];
+  double EndTime = 2 [json_name = "end_time"];
+  string Type = 3 [json_name = "type"];
+  string Result = 4 [json_name = "result"];
 }
 
 message TSkippableFragmentsDepr {
-  double IntroStart = 1;
-  double IntroEnd = 2;
-  double CreditsStart = 3;
+  double IntroStart = 1 [json_name = "intro_start"];
+  double IntroEnd = 2 [json_name = "intro_end"];
+  double CreditsStart = 3 [json_name = "credits_start"];
 }
 
 message TAudioStreamOrSubtitle {
-  string Title = 1;
-  string Language = 2;
-  uint32 Index = 3;
-  string Suggest = 4;
+  string Title = 1 [json_name = "title"];
+  string Language = 2 [json_name = "language"];
+  uint32 Index = 3 [json_name = "index"];
+  string Suggest = 4 [json_name = "suggest"];
 }
 
 message TPlayerRestrictionConfig {
-  uint32 SubtitlesButtonEnable = 1;
+  uint32 SubtitlesButtonEnable = 1 [json_name = "subtitles_button_enable"];
 }
 
 message TVHLicenceInfo {
-  uint32 Avod = 1;
-  uint32 Tvod = 2;
-  uint32 UserHasTvod = 3;
-  uint32 Est = 4;
-  uint32 UserHasEst = 5;
-  repeated string Svod = 6;
-  string ContentType = 7;
-  bool HasActiveLicenses = 8;
-  string UserSubscription = 9;
+  uint32 Avod = 1 [json_name = "avod"];
+  uint32 Tvod = 2 [json_name = "tvod"];
+  uint32 UserHasTvod = 3 [json_name = "user_has_tvod"];
+  uint32 Est = 4 [json_name = "est"];
+  uint32 UserHasEst = 5 [json_name = "user_has_est"];
+  repeated string Svod = 6 [json_name = "svod"];
+  string ContentType = 7 [json_name = "content_type"];
+  bool HasActiveLicenses = 8 [json_name = "has_active_licenses"];
+  string UserSubscription = 9 [json_name = "user_subscription"];
 }
 
 message TVideoItem {
@@ -163,33 +163,33 @@ message TVideoItem {
   reserved 39;
   reserved 84;
   message TNestedVideoItem {
-    string Type = 1;
-    string ProviderName = 2;
-    string ProviderItemId = 3;
-    uint32 Available = 8;
-    uint32 PriceFrom = 9;
-    string ThumbnailUrl16x9 = 17;
-    string ThumbnailUrl16x9Small = 18;
-    string Name = 19;
-    string NormalizedName = 20;
-    string Description = 21;
-    uint32 Duration = 22;
-    string SourceHost = 33;
-    uint64 ViewCount = 34;
-    string PlayUri = 35;
-    repeated .NAlice.TLightVideoItem ProviderInfo = 38;
-    .NAlice.TVideoItemDebugInfo DebugInfo = 49;
-    string Source = 51;
-    .NAlice.TVideoRelated Related = 52;
+    string Type = 1 [json_name = "type"];
+    string ProviderName = 2 [json_name = "provider_name"];
+    string ProviderItemId = 3 [json_name = "provider_item_id"];
+    uint32 Available = 8 [json_name = "available"];
+    uint32 PriceFrom = 9 [json_name = "price_from"];
+    string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9"];
+    string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small"];
+    string Name = 19 [json_name = "name"];
+    string NormalizedName = 20 [json_name = "normalized_name"];
+    string Description = 21 [json_name = "description"];
+    uint32 Duration = 22 [json_name = "duration"];
+    string SourceHost = 33 [json_name = "source_host"];
+    uint64 ViewCount = 34 [json_name = "view_count"];
+    string PlayUri = 35 [json_name = "play_uri"];
+    repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info"];
+    .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info"];
+    string Source = 51 [json_name = "source"];
+    .NAlice.TVideoRelated Related = 52 [json_name = "related"];
   }
 
   message TTvStreamInfo {
     message TProgram {
-      string TvEpisodeId = 1;
-      string TvEpisodeName = 2;
-      int64 StartTime = 3;
-      int64 EndTime = 4;
-      string AgeLimit = 5;
+      string TvEpisodeId = 1 [json_name = "tv_episode_id"];
+      string TvEpisodeName = 2 [json_name = "tv_episode_name"];
+      int64 StartTime = 3 [json_name = "start_time"];
+      int64 EndTime = 4 [json_name = "end_time"];
+      string AgeLimit = 5 [json_name = "age_limit"];
     }
 
     enum EChannelType {
@@ -197,196 +197,196 @@ message TVideoItem {
       CT_MULTIPLEX = 1;
     }
 
-    string ChannelType = 1;
-    string TvEpisodeId = 2;
-    string TvEpisodeName = 3;
-    uint32 DeepHD = 4;
-    uint32 IsPersonal = 5;
-    string LogoUrl = 6;
-    int64 StartTime = 7;
-    int64 EndTime = 8;
-    repeated .NAlice.TVideoItem.TTvStreamInfo.TProgram Programs = 9;
-    .NAlice.TVideoItem.TTvStreamInfo.EChannelType Type = 10;
+    string ChannelType = 1 [json_name = "channel_type"];
+    string TvEpisodeId = 2 [json_name = "tv_episode_id"];
+    string TvEpisodeName = 3 [json_name = "tv_episode_name"];
+    uint32 DeepHD = 4 [json_name = "deep_hd"];
+    uint32 IsPersonal = 5 [json_name = "is_personal"];
+    string LogoUrl = 6 [json_name = "logo_url"];
+    int64 StartTime = 7 [json_name = "start_time"];
+    int64 EndTime = 8 [json_name = "end_time"];
+    repeated .NAlice.TVideoItem.TTvStreamInfo.TProgram Programs = 9 [json_name = "programs"];
+    .NAlice.TVideoItem.TTvStreamInfo.EChannelType Type = 10 [json_name = "multiplex"];
   }
 
   message TAvailabilityRequest {
     message TSingleAvailabilityRequest {
-      string Id = 1;
-      string SeasonId = 2;
-      string TvShowId = 3;
+      string Id = 1 [json_name = "id"];
+      string SeasonId = 2 [json_name = "season_id"];
+      string TvShowId = 3 [json_name = "tv_show_id"];
     }
 
-    string Type = 1;
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Amediateka = 2;
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Ivi = 3;
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Kinopoisk = 4;
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Okko = 5;
+    string Type = 1 [json_name = "type"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Amediateka = 2 [json_name = "amediateka"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Ivi = 3 [json_name = "ivi"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Kinopoisk = 4 [json_name = "kinopoisk"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Okko = 5 [json_name = "okko"];
   }
 
   message TCameraStreamInfo {
-    string Type = 1;
+    string Type = 1 [json_name = "type"];
   }
 
-  string Type = 1;
-  string ProviderName = 2;
-  string ProviderItemId = 3;
-  string TvShowSeasonId = 4;
-  string TvShowItemId = 5;
-  string HumanReadableId = 6;
-  .NAlice.TMiscIds MiscIds = 7;
-  uint32 Available = 8;
-  uint32 PriceFrom = 9;
-  uint32 Episode = 10;
-  uint32 Season = 11;
-  uint32 ProviderNumber = 12;
-  uint32 Unauthorized = 13;
-  string CoverUrl2x3 = 14;
-  string CoverUrl16x9 = 15;
-  string ThumbnailUrl2x3Small = 16;
-  string ThumbnailUrl16x9 = 17;
-  string ThumbnailUrl16x9Small = 18;
-  string Name = 19;
-  string NormalizedName = 20;
-  string Description = 21;
-  uint32 Duration = 22;
-  string Genre = 23;
-  double Rating = 24;
-  uint32 ReviewAvailable = 25;
-  double Progress = 26;
-  uint32 SeasonsCount = 27;
-  uint32 EpisodesCount = 28;
-  uint32 ReleaseYear = 30;
-  string Directors = 31;
-  string Actors = 32;
-  string SourceHost = 33;
-  uint64 ViewCount = 34;
-  string PlayUri = 35;
-  uint64 Relevance = 36;
-  double RelevancePrediction = 37;
-  repeated .NAlice.TLightVideoItem ProviderInfo = 38;
-  repeated .NAlice.TVideoItem.TNestedVideoItem NextItems = 40;
-  repeated .NAlice.TVideoItem.TNestedVideoItem PreviousItems = 41;
-  repeated .NAlice.TSeasonsItem Seasons = 42;
-  uint32 MinAge = 43;
-  .NAlice.TVideoItem.TTvStreamInfo TvStreamInfo = 44;
-  string ChannelType = 45;
-  string TvEpisodeName = 46;
-  uint32 Soon = 47;
-  uint64 UpdateAtUs = 48;
-  .NAlice.TVideoItemDebugInfo DebugInfo = 49;
-  .NAlice.TVideoItem.TAvailabilityRequest AvailabilityRequest = 50;
-  string Source = 51;
-  .NAlice.TVideoRelated Related = 52;
-  .NAlice.TSkippableFragmentsDepr SkippableFragmentsDepr = 53;
-  repeated .NAlice.TSkippableFragment SkippableFragments = 54;
-  repeated .NAlice.TAudioStreamOrSubtitle AudioStreams = 55;
-  repeated .NAlice.TAudioStreamOrSubtitle Subtitles = 56;
-  string Entref = 57;
-  string AudioLanguage = 58;
-  string SubtitlesLanguage = 59;
-  .NAlice.TPlayerRestrictionConfig PlayerRestrictionConfig = 60;
-  string Legal = 61;
-  string AgeLimit = 62;
-  string MusicalTrackId = 63;
-  .NAlice.TAvatarMdsImage Thumbnail = 64;
-  .NAlice.TAvatarMdsImage Poster = 65;
-  string SearchQuery = 66;
-  string PlayerId = 67;
-  .NAlice.TVHLicenceInfo VhLicences = 69;
-  string HintDescription = 70;
-  uint64 Mtime = 71;
-  string EmbedUri = 72;
-  string ContentUri = 73;
-  .NAlice.TVideoItem.TCameraStreamInfo CameraStreamInfo = 74;
-  string Html = 75;
-  string EpisodeName = 76;
-  string TvShowItemName = 77;
-  repeated int32 CountryIds = 78;
-  string VideoId = 79;
-  string Doc2docUrl = 80;
-  .NAlice.TVideoFeature Features = 81;
-  string DeviceID = 82;
-  string PaymentTargetId = 83;
+  string Type = 1 [json_name = "type"];
+  string ProviderName = 2 [json_name = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id"];
+  string TvShowSeasonId = 4 [json_name = "tv_show_season_id"];
+  string TvShowItemId = 5 [json_name = "tv_show_item_id"];
+  string HumanReadableId = 6 [json_name = "human_readable_id"];
+  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids"];
+  uint32 Available = 8 [json_name = "available"];
+  uint32 PriceFrom = 9 [json_name = "price_from"];
+  uint32 Episode = 10 [json_name = "episode"];
+  uint32 Season = 11 [json_name = "season"];
+  uint32 ProviderNumber = 12 [json_name = "provider_number"];
+  uint32 Unauthorized = 13 [json_name = "unauthorized"];
+  string CoverUrl2x3 = 14 [json_name = "cover_url_2x3"];
+  string CoverUrl16x9 = 15 [json_name = "cover_url_16x9"];
+  string ThumbnailUrl2x3Small = 16 [json_name = "thumbnail_url_2x3_small"];
+  string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9"];
+  string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small"];
+  string Name = 19 [json_name = "name"];
+  string NormalizedName = 20 [json_name = "normalized_name"];
+  string Description = 21 [json_name = "description"];
+  uint32 Duration = 22 [json_name = "duration"];
+  string Genre = 23 [json_name = "genre"];
+  double Rating = 24 [json_name = "rating"];
+  uint32 ReviewAvailable = 25 [json_name = "review_available"];
+  double Progress = 26 [json_name = "progress"];
+  uint32 SeasonsCount = 27 [json_name = "seasons_count"];
+  uint32 EpisodesCount = 28 [json_name = "episodes_count"];
+  uint32 ReleaseYear = 30 [json_name = "release_year"];
+  string Directors = 31 [json_name = "directors"];
+  string Actors = 32 [json_name = "actors"];
+  string SourceHost = 33 [json_name = "source_host"];
+  uint64 ViewCount = 34 [json_name = "view_count"];
+  string PlayUri = 35 [json_name = "play_uri"];
+  uint64 Relevance = 36 [json_name = "relevance"];
+  double RelevancePrediction = 37 [json_name = "relevance_prediction"];
+  repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info"];
+  repeated .NAlice.TVideoItem.TNestedVideoItem NextItems = 40 [json_name = "next_items"];
+  repeated .NAlice.TVideoItem.TNestedVideoItem PreviousItems = 41 [json_name = "previous_items"];
+  repeated .NAlice.TSeasonsItem Seasons = 42 [json_name = "seasons"];
+  uint32 MinAge = 43 [json_name = "min_age"];
+  .NAlice.TVideoItem.TTvStreamInfo TvStreamInfo = 44 [json_name = "tv_stream_info"];
+  string ChannelType = 45 [json_name = "channel_type"];
+  string TvEpisodeName = 46 [json_name = "tv_episode_name"];
+  uint32 Soon = 47 [json_name = "soon"];
+  uint64 UpdateAtUs = 48 [json_name = "update_at_us"];
+  .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info"];
+  .NAlice.TVideoItem.TAvailabilityRequest AvailabilityRequest = 50 [json_name = "availability_request"];
+  string Source = 51 [json_name = "source"];
+  .NAlice.TVideoRelated Related = 52 [json_name = "related"];
+  .NAlice.TSkippableFragmentsDepr SkippableFragmentsDepr = 53 [json_name = "skippable_fragments_depr"];
+  repeated .NAlice.TSkippableFragment SkippableFragments = 54 [json_name = "skippable_fragments"];
+  repeated .NAlice.TAudioStreamOrSubtitle AudioStreams = 55 [json_name = "audio_streams"];
+  repeated .NAlice.TAudioStreamOrSubtitle Subtitles = 56 [json_name = "subtitles"];
+  string Entref = 57 [json_name = "entref"];
+  string AudioLanguage = 58 [json_name = "audio_language"];
+  string SubtitlesLanguage = 59 [json_name = "subtitles_language"];
+  .NAlice.TPlayerRestrictionConfig PlayerRestrictionConfig = 60 [json_name = "player_restriction_config"];
+  string Legal = 61 [json_name = "legal"];
+  string AgeLimit = 62 [json_name = "age_limit"];
+  string MusicalTrackId = 63 [json_name = "musical_track_id"];
+  .NAlice.TAvatarMdsImage Thumbnail = 64 [json_name = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 65 [json_name = "poster"];
+  string SearchQuery = 66 [json_name = "search_query"];
+  string PlayerId = 67 [json_name = "player_id"];
+  .NAlice.TVHLicenceInfo VhLicences = 69 [json_name = "vh_licenses"];
+  string HintDescription = 70 [json_name = "hint_description"];
+  uint64 Mtime = 71 [json_name = "mtime"];
+  string EmbedUri = 72 [json_name = "embed_uri"];
+  string ContentUri = 73 [json_name = "content_uri"];
+  .NAlice.TVideoItem.TCameraStreamInfo CameraStreamInfo = 74 [json_name = "camera_stream_info"];
+  string Html = 75 [json_name = "html"];
+  string EpisodeName = 76 [json_name = "episode_name"];
+  string TvShowItemName = 77 [json_name = "tv_show_item_name"];
+  repeated int32 CountryIds = 78 [json_name = "county_ids"];
+  string VideoId = 79 [json_name = "video_id"];
+  string Doc2docUrl = 80 [json_name = "doc2doc_url"];
+  .NAlice.TVideoFeature Features = 81 [json_name = "features"];
+  string DeviceID = 82 [json_name = "device_id"];
+  string PaymentTargetId = 83 [json_name = "payment_target_id"];
 }
 
 message TVideoGalleryDebugInfo {
-  string YaVideoRequest = 1;
-  string Url = 2;
+  string YaVideoRequest = 1 [json_name = "ya_video_request"];
+  string Url = 2 [json_name = "url"];
 }
 
 message TPersonItem {
-  string KpId = 1;
-  string Name = 2;
-  string Description = 3;
-  string Subtitle = 4;
-  string Entref = 5;
-  string SearchQuery = 6;
-  .NAlice.TAvatarMdsImage Image = 7;
+  string KpId = 1 [json_name = "kp_id"];
+  string Name = 2 [json_name = "name"];
+  string Description = 3 [json_name = "description"];
+  string Subtitle = 4 [json_name = "subtitle"];
+  string Entref = 5 [json_name = "entref"];
+  string SearchQuery = 6 [json_name = "search_query"];
+  .NAlice.TAvatarMdsImage Image = 7 [json_name = "image"];
 }
 
 message TCollectionItem {
-  string Id = 1;
-  string Title = 2;
-  string Entref = 3;
-  string SearchQuery = 4;
-  repeated .NAlice.TAvatarMdsImage Images = 5;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Entref = 3 [json_name = "entref"];
+  string SearchQuery = 4 [json_name = "search_query"];
+  repeated .NAlice.TAvatarMdsImage Images = 5 [json_name = "images"];
 }
 
 message TRequestContentPayload {
-  .NAlice.TVideoItem Item = 1;
-  uint32 SeasonIndex = 2;
+  .NAlice.TVideoItem Item = 1 [json_name = "item"];
+  uint32 SeasonIndex = 2 [json_name = "season_index"];
 }
 
 message TVideoPlayCommandData {
-  string Uri = 1;
-  string Payload = 2;
-  string SessionToken = 3;
-  .NAlice.TVideoItem Item = 4;
-  .NAlice.TVideoItem NextItem = 5;
-  .NAlice.TVideoItem TvShowItem = 6;
-  double StartAt = 7;
-  string AudioLanguage = 8;
-  string SubtitlesLanguage = 9;
+  string Uri = 1 [json_name = "uri"];
+  string Payload = 2 [json_name = "payload"];
+  string SessionToken = 3 [json_name = "session_token"];
+  .NAlice.TVideoItem Item = 4 [json_name = "item"];
+  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item"];
+  double StartAt = 7 [json_name = "start_at"];
+  string AudioLanguage = 8 [json_name = "audio_language"];
+  string SubtitlesLanguage = 9 [json_name = "subtitles_language"];
 }
 
 message TVideoPlayActionData {
-  .NAlice.TVideoItem Item = 1;
-  .NAlice.TVideoItem TvShowItem = 2;
+  .NAlice.TVideoItem Item = 1 [json_name = "item"];
+  .NAlice.TVideoItem TvShowItem = 2 [json_name = "tv_show_item"];
 }
 
 message TDebugInfoDirective {
-  string Name = 1;
-  string AnalyticsTag = 2;
-  .google.protobuf.Struct Payload = 3;
+  string Name = 1 [json_name = "name"];
+  string AnalyticsTag = 2 [json_name = "analytics_tag"];
+  .google.protobuf.Struct Payload = 3 [json_name = "payload"];
 }
 
 message TScreenState {
-  string CurrentScreen = 1;
+  string CurrentScreen = 1 [json_name = "current_screen"];
 }
 
 message TDescriptionScreenState {
-  string CurrentScreen = 1;
-  .NAlice.TVideoItem Item = 2;
-  .NAlice.TVideoItem NextItem = 3;
-  .NAlice.TVideoItem TvShowItem = 4;
+  string CurrentScreen = 1 [json_name = "current_screen"];
+  .NAlice.TVideoItem Item = 2 [json_name = "item"];
+  .NAlice.TVideoItem NextItem = 3 [json_name = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 4 [json_name = "tv_show_item"];
 }
 
 message TVideoCurrentlyPlaying {
-  string CurrentScreen = 1;
-  uint32 Paused = 2;
-  .NAlice.TVideoProgress Progress = 3;
-  .NAlice.TVideoItem Item = 4;
-  .NAlice.TVideoItem NextItem = 5;
-  .NAlice.TVideoItem TvShowItem = 6;
+  string CurrentScreen = 1 [json_name = "current_screen"];
+  uint32 Paused = 2 [json_name = "paused"];
+  .NAlice.TVideoProgress Progress = 3 [json_name = "progress"];
+  .NAlice.TVideoItem Item = 4 [json_name = "item"];
+  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item"];
 }
 
 message TCatchupInfo {
-  string ContentId = 1;
-  string ChannelTitle = 3;
-  .NAlice.TAvatarMdsImage ChannelLogo = 4;
-  uint64 EndOfLife = 5;
-  optional string StreamTitle = 2;
-  optional string ChannelId = 6;
+  string ContentId = 1 [json_name = "content_id"];
+  string ChannelTitle = 3 [json_name = "channel_title"];
+  .NAlice.TAvatarMdsImage ChannelLogo = 4 [json_name = "channel_logo"];
+  uint64 EndOfLife = 5 [json_name = "end_of_life"];
+  optional string StreamTitle = 2 [json_name = "stream_title"];
+  optional string ChannelId = 6 [json_name = "channel_id"];
 }
 
 message TOttVideoItem {
@@ -394,69 +394,69 @@ message TOttVideoItem {
     reserved "DeepLink";
     reserved 10;
     message TVariant {
-      string EmbedUrl = 1;
-      uint32 Price = 2;
-      string Currency = 3;
-      string Type = 4;
-      string Quality = 5;
+      string EmbedUrl = 1 [json_name = "embed_url"];
+      uint32 Price = 2 [json_name = "price"];
+      string Currency = 3 [json_name = "currency"];
+      string Type = 4 [json_name = "type"];
+      string Quality = 5 [json_name = "quality"];
     }
 
-    repeated .NAlice.TOttVideoItem.TCinema.TVariant Variants = 1;
-    .NAlice.TAvatarMdsImage KeyArt = 2;
-    string Favicon = 3;
-    string CinemaName = 4;
-    bool HidePrice = 5;
-    string Code = 6;
-    uint64 Duration = 7;
-    string EmbedUrl = 8;
-    string Link = 9;
-    string TvDeepLink = 11;
-    string TvPackageName = 12;
-    string TvFallbackLink = 13;
-    repeated .NAlice.TTvAction OnClickAction = 14;
+    repeated .NAlice.TOttVideoItem.TCinema.TVariant Variants = 1 [json_name = "variants"];
+    .NAlice.TAvatarMdsImage KeyArt = 2 [json_name = "keyart"];
+    string Favicon = 3 [json_name = "favicon"];
+    string CinemaName = 4 [json_name = "cinema_name"];
+    bool HidePrice = 5 [json_name = "hide_price"];
+    string Code = 6 [json_name = "code"];
+    uint64 Duration = 7 [json_name = "duration"];
+    string EmbedUrl = 8 [json_name = "embed_url"];
+    string Link = 9 [json_name = "link"];
+    string TvDeepLink = 11 [json_name = "tv_deeplink"];
+    string TvPackageName = 12 [json_name = "tv_package_name"];
+    string TvFallbackLink = 13 [json_name = "tv_fallback_link"];
+    repeated .NAlice.TTvAction OnClickAction = 14 [json_name = "on_click_action"];
   }
 
   message TTrailerInfo {
     message TThumbnailInfo {
-      int32 OriginalHeight = 1;
-      int32 OriginalWidth = 2;
-      string Url = 3;
+      int32 OriginalHeight = 1 [json_name = "thmb_h_orig"];
+      int32 OriginalWidth = 2 [json_name = "thmb_w_orig"];
+      string Url = 3 [json_name = "thmb_href"];
     }
 
-    string Date = 1;
-    int32 Duration = 2;
-    int32 External = 3;
-    string StreamUrl = 4;
-    .NAlice.TOttVideoItem.TTrailerInfo.TThumbnailInfo ThumbnailInfo = 5;
-    string Url = 6;
-    string VhUuid = 7;
+    string Date = 1 [json_name = "date"];
+    int32 Duration = 2 [json_name = "duration"];
+    int32 External = 3 [json_name = "external"];
+    string StreamUrl = 4 [json_name = "stream_url"];
+    .NAlice.TOttVideoItem.TTrailerInfo.TThumbnailInfo ThumbnailInfo = 5 [json_name = "thumbnail"];
+    string Url = 6 [json_name = "url"];
+    string VhUuid = 7 [json_name = "vh_uuid"];
   }
 
   message TOffer {
-    optional string FullSubscriptionName = 1;
-    optional string ButtonText = 2;
-    optional string ButtonTextWithDetails = 3;
-    optional bool SilentPurchaseAvailable = 4;
-    optional string LegalText = 5;
+    optional string FullSubscriptionName = 1 [json_name = "full_subscription_name"];
+    optional string ButtonText = 2 [json_name = "button_text"];
+    optional string ButtonTextWithDetails = 3 [json_name = "button_text_with_details"];
+    optional bool SilentPurchaseAvailable = 4 [json_name = "silent_purchase_available"];
+    optional string LegalText = 5 [json_name = "legal_text"];
   }
 
   message TPrice {
-    optional string CurrencyCode = 1;
-    optional double Amount = 2;
+    optional string CurrencyCode = 1 [json_name = "currency_code"];
+    optional double Amount = 2 [json_name = "amount"];
   }
 
   message TDiscount {
-    repeated .NAlice.TAvatarMdsImage Icons = 2;
-    optional .NAlice.TOttVideoItem.TPrice Price = 1;
-    optional .NAlice.TOttVideoItem.TPrice Amount = 3;
-    optional string Text = 4;
+    repeated .NAlice.TAvatarMdsImage Icons = 2 [json_name = "icons"];
+    optional .NAlice.TOttVideoItem.TPrice Price = 1 [json_name = "price"];
+    optional .NAlice.TOttVideoItem.TPrice Amount = 3 [json_name = "amount"];
+    optional string Text = 4 [json_name = "text"];
   }
 
   message TViewOptions {
     message TCardDetailsButton {
       message TOpenAppAction {
-        string PackageName = 1;
-        string Deeplink = 2;
+        string PackageName = 1 [json_name = "package_name"];
+        string Deeplink = 2 [json_name = "deeplink"];
       }
 
       enum EActionType {
@@ -472,56 +472,69 @@ message TOttVideoItem {
         BT_KP = 2;
       }
 
-      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EActionType Type = 1;
-      string Text = 2;
-      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EBackgroundType Background = 3;
-      string ButtonSubText = 4;
+      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EActionType Type = 1 [json_name = "type"];
+      string Text = 2 [json_name = "text"];
+      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EBackgroundType Background = 3 [json_name = "background"];
+      string ButtonSubText = 4 [json_name = "button_subtext"];
       oneof Action {
-        .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.TOpenAppAction OpenAppAction = 6;
+        .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.TOpenAppAction OpenAppAction = 6 [json_name = "open_app_action"];
       }
-      optional .NAlice.TAvatarMdsImage Icon = 5;
+      optional .NAlice.TAvatarMdsImage Icon = 5 [json_name = "icon"];
     }
 
-    string Type = 1;
-    repeated string MonetizationModels = 2;
-    string ButtonText = 13;
-    string ButtonColor = 14;
-    repeated .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton CardDetailsButtons = 21;
-    optional .NAlice.TOttVideoItem.EWatchabilityStatus Watchability = 3;
-    optional .NAlice.TOttVideoItem.EPurchasabilityStatus Purchasability = 4;
-    optional .NAlice.TOttVideoItem.EAvailabilityStatus Availability = 18;
-    optional string PosterWithRightholderLogo = 5;
-    optional string PurchasedSubscriptionName = 6;
-    optional uint32 TimeToExpire = 7;
-    optional .NAlice.TOttVideoItem.TOffer Offer = 8;
-    optional string Disclaimer = 9;
-    optional .NAlice.TOttVideoItem.TPrice TransactionalMinimumPrice = 10;
-    optional .NAlice.TOttVideoItem.TPrice TransactionalPrice = 11;
-    optional string BillingFeatureName = 12;
-    optional string OfferText = 15;
-    optional string SubofferText = 16;
-    optional string FullSubscriptionName = 17;
-    optional .NAlice.TOttVideoItem.TDiscount Discount = 19;
-    optional string BillingProductId = 20;
-    optional bool SilentPurchaseAvailable = 24;
-    optional string SubscriptionBadge = 22;
-    optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 23;
+    string Type = 1 [json_name = "type"];
+    repeated string MonetizationModels = 2 [json_name = "monetization_models"];
+    string ButtonText = 13 [json_name = "button_text"];
+    string ButtonColor = 14 [json_name = "button_color"];
+    repeated .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton CardDetailsButtons = 21 [json_name = "card_details_buttons"];
+    optional .NAlice.TOttVideoItem.EWatchabilityStatus Watchability = 3 [json_name = "watchability"];
+    optional .NAlice.TOttVideoItem.EPurchasabilityStatus Purchasability = 4 [json_name = "purchasability"];
+    optional .NAlice.TOttVideoItem.EAvailabilityStatus Availability = 18 [json_name = "availability"];
+    optional string PosterWithRightholderLogo = 5 [json_name = "poster_with_rightholder_logo"];
+    optional string PurchasedSubscriptionName = 6 [json_name = "purchased_subscription_name"];
+    optional uint32 TimeToExpire = 7 [json_name = "time_to_expire"];
+    optional .NAlice.TOttVideoItem.TOffer Offer = 8 [json_name = "offer"];
+    optional string Disclaimer = 9 [json_name = "disclaimer"];
+    optional .NAlice.TOttVideoItem.TPrice TransactionalMinimumPrice = 10 [json_name = "transactional_minimum_price"];
+    optional .NAlice.TOttVideoItem.TPrice TransactionalPrice = 11 [json_name = "transactional_price"];
+    optional string BillingFeatureName = 12 [json_name = "billing_feature_name"];
+    optional string OfferText = 15 [json_name = "offer_text"];
+    optional string SubofferText = 16 [json_name = "suboffer_text"];
+    optional string FullSubscriptionName = 17 [json_name = "full_subscription_name"];
+    optional .NAlice.TOttVideoItem.TDiscount Discount = 19 [json_name = "discount"];
+    optional string BillingProductId = 20 [json_name = "billing_product_id"];
+    optional bool SilentPurchaseAvailable = 24 [json_name = "silent_purchase_available"];
+    optional string SubscriptionBadge = 22 [json_name = "subscription_badge"];
+    optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 23 [json_name = "subscription_badge_mds"];
   }
 
   message TEpisodeInfo {
-    .NAlice.TAvatarMdsImage Thumbnail = 7;
-    optional int32 SeasonNumber = 1;
-    optional int32 EpisodeNumber = 2;
-    optional string EpisodeTitle = 3;
-    optional bool Seen = 4;
-    optional bool Watching = 5;
-    optional string ContentId = 6;
+    .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
+    optional int32 SeasonNumber = 1 [json_name = "season_number"];
+    optional int32 EpisodeNumber = 2 [json_name = "episode_number"];
+    optional string EpisodeTitle = 3 [json_name = "episode_title"];
+    optional bool Seen = 4 [json_name = "seen"];
+    optional bool Watching = 5 [json_name = "watching"];
+    optional string ContentId = 6 [json_name = "content_id"];
   }
 
   message TUgcFlags {
-    bool AlreadySeen = 1;
-    bool NotInterested = 2;
-    bool Like = 3;
+    bool AlreadySeen = 1 [json_name = "already_seen"];
+    bool NotInterested = 2 [json_name = "not_interested"];
+    bool Like = 3 [json_name = "like"];
+  }
+
+  message TAudioTrack {
+    string LanguageName = 1 [json_name = "language_name"];
+    bool ForAdult = 4 [json_name = "for_adult"];
+    optional string Quality = 2 [json_name = "quality"];
+    optional string Studio = 3 [json_name = "studio"];
+  }
+
+  message TSubtitleTrack {
+    string LanguageName = 1 [json_name = "language_name"];
+    bool ForAdult = 3 [json_name = "for_adult"];
+    optional string Type = 2 [json_name = "type"];
   }
 
   enum EWatchabilityStatus {
@@ -550,190 +563,200 @@ message TOttVideoItem {
     SS_FREE = 2;
   }
 
-  string Id = 1;
-  string ProviderItemId = 2;
-  .NAlice.TMiscIds MiscIds = 3;
-  string ContentType = 4;
-  string Title = 5;
-  string Description = 6;
-  .NAlice.TAvatarMdsImage Thumbnail = 7;
-  .NAlice.TAvatarMdsImage Poster = 8;
-  string Entref = 9;
-  string AgeLimit = 10;
-  string SearchQuery = 11;
-  string Annotation = 12;
-  int32 Duration = 13;
-  .NAlice.TVHLicenceInfo VhLicences = 14;
-  string EmbedUri = 15;
-  double Rating = 16;
-  repeated .NAlice.TOttVideoItem.TCinema Cinemas = 17;
-  .NAlice.TAppMetrikaEvent OnVhContentCardOpenedEvent = 18;
-  uint64 ReleaseDate = 19;
-  string HintDescription = 20;
-  string Genres = 21;
-  int32 ReleaseYear = 22;
-  int32 Progress = 23;
-  repeated string Genre = 24;
-  repeated string Country = 25;
-  repeated string Actor = 26;
-  repeated string Director = 27;
-  repeated string AudioTrack = 28;
-  repeated string SubtitleTrack = 29;
-  .NAlice.TAvatarMdsImage Cover = 30;
-  .NAlice.TAvatarMdsImage Logo = 31;
-  .NAlice.TAvatarMdsImage LegalLogo = 32;
-  bool WillWatch = 33;
-  .NAlice.TOttVideoItem.TTrailerInfo TrailerInfo = 34;
-  uint64 SeasonsEndDate = 35;
-  string OttStatus = 36;
-  bool WillWatchAvailable = 37;
-  bool IsNewDelayedEpisode = 38;
-  string QRBillingUrl = 40;
-  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 44;
-  string SubscriptionBadge = 45;
-  repeated string Producer = 49;
-  string ShortDescription = 50;
-  repeated .NAlice.TPersonItem ActorItems = 53;
-  uint32 SeasonsCount = 54;
-  string ShortDisplayName = 55;
-  .NAlice.TOttVideoItem.ESerialStructureType SerialStructureType = 56;
-  optional .NAlice.TAvatarMdsImage HorizontalPoster = 39;
-  optional bool IsInKPTop10 = 41;
-  optional bool IsInKPTop250 = 42;
-  optional .NAlice.TOttVideoItem.TEpisodeInfo EpisodeInfo = 43;
-  optional .NAlice.TOttVideoItem.TUgcFlags UgcFlags = 46;
-  optional .NAlice.TCatchupInfo CatchupInfo = 47;
-  optional .NAlice.TAdConfig AdConfig = 48;
-  optional uint64 LastInteractionTime = 51;
-  optional string PromoCinema = 52;
-  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 57;
+  enum EVideoFeature {
+    VF_UNKNOWN = 0;
+    VF_UHD = 1;
+    VF_HDR = 2;
+    VF_DOLBY_DIGITAL = 3;
+  }
+
+  string Id = 1 [json_name = "id"];
+  string ProviderItemId = 2 [json_name = "provider_item_id"];
+  .NAlice.TMiscIds MiscIds = 3 [json_name = "misc_ids"];
+  string ContentType = 4 [json_name = "content_type"];
+  string Title = 5 [json_name = "title"];
+  string Description = 6 [json_name = "description"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster"];
+  string Entref = 9 [json_name = "entref"];
+  string AgeLimit = 10 [json_name = "age_limit"];
+  string SearchQuery = 11 [json_name = "search_query"];
+  string Annotation = 12 [json_name = "annotation"];
+  int32 Duration = 13 [json_name = "duration"];
+  .NAlice.TVHLicenceInfo VhLicences = 14 [json_name = "vh_licenses"];
+  string EmbedUri = 15 [json_name = "embed_uri"];
+  double Rating = 16 [json_name = "rating"];
+  repeated .NAlice.TOttVideoItem.TCinema Cinemas = 17 [json_name = "cinemas"];
+  .NAlice.TAppMetrikaEvent OnVhContentCardOpenedEvent = 18 [json_name = "on_vh_content_card_opened_event"];
+  uint64 ReleaseDate = 19 [json_name = "release_date"];
+  string HintDescription = 20 [json_name = "hint_description"];
+  string Genres = 21 [json_name = "genres"];
+  int32 ReleaseYear = 22 [json_name = "release_year"];
+  int32 Progress = 23 [json_name = "progress"];
+  repeated string Genre = 24 [json_name = "genre"];
+  repeated string Country = 25 [json_name = "country"];
+  repeated string Actor = 26 [json_name = "actor"];
+  repeated string Director = 27 [json_name = "director"];
+  repeated string AudioTrack = 28 [json_name = "audio_track"];
+  repeated string SubtitleTrack = 29 [json_name = "subtitle_track"];
+  .NAlice.TAvatarMdsImage Cover = 30 [json_name = "cover"];
+  .NAlice.TAvatarMdsImage Logo = 31 [json_name = "logo"];
+  .NAlice.TAvatarMdsImage LegalLogo = 32 [json_name = "legal_logo"];
+  bool WillWatch = 33 [json_name = "will_watch"];
+  .NAlice.TOttVideoItem.TTrailerInfo TrailerInfo = 34 [json_name = "trailer"];
+  uint64 SeasonsEndDate = 35 [json_name = "seasons_end_date"];
+  string OttStatus = 36 [json_name = "ott_status"];
+  bool WillWatchAvailable = 37 [json_name = "will_watch_available"];
+  bool IsNewDelayedEpisode = 38 [json_name = "is_new_delayed_episode"];
+  string QRBillingUrl = 40 [json_name = "qr_billing_url"];
+  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 44 [json_name = "view_options"];
+  string SubscriptionBadge = 45 [json_name = "subscription_badge"];
+  repeated string Producer = 49 [json_name = "producer"];
+  string ShortDescription = 50 [json_name = "short_description"];
+  repeated .NAlice.TPersonItem ActorItems = 53 [json_name = "actor_items"];
+  uint32 SeasonsCount = 54 [json_name = "seasons_count"];
+  string ShortDisplayName = 55 [json_name = "short_display_name"];
+  .NAlice.TOttVideoItem.ESerialStructureType SerialStructureType = 56 [json_name = "serial_structure_type"];
+  repeated .NAlice.TOttVideoItem.TAudioTrack AudioTracks = 58 [json_name = "audio_tracks"];
+  repeated .NAlice.TOttVideoItem.TSubtitleTrack SubtitleTracks = 59 [json_name = "subtitle_tracks"];
+  repeated .NAlice.TOttVideoItem.EVideoFeature Features = 60 [json_name = "features"];
+  optional .NAlice.TAvatarMdsImage HorizontalPoster = 39 [json_name = "horizontal_poster"];
+  optional bool IsInKPTop10 = 41 [json_name = "is_in_kp_top10"];
+  optional bool IsInKPTop250 = 42 [json_name = "is_in_kp_top250"];
+  optional .NAlice.TOttVideoItem.TEpisodeInfo EpisodeInfo = 43 [json_name = "episode_info"];
+  optional .NAlice.TOttVideoItem.TUgcFlags UgcFlags = 46 [json_name = "ugc_flags"];
+  optional .NAlice.TCatchupInfo CatchupInfo = 47 [json_name = "catchup_info"];
+  optional .NAlice.TAdConfig AdConfig = 48 [json_name = "ad_config"];
+  optional uint64 LastInteractionTime = 51 [json_name = "last_interaction_time"];
+  optional string PromoCinema = 52 [json_name = "promo_cinema"];
+  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 57 [json_name = "subscription_badge_mds"];
 }
 
 message TThinOttVideoItem {
-  string OntoId = 1;
-  string ProviderItemId = 2;
-  string ContentType = 3;
-  string SearchQuery = 4;
-  string Title = 5;
-  string Description = 6;
-  string HintDescription = 7;
-  .NAlice.TAvatarMdsImage Thumbnail = 8;
-  .NAlice.TAvatarMdsImage Poster = 9;
-  string AgeLimit = 10;
-  repeated string Genre = 12;
-  optional int32 ReleaseYear = 11;
-  optional double Rating = 13;
-  optional .NAlice.TAdConfig AdConfig = 14;
+  string OntoId = 1 [json_name = "onto_id"];
+  string ProviderItemId = 2 [json_name = "provider_item_id"];
+  string ContentType = 3 [json_name = "content_type"];
+  string SearchQuery = 4 [json_name = "search_query"];
+  string Title = 5 [json_name = "title"];
+  string Description = 6 [json_name = "description"];
+  string HintDescription = 7 [json_name = "hint_description"];
+  .NAlice.TAvatarMdsImage Thumbnail = 8 [json_name = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 9 [json_name = "poster"];
+  string AgeLimit = 10 [json_name = "age_limit"];
+  repeated string Genre = 12 [json_name = "genre"];
+  optional int32 ReleaseYear = 11 [json_name = "release_year"];
+  optional double Rating = 13 [json_name = "rating"];
+  optional .NAlice.TAdConfig AdConfig = 14 [json_name = "ad_config"];
 }
 
 message TWebVideoPreview {
-  string Type = 1;
-  string Url = 2;
+  string Type = 1 [json_name = "type"];
+  string Url = 2 [json_name = "url"];
 }
 
 message TWebVideoItem {
   message TFeature {
-    optional bool IsPorn = 1;
-    optional bool IsShockVideo = 2;
+    optional bool IsPorn = 1 [json_name = "is_porn"];
+    optional bool IsShockVideo = 2 [json_name = "is_shock_video"];
   }
 
   message TEpisodeInfo {
-    optional int32 SeasonNumber = 1;
-    optional int32 EpisodeNumber = 2;
-    optional string EpisodeTitle = 3;
+    optional int32 SeasonNumber = 1 [json_name = "season_number"];
+    optional int32 EpisodeNumber = 2 [json_name = "episode_number"];
+    optional string EpisodeTitle = 3 [json_name = "episode_title"];
   }
 
-  string Id = 1;
-  string ContentType = 2;
-  string Title = 3;
-  .NAlice.TMiscIds MiscIds = 4;
-  string PlayerId = 5;
-  string ProviderItemId = 6;
-  .NAlice.TAvatarMdsImage Thumbnail = 7;
-  .NAlice.TAvatarMdsImage Poster = 8;
-  string Hosting = 9;
-  string EmbedUri = 10;
-  bool IsCommercialVideo = 11;
-  uint64 ReleaseDate = 12;
-  uint64 Duration = 13;
-  string ReqId = 14;
-  string Html = 15;
-  .NAlice.TWebVideoItem.TFeature Feature = 17;
-  string VideoId = 20;
-  repeated .NAlice.TWebVideoPreview VideoPreview = 21;
-  .NAlice.TWebVideoItem.TEpisodeInfo EpisodeInfo = 22;
-  int32 Progress = 23;
-  string Badge = 24;
-  string Description = 25;
-  string SearchQuery = 26;
-  string AgeLimit = 27;
-  bool IsLive = 28;
-  optional .NAlice.TAdConfig AdConfig = 16;
-  optional string Doc2docUrl = 18;
-  optional uint64 ViewsCount = 19;
-  optional .NAlice.TAvatarMdsImage BadgeMds = 29;
+  string Id = 1 [json_name = "id"];
+  string ContentType = 2 [json_name = "content_type"];
+  string Title = 3 [json_name = "title"];
+  .NAlice.TMiscIds MiscIds = 4 [json_name = "misc_ids"];
+  string PlayerId = 5 [json_name = "player_id"];
+  string ProviderItemId = 6 [json_name = "provider_item_id"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster"];
+  string Hosting = 9 [json_name = "hosting"];
+  string EmbedUri = 10 [json_name = "embed_uri"];
+  bool IsCommercialVideo = 11 [json_name = "is_commercial_video"];
+  uint64 ReleaseDate = 12 [json_name = "release_date"];
+  uint64 Duration = 13 [json_name = "duration"];
+  string ReqId = 14 [json_name = "req_id"];
+  string Html = 15 [json_name = "html"];
+  .NAlice.TWebVideoItem.TFeature Feature = 17 [json_name = "feature"];
+  string VideoId = 20 [json_name = "video_id"];
+  repeated .NAlice.TWebVideoPreview VideoPreview = 21 [json_name = "video_preview"];
+  .NAlice.TWebVideoItem.TEpisodeInfo EpisodeInfo = 22 [json_name = "episode_info"];
+  int32 Progress = 23 [json_name = "progress"];
+  string Badge = 24 [json_name = "badge"];
+  string Description = 25 [json_name = "description"];
+  string SearchQuery = 26 [json_name = "search_query"];
+  string AgeLimit = 27 [json_name = "age_limit"];
+  bool IsLive = 28 [json_name = "is_live"];
+  optional .NAlice.TAdConfig AdConfig = 16 [json_name = "ad_config"];
+  optional string Doc2docUrl = 18 [json_name = "doc2doc_url"];
+  optional uint64 ViewsCount = 19 [json_name = "views_count"];
+  optional .NAlice.TAvatarMdsImage BadgeMds = 29 [json_name = "badge_mds"];
 }
 
 message TExternalCinemaRequest {
-  repeated string Flags = 1;
+  repeated string Flags = 1 [json_name = "flags"];
 }
 
 message TExternalCinemaData {
   message TCinemaTvData {
-    string CinemaCode = 1;
-    string CinemaName = 2;
-    string TvPackageName = 3;
-    bool AllowTvDeepLink = 4;
-    string TvFallbackLink = 5;
+    string CinemaCode = 1 [json_name = "cinema_code"];
+    string CinemaName = 2 [json_name = "cinema_name"];
+    string TvPackageName = 3 [json_name = "tv_package_name"];
+    bool AllowTvDeepLink = 4 [json_name = "allow_tv_deep_link"];
+    string TvFallbackLink = 5 [json_name = "tv_fallback_link"];
   }
 
-  repeated .NAlice.TExternalCinemaData.TCinemaTvData ExternalCinemasData = 1;
+  repeated .NAlice.TExternalCinemaData.TCinemaTvData ExternalCinemasData = 1 [json_name = "external_cinemas"];
 }
 
 message TAdConfig {
-  int64 Category = 3;
-  bool HasPreroll = 4;
-  optional int64 PartnerId = 1;
-  optional int64 PageId = 2;
+  int64 Category = 3 [json_name = "category"];
+  bool HasPreroll = 4 [json_name = "has_preroll"];
+  optional int64 PartnerId = 1 [json_name = "partner_id"];
+  optional int64 PageId = 2 [json_name = "page_id"];
 }
 
 message TVideoFeature {
-  optional bool IsPorn = 1;
+  optional bool IsPorn = 1 [json_name = "is_porn"];
 }
 
 message TYangoVideoItem {
   message Title {
-    string Lang = 1;
-    string Value = 2;
+    string Lang = 1 [json_name = "lang"];
+    string Value = 2 [json_name = "value"];
   }
 
-  string ContentUuid = 1;
-  string Id = 2;
-  string OttStatus = 3;
-  repeated .NAlice.TYangoVideoItem.Title Titles = 4;
+  string ContentUuid = 1 [json_name = "content_uuid"];
+  string Id = 2 [json_name = "id"];
+  string OttStatus = 3 [json_name = "ott_status"];
+  repeated .NAlice.TYangoVideoItem.Title Titles = 4 [json_name = "titles"];
 }
 
 message TWebVideoInfo {
-  string PlayerId = 1;
-  string Url = 2;
-  string Id = 3;
-  string Hosting = 4;
-  string Title = 5;
-  string Doc2docUrl = 6;
+  string PlayerId = 1 [json_name = "player_id"];
+  string Url = 2 [json_name = "url"];
+  string Id = 3 [json_name = "id"];
+  string Hosting = 4 [json_name = "hosting"];
+  string Title = 5 [json_name = "title"];
+  string Doc2docUrl = 6 [json_name = "doc2doc_url"];
 }
 
 message TSubscriptionPaySdk {
-  repeated string Features = 1;
-  string TitleVideo = 2;
+  repeated string Features = 1 [json_name = "features"];
+  string TitleVideo = 2 [json_name = "title_video"];
 }
 
 message TVideoPaySdk {
-  string ProviderItemId = 1;
-  string Title = 2;
-  string ContentType = 3;
-  string ViewOptionsType = 4;
-  string BillingFeatureName = 5;
-  .NAlice.TAvatarMdsImage Poster = 6;
-  .NAlice.TAvatarMdsImage Thumbnail = 7;
+  string ProviderItemId = 1 [json_name = "provider_item_id"];
+  string Title = 2 [json_name = "title"];
+  string ContentType = 3 [json_name = "content_type"];
+  string ViewOptionsType = 4 [json_name = "view_options_type"];
+  string BillingFeatureName = 5 [json_name = "billing_feature_name"];
+  .NAlice.TAvatarMdsImage Poster = 6 [json_name = "poster"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
 }
 

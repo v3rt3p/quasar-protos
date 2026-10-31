@@ -16,62 +16,62 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLevelCapability {
   message TParameters {
-    .NAlice.TLevelCapability.EInstance Instance = 1;
-    .NAlice.TRange Range = 2;
-    .NAlice.EUnit Unit = 3;
-    bool SupportsCalibration = 4;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
+    .NAlice.TRange Range = 2 [json_name = "range"];
+    .NAlice.EUnit Unit = 3 [json_name = "unit"];
+    bool SupportsCalibration = 4 [json_name = "supports_calibration"];
   }
 
   message TState {
-    double Level = 1;
-    bool Calibrating = 2;
+    double Level = 1 [json_name = "level"];
+    bool Calibrating = 2 [json_name = "calibrating"];
   }
 
   message TSetAbsoluteLevelDirective {
-    string Name = 1000;
-    double TargetLevel = 1;
-    uint32 TransitionTime = 2;
-    bool WithOnOff = 3;
+    string Name = 1000 [json_name = "name"];
+    double TargetLevel = 1 [json_name = "target_level"];
+    uint32 TransitionTime = 2 [json_name = "transition_time"];
+    bool WithOnOff = 3 [json_name = "with_on_off"];
   }
 
   message TSetRelativeLevelDirective {
-    string Name = 1000;
-    double RelativeLevel = 1;
-    uint32 TransitionTime = 2;
-    bool WithOnOff = 3;
+    string Name = 1000 [json_name = "name"];
+    double RelativeLevel = 1 [json_name = "relative_level"];
+    uint32 TransitionTime = 2 [json_name = "transition_time"];
+    bool WithOnOff = 3 [json_name = "with_on_off"];
   }
 
   message TTransitionLevelDirective {
-    string Name = 1000;
-    double StartLevel = 1;
-    double EndLevel = 2;
-    uint32 TransitionTime = 3;
-    bool WithOnOff = 4;
+    string Name = 1000 [json_name = "name"];
+    double StartLevel = 1 [json_name = "start_level"];
+    double EndLevel = 2 [json_name = "end_level"];
+    uint32 TransitionTime = 3 [json_name = "transition_time"];
+    bool WithOnOff = 4 [json_name = "with_on_off"];
   }
 
   message TStopTransitionLevelDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TStartCalibrationDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLevelCapability Capability = 1;
+    .NAlice.TLevelCapability Capability = 1 [json_name = "capability"];
   }
 
   message TCondition {
-    .NAlice.TLevelCapability.EInstance Instance = 1;
-    .google.protobuf.DoubleValue LowerBound = 2;
-    .google.protobuf.DoubleValue UpperBound = 3;
-    double Hysteresis = 4;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
+    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound"];
+    double Hysteresis = 4 [json_name = "hysteresis"];
   }
 
   message TLevelFilter {
-    .NAlice.TLevelCapability.EInstance Instance = 1;
-    .google.protobuf.DoubleValue LowerBound = 2;
-    .google.protobuf.DoubleValue UpperBound = 3;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
+    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound"];
   }
 
   enum EInstance {
@@ -99,8 +99,8 @@ message TLevelCapability {
     Down = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLevelCapability.TParameters Parameters = 2;
-  .NAlice.TLevelCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLevelCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLevelCapability.TState State = 3 [json_name = "state"];
 }
 

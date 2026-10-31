@@ -14,21 +14,21 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFmRadioStationSlot {
   oneof Value {
-    string FmRadioValue = 1;
-    string FmRadioCustomValue = 2;
+    string FmRadioValue = 1 [json_name = "fm_radio_value"];
+    string FmRadioCustomValue = 2 [json_name = "fm_radio_custom_value"];
   }
 }
 
 message TFmRadioFreqSlot {
   oneof Value {
-    string FmRadioFreqValue = 1;
-    string FmRadioFreqCustomValue = 2;
+    string FmRadioFreqValue = 1 [json_name = "fm_radio_freq_value"];
+    string FmRadioFreqCustomValue = 2 [json_name = "fm_radio_freq_custom_value"];
   }
 }
 
 message TFmRadioInfoSlot {
   oneof Value {
-    .NAlice.NData.TFmRadioInfo FmRadioInfoValue = 1;
+    .NAlice.NData.TFmRadioInfo FmRadioInfoValue = 1 [json_name = "fm_radio_info_value"];
   }
 }
 
@@ -39,21 +39,21 @@ message TFmRadioPlaybackSourceSlot {
   }
 
   oneof Value {
-    .NAlice.TFmRadioPlaybackSourceSlot.EValue EnumValue = 1;
+    .NAlice.TFmRadioPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
 message TRadioPlaySemanticFrame {
-  .NAlice.TFmRadioStationSlot FmRadioStation = 1;
-  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2;
-  .NAlice.TFmRadioInfoSlot FmRadioInfo = 3;
-  .NAlice.TBoolSlot DisableNlg = 4;
+  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio"];
+  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq"];
+  .NAlice.TFmRadioInfoSlot FmRadioInfo = 3 [json_name = "fm_radio_info"];
+  .NAlice.TBoolSlot DisableNlg = 4 [json_name = "disable_nlg"];
 }
 
 message TFmRadioPlaySemanticFrame {
-  .NAlice.TFmRadioStationSlot FmRadioStation = 1;
-  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2;
-  .NAlice.TBoolSlot DisableNlg = 3;
-  .NAlice.TFmRadioPlaybackSourceSlot PlaybackSource = 4;
+  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio"];
+  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq"];
+  .NAlice.TBoolSlot DisableNlg = 3 [json_name = "disable_nlg"];
+  .NAlice.TFmRadioPlaybackSourceSlot PlaybackSource = 4 [json_name = "playback_source"];
 }
 

@@ -17,30 +17,30 @@ message TIotOccupancyCapability {
   }
 
   message TSonarDetection {
-    double DistanceMeters = 1;
+    double DistanceMeters = 1 [json_name = "distance_meters"];
   }
 
   message TRadarDetection {
-    uint32 ID = 1;
+    uint32 ID = 1 [json_name = "id"];
   }
 
   message TDetection {
     oneof Detection {
-      .NAlice.TIotOccupancyCapability.TSonarDetection SonarDetection = 1;
-      .NAlice.TIotOccupancyCapability.TRadarDetection RadarDetection = 2;
+      .NAlice.TIotOccupancyCapability.TSonarDetection SonarDetection = 1 [json_name = "sonar_detection"];
+      .NAlice.TIotOccupancyCapability.TRadarDetection RadarDetection = 2 [json_name = "radar_detection"];
     }
   }
 
   message TObject {
-    .NAlice.TIotOccupancyCapability.TDetection Detection = 1;
+    .NAlice.TIotOccupancyCapability.TDetection Detection = 1 [json_name = "detection"];
   }
 
   message TState {
-    repeated .NAlice.TIotOccupancyCapability.TObject Objects = 1;
+    repeated .NAlice.TIotOccupancyCapability.TObject Objects = 1 [json_name = "objects"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotOccupancyCapability Capability = 1;
+    .NAlice.TIotOccupancyCapability Capability = 1 [json_name = "capability"];
   }
 
   message TIotOccupancyEnterEvent {
@@ -53,14 +53,14 @@ message TIotOccupancyCapability {
     reserved "Events";
     reserved 1;
     oneof Condition {
-      .google.protobuf.DoubleValue LowerBound = 2;
-      .google.protobuf.DoubleValue UpperBound = 3;
-      .google.protobuf.DoubleValue Delta = 4;
+      .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound"];
+      .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound"];
+      .google.protobuf.DoubleValue Delta = 4 [json_name = "delta"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotOccupancyCapability.TParameters Parameters = 2;
-  .NAlice.TIotOccupancyCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotOccupancyCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotOccupancyCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MusicSearchCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/music_search;musicsearchpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/api/rpc/music/music_search/music_search.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMusicSearchCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TOpenMusicSearchDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TMusicSearchRequestDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
+    repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 3 [json_name = "search_elements"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMusicSearchCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMusicSearchCapability.TState State = 3 [json_name = "state"];
+}
+

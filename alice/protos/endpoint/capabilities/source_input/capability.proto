@@ -42,32 +42,32 @@ message TSourceInputCapability {
       Console = 9;
     }
 
-    bool IsConnected = 2;
-    .NAlice.TSourceInputCapability.TSourceInput.ESourceType SourceType = 3;
-    string DeviceName = 4;
-    .NAlice.TSourceInputCapability.TSourceInput.EDeviceType DeviceType = 5;
-    string SourceInputId = 6;
-    string InputName = 7;
-    bool IsActive = 8;
-    bool IsGamerCopilotModeEnabledByUserSettings = 10;
-    optional bool IsVideoAvailable = 9;
+    bool IsConnected = 2 [json_name = "is_connected"];
+    .NAlice.TSourceInputCapability.TSourceInput.ESourceType SourceType = 3 [json_name = "source_type"];
+    string DeviceName = 4 [json_name = "device_name"];
+    .NAlice.TSourceInputCapability.TSourceInput.EDeviceType DeviceType = 5 [json_name = "device_type"];
+    string SourceInputId = 6 [json_name = "source_input_id"];
+    string InputName = 7 [json_name = "input_name"];
+    bool IsActive = 8 [json_name = "is_active"];
+    bool IsGamerCopilotModeEnabledByUserSettings = 10 [json_name = "is_gamer_copilot_mode_enabled_by_user_settings"];
+    optional bool IsVideoAvailable = 9 [json_name = "is_video_available"];
   }
 
   message TState {
-    repeated .NAlice.TSourceInputCapability.TSourceInput SourceInputs = 1;
+    repeated .NAlice.TSourceInputCapability.TSourceInput SourceInputs = 1 [json_name = "source_inputs"];
   }
 
   message TOpenSourceInputDirective {
-    .NAlice.TSourceInputCapability.TSourceInput SourceInput = 1;
-    string Name = 2;
+    .NAlice.TSourceInputCapability.TSourceInput SourceInput = 1 [json_name = "input"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TOpenSourceInputsListDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSourceInputCapability.TParameters Parameters = 2;
-  .NAlice.TSourceInputCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSourceInputCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSourceInputCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -15,19 +15,21 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TTvChannelCapability {
   message TTvChannelId {
     oneof IdentityMethod {
-      string ChannelUri = 1;
-      int32 ChannelId = 2;
-      int32 YandexChannelId = 3;
-      string ContentId = 4;
+      string ChannelUri = 1 [json_name = "channel_uri"];
+      int32 ChannelId = 2 [json_name = "channel_id"];
+      int32 YandexChannelId = 3 [json_name = "yandex_channel_id"];
+      string ContentId = 4 [json_name = "content_id"];
     }
   }
 
   message TTvChannel {
-    .NAlice.TTvChannelCapability.TTvChannelId Id = 1;
-    string Name = 2;
-    .NAlice.TTvChannelCapability.EChannelType ChannelType = 3;
-    string ChannelId = 4;
-    string InputId = 5;
+    .NAlice.TTvChannelCapability.TTvChannelId Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    .NAlice.TTvChannelCapability.EChannelType ChannelType = 3 [json_name = "channel_type"];
+    string ChannelId = 4 [json_name = "channel_id"];
+    string InputId = 5 [json_name = "input_id"];
+    string LogoUrl = 6 [json_name = "logo_url"];
+    string LogoWithBackgroundUrl = 7 [json_name = "logo_with_background_url"];
   }
 
   message TCategory {
@@ -39,98 +41,98 @@ message TTvChannelCapability {
       SATELLITE = 4;
     }
 
-    string Id = 1;
-    string Title = 2;
-    .NAlice.TTvChannelCapability.TCategory.ECategoryType Type = 3;
-    bool IsSelected = 4;
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    .NAlice.TTvChannelCapability.TCategory.ECategoryType Type = 3 [json_name = "type"];
+    bool IsSelected = 4 [json_name = "is_selected"];
   }
 
   message TCatchUpEpisodeInformation {
-    string TvProgramId = 1;
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 2;
-    string Name = 3;
-    int64 StartTime = 4;
-    int64 EndTime = 5;
-    int64 ProgressTime = 6;
-    int64 WatermarkTime = 7;
-    bool HasCatchup = 8;
+    string TvProgramId = 1 [json_name = "tv_program_id"];
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 2 [json_name = "tv_channel_id"];
+    string Name = 3 [json_name = "name"];
+    int64 StartTime = 4 [json_name = "start_time"];
+    int64 EndTime = 5 [json_name = "end_time"];
+    int64 ProgressTime = 6 [json_name = "progress_time"];
+    int64 WatermarkTime = 7 [json_name = "watermark_time"];
+    bool HasCatchup = 8 [json_name = "has_catchup"];
   }
 
   message TChannelTypeAvailability {
-    .NAlice.TTvChannelCapability.EChannelType ChannelType = 1;
-    bool IsAvailable = 2;
-    bool IsConfigured = 3;
-    bool IsManaged = 4;
+    .NAlice.TTvChannelCapability.EChannelType ChannelType = 1 [json_name = "channel_type"];
+    bool IsAvailable = 2 [json_name = "is_available"];
+    bool IsConfigured = 3 [json_name = "is_configured"];
+    bool IsManaged = 4 [json_name = "is_managed"];
   }
 
   message TParameters {
-    bool IsFavoritesAvailable = 1;
-    bool CentaurUseNativeChannelListSidebar = 2;
-    .NAlice.TTvChannelCapability.ETurnOnChannelDirectiveType DirectiveForTurningOnChannel = 3;
-    .NAlice.TTvChannelCapability.EUnpurchasedChannelReaction UnpurchasedChannelReaction = 4;
-    optional bool TariffOptionsSupported = 5;
+    bool IsFavoritesAvailable = 1 [json_name = "is_favorites_available"];
+    bool CentaurUseNativeChannelListSidebar = 2 [json_name = "centaur_use_native_channel_list_sidebar"];
+    .NAlice.TTvChannelCapability.ETurnOnChannelDirectiveType DirectiveForTurningOnChannel = 3 [json_name = "directive_for_turning_on_channel"];
+    .NAlice.TTvChannelCapability.EUnpurchasedChannelReaction UnpurchasedChannelReaction = 4 [json_name = "unpurchased_channel_reaction"];
+    optional bool TariffOptionsSupported = 5 [json_name = "tariff_options_supported"];
   }
 
   message TState {
-    .NAlice.TTvChannelCapability.TTvChannel CurrChannel = 1;
-    .NAlice.TTvChannelCapability.TTvChannel LastChannel = 2;
-    int64 TimeTurnOffLastChannel = 3;
-    repeated .NAlice.TTvChannelCapability.TTvChannel ListPreviousChannels = 4;
-    repeated .NAlice.TTvChannelCapability.TTvChannel ListNextChannels = 5;
-    repeated .NAlice.TTvChannelCapability.TChannelTypeAvailability ChannelTypeAvailabilities = 6;
-    .NAlice.TTvChannelCapability.TCatchUpEpisodeInformation CatchUpEpisodeInformation = 7;
-    repeated .NAlice.TTvChannelCapability.TTvChannel ListFavoritesChannels = 8;
-    int64 LastChannelPlayTimestamp = 9;
-    bool IsRegionalVersionsSupported = 10;
-    repeated .NAlice.TTvChannelCapability.TCategory Categories = 11;
-    bool IsTvGridEnabled = 12;
+    .NAlice.TTvChannelCapability.TTvChannel CurrChannel = 1 [json_name = "curr_channel"];
+    .NAlice.TTvChannelCapability.TTvChannel LastChannel = 2 [json_name = "last_channel"];
+    int64 TimeTurnOffLastChannel = 3 [json_name = "time_turn_off_last_channel"];
+    repeated .NAlice.TTvChannelCapability.TTvChannel ListPreviousChannels = 4 [json_name = "list_previous_channels"];
+    repeated .NAlice.TTvChannelCapability.TTvChannel ListNextChannels = 5 [json_name = "list_next_channels"];
+    repeated .NAlice.TTvChannelCapability.TChannelTypeAvailability ChannelTypeAvailabilities = 6 [json_name = "channel_type_availabilities"];
+    .NAlice.TTvChannelCapability.TCatchUpEpisodeInformation CatchUpEpisodeInformation = 7 [json_name = "catch_up_episode_information"];
+    repeated .NAlice.TTvChannelCapability.TTvChannel ListFavoritesChannels = 8 [json_name = "list_favorites_channels"];
+    int64 LastChannelPlayTimestamp = 9 [json_name = "last_channel_play_timestamp"];
+    bool IsRegionalVersionsSupported = 10 [json_name = "is_regional_versions_supported"];
+    repeated .NAlice.TTvChannelCapability.TCategory Categories = 11 [json_name = "categories"];
+    bool IsTvGridEnabled = 12 [json_name = "is_tv_grid_enabled"];
   }
 
   message TTurnOnTvChannelDirective {
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1;
-    string Name = 4;
-    optional string TvProgramId = 2;
-    optional int64 Offset = 3;
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1 [json_name = "tv_channel_id"];
+    string Name = 4 [json_name = "name"];
+    optional string TvProgramId = 2 [json_name = "tv_program_id"];
+    optional int64 Offset = 3 [json_name = "offset"];
   }
 
   message TOpenTvChannelSettingsDirective {
-    .NAlice.TTvChannelCapability.EChannelType ChannelType = 1;
-    string Name = 2;
+    .NAlice.TTvChannelCapability.EChannelType ChannelType = 1 [json_name = "channel_type"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TAddTvChannelFavoritesDirective {
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1;
-    string Name = 2;
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1 [json_name = "tv_channel_id"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TDeleteTvChannelFavoritesDirective {
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1;
-    string Name = 2;
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1 [json_name = "tv_channel_id"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TOpenTvChannelsCategoryDirective {
-    string CategoryId = 1;
-    string Name = 2;
+    string CategoryId = 1 [json_name = "category_id"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TOpenPlayerTvChannelListDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TOpenPlayerTvProgramDirective {
-    string Name = 1;
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 2 [json_name = "tv_channel_id"];
   }
 
   message TOpenTvProgramDirective {
-    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1;
-    string Name = 3;
-    optional string TvProgramId = 2;
+    .NAlice.TTvChannelCapability.TTvChannelId TvChannelId = 1 [json_name = "tv_channel_id"];
+    string Name = 3 [json_name = "name"];
+    optional string TvProgramId = 2 [json_name = "tv_program_id"];
   }
 
   message TOpenTvChannelsScreenCentaurDirective {
-    string Name = 1;
-    .NAlice.NData.NTvChannels.TCentaurChannelsListData CentaurChannelsListData = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.NTvChannels.TCentaurChannelsListData CentaurChannelsListData = 2 [json_name = "centaur_channels_list_data"];
   }
 
   enum EChannelType {
@@ -152,8 +154,8 @@ message TTvChannelCapability {
     REACTION_AS_PURCHASED = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TTvChannelCapability.TParameters Parameters = 2;
-  .NAlice.TTvChannelCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTvChannelCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTvChannelCapability.TState State = 3 [json_name = "state"];
 }
 

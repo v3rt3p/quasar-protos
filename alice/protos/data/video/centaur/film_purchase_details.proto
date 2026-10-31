@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice;
+
+option go_package = "a.yandex-team.ru/alice/protos/data/video/centaur";
+
+import "alice/protos/data/video/video.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFilmPurchaseDetails {
+  string QRUrl = 1 [json_name = "qr_url"];
+  string Title = 2 [json_name = "title"];
+  .NAlice.TVHLicenceInfo VhLicences = 3 [json_name = "vh_licenses"];
+  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 4 [json_name = "view_options"];
+}
+

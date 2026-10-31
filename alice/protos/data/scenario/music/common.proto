@@ -8,7 +8,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/music";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDurationRestrictions {
-  uint32 MinS = 1;
-  uint32 MaxS = 2;
+  uint32 MinS = 1 [json_name = "min_s"];
+  uint32 MaxS = 2 [json_name = "max_s"];
 }
 

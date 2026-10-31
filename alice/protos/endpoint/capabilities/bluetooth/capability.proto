@@ -12,10 +12,10 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBluetoothCapability {
   message TConnectedDevice {
-    .NAlice.TBluetoothCapability.ERole Role = 1;
-    string Name = 2;
-    string Address = 3;
-    uint64 ConnectionTime = 4;
+    .NAlice.TBluetoothCapability.ERole Role = 1 [json_name = "role"];
+    string Name = 2 [json_name = "name"];
+    string Address = 3 [json_name = "address"];
+    uint64 ConnectionTime = 4 [json_name = "connection_time"];
   }
 
   message TParameters {
@@ -24,19 +24,19 @@ message TBluetoothCapability {
   message TState {
     reserved "ConnectedDevice";
     reserved 1;
-    repeated .NAlice.TBluetoothCapability.TConnectedDevice ConnectedDevices = 2;
-    bool Playing = 3;
-    bool Discoverable = 4;
-    optional uint32 Volume = 5;
+    repeated .NAlice.TBluetoothCapability.TConnectedDevice ConnectedDevices = 2 [json_name = "connected_devices"];
+    bool Playing = 3 [json_name = "playing"];
+    bool Discoverable = 4 [json_name = "discoverable"];
+    optional uint32 Volume = 5 [json_name = "volume"];
   }
 
   message TConnectBluetoothDirective {
-    string Name = 1000;
-    string Address = 1;
+    string Name = 1000 [json_name = "name"];
+    string Address = 1 [json_name = "address"];
   }
 
   message TDisconnectBluetoothDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TForgetPairedDevicesDirective {
@@ -48,8 +48,8 @@ message TBluetoothCapability {
     ROLE_SOURCE = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TBluetoothCapability.TParameters Parameters = 2;
-  .NAlice.TBluetoothCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBluetoothCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBluetoothCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package NAlice.NData.NTron;
+
+option java_package = "ru.yandex.alice.protos.data.tron";
+option go_package = "a.yandex-team.ru/alice/protos/data/tron";
+
+import "google/protobuf/timestamp.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSourceTag {
+  enum ESource {
+    S_UNKNOWN = 0;
+    S_NOTA = 1;
+  }
+
+  .NAlice.NData.NTron.TSourceTag.ESource Source = 1 [json_name = "source"];
+}
+
+message TConversationIdTag {
+  string ConversationId = 1 [json_name = "conversation_id"];
+}
+
+message TCategoryTag {
+  enum ECategory {
+    C_UNKNOWN = 0;
+    C_OWING = 1;
+    C_OWED = 2;
+    C_PEOPLE = 3;
+  }
+
+  .NAlice.NData.NTron.TCategoryTag.ECategory Category = 1 [json_name = "category"];
+}
+
+message TTronTagValue {
+  oneof Value {
+    .NAlice.NData.NTron.TSourceTag SourceTag = 1 [json_name = "source_tag"];
+    .NAlice.NData.NTron.TConversationIdTag ConversationIdTag = 2 [json_name = "conversation_id_tag"];
+    .NAlice.NData.NTron.TCategoryTag CategoryTag = 3 [json_name = "category_tag"];
+  }
+}
+
+message TTronTag {
+  string TagId = 1 [json_name = "tag_id"];
+  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value"];
+  string NoteId = 3 [json_name = "note_id"];
+  string HashPuid = 4 [json_name = "hash_puid"];
+  optional .google.protobuf.Timestamp ExpireAt = 5 [json_name = "expire_at"];
+}
+

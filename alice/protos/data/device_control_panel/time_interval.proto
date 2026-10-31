@@ -11,14 +11,14 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimeInterval {
   message TBoundary {
-    .NAlice.TLocalTime Time = 1;
-    .NAlice.TDayOfWeek DayOfWeek = 2;
+    .NAlice.TLocalTime Time = 1 [json_name = "time"];
+    .NAlice.TDayOfWeek DayOfWeek = 2 [json_name = "day_of_week"];
   }
 
-  .NAlice.TLocalTime StartTime = 1;
-  .NAlice.TLocalTime EndTime = 2;
-  .NAlice.TDayOfWeek DayOfWeek = 3;
-  .NAlice.TTimeInterval.TBoundary Start = 4;
-  .NAlice.TTimeInterval.TBoundary End = 5;
+  .NAlice.TLocalTime StartTime = 1 [json_name = "start_time"];
+  .NAlice.TLocalTime EndTime = 2 [json_name = "end_time"];
+  .NAlice.TDayOfWeek DayOfWeek = 3 [json_name = "day_of_week"];
+  .NAlice.TTimeInterval.TBoundary Start = 4 [json_name = "start"];
+  .NAlice.TTimeInterval.TBoundary End = 5 [json_name = "end"];
 }
 

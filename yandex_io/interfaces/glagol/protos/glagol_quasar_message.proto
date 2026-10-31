@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package quasar.proto;
+
+message GlagolQuasarMessage {
+  optional string request_id = 1;
+  optional bytes multiroom_broadcast = 128;
+  optional bytes multiroom_directive = 148;
+  optional bytes multiroom_state = 152;
+  optional bytes stereo_pair_message = 198;
+  optional bytes alice_message = 204;
+  optional bytes glagol_cluster_sign = 182;
+}
+

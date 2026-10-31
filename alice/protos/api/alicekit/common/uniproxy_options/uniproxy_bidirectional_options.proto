@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.common.uniproxy_options";
+option java_outer_classname = "UniproxyBidirectionalOptionsProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/common/uniproxy_options";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TUniproxyBidirectionalOptions {
+  message TRequestOptions {
+    message TAsrMode {
+    }
+
+    message TAliceRequestMode {
+    }
+
+    oneof RequestMode {
+      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAsrMode Asr = 1 [json_name = "asr"];
+      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAliceRequestMode AliceRequest = 2 [json_name = "alice_request"];
+    }
+  }
+
+  message TIterationOptions {
+    message TStartIterationPolicy {
+      message TSequentialPolicy {
+      }
+
+      message TInterruptionPolicy {
+      }
+
+      oneof Policy {
+        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TSequentialPolicy Sequential = 2 [json_name = "sequential"];
+        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TInterruptionPolicy Interruption = 1 [json_name = "interruption"];
+      }
+    }
+
+    .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy StartIterationPolicy = 1 [json_name = "start_iteration_policy"];
+  }
+
+  message TFinishEvent {
+    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw"];
+  }
+
+  message TStartEvent {
+    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw"];
+  }
+
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions Request = 1 [json_name = "request"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions Iteration = 2 [json_name = "iteration"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TFinishEvent FinishEvent = 3 [json_name = "finish_event"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TStartEvent StartEvent = 4 [json_name = "start_event"];
+}
+

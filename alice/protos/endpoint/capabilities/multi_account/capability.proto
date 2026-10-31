@@ -16,39 +16,39 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMultiAccountCapability {
   message TParameters {
-    bool SupportsAddAccountDirective = 1;
+    bool SupportsAddAccountDirective = 1 [json_name = "supports_add_account_directive"];
   }
 
   message TAccount {
     reserved "Puid";
     reserved 2;
-    string Name = 1;
-    bool IsActive = 3;
-    bool IsChild = 4;
-    bool IsOwner = 5;
-    string PersonId = 6;
+    string Name = 1 [json_name = "name"];
+    bool IsActive = 3 [json_name = "is_active"];
+    bool IsChild = 4 [json_name = "is_child"];
+    bool IsOwner = 5 [json_name = "is_owner"];
+    string PersonId = 6 [json_name = "person_id"];
   }
 
   message TState {
-    repeated .NAlice.TMultiAccountCapability.TAccount Accounts = 1;
-    bool ChildAccountSwitchBlockEnabled = 2;
-    .NAlice.TMultiAccountCapability.TParentalControlsSettings ParentalControlsSettings = 3;
+    repeated .NAlice.TMultiAccountCapability.TAccount Accounts = 1 [json_name = "accounts"];
+    bool ChildAccountSwitchBlockEnabled = 2 [json_name = "child_account_switch_block_enabled"];
+    .NAlice.TMultiAccountCapability.TParentalControlsSettings ParentalControlsSettings = 3 [json_name = "parental_controls_settings"];
   }
 
   message TParentalControlsSettings {
-    bool Enabled = 1;
-    bool AppWhiteListEnabled = 2;
-    repeated string AppWhitelistPackageNames = 3;
-    bool VideoSearchProhibited = 4;
-    bool YoutubeProhibited = 5;
-    bool BrowserProhibited = 6;
-    bool HistoryRecordTrackingEnabled = 7;
+    bool Enabled = 1 [json_name = "enabled"];
+    bool AppWhiteListEnabled = 2 [json_name = "app_whitelist_enabled"];
+    repeated string AppWhitelistPackageNames = 3 [json_name = "app_whitelist_package_names"];
+    bool VideoSearchProhibited = 4 [json_name = "video_search_prohibited"];
+    bool YoutubeProhibited = 5 [json_name = "youtube_prohibited"];
+    bool BrowserProhibited = 6 [json_name = "browser_prohibited"];
+    bool HistoryRecordTrackingEnabled = 7 [json_name = "history_record_tracking_enabled"];
   }
 
   message TSwitchAccountDirective {
-    string SelectedPersonId = 1;
-    string Name = 2;
-    bool ShouldCheckPIN = 3;
+    string SelectedPersonId = 1 [json_name = "selected_person_id"];
+    string Name = 2 [json_name = "name"];
+    bool ShouldCheckPIN = 3 [json_name = "should_check_pin"];
   }
 
   message TOpenAccountListDirective {
@@ -57,55 +57,92 @@ message TMultiAccountCapability {
       VoiceEnrollment = 1;
     }
 
-    string Name = 1;
-    .NAlice.TMultiAccountCapability.TOpenAccountListDirective.ESource Source = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TMultiAccountCapability.TOpenAccountListDirective.ESource Source = 2 [json_name = "source"];
   }
 
   message TRefreshAccountDirective {
-    string Name = 1;
-    string PersonId = 2;
+    string Name = 1 [json_name = "name"];
+    string PersonId = 2 [json_name = "person_id"];
   }
 
   message TAddAccountDirective {
-    string Name = 1;
-    string EncryptedCode = 2;
-    string Signature = 3;
-    string EncryptedSessionKey = 4;
-    string Puid = 5;
-    .NAlice.TTypedCallbackRequest OnSuccess = 6;
-    .NAlice.TTypedCallbackRequest OnFail = 7;
+    string Name = 1 [json_name = "name"];
+    string EncryptedCode = 2 [json_name = "encrypted_code"];
+    string Signature = 3 [json_name = "signature"];
+    string EncryptedSessionKey = 4 [json_name = "encrypted_session_key"];
+    string Puid = 5 [json_name = "puid"];
+    .NAlice.TTypedCallbackRequest OnSuccess = 6 [json_name = "on_success"];
+    .NAlice.TTypedCallbackRequest OnFail = 7 [json_name = "on_fail"];
   }
 
   message TLocalAddAccountDirective {
-    string Code = 1;
+    string Code = 1 [json_name = "code"];
   }
 
   message TExpandAccountListDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TShowLoginScreenDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TAuthorizePupaDirective {
-    string PupaPuid = 1;
-    string Name = 2;
+    string PupaPuid = 1 [json_name = "pupa_puid"];
+    string Name = 2 [json_name = "name"];
   }
 
   message TAddGuestUserDirective {
-    string Name = 1;
-    string JwtToken = 2;
+    string Name = 1 [json_name = "name"];
+    string JwtToken = 2 [json_name = "jwt_token"];
   }
 
   message TClearGuestUserDirective {
-    string Name = 1;
-    string UserId = 2;
-    string OwnerId = 3;
+    string Name = 1 [json_name = "name"];
+    string UserId = 2 [json_name = "user_id"];
+    string OwnerId = 3 [json_name = "owner_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TMultiAccountCapability.TParameters Parameters = 2;
-  .NAlice.TMultiAccountCapability.TState State = 3;
+  message TAddAccountWithCookieDirective {
+    string Cookie = 1 [json_name = "cookie"];
+  }
+
+  message TRemoveAccountDirective {
+    string Puid = 1 [json_name = "puid"];
+  }
+
+  message TAuthActionResultEvent {
+    message TSuccess {
+      optional string Message = 1 [json_name = "message"];
+    }
+
+    message TFailure {
+      .NAlice.TMultiAccountCapability.EAuthFailureReason Reason = 2 [json_name = "reason"];
+      optional string Message = 1 [json_name = "message"];
+    }
+
+    string RequestId = 1 [json_name = "request_id"];
+    oneof Result {
+      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TSuccess Success = 2 [json_name = "success"];
+      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TFailure Failure = 3 [json_name = "failure"];
+    }
+  }
+
+  enum EAuthFailureReason {
+    AUTH_FAILURE_UNKNOWN = 0;
+    AUTH_FAILURE_UNSUPPORTED = 1;
+    AUTH_FAILURE_REJECTED = 2;
+    AUTH_FAILURE_SUPERSEDED = 3;
+    AUTH_FAILURE_TIMEOUT = 4;
+    AUTH_FAILURE_TRANSPORT = 5;
+    AUTH_FAILURE_ACCOUNT_NOT_FOUND = 6;
+    AUTH_FAILURE_ACCOUNT_NOT_AUTHORIZED = 7;
+    AUTH_FAILURE_NETWORK = 8;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMultiAccountCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMultiAccountCapability.TState State = 3 [json_name = "state"];
 }
 

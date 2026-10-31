@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package quark.core.proto;
+
+option java_package = "ru.yandex.quasar.protobuf";
+option java_outer_classname = "AliceModeProtos";
+
+enum AliceMode {
+  UNDEFINED = 0;
+  BASE = 1;
+  PRO = 2;
+}
+

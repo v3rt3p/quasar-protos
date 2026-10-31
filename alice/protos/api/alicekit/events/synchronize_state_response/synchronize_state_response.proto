@@ -28,11 +28,11 @@ message TSynchronizeStateResponse {
       production = 6;
     }
 
-    .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData.EGeo Geo = 1;
-    .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData.ECtype Ctype = 2;
+    .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData.EGeo Geo = 1 [json_name = "geo"];
+    .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData.ECtype Ctype = 2 [json_name = "ctype"];
   }
 
-  string SessionId = 1;
-  .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData ConnectionData = 2;
+  string SessionId = 1 [json_name = "SessionId"];
+  .NAlice.NAliceApi.TSynchronizeStateResponse.TConnectionData ConnectionData = 2 [json_name = "connection_data"];
 }
 

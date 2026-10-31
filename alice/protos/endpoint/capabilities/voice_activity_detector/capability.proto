@@ -17,17 +17,17 @@ message TVoiceActivityDetectorCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TSetVadActionDirective {
-    string Name = 1000;
-    string Id = 1;
-    .NAlice.TCapability.EEventType EventToDetect = 2;
+    string Name = 1000 [json_name = "name"];
+    string Id = 1 [json_name = "id"];
+    .NAlice.TCapability.EEventType EventToDetect = 2 [json_name = "event_to_detect"];
     oneof Action {
-      .NAlice.TTypedCallbackRequest TypedCallbackOnDetection = 4;
+      .NAlice.TTypedCallbackRequest TypedCallbackOnDetection = 4 [json_name = "typed_callback_on_detection"];
     }
-    optional uint64 TtlSeconds = 3;
+    optional uint64 TtlSeconds = 3 [json_name = "ttl_seconds"];
   }
 
   message TSpeechFinishedEvent {
@@ -40,11 +40,11 @@ message TVoiceActivityDetectorCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TVoiceActivityDetectorCapability.TParameters Parameters = 2;
-  .NAlice.TVoiceActivityDetectorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVoiceActivityDetectorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVoiceActivityDetectorCapability.TState State = 3 [json_name = "state"];
 }
 

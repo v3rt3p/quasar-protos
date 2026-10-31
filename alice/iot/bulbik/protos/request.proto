@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package NAlice.NBulbik;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios";
+option java_outer_classname = "ResponseProto";
+option go_package = "a.yandex-team.ru/alice/iot/bulbik/protos";
+
+import "alice/library/client/protos/client_info.proto";
+import "alice/megamind/protos/common/frame.proto";
+import "alice/protos/endpoint/capabilities/local_iot/capability.proto";
+import "google/protobuf/any.proto";
+
+message TUserInfo {
+  string Uid = 1 [json_name = "uid"];
+}
+
+message TScenarioBaseRequest {
+  string RequestId = 1 [json_name = "request_id"];
+  uint64 RandomSeed = 2 [json_name = "random_seed"];
+  .NAlice.TClientInfoProto ClientInfo = 3 [json_name = "client_info"];
+}
+
+message TInput {
+  repeated .NAlice.TSemanticFrame SemanticFrames = 1 [json_name = "semantic_frames"];
+}
+
+message TScenarioRunRequest {
+  message TSettings {
+    bool EnableScheduledActions = 1 [json_name = "enable_scheduled_actions"];
+  }
+
+  .NAlice.NBulbik.TScenarioBaseRequest BaseRequest = 1 [json_name = "base_request"];
+  .NAlice.NBulbik.TInput Input = 2 [json_name = "input"];
+  bytes IoTUserInfoSerialized = 3 [json_name = "iot_user_info_serialized"];
+  .NAlice.NBulbik.TUserInfo UserInfo = 4 [json_name = "user_info"];
+  .NAlice.TLocalIoTCapability.TIoTAccountSettings IoTAccountSettings = 5 [json_name = "iot_account_settings"];
+  bool IsLocal = 6 [json_name = "is_local"];
+  .NAlice.NBulbik.TScenarioRunRequest.TSettings Settings = 7 [json_name = "settings"];
+}
+
+message TScenarioApplyRequest {
+  .NAlice.NBulbik.TScenarioBaseRequest BaseRequest = 1 [json_name = "base_request"];
+  .google.protobuf.Any Arguments = 2 [json_name = "arguments"];
+  .NAlice.NBulbik.TInput Input = 3 [json_name = "input"];
+  bytes IoTUserInfoSerialized = 4 [json_name = "iot_user_info_serialized"];
+  .NAlice.NBulbik.TUserInfo UserInfo = 5 [json_name = "user_info"];
+}
+

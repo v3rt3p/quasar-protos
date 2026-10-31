@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CloudyCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/cloudy;cloudypb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCloudyCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TShowOnboardingDirective {
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TCloudyCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TCloudyCapability.TState State = 3 [json_name = "state"];
+}
+

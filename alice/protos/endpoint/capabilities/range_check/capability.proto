@@ -16,14 +16,14 @@ message TRangeCheckCapability {
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
   }
 
   message TRangeCheckEvent {
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TRangeCheckCapability.TParameters Parameters = 2;
-  .NAlice.TRangeCheckCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TRangeCheckCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TRangeCheckCapability.TState State = 3 [json_name = "state"];
 }
 

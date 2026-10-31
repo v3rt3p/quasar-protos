@@ -14,12 +14,12 @@ message TAudioTranscriptionInputResponse {
   }
 
   message TAck {
-    optional uint64 AudioEndTimestampMs = 1;
+    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms"];
   }
 
   oneof Response {
-    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TStartStream StartStream = 1;
-    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TAck Ack = 2;
+    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TStartStream StartStream = 1 [json_name = "start_stream"];
+    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TAck Ack = 2 [json_name = "ack"];
   }
 }
 

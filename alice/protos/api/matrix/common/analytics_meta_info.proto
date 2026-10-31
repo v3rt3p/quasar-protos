@@ -9,6 +9,6 @@ option go_package = "a.yandex-team.ru/alice/protos/api/matrix/common";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnalyticsMetaInfo {
-  optional string RequestId = 1;
+  optional string RequestId = 1 [json_name = "request_id"];
 }
 

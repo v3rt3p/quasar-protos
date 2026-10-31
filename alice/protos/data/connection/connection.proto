@@ -9,7 +9,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/connection";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TConnectionStatus {
-  bool IsConnected = 1;
-  optional uint32 LocalPort = 2;
+  bool IsConnected = 1 [json_name = "is_connected"];
+  optional uint32 LocalPort = 2 [json_name = "local_port"];
 }
 

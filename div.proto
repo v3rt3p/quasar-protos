@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+option java_package = "com.yandex.quark.proto";
+option java_outer_classname = "AliceDivProto";
+
+import "google/protobuf/struct.proto";
+
+message TDivCard {
+  message Template {
+    oneof TemplateBody {
+      .google.protobuf.Struct Body = 1;
+      string StringBody = 2;
+    }
+  }
+
+  message TDivPalette {
+    map<string, string> Dark = 1;
+    map<string, string> Light = 2;
+  }
+
+  bool HideBorders = 2;
+  string Text = 3;
+  map<string, .quark.core.proto.TDivCard.Template> GlobalTemplates = 4;
+  string CardName = 5;
+  .quark.core.proto.TDivId Id = 7;
+  .quark.core.proto.TDivCard.TDivPalette Palette = 8;
+  oneof DivBody {
+    .google.protobuf.Struct Body = 1;
+    string StringBody = 6;
+  }
+  optional bool DontAddToChatHistory = 9;
+}
+
+message TDivId {
+  string CardName = 1;
+  string CardId = 2;
+}
+

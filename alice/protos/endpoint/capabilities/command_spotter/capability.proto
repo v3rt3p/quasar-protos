@@ -15,7 +15,7 @@ message TCommandSpotterCapability {
   }
 
   message TState {
-    repeated .NAlice.TCommandSpotterCapability.EFastCommand EnabledFastCommands = 1;
+    repeated .NAlice.TCommandSpotterCapability.EFastCommand EnabledFastCommands = 1 [json_name = "enabled_fast_commands"];
   }
 
   message TEnableCommandPhrasesDirective {
@@ -24,17 +24,17 @@ message TCommandSpotterCapability {
       NextTTS = 1;
     }
 
-    string Name = 1;
-    .NAlice.TCommandSpotterCapability.TEnableCommandPhrasesDirective.EPurpose Purpose = 2;
-    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3;
-    .NAlice.TCommandSpotterCapability.EThresholdType Threshold = 4;
-    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 5;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TCommandSpotterCapability.TEnableCommandPhrasesDirective.EPurpose Purpose = 2 [json_name = "purpose"];
+    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases"];
+    .NAlice.TCommandSpotterCapability.EThresholdType Threshold = 4 [json_name = "threshold"];
+    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 5 [json_name = "intent"];
   }
 
   message TDisableCommandPhrasesDirective {
-    string Name = 1;
-    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 2;
-    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 2 [json_name = "intent"];
+    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases"];
   }
 
   enum EPhraseType {
@@ -65,8 +65,8 @@ message TCommandSpotterCapability {
     CallAnswer = 9;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TCommandSpotterCapability.TParameters Parameters = 2;
-  .NAlice.TCommandSpotterCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TCommandSpotterCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TCommandSpotterCapability.TState State = 3 [json_name = "state"];
 }
 

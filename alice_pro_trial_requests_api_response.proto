@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package QuarkJniProtos;
+
+option java_package = "ru.yandex.quasar.protobuf";
+
+message AliceProTrialRequestsResponse {
+  optional uint64 LeftCount = 1;
+  optional uint64 Limit = 2;
+}
+

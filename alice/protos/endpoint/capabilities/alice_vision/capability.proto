@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceVisionCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_vision;alicevisionpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceVisionCapability {
+  message TParameters {
+  }
+
+  message TState {
+    enum ECameraState {
+      Undefined = 0;
+      Off = 1;
+      On = 2;
+    }
+
+    .NAlice.TAliceVisionCapability.TState.ECameraState CameraState = 1 [json_name = "camera_state"];
+  }
+
+  message TSendVideoFrameCallbackDirective {
+    string Name = 1000 [json_name = "name"];
+    string Query = 1 [json_name = "query"];
+  }
+
+  message TShowAliceVisionScreenDirective {
+    string Name = 1 [json_name = "name"];
+    string DialogId = 2 [json_name = "dialog_id"];
+  }
+
+  message TAliceVisionFreeRequestsLimitExceededDirective {
+    string Name = 1000 [json_name = "name"];
+    uint32 Limit = 1 [json_name = "limit"];
+    uint64 ValidUntilTimestamp = 2 [json_name = "valid_until_timestamp"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceVisionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceVisionCapability.TState State = 3 [json_name = "state"];
+}
+

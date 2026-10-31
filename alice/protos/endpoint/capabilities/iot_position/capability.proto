@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TIotPositionCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_position;iotpositionpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotPositionCapability {
+  message TParameters {
+  }
+
+  message TPosition {
+    reserved "XAccelerationMg";
+    reserved "YAccelerationMg";
+    reserved "ZAccelerationMg";
+    reserved 1;
+    reserved 2;
+    reserved 3;
+    message TSpatialVector {
+      sint32 X = 1 [json_name = "x"];
+      sint32 Y = 2 [json_name = "y"];
+      sint32 Z = 3 [json_name = "z"];
+    }
+
+    .NAlice.TIotPositionCapability.TPosition.TSpatialVector SpatialVector = 4 [json_name = "spatial_vector"];
+    bool IsCorrect = 5 [json_name = "is_correct"];
+  }
+
+  message TState {
+    reserved "Correct";
+    reserved 2;
+    .NAlice.TIotPositionCapability.TPosition Position = 1 [json_name = "position"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TIotPositionCapability Capability = 1 [json_name = "capability"];
+  }
+
+  message TIotPositionChangedEvent {
+    bool PositionChanged = 1 [json_name = "position_changed"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotPositionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotPositionCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "RoutineRunCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/routine_run;routine_runpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRoutineRunCapability {
+  message TParameters {
+    .NAlice.TRoutineRunCapability.TScheduleRun Run = 1 [json_name = "run"];
+  }
+
+  message TScheduleRun {
+    string ScheduleId = 1 [json_name = "schedule_id"];
+    string RunId = 2 [json_name = "run_id"];
+    string Title = 3 [json_name = "title"];
+    string Description = 4 [json_name = "description"];
+    string Instruction = 5 [json_name = "instruction"];
+    string TimeZone = 6 [json_name = "time_zone"];
+  }
+
+  message TState {
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TRoutineRunCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TRoutineRunCapability.TState State = 3 [json_name = "state"];
+}
+

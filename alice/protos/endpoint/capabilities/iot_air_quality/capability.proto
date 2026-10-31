@@ -16,11 +16,11 @@ message TIotAirQualityCapability {
   }
 
   message TState {
-    .NAlice.TIotAirQualityCapability.EAirQuality AirQuality = 1;
+    .NAlice.TIotAirQualityCapability.EAirQuality AirQuality = 1 [json_name = "air_quality"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAirQualityCapability Capability = 1;
+    .NAlice.TIotAirQualityCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EAirQuality {
@@ -33,8 +33,8 @@ message TIotAirQualityCapability {
     ExtremelyPoor = 6;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotAirQualityCapability.TParameters Parameters = 2;
-  .NAlice.TIotAirQualityCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotAirQualityCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotAirQualityCapability.TState State = 3 [json_name = "state"];
 }
 

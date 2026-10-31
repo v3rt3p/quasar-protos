@@ -20,18 +20,13 @@ message RequestVoiceprint {
 }
 
 message BiometryResultForClient {
-  message CompatibilityTagToGuestThresholdEntry {
-    optional string key = 1;
-    optional double value = 2;
-  }
-
   optional string request_id = 1;
   optional uint64 consumed_samples_count = 2;
   optional bool last_chunk_received = 3;
   repeated .YabioOndeviceProtobuf.RequestVoiceprint request_voiceprint = 4;
   repeated .YabioOndeviceProtobuf.RequestVoiceprint experimental_voiceprint = 5;
   optional string preferred_compatibility_tag = 6;
-  repeated .YabioOndeviceProtobuf.BiometryResultForClient.CompatibilityTagToGuestThresholdEntry compatibility_tag_to_guest_threshold = 7;
+  map<string, double> compatibility_tag_to_guest_threshold = 7;
 }
 
 message TEnrollment {
@@ -61,39 +56,39 @@ message TEnrollmentAudios {
 }
 
 message TEnrollmentVoiceprintsInfo {
-  optional string compatibility_tag = 1;
-  optional uint32 cnt = 2;
-  optional int64 timestamp = 3;
-  repeated string pseudo_request_ids = 5;
+  optional string compatibility_tag = 1 [json_name = "compatibility_tag"];
+  optional uint32 cnt = 2 [json_name = "cnt"];
+  optional int64 timestamp = 3 [json_name = "timestamp"];
+  repeated string pseudo_request_ids = 5 [json_name = "pseudo_request_ids"];
 }
 
 message TEnrollmentInfo {
   reserved 2;
-  optional string person_id = 1;
-  repeated .YabioOndeviceProtobuf.TEnrollmentVoiceprintsInfo voiceprints = 3;
-  optional string device_id = 4;
-  optional int64 timestamp = 5;
+  optional string person_id = 1 [json_name = "person_id"];
+  repeated .YabioOndeviceProtobuf.TEnrollmentVoiceprintsInfo voiceprints = 3 [json_name = "voiceprints"];
+  optional string device_id = 4 [json_name = "device_id"];
+  optional int64 timestamp = 5 [json_name = "timestamp"];
 }
 
 message DetectionDebugInfo {
-  repeated string person_ids = 1;
-  repeated double raw_scores = 2;
-  repeated double probabilities = 3;
-  optional double guest_threshold = 4;
-  optional string mode = 5;
-  optional double confidence_threshold = 6;
-  optional double confidence_diff_threshold = 7;
-  optional .YabioOndeviceProtobuf.ContextScoring context_scoring = 8;
+  repeated string person_ids = 1 [json_name = "person_ids"];
+  repeated double raw_scores = 2 [json_name = "raw_scores"];
+  repeated double probabilities = 3 [json_name = "probabilities"];
+  optional double guest_threshold = 4 [json_name = "guest_threshold"];
+  optional string mode = 5 [json_name = "mode"];
+  optional double confidence_threshold = 6 [json_name = "confidence_threshold"];
+  optional double confidence_diff_threshold = 7 [json_name = "confidence_diff_threshold"];
+  optional .YabioOndeviceProtobuf.ContextScoring context_scoring = 8 [json_name = "context_scoring"];
 }
 
 message ContextScoring {
-  optional int32 max_time_diff_seconds = 1;
-  optional double min_embedding_cosine = 2;
-  optional double lambda = 3;
-  optional bool use_exp_formula = 4;
-  repeated double previous_scores = 5;
-  repeated double current_scores = 6;
-  optional double embedding_curr_prev_similar = 7;
+  optional int32 max_time_diff_seconds = 1 [json_name = "max_time_diff_seconds"];
+  optional double min_embedding_cosine = 2 [json_name = "min_embedding_cosine"];
+  optional double lambda = 3 [json_name = "lambda"];
+  optional bool use_exp_formula = 4 [json_name = "use_exp_formula"];
+  repeated double previous_scores = 5 [json_name = "previous_scores"];
+  repeated double current_scores = 6 [json_name = "current_scores"];
+  optional double embedding_curr_prev_similar = 7 [json_name = "embedding_curr_prev_similar"];
 }
 
 message AgeResult {
@@ -107,10 +102,10 @@ message AgeResult {
     child = 1;
   }
 
-  optional .YabioOndeviceProtobuf.AgeResult.EAge age = 1;
-  optional double score = 2;
-  optional .YabioOndeviceProtobuf.AgeResult.EAgeConfidence confidence = 4;
-  optional string model_version = 3;
+  optional .YabioOndeviceProtobuf.AgeResult.EAge age = 1 [json_name = "age"];
+  optional double score = 2 [json_name = "score"];
+  optional .YabioOndeviceProtobuf.AgeResult.EAgeConfidence confidence = 4 [json_name = "confidence"];
+  optional string model_version = 3 [json_name = "model_version"];
 }
 
 message GenderResult {
@@ -119,62 +114,62 @@ message GenderResult {
     female = 1;
   }
 
-  optional .YabioOndeviceProtobuf.GenderResult.EGender gender = 1;
-  optional double score = 2;
-  optional string model_version = 3;
+  optional .YabioOndeviceProtobuf.GenderResult.EGender gender = 1 [json_name = "gender"];
+  optional double score = 2 [json_name = "score"];
+  optional string model_version = 3 [json_name = "model_version"];
 }
 
 message MatchResult {
   reserved 4;
   reserved 6;
   reserved 11;
-  optional string matched_person_id = 1;
-  optional .YabioOndeviceProtobuf.DetectionDebugInfo detection_debug_info = 2;
-  optional uint64 samples_count_used_to_compute_match = 3;
-  optional string compatibility_tag_used_in_matching = 5;
-  optional string errors = 7;
-  optional uint64 received_audio_size_in_bytes = 8;
-  optional string match_time = 9;
-  optional bool local_last_chunk_received = 10;
-  optional .YabioOndeviceProtobuf.EMatchConfidence match_confidence = 12;
-  optional .YabioOndeviceProtobuf.AgeResult age_result = 13;
-  optional .YabioOndeviceProtobuf.GenderResult gender_result = 14;
-  optional uint32 confidence_level_10 = 15;
+  optional string matched_person_id = 1 [json_name = "matched_person_id"];
+  optional .YabioOndeviceProtobuf.DetectionDebugInfo detection_debug_info = 2 [json_name = "detection_debug_info"];
+  optional uint64 samples_count_used_to_compute_match = 3 [json_name = "samples_count_used_to_compute_match"];
+  optional string compatibility_tag_used_in_matching = 5 [json_name = "compatibility_tag_used_in_matching"];
+  optional string errors = 7 [json_name = "errors"];
+  optional uint64 received_audio_size_in_bytes = 8 [json_name = "received_audio_size_in_bytes"];
+  optional string match_time = 9 [json_name = "match_time"];
+  optional bool local_last_chunk_received = 10 [json_name = "local_last_chunk_received"];
+  optional .YabioOndeviceProtobuf.EMatchConfidence match_confidence = 12 [json_name = "match_confidence"];
+  optional .YabioOndeviceProtobuf.AgeResult age_result = 13 [json_name = "age_result"];
+  optional .YabioOndeviceProtobuf.GenderResult gender_result = 14 [json_name = "gender_result"];
+  optional uint32 confidence_level_10 = 15 [json_name = "confidence_level_10"];
 }
 
 message MatchingInfo {
   reserved 3;
-  optional .YabioOndeviceProtobuf.MatchResult last_used_matching_result = 1;
-  repeated .YabioOndeviceProtobuf.MatchResult unique_matching_results = 2;
+  optional .YabioOndeviceProtobuf.MatchResult last_used_matching_result = 1 [json_name = "last_used_matching_result"];
+  repeated .YabioOndeviceProtobuf.MatchResult unique_matching_results = 2 [json_name = "unique_matching_results"];
 }
 
 message ProcessingInfo {
-  optional double rtf = 1;
-  optional double audio_duration_ms = 2;
-  optional double latency_ms = 3;
+  optional double rtf = 1 [json_name = "rtf"];
+  optional double audio_duration_ms = 2 [json_name = "audio_duration_ms"];
+  optional double latency_ms = 3 [json_name = "latency_ms"];
 }
 
 message OndeviceBioSessionInfo {
   reserved 1;
   reserved 2;
   reserved 3;
-  optional .YabioOndeviceProtobuf.ProcessingInfo spotter = 4;
-  optional .YabioOndeviceProtobuf.ProcessingInfo request = 5;
+  optional .YabioOndeviceProtobuf.ProcessingInfo spotter = 4 [json_name = "spotter"];
+  optional .YabioOndeviceProtobuf.ProcessingInfo request = 5 [json_name = "request"];
 }
 
 message RequestDiagnosticData {
   reserved 7;
   reserved 8;
-  optional string start_time = 1;
-  optional string end_time = 2;
-  optional string svn_version = 3;
-  optional uint32 received_audio_size_in_bytes = 4;
-  repeated .YabioOndeviceProtobuf.TEnrollmentInfo enrollments_info = 5;
-  optional bool is_enrollment_active = 6;
-  optional .YabioOndeviceProtobuf.MatchingInfo matching_info = 9;
-  optional .YabioOndeviceProtobuf.OndeviceBioSessionInfo ondevice_bio_session_info = 10;
-  optional bool match_was_replaced_by_random_user = 11;
-  optional string additional_info = 12;
+  optional string start_time = 1 [json_name = "start_time"];
+  optional string end_time = 2 [json_name = "end_time"];
+  optional string svn_version = 3 [json_name = "svn_version"];
+  optional uint32 received_audio_size_in_bytes = 4 [json_name = "received_audio_size_in_bytes"];
+  repeated .YabioOndeviceProtobuf.TEnrollmentInfo enrollments_info = 5 [json_name = "enrollments_info"];
+  optional bool is_enrollment_active = 6 [json_name = "is_enrollment_active"];
+  optional .YabioOndeviceProtobuf.MatchingInfo matching_info = 9 [json_name = "matching_info"];
+  optional .YabioOndeviceProtobuf.OndeviceBioSessionInfo ondevice_bio_session_info = 10 [json_name = "ondevice_bio_session_info"];
+  optional bool match_was_replaced_by_random_user = 11 [json_name = "match_was_replaced_by_random_user"];
+  optional string additional_info = 12 [json_name = "additional_info"];
 }
 
 enum EMatchConfidence {

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package QuarkProtos;
+
+option java_package = "com.yandex.quark.proto";
+
+message ExecuteActionOptions {
+  message UniproxyOptions {
+    bool use_database = 1;
+  }
+
+  .QuarkProtos.ExecuteActionOptions.UniproxyOptions uniproxy_options = 1;
+}
+

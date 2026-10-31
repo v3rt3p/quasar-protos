@@ -6,5 +6,6 @@ option java_package = "ru.yandex.alice.protos.api.iot_cloud.extensions";
 option java_outer_classname = "ExtensionsProto";
 option go_package = "a.yandex-team.ru/alice/protos/api/iot_cloud/extensions;extensionspb";
 
+import "alice/protos/api/iot_cloud/endpoint/capabilities/common/capability.proto";
 import "google/protobuf/descriptor.proto";
 

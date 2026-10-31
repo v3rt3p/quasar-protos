@@ -12,13 +12,13 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TInvalidAuth {
   message TCredentialInfo {
-    string CredentialValue = 1;
-    .NAlice.NAliceApi.ECredentialStatus CredentialStatus = 2;
+    string CredentialValue = 1 [json_name = "credentialValue"];
+    .NAlice.NAliceApi.ECredentialStatus CredentialStatus = 2 [json_name = "credentialStatus"];
   }
 
   oneof CredentialInfo {
-    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo TokenInfo = 1;
-    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo CookieInfo = 2;
+    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo TokenInfo = 1 [json_name = "tokenInfo"];
+    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo CookieInfo = 2 [json_name = "cookieInfo"];
   }
 }
 

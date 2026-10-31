@@ -18,25 +18,25 @@ message TIotPlanarViewCapability {
   }
 
   message TState {
-    .NAlice.NIot.TBounds Bounds = 1;
-    .NAlice.NIot.TBasis Basis = 2;
-    optional .NAlice.NIot.TGrid Grid = 3;
+    .NAlice.NIot.TBounds Bounds = 1 [json_name = "bounds"];
+    .NAlice.NIot.TBasis Basis = 2 [json_name = "basis"];
+    optional .NAlice.NIot.TGrid Grid = 3 [json_name = "grid"];
   }
 
   message TIotSetPlanarViewBasisDirective {
-    .NAlice.NIot.TBasis Basis = 1;
+    .NAlice.NIot.TBasis Basis = 1 [json_name = "basis"];
   }
 
   message TIotSetPlanarViewGridDirective {
-    .NAlice.NIot.TGrid Grid = 1;
+    .NAlice.NIot.TGrid Grid = 1 [json_name = "grid"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotPlanarViewCapability Capability = 1;
+    .NAlice.TIotPlanarViewCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotPlanarViewCapability.TParameters Parameters = 2;
-  .NAlice.TIotPlanarViewCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotPlanarViewCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotPlanarViewCapability.TState State = 3 [json_name = "state"];
 }
 

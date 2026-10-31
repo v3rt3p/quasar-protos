@@ -17,40 +17,40 @@ message TLightSequenceCapability {
   }
 
   message TStep {
-    double Brightness = 3;
-    uint32 TransitionTimeMs = 4;
-    uint32 DurationMs = 5;
+    double Brightness = 3 [json_name = "brightness"];
+    uint32 TransitionTimeMs = 4 [json_name = "transition_time_ms"];
+    uint32 DurationMs = 5 [json_name = "duration_ms"];
     oneof Color {
-      .NAlice.THueAndSaturation HueSaturation = 1;
-      uint64 TemperatureK = 2;
+      .NAlice.THueAndSaturation HueSaturation = 1 [json_name = "hue_saturation"];
+      uint64 TemperatureK = 2 [json_name = "temperature_k"];
     }
   }
 
   message TSequence {
-    string Id = 1;
-    repeated .NAlice.TLightSequenceCapability.TStep Steps = 2;
+    string Id = 1 [json_name = "id"];
+    repeated .NAlice.TLightSequenceCapability.TStep Steps = 2 [json_name = "steps"];
   }
 
   message TState {
-    .NAlice.TLightSequenceCapability.TSequence ActiveSequence = 1;
+    .NAlice.TLightSequenceCapability.TSequence ActiveSequence = 1 [json_name = "active_sequence"];
   }
 
   message TStartLightSequenceDirective {
-    string Name = 1000;
-    .NAlice.TLightSequenceCapability.TSequence Sequence = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TLightSequenceCapability.TSequence Sequence = 1 [json_name = "sequence"];
   }
 
   message TStopLightSequenceDirective {
-    string Name = 1000;
-    string SequenceID = 1;
+    string Name = 1000 [json_name = "name"];
+    string SequenceID = 1 [json_name = "sequence_id"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLightSequenceCapability Capability = 1;
+    .NAlice.TLightSequenceCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLightSequenceCapability.TParameters Parameters = 2;
-  .NAlice.TLightSequenceCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLightSequenceCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLightSequenceCapability.TState State = 3 [json_name = "state"];
 }
 

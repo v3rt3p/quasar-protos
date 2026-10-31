@@ -21,34 +21,34 @@ message TMusicSearchRequest {
     Clip = 8;
   }
 
-  string Query = 1;
-  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2;
-  uint32 Offset = 3;
-  uint32 Limit = 4;
+  string Query = 1 [json_name = "query"];
+  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
+  uint32 Offset = 3 [json_name = "offset"];
+  uint32 Limit = 4 [json_name = "limit"];
 }
 
 message TMusicSearchResponse {
   message TMusicSearchElement {
-    .NAlice.TVoiceControl VoiceControl = 7;
+    .NAlice.TVoiceControl VoiceControl = 7 [json_name = "voice_control"];
     oneof TElementInfo {
-      .NAlice.NData.TTrack Track = 1;
-      .NAlice.NData.TArtist Artist = 2;
-      .NAlice.NData.TAlbum Album = 3;
-      .NAlice.NData.TPlaylist Playlist = 4;
-      .NAlice.NData.TPodcastEpisode PodcastEpisode = 5;
-      .NAlice.NData.TWave Wave = 6;
+      .NAlice.NData.TTrack Track = 1 [json_name = "track"];
+      .NAlice.NData.TArtist Artist = 2 [json_name = "artist"];
+      .NAlice.NData.TAlbum Album = 3 [json_name = "album"];
+      .NAlice.NData.TPlaylist Playlist = 4 [json_name = "playlist"];
+      .NAlice.NData.TPodcastEpisode PodcastEpisode = 5 [json_name = "podcast_episode"];
+      .NAlice.NData.TWave Wave = 6 [json_name = "wave"];
     }
   }
 
-  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 1;
-  repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 2;
+  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 1 [json_name = "type"];
+  repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 2 [json_name = "search_elements"];
 }
 
 message TMusicSearchHistoryRequest {
 }
 
 message TMusicSearchHistoryResponse {
-  repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 1;
+  repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 1 [json_name = "search_elements"];
 }
 
 message TMusicSearchFeedbackRequest {
@@ -58,12 +58,12 @@ message TMusicSearchFeedbackResponse {
 }
 
 message TMusicSearchNavigationRequest {
-  string Query = 1;
-  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2;
-  uint32 Limit = 3;
+  string Query = 1 [json_name = "query"];
+  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
+  uint32 Limit = 3 [json_name = "limit"];
 }
 
 message TMusicSearchNavigationResponse {
-  repeated .NAlice.TVoiceControl VoiceControls = 1;
+  repeated .NAlice.TVoiceControl VoiceControls = 1 [json_name = "voice_control"];
 }
 

@@ -16,7 +16,7 @@ message TDivIndicator {
 }
 
 message TDivCustoms {
-  .NAlice.TDivVideo DivVideo = 1;
-  .NAlice.TDivIndicator DivIndicator = 2;
+  .NAlice.TDivVideo DivVideo = 1 [json_name = "div_video"];
+  .NAlice.TDivIndicator DivIndicator = 2 [json_name = "div_indicator"];
 }
 

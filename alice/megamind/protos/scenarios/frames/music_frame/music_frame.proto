@@ -16,20 +16,20 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TMusicSlot {
   reserved 56788;
   oneof Value {
-    string GenreValue = 1;
-    string MoodValue = 2;
-    string ActivityValue = 3;
-    string VocalValue = 4;
-    string NoveltyValue = 5;
-    string PersonalityValue = 6;
-    string OrderValue = 7;
-    string RepeatValue = 8;
-    string RoomValue = 9;
-    string StreamValue = 10;
-    string GenerativeStationValue = 11;
-    string NeedSimilarValue = 12;
-    string OffsetValue = 13;
-    string ProviderValue = 14;
+    string GenreValue = 1 [json_name = "genre_value"];
+    string MoodValue = 2 [json_name = "mood_value"];
+    string ActivityValue = 3 [json_name = "activity_value"];
+    string VocalValue = 4 [json_name = "vocal_value"];
+    string NoveltyValue = 5 [json_name = "novelty_value"];
+    string PersonalityValue = 6 [json_name = "personality_value"];
+    string OrderValue = 7 [json_name = "order_value"];
+    string RepeatValue = 8 [json_name = "repeat_value"];
+    string RoomValue = 9 [json_name = "room_value"];
+    string StreamValue = 10 [json_name = "stream_value"];
+    string GenerativeStationValue = 11 [json_name = "generative_station_value"];
+    string NeedSimilarValue = 12 [json_name = "need_similar_value"];
+    string OffsetValue = 13 [json_name = "offset_value"];
+    string ProviderValue = 14 [json_name = "provider_value"];
   }
 }
 
@@ -47,7 +47,7 @@ message TMusicPlayObjectTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicPlayObjectTypeSlot.EValue EnumValue = 1;
+    .NAlice.TMusicPlayObjectTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
@@ -60,25 +60,25 @@ message TMusicContentTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicContentTypeSlot.EValue EnumValue = 1;
+    .NAlice.TMusicContentTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
 message TAmbientSoundSlot {
   oneof Value {
-    string AmbientSoundValue = 1;
+    string AmbientSoundValue = 1 [json_name = "ambient_sound_value"];
   }
 }
 
 message TAliceShowConfigSlot {
   oneof Value {
-    .NAlice.NData.NMusic.TAliceShowConfig ShowConfigValue = 1;
+    .NAlice.NData.NMusic.TAliceShowConfig ShowConfigValue = 1 [json_name = "show_config_value"];
   }
 }
 
 message TAliceShowTypeSlot {
   oneof Value {
-    .NAlice.NData.NMusic.TAliceShowType ShowTypeValue = 1;
+    .NAlice.NData.NMusic.TAliceShowType ShowTypeValue = 1 [json_name = "show_type_value"];
   }
 }
 
@@ -91,7 +91,7 @@ message TMusicPlaybackSourceSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicPlaybackSourceSlot.EValue EnumValue = 1;
+    .NAlice.TMusicPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
@@ -105,58 +105,58 @@ message TFiltrationModeSlot {
   }
 
   oneof Value {
-    .NAlice.TFiltrationModeSlot.EValue EnumValue = 1;
+    .NAlice.TFiltrationModeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
 message TMusicPlaySemanticFrame {
   reserved "ShowPodcast";
   reserved 2;
-  .NAlice.TStringSlot SpecialPlaylist = 1;
-  .NAlice.TStringSlot SpecialAnswerInfo = 3;
-  .NAlice.TStringSlot ActionRequest = 4;
-  .NAlice.TStringSlot Epoch = 5;
-  .NAlice.TStringSlot SearchText = 6;
-  .NAlice.TMusicSlot Genre = 7;
-  .NAlice.TMusicSlot Mood = 8;
-  .NAlice.TMusicSlot Activity = 9;
-  .NAlice.TLanguageSlot Language = 10;
-  .NAlice.TMusicSlot Vocal = 11;
-  .NAlice.TMusicSlot Novelty = 12;
-  .NAlice.TMusicSlot Personality = 13;
-  .NAlice.TMusicSlot Order = 14;
-  .NAlice.TMusicSlot Repeat = 15;
-  .NAlice.TBoolSlot DisableAutoflow = 16;
-  .NAlice.TBoolSlot DisableNlg = 17;
-  .NAlice.TBoolSlot PlaySingleTrack = 18;
-  .NAlice.TNumSlot TrackOffsetIndex = 19;
-  .NAlice.TStringSlot Playlist = 20;
-  .NAlice.TStringSlot ObjectId = 21;
-  .NAlice.TMusicPlayObjectTypeSlot ObjectType = 22;
-  .NAlice.TStringSlot StartFromTrackId = 23;
-  .NAlice.TDoubleSlot OffsetSec = 24;
-  .NAlice.TStringSlot AlarmId = 25;
-  .NAlice.TStringSlot From = 26;
-  .NAlice.TBoolSlot DisableHistory = 27;
-  .NAlice.TMusicSlot Room = 28;
-  .NAlice.TMusicSlot Stream = 29;
-  .NAlice.TMusicSlot GenerativeStation = 30;
-  .NAlice.TMusicSlot NeedSimilar = 31;
-  .NAlice.TLocationSlot Location = 32;
-  .NAlice.TMusicSlot Offset = 33;
-  .NAlice.TBoolSlot DisableMultiroom = 34;
-  .NAlice.TMusicContentTypeSlot ContentType = 35;
-  .NAlice.TAmbientSoundSlot AmbientSound = 36;
-  .NAlice.TAliceShowConfigSlot ShowTailConfig = 37;
-  .NAlice.TAliceShowTypeSlot ShowType = 38;
-  .NAlice.TMusicPlaybackSourceSlot PlaybackSource = 39;
-  .NAlice.TMusicSlot Provider = 40;
-  repeated .NAlice.TLocationSlot LocationGroup = 41;
-  .NAlice.TInt64Slot SessionStartTimestamp = 42;
-  .NAlice.TBoolSlot DisableAutoflowSoft = 43;
-  .NAlice.TBoolSlot Karaoke = 44;
-  .NAlice.TFiltrationModeSlot FiltrationMode = 45;
-  .NAlice.TBoolSlot AnnounceTrack = 46;
+  .NAlice.TStringSlot SpecialPlaylist = 1 [json_name = "special_playlist"];
+  .NAlice.TStringSlot SpecialAnswerInfo = 3 [json_name = "special_answer_info"];
+  .NAlice.TStringSlot ActionRequest = 4 [json_name = "action_request"];
+  .NAlice.TStringSlot Epoch = 5 [json_name = "epoch"];
+  .NAlice.TStringSlot SearchText = 6 [json_name = "search_text"];
+  .NAlice.TMusicSlot Genre = 7 [json_name = "genre"];
+  .NAlice.TMusicSlot Mood = 8 [json_name = "mood"];
+  .NAlice.TMusicSlot Activity = 9 [json_name = "activity"];
+  .NAlice.TLanguageSlot Language = 10 [json_name = "language"];
+  .NAlice.TMusicSlot Vocal = 11 [json_name = "vocal"];
+  .NAlice.TMusicSlot Novelty = 12 [json_name = "novelty"];
+  .NAlice.TMusicSlot Personality = 13 [json_name = "personality"];
+  .NAlice.TMusicSlot Order = 14 [json_name = "order"];
+  .NAlice.TMusicSlot Repeat = 15 [json_name = "repeat"];
+  .NAlice.TBoolSlot DisableAutoflow = 16 [json_name = "disable_autoflow"];
+  .NAlice.TBoolSlot DisableNlg = 17 [json_name = "disable_nlg"];
+  .NAlice.TBoolSlot PlaySingleTrack = 18 [json_name = "play_single_track"];
+  .NAlice.TNumSlot TrackOffsetIndex = 19 [json_name = "track_offset_index"];
+  .NAlice.TStringSlot Playlist = 20 [json_name = "playlist"];
+  .NAlice.TStringSlot ObjectId = 21 [json_name = "object_id"];
+  .NAlice.TMusicPlayObjectTypeSlot ObjectType = 22 [json_name = "object_type"];
+  .NAlice.TStringSlot StartFromTrackId = 23 [json_name = "start_from_track_id"];
+  .NAlice.TDoubleSlot OffsetSec = 24 [json_name = "offset_sec"];
+  .NAlice.TStringSlot AlarmId = 25 [json_name = "alarm_id"];
+  .NAlice.TStringSlot From = 26 [json_name = "from"];
+  .NAlice.TBoolSlot DisableHistory = 27 [json_name = "disable_history"];
+  .NAlice.TMusicSlot Room = 28 [json_name = "room"];
+  .NAlice.TMusicSlot Stream = 29 [json_name = "stream"];
+  .NAlice.TMusicSlot GenerativeStation = 30 [json_name = "generative_station"];
+  .NAlice.TMusicSlot NeedSimilar = 31 [json_name = "need_similar"];
+  .NAlice.TLocationSlot Location = 32 [json_name = "location"];
+  .NAlice.TMusicSlot Offset = 33 [json_name = "offset"];
+  .NAlice.TBoolSlot DisableMultiroom = 34 [json_name = "disable_multiroom"];
+  .NAlice.TMusicContentTypeSlot ContentType = 35 [json_name = "content_type"];
+  .NAlice.TAmbientSoundSlot AmbientSound = 36 [json_name = "ambient_sound"];
+  .NAlice.TAliceShowConfigSlot ShowTailConfig = 37 [json_name = "show_tail_config"];
+  .NAlice.TAliceShowTypeSlot ShowType = 38 [json_name = "show_type"];
+  .NAlice.TMusicPlaybackSourceSlot PlaybackSource = 39 [json_name = "playback_source"];
+  .NAlice.TMusicSlot Provider = 40 [json_name = "provider"];
+  repeated .NAlice.TLocationSlot LocationGroup = 41 [json_name = "location_group"];
+  .NAlice.TInt64Slot SessionStartTimestamp = 42 [json_name = "session_start_timestamp"];
+  .NAlice.TBoolSlot DisableAutoflowSoft = 43 [json_name = "disable_autoflow_soft"];
+  .NAlice.TBoolSlot Karaoke = 44 [json_name = "karaoke"];
+  .NAlice.TFiltrationModeSlot FiltrationMode = 45 [json_name = "filtration_mode"];
+  .NAlice.TBoolSlot AnnounceTrack = 46 [json_name = "announce_track"];
 }
 
 message TGetEqualizerSettingsSemanticFrame {

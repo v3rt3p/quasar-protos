@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceShowCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_show;aliceshowpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceShowCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TAliceShowStartDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TAliceShowStopDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceShowCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceShowCapability.TState State = 3 [json_name = "state"];
+}
+

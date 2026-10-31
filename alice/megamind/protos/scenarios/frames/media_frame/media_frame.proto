@@ -20,40 +20,40 @@ message TPlayerTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TPlayerTypeSlot.EValue PlayerTypeValue = 1;
+    .NAlice.TPlayerTypeSlot.EValue PlayerTypeValue = 1 [json_name = "player_type_value"];
   }
 }
 
 message TPlayerNextTrackSemanticFrame {
-  .NAlice.TBoolSlot SetPause = 1;
-  .NAlice.TBoolSlot DisableAnimation = 2;
+  .NAlice.TBoolSlot SetPause = 1 [json_name = "set_pause"];
+  .NAlice.TBoolSlot DisableAnimation = 2 [json_name = "disable_animation"];
 }
 
 message TPlayerPrevTrackSemanticFrame {
-  .NAlice.TBoolSlot SetPause = 1;
-  .NAlice.TBoolSlot DisableAnimation = 2;
+  .NAlice.TBoolSlot SetPause = 1 [json_name = "set_pause"];
+  .NAlice.TBoolSlot DisableAnimation = 2 [json_name = "disable_animation"];
 }
 
 message TPlayerPauseSemanticFrame {
-  repeated .NAlice.TLocationSlot LocationRoom = 1;
-  repeated .NAlice.TLocationSlot LocationGroup = 2;
-  repeated .NAlice.TLocationSlot LocationDevice = 3;
-  .NAlice.TLocationSlot LocationEverywhere = 4;
-  .NAlice.TBoolSlot IsOnlyAudio = 5;
+  repeated .NAlice.TLocationSlot LocationRoom = 1 [json_name = "location_room"];
+  repeated .NAlice.TLocationSlot LocationGroup = 2 [json_name = "location_group"];
+  repeated .NAlice.TLocationSlot LocationDevice = 3 [json_name = "location_device"];
+  .NAlice.TLocationSlot LocationEverywhere = 4 [json_name = "location_everywhere"];
+  .NAlice.TBoolSlot IsOnlyAudio = 5 [json_name = "is_only_audio"];
 }
 
 message TPlayerContinueSemanticFrame {
-  .NAlice.TBoolSlot DisableNlg = 1;
-  .NAlice.TPlayerTypeSlot PlayerType = 2;
-  .NAlice.TBoolSlot DisableAnimation = 3;
+  .NAlice.TBoolSlot DisableNlg = 1 [json_name = "disable_nlg"];
+  .NAlice.TPlayerTypeSlot PlayerType = 2 [json_name = "player_type"];
+  .NAlice.TBoolSlot DisableAnimation = 3 [json_name = "disable_animation"];
 }
 
 message TPlayerShuffleSemanticFrame {
-  .NAlice.TBoolSlot DisableNlg = 1;
+  .NAlice.TBoolSlot DisableNlg = 1 [json_name = "disable_nlg"];
 }
 
 message TPlayerUnshuffleSemanticFrame {
-  .NAlice.TBoolSlot DisableNlg = 1;
+  .NAlice.TBoolSlot DisableNlg = 1 [json_name = "disable_nlg"];
 }
 
 message TPlayerReplaySemanticFrame {
@@ -68,12 +68,12 @@ message TRepeatModeSlot {
   }
 
   oneof Value {
-    .NAlice.TRepeatModeSlot.EValue EnumValue = 1;
+    .NAlice.TRepeatModeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
 message TPlayerRepeatSemanticFrame {
-  .NAlice.TBoolSlot DisableNlg = 1;
-  .NAlice.TRepeatModeSlot Mode = 2;
+  .NAlice.TBoolSlot DisableNlg = 1 [json_name = "disable_nlg"];
+  .NAlice.TRepeatModeSlot Mode = 2 [json_name = "mode"];
 }
 

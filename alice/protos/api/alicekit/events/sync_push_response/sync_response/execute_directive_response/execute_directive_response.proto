@@ -21,12 +21,12 @@ message TExecuteDirectiveResponse {
     }
 
     oneof Status {
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionStarted ExecutionStarted = 1;
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionCompleted ExecutionCompleted = 2;
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionFailed ExecutionFailed = 3;
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionStarted ExecutionStarted = 1 [json_name = "execution_started"];
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionCompleted ExecutionCompleted = 2 [json_name = "execution_completed"];
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionFailed ExecutionFailed = 3 [json_name = "execution_failed"];
     }
   }
 
-  .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus ExecutionStatus = 1;
+  .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus ExecutionStatus = 1 [json_name = "execution_status"];
 }
 

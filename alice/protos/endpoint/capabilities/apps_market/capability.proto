@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AppsMarketCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/apps_market;appsmarketpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAppsMarketCapability {
+  message TParameters {
+  }
+
+  message TState {
+    enum EStoreType {
+      UnknownStoreType = 0;
+      DialogsSmartScreen = 1;
+      DialogsTV = 2;
+    }
+
+    .NAlice.TAppsMarketCapability.TState.EStoreType StoreType = 1 [json_name = "store_type"];
+  }
+
+  message TOpenAppDetailsDirective {
+    string Name = 1 [json_name = "name"];
+    string PackageToOpen = 2 [json_name = "package_to_open"];
+    string AppId = 3 [json_name = "app_id"];
+  }
+
+  message TOpenAppsMarketDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TInstallMarketAppDirective {
+    string Name = 1 [json_name = "name"];
+    string VersionName = 2 [json_name = "version_name"];
+    string DownloadUrl = 3 [json_name = "download_url"];
+    string PackageName = 4 [json_name = "package_name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAppsMarketCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAppsMarketCapability.TState State = 3 [json_name = "state"];
+}
+

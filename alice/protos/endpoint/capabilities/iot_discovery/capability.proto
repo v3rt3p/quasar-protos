@@ -18,208 +18,252 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotDiscoveryCapability {
   message TParameters {
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol SupportedProtocols = 1;
-    bool IsMatterBulkSupported = 2;
-    uint32 MatterParametersVer = 3;
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol SupportedProtocols = 1 [json_name = "supported_protocols"];
+    bool IsMatterBulkSupported = 2 [json_name = "is_matter_bulk_supported"];
+    uint32 MatterParametersVer = 3 [json_name = "matter_parameters_ver"];
   }
 
   message TProtocolStatus {
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1;
-    .NAlice.TIotDiscoveryCapability.EStatus Status = 2;
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+    .NAlice.TIotDiscoveryCapability.EStatus Status = 2 [json_name = "status"];
   }
 
   message TState {
-    bool IsDiscoveryInProgress = 1;
-    repeated .NAlice.TIotDiscoveryCapability.TProtocolStatus Statuses = 2;
+    bool IsDiscoveryInProgress = 1 [json_name = "is_discovery_in_progress"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocolStatus Statuses = 2 [json_name = "statuses"];
   }
 
   message TProtocolParameters {
     message TZigbeeParameters {
-      uint32 DeviceLimit = 1;
+      uint32 DeviceLimit = 1 [json_name = "device_limit"];
     }
 
     message TMatterParameters {
-      string SetupCodePayload = 1;
-      string SSID = 2;
-      string Password = 3;
+      string SetupCodePayload = 1 [json_name = "setup_code_payload"];
+      string SSID = 2 [json_name = "ssid"];
+      string Password = 3 [json_name = "password"];
     }
 
     message TMatterBulkParameters {
-      repeated string SetupCodePayloads = 1;
-      string SSID = 2;
-      string Password = 3;
+      repeated string SetupCodePayloads = 1 [json_name = "setup_code_payloads"];
+      string SSID = 2 [json_name = "ssid"];
+      string Password = 3 [json_name = "password"];
     }
 
     message TDeviceParameters {
-      string SetupCodePayload = 1;
-      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 2;
+      string SetupCodePayload = 1 [json_name = "setup_code_payload"];
+      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 2 [json_name = "transport"];
     }
 
     message TWiFiTransportParameters {
-      string SSID = 1;
-      string Password = 2;
+      string SSID = 1 [json_name = "ssid"];
+      string Password = 2 [json_name = "password"];
     }
 
     message TThreadTransportParameters {
     }
 
     message TTransportParameters {
-      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 1;
+      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 1 [json_name = "transport"];
       oneof Parameters {
-        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TWiFiTransportParameters WiFiParameters = 2;
-        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TThreadTransportParameters ThreadParameters = 3;
+        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TWiFiTransportParameters WiFiParameters = 2 [json_name = "wifi_parameters"];
+        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TThreadTransportParameters ThreadParameters = 3 [json_name = "thread_parameters"];
       }
     }
 
     message TMatterParametersV3 {
-      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TDeviceParameters DevicesParameters = 1;
-      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TTransportParameters TransportsParameters = 2;
+      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TDeviceParameters DevicesParameters = 1 [json_name = "devices_parameters"];
+      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TTransportParameters TransportsParameters = 2 [json_name = "transports_parameters"];
+      bool SupportsPhoneCommissioning = 3 [json_name = "supports_phone_commissioning"];
+      uint32 ClientApiVersion = 4 [json_name = "client_api_version"];
     }
 
     message TZenohParameters {
-      string PeerDeviceID = 1;
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TSecurity Security = 2;
+      string PeerDeviceID = 1 [json_name = "peer_device_id"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TSecurity Security = 2 [json_name = "security"];
     }
 
     message TSecurity {
-      string PSKID = 1;
-      string PSK = 2;
+      string PSKID = 1 [json_name = "psk_id"];
+      string PSK = 2 [json_name = "psk"];
     }
 
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1;
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
     oneof Parameters {
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZigbeeParameters ZigbeeParameters = 2;
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParameters MatterParameters = 3;
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterBulkParameters MatterBulkParameters = 4;
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParametersV3 MatterParametersV3 = 5;
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZenohParameters ZenohParameters = 6;
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZigbeeParameters ZigbeeParameters = 2 [json_name = "zigbee_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParameters MatterParameters = 3 [json_name = "matter_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterBulkParameters MatterBulkParameters = 4 [json_name = "matter_bulk_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParametersV3 MatterParametersV3 = 5 [json_name = "matter_transport_v3"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZenohParameters ZenohParameters = 6 [json_name = "zenoh_parameters"];
     }
   }
 
   message TNetwork {
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1;
-    .google.protobuf.StringValue NetworkBase64 = 2;
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+    .google.protobuf.StringValue NetworkBase64 = 2 [json_name = "network_base64"];
+  }
+
+  message TDistributedCommissioningParameters {
+    message TMatterParameters {
+      reserved "ReservedNodeIds";
+      reserved 1;
+      message TDeviceParameters {
+        uint64 NodeId = 1 [json_name = "node_id"];
+        string SetupCodePayload = 2 [json_name = "setup_code_payload"];
+      }
+
+      map<string, bytes> ChipData = 2 [json_name = "chip_data"];
+      repeated .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters.TDeviceParameters DevicesParameters = 3 [json_name = "devices_parameters"];
+    }
+
+    oneof Parameters {
+      .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters MatterParameters = 1 [json_name = "matter_parameters"];
+    }
   }
 
   message TNetworks {
-    .google.protobuf.BytesValue ZigbeeNetwork = 1;
-    .google.protobuf.StringValue ZigbeeNetworkBase64 = 2;
-    .google.protobuf.StringValue MatterNetworkBase64 = 3;
-    .google.protobuf.StringValue ThreadNetworkBase64 = 4;
-    .google.protobuf.StringValue ZenohNetworkBase64 = 6;
-    repeated .NAlice.TIotDiscoveryCapability.TNetwork Networks = 5;
+    .google.protobuf.BytesValue ZigbeeNetwork = 1 [json_name = "zigbee_network"];
+    .google.protobuf.StringValue ZigbeeNetworkBase64 = 2 [json_name = "zigbee_network_base64"];
+    .google.protobuf.StringValue MatterNetworkBase64 = 3 [json_name = "matter_network_base64"];
+    .google.protobuf.StringValue ThreadNetworkBase64 = 4 [json_name = "thread_network_base64"];
+    .google.protobuf.StringValue ZenohNetworkBase64 = 6 [json_name = "zenoh_network_base64"];
+    repeated .NAlice.TIotDiscoveryCapability.TNetwork Networks = 5 [json_name = "networks"];
   }
 
   message TEndpointInfo {
-    string Id = 1;
-    .NAlice.EProtocol Protocol = 2;
+    string Id = 1 [json_name = "id"];
+    .NAlice.EProtocol Protocol = 2 [json_name = "protocol"];
   }
 
   message TStartDiscoveryDirective {
     reserved "DiscoveryContext";
     reserved 3;
-    string Name = 1000;
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1;
-    uint32 TimeoutMs = 2;
-    uint32 DeviceLimit = 4;
-    repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters ProtocolParameters = 5;
-    string SessionId = 6;
-    .NAlice.TIotDiscoveryCapability.EMode Mode = 7;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+    uint32 TimeoutMs = 2 [json_name = "timeout_ms"];
+    uint32 DeviceLimit = 4 [json_name = "device_limit"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters ProtocolParameters = 5 [json_name = "protocol_parameters"];
+    string SessionId = 6 [json_name = "session_id"];
+    .NAlice.TIotDiscoveryCapability.EMode Mode = 7 [json_name = "mode"];
   }
 
   message TCancelDiscoveryDirective {
-    string SessionId = 1;
-    string Name = 1000;
+    string SessionId = 1 [json_name = "session_id"];
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TDiscoveryContinueDirective {
+    message TProtocolParameters {
+      message TMatterParameters {
+        uint64 NodeId = 1 [json_name = "node_id"];
+        int32 ResultCode = 2 [json_name = "result_code"];
+        string Details = 3 [json_name = "details"];
+      }
+
+      .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+      oneof Parameters {
+        .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters.TMatterParameters MatterParameters = 2 [json_name = "matter_parameters"];
+      }
+    }
+
+    string SessionId = 1 [json_name = "session_id"];
+    .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters ProtocolParameters = 2 [json_name = "protocol_parameters"];
+    string Name = 1000 [json_name = "name"];
   }
 
   message TFinishDiscoveryDirective {
-    string Name = 1000;
-    repeated string AcceptedIds = 1;
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2;
-    string SystemInfo = 3;
-    uint32 CallbackId = 4;
+    string Name = 1000 [json_name = "name"];
+    repeated string AcceptedIds = 1 [json_name = "accepted_ids"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints"];
+    string SystemInfo = 3 [json_name = "system_info"];
+    uint32 CallbackId = 4 [json_name = "callback_id"];
   }
 
   message TFinishSystemDiscoveryDirective {
-    string Name = 1000;
-    repeated string AcceptedIds = 1;
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2;
-    string SystemInfo = 3;
-    uint32 CallbackId = 4;
+    string Name = 1000 [json_name = "name"];
+    repeated string AcceptedIds = 1 [json_name = "accepted_ids"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints"];
+    string SystemInfo = 3 [json_name = "system_info"];
+    uint32 CallbackId = 4 [json_name = "callback_id"];
   }
 
   message TStartTuyaBroadcastDirective {
-    string Name = 1000;
-    string SSID = 1;
-    string Password = 2;
-    string Token = 3;
-    string Cipher = 4;
+    string Name = 1000 [json_name = "name"];
+    string SSID = 1 [json_name = "ssid"];
+    string Password = 2 [json_name = "password"];
+    string Token = 3 [json_name = "token"];
+    string Cipher = 4 [json_name = "cipher"];
   }
 
   message TRestoreNetworksDirective {
-    string Name = 1000;
-    .NAlice.TIotDiscoveryCapability.TNetworks Networks = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotDiscoveryCapability.TNetworks Networks = 1 [json_name = "networks"];
   }
 
   message TForgetDevicesDirective {
-    string Name = 1000;
-    repeated string DeviceIds = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated string DeviceIds = 1 [json_name = "device_ids"];
   }
 
   message TDeleteNetworksDirective {
-    string Name = 1000;
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
   }
 
   message TEnableNetworkDirective {
-    string Name = 1000;
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1;
-    bool Enabled = 2;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+    bool Enabled = 2 [json_name = "enabled"];
   }
 
   message TSyncEndpointsDirective {
-    string Name = 1000;
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo Endpoints = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo Endpoints = 1 [json_name = "endpoints"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotDiscoveryCapability Capability = 1;
-    string SessionId = 2;
+    .NAlice.TIotDiscoveryCapability Capability = 1 [json_name = "capability"];
+    string SessionId = 2 [json_name = "session_id"];
   }
 
   message TIotDiscoveryCompleteEvent {
     message TMatterDiscoveryResult {
       message TMatterError {
-        uint32 Code = 1;
-        string Details = 2;
-        .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 3;
-        .NAlice.TIotDiscoveryCapability.EMatterErrorType ErrorType = 4;
+        uint32 Code = 1 [json_name = "code"];
+        string Details = 2 [json_name = "details"];
+        .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 3 [json_name = "matter_discovery_stage"];
+        .NAlice.TIotDiscoveryCapability.EMatterErrorType ErrorType = 4 [json_name = "error_type"];
       }
 
-      string DevicePairingId = 1;
-      optional .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult.TMatterError Error = 2;
+      string DevicePairingId = 1 [json_name = "device_pairing_id"];
+      optional .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult.TMatterError Error = 2 [json_name = "error"];
     }
 
-    uint32 FoundDevicesCount = 1;
-    string SessionId = 3;
-    .NAlice.TIotDiscoveryCapability.EMode Mode = 4;
+    uint32 FoundDevicesCount = 1 [json_name = "found_devices_count"];
+    string SessionId = 3 [json_name = "session_id"];
+    .NAlice.TIotDiscoveryCapability.EMode Mode = 4 [json_name = "mode"];
     oneof Result {
-      .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult Matter = 2;
+      .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult Matter = 2 [json_name = "matter"];
     }
   }
 
   message TIotDiscoveryProgressEvent {
     message TMatterDiscoveryStage {
-      string DevicePairingId = 1;
-      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2;
+      string DevicePairingId = 1 [json_name = "device_pairing_id"];
+      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage"];
     }
 
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1;
-    string SessionId = 4;
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+    string SessionId = 4 [json_name = "session_id"];
     oneof DiscoveryStage {
-      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2;
-      .NAlice.TIotDiscoveryCapability.TIotDiscoveryProgressEvent.TMatterDiscoveryStage ExtendedMatterDiscoveryStage = 3;
+      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage"];
+      .NAlice.TIotDiscoveryCapability.TIotDiscoveryProgressEvent.TMatterDiscoveryStage ExtendedMatterDiscoveryStage = 3 [json_name = "extended_matter_discovery_stage"];
     }
+  }
+
+  message TDistributedCommissioningInitializedEvent {
+    string SessionId = 1 [json_name = "session_id"];
+    .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters Parameters = 2 [json_name = "parameters"];
   }
 
   enum TProtocol {
@@ -288,8 +332,8 @@ message TIotDiscoveryCapability {
     NO_THREAD_OPERATIONAL_DATASET = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotDiscoveryCapability.TParameters Parameters = 2;
-  .NAlice.TIotDiscoveryCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotDiscoveryCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotDiscoveryCapability.TState State = 3 [json_name = "state"];
 }
 

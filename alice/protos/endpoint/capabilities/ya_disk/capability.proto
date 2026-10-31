@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "YaDiskCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/ya_disk;yadiskpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TYaDiskCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TYaDiskAlbumItemsDataDirective {
+    message TItem {
+      string ItemId = 1 [json_name = "item_id"];
+      string Url = 2 [json_name = "url"];
+      string MediaType = 3 [json_name = "media_type"];
+      .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TImageMetadata ImageMetadata = 4 [json_name = "image_metadata"];
+    }
+
+    message TImageMetadata {
+      int32 Width = 1 [json_name = "width"];
+      int32 Height = 2 [json_name = "height"];
+    }
+
+    string Name = 1 [json_name = "name"];
+    int32 Limit = 2 [json_name = "limit"];
+    string LastItemId = 3 [json_name = "last_item_id"];
+    repeated .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TItem Items = 4 [json_name = "items"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TYaDiskCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TYaDiskCapability.TState State = 3 [json_name = "state"];
+}
+

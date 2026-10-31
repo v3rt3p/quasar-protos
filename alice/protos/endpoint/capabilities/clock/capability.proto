@@ -18,20 +18,20 @@ message TClockCapability {
   }
 
   message TState {
-    .NAlice.NData.TTimeFormat Format = 1;
-    bool IsShown = 2;
+    .NAlice.NData.TTimeFormat Format = 1 [json_name = "format"];
+    bool IsShown = 2 [json_name = "is_shown"];
   }
 
   message TShowClockDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message THideClockDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TClockCapability.TParameters Parameters = 2;
-  .NAlice.TClockCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TClockCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TClockCapability.TState State = 3 [json_name = "state"];
 }
 

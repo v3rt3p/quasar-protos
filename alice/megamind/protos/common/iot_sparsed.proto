@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option java_outer_classname = "IoTSparsed";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+import "alice/megamind/protos/common/iot.proto";
+import "alice/protos/data/device/info.proto";
+import "alice/protos/data/location/group.proto";
+import "alice/protos/data/location/room.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIoTUserInfoSparsed {
+  message TDevice {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated string Aliases = 3 [json_name = "aliases"];
+    .NAlice.EUserDeviceType Type = 4 [json_name = "type"];
+    repeated .NAlice.TIoTUserInfo.TCapability Capabilities = 11 [json_name = "capabilities"];
+  }
+
+  message THousehold {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated string Aliases = 9 [json_name = "aliases"];
+  }
+
+  message TColor {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+  }
+
+  message TScenario {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated .NAlice.TIoTUserInfo.TScenario.TTrigger Triggers = 6 [json_name = "triggers"];
+  }
+
+  message TResidentialComplex {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string Timezone = 3 [json_name = "timezone"];
+  }
+
+  repeated .NAlice.TUserRoom Rooms = 1 [json_name = "rooms"];
+  repeated .NAlice.TUserGroup Groups = 2 [json_name = "groups"];
+  repeated .NAlice.TIoTUserInfoSparsed.TDevice Devices = 3 [json_name = "devices"];
+  repeated .NAlice.TIoTUserInfoSparsed.TScenario Scenarios = 4 [json_name = "scenarios"];
+  repeated .NAlice.TIoTUserInfoSparsed.TColor Colors = 5 [json_name = "colors"];
+  repeated .NAlice.TIoTUserInfoSparsed.THousehold Households = 6 [json_name = "households"];
+  repeated .NAlice.TIoTUserInfo.TStereopair Stereopairs = 8 [json_name = "stereopairs"];
+  repeated .NAlice.TIoTUserInfoSparsed.TResidentialComplex ResidentialComplexes = 11 [json_name = "residential_complexes"];
+  repeated .NAlice.TIoTUserInfo.TAggregate Aggregates = 12 [json_name = "aggregates"];
+  repeated .NAlice.TIoTUserInfo.TDevicePin DevicePins = 14 [json_name = "device_pins"];
+}
+

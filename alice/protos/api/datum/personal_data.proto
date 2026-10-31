@@ -6,14 +6,15 @@ option java_package = "ru.yandex.alice.protos.api.datum";
 option go_package = "a.yandex-team.ru/alice/protos/api/datum";
 
 import "alice/protos/api/datum/addresses.proto";
+import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDatumScopePersonalData {
-  optional .NAlice.NDatumApi.TDatumAddressesList Addresses = 1;
+  optional .NAlice.NDatumApi.TDatumAddressesList Addresses = 1 [json_name = "addresses"];
 }
 
 message TDatumPersonalData {
-  optional .NAlice.NDatumApi.TDatumScopePersonalData Passport = 1;
-  optional .NAlice.NDatumApi.TDatumScopePersonalData Alice = 2;
+  optional .NAlice.NDatumApi.TDatumScopePersonalData Passport = 1 [json_name = "passport"];
+  optional .NAlice.NDatumApi.TDatumScopePersonalData Alice = 2 [json_name = "alice"];
 }
 

@@ -9,10 +9,11 @@ option go_package = "a.yandex-team.ru/alice/protos/data/tv/recent";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentApplicationItem {
-  string PackageName = 1;
-  string ActivityName = 2;
-  string AppName = 3;
-  string LaunchIntentUri = 4;
-  string IconUri = 5;
+  string PackageName = 1 [json_name = "package_name"];
+  string ActivityName = 2 [json_name = "activity_name"];
+  string AppName = 3 [json_name = "app_name"];
+  string LaunchIntentUri = 4 [json_name = "launch_intent_uri"];
+  string IconUri = 5 [json_name = "icon_uri"];
+  optional string CustomDeeplink = 6 [json_name = "custom_deeplink"];
 }
 

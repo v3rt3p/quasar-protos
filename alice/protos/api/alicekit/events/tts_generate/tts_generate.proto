@@ -13,15 +13,16 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TTtsGenerate {
   reserved "RealtimeStreamer";
   reserved 11;
-  .NAlice.TExperimentsProto Experiments = 10;
-  optional string Lang = 1;
-  optional string Emotion = 2;
-  optional string Format = 3;
-  optional string Quality = 4;
-  optional double Speed = 5;
-  optional string Tag = 6;
-  optional string Text = 7;
-  optional string Voice = 8;
-  optional double Volume = 9;
+  .NAlice.TExperimentsProto Experiments = 10 [json_name = "experiments"];
+  optional string Lang = 1 [json_name = "lang"];
+  optional string Emotion = 2 [json_name = "emotion"];
+  optional string Format = 3 [json_name = "format"];
+  optional string Quality = 4 [json_name = "quality"];
+  optional double Speed = 5 [json_name = "speed"];
+  optional string Tag = 6 [json_name = "tag"];
+  optional string Text = 7 [json_name = "text"];
+  optional string Voice = 8 [json_name = "voice"];
+  optional double Volume = 9 [json_name = "volume"];
+  optional bool IsStreaming = 12 [json_name = "is_streaming"];
 }
 

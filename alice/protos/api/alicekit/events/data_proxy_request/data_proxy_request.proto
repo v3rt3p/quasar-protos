@@ -11,13 +11,13 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDataProxyRequest {
   message TGetRequest {
-    optional string Namespace = 1;
-    optional string Key = 2;
+    optional string Namespace = 1 [json_name = "namespace"];
+    optional string Key = 2 [json_name = "key"];
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TDataProxyRequest.TGetRequest RequestGet = 2;
+    .NAlice.NAliceApi.TDataProxyRequest.TGetRequest RequestGet = 2 [json_name = "request_get"];
   }
-  optional string InteractionId = 1;
+  optional string InteractionId = 1 [json_name = "interaction_id"];
 }
 

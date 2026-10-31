@@ -10,8 +10,10 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/protocol/server"
 import "alice/protos/api/alicekit/events/alice_response/alice_response.proto";
 import "alice/protos/api/alicekit/events/asr_music_result/asr_music_result.proto";
 import "alice/protos/api/alicekit/events/asr_result/asr_result.proto";
+import "alice/protos/api/alicekit/events/chunk_ack/chunk_ack.proto";
 import "alice/protos/api/alicekit/events/audio_transcription_input/audio_transcription_input_response.proto";
 import "alice/protos/api/alicekit/events/common/event_header/event_header.proto";
+import "alice/protos/api/alicekit/events/common/message_group/message_group.proto";
 import "alice/protos/api/alicekit/events/common/streaming/streaming.proto";
 import "alice/protos/api/alicekit/events/data_proxy_request/data_proxy_request.proto";
 import "alice/protos/api/alicekit/events/event_exception/event_exception.proto";
@@ -66,43 +68,45 @@ message TServerMessage {
     reserved 34;
     reserved 35;
     reserved 37;
-    .NAlice.NAliceApi.TEventHeader Header = 1;
+    .NAlice.NAliceApi.TEventHeader Header = 1 [json_name = "header"];
     oneof Event {
-      .NAlice.NAliceApi.TAliceResponseProto AliceResponse = 2;
-      .NAlice.NAliceApi.TDeferedAliceResponseProto DeferredAliceResponse = 3;
-      .NAlice.NAliceApi.TGoAway GoAway = 4;
-      .NAlice.NAliceApi.TPush Push = 5;
-      .NAlice.NAliceApi.TSyncPush SyncPush = 8;
-      .NAlice.NAliceApi.TEventException EventException = 9;
-      .NAlice.NAliceApi.TInputStartAck InputStartAck = 10;
-      .NAlice.NAliceApi.TLogAck LogAck = 11;
-      .NAlice.NAliceApi.TPing Ping = 12;
-      .NAlice.NAliceApi.TAsrResult AsrResult = 13;
-      .NAlice.NAliceApi.TTtsSpeak TtsSpeak = 14;
-      .NAlice.NAliceApi.TServerRequestReady ServerRequestReady = 15;
-      .NAlice.NAliceApi.TSpotterValidation SpotterValidation = 16;
-      .NAlice.NAliceApi.TInvalidAuth InvalidAuth = 17;
-      .NAlice.NAliceApi.TTtsTimings TtsTimings = 18;
-      .NAlice.NAliceApi.TAsrMusicResult AsrMusicResult = 19;
-      .NAlice.NAliceApi.TDataProxyRequest DataProxyRequest = 22;
-      .NAlice.NAliceApi.TFileUploadResponse FileUploadResponse = 23;
-      .NAlice.NAliceApi.TSynchronizeStateResponse SynchronizeStateResponse = 24;
-      .NAlice.NAliceApi.TSpeechControl SpeechControl = 25;
-      .NAlice.NAliceApi.TServerSubscriptionState ServerSubscriptionState = 32;
-      .NAlice.NAliceApi.TRequestStatAck RequestStatAck = 36;
-      .NAlice.NAliceApi.TAudioTranscriptionInputResponse AudioTranscriptionInputResponse = 38;
+      .NAlice.NAliceApi.TAliceResponseProto AliceResponse = 2 [json_name = "alice_response"];
+      .NAlice.NAliceApi.TDeferedAliceResponseProto DeferredAliceResponse = 3 [json_name = "deferred_alice_response"];
+      .NAlice.NAliceApi.TGoAway GoAway = 4 [json_name = "go_away"];
+      .NAlice.NAliceApi.TPush Push = 5 [json_name = "push"];
+      .NAlice.NAliceApi.TSyncPush SyncPush = 8 [json_name = "sync_push"];
+      .NAlice.NAliceApi.TEventException EventException = 9 [json_name = "event_exception"];
+      .NAlice.NAliceApi.TInputStartAck InputStartAck = 10 [json_name = "input_start_ack"];
+      .NAlice.NAliceApi.TLogAck LogAck = 11 [json_name = "log_ack"];
+      .NAlice.NAliceApi.TPing Ping = 12 [json_name = "ping"];
+      .NAlice.NAliceApi.TAsrResult AsrResult = 13 [json_name = "asr_result"];
+      .NAlice.NAliceApi.TTtsSpeak TtsSpeak = 14 [json_name = "tts_speak"];
+      .NAlice.NAliceApi.TServerRequestReady ServerRequestReady = 15 [json_name = "server_request_ready"];
+      .NAlice.NAliceApi.TSpotterValidation SpotterValidation = 16 [json_name = "spotter_validation"];
+      .NAlice.NAliceApi.TInvalidAuth InvalidAuth = 17 [json_name = "invalid_auth"];
+      .NAlice.NAliceApi.TTtsTimings TtsTimings = 18 [json_name = "tts_timings"];
+      .NAlice.NAliceApi.TAsrMusicResult AsrMusicResult = 19 [json_name = "asr_music_result"];
+      .NAlice.NAliceApi.TDataProxyRequest DataProxyRequest = 22 [json_name = "data_proxy_request"];
+      .NAlice.NAliceApi.TFileUploadResponse FileUploadResponse = 23 [json_name = "file_upload_response"];
+      .NAlice.NAliceApi.TSynchronizeStateResponse SynchronizeStateResponse = 24 [json_name = "synchronize_state_response"];
+      .NAlice.NAliceApi.TSpeechControl SpeechControl = 25 [json_name = "speech_control"];
+      .NAlice.NAliceApi.TServerSubscriptionState ServerSubscriptionState = 32 [json_name = "server_subscription_state"];
+      .NAlice.NAliceApi.TRequestStatAck RequestStatAck = 36 [json_name = "request_stat_ack"];
+      .NAlice.NAliceApi.TAudioTranscriptionInputResponse AudioTranscriptionInputResponse = 38 [json_name = "audio_transcription_input_response"];
+      .NAlice.NAliceApi.TChunkAck ChunkAck = 39 [json_name = "chunk_ack"];
     }
   }
 
   message TTimings {
-    .google.protobuf.Timestamp SendingTime = 1;
+    .google.protobuf.Timestamp SendingTime = 1 [json_name = "sending_time"];
   }
 
-  .NAlice.NAliceApi.TServerMessage.TTimings Timings = 3;
-  .NAlice.NAliceApi.TStreaming Streaming = 4;
+  .NAlice.NAliceApi.TServerMessage.TTimings Timings = 3 [json_name = "timings"];
+  .NAlice.NAliceApi.TStreaming Streaming = 4 [json_name = "streaming"];
+  .NAlice.NAliceApi.TMessageGroupInfo MessageGroup = 5 [json_name = "message_group"];
   oneof Message {
-    .NAlice.NAliceApi.TServerMessage.TEvent Event = 1;
-    .NAlice.NAliceApi.TStreamControl StreamControl = 2;
+    .NAlice.NAliceApi.TServerMessage.TEvent Event = 1 [json_name = "event"];
+    .NAlice.NAliceApi.TStreamControl StreamControl = 2 [json_name = "stream_control"];
   }
 }
 

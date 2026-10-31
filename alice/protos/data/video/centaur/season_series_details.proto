@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NAlice;
+
+option go_package = "a.yandex-team.ru/alice/protos/data/video/centaur";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+import "alice/protos/data/video/video.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSeasonSeriesDetails {
+  message TSeasonInfo {
+    string ProviderItemId = 1 [json_name = "provider_item_id"];
+    string ContentType = 2 [json_name = "content_type"];
+    uint32 Season = 3 [json_name = "season"];
+    uint32 EpisodeCount = 4 [json_name = "episode_count"];
+    string SeasonName = 5 [json_name = "season_name"];
+  }
+
+  message TEpisodeInfo {
+    .NAlice.TOttVideoItem Episode = 1 [json_name = "episode"];
+    repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+  }
+
+  string ProviderItemId = 1 [json_name = "provider_item_id"];
+  string ContentType = 2 [json_name = "content_type"];
+  string Name = 3 [json_name = "name"];
+  repeated .NAlice.TSeasonSeriesDetails.TSeasonInfo Seasons = 4 [json_name = "seasons"];
+  uint32 CurrentSeason = 5 [json_name = "current_season"];
+  repeated .NAlice.TSeasonSeriesDetails.TEpisodeInfo EpisodeInfo = 6 [json_name = "episode_info"];
+  repeated .NAlice.TVoiceControl VoiceControls = 7 [json_name = "voice_controls"];
+}
+

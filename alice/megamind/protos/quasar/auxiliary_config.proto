@@ -12,36 +12,37 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TAuxiliaryConfig {
   message TAlice4BusinessConfig {
     message TInfoConciergeConfig {
-      bool InfoConciergeEnabled = 1;
-      bool ConnectWifiIntentEnabled = 2;
-      bool InformationAboutBreakfastIntentEnabled = 3;
-      bool InformationAboutHotelIntentEnabled = 4;
-      bool RequestAmenitiesIntentEnabled = 5;
-      bool CallReceptionIntentEnabled = 6;
+      bool InfoConciergeEnabled = 1 [json_name = "info_concierge_enabled"];
+      bool ConnectWifiIntentEnabled = 2 [json_name = "connect_wifi_intent_enabled"];
+      bool InformationAboutBreakfastIntentEnabled = 3 [json_name = "information_about_breakfast_intent_enabled"];
+      bool InformationAboutHotelIntentEnabled = 4 [json_name = "information_about_hotel_intent_enabled"];
+      bool RequestAmenitiesIntentEnabled = 5 [json_name = "request_amenities_intent_enabled"];
+      bool CallReceptionIntentEnabled = 6 [json_name = "call_reception_intent_enabled"];
     }
 
     message THouseholdLocationConfig {
-      double Latitude = 1;
-      double Longitude = 2;
-      string Address = 3;
-      string ShortAddress = 4;
+      double Latitude = 1 [json_name = "latitude"];
+      double Longitude = 2 [json_name = "longitude"];
+      string Address = 3 [json_name = "address"];
+      string ShortAddress = 4 [json_name = "short_address"];
     }
 
     message THouseholdConfig {
-      string Name = 1;
-      string Type = 2;
-      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.THouseholdLocationConfig Location = 3;
+      string Name = 1 [json_name = "name"];
+      string Type = 2 [json_name = "type"];
+      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.THouseholdLocationConfig Location = 3 [json_name = "location"];
     }
 
-    int32 MaxVolume = 1;
-    uint64 SmartHomeUid = 2;
-    repeated string PreactivatedSkillIds = 3;
-    bool Unlocked = 4;
-    .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.TInfoConciergeConfig InfoConcierge = 5;
-    .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.THouseholdConfig Household = 6;
-    string OrganizationId = 7;
+    int32 MaxVolume = 1 [json_name = "max_volume"];
+    uint64 SmartHomeUid = 2 [json_name = "smart_home_uid"];
+    repeated string PreactivatedSkillIds = 3 [json_name = "preactivated_skill_ids"];
+    bool Unlocked = 4 [json_name = "unlocked"];
+    .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.TInfoConciergeConfig InfoConcierge = 5 [json_name = "info_concierge"];
+    .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig.THouseholdConfig Household = 6 [json_name = "household"];
+    string OrganizationId = 7 [json_name = "organization_id"];
+    string OrganizationName = 8 [json_name = "organization_name"];
   }
 
-  .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig Alice4Business = 1;
+  .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig.TAlice4BusinessConfig Alice4Business = 1 [json_name = "alice4business"];
 }
 

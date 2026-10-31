@@ -16,20 +16,20 @@ message TIotAntifreezeCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TSetIotAntifreezeDirective {
-    string Name = 1000;
-    bool Enabled = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAntifreezeCapability Capability = 1;
+    .NAlice.TIotAntifreezeCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotAntifreezeCapability.TParameters Parameters = 2;
-  .NAlice.TIotAntifreezeCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotAntifreezeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotAntifreezeCapability.TState State = 3 [json_name = "state"];
 }
 

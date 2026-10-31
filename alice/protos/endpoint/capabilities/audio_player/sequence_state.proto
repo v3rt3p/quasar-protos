@@ -13,121 +13,116 @@ import "alice/protos/data/scenario/music/music_platform_queue.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TAudioPlayerSequenceState {
-  repeated .NAlice.TSequenceItem Queue = 1;
-  repeated .NAlice.TSequenceItem History = 2;
-  .NAlice.TSequenceItem CurrentItem = 3;
-  .NAlice.NData.NMusic.TMetaStorage MetaStorage = 4;
-  .NAlice.TCallbacksStorage CallbacksStorage = 5;
+  repeated .NAlice.TSequenceItem Queue = 1 [json_name = "queue"];
+  repeated .NAlice.TSequenceItem History = 2 [json_name = "history"];
+  .NAlice.TSequenceItem CurrentItem = 3 [json_name = "current_item"];
+  .NAlice.NData.NMusic.TMetaStorage MetaStorage = 4 [json_name = "meta_storage"];
+  .NAlice.TCallbacksStorage CallbacksStorage = 5 [json_name = "callbacks_storage"];
 }
 
 message TSequenceItem {
   message TContainerQueue {
-    .NAlice.TSequenceItem.TTrack CurrentTrack = 1;
-    repeated .NAlice.TSequenceItem.TTrack TracksBefore = 2;
-    repeated .NAlice.TSequenceItem.TTrack TracksAfter = 3;
+    .NAlice.TSequenceItem.TTrack CurrentTrack = 1 [json_name = "current_track"];
+    repeated .NAlice.TSequenceItem.TTrack TracksBefore = 2 [json_name = "tracks_before"];
+    repeated .NAlice.TSequenceItem.TTrack TracksAfter = 3 [json_name = "tracks_after"];
   }
 
   message TMusicContainer {
-    string Id = 1;
-    string Uuid = 2;
-    .NAlice.TSequenceItem.TContainerQueue Queue = 5;
-    bool IsShuffled = 6;
-    .Alice.Music.RepeatType RepeatType = 7;
-    .Alice.Music.LikeStatus LikeStatus = 8;
-    optional uint32 StartPosition = 3;
-    optional uint32 FinishPosition = 4;
+    string Id = 1 [json_name = "id"];
+    string Uuid = 2 [json_name = "uuid"];
+    .NAlice.TSequenceItem.TContainerQueue Queue = 5 [json_name = "queue"];
+    bool IsShuffled = 6 [json_name = "is_shuffled"];
+    .Alice.Music.RepeatType RepeatType = 7 [json_name = "repeat_type"];
+    .Alice.Music.LikeStatus LikeStatus = 8 [json_name = "like_status"];
+    optional uint32 StartPosition = 3 [json_name = "start_position"];
+    optional uint32 FinishPosition = 4 [json_name = "finish_position"];
   }
 
   message TTrackParameters {
-    uint32 Bpm = 1;
-    uint32 Hue = 2;
-    float Energy = 3;
-    uint32 UserCollectionHue = 4;
+    uint32 Bpm = 1 [json_name = "bpm"];
+    uint32 Hue = 2 [json_name = "hue"];
+    float Energy = 3 [json_name = "energy"];
+    uint32 UserCollectionHue = 4 [json_name = "user_collection_hue"];
   }
 
   message TDerivedColors {
-    string Accent = 1;
-    string Average = 2;
-    string MiniPlayer = 3;
-    string WaveText = 4;
+    string Accent = 1 [json_name = "accent"];
+    string Average = 2 [json_name = "average"];
+    string MiniPlayer = 3 [json_name = "mini_player"];
+    string WaveText = 4 [json_name = "wave_text"];
   }
 
   message TTrack {
-    string Id = 1;
-    string Uuid = 2;
-    .Alice.Music.LikeStatus LikeStatus = 3;
-    .Alice.Music.RepeatType RepeatType = 4;
-    bool HasAvailableLyrics = 5;
-    optional .NAlice.TSequenceItem.TTrackParameters TrackParameters = 6;
-    optional .NAlice.TSequenceItem.TDerivedColors DerivedColors = 7;
+    string Id = 1 [json_name = "id"];
+    string Uuid = 2 [json_name = "uuid"];
+    .Alice.Music.LikeStatus LikeStatus = 3 [json_name = "like_status"];
+    .Alice.Music.RepeatType RepeatType = 4 [json_name = "repeat_type"];
+    bool HasAvailableLyrics = 5 [json_name = "has_available_lyrics"];
+    optional .NAlice.TSequenceItem.TTrackParameters TrackParameters = 6 [json_name = "track_parameters"];
+    optional .NAlice.TSequenceItem.TDerivedColors DerivedColors = 7 [json_name = "derived_colors"];
   }
 
   message TAlbum {
-    .NAlice.TSequenceItem.TMusicContainer Container = 1;
+    .NAlice.TSequenceItem.TMusicContainer Container = 1 [json_name = "container"];
   }
 
   message TArtist {
-    .NAlice.TSequenceItem.TMusicContainer Container = 1;
+    .NAlice.TSequenceItem.TMusicContainer Container = 1 [json_name = "container"];
   }
 
   message TPlaylist {
-    .NAlice.TSequenceItem.TMusicContainer Container = 1;
+    .NAlice.TSequenceItem.TMusicContainer Container = 1 [json_name = "container"];
   }
 
   message TRecommendations {
-    string Id = 1;
-    string Uuid = 2;
-    .NAlice.TSequenceItem.TContainerQueue Queue = 3;
-    bool UseIchwill = 4;
+    string Id = 1 [json_name = "id"];
+    string Uuid = 2 [json_name = "uuid"];
+    .NAlice.TSequenceItem.TContainerQueue Queue = 3 [json_name = "queue"];
+    bool UseIchwill = 4 [json_name = "use_ichwill"];
   }
 
   message TFmRadio {
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
   }
 
   message TGenerative {
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
   }
 
-  .Alice.Music.MusicProvider MusicProvider = 101;
-  .NAlice.NData.NMusic.TOperatingFeatures OperatingFeatures = 102;
+  .Alice.Music.MusicProvider MusicProvider = 101 [json_name = "music_provider"];
+  .NAlice.NData.NMusic.TOperatingFeatures OperatingFeatures = 102 [json_name = "operating_features"];
   oneof SequenceItem {
-    .NAlice.TSequenceItem.TTrack Track = 1;
-    .NAlice.TSequenceItem.TAlbum Album = 2;
-    .NAlice.TSequenceItem.TArtist Artist = 3;
-    .NAlice.TSequenceItem.TPlaylist Playlist = 4;
-    .NAlice.TSequenceItem.TRecommendations Recommendations = 5;
-    .NAlice.TSequenceItem.TFmRadio FmRadio = 6;
-    .NAlice.TSequenceItem.TGenerative Generative = 7;
+    .NAlice.TSequenceItem.TTrack Track = 1 [json_name = "track"];
+    .NAlice.TSequenceItem.TAlbum Album = 2 [json_name = "album"];
+    .NAlice.TSequenceItem.TArtist Artist = 3 [json_name = "artist"];
+    .NAlice.TSequenceItem.TPlaylist Playlist = 4 [json_name = "playlist"];
+    .NAlice.TSequenceItem.TRecommendations Recommendations = 5 [json_name = "recommendations"];
+    .NAlice.TSequenceItem.TFmRadio FmRadio = 6 [json_name = "fm_radio"];
+    .NAlice.TSequenceItem.TGenerative Generative = 7 [json_name = "generative"];
   }
 }
 
 message TCallbacksStorage {
   message TCallbackPayloads {
-    .google.protobuf.Struct MusicPlay = 1;
-    optional .google.protobuf.Struct Like = 2;
-    optional .google.protobuf.Struct Dislike = 3;
-    optional .google.protobuf.Struct UnDislike = 4;
-    optional .google.protobuf.Struct UnLike = 5;
-    optional .google.protobuf.Struct Next = 6;
-    optional .google.protobuf.Struct Previous = 7;
-    optional .google.protobuf.Struct RepeatOne = 8;
-    optional .google.protobuf.Struct RepeatAll = 9;
-    optional .google.protobuf.Struct UnRepeat = 10;
-    optional .google.protobuf.Struct Shuffle = 11;
-    optional .google.protobuf.Struct UnShuffle = 12;
-    optional .google.protobuf.Struct NextStopped = 13;
-    optional .google.protobuf.Struct PrevStopped = 14;
-    optional .google.protobuf.Struct GetLyrics = 15;
-    optional .google.protobuf.Struct EnableKaraokeMode = 16;
-    optional .google.protobuf.Struct DisableKaraokeMode = 17;
+    .google.protobuf.Struct MusicPlay = 1 [json_name = "music_play"];
+    optional .google.protobuf.Struct Like = 2 [json_name = "like"];
+    optional .google.protobuf.Struct Dislike = 3 [json_name = "dislike"];
+    optional .google.protobuf.Struct UnDislike = 4 [json_name = "undislike"];
+    optional .google.protobuf.Struct UnLike = 5 [json_name = "unlike"];
+    optional .google.protobuf.Struct Next = 6 [json_name = "next"];
+    optional .google.protobuf.Struct Previous = 7 [json_name = "previous"];
+    optional .google.protobuf.Struct RepeatOne = 8 [json_name = "repeat_one"];
+    optional .google.protobuf.Struct RepeatAll = 9 [json_name = "repeat_all"];
+    optional .google.protobuf.Struct UnRepeat = 10 [json_name = "unrepeat"];
+    optional .google.protobuf.Struct Shuffle = 11 [json_name = "shuffle"];
+    optional .google.protobuf.Struct UnShuffle = 12 [json_name = "unshuffle"];
+    optional .google.protobuf.Struct NextStopped = 13 [json_name = "next_stopped"];
+    optional .google.protobuf.Struct PrevStopped = 14 [json_name = "prev_stopped"];
+    optional .google.protobuf.Struct GetLyrics = 15 [json_name = "get_lyrics"];
+    optional .google.protobuf.Struct EnableKaraokeMode = 16 [json_name = "enable_karaoke_mode"];
+    optional .google.protobuf.Struct DisableKaraokeMode = 17 [json_name = "disable_karaoke_mode"];
   }
 
-  message CallbacksEntry {
-    string key = 1;
-    .NAlice.TCallbacksStorage.TCallbackPayloads value = 2;
-  }
-
-  repeated .NAlice.TCallbacksStorage.CallbacksEntry Callbacks = 1;
+  map<string, .NAlice.TCallbacksStorage.TCallbackPayloads> Callbacks = 1 [json_name = "callbacks"];
 }
 

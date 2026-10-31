@@ -16,23 +16,27 @@ message TIotMotorControlCapability {
   }
 
   message TState {
-    .NAlice.TIotMotorControlCapability.EState State = 1;
+    .NAlice.TIotMotorControlCapability.EState State = 1 [json_name = "state"];
   }
 
   message TMotorControlOpenDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TMotorControlCloseDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TMotorControlStopDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TMotorControlToggleDirective {
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMotorControlCapability Capability = 1;
+    .NAlice.TIotMotorControlCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EState {
@@ -42,8 +46,8 @@ message TIotMotorControlCapability {
     CLOSED = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotMotorControlCapability.TParameters Parameters = 2;
-  .NAlice.TIotMotorControlCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotMotorControlCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotMotorControlCapability.TState State = 3 [json_name = "state"];
 }
 

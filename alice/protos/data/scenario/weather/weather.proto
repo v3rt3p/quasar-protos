@@ -1,0 +1,286 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.weather";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/weather";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/scenario/suggests/suggests.proto";
+
+message TWeatherCondition {
+  string Title = 1 [json_name = "title"];
+  double FeelsLike = 2 [json_name = "feels_like"];
+  double Cloudness = 3 [json_name = "cloudness"];
+  double PrecStrength = 4 [json_name = "prec_strength"];
+  uint32 PrecType = 5 [json_name = "prec_type"];
+  string Season = 6 [json_name = "season"];
+  optional uint32 SeasonType = 7 [json_name = "season_type"];
+}
+
+message TWeatherLocation {
+  string City = 1 [json_name = "city"];
+  string CityPrepcase = 2 [json_name = "city_prepcase"];
+}
+
+message TDaylightHours {
+  string Sunrise = 1 [json_name = "sunrise"];
+  string Sunset = 2 [json_name = "sunset"];
+}
+
+message TWeatherTeaserData {
+  repeated .NAlice.NData.TWeatherHourItem HourItems = 1 [json_name = "hour_items"];
+  string Date = 2 [json_name = "date"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 3 [json_name = "geo_location"];
+  string Tz = 4 [json_name = "tz"];
+  string UserTime = 5 [json_name = "user_time"];
+  string Sunrise = 6 [json_name = "sunrise"];
+  string Sunset = 7 [json_name = "sunset"];
+  double Temperature = 8 [json_name = "temperature"];
+  string Icon = 9 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 10 [json_name = "condition"];
+  string IconType = 11 [json_name = "icon_type"];
+  string UserDate = 12 [json_name = "user_date"];
+  bool ActiveConsumption = 13 [json_name = "active_consumption"];
+}
+
+message TWeatherMainScreenData {
+  string Date = 1 [json_name = "date"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 2 [json_name = "geo_location"];
+  string Tz = 3 [json_name = "tz"];
+  string UserTime = 4 [json_name = "user_time"];
+  string Sunrise = 5 [json_name = "sunrise"];
+  string Sunset = 6 [json_name = "sunset"];
+  double Temperature = 7 [json_name = "temperature"];
+  string Icon = 8 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 9 [json_name = "condition"];
+  string IconType = 10 [json_name = "icon_type"];
+  string UserDate = 11 [json_name = "user_date"];
+}
+
+message TWeatherHourItem {
+  uint32 Hour = 1 [json_name = "hour"];
+  uint64 Timestamp = 2 [json_name = "timestamp"];
+  double Temperature = 3 [json_name = "temperature"];
+  string Icon = 4 [json_name = "icon"];
+  string IconType = 5 [json_name = "icon_type"];
+  double PrecStrength = 6 [json_name = "prec_strength"];
+  uint32 PrecType = 7 [json_name = "prec_type"];
+}
+
+message TWeatherDayHoursData {
+  repeated .NAlice.NData.TWeatherHourItem HourItems = 1 [json_name = "hour_items"];
+  string Date = 2 [json_name = "date"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 3 [json_name = "geo_location"];
+  string DayPartType = 4 [json_name = "day_part_type"];
+  string Tz = 5 [json_name = "tz"];
+  string UserTime = 6 [json_name = "user_time"];
+  string Sunrise = 7 [json_name = "sunrise"];
+  string Sunset = 8 [json_name = "sunset"];
+  double Temperature = 9 [json_name = "temperature"];
+  string Icon = 10 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 11 [json_name = "condition"];
+  .NAlice.NData.TDaylightHours TodayDaylight = 12 [json_name = "today_dayligth"];
+  string IconType = 13 [json_name = "icon_type"];
+  string UserDate = 14 [json_name = "user_date"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 15 [json_name = "suggest_buttons"];
+  bool ActiveConsumption = 16 [json_name = "active_consumption"];
+  double TemperatureMin = 17 [json_name = "temperature_min"];
+  double TemperatureMax = 18 [json_name = "temperature_max"];
+  string WeatherUri = 19 [json_name = "weather_uri"];
+}
+
+message TWeatherDayPartData {
+  string Date = 1 [json_name = "date"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 2 [json_name = "geo_location"];
+  string DayPartType = 3 [json_name = "day_part_type"];
+  string Tz = 4 [json_name = "tz"];
+  string UserTime = 5 [json_name = "user_time"];
+  string Sunrise = 6 [json_name = "sunrise"];
+  string Sunset = 7 [json_name = "sunset"];
+  double Temperature = 8 [json_name = "temperature"];
+  string Icon = 9 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 10 [json_name = "condition"];
+  .NAlice.NData.TDaylightHours TodayDaylight = 11 [json_name = "today_dayligth"];
+  string IconType = 12 [json_name = "icon_type"];
+  string UserDate = 13 [json_name = "user_date"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 14 [json_name = "suggest_buttons"];
+  repeated .NAlice.NData.TWeatherDayPartItem DayPartItems = 15 [json_name = "day_part_items"];
+  bool ActiveConsumption = 16 [json_name = "active_consumption"];
+  string WeatherUri = 17 [json_name = "weather_uri"];
+}
+
+message TWeatherDayPartItem {
+  string DayPartType = 1 [json_name = "day_part_type"];
+  double Temperature = 2 [json_name = "temperature"];
+  string Icon = 3 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 4 [json_name = "condition"];
+  string IconType = 5 [json_name = "icon_type"];
+}
+
+message TWeatherDayData {
+  repeated .NAlice.NData.TWeatherDayPartItem DayPartItems = 1 [json_name = "day_part_items"];
+  string Date = 2 [json_name = "date"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 3 [json_name = "geo_location"];
+  string Tz = 4 [json_name = "tz"];
+  string UserTime = 5 [json_name = "user_time"];
+  string Sunrise = 6 [json_name = "sunrise"];
+  string Sunset = 7 [json_name = "sunset"];
+  double Temperature = 8 [json_name = "temperature"];
+  string Icon = 9 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 10 [json_name = "condition"];
+  .NAlice.NData.TDaylightHours TodayDaylight = 11 [json_name = "today_dayligth"];
+  string IconType = 12 [json_name = "icon_type"];
+  string UserDate = 13 [json_name = "user_date"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 14 [json_name = "suggest_buttons"];
+  bool ActiveConsumption = 15 [json_name = "active_consumption"];
+  double TemperatureMin = 16 [json_name = "temperature_min"];
+  double TemperatureMax = 17 [json_name = "temperature_max"];
+  string WeatherUri = 18 [json_name = "weather_uri"];
+}
+
+message TWeatherDayItem {
+  string Date = 1 [json_name = "date"];
+  string Tz = 2 [json_name = "tz"];
+  uint32 WeekDay = 3 [json_name = "week_day"];
+  double DayTemp = 4 [json_name = "day_temp"];
+  double NightTemp = 5 [json_name = "night_temp"];
+  string Icon = 6 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 7 [json_name = "condition"];
+  string Url = 8 [json_name = "url"];
+  string IconType = 9 [json_name = "icon_type"];
+}
+
+message TWeatherDaysRangeData {
+  repeated .NAlice.NData.TWeatherDayItem DayItems = 1 [json_name = "day_items"];
+  .NAlice.NData.TWeatherLocation GeoLocation = 2 [json_name = "geo_location"];
+  string Tz = 3 [json_name = "tz"];
+  string UserTime = 4 [json_name = "user_time"];
+  .NAlice.NData.TDaylightHours TodayDaylight = 5 [json_name = "today_dayligth"];
+  string UserDate = 6 [json_name = "user_date"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 7 [json_name = "suggest_buttons"];
+  .NAlice.NData.TWeatherCondition CurrentCondition = 8 [json_name = "current_condition"];
+  double CurrentTemperature = 9 [json_name = "current_temperature"];
+  bool ActiveConsumption = 10 [json_name = "active_consumption"];
+  string WeatherUri = 11 [json_name = "weather_uri"];
+}
+
+message TWeatherInformerData {
+  double Temperature = 1 [json_name = "temperature"];
+  string Icon = 2 [json_name = "icon"];
+  .NAlice.NData.TWeatherCondition Condition = 3 [json_name = "condition"];
+  string IconType = 4 [json_name = "icon_type"];
+}
+
+message TWeatherAdditionalComponent {
+  message TWindDirectionData {
+    message TDayPartItem {
+      string DayPartType = 1 [json_name = "day_part_type"];
+      double Speed = 2 [json_name = "speed"];
+      string Icon = 3 [json_name = "icon"];
+    }
+
+    double Speed = 1 [json_name = "speed"];
+    double Gust = 2 [json_name = "gust"];
+    string Icon = 3 [json_name = "icon"];
+    repeated .NAlice.NData.TWeatherAdditionalComponent.TWindDirectionData.TDayPartItem DayPartItems = 4 [json_name = "day_part_items"];
+  }
+
+  message THumidityData {
+    int32 Humidity = 1 [json_name = "humidity"];
+    string Icon = 2 [json_name = "icon"];
+  }
+
+  message TPressureData {
+    int32 Pressure = 1 [json_name = "pressure"];
+    string Icon = 2 [json_name = "icon"];
+  }
+
+  message TUvIndexData {
+    int32 UvIndex = 1 [json_name = "uv_index"];
+    string Description = 2 [json_name = "description"];
+    string Icon = 3 [json_name = "icon"];
+  }
+
+  message TSunriseAndSunsetData {
+    message TSunriseData {
+      string Sunrise = 1 [json_name = "sunrise"];
+      string Icon = 2 [json_name = "icon"];
+    }
+
+    message TSunsetData {
+      string Sunset = 1 [json_name = "sunset"];
+      string Icon = 2 [json_name = "icon"];
+    }
+
+    .NAlice.NData.TWeatherAdditionalComponent.TSunriseAndSunsetData.TSunriseData SunriseData = 1 [json_name = "sunrise_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TSunriseAndSunsetData.TSunsetData SunsetData = 2 [json_name = "sunset_data"];
+  }
+
+  message TMoonPhaseData {
+    string MoonPhase = 1 [json_name = "moon_phase"];
+    string Icon = 2 [json_name = "icon"];
+  }
+
+  message TFeelsLikeData {
+    double FeelsLike = 1 [json_name = "feels_like"];
+    string Icon = 2 [json_name = "icon"];
+  }
+
+  message TWaterTemperatureData {
+    int32 WaterTemperature = 1 [json_name = "water_temperature"];
+    string Icon = 2 [json_name = "icon"];
+  }
+
+  oneof ComponentData {
+    .NAlice.NData.TWeatherAdditionalComponent.TWindDirectionData WindDirectionData = 1 [json_name = "wind_direction_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.THumidityData HumidityData = 2 [json_name = "humidity_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TPressureData PressureData = 3 [json_name = "pressure_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TUvIndexData UvIndexData = 4 [json_name = "uv_index_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TSunriseAndSunsetData SunriseAndSunsetData = 5 [json_name = "sunrise_and_sunset_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TMoonPhaseData MoonPhaseData = 6 [json_name = "moon_phase_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TFeelsLikeData FeelsLikeData = 7 [json_name = "feels_like_data"];
+    .NAlice.NData.TWeatherAdditionalComponent.TWaterTemperatureData WaterTemperatureData = 8 [json_name = "water_temperature_data"];
+  }
+}
+
+message TWeatherDayShortData {
+  message TDayPartItem {
+    string DayPartType = 1 [json_name = "day_part_type"];
+    double Temperature = 2 [json_name = "temperature"];
+    string Icon = 3 [json_name = "icon"];
+  }
+
+  .NAlice.NData.TWeatherLocation GeoLocation = 1 [json_name = "geo_location"];
+  string DayPartType = 2 [json_name = "day_part_type"];
+  string Date = 3 [json_name = "date"];
+  string UserDate = 4 [json_name = "user_date"];
+  double Temperature = 5 [json_name = "temperature"];
+  string AlertText = 6 [json_name = "alert_text"];
+  string Icon = 7 [json_name = "icon"];
+  repeated .NAlice.NData.TWeatherDayShortData.TDayPartItem DayPartItems = 8 [json_name = "day_part_items"];
+  repeated .NAlice.NData.TWeatherAdditionalComponent AdditionalComponents = 9 [json_name = "additional_components"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 10 [json_name = "suggest_buttons"];
+}
+
+message TWeatherAdditionalComponentData {
+  .NAlice.NData.TWeatherLocation GeoLocation = 1 [json_name = "geo_location"];
+  .NAlice.NData.TWeatherAdditionalComponent Component = 2 [json_name = "component"];
+  repeated .NAlice.NData.TSuggest SuggestButtons = 3 [json_name = "suggest_buttons"];
+}
+
+message TWeatherUserConfig {
+  message TWeatherSettings {
+    bool WindDirection = 1 [json_name = "wind_direction"];
+    bool Humidity = 2 [json_name = "humidity"];
+    bool Pressure = 3 [json_name = "pressure"];
+    bool UvIndex = 4 [json_name = "uv_index"];
+    bool WaterTemperature = 5 [json_name = "water_temperature"];
+    bool SunriseAndSunset = 6 [json_name = "sunrise_and_sunset"];
+    bool MoonPhase = 7 [json_name = "moon_phase"];
+    bool FeelsLike = 8 [json_name = "feels_like"];
+  }
+
+  .NAlice.NData.TWeatherUserConfig.TWeatherSettings WeatherSettings = 1 [json_name = "weather_settings"];
+}
+

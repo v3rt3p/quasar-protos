@@ -13,11 +13,11 @@ message TClientInfoProto {
   reserved "AuthToken";
   reserved 13;
   message TMediaDeviceIdentifier {
-    optional string OttServiceId = 1;
-    optional string OttServiceName = 2;
-    optional string StrmFrom = 3;
-    optional string VideoSearchClient = 4;
-    optional string ObjectResponseClient = 5;
+    optional string OttServiceId = 1 [json_name = "ott_service_id"];
+    optional string OttServiceName = 2 [json_name = "ott_service_name"];
+    optional string StrmFrom = 3 [json_name = "strm_from"];
+    optional string VideoSearchClient = 4 [json_name = "video_search_client"];
+    optional string ObjectResponseClient = 5 [json_name = "object_response_client"];
   }
 
   enum EClientType {
@@ -27,30 +27,30 @@ message TClientInfoProto {
     SpeechKit = 3;
   }
 
-  optional string AppId = 1;
-  optional string AppVersion = 2;
-  optional string OsVersion = 3;
-  optional string Platform = 4;
-  optional string Uuid = 5;
-  optional string DeviceId = 6;
-  optional string Lang = 7;
-  optional string ClientTime = 8;
-  optional string Timezone = 9;
-  optional string Epoch = 10;
-  optional string DeviceModel = 11;
-  optional string DeviceManufacturer = 12;
-  optional string DeviceColor = 14;
-  optional string DeviceRevision = 15;
-  optional string QuasmodromGroup = 16;
-  optional string QuasmodromSubgroup = 17;
-  optional .NAlice.TClientInfoProto.TMediaDeviceIdentifier MediaDeviceIdentifier = 18;
-  optional string DeviceFirmware = 19;
-  optional string MetricaDeviceId = 20;
-  optional string WifiModel = 21;
-  optional string IntegrationType = 22;
-  optional .NAlice.TClientInfoProto.EClientType ClientType = 23;
-  optional string Vid = 24;
-  optional string Pid = 25;
-  optional string FirmwareVersion = 26;
+  optional string AppId = 1 [json_name = "app_id"];
+  optional string AppVersion = 2 [json_name = "app_version"];
+  optional string OsVersion = 3 [json_name = "os_version"];
+  optional string Platform = 4 [json_name = "platform"];
+  optional string Uuid = 5 [json_name = "uuid"];
+  optional string DeviceId = 6 [json_name = "device_id"];
+  optional string Lang = 7 [json_name = "lang"];
+  optional string ClientTime = 8 [json_name = "client_time"];
+  optional string Timezone = 9 [json_name = "timezone"];
+  optional string Epoch = 10 [json_name = "timestamp"];
+  optional string DeviceModel = 11 [json_name = "device_model"];
+  optional string DeviceManufacturer = 12 [json_name = "device_manufacturer"];
+  optional string DeviceColor = 14 [json_name = "device_color"];
+  optional string DeviceRevision = 15 [json_name = "device_revision"];
+  optional string QuasmodromGroup = 16 [json_name = "quasmodrom_group"];
+  optional string QuasmodromSubgroup = 17 [json_name = "quasmodrom_subgroup"];
+  optional .NAlice.TClientInfoProto.TMediaDeviceIdentifier MediaDeviceIdentifier = 18 [json_name = "media_device_identifier"];
+  optional string DeviceFirmware = 19 [json_name = "device_firmware"];
+  optional string MetricaDeviceId = 20 [json_name = "metrica_device_id"];
+  optional string WifiModel = 21 [json_name = "wifi_model"];
+  optional string IntegrationType = 22 [json_name = "integration_type"];
+  optional .NAlice.TClientInfoProto.EClientType ClientType = 23 [json_name = "client_type"];
+  optional string Vid = 24 [json_name = "vid"];
+  optional string Pid = 25 [json_name = "pid"];
+  optional string FirmwareVersion = 26 [json_name = "firmware_version"];
 }
 

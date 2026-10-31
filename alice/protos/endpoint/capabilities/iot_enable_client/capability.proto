@@ -16,20 +16,20 @@ message TIotEnableClientCapability {
   }
 
   message TState {
-    bool Enable = 1;
+    bool Enable = 1 [json_name = "enable"];
   }
 
   message TSetIotEnableClientDirective {
-    string Name = 1000;
-    bool Enable = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Enable = 1 [json_name = "enable"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotEnableClientCapability Capability = 1;
+    .NAlice.TIotEnableClientCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotEnableClientCapability.TParameters Parameters = 2;
-  .NAlice.TIotEnableClientCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotEnableClientCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotEnableClientCapability.TState State = 3 [json_name = "state"];
 }
 

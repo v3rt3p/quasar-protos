@@ -29,19 +29,19 @@ message TUserTags {
       Match = 1;
     }
 
-    .NAlice.TUserTags.TBiometrical.EOrigin Origin = 1;
-    .NAlice.TUserTags.TBiometrical.EStatus Status = 2;
-    bool IsOwnerEnrolled = 3;
-    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 4;
-    string RefMessageId = 5;
+    .NAlice.TUserTags.TBiometrical.EOrigin Origin = 1 [json_name = "origin"];
+    .NAlice.TUserTags.TBiometrical.EStatus Status = 2 [json_name = "status"];
+    bool IsOwnerEnrolled = 3 [json_name = "is_owner_enrolled"];
+    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 4 [json_name = "enrollment_headers"];
+    string RefMessageId = 5 [json_name = "ref_message_id"];
   }
 
   message TChild {
   }
 
-  .NAlice.TUserTags.TOwner Owner = 1;
-  .NAlice.TUserTags.TActive Active = 2;
-  .NAlice.TUserTags.TBiometrical Biometrical = 3;
-  .NAlice.TUserTags.TChild Child = 4;
+  .NAlice.TUserTags.TOwner Owner = 1 [json_name = "owner"];
+  .NAlice.TUserTags.TActive Active = 2 [json_name = "active"];
+  .NAlice.TUserTags.TBiometrical Biometrical = 3 [json_name = "biometrical"];
+  .NAlice.TUserTags.TChild Child = 4 [json_name = "child"];
 }
 

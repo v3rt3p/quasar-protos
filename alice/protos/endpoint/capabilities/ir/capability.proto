@@ -22,56 +22,51 @@ message TIrCapability {
   }
 
   message TTryIrCommandDirective {
-    string Name = 1000;
-    repeated uint32 KeyIds = 1;
-    .NAlice.NIr.TRemoteData Data = 2;
-    uint32 CommandIntervalMs = 3;
+    string Name = 1000 [json_name = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
+    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data"];
+    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms"];
   }
 
   message TTryIrAcCommandDirective {
-    string Name = 1000;
-    .NAlice.NIr.EAcKey AcKey = 1;
-    .NAlice.NIr.TAcState AcState = 2;
-    .NAlice.NIr.TRemoteData Data = 3;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key"];
+    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state"];
+    .NAlice.NIr.TRemoteData Data = 3 [json_name = "data"];
   }
 
   message TRecordIrPulseDirective {
-    string Name = 1000;
-    string RequestId = 1;
-    uint32 TimeoutSeconds = 2;
+    string Name = 1000 [json_name = "name"];
+    string RequestId = 1 [json_name = "request_id"];
+    uint32 TimeoutSeconds = 2 [json_name = "timeout_seconds"];
   }
 
   message TCancelRecordIrPulseDirective {
-    string Name = 1000;
-    string RequestId = 1;
+    string Name = 1000 [json_name = "name"];
+    string RequestId = 1 [json_name = "request_id"];
   }
 
   message TAddIrRemoteDirective {
-    string Name = 1000;
-    string EndpointId = 1;
-    .NAlice.NIr.TRemote Remote = 2;
-    string RequestId = 3;
+    string Name = 1000 [json_name = "name"];
+    string EndpointId = 1 [json_name = "endpoint_id"];
+    .NAlice.NIr.TRemote Remote = 2 [json_name = "remote"];
+    string RequestId = 3 [json_name = "request_id"];
   }
 
   message TForgetIrRemoteDirective {
-    string Name = 1000;
-    string EndpointId = 1;
+    string Name = 1000 [json_name = "name"];
+    string EndpointId = 1 [json_name = "endpoint_id"];
   }
 
   message TRestoreIrRemotesDirective {
-    message RemotesEntry {
-      string key = 1;
-      .NAlice.NIr.TRemote value = 2;
-    }
-
-    string Name = 1000;
-    repeated .NAlice.TIrCapability.TRestoreIrRemotesDirective.RemotesEntry Remotes = 1;
+    string Name = 1000 [json_name = "name"];
+    map<string, .NAlice.NIr.TRemote> Remotes = 1 [json_name = "remotes"];
   }
 
   message TIrPulseEvent {
-    string RequestId = 1;
-    repeated uint32 Pulse = 2;
-    uint32 Frequency = 3;
+    string RequestId = 1 [json_name = "request_id"];
+    repeated uint32 Pulse = 2 [json_name = "pulse"];
+    uint32 Frequency = 3 [json_name = "frequency"];
   }
 
   message TRestoreIrRemotesEvent {
@@ -82,49 +77,49 @@ message TIrCapability {
     reserved "Capabilities";
     reserved 1;
     reserved 2;
-    .NAlice.TEndpoint Endpoint = 4;
-    string RequestId = 3;
+    .NAlice.TEndpoint Endpoint = 4 [json_name = "endpoint"];
+    string RequestId = 3 [json_name = "request_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIrCapability.TParameters Parameters = 2;
-  .NAlice.TIrCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIrCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIrCapability.TState State = 3 [json_name = "state"];
 }
 
 message TIrRemoteCapability {
   message TParameters {
-    .NAlice.NIr.TRemote Remote = 1;
+    .NAlice.NIr.TRemote Remote = 1 [json_name = "remote"];
   }
 
   message TState {
-    .NAlice.NIr.TAcState AcState = 1;
+    .NAlice.NIr.TAcState AcState = 1 [json_name = "ac_state"];
   }
 
   message TSendIrCommandDirective {
-    string Name = 1000;
-    repeated uint32 KeyIds = 1;
-    uint32 CommandIntervalMs = 2;
+    string Name = 1000 [json_name = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
+    uint32 CommandIntervalMs = 2 [json_name = "command_interval_ms"];
   }
 
   message TSendIrCustomCommandDirective {
-    string Name = 1000;
-    repeated uint32 KeyIds = 1;
-    .NAlice.NIr.TRemoteData Data = 2;
-    uint32 CommandIntervalMs = 3;
+    string Name = 1000 [json_name = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
+    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data"];
+    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms"];
   }
 
   message TSendIrAcCommandDirective {
-    string Name = 1000;
-    .NAlice.NIr.EAcKey AcKey = 1;
-    .NAlice.NIr.TAcState AcState = 2;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key"];
+    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIrRemoteCapability Capability = 1;
+    .NAlice.TIrRemoteCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIrRemoteCapability.TParameters Parameters = 2;
-  .NAlice.TIrRemoteCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIrRemoteCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIrRemoteCapability.TState State = 3 [json_name = "state"];
 }
 

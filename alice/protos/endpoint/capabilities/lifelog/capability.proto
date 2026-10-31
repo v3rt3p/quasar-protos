@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LifelogCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/lifelog;lifelogpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLifelogCapability {
+  message TParameters {
+  }
+
+  message TState {
+    optional string MeetingId = 1 [json_name = "meeting_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLifelogCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLifelogCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -20,7 +20,7 @@ message TAudioPlayerCapability {
     reserved "IsMultiroomSequenceStateSharingSupported";
     reserved 6;
     message TSequenceStateConditionalSupportParams {
-      bool AllowMultiroomSharing = 1;
+      bool AllowMultiroomSharing = 1 [json_name = "allow_multiroom_sharing"];
     }
 
     enum ECodec {
@@ -48,24 +48,30 @@ message TAudioPlayerCapability {
       Lossless = 5;
     }
 
-    bool GenericHlsPlaybackSupport = 1;
-    repeated .NAlice.TAudioPlayerCapability.TParameters.ECodec SupportedCodecs = 2;
-    repeated .NAlice.TAudioPlayerCapability.TParameters.EStrmFeatures SupportedStrmFeatures = 3;
-    bool KaraokeSupport = 4;
-    .NAlice.TAudioPlayerCapability.TParameters.EQuality Quality = 5;
-    bool AutoQualityEnabled = 8;
-    .NAlice.TAudioPlayerCapability.TParameters.TSequenceStateConditionalSupportParams SequenceStateConditionalSupportParams = 7;
-    bool MusicSetSupport = 9;
+    bool GenericHlsPlaybackSupport = 1 [json_name = "generic_hls_playback_support"];
+    repeated .NAlice.TAudioPlayerCapability.TParameters.ECodec SupportedCodecs = 2 [json_name = "supported_codecs"];
+    repeated .NAlice.TAudioPlayerCapability.TParameters.EStrmFeatures SupportedStrmFeatures = 3 [json_name = "supported_strm_features"];
+    bool KaraokeSupport = 4 [json_name = "karaoke_support"];
+    .NAlice.TAudioPlayerCapability.TParameters.EQuality Quality = 5 [json_name = "quality"];
+    bool AutoQualityEnabled = 8 [json_name = "auto_quality_enabled"];
+    .NAlice.TAudioPlayerCapability.TParameters.TSequenceStateConditionalSupportParams SequenceStateConditionalSupportParams = 7 [json_name = "sequence_state_conditional_support_params"];
+    bool MusicSetSupport = 9 [json_name = "music_set_support"];
   }
 
   message TState {
     reserved "PlaybackOptions";
     reserved "SwitchingStreamsMetadata";
+    reserved "HasPrefetchedTrack";
     reserved 8;
     reserved 9;
+    reserved 17;
     message TFinishingTrackPlayerState {
-      .NAlice.TCommonPlayerState CommonPlayerState = 1;
-      string StreamId = 2;
+      .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state"];
+      string StreamId = 2 [json_name = "stream_id"];
+    }
+
+    message TPrefetchedTrack {
+      string RequestId = 1 [json_name = "request_id"];
     }
 
     enum EStateType {
@@ -78,94 +84,104 @@ message TAudioPlayerCapability {
       Finished = 6;
     }
 
-    .NAlice.TCommonPlayerState CommonPlayerState = 1;
-    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 2;
-    string StreamId = 3;
-    string StreamType = 4;
-    string Title = 5;
-    string SubTitle = 6;
-    .NAlice.TAudioPlayerSequenceState SequenceState = 7;
-    .NAlice.NData.NMusic.TSwitchingStreamsMetadata SwitchStreamsMetadata = 10;
-    .NAlice.NData.TPlaybackOptions PlaybackOpts = 11;
-    double PlaybackSpeed = 12;
-    bool IsCrossfaded = 13;
-    int64 UserMusicSessionTimestamp = 14;
-    .NAlice.TAudioPlayerCapability.TState.TFinishingTrackPlayerState FinishingTrackPlayerState = 15;
-    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 16;
+    .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state"];
+    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 2 [json_name = "state_type"];
+    string StreamId = 3 [json_name = "stream_id"];
+    string StreamType = 4 [json_name = "stream_type"];
+    string Title = 5 [json_name = "title"];
+    string SubTitle = 6 [json_name = "subtitle"];
+    .NAlice.TAudioPlayerSequenceState SequenceState = 7 [json_name = "sequence_state"];
+    .NAlice.NData.NMusic.TSwitchingStreamsMetadata SwitchStreamsMetadata = 10 [json_name = "switch_streams_metadata"];
+    .NAlice.NData.TPlaybackOptions PlaybackOpts = 11 [json_name = "playback_opts"];
+    double PlaybackSpeed = 12 [json_name = "playback_speed"];
+    bool IsCrossfaded = 13 [json_name = "is_crossfaded"];
+    int64 UserMusicSessionTimestamp = 14 [json_name = "user_music_session_timestamp"];
+    .NAlice.TAudioPlayerCapability.TState.TFinishingTrackPlayerState FinishingTrackPlayerState = 15 [json_name = "finishing_track_player_state"];
+    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 16 [json_name = "karaoke_mode"];
+    bool IsVinylPlayer = 19 [json_name = "is_vinyl_player"];
+    optional .NAlice.TAudioPlayerCapability.TState.TPrefetchedTrack PrefetchedTrack = 18 [json_name = "prefetched_track"];
+  }
+
+  message TProgressEvent {
+    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 1 [json_name = "state_type"];
+    int64 OffsetMs = 2 [json_name = "offset_ms"];
+    int64 DurationMs = 3 [json_name = "duration_ms"];
+    int64 PlayedMs = 4 [json_name = "played_ms"];
+    string StreamId = 5 [json_name = "stream_id"];
   }
 
   message TSetSequenceStateDirective {
-    string Name = 1000;
-    .NAlice.TAudioPlayerSequenceState SequenceState = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TAudioPlayerSequenceState SequenceState = 1 [json_name = "sequence_state"];
   }
 
   message TPlayDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TLikeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TUnlikeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TDislikeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TUndislikeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TNextDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TPreviousDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TRepeatOneDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TRepeatAllDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TUnrepeatDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TShuffleDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TUnshuffleDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TGetLyricsDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TAudioSetSpeedLevelDirective {
-    string Name = 1000;
-    optional double PlaybackSpeed = 1;
+    string Name = 1000 [json_name = "name"];
+    optional double PlaybackSpeed = 1 [json_name = "playback_speed"];
   }
 
   message TEnableKaraokeModeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
   message TDisableKaraokeModeDirective {
-    optional string TrackId = 1;
+    optional string TrackId = 1 [json_name = "track_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAudioPlayerCapability.TParameters Parameters = 2;
-  .NAlice.TAudioPlayerCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAudioPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAudioPlayerCapability.TState State = 3 [json_name = "state"];
 }
 

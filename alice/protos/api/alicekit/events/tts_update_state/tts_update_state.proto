@@ -22,9 +22,9 @@ message TTtsUpdateState {
     Finish = 2;
   }
 
-  string RequestMessageId = 1;
-  .NAlice.NAliceApi.TTtsUpdateState.TTsState State = 2;
-  .NAlice.NAliceApi.TTtsUpdateState.EReportReason ReportReason = 3;
-  uint32 SubStreamId = 4;
+  string RequestMessageId = 1 [json_name = "requestMessageId"];
+  .NAlice.NAliceApi.TTtsUpdateState.TTsState State = 2 [json_name = "state"];
+  .NAlice.NAliceApi.TTtsUpdateState.EReportReason ReportReason = 3 [json_name = "report_reason"];
+  uint32 SubStreamId = 4 [json_name = "sub_stream_id"];
 }
 

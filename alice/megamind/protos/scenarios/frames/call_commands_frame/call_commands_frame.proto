@@ -13,8 +13,8 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetCallerNameSemanticFrame {
-  .NAlice.TStringSlot CallerDeviceID = 1;
-  .NAlice.TStringSlot CallerPayload = 2;
-  .NAlice.TStringSlot ChatId = 3;
+  .NAlice.TStringSlot CallerDeviceID = 1 [json_name = "caller_device_id"];
+  .NAlice.TStringSlot CallerPayload = 2 [json_name = "caller_payload"];
+  .NAlice.TStringSlot ChatId = 3 [json_name = "chat_id"];
 }
 

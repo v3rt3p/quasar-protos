@@ -3,6 +3,6 @@ syntax = "proto3";
 package quasar.proto;
 
 message TEffectiveTimeConditionState {
-  uint64 LastTriggerTimeSec = 1;
+  uint64 LastTriggerTimeSec = 1 [json_name = "last_trigger_time_sec"];
 }
 

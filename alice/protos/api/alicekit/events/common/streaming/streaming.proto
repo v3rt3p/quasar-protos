@@ -11,11 +11,11 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TStreaming {
   message TRouting {
-    string DialogId = 1;
+    string DialogId = 1 [json_name = "dialog_id"];
   }
 
-  .NAlice.NAliceApi.TStreaming.TRouting Routing = 1;
-  .NAlice.NAliceApi.EStreamingSource Source = 2;
+  .NAlice.NAliceApi.TStreaming.TRouting Routing = 1 [json_name = "routing"];
+  .NAlice.NAliceApi.EStreamingSource Source = 2 [json_name = "source"];
 }
 
 enum EStreamingSource {

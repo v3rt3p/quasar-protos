@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package NAlice.NScenarios;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.directives.common";
+option java_outer_classname = "ExtensionsProto";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/directives/common";
+
+import "google/protobuf/descriptor.proto";
+

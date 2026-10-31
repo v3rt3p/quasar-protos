@@ -16,11 +16,11 @@ message TAliceProCapability {
   }
 
   message TState {
-    .NAlice.TAliceProCapability.ESubscriptionStatus SubscriptionStatus = 1;
+    .NAlice.TAliceProCapability.ESubscriptionStatus SubscriptionStatus = 1 [json_name = "subscription_status"];
   }
 
   message TOpenProPurchaseScreenDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TForceSubscriptionCheckDirective {
@@ -34,8 +34,8 @@ message TAliceProCapability {
     SubscriptionActive = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAliceProCapability.TParameters Parameters = 2;
-  .NAlice.TAliceProCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceProCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceProCapability.TState State = 3 [json_name = "state"];
 }
 

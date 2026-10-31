@@ -10,11 +10,11 @@ import "alice/protos/data/device/info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserRoom {
-  string Id = 1;
-  string Name = 2;
-  string HouseholdId = 3;
-  .NAlice.TUserSharingInfo SharingInfo = 4;
-  repeated string Aliases = 5;
-  repeated string Permissions = 6;
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  string HouseholdId = 3 [json_name = "household_id"];
+  .NAlice.TUserSharingInfo SharingInfo = 4 [json_name = "sharing_info"];
+  repeated string Aliases = 5 [json_name = "aliases"];
+  repeated string Permissions = 6 [json_name = "permissions"];
 }
 

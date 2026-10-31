@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.frames.bluetooth_frame";
+option java_outer_classname = "FrameBluetooth";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/frames/bluetooth_frame;bluetoothframe";
+
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBluetoothOnSemanticFrame {
+}
+

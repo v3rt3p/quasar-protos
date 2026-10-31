@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package quark.android.proto;
+
+option java_package = "com.yandex.quasar.protobuf";
+option java_outer_classname = "YandexIO";
+
+import "channel_types.proto";
+
+message IORawAudioInputChannelsData {
+  repeated .QuarkProtos.AudioInputChannelType channels = 1;
+}
+

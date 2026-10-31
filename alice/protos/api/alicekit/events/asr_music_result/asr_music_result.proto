@@ -10,6 +10,6 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/asr_music
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAsrMusicResult {
-  string Raw = 1;
+  string Raw = 1 [json_name = "raw"];
 }
 

@@ -12,29 +12,29 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotMatterNodeNetworkDiagnosticsCapability {
   message TWiFiDiagnostics {
-    bytes Bssid = 1;
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiSecurityType SecurityType = 2;
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiVersion WiFiVersion = 3;
-    uint32 ChannelNumber = 4;
-    int32 Rssi = 5;
+    bytes Bssid = 1 [json_name = "bssid"];
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiSecurityType SecurityType = 2 [json_name = "security_type"];
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiVersion WiFiVersion = 3 [json_name = "wifi_version"];
+    uint32 ChannelNumber = 4 [json_name = "channel_number"];
+    int32 Rssi = 5 [json_name = "rssi"];
   }
 
   message TNetworkDiagnostics {
     oneof NetworkInfo {
-      .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TWiFiDiagnostics WiFi = 1;
+      .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TWiFiDiagnostics WiFi = 1 [json_name = "wifi"];
     }
   }
 
   message TParameters {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EInterfaceType InterfaceType = 1;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EInterfaceType InterfaceType = 1 [json_name = "interface_type"];
   }
 
   message TState {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TNetworkDiagnostics NetworkDiagnostics = 1;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TNetworkDiagnostics NetworkDiagnostics = 1 [json_name = "network_diagnostics"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability Capability = 1;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EInterfaceType {
@@ -65,8 +65,8 @@ message TIotMatterNodeNetworkDiagnosticsCapability {
     WiFiVersionAH = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TParameters Parameters = 2;
-  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TState State = 3 [json_name = "state"];
 }
 

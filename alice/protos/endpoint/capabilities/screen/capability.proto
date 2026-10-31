@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ScreenCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/screen;screenpb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/data/screen/screen.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScreenCapability {
+  message TParameters {
+  }
+
+  message TState {
+    .NAlice.TScreenCapability.TCurrentScreenInfo CurrentScreen = 1 [json_name = "current_screen"];
+  }
+
+  message TCurrentScreenInfo {
+    string Name = 1 [json_name = "name"];
+    .google.protobuf.Struct ScreenData = 4 [json_name = "screen_data"];
+    .NAlice.TScreenInfo ScreenInfo = 5 [json_name = "screen_info"];
+    repeated .NAlice.TAppInfo VisibleAppInfo = 6 [json_name = "visible_app_info"];
+    .NAlice.TScreenCapability.TA11YNode A11yScreenData = 7 [json_name = "a11y_screen_data"];
+    oneof Type {
+      .NAlice.TScreenCapability.TDivScreenInfo Div = 2 [json_name = "div"];
+      .NAlice.TScreenCapability.TNativeScreenInfo Native = 3 [json_name = "native"];
+    }
+  }
+
+  message TDivScreenInfo {
+    string CardName = 1 [json_name = "card_name"];
+    string CardId = 2 [json_name = "card_id"];
+  }
+
+  message TNativeScreenInfo {
+    reserved "On";
+    reserved 3;
+    string ScreenName = 1 [json_name = "screen_name"];
+    string PackageName = 2 [json_name = "package_name"];
+  }
+
+  message TA11YNode {
+    int32 Id = 1 [json_name = "id"];
+    string ClassName = 2 [json_name = "class_name"];
+    string AndroidId = 3 [json_name = "android_id"];
+    string Text = 4 [json_name = "text"];
+    string ContentDescription = 5 [json_name = "content_description"];
+    bool IsClickable = 7 [json_name = "is_clickable"];
+    bool IsEditable = 8 [json_name = "is_editable"];
+    bool IsCheckable = 9 [json_name = "is_checkable"];
+    bool IsChecked = 10 [json_name = "is_checked"];
+    bool IsScrollable = 11 [json_name = "is_scrollable"];
+    bool IsFocusable = 12 [json_name = "is_focusable"];
+    bool IsVisible = 13 [json_name = "is_visible"];
+    .NAlice.TScreenCapability.Rect bounds = 14 [json_name = "bounds"];
+    .NAlice.TScreenCapability.CollectionInfo CollectionInfo = 16 [json_name = "collection_info"];
+    .NAlice.TScreenCapability.CollectionItemInfo CollectionItemInfo = 17 [json_name = "collection_item_info"];
+    string ResourceName = 18 [json_name = "resource_name"];
+    .NAlice.TScreenCapability.TA11YNode LabeledBy = 19 [json_name = "labeled_by"];
+    repeated .NAlice.TScreenCapability.TA11YNode Children = 20 [json_name = "children"];
+  }
+
+  message Rect {
+    float x = 1 [json_name = "x"];
+    float y = 2 [json_name = "y"];
+    float width = 3 [json_name = "width"];
+    float height = 4 [json_name = "height"];
+  }
+
+  message CollectionInfo {
+    int32 RowCount = 1 [json_name = "row_count"];
+    int32 ColumnCount = 2 [json_name = "column_count"];
+  }
+
+  message CollectionItemInfo {
+    int32 Row = 1 [json_name = "row"];
+    int32 Column = 2 [json_name = "column"];
+  }
+
+  message TSendScreenDataEvent {
+    .NAlice.TScreenCapability Capability = 1 [json_name = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TScreenCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TScreenCapability.TState State = 3 [json_name = "state"];
+}
+

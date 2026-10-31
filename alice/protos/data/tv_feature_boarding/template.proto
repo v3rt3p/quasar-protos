@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package NAlice.NSmartTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv_feature_boarding";
+option java_outer_classname = "TvFeatureBoardingTemplate";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv_feature_boarding";
+
+import "google/protobuf/descriptor.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/struct.proto";
+
+message TGiftTemplate {
+}
+
+message TTandemTemplate {
+  bool IsTandemDevicesAvailable = 1 [json_name = "is_tandem_devices_available"];
+  bool IsTandemConnected = 2 [json_name = "is_tandem_connected"];
+}
+
+message TGamesTemplate {
+  bool IsGamesInstalled = 1 [json_name = "is_games_installed"];
+}
+
+message TWillWatchTemplate {
+}
+
+message TFakeStandbyTemplate {
+}
+
+message TBrowserTemplate {
+  bool IsBrowserInstalled = 1 [json_name = "is_browser_installed"];
+}
+
+message TTemplateRequest {
+  message TChosenTemplate {
+    oneof ChosenTemplate {
+      .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template"];
+      .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template"];
+      .NAlice.NSmartTv.TGamesTemplate GamesTemplate = 3 [json_name = "games_promo_template"];
+      .NAlice.NSmartTv.TWillWatchTemplate WillWatchTemplate = 4 [json_name = "will_watch_promo_template"];
+      .NAlice.NSmartTv.TFakeStandbyTemplate FakeStandbyTemplate = 5 [json_name = "fake_standby_promo_template"];
+      .NAlice.NSmartTv.TBrowserTemplate BrowserTemplate = 6 [json_name = "browser_template"];
+    }
+  }
+
+  repeated .NAlice.NSmartTv.TTemplateRequest.TChosenTemplate RequestedTemplates = 3 [json_name = "requested_templates"];
+  oneof ChosenTemplate {
+    .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template"];
+    .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template"];
+  }
+}
+
+message TReportShownTemplateRequest {
+  string ShownTemplateName = 1 [json_name = "shown_template_name"];
+  uint64 ShowTemplateTimestamp = 2 [json_name = "show_template_timestamp"];
+}
+
+message TReportShownTemplateResponse {
+}
+
+message TTemplateResponse {
+  string TemplateName = 1 [json_name = "template_name"];
+  .google.protobuf.Struct DivJson = 2 [json_name = "div_json"];
+  int32 Ttl = 3 [json_name = "ttl"];
+}
+

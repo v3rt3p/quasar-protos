@@ -10,8 +10,8 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/ping";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPing {
-  uint32 Timestamp = 1;
-  uint32 PingTimeoutMilliSeconds = 2;
-  uint32 PongTimeoutMilliSeconds = 3;
+  uint32 Timestamp = 1 [json_name = "timestamp"];
+  uint32 PingTimeoutMilliSeconds = 2 [json_name = "ping_timeout_milliseconds"];
+  uint32 PongTimeoutMilliSeconds = 3 [json_name = "pong_timeout_milliseconds"];
 }
 

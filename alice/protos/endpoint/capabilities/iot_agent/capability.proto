@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "IotAgentCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_agent;iotagentpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotAgentCapability {
+  message TParameters {
+  }
+
+  message TState {
+    string InAppContext = 1 [json_name = "in_app_context"];
+  }
+
+  message TClearIotAgentContextDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotAgentCapability.TState State = 3 [json_name = "state"];
+}
+

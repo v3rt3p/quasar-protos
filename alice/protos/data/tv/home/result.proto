@@ -1,0 +1,103 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv.home";
+option java_outer_classname = "TvHomeResultProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/home";
+
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/tv/whats_new/whats_new.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/struct.proto";
+
+message TTtlInfo {
+  bool HasTtl = 1 [json_name = "has_ttl"];
+  uint64 TtlMillis = 2 [json_name = "ttl_millis"];
+}
+
+message THomeCarouselWrapper {
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
+  .google.protobuf.Struct AnalyticsInfoPayload = 2 [json_name = "analytics_info_payload"];
+  int32 Offset = 3 [json_name = "offset"];
+  oneof Carousel {
+    .NAlice.NTv.TEmptyCarousel EmptyCarousel = 1001 [json_name = "empty_carousel"];
+    .NAlice.NTv.TCarousel HomeCarousel = 1002 [json_name = "home_carousel"];
+    .NAlice.NTv.TDivCarousel DivCarousel = 1003 [json_name = "div_carousel"];
+  }
+}
+
+message TTvCarouselResultData {
+  reserved "CacheHash";
+  reserved 3;
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
+  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel"];
+}
+
+message TCentaurCarouselResultData {
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
+  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel"];
+}
+
+message TTvFeedResultData {
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels"];
+  string CacheHash = 3 [json_name = "cache_hash"];
+  bool HasMore = 4 [json_name = "has_more"];
+  int32 Offset = 5 [json_name = "offset"];
+}
+
+message TCentaurFeedResultData {
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels"];
+  string CacheHash = 3 [json_name = "cache_hash"];
+  bool HasMore = 4 [json_name = "has_more"];
+  int32 Offset = 5 [json_name = "offset"];
+}
+
+message TWhatsNewCompleteWatchResponse {
+  message TSuccess {
+  }
+
+  message TError {
+    string ErrorMessage = 1 [json_name = "error_message"];
+  }
+
+  oneof Resp {
+    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TSuccess Success = 1 [json_name = "success"];
+    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TError Error = 2 [json_name = "error"];
+  }
+}
+
+message TDeleteDelayedItemResponse {
+  enum EStatus {
+    HIDDEN_FAIL = 0;
+    HIDDEN_OK = 1;
+  }
+
+  .NAlice.NTv.TDeleteDelayedItemResponse.EStatus Status = 1 [json_name = "status"];
+  string ErrorMessage = 2 [json_name = "error_message"];
+}
+
+message TGetMusicCategoryResponse {
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 1 [json_name = "carousels"];
+}
+
+message TWhatsNewItemWrapper {
+  .NAlice.NTv.TWhatsNewTile Tile = 1 [json_name = "tile"];
+  .NAlice.NTv.TWhatsNewContent Content = 2 [json_name = "content"];
+  bool Seen = 3 [json_name = "seen"];
+  bool Viewed = 4 [json_name = "viewed"];
+}
+
+message TGetWhatsNewResponse {
+  repeated .NAlice.NTv.TWhatsNewItemWrapper WhatsNew = 1 [json_name = "whats_new"];
+}
+
+message TWhatsNewCompleteShowResponse {
+}
+
+message TWhatsNewClearHistoryResponse {
+}
+

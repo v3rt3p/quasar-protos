@@ -9,17 +9,12 @@ option go_package = "a.yandex-team.ru/alice/protos/data/common_player_state";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCommonPlayerState {
-  message ScenarioMetaEntry {
-    string key = 1;
-    string value = 2;
-  }
-
-  bool IsPlaying = 1;
-  uint64 LastPlayTimestamp = 2;
-  uint64 LastStopTimestamp = 3;
-  repeated .NAlice.TCommonPlayerState.ScenarioMetaEntry ScenarioMeta = 4;
-  uint32 DurationMs = 5;
-  uint32 PlayedMs = 6;
-  int32 OffsetMs = 7;
+  bool IsPlaying = 1 [json_name = "is_playing"];
+  uint64 LastPlayTimestamp = 2 [json_name = "last_play_timestamp"];
+  uint64 LastStopTimestamp = 3 [json_name = "last_stop_timestamp"];
+  map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta"];
+  uint32 DurationMs = 5 [json_name = "duration_ms"];
+  uint32 PlayedMs = 6 [json_name = "played_ms"];
+  int32 OffsetMs = 7 [json_name = "offset_ms"];
 }
 

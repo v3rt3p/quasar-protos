@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ScreenshotProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/screenshot;srcinput";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScreenshotCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TTakeScreenshotDirective {
+    message TAliceVisionPurpose {
+      bool NeedNeuroInfoContext = 1 [json_name = "need_neuro_info_context"];
+    }
+
+    enum EPurpose {
+      Undefined = 0;
+      ImageSearch = 1;
+      AliceVision = 2;
+    }
+
+    string Name = 1 [json_name = "name"];
+    .NAlice.TScreenshotCapability.TTakeScreenshotDirective.EPurpose Purpose = 2 [json_name = "purpose"];
+    string Query = 3 [json_name = "query"];
+    oneof PurposePayload {
+      .NAlice.TScreenshotCapability.TTakeScreenshotDirective.TAliceVisionPurpose AliceVisionPurpose = 4 [json_name = "alice_vision_purpose"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TScreenshotCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TScreenshotCapability.TState State = 3 [json_name = "state"];
+}
+

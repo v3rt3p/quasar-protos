@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.video";
+option java_outer_classname = "VideoTrackProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/video";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTrackVariant {
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  bool Selected = 3 [json_name = "selected"];
+  bool DisabledForSelection = 5 [json_name = "disabled_for_selection"];
+  oneof OptionalLanguage {
+    string Language = 4 [json_name = "language"];
+  }
+}
+
+enum ETrackType {
+  UnknownTrackType = 0;
+  VideoTrackType = 1;
+  AudioTrackType = 2;
+  SubtitlesTrackType = 3;
+  SpeedTrackType = 4;
+}
+

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package NAlice.NScenarios;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.directives.common";
+option java_outer_classname = "SoundDirectiveProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/directives/common";
+
+import "alice/protos/data/device/info.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLocationInfo {
+  repeated string RoomsIds = 1 [json_name = "rooms_ids"];
+  repeated string GroupsIds = 2 [json_name = "groups_ids"];
+  repeated string DevicesIds = 3 [json_name = "devices_ids"];
+  bool Everywhere = 4 [json_name = "everywhere"];
+  repeated .NAlice.EUserDeviceType SmartSpeakerModels = 6 [json_name = "smart_speaker_models"];
+  bool IncludeCurrentDeviceId = 7 [json_name = "include_current_device_id"];
+  bool CurrentGroup = 5 [json_name = "current_group"];
+}
+

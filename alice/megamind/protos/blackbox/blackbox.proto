@@ -12,51 +12,40 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBlackBoxUserInfo {
   message TKpSubscriptions {
-    bool HasBasicKinopoisk = 1;
-    bool HasAmediateka = 2;
-    bool HasSuperPlus = 3;
-    bool HasKpStart = 4;
-    bool HasMatchPremier = 5;
-    bool HasMatchFootball = 6;
+    bool HasBasicKinopoisk = 1 [json_name = "has_basic_kinopoisk"];
+    bool HasAmediateka = 2 [json_name = "has_amediateka"];
+    bool HasSuperPlus = 3 [json_name = "has_super_plus"];
+    bool HasKpStart = 4 [json_name = "has_kp_start"];
+    bool HasMatchPremier = 5 [json_name = "has_match_premier"];
+    bool HasMatchFootball = 6 [json_name = "has_match_football"];
   }
 
-  string Uid = 1;
-  string Email = 2;
-  string FirstName = 3;
-  string LastName = 4;
-  string Phone = 5;
-  bool HasYandexPlus = 6;
-  bool IsStaff = 7;
-  bool IsBetaTester = 8;
-  bool HasMusicSubscription = 9;
-  uint64 MusicSubscriptionRegionId = 12;
-  bool HasBookmate = 13;
-  bool IsChildAccount = 14;
-  bool HasAlicePro = 17;
-  repeated string OAuthTokenScopes = 20;
-  .NAlice.TBlackBoxUserInfo.TKpSubscriptions KpSubscriptions = 21;
-  bool HavePassword = 22;
-  bool IsFederal = 24;
-  repeated string Organizations = 25;
-  optional string MusicRestriction = 15;
-  optional string VideoRestriction = 16;
-  optional string StaffLogin = 18;
-  optional string UserTicket = 19;
-  optional string AccountType = 23;
-}
-
-enum ECredentialStatus {
-  CRED_STATUS_VALID = 0;
-  CRED_STATUS_NEED_RESET = 1;
-  CRED_STATUS_EXPIRED = 2;
-  CRED_STATUS_NOAUTH = 3;
-  CRED_STATUS_DISABLED = 4;
-  CRED_STATUS_INVALID = 5;
-  CRED_STATUS_NEOLITE = 6;
-  CRED_STATUS_BORIGIN_MISMATCH = 7;
-  CRED_STATUS_WRONG_GUARD = 8;
-  CRED_STATUS_NEOLITE_SESSION = 9;
-  CRED_STATUS_BORIGIN_MISMATCH_SESSION = 10;
-  CRED_STATUS_UNKNOWN = 255;
+  string Uid = 1 [json_name = "uid"];
+  string Email = 2 [json_name = "email"];
+  string FirstName = 3 [json_name = "firstName"];
+  string LastName = 4 [json_name = "lastName"];
+  string Phone = 5 [json_name = "phone"];
+  bool HasYandexPlus = 6 [json_name = "hasYandexPlus"];
+  bool IsStaff = 7 [json_name = "isStaff"];
+  bool IsBetaTester = 8 [json_name = "isBetaTester"];
+  bool HasMusicSubscription = 9 [json_name = "hasMusicSubscription"];
+  uint64 MusicSubscriptionRegionId = 12 [json_name = "musicSubscriptionRegionId"];
+  bool HasBookmate = 13 [json_name = "hasBookmate"];
+  bool IsChildAccount = 14 [json_name = "isChildAccount"];
+  bool HasAlicePro = 17 [json_name = "hasAlicePro"];
+  repeated string OAuthTokenScopes = 20 [json_name = "oAuthTokenScopes"];
+  .NAlice.TBlackBoxUserInfo.TKpSubscriptions KpSubscriptions = 21 [json_name = "kp_subscriptions"];
+  bool HavePassword = 22 [json_name = "havePassword"];
+  bool IsFederal = 24 [json_name = "isFederal"];
+  repeated string Organizations = 25 [json_name = "organizations"];
+  repeated string Porganizations = 26 [json_name = "porganizations"];
+  optional string MusicRestriction = 15 [json_name = "musicRestriction"];
+  optional string VideoRestriction = 16 [json_name = "videoRestriction"];
+  optional string StaffLogin = 18 [json_name = "staffLogin"];
+  optional string UserTicket = 19 [json_name = "userTicket"];
+  optional string AccountType = 23 [json_name = "accountType"];
+  optional uint64 AliceProEndTimeSeconds = 27 [json_name = "aliceProEndTimeSeconds"];
+  optional uint64 AliceLPBaseBoostEndTimeSeconds = 28 [json_name = "aliceLPBaseBoostEndTimeSeconds"];
+  optional uint64 AliceNLBaseBoostEndTimeSeconds = 29 [json_name = "aliceNLBaseBoostEndTimeSeconds"];
 }
 

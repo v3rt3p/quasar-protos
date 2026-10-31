@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "BestPriceCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/best_price;best_pricepb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBestPriceCapability {
+  message TParameters {
+  }
+
+  message TState {
+    reserved "Price";
+    reserved "FeatureState";
+    reserved 2;
+    reserved 3;
+    string PageUrl = 1 [json_name = "page_url"];
+    .NAlice.TBestPriceCapability.TEcomState EcomState = 4 [json_name = "ecom_state"];
+  }
+
+  message TEcomState {
+    .NAlice.TBestPriceCapability.EBestPriceState FeatureState = 1 [json_name = "feature_state"];
+    .NAlice.TBestPriceCapability.EPageType PageType = 2 [json_name = "page_type"];
+    optional string Price = 3 [json_name = "price"];
+  }
+
+  enum EBestPriceState {
+    Undefined = 0;
+    Progress = 1;
+    Available = 2;
+    Unavailable = 3;
+  }
+
+  enum EPageType {
+    UndefinedPage = 0;
+    Product = 1;
+    Other = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBestPriceCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBestPriceCapability.TState State = 3 [json_name = "state"];
+}
+

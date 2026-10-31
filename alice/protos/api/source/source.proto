@@ -7,17 +7,17 @@ option go_package = "a.yandex-team.ru/alice/protos/api/source";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalIoTSource {
-  string EndpointId = 1;
+  string EndpointId = 1 [json_name = "endpoint_id"];
 }
 
 message TLocalScenarioSource {
-  string ScenarioId = 1;
+  string ScenarioId = 1 [json_name = "scenario_id"];
 }
 
 message TSourceInfo {
   oneof Source {
-    .NAlice.NAliceApi.TLocalIoTSource LocalIoTSource = 1;
-    .NAlice.NAliceApi.TLocalScenarioSource LocalScenarioSource = 2;
+    .NAlice.NAliceApi.TLocalIoTSource LocalIoTSource = 1 [json_name = "local_iot_source"];
+    .NAlice.NAliceApi.TLocalScenarioSource LocalScenarioSource = 2 [json_name = "local_scenario_source"];
   }
 }
 

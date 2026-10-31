@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TapModeCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tap_mode;tapmodepb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTapModeCapability {
+  message TParameters {
+    repeated .NAlice.TTapModeCapability.EAction SupportedActions = 1 [json_name = "supported_actions"];
+  }
+
+  message TState {
+    .NAlice.TTapModeCapability.EAction SelectedAction = 1 [json_name = "selected_action"];
+  }
+
+  enum EAction {
+    Unknown = 0;
+    CallVoiceAssistant = 1;
+    ToggleNoiseCancelling = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTapModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTapModeCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -13,15 +13,15 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNotificationCapability {
   message TNotification {
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
   }
 
   message TParameters {
   }
 
   message TState {
-    int32 NotificationCount = 1;
-    .NAlice.TNotificationCapability.ENotificationMode NotificationMode = 2;
+    int32 NotificationCount = 1 [json_name = "notification_count"];
+    .NAlice.TNotificationCapability.ENotificationMode NotificationMode = 2 [json_name = "notification_mode"];
   }
 
   message TNotificationPendingEvent {
@@ -34,10 +34,10 @@ message TNotificationCapability {
   }
 
   message TNotifyDirective {
-    string Name = 1;
-    repeated .NAlice.TNotificationCapability.TNotification Notifications = 2;
-    .NAlice.TNotificationCapability.ERingType Ring = 3;
-    string VersionId = 4;
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.TNotificationCapability.TNotification Notifications = 2 [json_name = "notifications"];
+    .NAlice.TNotificationCapability.ERingType Ring = 3 [json_name = "ring"];
+    string VersionId = 4 [json_name = "version_id"];
   }
 
   message TApproveNotifyDirective {
@@ -55,8 +55,8 @@ message TNotificationCapability {
     Proactive = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNotificationCapability.TParameters Parameters = 2;
-  .NAlice.TNotificationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNotificationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNotificationCapability.TState State = 3 [json_name = "state"];
 }
 

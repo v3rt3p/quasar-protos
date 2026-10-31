@@ -13,54 +13,54 @@ import "alice/protos/extensions/extensions.proto";
 message TBoolSlot {
   reserved 56788;
   oneof Value {
-    bool BoolValue = 1;
+    bool BoolValue = 1 [json_name = "bool_value"];
   }
 }
 
 message TSysNumSlot {
   oneof Value {
-    uint32 NumValue = 1;
+    uint32 NumValue = 1 [json_name = "num_value"];
   }
 }
 
 message TUInt32Slot {
   reserved 56788;
   oneof Value {
-    uint32 UInt32Value = 1;
+    uint32 UInt32Value = 1 [json_name = "uint32_value"];
   }
 }
 
 message TInt64Slot {
   oneof Value {
-    int64 Int64Value = 1;
+    int64 Int64Value = 1 [json_name = "int64_value"];
   }
 }
 
 message TLocationSlot {
   oneof Value {
-    string UserIotRoomValue = 1;
-    string DeviceIotRoomValue = 2;
-    string UserIotGroupValue = 3;
-    string DeviceIotGroupValue = 4;
-    string UserIotDeviceValue = 5;
-    string DeviceIotDeviceValue = 6;
-    string UserIotMultiroomAllDevicesValue = 7;
-    string DeviceIotMultiroomAllDevicesValue = 8;
+    string UserIotRoomValue = 1 [json_name = "user_iot_room_value"];
+    string DeviceIotRoomValue = 2 [json_name = "device_iot_room_value"];
+    string UserIotGroupValue = 3 [json_name = "user_iot_group_value"];
+    string DeviceIotGroupValue = 4 [json_name = "device_iot_group_value"];
+    string UserIotDeviceValue = 5 [json_name = "user_iot_device_value"];
+    string DeviceIotDeviceValue = 6 [json_name = "device_iot_device_value"];
+    string UserIotMultiroomAllDevicesValue = 7 [json_name = "user_iot_multiroom_all_devices_value"];
+    string DeviceIotMultiroomAllDevicesValue = 8 [json_name = "device_iot_multiroom_all_devices_value"];
   }
 }
 
 message TStringSlot {
   reserved 56788;
   oneof Value {
-    string StringValue = 1;
-    string SpecialPlaylistValue = 2;
-    string NewsTopicValue = 3;
-    string SpecialAnswerInfoValue = 4;
-    string VideoContentTypeValue = 5;
-    string VideoActionValue = 6;
-    string ActionRequestValue = 8;
-    string EpochValue = 9;
-    string VideoSelectionActionValue = 10;
+    string StringValue = 1 [json_name = "string_value"];
+    string SpecialPlaylistValue = 2 [json_name = "special_playlist_value"];
+    string NewsTopicValue = 3 [json_name = "news_topic_value"];
+    string SpecialAnswerInfoValue = 4 [json_name = "special_answer_info"];
+    string VideoContentTypeValue = 5 [json_name = "video_content_type_value"];
+    string VideoActionValue = 6 [json_name = "video_action_value"];
+    string ActionRequestValue = 8 [json_name = "action_request_value"];
+    string EpochValue = 9 [json_name = "epoch_value"];
+    string VideoSelectionActionValue = 10 [json_name = "video_selection_action_value"];
   }
 }
 
@@ -72,27 +72,27 @@ message TTokenTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TTokenTypeSlot.EValue EnumValue = 1;
+    .NAlice.TTokenTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
   }
 }
 
 message TLanguageSlot {
   reserved 56788;
   oneof Value {
-    string LanguageValue = 1;
+    string LanguageValue = 1 [json_name = "language_value"];
   }
 }
 
 message TNumSlot {
   reserved 56788;
   oneof Value {
-    uint32 NumValue = 1;
+    uint32 NumValue = 1 [json_name = "num_value"];
   }
 }
 
 message TDoubleSlot {
   oneof Value {
-    double DoubleValue = 1;
+    double DoubleValue = 1 [json_name = "double_value"];
   }
 }
 

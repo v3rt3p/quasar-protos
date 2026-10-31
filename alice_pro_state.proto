@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+import "alice_mode_info.proto";
+
+message TAliceProStateResponse {
+  message TAliceProState {
+    bool AliceProEnabled = 1;
+    optional uint64 Count = 2;
+    optional uint64 Limit = 3;
+    optional uint64 TimeLimitSec = 4;
+  }
+
+  .quark.core.proto.TAliceProStateResponse.TAliceProState AliceProState = 1;
+}
+
+message TAliceModelsState {
+  message TAliceModelCategory {
+    optional string Id = 1;
+    optional string Name = 2;
+    optional string Description = 3;
+  }
+
+  message TAliceTrialRequestsGroup {
+    optional string Id = 1;
+    optional uint64 Count = 2;
+    optional uint64 Limit = 3;
+    optional uint64 TimeLimitSec = 4;
+  }
+
+  message TAliceModel {
+    message TTrialRequests {
+      message TUseAlicePro {
+      }
+
+      message TTrialRequest {
+        optional uint64 Count = 1;
+        optional uint64 Limit = 2;
+        optional uint64 TimeLimitSec = 3;
+      }
+
+      message TUnlimited {
+      }
+
+      message TTrialGroup {
+        optional string Id = 1;
+      }
+
+      oneof TrialRequests {
+        .quark.core.proto.TAliceModelsState.TAliceModel.TTrialRequests.TUseAlicePro UseAlicePro = 1;
+        .quark.core.proto.TAliceModelsState.TAliceModel.TTrialRequests.TTrialRequest TrialRequest = 2;
+        .quark.core.proto.TAliceModelsState.TAliceModel.TTrialRequests.TUnlimited Unlimited = 3;
+        .quark.core.proto.TAliceModelsState.TAliceModel.TTrialRequests.TTrialGroup TrialGroup = 4;
+      }
+    }
+
+    message TAliceModelFeature {
+      optional bool ImageFileUpload = 1;
+      optional bool VideoFileUpload = 2;
+      optional bool TextFileUpload = 3;
+      optional bool DrawPictureScenario = 4;
+      optional bool ThinkScenario = 5;
+      optional bool AliceInput = 6;
+      optional bool AliceOnboarding = 7;
+      optional bool BasicOnboarding = 8;
+      optional string SwitcherModelId = 9;
+      optional bool RichThinking = 10;
+    }
+
+    .quark.core.proto.TAliceModelsState.TAliceModel.TTrialRequests TrialRequests = 100;
+    .quark.core.proto.TAliceModelsState.TAliceModel.TAliceModelFeature Features = 200;
+    optional string Name = 1;
+    optional string Description = 2;
+    optional string Provider = 3;
+    optional string Model = 4;
+    optional string Id = 5;
+    optional bool External = 6;
+    optional string CategoryId = 7;
+    optional bool WillBeSoon = 8;
+    optional .quark.core.proto.TAlice2ModeInfo ModeInfo = 9;
+    optional uint64 MaxInputLength = 10;
+    optional uint64 MinNecessaryTimeout = 11;
+  }
+
+  repeated .quark.core.proto.TAliceModelsState.TAliceModel Models = 1;
+  repeated .quark.core.proto.TAliceModelsState.TAliceModelCategory AliceModelCategories = 2;
+  repeated .quark.core.proto.TAliceModelsState.TAliceTrialRequestsGroup AliceTrialRequestsGroups = 3;
+}
+
+message TAliceProTrialRequestsResponse {
+  optional uint64 LeftCount = 1;
+  optional uint64 Limit = 2;
+}
+
+message TFileUploadParams {
+  message TSupportedFormatParams {
+    optional uint64 MaxSize = 1;
+    optional bool SupportMultiFileInRequest = 2;
+  }
+
+  map<string, uint64> SupportedFormats = 1;
+  map<string, .quark.core.proto.TFileUploadParams.TSupportedFormatParams> SupportedFormatsParams = 2;
+  optional uint64 MaxMultiFileCount = 3;
+}
+

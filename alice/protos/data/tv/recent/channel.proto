@@ -10,10 +10,10 @@ import "alice/protos/data/tv/channels/common.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentChannelItem {
-  .NAlice.NTv.TTvChannelId Id = 1;
-  string Name = 2;
-  .NAlice.NTv.EChannelType ChannelType = 3;
-  string InputId = 4;
-  string IconUri = 5;
+  .NAlice.NTv.TTvChannelId Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  .NAlice.NTv.EChannelType ChannelType = 3 [json_name = "channel_type"];
+  string InputId = 4 [json_name = "input_id"];
+  string IconUri = 5 [json_name = "icon_uri"];
 }
 

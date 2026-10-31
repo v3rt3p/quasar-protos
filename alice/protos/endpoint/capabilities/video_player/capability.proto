@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VideoPlayerCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/video_player;videoplayerpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVideoPlayerCapability {
+  message TParameters {
+    bool UseNativeScreen = 1 [json_name = "use_native_screen"];
+  }
+
+  message TState {
+    bool IsTvStreamSupported = 1 [json_name = "is_tv_stream_supported"];
+  }
+
+  message TAdConfig {
+    message TEmptyConfig {
+    }
+
+    message TMapConfig {
+      map<string, string> Values = 1 [json_name = "values"];
+    }
+
+    oneof Config {
+      .NAlice.TVideoPlayerCapability.TAdConfig.TEmptyConfig EmptyConfig = 1 [json_name = "empty_config"];
+      .NAlice.TVideoPlayerCapability.TAdConfig.TMapConfig MapConfig = 2 [json_name = "map_config"];
+    }
+  }
+
+  message TPlayVideoDirective {
+    string ContentId = 1 [json_name = "content_id"];
+    string OntoId = 2 [json_name = "onto_id"];
+    .NAlice.TVideoPlayerCapability.TAdConfig AdConfig = 3 [json_name = "ad_config"];
+    bool isOtt = 4 [json_name = "is_ott"];
+    string AgeLimit = 8 [json_name = "age_limit"];
+    optional int64 StartAt = 5 [json_name = "start_at"];
+    optional string AudioLanguage = 6 [json_name = "audio_language"];
+    optional string SubtitlesLanguage = 7 [json_name = "subtitles_language"];
+  }
+
+  message TPlaySportVideoDirective {
+    string ContentId = 1 [json_name = "content_id"];
+    string OntoId = 2 [json_name = "onto_id"];
+    string AgeLimit = 4 [json_name = "age_limit"];
+    optional int64 StartAt = 3 [json_name = "start_at"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVideoPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVideoPlayerCapability.TState State = 3 [json_name = "state"];
+}
+

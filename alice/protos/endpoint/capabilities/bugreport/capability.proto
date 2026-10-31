@@ -22,19 +22,19 @@ message TBugreportCapability {
     message TAnalytics {
     }
 
-    string UserMessage = 1;
-    string BugreportId = 2;
-    .NAlice.TBugreportCapability.TSendBugReport.TAnalytics Analytics = 999;
-    string Name = 1000;
+    string UserMessage = 1 [json_name = "user_message"];
+    string BugreportId = 2 [json_name = "bugreport_id"];
+    .NAlice.TBugreportCapability.TSendBugReport.TAnalytics Analytics = 999 [json_name = "analytics"];
+    string Name = 1000 [json_name = "name"];
   }
 
   message TLegacySendBugReport {
-    string Name = 1;
-    string RequestId = 2;
+    string Name = 1 [json_name = "name"];
+    string RequestId = 2 [json_name = "id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TBugreportCapability.TParameters Parameters = 2;
-  .NAlice.TBugreportCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBugreportCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBugreportCapability.TState State = 3 [json_name = "state"];
 }
 

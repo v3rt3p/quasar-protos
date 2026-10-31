@@ -8,6 +8,7 @@ option java_multiple_files = true;
 option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/noise_detector;noisedetectorpb";
 
 import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNoiseDetectorCapability {
@@ -15,17 +16,33 @@ message TNoiseDetectorCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
+  }
+
+  message TCustomNoise {
+    string Id = 1 [json_name = "id"];
   }
 
   message TNoiseDetectedEvent {
-    .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventType = 1;
-    optional string EventId = 2;
+    .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventType = 1 [json_name = "noise_event_type"];
+    optional string EventId = 2 [json_name = "event_id"];
+    optional .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoise = 3 [json_name = "custom_noise"];
+  }
+
+  message TStartCustomNoiseRecordingDirective {
+    string Name = 1000 [json_name = "name"];
+    string SessionId = 1 [json_name = "session_id"];
+  }
+
+  message TStopCustomNoiseRecordingDirective {
+    string Name = 1000 [json_name = "name"];
+    string SessionId = 1 [json_name = "session_id"];
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
-    repeated .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventTypes = 2;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
+    repeated .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventTypes = 2 [json_name = "noise_event_types"];
+    repeated .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoises = 3 [json_name = "custom_noises"];
   }
 
   enum ENoiseEventType {
@@ -43,10 +60,11 @@ message TNoiseDetectorCapability {
     SNEEZING = 11;
     UNIDENTIFIED = 12;
     DOUBLE_CLAP = 13;
+    CUSTOM = 14;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNoiseDetectorCapability.TParameters Parameters = 2;
-  .NAlice.TNoiseDetectorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNoiseDetectorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNoiseDetectorCapability.TState State = 3 [json_name = "state"];
 }
 

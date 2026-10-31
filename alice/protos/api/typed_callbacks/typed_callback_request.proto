@@ -16,16 +16,16 @@ message TTypedCallbackRequest {
   reserved "TypedCallbackStructSerialized";
   reserved 5;
   message TStructSerialization {
-    string TypedCallbackName = 1;
-    .google.protobuf.Struct Payload = 2;
+    string TypedCallbackName = 1 [json_name = "typed_callback_name"];
+    .google.protobuf.Struct Payload = 2 [json_name = "payload"];
   }
 
-  .NAlice.TAnalyticsTrackingModule Analytics = 2;
-  .NAlice.TOrigin Origin = 3;
-  .NAlice.TRequestParams RequestParams = 4;
+  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics"];
+  .NAlice.TOrigin Origin = 3 [json_name = "origin"];
+  .NAlice.TRequestParams RequestParams = 4 [json_name = "request_params"];
   oneof CallbackPayload {
-    bytes TypedCallbackSerialized = 1;
-    .NAlice.TTypedCallbackRequest.TStructSerialization TypedCallbackStruct = 6;
+    bytes TypedCallbackSerialized = 1 [json_name = "typed_callback_serialized"];
+    .NAlice.TTypedCallbackRequest.TStructSerialization TypedCallbackStruct = 6 [json_name = "typed_callback_struct"];
   }
 }
 

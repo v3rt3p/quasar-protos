@@ -13,11 +13,11 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEndpointEventsBatchSlot {
   oneof Value {
-    .NAlice.TEndpointEventsBatch BatchValue = 1;
+    .NAlice.TEndpointEventsBatch BatchValue = 1 [json_name = "batch_value"];
   }
 }
 
 message TEndpointEventsBatchSemanticFrame {
-  .NAlice.TEndpointEventsBatchSlot Batch = 1;
+  .NAlice.TEndpointEventsBatchSlot Batch = 1 [json_name = "batch"];
 }
 

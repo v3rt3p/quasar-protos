@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LegacyDeviceStateVideoProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/legacy_device_state_video;legacydevicestatevideopb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/library/censor/protos/extension.proto";
+import "alice/protos/data/search_result/search_result.proto";
+import "alice/protos/data/video/video.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLegacyDeviceStateVideoCapability {
+  message TParameters {
+  }
+
+  message TState {
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo Video = 1 [json_name = "video"];
+  }
+
+  message TVideo {
+    reserved "TvScreenState";
+    reserved 4;
+    reserved 6;
+    reserved 7;
+    reserved 12;
+    message TScreenState {
+      reserved 1;
+      reserved 3;
+      reserved 4;
+      repeated uint32 VisibleItems = 2 [json_name = "visible_items"];
+      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items"];
+      optional uint32 Season = 5 [json_name = "season"];
+      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item"];
+      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item"];
+      optional string Scenario = 9 [json_name = "scenario"];
+      optional string ViewKey = 10 [json_name = "view_key"];
+      optional string ScenarioName = 11 [json_name = "scenario_name"];
+    }
+
+    message TCurrentlyPlaying {
+      reserved "RawItemDeprecated";
+      reserved "RawNextItemDeprecated";
+      reserved 5;
+      reserved 6;
+      reserved 7;
+      reserved 3;
+      reserved 4;
+      message TProgress {
+        optional double Played = 1 [json_name = "played"];
+        optional double Duration = 2 [json_name = "duration"];
+      }
+
+      optional bool Paused = 1 [json_name = "paused"];
+      optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress"];
+      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item"];
+      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item"];
+      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item"];
+      optional string AudioLanguage = 11 [json_name = "audio_language"];
+      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language"];
+      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp"];
+    }
+
+    message TPlayer {
+      optional bool Pause = 1 [json_name = "pause"];
+    }
+
+    message TTvInterfaceState {
+      message TSearchResultsScreen {
+        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
+        repeated string Suggests = 3 [json_name = "suggests"];
+        optional string SearchQuery = 2 [json_name = "search_query"];
+      }
+
+      oneof Screen {
+        .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen"];
+      }
+      optional string InitialReqId = 1 [json_name = "initial_reqid"];
+    }
+
+    enum EPlayerCapability {
+      nothing = 0;
+      stop = 1;
+      pause = 2;
+      play = 3;
+      rewind = 4;
+      skip_to_previous = 5;
+      skip_to_next = 6;
+      fast_forward = 7;
+      seek_to = 8;
+      play_pause = 9;
+    }
+
+    repeated .NAlice.TLegacyDeviceStateVideoCapability.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities"];
+    optional string CurrentScreen = 1 [json_name = "current_screen"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
+    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state"];
+    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state"];
+    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp"];
+    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TPlayer Player = 11 [json_name = "player"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state"];
+    optional string PlayerName = 15 [json_name = "player_name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLegacyDeviceStateVideoCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLegacyDeviceStateVideoCapability.TState State = 3 [json_name = "state"];
+}
+

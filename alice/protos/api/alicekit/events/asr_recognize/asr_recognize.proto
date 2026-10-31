@@ -12,30 +12,25 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAsrRecognize {
   message TAdvancedAsrOptions {
-    optional bool PartialResults = 1;
-    optional bool ManualPunctuation = 2;
-    optional bool Capitalize = 3;
-    optional bool EnableE2eEou = 4;
-    optional bool AllowMultiUtt = 5;
+    optional bool PartialResults = 1 [json_name = "partial_results"];
+    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation"];
+    optional bool Capitalize = 3 [json_name = "capitalize"];
+    optional bool EnableE2eEou = 4 [json_name = "enable_e2e_eou"];
+    optional bool AllowMultiUtt = 5 [json_name = "allow_multi_utt"];
   }
 
   message TMusicRequest {
-    message HeadersEntry {
-      string key = 1;
-      string value = 2;
-    }
-
-    repeated .NAlice.NAliceApi.TAsrRecognize.TMusicRequest.HeadersEntry Headers = 1;
+    map<string, string> Headers = 1 [json_name = "headers"];
   }
 
-  .NAlice.TExperimentsProto Experiments = 6;
-  .NAlice.NAliceApi.TAsrRecognize.TAdvancedAsrOptions AdvancedAsrOptions = 7;
-  .NAlice.NAliceApi.TAsrRecognize.TMusicRequest MusicRequest = 8;
-  optional string Lang = 1;
-  optional string Topic = 2;
-  optional string Format = 3;
-  optional bool DisableAntimat = 4;
-  optional bool Punctuation = 5;
-  optional bool RecognizeMusicOnly = 9;
+  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments"];
+  .NAlice.NAliceApi.TAsrRecognize.TAdvancedAsrOptions AdvancedAsrOptions = 7 [json_name = "advancedASROptions"];
+  .NAlice.NAliceApi.TAsrRecognize.TMusicRequest MusicRequest = 8 [json_name = "music_request2"];
+  optional string Lang = 1 [json_name = "lang"];
+  optional string Topic = 2 [json_name = "topic"];
+  optional string Format = 3 [json_name = "format"];
+  optional bool DisableAntimat = 4 [json_name = "disableAntimatNormalizer"];
+  optional bool Punctuation = 5 [json_name = "punctuation"];
+  optional bool RecognizeMusicOnly = 9 [json_name = "recognize_music_only"];
 }
 

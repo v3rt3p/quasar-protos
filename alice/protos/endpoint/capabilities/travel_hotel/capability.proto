@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TravelHotelCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/travel_hotel;travel_hotelspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTravelHotelCapability {
+  message TParameters {
+  }
+
+  message TState {
+    string Permalink = 1 [json_name = "permalink"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTravelHotelCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTravelHotelCapability.TState State = 3 [json_name = "state"];
+}
+

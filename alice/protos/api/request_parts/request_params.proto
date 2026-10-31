@@ -14,10 +14,10 @@ message TRequestParams {
     NonDialog = 2;
   }
 
-  bool DisableOutputSpeech = 1;
-  bool DisableShouldListen = 2;
-  bool IsParallel = 3;
-  .NAlice.TRequestParams.ERequestType RequestType = 4;
-  bool EnableOutputSpeechScenarioControl = 5;
+  bool DisableOutputSpeech = 1 [json_name = "disable_output_speech"];
+  bool DisableShouldListen = 2 [json_name = "disable_should_listen"];
+  bool IsParallel = 3 [json_name = "is_parallel"];
+  .NAlice.TRequestParams.ERequestType RequestType = 4 [json_name = "request_type"];
+  bool EnableOutputSpeechScenarioControl = 5 [json_name = "enable_output_speech_scenario_control"];
 }
 

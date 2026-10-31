@@ -19,7 +19,7 @@ message TSoundAlarmCapability {
     reserved "TimeoutRange";
     reserved 1;
     reserved 2;
-    .NAlice.TRange TimeoutRangeSec = 3;
+    .NAlice.TRange TimeoutRangeSec = 3 [json_name = "timeout_range_sec"];
   }
 
   message TDisablePolicy {
@@ -31,37 +31,37 @@ message TSoundAlarmCapability {
   message TTimeoutPolicy {
     reserved "Time";
     reserved 1;
-    double TimeoutSec = 2;
+    double TimeoutSec = 2 [json_name = "timeout_sec"];
   }
 
   message TStrategy {
     oneof Policy {
-      .NAlice.TSoundAlarmCapability.TDisablePolicy Disable = 1;
-      .NAlice.TSoundAlarmCapability.TInfinityPolicy Infinity = 2;
-      .NAlice.TSoundAlarmCapability.TTimeoutPolicy Timeout = 3;
+      .NAlice.TSoundAlarmCapability.TDisablePolicy Disable = 1 [json_name = "disable"];
+      .NAlice.TSoundAlarmCapability.TInfinityPolicy Infinity = 2 [json_name = "infinity"];
+      .NAlice.TSoundAlarmCapability.TTimeoutPolicy Timeout = 3 [json_name = "timeout"];
     }
   }
 
   message TState {
-    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1;
-    bool IsAlarmActive = 2;
+    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1 [json_name = "strategy"];
+    bool IsAlarmActive = 2 [json_name = "is_alarm_active"];
   }
 
   message TSetStrategyDirective {
-    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1;
-    string Name = 1000;
+    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1 [json_name = "strategy"];
+    string Name = 1000 [json_name = "name"];
   }
 
   message TStopCurrentSoundAlarmDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSoundAlarmCapability Capability = 1;
+    .NAlice.TSoundAlarmCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSoundAlarmCapability.TParameters Parameters = 2;
-  .NAlice.TSoundAlarmCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSoundAlarmCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSoundAlarmCapability.TState State = 3 [json_name = "state"];
 }
 

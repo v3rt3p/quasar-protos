@@ -14,15 +14,15 @@ message TDeviceRemindersState {
   message TItem {
     reserved "Opaque";
     reserved 6;
-    string Id = 1;
-    string Text = 2;
-    string Epoch = 3;
-    string TimeZone = 4;
-    string Origin = 5;
-    .NAlice.NData.NReminders.TReminderExtensions Extensions = 7;
+    string Id = 1 [json_name = "id"];
+    string Text = 2 [json_name = "text"];
+    string Epoch = 3 [json_name = "epoch"];
+    string TimeZone = 4 [json_name = "timezone"];
+    string Origin = 5 [json_name = "origin"];
+    .NAlice.NData.NReminders.TReminderExtensions Extensions = 7 [json_name = "opaque"];
   }
 
-  repeated .NAlice.NData.NReminders.TDeviceRemindersState.TItem List = 1;
-  .NAlice.NData.NReminders.ERemindersSyncState SyncState = 3;
+  repeated .NAlice.NData.NReminders.TDeviceRemindersState.TItem List = 1 [json_name = "list"];
+  .NAlice.NData.NReminders.ERemindersSyncState SyncState = 3 [json_name = "sync_state"];
 }
 

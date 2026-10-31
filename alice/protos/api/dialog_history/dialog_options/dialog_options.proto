@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package NAlice.NApi.NDialogHistory;
+
+option java_package = "ru.yandex.alice.protos.api.dialog_history.dialog_options";
+option go_package = "a.yandex-team.ru/alice/protos/api/dialog_history/dialog_options";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDialogOptions {
+  message TRequest {
+    optional string RequestId = 1 [json_name = "request_id"];
+  }
+
+  message TEditOptions {
+    optional .NAlice.NApi.NDialogHistory.TDialogOptions.TRequest EditedRequest = 1 [json_name = "edited_request"];
+  }
+
+  message TCustomOptions {
+    optional string HistorySource = 1 [json_name = "history_source"];
+  }
+
+  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TEditOptions EditOptions = 1 [json_name = "edit_options"];
+  optional bool ResponseIsAlwaysRead = 2 [json_name = "always_read"];
+  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TCustomOptions CustomOptions = 3 [json_name = "custom_options"];
+}
+

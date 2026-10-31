@@ -16,7 +16,7 @@ message TVibrationSensorCapability {
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
   }
 
   message TVibrationSensorVibrationEvent {
@@ -29,11 +29,11 @@ message TVibrationSensorCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TVibrationSensorCapability.TParameters Parameters = 2;
-  .NAlice.TVibrationSensorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVibrationSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVibrationSensorCapability.TState State = 3 [json_name = "state"];
 }
 

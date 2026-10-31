@@ -15,10 +15,10 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TEqualizerCapability {
   message TParameters {
     message TBandsLimits {
-      uint32 MinBandsCount = 1;
-      uint32 MaxBandsCount = 2;
-      double MinBandGain = 3;
-      double MaxBandGain = 4;
+      uint32 MinBandsCount = 1 [json_name = "min_bands_count"];
+      uint32 MaxBandsCount = 2 [json_name = "max_bands_count"];
+      double MinBandGain = 3 [json_name = "min_band_gain"];
+      double MaxBandGain = 4 [json_name = "max_band_gain"];
     }
 
     message TAdjustableBandsConfiguration {
@@ -26,25 +26,25 @@ message TEqualizerCapability {
 
     message TFixedBandsConfiguration {
       message TFixedBand {
-        double Frequency = 1;
-        double Width = 2;
+        double Frequency = 1 [json_name = "frequency"];
+        double Width = 2 [json_name = "width"];
       }
 
-      repeated .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration.TFixedBand FixedBands = 1;
+      repeated .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration.TFixedBand FixedBands = 1 [json_name = "fixed_bands"];
     }
 
-    .NAlice.TEqualizerCapability.TParameters.TBandsLimits BandsLimits = 1;
-    repeated .NAlice.TEqualizerCapability.EPresetMode SupportedPresetModes = 2;
+    .NAlice.TEqualizerCapability.TParameters.TBandsLimits BandsLimits = 1 [json_name = "bands_limits"];
+    repeated .NAlice.TEqualizerCapability.EPresetMode SupportedPresetModes = 2 [json_name = "supported_preset_modes"];
     oneof BandsConfiguration {
-      .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration Fixed = 3;
-      .NAlice.TEqualizerCapability.TParameters.TAdjustableBandsConfiguration Adjustable = 4;
+      .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration Fixed = 3 [json_name = "fixed"];
+      .NAlice.TEqualizerCapability.TParameters.TAdjustableBandsConfiguration Adjustable = 4 [json_name = "adjustable"];
     }
   }
 
   message TState {
-    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1;
-    .NAlice.TEqualizerCapability.EPresetMode PresetMode = 2;
-    bool PreventClipping = 3;
+    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands"];
+    .NAlice.TEqualizerCapability.EPresetMode PresetMode = 2 [json_name = "preset_mode"];
+    bool PreventClipping = 3 [json_name = "prevent_clipping"];
   }
 
   message TBandState {
@@ -55,20 +55,20 @@ message TEqualizerCapability {
       HighShelf = 3;
     }
 
-    double Frequency = 1;
-    double Gain = 2;
-    double Width = 3;
-    .NAlice.TEqualizerCapability.TBandState.EType Type = 4;
+    double Frequency = 1 [json_name = "frequency"];
+    double Gain = 2 [json_name = "gain"];
+    double Width = 3 [json_name = "width"];
+    .NAlice.TEqualizerCapability.TBandState.EType Type = 4 [json_name = "type"];
   }
 
   message TSetAdjustableEqualizerBandsDirective {
-    string Name = 1000;
-    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands"];
   }
 
   message TSetFixedEqualizerBandsDirective {
-    string Name = 1000;
-    repeated double Gains = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated double Gains = 1 [json_name = "gains"];
   }
 
   enum EPresetMode {
@@ -77,8 +77,8 @@ message TEqualizerCapability {
     MediaCorrection = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TEqualizerCapability.TParameters Parameters = 2;
-  .NAlice.TEqualizerCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TEqualizerCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TEqualizerCapability.TState State = 3 [json_name = "state"];
 }
 

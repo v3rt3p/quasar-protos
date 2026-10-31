@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.entities";
+option java_outer_classname = "EntitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/entities";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/descriptor.proto";
+
+message TSysDatetimeValue {
+  .NAlice.TSysDateValue DateValue = 1 [json_name = "date_value"];
+  .NAlice.TSysTimeValue TimeValue = 2 [json_name = "time_value"];
+}
+
+message TSysDateValue {
+  oneof ValueYears {
+    int32 Years = 1 [json_name = "years"];
+  }
+  oneof ValueMonths {
+    int32 Months = 2 [json_name = "months"];
+  }
+  oneof ValueDays {
+    int32 Days = 3 [json_name = "days"];
+  }
+  oneof ValueDayOfWeek {
+    int32 DayOfWeek = 4 [json_name = "day_of_week"];
+  }
+  oneof ValueWeeksCount {
+    int32 WeeksCount = 5 [json_name = "weeks_count"];
+  }
+  oneof ValueYearsRelative {
+    bool YearsRelative = 6 [json_name = "years_relative"];
+  }
+  oneof ValueMonthsRelative {
+    bool MonthsRelative = 7 [json_name = "months_relative"];
+  }
+  oneof ValueDaysRelative {
+    bool DaysRelative = 8 [json_name = "days_relative"];
+  }
+  oneof ValueWeeksRelative {
+    bool WeeksRelative = 9 [json_name = "weeks_relative"];
+  }
+}
+
+message TSysTimeValue {
+  oneof ValueHours {
+    int32 Hours = 1 [json_name = "hours"];
+  }
+  oneof ValueMinutes {
+    int32 Minutes = 2 [json_name = "minutes"];
+  }
+  oneof ValueSeconds {
+    int32 Seconds = 3 [json_name = "seconds"];
+  }
+  oneof ValuePeriod {
+    string Period = 4 [json_name = "period"];
+  }
+  oneof ValueHoursRelative {
+    bool HoursRelative = 5 [json_name = "hours_relative"];
+  }
+  oneof ValueMinutesRelative {
+    bool MinutesRelative = 6 [json_name = "minutes_relative"];
+  }
+  oneof ValueSecondsRelative {
+    bool SecondsRelative = 7 [json_name = "seconds_relative"];
+  }
+}
+
+message TSysWeekdaysValue {
+  repeated uint32 Weekdays = 1 [json_name = "weekdays"];
+  optional bool Repeat = 2 [json_name = "repeat"];
+}
+

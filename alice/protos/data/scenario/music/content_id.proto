@@ -21,13 +21,13 @@ message TContentId {
     GeneratedRecs = 8;
   }
 
-  .NAlice.NData.NMusic.TContentId.EContentType Type = 1;
-  string Id = 2;
-  repeated string Ids = 3;
+  .NAlice.NData.NMusic.TContentId.EContentType Type = 1 [json_name = "type"];
+  string Id = 2 [json_name = "id"];
+  repeated string Ids = 3 [json_name = "ids"];
 }
 
 message TContentIdWithProvider {
-  .Alice.Music.ContentId ContentId = 1;
-  .Alice.Music.MusicProvider MusicProvider = 2;
+  .Alice.Music.ContentId ContentId = 1 [json_name = "content_id"];
+  .Alice.Music.MusicProvider MusicProvider = 2 [json_name = "music_provider"];
 }
 

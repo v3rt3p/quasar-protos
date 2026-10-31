@@ -11,22 +11,22 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsTimings {
   message TTiming {
-    float Time = 1;
-    string Phoneme = 2;
-    optional string Word = 3;
+    float Time = 1 [json_name = "time"];
+    string Phoneme = 2 [json_name = "phoneme"];
+    optional string Word = 3 [json_name = "word"];
   }
 
   message TUtterance {
     message Word {
-      string Word = 1;
-      repeated string Phonemes = 2;
+      string Word = 1 [json_name = "word"];
+      repeated string Phonemes = 2 [json_name = "phonemes"];
     }
 
-    repeated .NAlice.NAliceApi.TTtsTimings.TUtterance.Word Words = 1;
+    repeated .NAlice.NAliceApi.TTtsTimings.TUtterance.Word Words = 1 [json_name = "words"];
   }
 
-  repeated .NAlice.NAliceApi.TTtsTimings.TTiming Timings = 1;
-  .NAlice.NAliceApi.TTtsTimings.TUtterance Utterance = 2;
-  bool FromCache = 3;
+  repeated .NAlice.NAliceApi.TTtsTimings.TTiming Timings = 1 [json_name = "timings"];
+  .NAlice.NAliceApi.TTtsTimings.TUtterance Utterance = 2 [json_name = "utterance"];
+  bool FromCache = 3 [json_name = "from_cache"];
 }
 

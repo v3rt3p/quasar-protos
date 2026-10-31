@@ -8,21 +8,21 @@ option go_package = "a.yandex-team.ru/alice/protos/data/entity_meta";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVideoGalleryItemMeta {
-  uint32 Duration = 1;
-  uint32 Episode = 2;
-  uint32 EpisodesCount = 3;
-  string Genre = 4;
-  uint32 MinAge = 5;
-  string ProviderName = 6;
-  double Rating = 7;
-  uint32 ReleaseYear = 8;
-  uint32 Season = 9;
-  uint32 SeasonsCount = 10;
-  string Type = 11;
-  uint64 ViewCount = 12;
-  uint32 Position = 13;
-  string VideoId = 14;
-  string OntoId = 15;
-  string Title = 16;
+  uint32 Duration = 1 [json_name = "duration"];
+  uint32 Episode = 2 [json_name = "episode"];
+  uint32 EpisodesCount = 3 [json_name = "episodes_count"];
+  string Genre = 4 [json_name = "genre"];
+  uint32 MinAge = 5 [json_name = "min_age"];
+  string ProviderName = 6 [json_name = "provider_name"];
+  double Rating = 7 [json_name = "rating"];
+  uint32 ReleaseYear = 8 [json_name = "release_year"];
+  uint32 Season = 9 [json_name = "season"];
+  uint32 SeasonsCount = 10 [json_name = "seasons_count"];
+  string Type = 11 [json_name = "type"];
+  uint64 ViewCount = 12 [json_name = "view_count"];
+  uint32 Position = 13 [json_name = "position"];
+  string VideoId = 14 [json_name = "video_id"];
+  string OntoId = 15 [json_name = "onto_id"];
+  string Title = 16 [json_name = "title"];
 }
 

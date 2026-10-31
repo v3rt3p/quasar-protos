@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "FmRadioCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/fm_radio;fm_radiopb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFmRadioCapability {
+  message TParameters {
+  }
+
+  message TState {
+    repeated .NAlice.TFmRadioCapability.TFmRadioStation AvailableFmRadioStations = 1 [json_name = "available_fm_radio_stations"];
+  }
+
+  message TFmRadioStation {
+    int32 FrequencyMhzX100 = 1 [json_name = "frequency_mhz_x100"];
+    string Name = 2 [json_name = "name"];
+    bool IsFavorite = 3 [json_name = "is_favorite"];
+    string Id = 4 [json_name = "id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TFmRadioCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TFmRadioCapability.TState State = 3 [json_name = "state"];
+}
+

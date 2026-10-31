@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PermissionsCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/permissions;permissionspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TServerPermissionsCapability {
+  message TParameters {
+  }
+
+  message TState {
+    repeated .NAlice.TServerPermissionsCapability.TPermission Permissions = 1 [json_name = "permissions"];
+  }
+
+  message TGrantablePermission {
+    reserved "Status";
+    reserved 2;
+    bool Granted = 1 [json_name = "granted"];
+  }
+
+  message TStatusPermission {
+    enum EStatus {
+      UnknownStatus = 0;
+      Granted = 1;
+      Denied = 2;
+      AskEveryTime = 3;
+    }
+
+    .NAlice.TServerPermissionsCapability.TStatusPermission.EStatus Status = 1 [json_name = "status"];
+  }
+
+  message TVersatilePermission {
+    reserved "Status";
+    reserved 2;
+    enum EGrantType {
+      UnknownGrantType = 0;
+      Blocked = 1;
+      WhenInApp = 2;
+      Always = 3;
+    }
+
+    .NAlice.TServerPermissionsCapability.TVersatilePermission.EGrantType GrantType = 1 [json_name = "grant_type"];
+  }
+
+  message TPermission {
+    reserved "AllowScheduleExactAlarm";
+    reserved "AllowAccessMicrophone";
+    reserved 4;
+    reserved 12;
+    oneof Permission {
+      .NAlice.TServerPermissionsCapability.TVersatilePermission AllowAccessLocation = 1 [json_name = "allow_access_location"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowReadContacts = 2 [json_name = "allow_read_contacts"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowCallPhone = 3 [json_name = "allow_call_phone"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowPostNotifications = 5 [json_name = "allow_post_notifications"];
+      .NAlice.TServerPermissionsCapability.TVersatilePermission AllowInternetConnectionInfo = 6 [json_name = "allow_internet_connection_info"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowReadCalendar = 7 [json_name = "allow_read_calendar"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowWriteCalendar = 8 [json_name = "allow_write_calendar"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowScheduleExactAlarms = 9 [json_name = "allow_schedule_exact_alarms"];
+      .NAlice.TServerPermissionsCapability.TVersatilePermission AllowAccessPreciseLocation = 10 [json_name = "allow_access_precise_location"];
+      .NAlice.TServerPermissionsCapability.TGrantablePermission AllowAccessCamera = 11 [json_name = "allow_access_camera"];
+      .NAlice.TServerPermissionsCapability.TStatusPermission AllowAccessMicrophoneStatus = 13 [json_name = "allow_access_microphone_status"];
+    }
+  }
+
+  message TRequestPermissionDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.TServerPermissionsCapability.TPermission Permission = 2 [json_name = "permission"];
+    bool IgnoreThrottle = 3 [json_name = "ignore_throttle"];
+  }
+
+  message TPermissionRequestSuccessEvent {
+    .NAlice.TServerPermissionsCapability.TPermission Permission = 1 [json_name = "permission"];
+  }
+
+  message TPermissionRequestFailureEvent {
+    .NAlice.TServerPermissionsCapability.TPermission Permission = 1 [json_name = "permission"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TServerPermissionsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TServerPermissionsCapability.TState State = 3 [json_name = "state"];
+}
+

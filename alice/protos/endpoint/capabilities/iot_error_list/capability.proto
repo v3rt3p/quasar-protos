@@ -15,11 +15,11 @@ message TIotErrorListCapability {
   }
 
   message TState {
-    repeated .NAlice.TIotErrorListCapability.EError Errors = 1;
+    repeated .NAlice.TIotErrorListCapability.EError Errors = 1 [json_name = "errors"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotErrorListCapability Capability = 1;
+    .NAlice.TIotErrorListCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EError {
@@ -39,8 +39,8 @@ message TIotErrorListCapability {
     OPEN_CIRCUIT_GND = 13;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotErrorListCapability.TParameters Parameters = 2;
-  .NAlice.TIotErrorListCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotErrorListCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotErrorListCapability.TState State = 3 [json_name = "state"];
 }
 

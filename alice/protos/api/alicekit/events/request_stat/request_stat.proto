@@ -11,31 +11,32 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRequestStat {
   message TTimestamps {
-    optional string OnSoundPlayerEndTime = 1;
-    optional string OnVinsResponseTime = 2;
-    optional string OnInterruptionPhraseSpottedTime = 3;
-    optional string OnFirstSynthesisChunkTime = 4;
-    optional string OnRecognitionBeginTime = 5;
-    optional string OnRecognitionEndTime = 6;
-    optional string RequestDurationTime = 7;
-    optional string SpotterConfirmationTime = 8;
-    optional string OnPhraseSpottedTime = 9;
-    optional string PrevSoundPlayerEndTime = 10;
-    optional string OnStartVoiceInputTime = 11;
-    optional string OnStartVinsRequestTime = 12;
-    optional string OnFirstSocketActivityTime = 13;
-    optional string OnLastSynthesisChunkTime = 14;
-    optional string StartPlayer = 15;
-    optional string OnPlayerBegin = 16;
-    optional string OnPlayerEnd = 17;
-    optional string OnSoundPlayerBeginTime = 18;
-    optional string OnFirstMessageMergedTime = 19;
-    optional string OnFirstNonEmptyPartialTime = 20;
-    optional string OnLastCompletedPartialTime = 21;
+    optional string OnSoundPlayerEndTime = 1 [json_name = "onSoundPlayerEndTime"];
+    optional string OnVinsResponseTime = 2 [json_name = "onVinsResponseTime"];
+    optional string OnInterruptionPhraseSpottedTime = 3 [json_name = "onInterruptionPhraseSpottedTime"];
+    optional string OnFirstSynthesisChunkTime = 4 [json_name = "onFirstSynthesisChunkTime"];
+    optional string OnRecognitionBeginTime = 5 [json_name = "onRecognitionBeginTime"];
+    optional string OnRecognitionEndTime = 6 [json_name = "onRecognitionEndTime"];
+    optional string RequestDurationTime = 7 [json_name = "requestDurationTime"];
+    optional string SpotterConfirmationTime = 8 [json_name = "spotterConfirmationTime"];
+    optional string OnPhraseSpottedTime = 9 [json_name = "onPhraseSpottedTime"];
+    optional string PrevSoundPlayerEndTime = 10 [json_name = "prevSoundPlayerEndTime"];
+    optional string OnStartVoiceInputTime = 11 [json_name = "onStartVoiceInputTime"];
+    optional string OnStartVinsRequestTime = 12 [json_name = "onStartVinsRequestTime"];
+    optional string OnFirstSocketActivityTime = 13 [json_name = "onFirstSocketActivityTime"];
+    optional string OnLastSynthesisChunkTime = 14 [json_name = "onLastSynthesisChunkTime"];
+    optional string StartPlayer = 15 [json_name = "StartPlayer"];
+    optional string OnPlayerBegin = 16 [json_name = "OnPlayerBegin"];
+    optional string OnPlayerEnd = 17 [json_name = "OnPlayerEnd"];
+    optional string OnSoundPlayerBeginTime = 18 [json_name = "onSoundPlayerBeginTime"];
+    optional string OnFirstMessageMergedTime = 19 [json_name = "onFirstMessageMergedTime"];
+    optional string OnFirstNonEmptyPartialTime = 20 [json_name = "onFirstNonEmptyPartialTime"];
+    optional string OnLastCompletedPartialTime = 21 [json_name = "onLastCompletedPartialTime"];
+    optional string SubRequestOffsetTime = 22 [json_name = "subRequestOffsetTime"];
   }
 
-  .NAlice.NAliceApi.TRequestStat.TTimestamps Timestamps = 1;
-  string RequestMessageId = 2;
-  optional string Error = 3;
+  .NAlice.NAliceApi.TRequestStat.TTimestamps Timestamps = 1 [json_name = "timestamps"];
+  string RequestMessageId = 2 [json_name = "refMessageId"];
+  optional string Error = 3 [json_name = "error"];
 }
 

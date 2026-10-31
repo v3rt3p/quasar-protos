@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package QuarkProtos;
+
+option java_package = "com.yandex.voicetech";
+
+enum AudioInputChannelType {
+  UNKNOWN = 0;
+  RAW_MIC = 1;
+  RAW_MAIN_MIC_SYNC = 2;
+  RAW_AUXILIARY_MIC_SYNC = 3;
+  RAW_SPEAKER = 4;
+  RAW_FEEDBACK_SYNC = 5;
+  VQE_OMNI = 6;
+  VQE_BEAMFORMING = 7;
+  VQE_BACKGROUND_NOISE_REDUCER = 8;
+  VQE_OMNI_WITH_GAIN = 9;
+  VQE_STATE = 10;
+  VQE_ZONE = 11;
+}
+

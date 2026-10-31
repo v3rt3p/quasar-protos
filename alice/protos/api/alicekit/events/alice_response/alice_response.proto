@@ -42,11 +42,11 @@ message TAliceResponseProto {
     reserved "SessionId";
     reserved 5;
     reserved 6;
-    optional string RequestId = 1;
-    optional string ResponseId = 2;
-    optional uint32 SequenceNumber = 3;
-    optional string DialogId = 4;
-    optional string ParentRequestId = 7;
+    optional string RequestId = 1 [json_name = "request_id"];
+    optional string ResponseId = 2 [json_name = "response_id"];
+    optional uint32 SequenceNumber = 3 [json_name = "sequence_number"];
+    optional string DialogId = 4 [json_name = "dialog_id"];
+    optional string ParentRequestId = 7 [json_name = "parent_request_id"];
   }
 
   message TVoiceResponse {
@@ -64,12 +64,12 @@ message TAliceResponseProto {
     message TOutputSpeech {
       reserved "Type";
       reserved 1;
-      optional string Text = 2;
+      optional string Text = 2 [json_name = "text"];
     }
 
-    .NAlice.NAliceApi.TAliceResponseProto.TVoiceResponse.TOutputSpeech OutputSpeech = 1;
-    bool ShouldListen = 2;
-    bool HasVoiceResponse = 9;
+    .NAlice.NAliceApi.TAliceResponseProto.TVoiceResponse.TOutputSpeech OutputSpeech = 1 [json_name = "output_speech"];
+    bool ShouldListen = 2 [json_name = "should_listen"];
+    bool HasVoiceResponse = 9 [json_name = "has_voice_response"];
   }
 
   message TResponse {
@@ -92,63 +92,63 @@ message TAliceResponseProto {
           NewLine = 1;
         }
 
-        .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton.TTheme.EPlacement Placement = 2;
-        optional string ImageUrl = 1;
+        .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton.TTheme.EPlacement Placement = 2 [json_name = "placement"];
+        optional string ImageUrl = 1 [json_name = "image_url"];
       }
 
-      string Type = 1;
-      repeated .NAlice.NAliceApi.TDirective Directives = 3;
-      .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton.TTheme Theme = 5;
-      optional string Title = 2;
-      optional string Text = 4;
+      string Type = 1 [json_name = "type"];
+      repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives"];
+      .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton.TTheme Theme = 5 [json_name = "theme"];
+      optional string Title = 2 [json_name = "title"];
+      optional string Text = 4 [json_name = "text"];
     }
 
     message TCard {
       reserved "StringView";
       reserved 9;
-      string Type = 1;
-      .google.protobuf.Struct Body = 3;
-      repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton Buttons = 4;
-      .google.protobuf.BoolValue HasBorders = 5;
-      bool ProgressivePrinting = 7;
-      repeated string Sources = 11;
-      optional string Text = 2;
-      optional string CardId = 6;
-      optional string StringBody = 8;
-      optional bool HideBorders = 10;
-      optional bool DontAddToChatHistory = 12;
+      string Type = 1 [json_name = "type"];
+      .google.protobuf.Struct Body = 3 [json_name = "body"];
+      repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton Buttons = 4 [json_name = "buttons"];
+      .google.protobuf.BoolValue HasBorders = 5 [json_name = "has_borders"];
+      bool ProgressivePrinting = 7 [json_name = "progressive_printing"];
+      repeated string Sources = 11 [json_name = "sources"];
+      optional string Text = 2 [json_name = "text"];
+      optional string CardId = 6 [json_name = "card_id"];
+      optional string StringBody = 8 [json_name = "string_body"];
+      optional bool HideBorders = 10 [json_name = "hide_borders"];
+      optional bool DontAddToChatHistory = 12 [json_name = "dont_add_to_chat_history"];
     }
 
     message TSuggest {
-      repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton Items = 1;
+      repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TButton Items = 1 [json_name = "items"];
     }
 
     message TAlice2EffectiveSettings {
-      .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo EffectiveSettings = 1;
-      .NAlice.NApi.NAlice2Mode.TAlice2TrialState TrialState = 2;
+      .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo EffectiveSettings = 1 [json_name = "effective_settings"];
+      .NAlice.NApi.NAlice2Mode.TAlice2TrialState TrialState = 2 [json_name = "trial_state"];
     }
 
-    repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TCard Cards = 1;
-    repeated .NAlice.NAliceApi.TDirective Directives = 2;
-    .NAlice.NAliceApi.TAliceResponseProto.TResponse.TSuggest Suggest = 6;
-    .google.protobuf.Struct Templates = 7;
-    .google.protobuf.Struct Palette = 10;
-    bool IsStreaming = 11;
-    .NAlice.NAliceApi.TAliceResponseProto.TResponse.TAlice2EffectiveSettings Alice2EffectiveSettings = 13;
-    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 14;
+    repeated .NAlice.NAliceApi.TAliceResponseProto.TResponse.TCard Cards = 1 [json_name = "cards"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+    .NAlice.NAliceApi.TAliceResponseProto.TResponse.TSuggest Suggest = 6 [json_name = "suggest"];
+    .google.protobuf.Struct Templates = 7 [json_name = "templates"];
+    .google.protobuf.Struct Palette = 10 [json_name = "palette"];
+    bool IsStreaming = 11 [json_name = "is_streaming"];
+    .NAlice.NAliceApi.TAliceResponseProto.TResponse.TAlice2EffectiveSettings Alice2EffectiveSettings = 13 [json_name = "alice_2_effective_settings"];
+    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 14 [json_name = "request_annotation"];
   }
 
   message TError {
-    optional uint32 Code = 1;
-    optional string Reason = 2;
+    optional uint32 Code = 1 [json_name = "code"];
+    optional string Reason = 2 [json_name = "reason"];
   }
 
-  .NAlice.NAliceApi.TAliceResponseProto.THeader Header = 1;
-  .NAlice.NAliceApi.TAliceResponseProto.TVoiceResponse VoiceResponse = 2;
-  .NAlice.NAliceApi.TAliceResponseProto.TResponse Response = 3;
-  .NAlice.NAliceApi.TResponseAnalyticsInfo MegamindAnalyticsInfo = 10;
-  .NAlice.NAliceApi.TAliceResponseProto.TError Error = 11;
-  bool ForceServerRequest = 15;
-  optional bool IsGeneratedByClient = 17;
+  .NAlice.NAliceApi.TAliceResponseProto.THeader Header = 1 [json_name = "header"];
+  .NAlice.NAliceApi.TAliceResponseProto.TVoiceResponse VoiceResponse = 2 [json_name = "voice_response"];
+  .NAlice.NAliceApi.TAliceResponseProto.TResponse Response = 3 [json_name = "response"];
+  .NAlice.NAliceApi.TResponseAnalyticsInfo MegamindAnalyticsInfo = 10 [json_name = "megamind_analytics_info"];
+  .NAlice.NAliceApi.TAliceResponseProto.TError Error = 11 [json_name = "error"];
+  bool ForceServerRequest = 15 [json_name = "force_server_request"];
+  optional bool IsGeneratedByClient = 17 [json_name = "is_generated_by_client"];
 }
 

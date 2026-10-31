@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MobileAgentCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/mobile_agent;mobileagentpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMobileAgentCapability {
+  message TParameters {
+  }
+
+  message TState {
+    .NAlice.TMobileAgentCapability.TAgentState AgentState = 1 [json_name = "agent_state"];
+  }
+
+  message TAgentState {
+    message TIdle {
+    }
+
+    message TRunning {
+      string Description = 1 [json_name = "description"];
+    }
+
+    message TCompleted {
+      bool IsFailed = 1 [json_name = "is_failed"];
+      string Description = 2 [json_name = "description"];
+    }
+
+    oneof State {
+      .NAlice.TMobileAgentCapability.TAgentState.TIdle Idle = 1 [json_name = "idle"];
+      .NAlice.TMobileAgentCapability.TAgentState.TRunning Running = 2 [json_name = "running"];
+      .NAlice.TMobileAgentCapability.TAgentState.TCompleted Completed = 3 [json_name = "completed"];
+    }
+  }
+
+  message TStartMobileAgentDirective {
+    string Name = 1 [json_name = "name"];
+    string Command = 2 [json_name = "command"];
+    optional bool DoNotUseUserLogs = 3 [json_name = "do_not_use_user_logs"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMobileAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMobileAgentCapability.TState State = 3 [json_name = "state"];
+}
+

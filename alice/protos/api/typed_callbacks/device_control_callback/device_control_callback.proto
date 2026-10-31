@@ -19,8 +19,8 @@ message TDeviceControlTimesyncTypedCallback {
   message TSyncLocation {
   }
 
-  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncTimezone SyncTimezone = 1;
-  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncGmt SyncGmt = 2;
-  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncLocation SyncLocation = 3;
+  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncTimezone SyncTimezone = 1 [json_name = "sync_timezone"];
+  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncGmt SyncGmt = 2 [json_name = "sync_gmt"];
+  .NAlice.TDeviceControlTimesyncTypedCallback.TSyncLocation SyncLocation = 3 [json_name = "sync_location"];
 }
 

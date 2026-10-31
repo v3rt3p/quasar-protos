@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PreferencesCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/preferences;preferencespb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPreferencesCapability {
+  message TParameters {
+  }
+
+  message TPreferenceItem {
+    .google.protobuf.Value Value = 1 [json_name = "value"];
+    bool IsLocked = 2 [json_name = "isLocked"];
+    bool IsDefault = 3 [json_name = "isDefault"];
+  }
+
+  message TState {
+    map<string, .NAlice.TPreferencesCapability.TPreferenceItem> Items = 1 [json_name = "items"];
+  }
+
+  message TSetPreferenceDirective {
+    string Key = 1 [json_name = "key"];
+    .google.protobuf.Value Value = 2 [json_name = "value"];
+    optional string RequestId = 3 [json_name = "request_id"];
+  }
+
+  message TPreferenceChangedEvent {
+    string Key = 1 [json_name = "key"];
+    .NAlice.TPreferencesCapability.TPreferenceItem Item = 2 [json_name = "item"];
+    optional string RequestId = 3 [json_name = "request_id"];
+  }
+
+  message TPreferenceWriteErrorEvent {
+    string Key = 1 [json_name = "key"];
+    .NAlice.TPreferencesCapability.EWriteErrorCode Code = 2 [json_name = "code"];
+    string Message = 3 [json_name = "message"];
+    optional string RequestId = 4 [json_name = "request_id"];
+  }
+
+  enum EWriteErrorCode {
+    WE_UNKNOWN = 0;
+    WE_BAD_REQUEST = 1;
+    WE_UNKNOWN_KEY = 2;
+    WE_ACCESS_DENIED = 3;
+    WE_INTERNAL_ERROR = 4;
+    WE_INVALID_TYPE = 5;
+    WE_PAYLOAD_TOO_LARGE = 6;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TPreferencesCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TPreferencesCapability.TState State = 3 [json_name = "state"];
+}
+

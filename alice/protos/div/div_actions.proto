@@ -15,7 +15,7 @@ message TTextQueryDivAction {
 }
 
 message TDivActions {
-  .NAlice.TDirectiveDivAction DirectiveDivAction = 1;
-  .NAlice.TTextQueryDivAction TextQueryDivAction = 2;
+  .NAlice.TDirectiveDivAction DirectiveDivAction = 1 [json_name = "directive_div_action"];
+  .NAlice.TTextQueryDivAction TextQueryDivAction = 2 [json_name = "text_query_div_action"];
 }
 

@@ -16,20 +16,20 @@ message TIotAntiscaleCapability {
   }
 
   message TState {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TSetIotAntiscaleDirective {
-    string Name = 1000;
-    bool Enabled = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAntiscaleCapability Capability = 1;
+    .NAlice.TIotAntiscaleCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotAntiscaleCapability.TParameters Parameters = 2;
-  .NAlice.TIotAntiscaleCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotAntiscaleCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotAntiscaleCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -18,15 +18,15 @@ message TSuggest {
       NewLine = 1;
     }
 
-    string ImageUrl = 1;
-    .NAlice.NAliceApi.TSuggest.TTheme.EPlacement Placement = 2;
+    string ImageUrl = 1 [json_name = "image_url"];
+    .NAlice.NAliceApi.TSuggest.TTheme.EPlacement Placement = 2 [json_name = "placement"];
   }
 
-  string SuggestId = 1;
-  string Type = 2;
-  string Title = 3;
-  repeated .NAlice.NAliceApi.TDirective Directives = 4;
-  string Text = 5;
-  .NAlice.NAliceApi.TSuggest.TTheme Theme = 6;
+  string SuggestId = 1 [json_name = "suggest_id"];
+  string Type = 2 [json_name = "type"];
+  string Title = 3 [json_name = "title"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 4 [json_name = "directives"];
+  string Text = 5 [json_name = "text"];
+  .NAlice.NAliceApi.TSuggest.TTheme Theme = 6 [json_name = "theme"];
 }
 

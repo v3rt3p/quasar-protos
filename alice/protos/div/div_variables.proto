@@ -10,12 +10,12 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDivVariable {
-  bool supportsId = 1;
+  bool supportsId = 1 [json_name = "supports_id"];
 }
 
 message TDivVariables {
-  .NAlice.TDivVariable IsAudioPlaying = 1;
-  .NAlice.TDivVariable IsRadioPlaying = 2;
-  .NAlice.TDivVariable IsAlicePartialTextVisible = 3;
+  .NAlice.TDivVariable IsAudioPlaying = 1 [json_name = "is_audio_playing"];
+  .NAlice.TDivVariable IsRadioPlaying = 2 [json_name = "is_radio_playing"];
+  .NAlice.TDivVariable IsAlicePartialTextVisible = 3 [json_name = "is_alice_partial_text_visible"];
 }
 

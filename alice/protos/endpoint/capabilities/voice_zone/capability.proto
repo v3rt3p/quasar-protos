@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VoiceZoneProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/voice_zone;voice_zonepb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVoiceZoneCapability {
+  message TParameters {
+  }
+
+  message TState {
+    enum EZoneTopology1 {
+      Left = 0;
+      Right = 1;
+    }
+
+    enum EZoneTopology2 {
+      FrontLeft = 0;
+      FrontRight = 1;
+      RearLeft = 2;
+      RearRight = 3;
+    }
+
+    .NAlice.TVoiceZoneCapability.TSettings Settings = 3 [json_name = "settings"];
+    oneof Zone {
+      .NAlice.TVoiceZoneCapability.TState.EZoneTopology1 ZoneTopology1 = 1 [json_name = "zone_topology_1"];
+      .NAlice.TVoiceZoneCapability.TState.EZoneTopology2 ZoneTopology2 = 2 [json_name = "zone_topology_2"];
+    }
+  }
+
+  message TZone {
+    oneof Zone {
+      .NAlice.TVoiceZoneCapability.TState.EZoneTopology1 ZoneTopology1 = 1 [json_name = "zone_topology_1"];
+      .NAlice.TVoiceZoneCapability.TState.EZoneTopology2 ZoneTopology2 = 2 [json_name = "zone_topology_2"];
+    }
+  }
+
+  message TZones {
+    repeated .NAlice.TVoiceZoneCapability.TZone Zone = 1 [json_name = "zone"];
+  }
+
+  message TSettings {
+    repeated .NAlice.TVoiceZoneCapability.TZone SuppressedActivationZones = 1 [json_name = "suppressed_activation_zones"];
+  }
+
+  message TSetVoiceZoneSettingsDirective {
+    string Name = 1000 [json_name = "name"];
+    optional .NAlice.TVoiceZoneCapability.TZones SuppressedActivationZones = 1 [json_name = "suppressed_activation_zones"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TVoiceZoneCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TVoiceZoneCapability.TState State = 3 [json_name = "state"];
+}
+

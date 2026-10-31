@@ -19,10 +19,10 @@ message TSubscriptionStatus {
     FAIL = 2;
   }
 
-  string EndpointId = 1;
-  string SmartHomeId = 4;
-  .NAlice.NAliceApi.TSubscriptionStatus.EStatus Status = 2;
-  string Message = 3;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  string SmartHomeId = 4 [json_name = "smart_home_id"];
+  .NAlice.NAliceApi.TSubscriptionStatus.EStatus Status = 2 [json_name = "status"];
+  string Message = 3 [json_name = "message"];
 }
 
 message TEndpointSubscription {
@@ -35,57 +35,57 @@ message TEndpointSubscription {
     reserved "ListenerId";
     reserved 1;
     reserved 4;
-    .google.protobuf.Any Capability = 2;
-    .NAlice.TAnyCapabilityHolder AnyCapability = 3;
+    .google.protobuf.Any Capability = 2 [json_name = "capability"];
+    .NAlice.TAnyCapabilityHolder AnyCapability = 3 [json_name = "any_capability"];
   }
 
-  string EndpointId = 1;
-  string SmartHomeId = 5;
-  repeated .NAlice.NAliceApi.TEndpointSubscription.TCapability Capabilities = 2;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  string SmartHomeId = 5 [json_name = "smart_home_id"];
+  repeated .NAlice.NAliceApi.TEndpointSubscription.TCapability Capabilities = 2 [json_name = "capabilities"];
 }
 
 message TUniversalEndpointSubscription {
   reserved "ExternalId";
   reserved 4;
   message TCapability {
-    string Id = 1;
-    .google.protobuf.Any Capability = 2;
-    .NAlice.TAnyCapabilityHolder AnyCapability = 3;
-    string ListenerId = 4;
+    string Id = 1 [json_name = "id"];
+    .google.protobuf.Any Capability = 2 [json_name = "capability"];
+    .NAlice.TAnyCapabilityHolder AnyCapability = 3 [json_name = "any_capability"];
+    string ListenerId = 4 [json_name = "listener_id"];
   }
 
-  string EndpointId = 1;
-  string ListenerId = 3;
-  string SmartHomeId = 5;
-  repeated .NAlice.NAliceApi.TUniversalEndpointSubscription.TCapability Capabilities = 2;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  string ListenerId = 3 [json_name = "listener_id"];
+  string SmartHomeId = 5 [json_name = "smart_home_id"];
+  repeated .NAlice.NAliceApi.TUniversalEndpointSubscription.TCapability Capabilities = 2 [json_name = "capabilities"];
 }
 
 message TEndpointState {
-  .NAlice.TEndpoint Endpoint = 1;
-  string SmartHomeId = 2;
+  .NAlice.TEndpoint Endpoint = 1 [json_name = "endpoint"];
+  string SmartHomeId = 2 [json_name = "smart_home_id"];
 }
 
 message TEndpointsStateChanged {
-  repeated .NAlice.NAliceApi.TEndpointState EndpointsState = 1;
+  repeated .NAlice.NAliceApi.TEndpointState EndpointsState = 1 [json_name = "endpoints_state"];
 }
 
 message TEndpointsRemoved {
-  repeated string EndpointIds = 1;
-  repeated string SmartHomeIds = 2;
+  repeated string EndpointIds = 1 [json_name = "endpoint_ids"];
+  repeated string SmartHomeIds = 2 [json_name = "smart_home_ids"];
 }
 
 message TSubscriptionResponse {
   message TCapabilityStatus {
-    string CapabilityId = 1;
-    .NAlice.NAliceApi.TSubscriptionResponse.EClientStatus ClientStatus = 2;
+    string CapabilityId = 1 [json_name = "capability_id"];
+    .NAlice.NAliceApi.TSubscriptionResponse.EClientStatus ClientStatus = 2 [json_name = "client_status"];
   }
 
   message TEndpointStatus {
-    string EndpointId = 1;
-    string SmartHomeId = 4;
-    .NAlice.NAliceApi.TSubscriptionStatus.EStatus BackendStatus = 2;
-    repeated .NAlice.NAliceApi.TSubscriptionResponse.TCapabilityStatus Capabilities = 3;
-    string DirectiveHandlerEndpointId = 5;
+    string EndpointId = 1 [json_name = "endpoint_id"];
+    string SmartHomeId = 4 [json_name = "smart_home_id"];
+    .NAlice.NAliceApi.TSubscriptionStatus.EStatus BackendStatus = 2 [json_name = "backend_status"];
+    repeated .NAlice.NAliceApi.TSubscriptionResponse.TCapabilityStatus Capabilities = 3 [json_name = "capabilities"];
+    string DirectiveHandlerEndpointId = 5 [json_name = "directive_handler_endpoint_id"];
   }
 
   enum EClientStatus {
@@ -94,6 +94,6 @@ message TSubscriptionResponse {
     FAIL = 2;
   }
 
-  repeated .NAlice.NAliceApi.TSubscriptionResponse.TEndpointStatus Endpoints = 1;
+  repeated .NAlice.NAliceApi.TSubscriptionResponse.TEndpointStatus Endpoints = 1 [json_name = "endpoints"];
 }
 

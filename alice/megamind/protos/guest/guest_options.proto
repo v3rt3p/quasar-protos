@@ -31,16 +31,16 @@ message TGuestOptions {
     High = 2;
   }
 
-  optional string OAuthToken = 1;
-  optional string YandexUID = 2;
-  optional string PersId = 3;
-  optional .NAlice.TGuestOptions.EGuestOrigin GuestOrigin = 4;
-  optional .NAlice.TGuestOptions.EStatus Status = 5;
-  optional bool IsOwnerEnrolled = 6;
-  optional .NAlice.TEnrollmentHeaders EnrollmentHeaders = 7;
-  optional string RefMessageId = 8;
-  optional .NAlice.THashPuids HashPuids = 9;
-  optional .NAlice.TGuestOptions.EMatchConfidence MatchConfidence = 10;
-  optional uint32 ConfidenceLevel10 = 11;
+  optional string OAuthToken = 1 [json_name = "oauth_token"];
+  optional string YandexUID = 2 [json_name = "yandex_uid"];
+  optional string PersId = 3 [json_name = "pers_id"];
+  optional .NAlice.TGuestOptions.EGuestOrigin GuestOrigin = 4 [json_name = "guest_origin"];
+  optional .NAlice.TGuestOptions.EStatus Status = 5 [json_name = "status"];
+  optional bool IsOwnerEnrolled = 6 [json_name = "is_owner_enrolled"];
+  optional .NAlice.TEnrollmentHeaders EnrollmentHeaders = 7 [json_name = "enrollment_headers"];
+  optional string RefMessageId = 8 [json_name = "ref_message_id"];
+  optional .NAlice.THashPuids HashPuids = 9 [json_name = "hash_puids"];
+  optional .NAlice.TGuestOptions.EMatchConfidence MatchConfidence = 10 [json_name = "match_confidence"];
+  optional uint32 ConfidenceLevel10 = 11 [json_name = "confidence_level_10"];
 }
 

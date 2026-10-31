@@ -11,9 +11,9 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEventException {
   message TError {
-    string ErrorMessage = 1;
+    string ErrorMessage = 1 [json_name = "message"];
   }
 
-  .NAlice.NAliceApi.TEventException.TError Error = 1;
+  .NAlice.NAliceApi.TEventException.TError Error = 1 [json_name = "error"];
 }
 

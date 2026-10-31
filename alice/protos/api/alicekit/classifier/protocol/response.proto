@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.classifier.protocol";
+option java_outer_classname = "ClassifierResponseProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/classifier/protocol";
+
+import "alice/protos/api/alicekit/analytics/local_event_timings/local_event_timings.proto";
+import "alice/protos/api/alicekit/scenarios/frames/frame.proto";
+
+message TClassifyResponse {
+  message TError {
+    int32 Code = 1 [json_name = "code"];
+    string Message = 2 [json_name = "message"];
+  }
+
+  message TResponse {
+    repeated .NAlice.NAliceApi.TSemanticFrame Frames = 1 [json_name = "frames"];
+  }
+
+  message TAnalytics {
+    .NAlice.NAliceApi.TLocalEventTimings Timings = 1 [json_name = "timings"];
+  }
+
+  string RequestId = 1 [json_name = "request_id"];
+  .NAlice.NAliceApi.TClassifyResponse.TAnalytics Analytics = 4 [json_name = "analytics"];
+  oneof Result {
+    .NAlice.NAliceApi.TClassifyResponse.TResponse Response = 2 [json_name = "response"];
+    .NAlice.NAliceApi.TClassifyResponse.TError Error = 3 [json_name = "error"];
+  }
+}
+

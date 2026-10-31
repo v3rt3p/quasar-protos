@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LedMaskCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/led_mask;ledmaskpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLedMaskCapability {
+  message TParameters {
+    uint64 LedCount = 1 [json_name = "led_count"];
+  }
+
+  message TState {
+    bytes Bitmask = 1 [json_name = "bitmask"];
+  }
+
+  message TSetLedMaskDirective {
+    string Name = 1000 [json_name = "name"];
+    bytes Bitmask = 1 [json_name = "bitmask"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TLedMaskCapability Capability = 1 [json_name = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLedMaskCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLedMaskCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -20,71 +20,71 @@ import "alice/protos/data/video/video.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUntypedDirective {
-  optional string Name = 1;
-  optional string Type = 2;
-  optional string AnalyticsType = 3;
-  optional bool IgnoreAnswer = 4;
-  optional .google.protobuf.Struct Payload = 5;
+  optional string Name = 1 [json_name = "name"];
+  optional string Type = 2 [json_name = "type"];
+  optional string AnalyticsType = 3 [json_name = "sub_name"];
+  optional bool IgnoreAnswer = 4 [json_name = "ignore_answer"];
+  optional .google.protobuf.Struct Payload = 5 [json_name = "payload"];
 }
 
 message TNavigator {
   message TPoint {
-    optional float Lat = 1;
-    optional float Lon = 2;
+    optional float Lat = 1 [json_name = "lat"];
+    optional float Lon = 2 [json_name = "lon"];
   }
 
   message TFavorite {
-    optional string Name = 1;
-    optional float Lat = 2;
-    optional float Lon = 3;
-    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 4;
+    optional string Name = 1 [json_name = "name"];
+    optional float Lat = 2 [json_name = "lat"];
+    optional float Lon = 3 [json_name = "lon"];
+    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 4 [json_name = "arrival_points"];
   }
 
   message TLocation {
-    optional float Lat = 1;
-    optional float Lon = 2;
-    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 3;
+    optional float Lat = 1 [json_name = "lat"];
+    optional float Lon = 2 [json_name = "lon"];
+    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 3 [json_name = "arrival_points"];
   }
 
   message TMapView {
-    optional float BottomRightLon = 1;
-    optional float TopRightLon = 2;
-    optional float TopLeftLon = 3;
-    optional float BottomLeftLon = 4;
-    optional float TopLeftLat = 5;
-    optional float BottomLeftLat = 6;
-    optional float BottomRightLat = 7;
-    optional float TopRightLat = 8;
+    optional float BottomRightLon = 1 [json_name = "br_lon"];
+    optional float TopRightLon = 2 [json_name = "tr_lon"];
+    optional float TopLeftLon = 3 [json_name = "tl_lon"];
+    optional float BottomLeftLon = 4 [json_name = "bl_lon"];
+    optional float TopLeftLat = 5 [json_name = "tl_lat"];
+    optional float BottomLeftLat = 6 [json_name = "bl_lat"];
+    optional float BottomRightLat = 7 [json_name = "br_lat"];
+    optional float TopRightLat = 8 [json_name = "tr_lat"];
   }
 
   message TRoute {
-    repeated .NAlice.NAliceApi.TNavigator.TPoint Points = 1;
-    optional float DistanceToDestination = 2;
-    optional int64 RawTimeToDestination = 3;
-    optional int64 ArrivalTimestamp = 4;
-    optional int64 TimeToDestination = 5;
-    optional int64 TimeInTrafficJam = 6;
-    optional float DistanceInTrafficJam = 7;
+    repeated .NAlice.NAliceApi.TNavigator.TPoint Points = 1 [json_name = "points"];
+    optional float DistanceToDestination = 2 [json_name = "distance_to_destination"];
+    optional int64 RawTimeToDestination = 3 [json_name = "raw_time_to_destination"];
+    optional int64 ArrivalTimestamp = 4 [json_name = "arrival_timestamp"];
+    optional int64 TimeToDestination = 5 [json_name = "time_to_destination"];
+    optional int64 TimeInTrafficJam = 6 [json_name = "time_in_traffic_jam"];
+    optional float DistanceInTrafficJam = 7 [json_name = "distance_in_traffic_jam"];
   }
 
   message TSpan {
-    optional .NAlice.NAliceApi.TNavigator.TPoint SouthWest = 1;
-    optional .NAlice.NAliceApi.TNavigator.TPoint NorthEast = 2;
+    optional .NAlice.NAliceApi.TNavigator.TPoint SouthWest = 1 [json_name = "south_west"];
+    optional .NAlice.NAliceApi.TNavigator.TPoint NorthEast = 2 [json_name = "north_east"];
   }
 
   message TSearchOptions {
-    optional .NAlice.NAliceApi.TNavigator.TSpan Span = 1;
+    optional .NAlice.NAliceApi.TNavigator.TSpan Span = 1 [json_name = "span"];
   }
 
-  repeated .NAlice.NAliceApi.TNavigator.TFavorite UserFavorites = 1;
-  optional .NAlice.NAliceApi.TNavigator.TLocation HomeLocation = 2;
-  optional .NAlice.NAliceApi.TNavigator.TLocation WorkLocation = 3;
-  optional .NAlice.NAliceApi.TNavigator.TMapView MapView = 4;
-  repeated string AvailableVoiceIds = 5;
-  optional bool ProjectedMode = 6;
-  optional .NAlice.NAliceApi.TNavigator.TRoute CurrentRoute = 7;
-  repeated string States = 8;
-  optional .NAlice.NAliceApi.TNavigator.TSearchOptions SearchOptions = 9;
+  repeated .NAlice.NAliceApi.TNavigator.TFavorite UserFavorites = 1 [json_name = "user_favorites"];
+  optional .NAlice.NAliceApi.TNavigator.TLocation HomeLocation = 2 [json_name = "home"];
+  optional .NAlice.NAliceApi.TNavigator.TLocation WorkLocation = 3 [json_name = "work"];
+  optional .NAlice.NAliceApi.TNavigator.TMapView MapView = 4 [json_name = "map_view"];
+  repeated string AvailableVoiceIds = 5 [json_name = "available_voice_ids"];
+  optional bool ProjectedMode = 6 [json_name = "projected_mode"];
+  optional .NAlice.NAliceApi.TNavigator.TRoute CurrentRoute = 7 [json_name = "current_route"];
+  repeated string States = 8 [json_name = "states"];
+  optional .NAlice.NAliceApi.TNavigator.TSearchOptions SearchOptions = 9 [json_name = "search_options"];
 }
 
 message TDeviceState {
@@ -94,6 +94,7 @@ message TDeviceState {
   reserved "Browser";
   reserved "InstalledApps";
   reserved "MessengerCall";
+  reserved "Screen";
   reserved "UniversalMediaApp";
   reserved "SubscriptionState";
   reserved "EndpointId";
@@ -107,6 +108,7 @@ message TDeviceState {
   reserved 18;
   reserved 20;
   reserved 21;
+  reserved 27;
   reserved 29;
   reserved 31;
   reserved 34;
@@ -118,16 +120,11 @@ message TDeviceState {
   reserved 49;
   message TAudioPlayer {
     message TCurrentlyPlaying {
-      optional string StreamId = 1;
-      optional double LastPlayTimestamp = 2;
-      optional string Title = 3;
-      optional string SubTitle = 4;
-      optional string StreamType = 5;
-    }
-
-    message ScenarioMetaEntry {
-      optional string key = 1;
-      optional string value = 2;
+      optional string StreamId = 1 [json_name = "stream_id"];
+      optional double LastPlayTimestamp = 2 [json_name = "last_play_timestamp"];
+      optional string Title = 3 [json_name = "title"];
+      optional string SubTitle = 4 [json_name = "subtitle"];
+      optional string StreamType = 5 [json_name = "stream_type"];
     }
 
     enum TPlayerState {
@@ -140,67 +137,38 @@ message TDeviceState {
       Finished = 6;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TPlayerState PlayerState = 1;
-    optional int32 OffsetMs = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TCurrentlyPlaying CurrentlyPlaying = 3;
-    repeated .NAlice.NAliceApi.TDeviceState.TAudioPlayer.ScenarioMetaEntry ScenarioMeta = 4;
-    optional double LastPlayTimestamp = 5;
-    optional int32 DurationMs = 6;
-    optional double LastStopTimestamp = 7;
-    optional int32 PlayedMs = 8;
+    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TPlayerState PlayerState = 1 [json_name = "player_state"];
+    optional int32 OffsetMs = 2 [json_name = "offset_ms"];
+    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "current_stream"];
+    map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta"];
+    optional double LastPlayTimestamp = 5 [json_name = "last_play_timestamp"];
+    optional int32 DurationMs = 6 [json_name = "duration_ms"];
+    optional double LastStopTimestamp = 7 [json_name = "last_stop_timestamp"];
+    optional int32 PlayedMs = 8 [json_name = "played_ms"];
   }
 
   message TMusic {
     message TCurrentlyPlaying {
-      optional string TrackId = 1;
-      optional .google.protobuf.Struct RawTrackInfo = 2;
-      optional double LastPlayTimestamp = 3;
+      optional string TrackId = 1 [json_name = "track_id"];
+      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info"];
+      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1;
+      optional bool Pause = 1 [json_name = "pause"];
       optional uint64 TimestampDeprecated = 2;
-      optional double Timestamp = 3;
+      optional double Timestamp = 3 [json_name = "timestamp"];
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TMusic.TCurrentlyPlaying CurrentlyPlaying = 1;
-    optional string Uid = 2;
-    optional string PlaylistOwner = 3;
-    optional .NAlice.NAliceApi.TDeviceState.TMusic.TPlayer Player = 4;
-    optional uint32 SoundLevel = 5;
-    optional bool SoundMuted = 6;
-    optional string SessionId = 7;
-    optional double LastPlayTimestamp = 8;
-    optional double LastStopTimestamp = 9;
-  }
-
-  message TScreen {
-    enum EScreenResolution {
-      video_format_unknown = 0;
-      video_format_SD = 1;
-      video_format_HD = 2;
-      video_format_UHD = 3;
-    }
-
-    enum EHdcpLevel {
-      current_HDCP_level_unknown = 0;
-      current_HDCP_level_none = 1;
-      current_HDCP_level_1X = 2;
-      current_HDCP_level_2X = 3;
-    }
-
-    enum EDynamicRange {
-      dynamic_range_unknown = 0;
-      dynamic_range_SDR = 1;
-      dynamic_range_HDR10 = 2;
-      dynamic_range_HDR10Plus = 3;
-      dynamic_range_DV = 4;
-      dynamic_range_HLG = 5;
-    }
-
-    repeated .NAlice.NAliceApi.TDeviceState.TScreen.EScreenResolution SupportedScreenResolutions = 1;
-    optional .NAlice.NAliceApi.TDeviceState.TScreen.EHdcpLevel HdcpLevel = 2;
-    repeated .NAlice.NAliceApi.TDeviceState.TScreen.EDynamicRange DynamicRanges = 3;
+    optional .NAlice.NAliceApi.TDeviceState.TMusic.TCurrentlyPlaying CurrentlyPlaying = 1 [json_name = "currently_playing"];
+    optional string Uid = 2 [json_name = "uid"];
+    optional string PlaylistOwner = 3 [json_name = "playlist_owner"];
+    optional .NAlice.NAliceApi.TDeviceState.TMusic.TPlayer Player = 4 [json_name = "player"];
+    optional uint32 SoundLevel = 5 [json_name = "sound_level"];
+    optional bool SoundMuted = 6 [json_name = "sound_muted"];
+    optional string SessionId = 7 [json_name = "session_id"];
+    optional double LastPlayTimestamp = 8 [json_name = "last_play_timestamp"];
+    optional double LastStopTimestamp = 9 [json_name = "last_stop_timestamp"];
   }
 
   message TVideo {
@@ -213,14 +181,14 @@ message TDeviceState {
       reserved 1;
       reserved 3;
       reserved 4;
-      repeated uint32 VisibleItems = 2;
-      optional uint32 Season = 5;
-      repeated .NAlice.TVideoItem RawItems = 6;
-      optional .NAlice.TVideoItem RawItem = 7;
-      optional .NAlice.TVideoItem TvShowItem = 8;
-      optional string Scenario = 9;
-      optional string ViewKey = 10;
-      optional string ScenarioName = 11;
+      repeated uint32 VisibleItems = 2 [json_name = "visible_items"];
+      optional uint32 Season = 5 [json_name = "season"];
+      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items"];
+      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item"];
+      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item"];
+      optional string Scenario = 9 [json_name = "scenario"];
+      optional string ViewKey = 10 [json_name = "view_key"];
+      optional string ScenarioName = 11 [json_name = "scenario_name"];
     }
 
     message TCurrentlyPlaying {
@@ -232,34 +200,34 @@ message TDeviceState {
       reserved 3;
       reserved 4;
       message TProgress {
-        optional double Played = 1;
-        optional double Duration = 2;
+        optional double Played = 1 [json_name = "played"];
+        optional double Duration = 2 [json_name = "duration"];
       }
 
-      optional bool Paused = 1;
-      optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying.TProgress Progress = 2;
-      optional .NAlice.TVideoItem RawItem = 8;
-      optional .NAlice.TVideoItem RawNextItem = 9;
-      optional .NAlice.TVideoItem RawTvShowItem = 10;
-      optional string AudioLanguage = 11;
-      optional string SubtitlesLanguage = 12;
-      optional double LastPlayTimestamp = 13;
+      optional bool Paused = 1 [json_name = "paused"];
+      optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress"];
+      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item"];
+      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item"];
+      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item"];
+      optional string AudioLanguage = 11 [json_name = "audio_language"];
+      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language"];
+      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1;
+      optional bool Pause = 1 [json_name = "pause"];
     }
 
     message TTvInterfaceState {
       message TSearchResultsScreen {
-        repeated .NAlice.TSearchResultGallery Galleries = 1;
-        optional string SearchQuery = 2;
-        repeated string Suggests = 3;
+        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
+        optional string SearchQuery = 2 [json_name = "search_query"];
+        repeated string Suggests = 3 [json_name = "suggests"];
       }
 
-      optional string InitialReqId = 1;
+      optional string InitialReqId = 1 [json_name = "initial_reqid"];
       oneof Screen {
-        .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21;
+        .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen"];
       }
     }
 
@@ -276,70 +244,70 @@ message TDeviceState {
       play_pause = 9;
     }
 
-    optional string CurrentScreen = 1;
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TScreenState ScreenState = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3;
-    optional .google.protobuf.Struct ViewState = 5;
-    optional .google.protobuf.Struct PageState = 8;
-    optional double LastPlayTimestamp = 9;
-    optional double LastStopTimestamp = 10;
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TPlayer Player = 11;
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState TvInterfaceState = 13;
-    repeated .NAlice.NAliceApi.TDeviceState.TVideo.EPlayerCapability PlayerCapabilities = 14;
-    optional string PlayerName = 15;
+    optional string CurrentScreen = 1 [json_name = "current_screen"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
+    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state"];
+    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state"];
+    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp"];
+    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TPlayer Player = 11 [json_name = "player"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state"];
+    repeated .NAlice.NAliceApi.TDeviceState.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities"];
+    optional string PlayerName = 15 [json_name = "player_name"];
   }
 
   message TLastWatched {
     reserved 1;
     reserved 2;
     reserved 3;
-    repeated .NAlice.TWatchedVideoItem RawMovies = 4;
-    repeated .NAlice.TWatchedTvShowItem RawTvShows = 5;
-    repeated .NAlice.TWatchedVideoItem RawVideos = 6;
+    repeated .NAlice.TWatchedVideoItem RawMovies = 4 [json_name = "movies"];
+    repeated .NAlice.TWatchedTvShowItem RawTvShows = 5 [json_name = "tv_shows"];
+    repeated .NAlice.TWatchedVideoItem RawVideos = 6 [json_name = "videos"];
   }
 
   message TTimers {
     reserved "AlarmState";
     reserved 2;
     message TTimer {
-      optional string TimerId = 1;
-      optional uint64 StartTimestamp = 2;
-      optional uint32 Duration = 3;
-      optional uint32 Remaining = 4;
-      optional bool CurrentlyPlaying = 5;
-      optional bool Paused = 6;
-      repeated .NAlice.NAliceApi.TUntypedDirective Directives = 7;
-      optional .NAlice.NData.TTimerDescription TimerDescription = 8;
+      optional string TimerId = 1 [json_name = "timer_id"];
+      optional uint64 StartTimestamp = 2 [json_name = "start_timestamp"];
+      optional uint32 Duration = 3 [json_name = "duration"];
+      optional uint32 Remaining = 4 [json_name = "remaining"];
+      optional bool CurrentlyPlaying = 5 [json_name = "currently_playing"];
+      optional bool Paused = 6 [json_name = "paused"];
+      repeated .NAlice.NAliceApi.TUntypedDirective Directives = 7 [json_name = "directives"];
+      optional .NAlice.NData.TTimerDescription TimerDescription = 8 [json_name = "timer_descripion"];
     }
 
-    repeated .NAlice.NAliceApi.TDeviceState.TTimers.TTimer ActiveTimers = 1;
+    repeated .NAlice.NAliceApi.TDeviceState.TTimers.TTimer ActiveTimers = 1 [json_name = "active_timers"];
   }
 
   message TAlarmState {
     message TSoundAlarmSetting {
-      optional string Type = 1;
-      optional .google.protobuf.Struct RawInfo = 2;
+      optional string Type = 1 [json_name = "type"];
+      optional .google.protobuf.Struct RawInfo = 2 [json_name = "info"];
     }
 
-    optional string ICalendar = 1;
-    optional bool CurrentlyPlaying = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TAlarmState.TSoundAlarmSetting SoundAlarmSetting = 3;
-    optional uint32 MaxSoundLevel = 4;
-    optional uint32 MinSoundLevel = 5;
-    optional bool MediaCurrentlyPlaying = 6;
+    optional string ICalendar = 1 [json_name = "icalendar"];
+    optional bool CurrentlyPlaying = 2 [json_name = "currently_playing"];
+    optional .NAlice.NAliceApi.TDeviceState.TAlarmState.TSoundAlarmSetting SoundAlarmSetting = 3 [json_name = "sound_alarm_setting"];
+    optional uint32 MaxSoundLevel = 4 [json_name = "max_sound_level"];
+    optional uint32 MinSoundLevel = 5 [json_name = "min_sound_level"];
+    optional bool MediaCurrentlyPlaying = 6 [json_name = "media_currently_playing"];
   }
 
   message TDeviceConfig {
-    optional .NAlice.EContentSettings ContentSettings = 1;
-    optional string Spotter = 2;
-    optional .NAlice.EContentSettings ChildContentSettings = 3;
-    optional bool RadioNannyEnabled = 4;
-    optional bool SmartActivation = 5;
-    optional bool SmartVolumeEnabled = 6;
+    optional .NAlice.EContentSettings ContentSettings = 1 [json_name = "content_settings"];
+    optional string Spotter = 2 [json_name = "spotter"];
+    optional .NAlice.EContentSettings ChildContentSettings = 3 [json_name = "child_content_settings"];
+    optional bool RadioNannyEnabled = 4 [json_name = "radio_nanny_enabled"];
+    optional bool SmartActivation = 5 [json_name = "smart_activation"];
+    optional bool SmartVolumeEnabled = 6 [json_name = "smart_volume_enabled"];
   }
 
   message TBattery {
-    optional int32 Percent = 1;
+    optional int32 Percent = 1 [json_name = "percent"];
   }
 
   message TMultiroom {
@@ -349,46 +317,46 @@ message TDeviceState {
       Slave = 2;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TMultiroom.EMultiroomMode Mode = 1;
-    optional string MultiroomSessionId = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 3;
-    optional string MasterDeviceId = 4;
-    repeated string VisiblePeerDeviceIds = 5;
-    optional string MultiroomToken = 6;
-    repeated string RoomDeviceIds = 7;
+    optional .NAlice.NAliceApi.TDeviceState.TMultiroom.EMultiroomMode Mode = 1 [json_name = "mode"];
+    optional string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
+    optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 3 [json_name = "music"];
+    optional string MasterDeviceId = 4 [json_name = "master_device_id"];
+    repeated string VisiblePeerDeviceIds = 5 [json_name = "visible_peers"];
+    optional string MultiroomToken = 6 [json_name = "multiroom_token"];
+    repeated string RoomDeviceIds = 7 [json_name = "room_device_ids"];
   }
 
   message TBluetooth {
     message TConnection {
-      optional string Name = 1;
+      optional string Name = 1 [json_name = "name"];
     }
 
     message TCurrentlyPlaying {
-      optional string TrackId = 1;
-      optional .google.protobuf.Struct RawTrackInfo = 2;
-      optional double LastPlayTimestamp = 3;
+      optional string TrackId = 1 [json_name = "track_id"];
+      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info"];
+      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1;
-      optional double Timestamp = 2;
+      optional bool Pause = 1 [json_name = "pause"];
+      optional double Timestamp = 2 [json_name = "timestamp"];
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TPlayer Player = 1;
-    repeated .NAlice.NAliceApi.TDeviceState.TBluetooth.TConnection CurrentConnections = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TCurrentlyPlaying CurrentlyPlaying = 3;
-    optional double LastPlayTimestamp = 4;
+    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TPlayer Player = 1 [json_name = "player"];
+    repeated .NAlice.NAliceApi.TDeviceState.TBluetooth.TConnection CurrentConnections = 2 [json_name = "current_connections"];
+    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
+    optional double LastPlayTimestamp = 4 [json_name = "last_play_timestamp"];
   }
 
   message TInternetConnection {
     message TWifiNetwork {
-      optional string Ssid = 1;
-      optional string Bssid = 2;
-      optional int32 Channel = 3;
-      optional int32 Rssi = 4;
-      optional string Flags = 5;
-      optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.ENetworkSecurityType NetworkSecurityType = 6;
-      optional bool IsCorporate = 7;
+      optional string Ssid = 1 [json_name = "ssid"];
+      optional string Bssid = 2 [json_name = "bssid"];
+      optional int32 Channel = 3 [json_name = "channel"];
+      optional int32 Rssi = 4 [json_name = "signal_strength"];
+      optional string Flags = 5 [json_name = "flags"];
+      optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.ENetworkSecurityType NetworkSecurityType = 6 [json_name = "network_security_type"];
+      optional bool IsCorporate = 7 [json_name = "is_corporate"];
     }
 
     enum EType {
@@ -414,15 +382,15 @@ message TDeviceState {
       NotChosen = 4;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EType Type = 1;
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Current = 2;
-    repeated .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Neighbours = 3;
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EStatus Status = 4;
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EType Type = 1 [json_name = "type"];
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Current = 2 [json_name = "current"];
+    repeated .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Neighbours = 3 [json_name = "neighbours"];
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EStatus Status = 4 [json_name = "status"];
   }
 
   message TRcuState {
     message TRcuCapabilities {
-      optional bool CanMakeSounds = 1;
+      optional bool CanMakeSounds = 1 [json_name = "can_make_sounds"];
     }
 
     enum ESetupState {
@@ -434,37 +402,48 @@ message TDeviceState {
       Manual = 5;
     }
 
-    optional bool IsRcuConnected = 1;
-    optional .NAlice.NAliceApi.TDeviceState.TRcuState.ESetupState SetupState = 2;
-    optional int32 TotalCodesets = 3;
-    optional .NAlice.NAliceApi.TDeviceState.TRcuState.TRcuCapabilities RcuCapabilities = 4;
+    optional bool IsRcuConnected = 1 [json_name = "is_rcu_connected"];
+    optional .NAlice.NAliceApi.TDeviceState.TRcuState.ESetupState SetupState = 2 [json_name = "setup_state"];
+    optional int32 TotalCodesets = 3 [json_name = "total_codesets"];
+    optional .NAlice.NAliceApi.TDeviceState.TRcuState.TRcuCapabilities RcuCapabilities = 4 [json_name = "rcu_capabilities"];
   }
 
   message TPackagesState {
     message TPackage {
-      optional string Name = 1;
-      optional string HumanReadableName = 2;
+      optional string Name = 1 [json_name = "name"];
+      optional string HumanReadableName = 2 [json_name = "human_readable_name"];
     }
 
     message TInstalledPackage {
-      optional .NAlice.NAliceApi.TDeviceState.TPackagesState.TPackage PackageInfo = 1;
-      optional string MainActivity = 2;
+      optional .NAlice.NAliceApi.TDeviceState.TPackagesState.TPackage PackageInfo = 1 [json_name = "package_info"];
+      optional string MainActivity = 2 [json_name = "main_activity"];
     }
 
-    repeated .NAlice.NAliceApi.TDeviceState.TPackagesState.TInstalledPackage Installed = 1;
+    repeated .NAlice.NAliceApi.TDeviceState.TPackagesState.TInstalledPackage Installed = 1 [json_name = "installed"];
   }
 
   message TClockDisplayState {
-    optional bool ClockEnabled = 1;
+    optional bool ClockEnabled = 1 [json_name = "clock_enabled"];
   }
 
   message TActiveActions {
     reserved "SemanticFrames";
     reserved "ConditionalActions";
-    reserved "ScreenConditionalActions";
     reserved 1;
     reserved 2;
-    reserved 3;
+    message TScreenConditionalActions {
+      message TConditionalAction {
+        reserved 1;
+        reserved 2;
+        reserved 3;
+        reserved 4;
+        reserved 5;
+      }
+
+      repeated .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions.TConditionalAction ConditionalActions = 1 [json_name = "conditional_actions"];
+    }
+
+    map<string, .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions> ScreenConditionalActions = 3 [json_name = "screen_conditional_action"];
   }
 
   message TAppScreenInfo {
@@ -477,7 +456,7 @@ message TDeviceState {
       cloud_2_ui_keyboard = 4;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo.ESourceScreenId SourceScreenId = 3;
+    optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo.ESourceScreenId SourceScreenId = 3 [json_name = "source_screen_id"];
   }
 
   message TStereoPair {
@@ -507,64 +486,63 @@ message TDeviceState {
       READY = 3;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EChannel Channel = 1;
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EConnected Connected = 2;
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.ERole Role = 3;
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EStereoPlayerStatus StereoPlayerStatus = 4;
-    optional string PartnerDeviceId = 5;
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EChannel Channel = 1 [json_name = "channel"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EConnected Connected = 2 [json_name = "connected"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.ERole Role = 3 [json_name = "role"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EStereoPlayerStatus StereoPlayerStatus = 4 [json_name = "stereo_player_status"];
+    optional string PartnerDeviceId = 5 [json_name = "partner_device_id"];
   }
 
   message TTanker {
-    optional string GasStationId = 1;
-    optional string FuelType = 2;
-    optional bool CreditCard = 3;
-    optional string XPayment = 4;
+    optional string GasStationId = 1 [json_name = "gas_station_id"];
+    optional string FuelType = 2 [json_name = "fuel_type"];
+    optional bool CreditCard = 3 [json_name = "credit_card"];
+    optional string XPayment = 4 [json_name = "xPayment"];
   }
 
-  optional string DeviceId = 1;
-  optional uint32 SoundLevel = 2;
-  optional bool SoundMuted = 3;
-  optional bool IsTvPluggedIn = 4;
-  optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 5;
-  optional .NAlice.NAliceApi.TDeviceState.TVideo Video = 6;
-  optional string AlarmsState = 7;
-  optional .NAlice.NAliceApi.TDeviceState.TAlarmState AlarmState = 8;
-  optional .NAlice.NAliceApi.TDeviceState.TDeviceConfig DeviceConfig = 9;
-  optional .NAlice.NAliceApi.TDeviceState.TTimers Timers = 10;
-  optional .google.protobuf.Struct Radio = 11;
-  optional .NAlice.NAliceApi.TNavigator Navigator = 12;
-  optional .NAlice.NAliceApi.TDeviceState.TLastWatched LastWatched = 14;
-  optional .NAlice.NAliceApi.TDeviceState.TBattery Battery = 17;
-  optional .NAlice.NAliceApi.TDeviceState.TTanker Tanker = 19;
-  optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer AudioPlayer = 22;
-  optional .NAlice.NAliceApi.TDeviceState.TMultiroom Multiroom = 23;
-  optional .NAlice.NAliceApi.TDeviceState.TBluetooth Bluetooth = 24;
-  optional .NAlice.NAliceApi.TDeviceState.TInternetConnection InternetConnection = 25;
-  optional bool MicsMuted = 26;
-  optional .NAlice.NAliceApi.TDeviceState.TScreen Screen = 27;
-  optional .NAlice.NAliceApi.TDeviceState.TRcuState RcuState = 28;
-  optional bool IsDefaultAssistant = 30;
-  optional uint32 SoundMaxLevel = 32;
-  optional .NAlice.NAliceApi.TDeviceState.TActiveActions ActiveActions = 33;
-  optional .NAlice.TTandemState TandemState = 35;
-  optional .NAlice.TSubscriptionState DeviceSubscriptionState = 36;
-  optional .NAlice.NData.NReminders.TDeviceRemindersState DeviceReminders = 37;
-  optional .NAlice.NAliceApi.TDeviceState.TPackagesState PackagesState = 38;
-  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescription = 42;
-  optional .NAlice.NAliceApi.TDeviceState.TClockDisplayState ClockDisplayState = 44;
-  optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo AppScreenInfo = 46;
-  optional .NAlice.NAliceApi.TDeviceState.TStereoPair StereoPair = 47;
-  optional bool DNDEnabled = 48;
+  optional string DeviceId = 1 [json_name = "device_id"];
+  optional uint32 SoundLevel = 2 [json_name = "sound_level"];
+  optional bool SoundMuted = 3 [json_name = "sound_muted"];
+  optional bool IsTvPluggedIn = 4 [json_name = "is_tv_plugged_in"];
+  optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 5 [json_name = "music"];
+  optional .NAlice.NAliceApi.TDeviceState.TVideo Video = 6 [json_name = "video"];
+  optional string AlarmsState = 7 [json_name = "alarms_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TAlarmState AlarmState = 8 [json_name = "alarm_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TDeviceConfig DeviceConfig = 9 [json_name = "device_config"];
+  optional .NAlice.NAliceApi.TDeviceState.TTimers Timers = 10 [json_name = "timers"];
+  optional .google.protobuf.Struct Radio = 11 [json_name = "radio"];
+  optional .NAlice.NAliceApi.TNavigator Navigator = 12 [json_name = "navigator"];
+  optional .NAlice.NAliceApi.TDeviceState.TLastWatched LastWatched = 14 [json_name = "last_watched"];
+  optional .NAlice.NAliceApi.TDeviceState.TBattery Battery = 17 [json_name = "battery"];
+  optional .NAlice.NAliceApi.TDeviceState.TTanker Tanker = 19 [json_name = "tanker"];
+  optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer AudioPlayer = 22 [json_name = "audio_player"];
+  optional .NAlice.NAliceApi.TDeviceState.TMultiroom Multiroom = 23 [json_name = "multiroom"];
+  optional .NAlice.NAliceApi.TDeviceState.TBluetooth Bluetooth = 24 [json_name = "bluetooth"];
+  optional .NAlice.NAliceApi.TDeviceState.TInternetConnection InternetConnection = 25 [json_name = "internet_connection"];
+  optional bool MicsMuted = 26 [json_name = "mics_muted"];
+  optional .NAlice.NAliceApi.TDeviceState.TRcuState RcuState = 28 [json_name = "rcu"];
+  optional bool IsDefaultAssistant = 30 [json_name = "is_default_assistant"];
+  optional uint32 SoundMaxLevel = 32 [json_name = "sound_max_level"];
+  optional .NAlice.NAliceApi.TDeviceState.TActiveActions ActiveActions = 33 [json_name = "active_actions"];
+  optional .NAlice.TTandemState TandemState = 35 [json_name = "tandem_state"];
+  optional .NAlice.TSubscriptionState DeviceSubscriptionState = 36 [json_name = "subscription_state"];
+  optional .NAlice.NData.NReminders.TDeviceRemindersState DeviceReminders = 37 [json_name = "device_reminders"];
+  optional .NAlice.NAliceApi.TDeviceState.TPackagesState PackagesState = 38 [json_name = "packages"];
+  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescription = 42 [json_name = "external_entities_description"];
+  optional .NAlice.NAliceApi.TDeviceState.TClockDisplayState ClockDisplayState = 44 [json_name = "clock_display_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo AppScreenInfo = 46 [json_name = "app_screen_info"];
+  optional .NAlice.NAliceApi.TDeviceState.TStereoPair StereoPair = 47 [json_name = "stereo_pair"];
+  optional bool DNDEnabled = 48 [json_name = "dnd_enabled"];
 }
 
 message TDeviceStatePart {
   reserved "video";
   reserved 1;
   oneof Part {
-    .NAlice.NAliceApi.TDeviceState.TRcuState rcu = 2;
-    .NAlice.NAliceApi.TDeviceState.TPackagesState packages = 3;
-    .NAlice.NAliceApi.TDeviceState.TLastWatched last_watched = 4;
-    .NAlice.NAliceApi.TDeviceState.TVideo video_state = 5;
+    .NAlice.NAliceApi.TDeviceState.TRcuState rcu = 2 [json_name = "rcu"];
+    .NAlice.NAliceApi.TDeviceState.TPackagesState packages = 3 [json_name = "packages"];
+    .NAlice.NAliceApi.TDeviceState.TLastWatched last_watched = 4 [json_name = "last_watched"];
+    .NAlice.NAliceApi.TDeviceState.TVideo video_state = 5 [json_name = "video_state"];
   }
 }
 

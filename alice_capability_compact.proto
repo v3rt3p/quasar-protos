@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+option java_package = "com.yandex.quark.protos";
+option java_outer_classname = "AliceCapabilityCompactProto";
+
+import "alice/protos/api/speech_mode/mode/speech_mode.proto";
+
+message TAliceCapabilityCompact {
+  message TSpeechState {
+    message TListening {
+      float VoicePower = 1;
+      optional string Text = 2;
+    }
+
+    message TThinking {
+    }
+
+    message TSpeaking {
+    }
+
+    message TIdle {
+    }
+
+    .NAlice.TSpeechMode SpeechMode = 4;
+    oneof State {
+      .quark.core.proto.TAliceCapabilityCompact.TSpeechState.TListening Listening = 1;
+      .quark.core.proto.TAliceCapabilityCompact.TSpeechState.TThinking Thinking = 2;
+      .quark.core.proto.TAliceCapabilityCompact.TSpeechState.TSpeaking Speaking = 3;
+      .quark.core.proto.TAliceCapabilityCompact.TSpeechState.TIdle Idle = 5;
+    }
+  }
+
+  message TState {
+    .quark.core.proto.TAliceCapabilityCompact.TSpeechState SpeechState = 6;
+  }
+
+  .quark.core.proto.TAliceCapabilityCompact.TState State = 3;
+}
+

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "NightVisionCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/night_vision;nightvisionpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TNightVisionCapability {
+  message TParameters {
+  }
+
+  message TState {
+    bool Enabled = 1 [json_name = "enabled"];
+    .NAlice.TNightVisionCapability.EMode Mode = 2 [json_name = "mode"];
+  }
+
+  message TSetNightVisionModeDirective {
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TNightVisionCapability.EMode Mode = 1 [json_name = "mode"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TNightVisionCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EMode {
+    MODE_UNKNOWN = 0;
+    MODE_ALWAYS_ENABLED = 1;
+    MODE_ALWAYS_DISABLED = 2;
+    MODE_AUTOMATIC = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNightVisionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNightVisionCapability.TState State = 3 [json_name = "state"];
+}
+

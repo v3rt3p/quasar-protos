@@ -19,10 +19,30 @@ message TOutgoingDeviceCallTypedCallback {
     Radionanny = 2;
   }
 
-  .NAlice.NScenarios.NCalls.TOutgoingDeviceCallTypedCallback.ECallType CallType = 1;
-  string DeviceId = 2;
+  .NAlice.NScenarios.NCalls.TOutgoingDeviceCallTypedCallback.ECallType CallType = 1 [json_name = "call_type"];
+  string DeviceId = 2 [json_name = "device_id"];
 }
 
 message TGetCallableDevicesTypedCallback {
+}
+
+message TPhoneLastCallContactCallback {
+  string Phone = 2 [json_name = "phone"];
+  optional string Name = 1 [json_name = "name"];
+}
+
+message TPhoneLastCallContactLookupFailedCallback {
+  enum EReason {
+    Unspecified = 0;
+    NotFound = 1;
+    UnexpectedError = 2;
+    NumberUnavailable = 3;
+  }
+
+  .NAlice.NScenarios.NCalls.TPhoneLastCallContactLookupFailedCallback.EReason Reason = 1 [json_name = "reason"];
+}
+
+message TPhoneContactSelectedCallback {
+  string LookupKey = 1 [json_name = "lookup_key"];
 }
 

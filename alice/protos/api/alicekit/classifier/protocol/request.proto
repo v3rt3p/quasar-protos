@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.classifier.protocol";
+option java_outer_classname = "ClassifierRequestProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/classifier/protocol";
+
+import "google/protobuf/struct.proto";
+
+message TClassifyRequest {
+  message TRuntimeSettings {
+    .google.protobuf.Struct Payload = 1 [json_name = "payload"];
+  }
+
+  string RequestId = 1 [json_name = "request_id"];
+  string Text = 2 [json_name = "text"];
+  .NAlice.NAliceApi.TClassifyRequest.TRuntimeSettings RuntimeSettings = 3 [json_name = "runtime_settings"];
+}
+

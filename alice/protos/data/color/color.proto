@@ -21,5 +21,6 @@ enum EColor {
   Violet = 12;
   Tiffany = 13;
   Purple = 14;
+  Silver = 15;
 }
 

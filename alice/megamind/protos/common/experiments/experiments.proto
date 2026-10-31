@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package NAlice;
 
@@ -19,11 +19,6 @@ message TExperimentsProto {
     }
   }
 
-  message StorageEntry {
-    optional string key = 1;
-    optional .NAlice.TExperimentsProto.TValue value = 2;
-  }
-
-  repeated .NAlice.TExperimentsProto.StorageEntry Storage = 1;
+  map<string, .NAlice.TExperimentsProto.TValue> Storage = 1;
 }
 

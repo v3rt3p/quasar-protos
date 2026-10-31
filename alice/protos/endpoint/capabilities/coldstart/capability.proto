@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ColdstartCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/coldstart;coldstartpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TColdstartCapability {
+  message TParameters {
+  }
+
+  message TState {
+    bool SupportColdstartRecommendations = 1 [json_name = "support_coldstart_recommendations"];
+  }
+
+  message TOpenColdstartRecommendationsDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TColdstartCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TColdstartCapability.TState State = 3 [json_name = "state"];
+}
+

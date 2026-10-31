@@ -17,52 +17,52 @@ message TDeviceControlPanelCapability {
   }
 
   message TState {
-    .NAlice.TTotalScenario Total = 1;
-    .NAlice.TVideoScenario Video = 2;
-    .NAlice.TTvChannelsScenario TvChannels = 3;
-    .NAlice.TInputControlScenario InputControl = 4;
-    .NAlice.TExternalAppScenario ExternalApp = 5;
+    .NAlice.TTotalScenario Total = 1 [json_name = "total"];
+    .NAlice.TVideoScenario Video = 2 [json_name = "video"];
+    .NAlice.TTvChannelsScenario TvChannels = 3 [json_name = "tv_channels"];
+    .NAlice.TInputControlScenario InputControl = 4 [json_name = "input_control"];
+    .NAlice.TExternalAppScenario ExternalApp = 5 [json_name = "external_app"];
   }
 
   message TChildModeUnblockDirective {
     message TSwitchAccount {
-      string TargetPersonId = 1;
+      string TargetPersonId = 1 [json_name = "target_person_id"];
     }
 
     message TLaunchApp {
-      string PackageName = 2;
+      string PackageName = 2 [json_name = "package_name"];
     }
 
     message TProlongation {
-      uint32 ProlongationSeconds = 1;
+      uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
     }
 
-    string ChildPersonId = 1;
-    bool RequestDeclined = 2;
-    string Name = 6;
+    string ChildPersonId = 1 [json_name = "child_person_id"];
+    bool RequestDeclined = 2 [json_name = "request_declined"];
+    string Name = 6 [json_name = "name"];
     oneof Action {
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TSwitchAccount SwitchAccount = 3;
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TLaunchApp LaunchApp = 4;
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TProlongation Prolongation = 5;
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TSwitchAccount SwitchAccount = 3 [json_name = "switch_account"];
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TLaunchApp LaunchApp = 4 [json_name = "launch_app"];
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TProlongation Prolongation = 5 [json_name = "prolongation"];
     }
   }
 
   message TOpenProlongationScreenDirective {
-    string Name = 1;
-    bool IsAdultRequest = 2;
+    string Name = 1 [json_name = "name"];
+    bool IsAdultRequest = 2 [json_name = "is_adult_request"];
   }
 
   message TSendUnblockRequestDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TProlongTimeLimitDirective {
-    uint32 ProlongationSeconds = 1;
-    string Name = 2;
+    uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
+    string Name = 2 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TDeviceControlPanelCapability.TParameters Parameters = 2;
-  .NAlice.TDeviceControlPanelCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TDeviceControlPanelCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TDeviceControlPanelCapability.TState State = 3 [json_name = "state"];
 }
 

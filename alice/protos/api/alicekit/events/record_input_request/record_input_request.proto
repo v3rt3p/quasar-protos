@@ -14,7 +14,7 @@ message TRecordInputRequest {
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TRecordInputRequest.TStartRequest StartRequest = 1;
+    .NAlice.NAliceApi.TRecordInputRequest.TStartRequest StartRequest = 1 [json_name = "start_request"];
   }
 }
 

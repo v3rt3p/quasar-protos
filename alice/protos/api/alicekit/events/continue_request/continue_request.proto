@@ -10,6 +10,6 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/continue_
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TContinueRequest {
-  string RequestMessageId = 1;
+  string RequestMessageId = 1 [json_name = "requestMessageId"];
 }
 

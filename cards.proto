@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+option java_package = "com.yandex.quark.proto";
+option java_outer_classname = "AliceCardsProto";
+
+import "div.proto";
+
+message Cards {
+  repeated .quark.core.proto.Card Cards = 1;
+}
+
+message Card {
+  oneof CardType {
+    .quark.core.proto.TTextWithButtonsCard TextWithButtonsCard = 1;
+    .quark.core.proto.TTextCard TextCard = 2;
+    .quark.core.proto.TDivCard DivCard = 3;
+    .quark.core.proto.TDivLegacyCard DivLegacyCard = 4;
+    .quark.core.proto.TSourcesCard SourcesCard = 5;
+    .quark.core.proto.TModeCard ModeCard = 6;
+  }
+}
+
+message TTextWithButtonsCard {
+  message TButton {
+    message TTheme {
+      optional string ImageUrl = 1;
+    }
+
+    repeated bytes DirectiveBlobs = 3;
+    optional string Type = 1;
+    optional string Title = 2;
+    optional string Text = 4;
+    optional .quark.core.proto.TTextWithButtonsCard.TButton.TTheme Theme = 5;
+  }
+
+  repeated .quark.core.proto.TTextWithButtonsCard.TButton Buttons = 3;
+  optional string Text = 1;
+  optional string Identifier = 2;
+  optional bool DontAddToChatHistory = 4;
+}
+
+message TTextCard {
+  optional string Text = 1;
+  optional string Identifier = 2;
+  optional bool ProgressivePrinting = 3;
+  optional bool DontAddToChatHistory = 4;
+}
+
+message TDivLegacyCard {
+  string Identifier = 1;
+  string Text = 2;
+  string StringBody = 3;
+  optional bool DontAddToChatHistory = 4;
+}
+
+message TSourcesCard {
+  repeated string Sources = 1;
+  optional string Identifier = 2;
+}
+
+message TModeCard {
+  message TRequestMode {
+    enum EMode {
+      UNKNOWN = 0;
+      LIVE = 1;
+    }
+
+    .quark.core.proto.TModeCard.TRequestMode.EMode mode = 1;
+  }
+
+  oneof Mode {
+    .quark.core.proto.TModeCard.TRequestMode request_mode = 1;
+  }
+}
+

@@ -8,12 +8,12 @@ import "alice/protos/endpoint/aggregate.proto";
 import "alice/protos/endpoint/endpoint.proto";
 
 message TDevice {
-  repeated .NAlice.TEndpoint Endpoints = 1;
-  repeated .NAlice.TAggregate Aggregates = 2;
+  repeated .NAlice.TEndpoint Endpoints = 1 [json_name = "endpoints"];
+  repeated .NAlice.TAggregate Aggregates = 2 [json_name = "aggregates"];
 }
 
 message TDeviceDescription {
-  .NAlice.NIot.TDevice Device = 1;
-  bytes HashSum = 2;
+  .NAlice.NIot.TDevice Device = 1 [json_name = "device"];
+  bytes HashSum = 2 [json_name = "hash_sum"];
 }
 

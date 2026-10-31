@@ -17,66 +17,163 @@ message TNavigatorCapability {
 
   message TState {
     message TPoint {
-      optional float Lat = 1;
-      optional float Lon = 2;
+      optional float Lat = 1 [json_name = "lat"];
+      optional float Lon = 2 [json_name = "lon"];
     }
 
     message TFavorite {
-      repeated .NAlice.TNavigatorCapability.TState.TPoint ArrivalPoints = 4;
-      optional string Name = 1;
-      optional float Lat = 2;
-      optional float Lon = 3;
+      repeated .NAlice.TNavigatorCapability.TState.TPoint ArrivalPoints = 4 [json_name = "arrival_points"];
+      optional string Name = 1 [json_name = "name"];
+      optional float Lat = 2 [json_name = "lat"];
+      optional float Lon = 3 [json_name = "lon"];
     }
 
     message TLocation {
-      repeated .NAlice.TNavigatorCapability.TState.TPoint ArrivalPoints = 3;
-      optional float Lat = 1;
-      optional float Lon = 2;
+      repeated .NAlice.TNavigatorCapability.TState.TPoint ArrivalPoints = 3 [json_name = "arrival_points"];
+      optional float Lat = 1 [json_name = "lat"];
+      optional float Lon = 2 [json_name = "lon"];
     }
 
     message TMapView {
-      optional float BottomRightLon = 1;
-      optional float TopRightLon = 2;
-      optional float TopLeftLon = 3;
-      optional float BottomLeftLon = 4;
-      optional float TopLeftLat = 5;
-      optional float BottomLeftLat = 6;
-      optional float BottomRightLat = 7;
-      optional float TopRightLat = 8;
+      optional float BottomRightLon = 1 [json_name = "br_lon"];
+      optional float TopRightLon = 2 [json_name = "tr_lon"];
+      optional float TopLeftLon = 3 [json_name = "tl_lon"];
+      optional float BottomLeftLon = 4 [json_name = "bl_lon"];
+      optional float TopLeftLat = 5 [json_name = "tl_lat"];
+      optional float BottomLeftLat = 6 [json_name = "bl_lat"];
+      optional float BottomRightLat = 7 [json_name = "br_lat"];
+      optional float TopRightLat = 8 [json_name = "tr_lat"];
     }
 
     message TRoute {
-      repeated .NAlice.TNavigatorCapability.TState.TPoint Points = 1;
-      optional float DistanceToDestination = 2;
-      optional int64 RawTimeToDestination = 3;
-      optional int64 ArrivalTimestamp = 4;
-      optional int64 TimeToDestination = 5;
-      optional int64 TimeInTrafficJam = 6;
-      optional float DistanceInTrafficJam = 7;
+      repeated .NAlice.TNavigatorCapability.TState.TPoint Points = 1 [json_name = "points"];
+      optional float DistanceToDestination = 2 [json_name = "distance_to_destination"];
+      optional int64 RawTimeToDestination = 3 [json_name = "raw_time_to_destination"];
+      optional int64 ArrivalTimestamp = 4 [json_name = "arrival_timestamp"];
+      optional int64 TimeToDestination = 5 [json_name = "time_to_destination"];
+      optional int64 TimeInTrafficJam = 6 [json_name = "time_in_traffic_jam"];
+      optional float DistanceInTrafficJam = 7 [json_name = "distance_in_traffic_jam"];
     }
 
     message TSpan {
-      optional .NAlice.TNavigatorCapability.TState.TPoint SouthWest = 1;
-      optional .NAlice.TNavigatorCapability.TState.TPoint NorthEast = 2;
+      optional .NAlice.TNavigatorCapability.TState.TPoint SouthWest = 1 [json_name = "south_west"];
+      optional .NAlice.TNavigatorCapability.TState.TPoint NorthEast = 2 [json_name = "north_east"];
     }
 
     message TSearchOptions {
-      optional .NAlice.TNavigatorCapability.TState.TSpan Span = 1;
+      optional .NAlice.TNavigatorCapability.TState.TSpan Span = 1 [json_name = "span"];
     }
 
-    repeated .NAlice.TNavigatorCapability.TState.TFavorite UserFavorites = 1;
-    repeated string AvailableVoiceIds = 5;
-    repeated string States = 8;
-    optional .NAlice.TNavigatorCapability.TState.TLocation HomeLocation = 2;
-    optional .NAlice.TNavigatorCapability.TState.TLocation WorkLocation = 3;
-    optional .NAlice.TNavigatorCapability.TState.TMapView MapView = 4;
-    optional bool ProjectedMode = 6;
-    optional .NAlice.TNavigatorCapability.TState.TRoute CurrentRoute = 7;
-    optional .NAlice.TNavigatorCapability.TState.TSearchOptions SearchOptions = 9;
+    message TCameraSettings {
+      optional float CurrentZoom = 1 [json_name = "current_zoom"];
+      optional bool Is3dMode = 2 [json_name = "is_3d_mode"];
+      optional bool IsNorthUp = 3 [json_name = "is_north_up"];
+      optional float MaxZoom = 4 [json_name = "max_zoom"];
+      optional float MinZoom = 5 [json_name = "min_zoom"];
+    }
+
+    message TNavigationSettings {
+      optional bool AvoidTollRoad = 1 [json_name = "avoid_toll_road"];
+      optional bool AvoidPoorRoad = 2 [json_name = "avoid_poor_road"];
+    }
+
+    message TMapLayerSettings {
+      optional bool TrafficEnabled = 1 [json_name = "traffic_enabled"];
+      optional bool ParkingEnabled = 2 [json_name = "parking_enabled"];
+    }
+
+    message TSearchResultEntry {
+      optional int32 Index = 1 [json_name = "index"];
+      optional string Name = 2 [json_name = "name"];
+      optional string Address = 3 [json_name = "address"];
+      optional .NAlice.TNavigatorCapability.TState.TPoint Point = 4 [json_name = "point"];
+    }
+
+    message TSearchState {
+      repeated .NAlice.TNavigatorCapability.TState.TSearchResultEntry Items = 1 [json_name = "items"];
+      optional int32 FirstVisibleIndex = 2 [json_name = "first_visible_index"];
+      optional int32 LastVisibleIndex = 3 [json_name = "last_visible_index"];
+      optional bool IsLoadingNextPage = 4 [json_name = "is_loading_next_page"];
+    }
+
+    message TPoiInfo {
+      optional string Name = 1 [json_name = "name"];
+      optional .NAlice.TNavigatorCapability.TState.TPoint Point = 2 [json_name = "point"];
+      optional string Uri = 3 [json_name = "uri"];
+    }
+
+    message TRouteAlternative {
+      optional int32 Index = 1 [json_name = "index"];
+      optional string Id = 2 [json_name = "id"];
+      optional double DurationSeconds = 3 [json_name = "duration_seconds"];
+      optional double DistanceMeters = 4 [json_name = "distance_meters"];
+    }
+
+    message TRouteOverview {
+      repeated .NAlice.TNavigatorCapability.TState.TRouteAlternative Alternatives = 1 [json_name = "alternatives"];
+      optional int32 SelectedIndex = 2 [json_name = "selected_index"];
+    }
+
+    message TScreenState {
+      message TMainSuggest {
+      }
+
+      message TOther {
+      }
+
+      message TRouteEditor {
+      }
+
+      message TSearch {
+        optional .NAlice.TNavigatorCapability.TState.TSearchState State = 1 [json_name = "state"];
+      }
+
+      message TPlacecard {
+        optional .NAlice.TNavigatorCapability.TState.TPoiInfo Poi = 1 [json_name = "poi"];
+      }
+
+      message TRoutes {
+        optional .NAlice.TNavigatorCapability.TState.TRouteOverview Overview = 1 [json_name = "overview"];
+      }
+
+      message TSettings {
+        optional string ScreenId = 1 [json_name = "screen_id"];
+      }
+
+      message TBookmarks {
+        optional string FolderId = 1 [json_name = "folder_id"];
+      }
+
+      oneof screen {
+        .NAlice.TNavigatorCapability.TState.TScreenState.TMainSuggest MainSuggest = 1;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TOther Other = 2;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TSearch Search = 3;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TPlacecard Placecard = 4;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TRoutes Routes = 5;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TRouteEditor RouteEditor = 6;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TSettings Settings = 7;
+        .NAlice.TNavigatorCapability.TState.TScreenState.TBookmarks Bookmarks = 8;
+      }
+    }
+
+    repeated .NAlice.TNavigatorCapability.TState.TFavorite UserFavorites = 1 [json_name = "user_favorites"];
+    repeated string AvailableVoiceIds = 5 [json_name = "available_voice_ids"];
+    repeated string States = 8 [json_name = "states"];
+    optional .NAlice.TNavigatorCapability.TState.TLocation HomeLocation = 2 [json_name = "home"];
+    optional .NAlice.TNavigatorCapability.TState.TLocation WorkLocation = 3 [json_name = "work"];
+    optional .NAlice.TNavigatorCapability.TState.TMapView MapView = 4 [json_name = "map_view"];
+    optional bool ProjectedMode = 6 [json_name = "projected_mode"];
+    optional .NAlice.TNavigatorCapability.TState.TRoute CurrentRoute = 7 [json_name = "current_route"];
+    optional .NAlice.TNavigatorCapability.TState.TSearchOptions SearchOptions = 9 [json_name = "search_options"];
+    optional .NAlice.TNavigatorCapability.TState.TCameraSettings CameraSettings = 10 [json_name = "camera_settings"];
+    optional .NAlice.TNavigatorCapability.TState.TNavigationSettings NavigationSettings = 11 [json_name = "navigation_settings"];
+    optional .NAlice.TNavigatorCapability.TState.TMapLayerSettings MapLayerSettings = 12 [json_name = "map_layer_settings"];
+    optional .NAlice.TNavigatorCapability.TState.TScreenState ScreenState = 13 [json_name = "screen_state"];
+    optional float SpeedLimit = 14 [json_name = "speed_limit"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNavigatorCapability.TParameters Parameters = 2;
-  .NAlice.TNavigatorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNavigatorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNavigatorCapability.TState State = 3 [json_name = "state"];
 }
 

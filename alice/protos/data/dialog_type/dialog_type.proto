@@ -21,5 +21,9 @@ enum EDialogType {
   MAPS = 12;
   NOTA = 13;
   CHARACTER = 14;
+  FASTMASTERS_AI = 15;
+  JEVEES_CHAT = 16;
+  JEEVES_CHAT = 17;
+  MONOCLE = 18;
 }
 

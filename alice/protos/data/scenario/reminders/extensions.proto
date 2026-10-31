@@ -10,9 +10,9 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TOriginInfo {
-  repeated string SupportedFeatures = 3;
-  optional string DeviceId = 1;
-  optional string UUID = 2;
+  repeated string SupportedFeatures = 3 [json_name = "supported_features"];
+  optional string DeviceId = 1 [json_name = "device_id"];
+  optional string UUID = 2 [json_name = "uuid"];
 }
 
 message TPlaySettings {
@@ -23,34 +23,34 @@ message TPlaySettings {
       Disabled = 2;
     }
 
-    .NAlice.NData.NReminders.TPlaySettings.TSendPush.EState State = 1;
+    .NAlice.NData.NReminders.TPlaySettings.TSendPush.EState State = 1 [json_name = "state"];
   }
 
   message TPlayLocation {
     message TSelectedDevices {
-      repeated string SelectedDeviceIds = 1;
+      repeated string SelectedDeviceIds = 1 [json_name = "selected_device_ids"];
     }
 
-    .NAlice.NData.NReminders.TPlaySettings.TPlayLocation.TSelectedDevices SelectedDevices = 1;
+    .NAlice.NData.NReminders.TPlaySettings.TPlayLocation.TSelectedDevices SelectedDevices = 1 [json_name = "selected_devices"];
   }
 
-  .NAlice.NData.NReminders.TPlaySettings.TSendPush SendPush = 1;
-  .NAlice.NData.NReminders.TPlaySettings.TPlayLocation PlayLocation = 2;
+  .NAlice.NData.NReminders.TPlaySettings.TSendPush SendPush = 1 [json_name = "send_push"];
+  .NAlice.NData.NReminders.TPlaySettings.TPlayLocation PlayLocation = 2 [json_name = "play_location"];
 }
 
 message TProperties {
   message TArchivedProperty {
-    .google.protobuf.Timestamp ManualArchivedTime = 1;
+    .google.protobuf.Timestamp ManualArchivedTime = 1 [json_name = "manual_archived_time"];
   }
 
-  .NAlice.NData.NReminders.TProperties.TArchivedProperty ArchivedProperty = 1;
+  .NAlice.NData.NReminders.TProperties.TArchivedProperty ArchivedProperty = 1 [json_name = "archived_property"];
 }
 
 message TReminderExtensions {
-  int64 ClientTimeDeltaSeconds = 1;
-  .NAlice.NData.NReminders.TOriginInfo OriginInfo = 2;
-  .NAlice.NData.NReminders.TPlaySettings PlaySettings = 3;
-  .NAlice.NData.NReminders.TProperties Properties = 4;
+  int64 ClientTimeDeltaSeconds = 1 [json_name = "client_time_delta_seconds"];
+  .NAlice.NData.NReminders.TOriginInfo OriginInfo = 2 [json_name = "origin_info"];
+  .NAlice.NData.NReminders.TPlaySettings PlaySettings = 3 [json_name = "play_settings"];
+  .NAlice.NData.NReminders.TProperties Properties = 4 [json_name = "properties"];
 }
 
 enum ERemindersSyncState {

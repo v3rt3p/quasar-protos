@@ -12,14 +12,24 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSignalLevelCapability {
   message TParameters {
+    .NAlice.TSignalLevelCapability.ESignalValueType SignalValueType = 1 [json_name = "signal_value_type"];
   }
 
   message TState {
-    .NAlice.TSignalLevelCapability.ESignalQualityStatus Status = 1;
+    .NAlice.TSignalLevelCapability.ESignalQualityStatus Status = 1 [json_name = "status"];
+    optional int32 Rssi = 2 [json_name = "rssi"];
+    optional uint32 Lqa = 3 [json_name = "lqa"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSignalLevelCapability Capability = 1;
+    .NAlice.TSignalLevelCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum ESignalValueType {
+    SignalValueTypeUnknown = 0;
+    SignalValueTypeStatus = 1;
+    SignalValueTypeRawRssi = 2;
+    SignalValueTypeRawLqa = 3;
   }
 
   enum ESignalQualityStatus {
@@ -31,8 +41,8 @@ message TSignalLevelCapability {
     EXCELLENT = 5;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSignalLevelCapability.TParameters Parameters = 2;
-  .NAlice.TSignalLevelCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSignalLevelCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSignalLevelCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -24,7 +24,7 @@ message TAliceAnalyticsInfo {
   reserved 6;
   reserved 7;
   reserved 8;
-  .NAlice.NAliceApi.TScenarioAnalyticsInfo ScenarioAnalyticsInfo = 1;
-  repeated .NAlice.NAliceApi.TSemanticFrame MatchedSemanticFrames = 5;
+  .NAlice.NAliceApi.TScenarioAnalyticsInfo ScenarioAnalyticsInfo = 1 [json_name = "scenario_analytics_info"];
+  repeated .NAlice.NAliceApi.TSemanticFrame MatchedSemanticFrames = 5 [json_name = "matched_semantic_frames"];
 }
 

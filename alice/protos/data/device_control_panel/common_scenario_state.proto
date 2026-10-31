@@ -18,9 +18,9 @@ message TCommonScenarioState {
     DisabledPeriod = 3;
   }
 
-  bool Disabled = 1;
-  .NAlice.TCommonScenarioState.EDisabledReason DisabledReason = 2;
-  .google.protobuf.Duration DailyUsage = 3;
-  .NAlice.TTimeInterval CurrentTimeInterval = 4;
+  bool Disabled = 1 [json_name = "disabled"];
+  .NAlice.TCommonScenarioState.EDisabledReason DisabledReason = 2 [json_name = "disabled_reason"];
+  .google.protobuf.Duration DailyUsage = 3 [json_name = "daily_usage"];
+  .NAlice.TTimeInterval CurrentTimeInterval = 4 [json_name = "current_time_interval"];
 }
 

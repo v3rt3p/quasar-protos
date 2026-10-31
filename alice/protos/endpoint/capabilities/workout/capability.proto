@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "WorkoutCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/workout;workoutpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TWorkoutCapability {
+  message TParameters {
+    repeated .NAlice.TWorkoutCapability.EWorkoutType SupportedWorkoutTypes = 1 [json_name = "supported_workout_types"];
+  }
+
+  message TState {
+  }
+
+  message TStartWorkoutDirective {
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TWorkoutCapability.EWorkoutType WorkoutType = 1 [json_name = "workout_type"];
+  }
+
+  enum EWorkoutType {
+    Unknown = 0;
+    Unspecified = 1000;
+    OutdoorRun = 1;
+    IndoorRun = 2;
+    OutdoorWalk = 3;
+    IndoorWalk = 4;
+    OutdoorCycle = 5;
+    IndoorCycle = 6;
+    Hike = 7;
+    Climbing = 8;
+    TrailRunning = 9;
+    ClimbingStairs = 10;
+    Snowboarding = 11;
+    Skiing = 12;
+    CrossSkiing = 13;
+    Bobsleigh = 14;
+    Sledding = 15;
+    IceHockey = 16;
+    IceSkating = 17;
+    Curling = 18;
+    FigureSkating = 19;
+    Golf = 20;
+    Squash = 21;
+    Soccer = 22;
+    Basketball = 23;
+    Billiards = 24;
+    Badminton = 25;
+    Hockey = 26;
+    AmericanFootball = 27;
+    Tennis = 28;
+    Volleyball = 29;
+    Baseball = 30;
+    Bowling = 31;
+    Handball = 32;
+    Cricket = 33;
+    Shuttlecock = 34;
+    TableTennis = 35;
+    BeachFootball = 36;
+    BeachVolleyball = 37;
+    DynamicBike = 38;
+    Stepper = 39;
+    Rower = 40;
+    Elliptical = 41;
+    PullUp = 42;
+    StairClimber = 43;
+    CardioCruiser = 44;
+    PullDown = 45;
+    ParallelBars = 46;
+    SitUpEquipment = 47;
+    Aerobics = 48;
+    SitUps = 49;
+    Plank = 50;
+    PushUp = 51;
+    Squat = 52;
+    JumpingJack = 53;
+    HighKneeLift = 54;
+    Gymnastics = 55;
+    Yoga = 56;
+    Pilates = 57;
+    CoreTraining = 58;
+    Stretching = 59;
+    Hiit = 60;
+    GroupCallisthenics = 61;
+    Callisthenics = 62;
+    BattlingRopes = 63;
+    Hurdles = 64;
+    Relax = 65;
+    Weightlifting = 66;
+    Deadlift = 67;
+    Barbell = 68;
+    Dumbbells = 69;
+    BenchPress = 70;
+    Boxing = 71;
+    Taekwondo = 72;
+    Karate = 73;
+    TaiChi = 74;
+    Fencing = 75;
+    MartialArts = 76;
+    Wrestling = 77;
+    Kickboxing = 78;
+    MuayThai = 79;
+    HorseRiding = 80;
+    Fishing = 81;
+    KiteFlying = 82;
+    HulaHoop = 83;
+    Trampoline = 84;
+    DiscSports = 85;
+    TugOfWar = 86;
+    Darts = 87;
+    Archery = 88;
+    JumpRope = 89;
+    Skateboarding = 90;
+    KettlebellMotion = 91;
+    RockClimbing = 92;
+    Paragliding = 93;
+    RollerSkating = 94;
+    Parkour = 95;
+    StreetDance = 96;
+    Ballet = 97;
+    ZumbaDance = 98;
+    LatinDance = 99;
+    JazzDance = 100;
+    FolkDance = 101;
+    OtherDances = 102;
+    SquareDancing = 103;
+    SocialDance = 104;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWorkoutCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWorkoutCapability.TState State = 3 [json_name = "state"];
+}
+

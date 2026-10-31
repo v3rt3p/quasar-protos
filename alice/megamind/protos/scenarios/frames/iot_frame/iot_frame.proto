@@ -14,7 +14,7 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotNetworksSlot {
   oneof Value {
-    .NAlice.TIotDiscoveryCapability.TNetworks NetworksValue = 1;
+    .NAlice.TIotDiscoveryCapability.TNetworks NetworksValue = 1 [json_name = "networks_value"];
   }
 }
 
@@ -28,33 +28,33 @@ message TRestoreIotNetworksTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TRestoreIotNetworksTypeSlot.EValue RestoreTypeValue = 1;
+    .NAlice.TRestoreIotNetworksTypeSlot.EValue RestoreTypeValue = 1 [json_name = "restore_type_value"];
   }
 }
 
 message TRestoreIotNetworksSemanticFrame {
-  repeated .NAlice.TRestoreIotNetworksTypeSlot RestoreIotNetworkTypes = 1;
+  repeated .NAlice.TRestoreIotNetworksTypeSlot RestoreIotNetworkTypes = 1 [json_name = "restore_iot_network_types"];
 }
 
 message TSaveIotNetworksSemanticFrame {
-  .NAlice.TIotNetworksSlot Networks = 1;
+  .NAlice.TIotNetworksSlot Networks = 1 [json_name = "networks"];
 }
 
 message TIoTDiscoveryStartSemanticFrame {
-  .NAlice.TStringSlot SSID = 1;
-  .NAlice.TStringSlot Password = 2;
-  .NAlice.TStringSlot DeviceType = 3;
-  .NAlice.TUInt32Slot TimeoutMs = 4;
+  .NAlice.TStringSlot SSID = 1 [json_name = "ssid"];
+  .NAlice.TStringSlot Password = 2 [json_name = "password"];
+  .NAlice.TStringSlot DeviceType = 3 [json_name = "device_type"];
+  .NAlice.TUInt32Slot TimeoutMs = 4 [json_name = "timeout_ms"];
 }
 
 message TIoTDiscoveryFailureSemanticFrame {
-  .NAlice.TUInt32Slot TimeoutMs = 1;
-  .NAlice.TStringSlot Reason = 2;
-  .NAlice.TStringSlot DeviceType = 3;
+  .NAlice.TUInt32Slot TimeoutMs = 1 [json_name = "timeout_ms"];
+  .NAlice.TStringSlot Reason = 2 [json_name = "reason"];
+  .NAlice.TStringSlot DeviceType = 3 [json_name = "device_type"];
 }
 
 message TStartIotTuyaBroadcastSemanticFrame {
-  .NAlice.TStringSlot SSID = 1;
-  .NAlice.TStringSlot Password = 2;
+  .NAlice.TStringSlot SSID = 1 [json_name = "ssid"];
+  .NAlice.TStringSlot Password = 2 [json_name = "password"];
 }
 

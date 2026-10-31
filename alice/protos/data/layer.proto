@@ -18,9 +18,9 @@ message TLayer {
   }
 
   oneof Layer {
-    .NAlice.NData.TLayer.TContentLayer Content = 1;
-    .NAlice.NData.TLayer.TDialogLayer Dialog = 2;
-    .NAlice.NData.TLayer.TAlarmLayer Alarm = 3;
+    .NAlice.NData.TLayer.TContentLayer Content = 1 [json_name = "content"];
+    .NAlice.NData.TLayer.TDialogLayer Dialog = 2 [json_name = "dialog"];
+    .NAlice.NData.TLayer.TAlarmLayer Alarm = 3 [json_name = "alarm"];
   }
 }
 

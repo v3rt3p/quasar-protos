@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.kids_tv_limits";
+option java_outer_classname = "KidsTvLimits";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/kids_tv_limits";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+
+message TLimitProlongationRequest {
+  message TSwitchAccount {
+    string PersonId = 1 [json_name = "person_id"];
+    string TargetAccountName = 2 [json_name = "target_account_name"];
+  }
+
+  message TLaunchApp {
+    string AppName = 1 [json_name = "app_name"];
+    string PackageName = 2 [json_name = "package_name"];
+  }
+
+  message TProlongation {
+    uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
+    uint32 SecondsSpent = 2 [json_name = "seconds_spent"];
+  }
+
+  string PersonId = 1 [json_name = "person_id"];
+  string ChildAccountName = 2 [json_name = "child_account_name"];
+  oneof Event {
+    .NAlice.TLimitProlongationRequest.TSwitchAccount SwitchAccount = 3 [json_name = "switch_account"];
+    .NAlice.TLimitProlongationRequest.TLaunchApp LaunchApp = 4 [json_name = "launch_app"];
+    .NAlice.TLimitProlongationRequest.TProlongation Prolongation = 5 [json_name = "prolongation"];
+  }
+}
+
+message TLimitProlongationResponse {
+}
+
+message TLimitProlongationAnswer {
+  message TSwitchAccount {
+    string AccountId = 1 [json_name = "account_id"];
+  }
+
+  message TLaunchApp {
+    string PackageName = 1 [json_name = "package_name"];
+  }
+
+  message TProlongation {
+    uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
+  }
+
+  bool RequestDeclined = 1 [json_name = "request_declined"];
+  bool DoNotAskAgain = 2 [json_name = "do_not_ask_again"];
+  string ChildPersonId = 3 [json_name = "child_person_id"];
+  string DeviceId = 4 [json_name = "device_id"];
+  oneof Event {
+    .NAlice.TLimitProlongationAnswer.TSwitchAccount SwitchAccount = 5 [json_name = "switch_account"];
+    .NAlice.TLimitProlongationAnswer.TLaunchApp LaunchApp = 6 [json_name = "launch_app"];
+    .NAlice.TLimitProlongationAnswer.TProlongation Prolongation = 7 [json_name = "prolongation"];
+  }
+}
+
+message TLimitProlongationAnswerResponse {
+}
+

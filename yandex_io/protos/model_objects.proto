@@ -149,6 +149,8 @@ message MultiroomParams {
 message MultiroomBroadcast {
   reserved 12;
   message MasterHints {
+    reserved "user_session_end";
+    reserved 4;
     optional bool quiet_audio_focus = 1;
     repeated .quasar.proto.Directive directives = 2;
     optional .quasar.proto.Audio next_audio = 3;
@@ -352,12 +354,6 @@ message AppState {
     optional string color = 7;
   }
 
-  message MediaInfo {
-    repeated string supported_screen_resolutions = 1;
-    optional string hdcp_level = 2;
-    repeated string dynamic_ranges = 3;
-  }
-
   enum ScreenType {
     MAIN = 0;
     GALLERY = 1;
@@ -395,7 +391,7 @@ message AppState {
   optional .quasar.proto.AppState.RadioState radio_state = 4;
   optional .quasar.proto.BluetoothPlayerState bluetooth_player_state = 5;
   optional .quasar.proto.AudioClientEvent audio_player_state = 6;
-  optional .quasar.proto.AppState.MediaInfo media_info = 7;
+  optional bytes media_info = 7;
   optional .quasar.proto.RcuState rcu_state = 9;
   optional .quasar.proto.PackagesState packages_state = 13;
   optional .NAlice.NAliceApi.TDeviceState.TVideo alice_video_state = 14;
@@ -515,6 +511,7 @@ message WifiStatus {
   optional bool internet_reachable = 4;
   optional .quasar.proto.WifiInfo current_network = 5;
   optional .quasar.proto.WifiStatus.TimeOverHttp time_over_http = 6;
+  optional bool control_reachable = 7;
 }
 
 message Progress {
@@ -523,21 +520,11 @@ message Progress {
 }
 
 message CompleteVideoState {
-  message StateEntry {
-    optional string key = 1;
-    optional .quasar.proto.UserWatchedVideoState value = 2;
-  }
-
-  repeated .quasar.proto.CompleteVideoState.StateEntry state = 1;
+  map<string, .quasar.proto.UserWatchedVideoState> state = 1;
 }
 
 message UserWatchedVideoState {
-  message UserStateEntry {
-    optional string key = 1;
-    optional .quasar.proto.WatchedVideoState value = 2;
-  }
-
-  repeated .quasar.proto.UserWatchedVideoState.UserStateEntry user_state = 1;
+  map<string, .quasar.proto.WatchedVideoState> user_state = 1;
 }
 
 message WatchedVideoState {
@@ -1049,6 +1036,7 @@ message UpdateState {
   optional .quasar.proto.UpdateState.State state = 1;
   optional bool is_critical = 2 [default = false];
   optional double download_progress = 3 [default = 0];
+  optional string target_version = 4;
 }
 
 message UpdateApplyTimeout {
@@ -1127,6 +1115,9 @@ message Audio {
   optional .NAlice.TAudioPlayerCapability.TParameters.ECodec codec = 44;
   optional uint32 bitrate = 45;
   optional bool urls_reordered = 48 [default = false];
+  optional bool vinyl_mode = 49;
+  optional uint32 play_times = 50;
+  optional bool suppress_spectrum = 51 [default = false];
 }
 
 message AudioAnalyticsContext {
@@ -1192,6 +1183,7 @@ message AudioClientEvent {
     optional string aes128crt_key = 4;
     optional .NAlice.NData.NMusic.EKaraokeMode karaoke_mode = 5;
     optional uint64 download_time_out_ms = 6;
+    repeated string urls = 7;
   }
 
   message AltUrlChanged {
@@ -1477,6 +1469,11 @@ message MediaRequest {
     optional bool wait_fade_out = 1;
   }
 
+  message JogWheel {
+    optional int32 direction = 1;
+    optional int64 event_timestamp_ns = 2;
+  }
+
   enum RewindType {
     FORWARD = 0;
     BACKWARD = 1;
@@ -1490,6 +1487,7 @@ message MediaRequest {
   }
 
   optional .quasar.proto.AudioPlayerDescriptor player_descriptor = 22;
+  optional string reason_message = 52;
   optional .quasar.proto.Audio play_audio = 1;
   optional .quasar.proto.EmptyMessage recreate_players = 45;
   optional .quasar.proto.AudioClientEvent.PrefetchContext start_prefetch = 48;
@@ -1512,6 +1510,8 @@ message MediaRequest {
   optional .quasar.proto.AudioMetadata metadata = 37;
   optional double playback_speed = 44 [default = 1];
   optional .quasar.proto.MediaRequest.FadeOut update_fade_out = 50;
+  optional .quasar.proto.MediaRequest.JogWheel jog_wheel = 53;
+  optional .quasar.proto.AudioAnalyticsContext resume_analytics_context = 54;
   optional .quasar.proto.Radio play_radio = 16;
   optional .quasar.proto.EmptyMessage free_audio_focus = 7;
   optional .quasar.proto.EmptyMessage take_audio_focus = 8;
@@ -1627,11 +1627,6 @@ message GlagolDiscoveryResult {
   optional .quasar.proto.EmptyMessage is_full_result = 3;
 }
 
-message PushNotification {
-  optional string operation = 1;
-  optional string message = 2;
-}
-
 message RegistrationResult {
   optional bool is_success = 1;
   optional uint32 response_code = 2;
@@ -1658,6 +1653,7 @@ message StereoPair {
     optional int64 initial_pairing_time_ms = 6;
     optional .quasar.proto.VolumeManager.State volume = 11;
     optional .quasar.proto.SpectrogramAnimation.State spectrogram = 12;
+    repeated .quasar.proto.SpectrogramAnimation.State spectrograms = 13;
   }
 
   message RequestState {
@@ -1761,6 +1757,20 @@ message VolumeManager {
   optional .quasar.proto.VolumeManager.SetVolumeSignal set_volume_signal = 2;
 }
 
+message Leds {
+  enum ScreenType {
+    NONE = 0;
+    TOP_PANEL = 1;
+    FRONT_PANEL = 2;
+    AMBIENT_LIGHT = 3;
+    BATTERY_INDICATOR = 4;
+    OKNIX = 5;
+    RING = 6;
+    SEGMENT_LED = 7;
+  }
+
+}
+
 message SpectrogramAnimation {
   message State {
     enum Source {
@@ -1772,16 +1782,20 @@ message SpectrogramAnimation {
     optional string configs = 2;
     optional string current = 3;
     optional string extra_data = 4;
+    optional .quasar.proto.Leds.ScreenType screen_type = 5;
   }
 
   message SetExternalPresetsSignal {
     optional string configs = 1;
     optional string current = 2;
     optional string extra_data = 3;
+    optional .quasar.proto.Leds.ScreenType screen_type = 4;
   }
 
   optional .quasar.proto.SpectrogramAnimation.State state = 1;
   optional .quasar.proto.SpectrogramAnimation.SetExternalPresetsSignal set_external_presets_signal = 2;
+  repeated .quasar.proto.SpectrogramAnimation.State states = 3;
+  repeated .quasar.proto.SpectrogramAnimation.SetExternalPresetsSignal set_external_presets_signals = 4;
 }
 
 message Alice {
@@ -1902,12 +1916,32 @@ message DirectiveEvent {
 
 message DirectivesProcessorConfig {
   message AddDirectiveConfig {
-    required .NAlice.NAliceApi.TDirective Directive = 1;
-    repeated string WhitelistDirectives = 2;
-    repeated string BlacklistDirectives = 3;
+    required .NAlice.NAliceApi.TDirective Directive = 1 [json_name = "directive"];
+    repeated string WhitelistDirectives = 2 [json_name = "whitelist_directives"];
+    repeated string BlacklistDirectives = 3 [json_name = "blacklist_directives"];
   }
 
-  repeated .quasar.proto.DirectivesProcessorConfig.AddDirectiveConfig DirectivesToAdd = 1;
+  repeated .quasar.proto.DirectivesProcessorConfig.AddDirectiveConfig DirectivesToAdd = 1 [json_name = "directives_to_add"];
+}
+
+message SoundFormat {
+  enum Type {
+    UNKNOWN = 0;
+    PCM = 1;
+    OPUS = 2;
+    RAW = 3;
+    HEADERLESS_OPUS_STREAM = 4;
+    HEADERLESS_OPUS_STREAM_BYTE_SIZE = 5;
+    AAC_LC = 6;
+  }
+
+}
+
+message SoundInfo {
+  optional int64 channel_count = 1;
+  optional int64 sample_rate = 2;
+  optional int64 sample_size = 3;
+  optional .quasar.proto.SoundFormat.Type type = 4;
 }
 
 enum SetupSource {
@@ -1968,6 +2002,7 @@ enum BrickStatus {
   NOT_BRICK = 2;
   UNKNOWN_BRICK_STATUS = 3;
   BRICK_BY_TTL = 4;
+  BRICK_STOLEN = 5;
 }
 
 enum GalleryType {

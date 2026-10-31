@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TvCatalogCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tv_catalog;tvcatalogpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/tv/home/result.proto";
+import "alice/protos/data/tv/tags/catalog_tags.proto";
+import "alice/protos/data/tv/tags/data/catalog_tag.proto";
+
+message TTvCatalogCapability {
+  message TParameters {
+  }
+
+  message TState {
+    repeated .NAlice.NTv.TCatalogTag AlreadySelectedTags = 1 [json_name = "already_selected_tags"];
+  }
+
+  message TOpenCatalogDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.NTv.TTvCarouselResultData Gallery = 2 [json_name = "gallery"];
+    .NAlice.NTv.TGetTagsResponse CatalogTags = 3 [json_name = "catalog_tags"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTvCatalogCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTvCatalogCapability.TState State = 3 [json_name = "state"];
+}
+

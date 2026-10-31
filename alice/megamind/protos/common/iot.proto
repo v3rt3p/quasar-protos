@@ -1,0 +1,3303 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option java_outer_classname = "IoT";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+import "alice/protos/endpoint/endpoint.proto";
+import "alice/protos/endpoint/aggregate.proto";
+import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
+import "alice/protos/data/color/color.proto";
+import "alice/protos/data/device/info.proto";
+import "alice/protos/data/ir/ir.proto";
+import "alice/protos/data/location/group.proto";
+import "alice/protos/data/location/room.proto";
+import "alice/protos/data/iot/geometry.proto";
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "google/protobuf/timestamp.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIoTUserInfo {
+  reserved "IsHotelMaster";
+  reserved 15;
+  message TCapability {
+    message THS {
+      int32 H = 1 [json_name = "h"];
+      int32 S = 2 [json_name = "s"];
+    }
+
+    message TStep {
+      .NAlice.TIoTUserInfo.TCapability.THS HS = 1 [json_name = "hs"];
+      double Duration = 2 [json_name = "duration"];
+      double Brightness = 3 [json_name = "brightness"];
+      double TransitionTime = 4 [json_name = "transition_time"];
+    }
+
+    message TOnOffCapabilityParameters {
+      bool Split = 1 [json_name = "split"];
+    }
+
+    message TColorSettingCapabilityParameters {
+      message TColorModel {
+        enum EColorModelType {
+          UnknownColorModel = 0;
+          HsvColorModel = 1;
+          RgbColorModel = 2;
+        }
+
+        .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters.TColorModel.EColorModelType Type = 1 [json_name = "type"];
+        string AnalyticsName = 2 [json_name = "analytics_name"];
+      }
+
+      message TTemperatureKCapabilityParameters {
+        int32 Min = 1;
+        int32 Max = 2;
+        string AnalyticsName = 3 [json_name = "analytics_name"];
+      }
+
+      message TColorScene {
+        string ID = 1 [json_name = "id"];
+        string Name = 2 [json_name = "name"];
+        repeated .NAlice.TIoTUserInfo.TCapability.TStep Steps = 3 [json_name = "steps"];
+      }
+
+      message TColorSceneParameters {
+        repeated .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters.TColorScene Scenes = 1 [json_name = "scenes"];
+        string AnalyticsName = 2 [json_name = "analytics_name"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters.TColorModel ColorModel = 1 [json_name = "color_model"];
+      .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters.TTemperatureKCapabilityParameters TemperatureK = 2 [json_name = "temperature_k"];
+      .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters.TColorSceneParameters ColorSceneParameters = 3 [json_name = "color_scene"];
+    }
+
+    message TModeCapabilityParameters {
+      message TMode {
+        string Name = 1 [json_name = "name"];
+        string Value = 2 [json_name = "value"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TModeCapabilityParameters.TMode Modes = 2 [json_name = "modes"];
+    }
+
+    message TRangeCapabilityParameters {
+      message TRange {
+        double Min = 1 [json_name = "min"];
+        double Max = 2 [json_name = "max"];
+        double Precision = 3 [json_name = "precision"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      string Unit = 2 [json_name = "unit"];
+      bool RandomAccess = 3 [json_name = "random_access"];
+      bool Looped = 4 [json_name = "looped"];
+      .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityParameters.TRange Range = 5 [json_name = "range"];
+    }
+
+    message TToggleCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TCustomButtonCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      repeated string InstanceNames = 2 [json_name = "instance_names"];
+    }
+
+    message TQuasarServerActionCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TQuasarCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TVideoStreamCapabilityParameters {
+      reserved "ICEs";
+      reserved 2;
+      repeated string Protocols = 1 [json_name = "protocols"];
+    }
+
+    message TBuzzerCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TIdentifyCapabilityParameters {
+      message TTimeRangeSec {
+        uint32 Min = 1 [json_name = "min"];
+        uint32 Max = 2 [json_name = "max"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TIdentifyCapabilityParameters.TTimeRangeSec TimeRangeSec = 2 [json_name = "time_range_sec"];
+    }
+
+    message TIrCapabilityParameters {
+    }
+
+    message TVoIPCapabilityParameters {
+    }
+
+    message TPlanarViewCapabilityParameters {
+    }
+
+    message TPresenceZoneCapabilityParameters {
+      uint32 MaxOccupancyZonesCount = 1 [json_name = "max_occupancy_zones_count"];
+      uint32 MaxNoiseZonesCount = 2 [json_name = "max_noise_zones_count"];
+    }
+
+    message TAutoCalibrationCapabilityParameters {
+    }
+
+    message TLockCapabilityParameters {
+      repeated string AccessMethods = 1 [json_name = "access_methods"];
+      repeated string Values = 2 [json_name = "values"];
+      bool AutoLockSupported = 3 [json_name = "auto_lock_supported"];
+      bool RemoteLockSupported = 4 [json_name = "remote_lock_supported"];
+    }
+
+    message TIrRemoteCapabilityParameters {
+    }
+
+    message TDisplayOrientationCapabilityParameters {
+    }
+
+    message TLedMaskCapabilityParameters {
+      uint64 LedCount = 1 [json_name = "led_count"];
+    }
+
+    message TOpenWindowDetectionCapabilityParameters {
+    }
+
+    message TEventHistoryCapabilityParameters {
+      repeated string EventKeys = 1 [json_name = "event_keys"];
+    }
+
+    message TAntifreezeCapabilityParameters {
+    }
+
+    message TAntiscaleCapabilityParameters {
+    }
+
+    message TLocalSmartScenariosCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TColorAnimationSetting {
+      message TRgbColorSetting {
+        uint32 R = 1 [json_name = "r"];
+        uint32 G = 2 [json_name = "g"];
+        uint32 B = 3 [json_name = "b"];
+      }
+
+      message THSVColorSetting {
+        uint32 H = 1 [json_name = "h"];
+        uint32 S = 2 [json_name = "s"];
+        uint32 V = 3 [json_name = "v"];
+      }
+
+      message TTemperatureKColorSetting {
+        uint64 TemperatureK = 1 [json_name = "temperature_k"];
+      }
+
+      message TBackgroundSoundSetting {
+        bool Enabled = 1 [json_name = "enabled"];
+      }
+
+      message TAutoPlaySetting {
+        bool Enabled = 1 [json_name = "enabled"];
+      }
+
+      message TAutoRunSetting {
+        bool Enabled = 1 [json_name = "enabled"];
+      }
+
+      oneof TSetting {
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.TRgbColorSetting RgbColor = 1 [json_name = "rgb_color"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.THSVColorSetting HsvColor = 2 [json_name = "hsv_color"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.TTemperatureKColorSetting TemperatureKColor = 3 [json_name = "temperature_k_color"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.TBackgroundSoundSetting BackgroundSound = 4 [json_name = "background_sound"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.TAutoPlaySetting AutoPlay = 5 [json_name = "auto_play"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting.TAutoRunSetting AutoRun = 6 [json_name = "auto_run"];
+      }
+    }
+
+    message TAnimation {
+      string Id = 1 [json_name = "id"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting Settings = 2 [json_name = "settings"];
+    }
+
+    message TAnimationV2 {
+      message TSettings {
+        repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationSetting Settings = 2 [json_name = "settings"];
+      }
+
+      string Id = 1 [json_name = "id"];
+      .NAlice.TIoTUserInfo.TCapability.TAnimationV2.TSettings Settings = 2 [json_name = "settings"];
+    }
+
+    message TColorAnimationCapabilityParameters {
+      message TColorAnimationParameter {
+        message TColorMusicAutoplayParameter {
+        }
+
+        message TColorMusicAutorunParameter {
+        }
+
+        message TColorModelHSVParameter {
+        }
+
+        message TColorModelRGBParameter {
+        }
+
+        message TColorModelTemperatureKParameter {
+          uint64 Min = 1 [json_name = "min"];
+          uint64 Max = 2 [json_name = "max"];
+        }
+
+        message TCustomSceneSpeedParameter {
+          float Min = 1 [json_name = "min"];
+          float Max = 2 [json_name = "max"];
+        }
+
+        message TCustomSceneVisualEffectParameter {
+          message TVisualEffect {
+            .NAlice.TIoTUserInfo.TCapability.EColorAnimationCapabilityVisualEffect Effect = 1 [json_name = "effect"];
+          }
+
+          repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TCustomSceneVisualEffectParameter.TVisualEffect SupportedEffects = 1 [json_name = "supported_effects"];
+        }
+
+        oneof Parameter {
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TColorMusicAutoplayParameter ColorMusicAutoplayParameter = 1 [json_name = "color_music_autoplay_parameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TColorModelHSVParameter ColorModelHSVParameter = 2 [json_name = "color_model_hsvparameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TColorModelRGBParameter ColorModelRGBParameter = 3 [json_name = "color_model_rgbparameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TColorModelTemperatureKParameter ColorModelTemperatureKParameter = 4 [json_name = "color_model_temperature_kparameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TColorMusicAutorunParameter ColorMusicAutorunParameter = 5 [json_name = "color_music_autorun_parameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TCustomSceneSpeedParameter CustomSceneSpeedParameter = 7 [json_name = "custom_scene_speed_parameter"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter.TCustomSceneVisualEffectParameter CustomSceneVisualEffectParameter = 8 [json_name = "custom_scene_visual_effect_parameter"];
+        }
+      }
+
+      message TAnimationParameters {
+        reserved "AnimationParameters";
+        reserved "SupportedAnimations";
+        reserved 2;
+        reserved 3;
+        .NAlice.TIoTUserInfo.TCapability.EColorAnimationCapabilityAnimationType AnimationType = 1 [json_name = "animation_type"];
+        repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TColorAnimationParameter Parameters = 4 [json_name = "parameters"];
+        repeated .NAlice.TIoTUserInfo.TCapability.TAnimationV2 SupportedAnimationsV2 = 5 [json_name = "supported_animations_v2"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters.TAnimationParameters AnimationParameters = 1 [json_name = "animation_parameters"];
+    }
+
+    message TBordersCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TOTACapabilityParameters {
+      message TOTADeviceInfo {
+        uint32 VendorId = 1 [json_name = "vendor_id"];
+        uint32 ProductId = 2 [json_name = "product_id"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TOTACapabilityParameters.TOTADeviceInfo DeviceInfo = 1 [json_name = "device_info"];
+    }
+
+    message TZigbeeNodeCapabilityParameters {
+      enum EZigbeeNodeType {
+        Unknown = 0;
+        Router = 1;
+        EndDevice = 2;
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityParameters.EZigbeeNodeType Type = 1 [json_name = "type"];
+    }
+
+    message TMatterLocalityCapabilityParameters {
+    }
+
+    message TZenohLocalityCapabilityParameters {
+    }
+
+    message TRadioDiscoveryCapabilityParameters {
+    }
+
+    message TErrorListCapabilityParameters {
+    }
+
+    message TExternalTemperatureMeasurementCapabilityParameters {
+      string Unit = 1 [json_name = "unit"];
+    }
+
+    message TMotionSettingCapabilityParameters {
+      message TMotionDetectionIntervalRange {
+        uint32 Min = 1 [json_name = "min"];
+        uint32 Max = 2 [json_name = "max"];
+      }
+
+      message TSupportedSetting {
+        string Type = 1 [json_name = "type"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityParameters.TMotionDetectionIntervalRange MotionDetectionIntervalRangeSec = 2 [json_name = "motion_detection_interval_range_sec"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityParameters.TSupportedSetting SupportedSettings = 3 [json_name = "supported_settings"];
+    }
+
+    message TSoundAlarmCapabilityParameters {
+      message TRange {
+        double Min = 1 [json_name = "min"];
+        double Max = 2 [json_name = "max"];
+        double Precision = 3 [json_name = "precision"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityParameters.TRange TimeoutSecondsRange = 2 [json_name = "timeout_seconds_range"];
+    }
+
+    message TOnOffCapabilityState {
+      message TRelative {
+        bool IsRelative = 1 [json_name = "is_relative"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      bool Value = 2 [json_name = "value"];
+      .NAlice.TIoTUserInfo.TCapability.TOnOffCapabilityState.TRelative Relative = 3 [json_name = "relative"];
+    }
+
+    message TColorSettingCapabilityState {
+      message THSV {
+        int32 H = 1 [json_name = "h"];
+        int32 S = 2 [json_name = "s"];
+        int32 V = 3 [json_name = "v"];
+      }
+
+      message TCustomColorScene {
+        string Id = 1 [json_name = "id"];
+        repeated .NAlice.TIoTUserInfo.TCapability.TStep Steps = 2 [json_name = "steps"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      oneof Value {
+        int32 TemperatureK = 2 [json_name = "temperature_k"];
+        int32 RGB = 3 [json_name = "rgb"];
+        .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState.THSV HSV = 4 [json_name = "hsv"];
+        string ColorSceneID = 5 [json_name = "color_scene_id"];
+        .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState.TCustomColorScene CustomColorScene = 6 [json_name = "custom_color_scene"];
+      }
+    }
+
+    message TRangeCapabilityState {
+      message TRelative {
+        bool IsRelative = 1 [json_name = "is_relative"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      double Value = 2 [json_name = "value"];
+      .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityState.TRelative Relative = 3 [json_name = "relative"];
+    }
+
+    message TModeCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      string Value = 2 [json_name = "value"];
+    }
+
+    message TToggleCapabilityState {
+      message TRelative {
+        bool IsRelative = 1 [json_name = "is_relative"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      bool Value = 2 [json_name = "value"];
+      .NAlice.TIoTUserInfo.TCapability.TToggleCapabilityState.TRelative Relative = 3 [json_name = "relative"];
+    }
+
+    message TCustomButtonCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool Value = 2 [json_name = "value"];
+    }
+
+    message TQuasarServerActionCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      string Value = 2 [json_name = "value"];
+    }
+
+    message TQuasarCapabilityState {
+      message TMusicPlayValue {
+        message TMusicPlayObject {
+          string Id = 1 [json_name = "id"];
+          string Type = 2 [json_name = "type"];
+          string Name = 3 [json_name = "name"];
+        }
+
+        bool PlayInBackground = 3 [json_name = "play_in_background"];
+        oneof Value {
+          .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TMusicPlayValue.TMusicPlayObject Object = 1 [json_name = "object"];
+          string SearchText = 2 [json_name = "search_text"];
+        }
+      }
+
+      message TNewsValue {
+        string Topic = 1 [json_name = "topic"];
+        string Provider = 2 [json_name = "provider"];
+        bool PlayInBackground = 3 [json_name = "play_in_background"];
+      }
+
+      message TSoundPlayValue {
+        string Sound = 1 [json_name = "sound"];
+      }
+
+      message TStopEverythingValue {
+      }
+
+      message TVolumeValue {
+        int32 Value = 1 [json_name = "value"];
+        bool Relative = 2 [json_name = "relative"];
+      }
+
+      message TWeatherValue {
+        message TLocation {
+          double Longitude = 1 [json_name = "longitude"];
+          double Latitude = 2 [json_name = "latitude"];
+          string Address = 3 [json_name = "address"];
+          string ShortAddress = 4 [json_name = "short_address"];
+        }
+
+        message THouseholdInfo {
+          string Id = 1 [json_name = "id"];
+          string Name = 2 [json_name = "name"];
+          string Type = 3 [json_name = "type"];
+        }
+
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TWeatherValue.TLocation Where = 1 [json_name = "where"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TWeatherValue.THouseholdInfo Household = 2 [json_name = "household"];
+      }
+
+      message TTtsValue {
+        string Text = 1 [json_name = "text"];
+        bool Whisper = 2 [json_name = "whisper"];
+        string Lang = 3 [json_name = "lang"];
+      }
+
+      message TAliceShowValue {
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      oneof Value {
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TMusicPlayValue MusicPlayValue = 2 [json_name = "music_play_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TNewsValue NewsValue = 3 [json_name = "news_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TSoundPlayValue SoundPlayValue = 4 [json_name = "sound_play_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TStopEverythingValue StopEverythingValue = 5 [json_name = "stop_everything_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TVolumeValue VolumeValue = 6 [json_name = "volume_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TWeatherValue WeatherValue = 7 [json_name = "weather_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TTtsValue TtsValue = 8 [json_name = "tts_value"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState.TAliceShowValue AliceShowValue = 9 [json_name = "alice_show_value"];
+      }
+    }
+
+    message TVideoStreamCapabilityState {
+      message TVideoStreamCapabilityValue {
+        message TP2PToken {
+          string Urls = 1 [json_name = "urls"];
+          string Username = 2 [json_name = "username"];
+          string Credential = 3 [json_name = "credential"];
+          int32 TTL = 4 [json_name = "ttl"];
+        }
+
+        string Protocol = 1 [json_name = "protocol"];
+        string StreamURL = 2 [json_name = "stream_url"];
+        uint64 ExpirationTime = 3 [json_name = "expiration_time"];
+        repeated string Protocols = 4 [json_name = "protocols"];
+        repeated .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityState.TVideoStreamCapabilityValue.TP2PToken ICEs = 5 [json_name = "ices"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityState.TVideoStreamCapabilityValue Value = 2 [json_name = "value"];
+    }
+
+    message TBuzzerCapabilityState {
+      message TSoundPlayValue {
+        string ID = 1 [json_name = "id"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      oneof Value {
+        .NAlice.TIoTUserInfo.TCapability.TBuzzerCapabilityState.TSoundPlayValue SoundPlayValue = 2 [json_name = "sound_play_value"];
+      }
+    }
+
+    message TIdentifyCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      uint32 Value = 2 [json_name = "value"];
+    }
+
+    message TIrCapabilityState {
+    }
+
+    message TVoIPCapabilityState {
+    }
+
+    message TPlanarViewCapabilityState {
+      .NAlice.NIot.TBounds Bounds = 1 [json_name = "bounds"];
+      .NAlice.NIot.TBasis PointOfView = 2 [json_name = "point_of_view"];
+      .NAlice.NIot.TGrid Grid = 3 [json_name = "grid"];
+    }
+
+    message TPresenceZoneCapabilityState {
+      message TZone {
+        uint32 ID = 1 [json_name = "id"];
+        bool Enabled = 2 [json_name = "enabled"];
+        bool Mutable = 3 [json_name = "mutable"];
+        .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityState.EZoneType Type = 4 [json_name = "type"];
+        .NAlice.NIot.TZoneShape Shape = 5 [json_name = "shape"];
+      }
+
+      enum EZoneType {
+        UnknownZoneType = 0;
+        OccupancyZoneType = 1;
+        NoiseZoneType = 2;
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityState.TZone Zones = 1 [json_name = "zones"];
+    }
+
+    message TAutoCalibrationCapabilityState {
+      enum EAutoCalibratonState {
+        Unknown = 0;
+        NotCalibrated = 1;
+        Calibrated = 2;
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TAutoCalibrationCapabilityState.EAutoCalibratonState State = 1 [json_name = "state"];
+      bool RecalibrationEnabled = 2 [json_name = "recalibration_enabled"];
+    }
+
+    message TLockCapabilityState {
+      string Value = 1 [json_name = "value"];
+    }
+
+    message TIrRemoteCapabilityState {
+    }
+
+    message TDisplayOrientationCapabilityState {
+      enum EDisplayOrientationState {
+        Vertical = 0;
+        VerticalReverse = 1;
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TDisplayOrientationCapabilityState.EDisplayOrientationState State = 1 [json_name = "state"];
+    }
+
+    message TLedMaskCapabilityState {
+      bytes Bitmask = 1 [json_name = "bitmask"];
+    }
+
+    message TOpenWindowDetectionCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+      bool IsOpen = 2 [json_name = "is_open"];
+    }
+
+    message TEventHistoryCapabilityState {
+    }
+
+    message TAntifreezeCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TAntiscaleCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TLocalSmartScenariosCapabilityState {
+    }
+
+    message TColorAnimationCapabilityState {
+      reserved "Enabled";
+      reserved "CurrentAnimation";
+      reserved "CurrentColorAnimationType";
+      reserved 1;
+      reserved 2;
+      reserved 3;
+      message TColorAnimationSetting {
+        message TRgbColorSetting {
+          uint32 R = 1 [json_name = "r"];
+          uint32 G = 2 [json_name = "g"];
+          uint32 B = 3 [json_name = "b"];
+        }
+
+        message THSVColorSetting {
+          uint32 H = 1 [json_name = "h"];
+          uint32 S = 2 [json_name = "s"];
+          uint32 V = 3 [json_name = "v"];
+        }
+
+        message TTemperatureKColorSetting {
+          uint64 TemperatureK = 1 [json_name = "temperature_k"];
+        }
+
+        message TBackgroundSoundSetting {
+          bool Enabled = 1 [json_name = "enabled"];
+        }
+
+        message TAutoPlaySetting {
+          bool Enabled = 1 [json_name = "enabled"];
+        }
+
+        message TAutoRunSetting {
+          bool Enabled = 1 [json_name = "enabled"];
+        }
+
+        message TSpeedSetting {
+          float Value = 1 [json_name = "value"];
+        }
+
+        message TVisualEffectSetting {
+          .NAlice.TIoTUserInfo.TCapability.EColorAnimationCapabilityVisualEffect Effect = 1 [json_name = "effect"];
+        }
+
+        oneof TSetting {
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TRgbColorSetting RgbColor = 1 [json_name = "rgb_color"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.THSVColorSetting HsvColor = 2 [json_name = "hsv_color"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TTemperatureKColorSetting TemperatureKColor = 3 [json_name = "temperature_k_color"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TBackgroundSoundSetting BackgroundSound = 4 [json_name = "background_sound"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TAutoPlaySetting AutoPlay = 5 [json_name = "auto_play"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TAutoRunSetting AutoRun = 6 [json_name = "auto_run"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TSpeedSetting Speed = 7 [json_name = "speed"];
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting.TVisualEffectSetting VisualEffect = 8 [json_name = "visual_effect"];
+        }
+      }
+
+      message TColorAnimationSettings {
+        repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSetting Settings = 2 [json_name = "settings"];
+      }
+
+      message TAnimation {
+        string Id = 1 [json_name = "id"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSettings Settings = 2 [json_name = "settings"];
+      }
+
+      message TAnimationTypeSetting {
+        reserved "Type";
+        reserved "Id";
+        reserved 1;
+        reserved 2;
+        message TCommonSettings {
+          .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TColorAnimationSettings CommonSettings = 1 [json_name = "common_settings"];
+        }
+
+        message TAnimations {
+          repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TAnimation Animations = 1 [json_name = "animations"];
+        }
+
+        .NAlice.TIoTUserInfo.TCapability.EColorAnimationCapabilityAnimationType AnimationType = 3 [json_name = "animation_type"];
+        string LastAnimationId = 4 [json_name = "last_animation_id"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TAnimationTypeSetting.TCommonSettings CommonSettings = 5 [json_name = "common_settings"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TAnimationTypeSetting.TAnimations Animations = 6 [json_name = "animations"];
+      }
+
+      enum EColorAnimationType {
+        None = 0;
+        Color = 1;
+        Scene = 2;
+        ColorMusic = 3;
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState.TAnimationTypeSetting AnimationTypeSettings = 4 [json_name = "animation_type_settings"];
+      .NAlice.TIoTUserInfo.TCapability.EColorAnimationCapabilityAnimationType Type = 5 [json_name = "type"];
+    }
+
+    message TBordersCapabilityState {
+      optional uint32 OpenLimit = 1 [json_name = "open_limit"];
+      optional uint32 CloseLimit = 2 [json_name = "close_limit"];
+    }
+
+    message TZigbeeNodeCapabilityState {
+      message TSignalQuality {
+        .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityState.ESignalQualityStatus Status = 1 [json_name = "status"];
+        uint32 Lqi = 2 [json_name = "lqi"];
+        int32 Rssi = 3 [json_name = "rssi"];
+      }
+
+      enum ESignalQualityStatus {
+        Unknown = 0;
+        Bad = 1;
+        Weak = 2;
+        Ok = 3;
+        Good = 4;
+        Excellent = 5;
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityState.TSignalQuality SignalQuality = 1 [json_name = "signal_quality"];
+      uint32 Channel = 2 [json_name = "channel"];
+      bool IsActive = 3 [json_name = "is_active"];
+    }
+
+    message TMatterLocalityCapabilityState {
+    }
+
+    message TZenohLocalityCapabilityState {
+    }
+
+    message TOTACapabilityState {
+      enum EOTAUpdateStatus {
+        OTA_UPDATE_STATUS_UNKNOWN = 0;
+        OTA_UPDATE_STATUS_DOWNLOADING = 1;
+        OTA_UPDATE_STATUS_DOWNLOADED = 2;
+        OTA_UPDATE_STATUS_TRANSFERING = 3;
+        OTA_UPDATE_STATUS_APPLYING = 4;
+        OTA_UPDATE_STATUS_SUCCESS = 5;
+        OTA_UPDATE_STATUS_FAILURE = 6;
+      }
+
+      uint32 SoftwareVersion = 1 [json_name = "software_version"];
+      string SoftwareVersionString = 2 [json_name = "software_version_string"];
+      .NAlice.TIoTUserInfo.TCapability.TOTACapabilityState.EOTAUpdateStatus UpdateStatus = 3 [json_name = "update_status"];
+      optional uint32 UpdateProgress = 4 [json_name = "update_progress"];
+    }
+
+    message TRadioDiscoveryCapabilityState {
+      bool OpenForConnect = 1 [json_name = "open_for_connect"];
+    }
+
+    message TErrorListCapabilityState {
+      repeated string Errors = 1 [json_name = "errors"];
+    }
+
+    message TExternalTemperatureMeasurementCapabilityState {
+      bool IsEnabled = 1 [json_name = "is_enabled"];
+      double MeasuredValue = 2 [json_name = "measured_value"];
+    }
+
+    message TMotionSettingCapabilityState {
+      message TAdvancedDetectionParams {
+        uint32 MotionEventCount = 1 [json_name = "motion_event_count"];
+        uint32 TimeWindowSec = 2 [json_name = "time_window_sec"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.EMotionSensitivityLevel SensitivityLevel = 1 [json_name = "sensitivity_level"];
+      .NAlice.TIoTUserInfo.TCapability.EMotionDetectionRangeLevel DetectionRangeLevel = 2 [json_name = "detection_range_level"];
+      uint32 OccupiedToUnoccupiedDelaySec = 3 [json_name = "occupied_to_unoccupied_delay_sec"];
+      uint32 MotionDetectionIntervalSec = 4 [json_name = "motion_detection_interval_sec"];
+      .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityState.TAdvancedDetectionParams AdvancedParameters = 5 [json_name = "advanced_parameters"];
+    }
+
+    message TSoundAlarmCapabilityState {
+      enum TStrategy {
+        Unknown = 0;
+        Silent = 1;
+        Manual = 2;
+        Timeout = 3;
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityState.TStrategy Strategy = 2 [json_name = "strategy"];
+      optional double TimeoutSec = 3 [json_name = "timeout_sec"];
+    }
+
+    message TAlarmCapabilityParameters {
+    }
+
+    message TAlarmCapabilityState {
+    }
+
+    message TScreenSunriseMelody {
+      string Melody = 1 [json_name = "melody"];
+    }
+
+    message TScreenSunriseAnimation {
+      string Animation = 1 [json_name = "animation"];
+    }
+
+    message TScreenSunriseCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TScreenSunriseMelody AvailableMelodies = 2 [json_name = "available_melodies"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TScreenSunriseAnimation SupportedAnimations = 3 [json_name = "supported_animations"];
+      uint32 MinDurationSeconds = 4 [json_name = "min_duration_seconds"];
+      uint32 MaxDurationSeconds = 5 [json_name = "max_duration_seconds"];
+    }
+
+    message TSpeakerDoNotDisturbCapabilityParameters {
+    }
+
+    message TSpeakerDoNotDisturbCapabilityState {
+      message TFeatures {
+        bool AllowIncomingCalls = 1 [json_name = "allow_incoming_calls"];
+      }
+
+      message TPlatformSettings {
+        bool ShowClock = 1 [json_name = "show_clock"];
+      }
+
+      bool IsDoNotDisturbEnabled = 1 [json_name = "is_do_not_disturb_enabled"];
+      .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityState.TFeatures Features = 2 [json_name = "features"];
+      string StartTime = 3 [json_name = "start_time"];
+      string EndTime = 4 [json_name = "end_time"];
+      .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityState.TPlatformSettings PlatformSettings = 5 [json_name = "platform_settings"];
+    }
+
+    message TDoorLockDoNotDisturbCapabilityParameters {
+    }
+
+    message TDoorLockDoNotDisturbCapabilityState {
+      message TTimeWindow {
+        uint32 StartDaySec = 1 [json_name = "start_day_sec"];
+        uint32 EndDaySec = 2 [json_name = "end_day_sec"];
+      }
+
+      bool Enabled = 1 [json_name = "enabled"];
+      .NAlice.TIoTUserInfo.TCapability.TDoorLockDoNotDisturbCapabilityState.TTimeWindow Window = 2 [json_name = "window"];
+    }
+
+    message TLocalizationCapabilityParameters {
+    }
+
+    message TLocalizationCapabilityState {
+      string Country = 1 [json_name = "country"];
+      string Locale = 2 [json_name = "locale"];
+    }
+
+    message TVoiceEnrollmentCapabilityParameters {
+      bool SupportsShareDirective = 1 [json_name = "supports_share_directive"];
+    }
+
+    message TVoiceEnrollmentCapabilityState {
+    }
+
+    message TStereoPairCapabilityParameters {
+    }
+
+    message TStereoPairCapabilityState {
+      string Role = 1 [json_name = "role"];
+      string Channel = 2 [json_name = "channel"];
+      string Connectivity = 3 [json_name = "connectivity"];
+      string Status = 4 [json_name = "status"];
+      string PartnerEndpointId = 5 [json_name = "partner_endpoint_id"];
+    }
+
+    message TPhoneCallsCapabilityParameters {
+      message TProtocol {
+        string Provider = 1 [json_name = "provider"];
+        string Protocol = 2 [json_name = "protocol"];
+        bool RequireConnection = 3 [json_name = "require_connection"];
+        repeated string SupportedMedia = 4 [json_name = "supported_media"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityParameters.TProtocol SupportedProtocols = 1 [json_name = "supported_protocols"];
+    }
+
+    message TPhoneCallsCapabilityState {
+      message TAccount {
+        string Id = 1 [json_name = "id"];
+        .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityParameters.TProtocol Protocol = 2 [json_name = "protocol"];
+        string ConnectStatus = 3 [json_name = "connect_status"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityState.TAccount Accounts = 1 [json_name = "accounts"];
+    }
+
+    message TBluetoothCapabilityParameters {
+    }
+
+    message TBluetoothCapabilityState {
+      message TConnectedDevice {
+        string Role = 1 [json_name = "role"];
+        string Name = 2 [json_name = "name"];
+        string Address = 3 [json_name = "address"];
+        int64 ConnectionTime = 4 [json_name = "connection_time"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TBluetoothCapabilityState.TConnectedDevice ConnectedDevices = 1 [json_name = "connected_devices"];
+      bool Playing = 2 [json_name = "playing"];
+      bool Discoverable = 3 [json_name = "discoverable"];
+      int32 Volume = 4 [json_name = "volume"];
+    }
+
+    message TEqualizerCapabilityParameters {
+      message TBandsLimits {
+        int32 MinBandsCount = 1 [json_name = "min_bands_count"];
+        int32 MaxBandsCount = 2 [json_name = "max_bands_count"];
+        double MinBandGain = 3 [json_name = "min_band_gain"];
+        double MaxBandGain = 4 [json_name = "max_band_gain"];
+      }
+
+      message TFixedBand {
+        double Frequency = 1 [json_name = "frequency"];
+        double Width = 2 [json_name = "width"];
+      }
+
+      message TFixedBandsConfiguration {
+        repeated .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityParameters.TFixedBand FixedBands = 1 [json_name = "fixed_bands"];
+      }
+
+      message TBandsConfiguration {
+        .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityParameters.TFixedBandsConfiguration Fixed = 1 [json_name = "fixed"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityParameters.TBandsLimits BandsLimits = 1 [json_name = "bands_limits"];
+      repeated string SupportedPresetModes = 2 [json_name = "supported_preset_modes"];
+      .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityParameters.TBandsConfiguration BandsConfiguration = 3 [json_name = "bands_configuration"];
+    }
+
+    message TEqualizerCapabilityState {
+      message TBand {
+        double Frequency = 1 [json_name = "frequency"];
+        double Gain = 2 [json_name = "gain"];
+        double Width = 3 [json_name = "width"];
+        string Type = 4 [json_name = "type"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityState.TBand Bands = 1 [json_name = "bands"];
+      string PresetMode = 2 [json_name = "preset_mode"];
+      bool PreventClipping = 3 [json_name = "prevent_clipping"];
+      bool Enabled = 4 [json_name = "enabled"];
+    }
+
+    message TAudioPlayerCapabilityParameters {
+      reserved "Quality";
+      reserved 5;
+      bool GenericHlsPlaybackSupport = 1 [json_name = "generic_hls_playback_support"];
+      repeated string SupportedCodecs = 2 [json_name = "supported_codecs"];
+      repeated string SupportedStrmFeatures = 3 [json_name = "supported_strm_features"];
+      bool KaraokeSupport = 4 [json_name = "karaoke_support"];
+      bool AutoQualityEnabled = 6 [json_name = "auto_quality_enabled"];
+      bool MusicSetSupport = 7 [json_name = "music_set_support"];
+    }
+
+    message TAudioPlayerCapabilityState {
+      string StateType = 1 [json_name = "state_type"];
+      string StreamId = 2 [json_name = "stream_id"];
+      string StreamType = 3 [json_name = "stream_type"];
+      string Title = 4 [json_name = "title"];
+      string Subtitle = 5 [json_name = "subtitle"];
+      double PlaybackSpeed = 6 [json_name = "playback_speed"];
+      string Quality = 7 [json_name = "quality"];
+    }
+
+    message TStandbyCapabilityParameters {
+    }
+
+    message TStandbyCapabilityState {
+      string Mode = 1 [json_name = "mode"];
+    }
+
+    message TSetupCapabilityParameters {
+    }
+
+    message TSetupCapabilityState {
+    }
+
+    message TWifiCapabilityParameters {
+    }
+
+    message TWifiCapabilityState {
+      message TCurrentNetwork {
+        string Ssid = 1 [json_name = "ssid"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TWifiCapabilityState.TCurrentNetwork CurrentNetwork = 1 [json_name = "current_network"];
+    }
+
+    message TCradleCapabilityParameters {
+    }
+
+    message TCradleCapabilityState {
+      repeated string ConnectedCradlesIds = 1 [json_name = "connected_cradles_ids"];
+    }
+
+    message TVisualSpotterCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TVisualSpotterCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TCustomSpotterCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TCustomSpotterCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+      string Phrase = 2 [json_name = "phrase"];
+    }
+
+    message TGestureRecognitionCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      string Variant = 2 [json_name = "variant"];
+    }
+
+    message TGestureRecognitionCapabilityState {
+      bool Active = 1 [json_name = "active"];
+      bool Configured = 2 [json_name = "configured"];
+    }
+
+    message TFlashlightCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TFlashlightCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+      string Brightness = 2 [json_name = "brightness"];
+    }
+
+    message TUltrasoundDetectorCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TUltrasoundDetectorCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TLedCapabilityParameters {
+      enum EVisualizationStyle {
+        UnknownVisualizationStyle = 0;
+        LavaBeat = 1;
+        PolarShining = 2;
+        Blink = 3;
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TLedCapabilityParameters.EVisualizationStyle SupportedVisualizationStyles = 1 [json_name = "supported_visualization_styles"];
+      repeated string SupportedVisualizationStyleNames = 2 [json_name = "supported_visualization_style_names"];
+    }
+
+    message TLedCapabilityState {
+      message TBrightnessState {
+        bool Auto = 1 [json_name = "auto"];
+        float Value = 2 [json_name = "value"];
+      }
+
+      message TMusicEqualizerVisualizationState {
+        bool Auto = 1 [json_name = "auto"];
+        .NAlice.TIoTUserInfo.TCapability.TLedCapabilityParameters.EVisualizationStyle Style = 2 [json_name = "style"];
+        string StyleName = 3 [json_name = "style_name"];
+      }
+
+      message TTimeVisualizationState {
+        .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState.ETimeFormat Format = 1 [json_name = "format"];
+      }
+
+      enum ETimeFormat {
+        UnknownTimeFormat = 0;
+        Format12h = 1;
+        Format24h = 2;
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState.TBrightnessState Brightness = 1 [json_name = "brightness"];
+      .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState.TMusicEqualizerVisualizationState MusicEqualizerVisualization = 2 [json_name = "music_equalizer_visualization"];
+      bool IdleAnimation = 3 [json_name = "idle_animation"];
+      .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState.TTimeVisualizationState TimeVisualization = 4 [json_name = "time_visualization"];
+    }
+
+    message TLedAnimationCapabilityParameters {
+      repeated string SupportedMusicVisualizationStyles = 1 [json_name = "supported_music_visualization_styles"];
+      repeated string SupportedMainAnimations = 2 [json_name = "supported_main_animations"];
+    }
+
+    message TLedAnimationCapabilityState {
+      message TMusicEqualizerVisualizationState {
+        bool Auto = 1 [json_name = "auto"];
+        string Style = 2 [json_name = "style"];
+      }
+
+      repeated string EnabledMainAnimations = 1 [json_name = "enabled_main_animations"];
+      .NAlice.TIoTUserInfo.TCapability.TLedAnimationCapabilityState.TMusicEqualizerVisualizationState MusicEqualizerVisualization = 2 [json_name = "music_equalizer_visualization"];
+    }
+
+    message TLedIdleAnimationCapabilityParameters {
+    }
+
+    message TLedIdleAnimationCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TLedTimeVisualizationCapabilityParameters {
+      enum ETimeSize {
+        UnknownTimeSize = 0;
+        SmallTimeSize = 1;
+        MiddleTimeSize = 2;
+        LargeTimeSize = 3;
+      }
+
+      enum ETimeFormat {
+        UnknownTimeFormat = 0;
+        Format12h = 1;
+        Format24h = 2;
+      }
+
+      repeated .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityParameters.ETimeSize SupportedSizes = 1 [json_name = "supported_sizes"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityParameters.ETimeFormat SupportedFormats = 2 [json_name = "supported_formats"];
+    }
+
+    message TLedTimeVisualizationCapabilityState {
+      .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityParameters.ETimeFormat Format = 1 [json_name = "format"];
+      .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityParameters.ETimeSize Size = 2 [json_name = "size"];
+    }
+
+    message THdmiAudioCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message THdmiAudioCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool Enabled = 2 [json_name = "enabled"];
+    }
+
+    message TSluCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TSluCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool Enabled = 2 [json_name = "enabled"];
+    }
+
+    message TIntonationInterruptionCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TIntonationInterruptionCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool Enabled = 2 [json_name = "enabled"];
+    }
+
+    message TScreenSaverCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      repeated string SupportedTypes = 2 [json_name = "supported_types"];
+    }
+
+    message TScreenSaverCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      string Type = 2 [json_name = "type"];
+    }
+
+    message TScreenSunriseCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      uint32 DurationSeconds = 2 [json_name = "duration_seconds"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunriseMelody CurrentMelody = 3 [json_name = "current_melody"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunriseAnimation CurrentAnimation = 4 [json_name = "current_animation"];
+    }
+
+    message TBuiltInButtonsCapabilityParameters {
+      bool SupportsBlockingByUser = 1 [json_name = "supports_blocking_by_user"];
+    }
+
+    message TBuiltInButtonsCapabilityState {
+      bool Blocked = 1 [json_name = "blocked"];
+    }
+
+    message TCookingProgramPreset {
+      string Mode = 1 [json_name = "mode"];
+      int32 DefaultTemperature = 2 [json_name = "default_temperature"];
+      int32 DefaultDuration = 3 [json_name = "default_duration"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingRange TemperatureRange = 4 [json_name = "temperature_range"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingRange DurationRange = 5 [json_name = "duration_range"];
+    }
+
+    message TCookingCurrentProgram {
+      string Mode = 1 [json_name = "mode"];
+      int32 Temperature = 2 [json_name = "temperature"];
+      int32 Duration = 3 [json_name = "duration"];
+    }
+
+    message TCookingRange {
+      double Min = 1 [json_name = "min"];
+      double Max = 2 [json_name = "max"];
+      double Precision = 3 [json_name = "precision"];
+    }
+
+    message TCookingCapabilityParameters {
+      repeated .NAlice.TIoTUserInfo.TCapability.TCookingProgramPreset CookingProgramPresets = 1 [json_name = "cooking_program_presets"];
+      repeated .NAlice.TIoTUserInfo.TCapability.ECookingStatus AvailableStatuses = 2 [json_name = "available_statuses"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingRange TemperatureRange = 3 [json_name = "temperature_range"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingRange ProgramDurationRange = 4 [json_name = "program_duration_range"];
+      repeated .NAlice.TIoTUserInfo.TCapability.ECookingUserAction AvailableUserActions = 5 [json_name = "available_user_actions"];
+    }
+
+    message TCookingCapabilityState {
+      .NAlice.TIoTUserInfo.TCapability.ECookingStatus Status = 3 [json_name = "status"];
+      optional .NAlice.TIoTUserInfo.TCapability.TCookingCurrentProgram CurrentProgram = 1 [json_name = "current_program"];
+      optional int32 RemainingTime = 2 [json_name = "remaining_time"];
+    }
+
+    message TNameViewCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TLimitedTextRules NameLimits = 2 [json_name = "name_limits"];
+    }
+
+    message TNameViewCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      optional string StoredName = 2 [json_name = "stored_name"];
+    }
+
+    message TManualCalibrationCapabilityParameters {
+    }
+
+    message TManualCalibrationCapabilityState {
+      bool IsCalibrated = 1 [json_name = "is_calibrated"];
+    }
+
+    message TImpulseMeterCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TImpulseMeterCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      double VolumePerImpulseLiters = 2 [json_name = "volume_per_impulse_liters"];
+    }
+
+    message TDoNotDisturbCapabilityParameters {
+      message TRange {
+        double Min = 1 [json_name = "min"];
+        double Max = 2 [json_name = "max"];
+        double Precision = 3 [json_name = "precision"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      .NAlice.TIoTUserInfo.TCapability.TDoNotDisturbCapabilityParameters.TRange TimeoutSecondsRange = 2 [json_name = "timeout_seconds_range"];
+    }
+
+    message TDoNotDisturbCapabilityState {
+      reserved "LeftSeconds";
+      reserved 3;
+      string Instance = 1 [json_name = "instance"];
+      bool Active = 2 [json_name = "active"];
+      optional double LeftSec = 4 [json_name = "left_sec"];
+    }
+
+    message TWidgetStackCapabilityParameters {
+      message TSupportedWidget {
+        string Type = 1 [json_name = "type"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityParameters.TSupportedWidget SupportedWidgets = 2 [json_name = "supported_widgets"];
+      uint64 MaxWidgetCount = 3 [json_name = "max_widget_count"];
+    }
+
+    message TWidgetStackCapabilityState {
+      message TWidget {
+        message TReminderWidget {
+        }
+
+        message TWeatherWidget {
+        }
+
+        message TIoTWidget {
+          message TDeviceWidget {
+            string DeviceID = 1 [json_name = "device_id"];
+          }
+
+          message TScenarioWidget {
+            string ScenarioID = 1 [json_name = "scenario_id"];
+            string Name = 2 [json_name = "name"];
+          }
+
+          message TGroupWidget {
+            string GroupID = 1 [json_name = "group_id"];
+          }
+
+          message TAggregatedWidget {
+            repeated string DeviceIDs = 1 [json_name = "device_ids"];
+          }
+
+          oneof Widget {
+            .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TIoTWidget.TDeviceWidget DeviceWidget = 1 [json_name = "device_widget"];
+            .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TIoTWidget.TScenarioWidget ScenarioWidget = 2 [json_name = "scenario_widget"];
+            .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TIoTWidget.TGroupWidget GroupWidget = 3 [json_name = "group_widget"];
+            .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TIoTWidget.TAggregatedWidget AggregatedWidget = 4 [json_name = "aggregated_widget"];
+          }
+        }
+
+        uint64 ID = 1 [json_name = "id"];
+        uint64 Position = 2 [json_name = "position"];
+        oneof Widget {
+          .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TReminderWidget ReminderWidget = 3 [json_name = "reminder_widget"];
+          .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TWeatherWidget WeatherWidget = 4 [json_name = "weather_widget"];
+          .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget.TIoTWidget IoTWidget = 5 [json_name = "iot_widget"];
+        }
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState.TWidget Widgets = 2 [json_name = "widgets"];
+    }
+
+    message TDoorLockDiscoveryCapabilityParameters {
+    }
+
+    message TDoorLockDiscoveryCapabilityState {
+    }
+
+    message TScreenBrightnessCapabilityParameters {
+      uint32 MaxBrightnessLevel = 1 [json_name = "max_brightness_level"];
+      uint32 MinBrightnessLevel = 2 [json_name = "min_brightness_level"];
+    }
+
+    message TScreenBrightnessCapabilityState {
+      uint32 BrightnessLevel = 1 [json_name = "brightness_level"];
+      bool BrightnessAutoModeEnabled = 2 [json_name = "brightness_auto_mode_enabled"];
+      bool NoIndication = 3 [json_name = "no_indication"];
+    }
+
+    message TBlinkCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TBlinkCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TManualLeakControlCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      bool DisplaySourceSupported = 2 [json_name = "display_source_supported"];
+      optional .NAlice.TLimitedTextRules DisplaySourceLimits = 3 [json_name = "display_source_limits"];
+    }
+
+    message TManualLeakControlCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool TriggerLeak = 2 [json_name = "trigger_leak"];
+      optional string TriggerSource = 3 [json_name = "trigger_source"];
+    }
+
+    message TPtzMemoryCapabilityParameters {
+      int32 MaxPositionCount = 1 [json_name = "max_position_count"];
+    }
+
+    message TPtzMemoryPositionCoordinates {
+      optional double Pan = 1 [json_name = "pan"];
+      optional double Tilt = 2 [json_name = "tilt"];
+    }
+
+    message TPtzMemoryPosition {
+      string ID = 1 [json_name = "id"];
+      string Name = 2 [json_name = "name"];
+      string SnapshotImageUrl = 3 [json_name = "snapshot_image_url"];
+      .NAlice.TIoTUserInfo.TCapability.TPtzMemoryPositionCoordinates Coordinates = 4 [json_name = "coordinates"];
+    }
+
+    message TPtzMemoryCapabilityState {
+      repeated .NAlice.TIoTUserInfo.TCapability.TPtzMemoryPosition Positions = 2 [json_name = "positions"];
+      optional string CurrentPositionID = 1 [json_name = "current_position_id"];
+    }
+
+    message TWireLineCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      bool SupportsFeedback = 2 [json_name = "supports_feedback"];
+      string WireId = 3 [json_name = "wire_id"];
+    }
+
+    message TWireLineCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      string WireID = 2 [json_name = "wire_id"];
+      optional bool FeedbackEnabled = 3 [json_name = "feedback_enabled"];
+      optional uint32 SensorsCount = 4 [json_name = "sensors_count"];
+      optional uint32 FeedbackSensorsCount = 5 [json_name = "feedback_sensors_count"];
+    }
+
+    message TWireLinesHubCapabilityParameters {
+      message TSupportedDevice {
+        .NAlice.EUserDeviceType DeviceType = 1 [json_name = "device_type"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      uint32 MaxWiresCount = 2 [json_name = "max_wires_count"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityParameters.TSupportedDevice SupportedDevices = 3 [json_name = "supported_devices"];
+    }
+
+    message TWireLinesHubCapabilityState {
+      message TWireLine {
+        string ID = 1 [json_name = "id"];
+        bool Occupied = 2 [json_name = "occupied"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityState.TWireLine Wires = 2 [json_name = "wires"];
+    }
+
+    message TCompanionScreenUISkinCapability {
+      message TParameters {
+        message TSkinTarget {
+          message TSkin {
+            string Id = 1 [json_name = "id"];
+          }
+
+          .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.ESkinTarget Target = 1 [json_name = "target"];
+          repeated .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TParameters.TSkinTarget.TSkin Skins = 2 [json_name = "skins"];
+        }
+
+        repeated .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TParameters.TSkinTarget SupportedTargets = 1 [json_name = "supported_targets"];
+      }
+
+      message TState {
+        repeated .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TSkinSpec SelectedSkins = 1 [json_name = "selected_skins"];
+        .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TVisualizationSettings Settings = 2 [json_name = "settings"];
+      }
+
+      message TSkinSpec {
+        .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.ESkinTarget Target = 1 [json_name = "target"];
+        string SkinID = 2 [json_name = "skin_id"];
+      }
+
+      message TVisualizationSettings {
+        bool ShowClock = 1 [json_name = "show_clock"];
+        bool AutoSwitch = 2 [json_name = "auto_switch"];
+      }
+
+      enum ESkinTarget {
+        Unknown = 0;
+        Clock = 1;
+        MusicPlayer = 2;
+      }
+
+    }
+
+    message TPtzCalibrationCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TPtzCalibrationCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      string Status = 2 [json_name = "status"];
+    }
+
+    message TZigbeeCoordinatorInterference {
+      .NAlice.TIoTUserInfo.TCapability.EZigbeeCoordinatorInterferenceLevel Level = 1 [json_name = "level"];
+      int32 CcaRssi = 2 [json_name = "cca_rssi"];
+    }
+
+    message TZigbeeCoordinatorCapabilityParameters {
+      .NAlice.TIoTUserInfo.TCapability.EZigbeeCoordinatorRadioInterface RadioInterface = 1 [json_name = "radio_interface"];
+    }
+
+    message TZigbeeCoordinatorCapabilityState {
+      uint32 Channel = 1 [json_name = "channel"];
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeCoordinatorInterference Interference = 2 [json_name = "interference"];
+      bool ChannelMigrationInProgress = 3 [json_name = "channel_migration_in_progress"];
+    }
+
+    message TPositionSpatialVector {
+      sint32 X = 1 [json_name = "x"];
+      sint32 Y = 2 [json_name = "y"];
+      sint32 Z = 3 [json_name = "z"];
+    }
+
+    message TPositionValue {
+      .NAlice.TIoTUserInfo.TCapability.TPositionSpatialVector SpatialVector = 1 [json_name = "spatial_vector"];
+      bool IsCorrect = 2 [json_name = "is_correct"];
+      bool NeedsCalibrating = 3 [json_name = "needs_calibrating"];
+    }
+
+    message TPositionCapabilityParameters {
+    }
+
+    message TPositionCapabilityState {
+      .NAlice.TIoTUserInfo.TCapability.TPositionValue Position = 1 [json_name = "position"];
+    }
+
+    message TDigitalMeterHubCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TDigitalMeterHubCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TVoiceActivityDetectorCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TVoiceActivityDetectorCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TIntonationSpotterCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TIntonationSpotterCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TKidsProCapabilityParameters {
+    }
+
+    message TKidsProCapabilityState {
+      message TSettings {
+        bool KidsSearchEnabled = 1 [json_name = "kids_search_enabled"];
+        bool KidsContentEnabled = 2 [json_name = "kids_content_enabled"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TKidsProCapabilityState.TSettings Settings = 1 [json_name = "settings"];
+    }
+
+    message TAssistantResponseStyleCapabilityParameters {
+    }
+
+    message TAssistantResponseStyleCapabilityState {
+      message TSettings {
+        .NAlice.TIoTUserInfo.TCapability.EAssistantResponseStyle ResponseStyle = 1 [json_name = "response_style"];
+      }
+
+      .NAlice.TIoTUserInfo.TCapability.TAssistantResponseStyleCapabilityState.TSettings Settings = 1 [json_name = "settings"];
+    }
+
+    message TScreenOnOffCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TScreenOnOffCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      bool Value = 2 [json_name = "value"];
+    }
+
+    message TSoundRoutingCapabilityParameters {
+      repeated .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute SupportedInputSources = 1 [json_name = "supported_input_sources"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute SupportedOutputTargets = 2 [json_name = "supported_output_targets"];
+    }
+
+    message TSoundRoutingInputRoute {
+      message TSoundbarMode {
+      }
+
+      message TAuxIn {
+      }
+
+      message TBluetoothIn {
+      }
+
+      message TOwnSound {
+      }
+
+      oneof Source {
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute.TSoundbarMode SoundbarMode = 1 [json_name = "soundbar_mode"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute.TAuxIn AuxIn = 2 [json_name = "aux_in"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute.TBluetoothIn BluetoothIn = 3 [json_name = "bluetooth_in"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute.TOwnSound OwnSound = 4 [json_name = "own_sound"];
+      }
+    }
+
+    message TSoundRoutingOutputRoute {
+      message THdmiAudio {
+      }
+
+      message TAuxOut {
+      }
+
+      message TBluetoothOut {
+      }
+
+      message TOwnSound {
+      }
+
+      oneof Target {
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute.THdmiAudio HdmiAudio = 1 [json_name = "hdmi_audio"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute.TAuxOut AuxOut = 2 [json_name = "aux_out"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute.TBluetoothOut BluetoothOut = 3 [json_name = "bluetooth_out"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute.TOwnSound OwnSound = 4 [json_name = "own_sound"];
+      }
+    }
+
+    message TSoundRoutingCapabilityState {
+      .NAlice.TIoTUserInfo.TCapability.TSoundRoutingInputRoute Input = 1 [json_name = "input"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundRoutingOutputRoute Output = 2 [json_name = "output"];
+    }
+
+    message TVirtualSurroundCapabilityParameters {
+    }
+
+    message TVirtualSurroundCapabilityState {
+      bool Enabled = 1 [json_name = "enabled"];
+    }
+
+    message TNoiseDetectorCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TNoiseDetectorCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TScreenSunsetAnimation {
+      string Animation = 1 [json_name = "animation"];
+    }
+
+    message TScreenSunsetCapabilityParameters {
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TCapability.TScreenSunsetAnimation SupportedAnimations = 2 [json_name = "supported_animations"];
+      uint32 MinDurationSeconds = 3 [json_name = "min_duration_seconds"];
+      uint32 MaxDurationSeconds = 4 [json_name = "max_duration_seconds"];
+    }
+
+    message TScreenSunsetCapabilityState {
+      string Instance = 1 [json_name = "instance"];
+      uint32 DurationSeconds = 2 [json_name = "duration_seconds"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunsetAnimation CurrentAnimation = 3 [json_name = "current_animation"];
+    }
+
+    enum ECapabilityType {
+      UnknownCapabilityType = 0;
+      OnOffCapabilityType = 1;
+      ColorSettingCapabilityType = 2;
+      ModeCapabilityType = 3;
+      RangeCapabilityType = 4;
+      ToggleCapabilityType = 5;
+      CustomButtonCapabilityType = 6;
+      QuasarServerActionCapabilityType = 7;
+      QuasarCapabilityType = 8;
+      VideoStreamCapabilityType = 9;
+      BuzzerCapabilityType = 10;
+      IdentifyCapabilityType = 11;
+      IrCapabilityType = 12;
+      VoIPCapabilityType = 13;
+      PlanarViewCapabilityType = 14;
+      PresenceZoneCapabilityType = 15;
+      AutoCalibrationCapabilityType = 16;
+      LockCapabilityType = 17;
+      IrRemoteCapabilityType = 18;
+      DisplayOrientationCapabilityType = 19;
+      LedMaskCapabilityType = 20;
+      OpenWindowDetectionCapabilityType = 21;
+      EventHistoryCapabilityType = 22;
+      AntifreezeCapabilityType = 23;
+      AntiscaleCapabilityType = 24;
+      ColorAnimationCapabilityType = 25;
+      LocalSmartScenariosCapabilityType = 26;
+      BordersCapabilityType = 27;
+      OTACapabilityType = 28;
+      ZigbeeNodeCapabilityType = 29;
+      MatterLocalityCapabilityType = 30;
+      ZenohLocalityCapabilityType = 31;
+      RadioDiscoveryCapabilityType = 32;
+      ErrorListCapabilityType = 33;
+      ExternalTemperatureMeasurementCapabilityType = 34;
+      MotionSettingCapabilityType = 35;
+      SoundAlarmCapabilityType = 36;
+      DoNotDisturbCapabilityType = 37;
+      ImpulseMeterCapabilityType = 38;
+      DoorLockDiscoveryCapabilityType = 39;
+      ScreenBrightnessCapabilityType = 40;
+      BlinkCapabilityType = 41;
+      ManualLeakControlCapabilityType = 42;
+      PtzMemoryCapabilityType = 43;
+      WireLineCapabilityType = 44;
+      WireLinesHubCapabilityType = 45;
+      CompanionScreenUISkinCapabilityType = 46;
+      PtzCalibrationCapabilityType = 47;
+      ZigbeeCoordinatorCapabilityType = 48;
+      DigitalMeterHubCapabilityType = 49;
+      VoiceActivityDetectorCapabilityType = 50;
+      IntonationSpotterCapabilityType = 51;
+      AlarmCapabilityType = 52;
+      ScreenSunriseCapabilityType = 53;
+      SpeakerDoNotDisturbCapabilityType = 54;
+      LocalizationCapabilityType = 55;
+      VoiceEnrollmentCapabilityType = 56;
+      StereoPairCapabilityType = 57;
+      PhoneCallsCapabilityType = 58;
+      BluetoothCapabilityType = 59;
+      EqualizerCapabilityType = 60;
+      AudioPlayerCapabilityType = 61;
+      StandbyCapabilityType = 62;
+      SetupCapabilityType = 63;
+      WifiCapabilityType = 64;
+      CradleCapabilityType = 65;
+      PositionCapabilityType = 66;
+      VisualSpotterCapabilityType = 67;
+      GestureRecognitionCapabilityType = 68;
+      LedCapabilityType = 69;
+      UltrasoundDetectorCapabilityType = 70;
+      BuiltInButtonsCapabilityType = 71;
+      CookingCapabilityType = 72;
+      NameViewCapabilityType = 73;
+      ManualCalibrationCapabilityType = 74;
+      WidgetStackCapabilityType = 75;
+      KidsProCapabilityType = 76;
+      AssistantResponseStyleCapabilityType = 77;
+      CustomSpotterCapabilityType = 78;
+      FlashlightCapabilityType = 79;
+      ScreenOnOffCapabilityType = 80;
+      SoundRoutingCapabilityType = 81;
+      VirtualSurroundCapabilityType = 82;
+      NoiseDetectorCapabilityType = 83;
+      DoorLockDoNotDisturbCapabilityType = 84;
+      ScreenSunsetCapabilityType = 85;
+      LedAnimationCapabilityType = 86;
+      LedIdleAnimationCapabilityType = 87;
+      LedTimeVisualizationCapabilityType = 88;
+      HdmiAudioCapabilityType = 89;
+      SluCapabilityType = 90;
+      IntonationInterruptionCapabilityType = 91;
+      ScreenSaverCapabilityType = 92;
+    }
+
+    enum EColorAnimationCapabilityAnimationType {
+      COLOR_ANIMATION_TYPE_NONE = 0;
+      COLOR_ANIMATION_TYPE_COLOR = 1;
+      COLOR_ANIMATION_TYPE_SCENE = 2;
+      COLOR_ANIMATION_TYPE_COLOR_MUSIC = 3;
+      COLOR_ANIMATION_TYPE_CUSTOM_SCENE = 4;
+    }
+
+    enum EColorAnimationCapabilityVisualEffect {
+      VISUAL_EFFECT_UNKNOWN = 0;
+      VISUAL_EFFECT_PULSE = 1;
+      VISUAL_EFFECT_BREATH = 2;
+      VISUAL_EFFECT_MIRROR = 3;
+      VISUAL_EFFECT_HEART = 4;
+      VISUAL_EFFECT_SPARKS = 5;
+    }
+
+    enum EMotionSensitivityLevel {
+      MOTION_SENSITIVITY_UNKNOWN = 0;
+      MOTION_SENSITIVITY_LOW = 1;
+      MOTION_SENSITIVITY_MEDIUM = 2;
+      MOTION_SENSITIVITY_HIGH = 3;
+    }
+
+    enum EMotionDetectionRangeLevel {
+      MOTION_RANGE_UNKNOWN = 0;
+      MOTION_RANGE_NEAR = 1;
+      MOTION_RANGE_MEDIUM = 2;
+      MOTION_RANGE_FAR = 3;
+    }
+
+    enum ECookingStatus {
+      CookingStatusUnknown = 0;
+      CookingStatusIdle = 1;
+      CookingStatusRunning = 2;
+      CookingStatusPaused = 3;
+    }
+
+    enum ECookingUserAction {
+      CookingUserActionUnknown = 0;
+      CookingUserActionTurnOver = 1;
+      CookingUserActionStir = 2;
+    }
+
+    enum EZigbeeCoordinatorInterferenceLevel {
+      UnknownZigbeeCoordinatorInterferenceLevel = 0;
+      LowZigbeeCoordinatorInterferenceLevel = 1;
+      ModerateZigbeeCoordinatorInterferenceLevel = 2;
+      HighZigbeeCoordinatorInterferenceLevel = 3;
+      CongestedZigbeeCoordinatorInterferenceLevel = 4;
+    }
+
+    enum EZigbeeCoordinatorRadioInterface {
+      UnknownZigbeeCoordinatorRadioInterface = 0;
+      SilabsEfr32ZigbeeCoordinatorRadioInterface = 1;
+      W2lZigbeeCoordinatorRadioInterface = 2;
+      TelinkB91ZigbeeCoordinatorRadioInterface = 3;
+    }
+
+    enum EAssistantResponseStyle {
+      Default = 0;
+      ChildOriented = 1;
+    }
+
+    .NAlice.TIoTUserInfo.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+    bool Retrievable = 2 [json_name = "retrievable"];
+    bool Reportable = 3 [json_name = "reportable"];
+    double StateChangedAt = 29 [json_name = "state_changed_at"];
+    double LastUpdated = 4 [json_name = "last_updated"];
+    string AnalyticsType = 19 [json_name = "analytics_type"];
+    string AnalyticsName = 20 [json_name = "analytics_name"];
+    oneof Parameters {
+      .NAlice.TIoTUserInfo.TCapability.TOnOffCapabilityParameters OnOffCapabilityParameters = 5 [json_name = "on_off_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityParameters ColorSettingCapabilityParameters = 6 [json_name = "color_setting_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TModeCapabilityParameters ModeCapabilityParameters = 7 [json_name = "mode_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityParameters RangeCapabilityParameters = 8 [json_name = "range_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TToggleCapabilityParameters ToggleCapabilityParameters = 9 [json_name = "toggle_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TCustomButtonCapabilityParameters CustomButtonCapabilityParameters = 10 [json_name = "custom_button_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TQuasarServerActionCapabilityParameters QuasarServerActionCapabilityParameters = 11 [json_name = "quasar_server_action_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityParameters QuasarCapabilityParameters = 21 [json_name = "quasar_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityParameters VideoStreamCapabilityParameters = 23 [json_name = "video_stream_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TBuzzerCapabilityParameters BuzzerCapabilityParameters = 25 [json_name = "buzzer_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TIdentifyCapabilityParameters IdentifyCapabilityParameters = 27 [json_name = "identify_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TIrCapabilityParameters IrCapabilityParameters = 30 [json_name = "ir_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVoIPCapabilityParameters VoIPCapabilityParameters = 32 [json_name = "vo_ipcapability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPlanarViewCapabilityParameters PlanarViewCapabilityParameters = 34 [json_name = "planar_view_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityParameters PresenceZoneCapabilityParameters = 36 [json_name = "presence_zone_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAutoCalibrationCapabilityParameters AutoCalibrationCapabilityParameters = 38 [json_name = "auto_calibration_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLockCapabilityParameters LockCapabilityParameters = 40 [json_name = "lock_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TIrRemoteCapabilityParameters IrRemoteCapabilityParameters = 42 [json_name = "ir_remote_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TDisplayOrientationCapabilityParameters DisplayOrientationCapabilityParameters = 44 [json_name = "display_orientation_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLedMaskCapabilityParameters LedMaskCapabilityParameters = 46 [json_name = "led_mask_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TOpenWindowDetectionCapabilityParameters OpenWindowDetectionCapabilityParameters = 48 [json_name = "open_window_detection_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TEventHistoryCapabilityParameters EventHistoryCapabilityParameters = 50 [json_name = "event_history_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAntifreezeCapabilityParameters AntifreezeCapabilityParameters = 52 [json_name = "antifreeze_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAntiscaleCapabilityParameters AntiscaleCapabilityParameters = 54 [json_name = "antiscale_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityParameters ColorAnimationCapabilityParameters = 56 [json_name = "color_animation_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLocalSmartScenariosCapabilityParameters LocalSmartScenariosCapabilityParameters = 58 [json_name = "local_smart_scenarios_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TBordersCapabilityParameters BordersCapabilityParameters = 60 [json_name = "borders_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TOTACapabilityParameters OTACapabilityParameters = 62 [json_name = "otacapability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityParameters ZigbeeNodeCapabilityParameters = 64 [json_name = "zigbee_node_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TMatterLocalityCapabilityParameters MatterLocalityCapabilityParameters = 66 [json_name = "matter_locality_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TZenohLocalityCapabilityParameters ZenohLocalityCapabilityParameters = 68 [json_name = "zenoh_locality_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TRadioDiscoveryCapabilityParameters RadioDiscoveryCapabilityParameters = 70 [json_name = "radio_discovery_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TErrorListCapabilityParameters ErrorListCapabilityParameters = 72 [json_name = "error_list_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TExternalTemperatureMeasurementCapabilityParameters ExternalTemperatureMeasurementCapabilityParameters = 74 [json_name = "external_temperature_measurement_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityParameters MotionSettingCapabilityParameters = 76 [json_name = "motion_setting_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityParameters SoundAlarmCapabilityParameters = 78 [json_name = "sound_alarm_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TDoNotDisturbCapabilityParameters DoNotDisturbCapabilityParameters = 80 [json_name = "do_not_disturb_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TImpulseMeterCapabilityParameters ImpulseMeterCapabilityParameters = 82 [json_name = "impulse_meter_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TDoorLockDiscoveryCapabilityParameters DoorLockDiscoveryCapabilityParameters = 84 [json_name = "door_lock_discovery_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenBrightnessCapabilityParameters ScreenBrightnessCapabilityParameters = 86 [json_name = "screen_brightness_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TBlinkCapabilityParameters BlinkCapabilityParameters = 88 [json_name = "blink_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TManualLeakControlCapabilityParameters ManualLeakControlCapabilityParameters = 90 [json_name = "manual_leak_control_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPtzMemoryCapabilityParameters PtzMemoryCapabilityParameters = 92 [json_name = "ptz_memory_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TWireLineCapabilityParameters WireLineCapabilityParameters = 94 [json_name = "wire_line_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityParameters WireLinesHubCapabilityParameters = 96 [json_name = "wire_lines_hub_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TParameters CompanionScreenUISkinCapabilityParameters = 98 [json_name = "companion_screen_uiskin_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPtzCalibrationCapabilityParameters PtzCalibrationCapabilityParameters = 100 [json_name = "ptz_calibration_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeCoordinatorCapabilityParameters ZigbeeCoordinatorCapabilityParameters = 102 [json_name = "zigbee_coordinator_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TDigitalMeterHubCapabilityParameters DigitalMeterHubCapabilityParameters = 104 [json_name = "digital_meter_hub_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVoiceActivityDetectorCapabilityParameters VoiceActivityDetectorCapabilityParameters = 106 [json_name = "voice_activity_detector_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TIntonationSpotterCapabilityParameters IntonationSpotterCapabilityParameters = 108 [json_name = "intonation_spotter_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAlarmCapabilityParameters AlarmCapabilityParameters = 110 [json_name = "alarm_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunriseCapabilityParameters ScreenSunriseCapabilityParameters = 112 [json_name = "screen_sunrise_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityParameters SpeakerDoNotDisturbCapabilityParameters = 114 [json_name = "speaker_do_not_disturb_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLocalizationCapabilityParameters LocalizationCapabilityParameters = 116 [json_name = "localization_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVoiceEnrollmentCapabilityParameters VoiceEnrollmentCapabilityParameters = 118 [json_name = "voice_enrollment_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TStereoPairCapabilityParameters StereoPairCapabilityParameters = 120 [json_name = "stereo_pair_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityParameters PhoneCallsCapabilityParameters = 122 [json_name = "phone_calls_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TBluetoothCapabilityParameters BluetoothCapabilityParameters = 124 [json_name = "bluetooth_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityParameters EqualizerCapabilityParameters = 126 [json_name = "equalizer_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAudioPlayerCapabilityParameters AudioPlayerCapabilityParameters = 128 [json_name = "audio_player_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TStandbyCapabilityParameters StandbyCapabilityParameters = 130 [json_name = "standby_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TSetupCapabilityParameters SetupCapabilityParameters = 132 [json_name = "setup_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TWifiCapabilityParameters WifiCapabilityParameters = 134 [json_name = "wifi_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TCradleCapabilityParameters CradleCapabilityParameters = 136 [json_name = "cradle_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TPositionCapabilityParameters PositionCapabilityParameters = 138 [json_name = "position_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVisualSpotterCapabilityParameters VisualSpotterCapabilityParameters = 140 [json_name = "visual_spotter_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TGestureRecognitionCapabilityParameters GestureRecognitionCapabilityParameters = 142 [json_name = "gesture_recognition_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLedCapabilityParameters LedCapabilityParameters = 144 [json_name = "led_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TUltrasoundDetectorCapabilityParameters UltrasoundDetectorCapabilityParameters = 146 [json_name = "ultrasound_detector_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TBuiltInButtonsCapabilityParameters BuiltInButtonsCapabilityParameters = 148 [json_name = "built_in_buttons_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingCapabilityParameters CookingCapabilityParameters = 150 [json_name = "cooking_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TNameViewCapabilityParameters NameViewCapabilityParameters = 152 [json_name = "name_view_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TManualCalibrationCapabilityParameters ManualCalibrationCapabilityParameters = 154 [json_name = "manual_calibration_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityParameters WidgetStackCapabilityParameters = 156 [json_name = "widget_stack_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TKidsProCapabilityParameters KidsProCapabilityParameters = 158 [json_name = "kids_pro_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TAssistantResponseStyleCapabilityParameters AssistantResponseStyleCapabilityParameters = 160 [json_name = "assistant_response_style_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TCustomSpotterCapabilityParameters CustomSpotterCapabilityParameters = 162 [json_name = "custom_spotter_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TFlashlightCapabilityParameters FlashlightCapabilityParameters = 164 [json_name = "flashlight_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenOnOffCapabilityParameters ScreenOnOffCapabilityParameters = 166 [json_name = "screen_on_off_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundRoutingCapabilityParameters SoundRoutingCapabilityParameters = 168 [json_name = "sound_routing_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TVirtualSurroundCapabilityParameters VirtualSurroundCapabilityParameters = 170 [json_name = "virtual_surround_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TNoiseDetectorCapabilityParameters NoiseDetectorCapabilityParameters = 172 [json_name = "noise_detector_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TDoorLockDoNotDisturbCapabilityParameters DoorLockDoNotDisturbCapabilityParameters = 174 [json_name = "door_lock_do_not_disturb_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunsetCapabilityParameters ScreenSunsetCapabilityParameters = 176 [json_name = "screen_sunset_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLedAnimationCapabilityParameters LedAnimationCapabilityParameters = 178 [json_name = "led_animation_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLedIdleAnimationCapabilityParameters LedIdleAnimationCapabilityParameters = 180 [json_name = "led_idle_animation_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityParameters LedTimeVisualizationCapabilityParameters = 182 [json_name = "led_time_visualization_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.THdmiAudioCapabilityParameters HdmiAudioCapabilityParameters = 184 [json_name = "hdmi_audio_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TSluCapabilityParameters SluCapabilityParameters = 186 [json_name = "slu_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TIntonationInterruptionCapabilityParameters IntonationInterruptionCapabilityParameters = 188 [json_name = "intonation_interruption_capability_parameters"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSaverCapabilityParameters ScreenSaverCapabilityParameters = 190 [json_name = "screen_saver_capability_parameters"];
+    }
+    oneof State {
+      .NAlice.TIoTUserInfo.TCapability.TOnOffCapabilityState OnOffCapabilityState = 12 [json_name = "on_off_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState ColorSettingCapabilityState = 13 [json_name = "color_setting_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TModeCapabilityState ModeCapabilityState = 14 [json_name = "mode_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityState RangeCapabilityState = 15 [json_name = "range_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TToggleCapabilityState ToggleCapabilityState = 16 [json_name = "toggle_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TCustomButtonCapabilityState CustomButtonCapabilityState = 17 [json_name = "custom_button_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TQuasarServerActionCapabilityState QuasarServerActionCapabilityState = 18 [json_name = "quasar_server_action_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState QuasarCapabilityState = 22 [json_name = "quasar_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityState VideoStreamCapabilityState = 24 [json_name = "video_stream_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TBuzzerCapabilityState BuzzerCapabilityState = 26 [json_name = "buzzer_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TIdentifyCapabilityState IdentifyCapabilityState = 28 [json_name = "identify_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TIrCapabilityState IrCapabilityState = 31 [json_name = "ir_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVoIPCapabilityState VoIPCapabilityState = 33 [json_name = "vo_ipcapability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPlanarViewCapabilityState PlanarViewCapabilityState = 35 [json_name = "planar_view_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityState PresenceZoneCapabilityState = 37 [json_name = "presence_zone_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAutoCalibrationCapabilityState AutoCalibrationCapabilityState = 39 [json_name = "auto_calibration_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLockCapabilityState LockCapabilityState = 41 [json_name = "lock_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TIrRemoteCapabilityState IrRemoteCapabilityState = 43 [json_name = "ir_remote_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TDisplayOrientationCapabilityState DisplayOrientationCapabilityState = 45 [json_name = "display_orientation_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLedMaskCapabilityState LedMaskCapabilityState = 47 [json_name = "led_mask_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TOpenWindowDetectionCapabilityState OpenWindowDetectionCapabilityState = 49 [json_name = "open_window_detection_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TEventHistoryCapabilityState EventHistoryCapabilityState = 51 [json_name = "event_history_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAntifreezeCapabilityState AntifreezeCapabilityState = 53 [json_name = "antifreeze_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAntiscaleCapabilityState AntiscaleCapabilityState = 55 [json_name = "antiscale_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState ColorAnimationCapabilityState = 57 [json_name = "color_animation_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLocalSmartScenariosCapabilityState LocalSmartScenariosCapabilityState = 59 [json_name = "local_smart_scenarios_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TBordersCapabilityState BordersCapabilityState = 61 [json_name = "borders_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TOTACapabilityState OTACapabilityState = 63 [json_name = "otacapability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityState ZigbeeNodeCapabilityState = 65 [json_name = "zigbee_node_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TMatterLocalityCapabilityState MatterLocalityCapabilityState = 67 [json_name = "matter_locality_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TZenohLocalityCapabilityState ZenohLocalityCapabilityState = 69 [json_name = "zenoh_locality_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TRadioDiscoveryCapabilityState RadioDiscoveryCapabilityState = 71 [json_name = "radio_discovery_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TErrorListCapabilityState ErrorListCapabilityState = 73 [json_name = "error_list_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TExternalTemperatureMeasurementCapabilityState ExternalTemperatureMeasurementCapabilityState = 75 [json_name = "external_temperature_measurement_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityState MotionSettingCapabilityState = 77 [json_name = "motion_setting_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityState SoundAlarmCapabilityState = 79 [json_name = "sound_alarm_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TDoNotDisturbCapabilityState DoNotDisturbCapabilityState = 81 [json_name = "do_not_disturb_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TImpulseMeterCapabilityState ImpulseMeterCapabilityState = 83 [json_name = "impulse_meter_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TDoorLockDiscoveryCapabilityState DoorLockDiscoveryCapabilityState = 85 [json_name = "door_lock_discovery_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenBrightnessCapabilityState ScreenBrightnessCapabilityState = 87 [json_name = "screen_brightness_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TBlinkCapabilityState BlinkCapabilityState = 89 [json_name = "blink_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TManualLeakControlCapabilityState ManualLeakControlCapabilityState = 91 [json_name = "manual_leak_control_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPtzMemoryCapabilityState PtzMemoryCapabilityState = 93 [json_name = "ptz_memory_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TWireLineCapabilityState WireLineCapabilityState = 95 [json_name = "wire_line_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityState WireLinesHubCapabilityState = 97 [json_name = "wire_lines_hub_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TState CompanionScreenUISkinCapabilityState = 99 [json_name = "companion_screen_uiskin_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPtzCalibrationCapabilityState PtzCalibrationCapabilityState = 101 [json_name = "ptz_calibration_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TZigbeeCoordinatorCapabilityState ZigbeeCoordinatorCapabilityState = 103 [json_name = "zigbee_coordinator_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TDigitalMeterHubCapabilityState DigitalMeterHubCapabilityState = 105 [json_name = "digital_meter_hub_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVoiceActivityDetectorCapabilityState VoiceActivityDetectorCapabilityState = 107 [json_name = "voice_activity_detector_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TIntonationSpotterCapabilityState IntonationSpotterCapabilityState = 109 [json_name = "intonation_spotter_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAlarmCapabilityState AlarmCapabilityState = 111 [json_name = "alarm_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunriseCapabilityState ScreenSunriseCapabilityState = 113 [json_name = "screen_sunrise_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityState SpeakerDoNotDisturbCapabilityState = 115 [json_name = "speaker_do_not_disturb_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLocalizationCapabilityState LocalizationCapabilityState = 117 [json_name = "localization_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVoiceEnrollmentCapabilityState VoiceEnrollmentCapabilityState = 119 [json_name = "voice_enrollment_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TStereoPairCapabilityState StereoPairCapabilityState = 121 [json_name = "stereo_pair_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityState PhoneCallsCapabilityState = 123 [json_name = "phone_calls_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TBluetoothCapabilityState BluetoothCapabilityState = 125 [json_name = "bluetooth_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityState EqualizerCapabilityState = 127 [json_name = "equalizer_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAudioPlayerCapabilityState AudioPlayerCapabilityState = 129 [json_name = "audio_player_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TStandbyCapabilityState StandbyCapabilityState = 131 [json_name = "standby_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TSetupCapabilityState SetupCapabilityState = 133 [json_name = "setup_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TWifiCapabilityState WifiCapabilityState = 135 [json_name = "wifi_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TCradleCapabilityState CradleCapabilityState = 137 [json_name = "cradle_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TPositionCapabilityState PositionCapabilityState = 139 [json_name = "position_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVisualSpotterCapabilityState VisualSpotterCapabilityState = 141 [json_name = "visual_spotter_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TGestureRecognitionCapabilityState GestureRecognitionCapabilityState = 143 [json_name = "gesture_recognition_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState LedCapabilityState = 145 [json_name = "led_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TUltrasoundDetectorCapabilityState UltrasoundDetectorCapabilityState = 147 [json_name = "ultrasound_detector_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TBuiltInButtonsCapabilityState BuiltInButtonsCapabilityState = 149 [json_name = "built_in_buttons_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TCookingCapabilityState CookingCapabilityState = 151 [json_name = "cooking_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TNameViewCapabilityState NameViewCapabilityState = 153 [json_name = "name_view_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TManualCalibrationCapabilityState ManualCalibrationCapabilityState = 155 [json_name = "manual_calibration_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState WidgetStackCapabilityState = 157 [json_name = "widget_stack_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TKidsProCapabilityState KidsProCapabilityState = 159 [json_name = "kids_pro_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TAssistantResponseStyleCapabilityState AssistantResponseStyleCapabilityState = 161 [json_name = "assistant_response_style_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TCustomSpotterCapabilityState CustomSpotterCapabilityState = 163 [json_name = "custom_spotter_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TFlashlightCapabilityState FlashlightCapabilityState = 165 [json_name = "flashlight_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenOnOffCapabilityState ScreenOnOffCapabilityState = 167 [json_name = "screen_on_off_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TSoundRoutingCapabilityState SoundRoutingCapabilityState = 169 [json_name = "sound_routing_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TVirtualSurroundCapabilityState VirtualSurroundCapabilityState = 171 [json_name = "virtual_surround_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TNoiseDetectorCapabilityState NoiseDetectorCapabilityState = 173 [json_name = "noise_detector_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TDoorLockDoNotDisturbCapabilityState DoorLockDoNotDisturbCapabilityState = 175 [json_name = "door_lock_do_not_disturb_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSunsetCapabilityState ScreenSunsetCapabilityState = 177 [json_name = "screen_sunset_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLedAnimationCapabilityState LedAnimationCapabilityState = 179 [json_name = "led_animation_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLedIdleAnimationCapabilityState LedIdleAnimationCapabilityState = 181 [json_name = "led_idle_animation_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityState LedTimeVisualizationCapabilityState = 183 [json_name = "led_time_visualization_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.THdmiAudioCapabilityState HdmiAudioCapabilityState = 185 [json_name = "hdmi_audio_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TSluCapabilityState SluCapabilityState = 187 [json_name = "slu_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TIntonationInterruptionCapabilityState IntonationInterruptionCapabilityState = 189 [json_name = "intonation_interruption_capability_state"];
+      .NAlice.TIoTUserInfo.TCapability.TScreenSaverCapabilityState ScreenSaverCapabilityState = 191 [json_name = "screen_saver_capability_state"];
+    }
+  }
+
+  message TScenarioDirective {
+    message TSmoothDirectiveParameters {
+      message TCapability {
+        .NAlice.TIoTUserInfo.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+        string Instance = 2 [json_name = "instance"];
+        float InitialValue = 3 [json_name = "initial_value"];
+        float FinalValue = 4 [json_name = "final_value"];
+      }
+
+      uint64 DurationSec = 1 [json_name = "duration_sec"];
+      repeated .NAlice.TIoTUserInfo.TScenarioDirective.TSmoothDirectiveParameters.TCapability Capabilities = 2 [json_name = "capabilities"];
+    }
+
+    message TCircadianDirectiveParameters {
+      message TCapability {
+        .NAlice.TIoTUserInfo.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+        string Instance = 2 [json_name = "instance"];
+        float MinValue = 3 [json_name = "min_value"];
+        float MaxValue = 4 [json_name = "max_value"];
+        string ActionInstance = 5 [json_name = "action_instance"];
+        float StateValue = 6 [json_name = "state_value"];
+      }
+
+      repeated .NAlice.TIoTUserInfo.TScenarioDirective.TCircadianDirectiveParameters.TCapability Capabilities = 2 [json_name = "capabilities"];
+    }
+
+    message TRichPushDirectiveParameters {
+    }
+
+    message TStartVideoRecordingDirectiveParameters {
+      uint64 DurationSec = 1 [json_name = "duration_sec"];
+    }
+
+    enum EScenarioDirectiveType {
+      UnknownScenarioDirectiveType = 0;
+      SmoothScenarioDirectiveType = 1;
+      CircadianScenarioDirectiveType = 2;
+      RichPushScenarioDirectiveType = 3;
+      StartVideoRecordingScenarioDirectiveType = 4;
+    }
+
+    .NAlice.TIoTUserInfo.TScenarioDirective.EScenarioDirectiveType Type = 1 [json_name = "type"];
+    oneof Parameters {
+      .NAlice.TIoTUserInfo.TScenarioDirective.TSmoothDirectiveParameters SmoothScenarioDirectiveParameters = 2 [json_name = "smooth_scenario_directive_parameters"];
+      .NAlice.TIoTUserInfo.TScenarioDirective.TCircadianDirectiveParameters CircadianScenarioDirectiveParameters = 3 [json_name = "circadian_scenario_directive_parameters"];
+      .NAlice.TIoTUserInfo.TScenarioDirective.TRichPushDirectiveParameters RichPushScenarioDirectiveParameters = 4 [json_name = "rich_push_scenario_directive_parameters"];
+      .NAlice.TIoTUserInfo.TScenarioDirective.TStartVideoRecordingDirectiveParameters StartVideoRecordingScenarioDirectiveParameters = 5 [json_name = "start_video_recording_scenario_directive_parameters"];
+    }
+  }
+
+  message TProperty {
+    reserved 7;
+    message TFloatPropertyParameters {
+      message TRange {
+        double Min = 1 [json_name = "min"];
+        double Max = 2 [json_name = "max"];
+        double Precision = 3 [json_name = "precision"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      string Unit = 2 [json_name = "unit"];
+      .NAlice.TIoTUserInfo.TProperty.TFloatPropertyParameters.TRange Range = 3 [json_name = "range"];
+      bool SupportsCalibration = 4 [json_name = "supports_calibration"];
+    }
+
+    message TFloatPropertyState {
+      string Instance = 1 [json_name = "instance"];
+      double Value = 2 [json_name = "value"];
+      bool IsCalibrating = 3 [json_name = "is_calibrating"];
+    }
+
+    message TBoolPropertyParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TBoolPropertyState {
+      string Instance = 1 [json_name = "instance"];
+      bool Value = 2 [json_name = "value"];
+    }
+
+    message TEventPropertyParameters {
+      message TEvent {
+        string Name = 1 [json_name = "name"];
+        string Value = 2 [json_name = "value"];
+      }
+
+      string Instance = 1 [json_name = "instance"];
+      repeated .NAlice.TIoTUserInfo.TProperty.TEventPropertyParameters.TEvent Events = 2 [json_name = "events"];
+    }
+
+    message TEventPropertyState {
+      string Instance = 1 [json_name = "instance"];
+      string Value = 2 [json_name = "value"];
+    }
+
+    message TListPropertyParameters {
+      string Instance = 1 [json_name = "instance"];
+    }
+
+    message TListPropertyState {
+      string Instance = 1 [json_name = "instance"];
+      repeated string Values = 2 [json_name = "values"];
+    }
+
+    enum EPropertyType {
+      UnknownPropertyType = 0;
+      FloatPropertyType = 1;
+      BoolPropertyType = 2;
+      EventPropertyType = 3;
+      ListPropertyType = 4;
+    }
+
+    .NAlice.TIoTUserInfo.TProperty.EPropertyType Type = 1 [json_name = "type"];
+    bool Retrievable = 2 [json_name = "retrievable"];
+    bool Reportable = 3 [json_name = "reportable"];
+    double StateChangedAt = 15 [json_name = "state_changed_at"];
+    double LastUpdated = 4 [json_name = "last_updated"];
+    double LastActivated = 12 [json_name = "last_activated"];
+    string AnalyticsType = 10 [json_name = "analytics_type"];
+    string AnalyticsName = 11 [json_name = "analytics_name"];
+    oneof Parameters {
+      .NAlice.TIoTUserInfo.TProperty.TFloatPropertyParameters FloatPropertyParameters = 5 [json_name = "float_property_parameters"];
+      .NAlice.TIoTUserInfo.TProperty.TBoolPropertyParameters BoolPropertyParameters = 6 [json_name = "bool_property_parameters"];
+      .NAlice.TIoTUserInfo.TProperty.TEventPropertyParameters EventPropertyParameters = 13 [json_name = "event_property_parameters"];
+      .NAlice.TIoTUserInfo.TProperty.TListPropertyParameters ListPropertyParameters = 16 [json_name = "list_property_parameters"];
+    }
+    oneof State {
+      .NAlice.TIoTUserInfo.TProperty.TBoolPropertyState BoolPropertyState = 8 [json_name = "bool_property_state"];
+      .NAlice.TIoTUserInfo.TProperty.TFloatPropertyState FloatPropertyState = 9 [json_name = "float_property_state"];
+      .NAlice.TIoTUserInfo.TProperty.TEventPropertyState EventPropertyState = 14 [json_name = "event_property_state"];
+      .NAlice.TIoTUserInfo.TProperty.TListPropertyState ListPropertyState = 17 [json_name = "list_property_state"];
+    }
+  }
+
+  message TDevice {
+    reserved "ForceServerInteraction";
+    reserved 5;
+    reserved 34;
+    message TDeviceInfo {
+      string Manufacturer = 1 [json_name = "manufacturer"];
+      string Model = 2 [json_name = "model"];
+      string HwVersion = 3 [json_name = "hw_version"];
+      string SwVersion = 4 [json_name = "sw_version"];
+      uint32 ProductID = 5 [json_name = "product_id"];
+      uint32 VendorID = 6 [json_name = "vendor_id"];
+      string SerialNumber = 7 [json_name = "serial_number"];
+    }
+
+    message TQuasarInfo {
+      enum EQuasarDeviceColor {
+        UndefinedColor = 0;
+        Grey = 1;
+        White = 2;
+        Red = 3;
+        Pink = 4;
+        Blue = 5;
+        Beige = 6;
+        Yellow = 7;
+        Copper = 8;
+        Green = 9;
+        Cyan = 10;
+        Violet = 11;
+        Black = 12;
+        Tiffany = 13;
+        Purple = 14;
+      }
+
+      string DeviceId = 1 [json_name = "device_id"];
+      string Platform = 2 [json_name = "platform"];
+      .NAlice.TIoTUserInfo.TDevice.TQuasarInfo.EQuasarDeviceColor Color = 3 [json_name = "color"];
+      optional .NAlice.NData.EColor QuasarColor = 4 [json_name = "quasar_color"];
+    }
+
+    message TDeviceConfig {
+      message TTandemDeviceConfig {
+        message TTandemDeviceConfigPartner {
+          string Id = 1 [json_name = "id"];
+        }
+
+        .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TTandemDeviceConfig.TTandemDeviceConfigPartner Partner = 1 [json_name = "partner"];
+      }
+
+      message TSpeakerYandexIOConfig {
+        message TIrRemotes {
+          map<string, .NAlice.NIr.TRemote> Remotes = 1 [json_name = "remotes"];
+        }
+
+        .NAlice.TIotDiscoveryCapability.TNetworks Networks = 1 [json_name = "networks"];
+        .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TSpeakerYandexIOConfig.TIrRemotes IrRemotes = 2 [json_name = "ir_remotes"];
+      }
+
+      message TDeviceRoleConfig {
+        string Role = 1 [json_name = "role"];
+      }
+
+      message TMultideviceConfig {
+        string MultideviceID = 1 [json_name = "multidevice_id"];
+        bool Disabled = 2 [json_name = "disabled_by_multidevice"];
+      }
+
+      message TCloudLocalityConfig {
+        message TZenohLocalityParameters {
+          string Psk = 1 [json_name = "psk"];
+          string PskID = 2 [json_name = "psk_id"];
+        }
+
+        message TMatterLocalityParameters {
+        }
+
+        string ParentEndpointID = 1 [json_name = "parent_endpoint_id"];
+        string BindingEndpointID = 2 [json_name = "binding_endpoint_id"];
+        string EndpointProtocol = 3 [json_name = "endpoint_protocol"];
+        oneof Parameters {
+          .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TCloudLocalityConfig.TZenohLocalityParameters ZenohLocalityParameters = 4 [json_name = "zenoh_locality_parameters"];
+          .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TCloudLocalityConfig.TMatterLocalityParameters MatterLocalityParameters = 5 [json_name = "matter_locality_parameters"];
+        }
+      }
+
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TTandemDeviceConfig Tandem = 1 [json_name = "tandem"];
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TSpeakerYandexIOConfig SpeakerYandexIOConfig = 2 [json_name = "speaker_yandex_io"];
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TDeviceRoleConfig RoleConfig = 3 [json_name = "role_config"];
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TMultideviceConfig MultideviceConfig = 4 [json_name = "multidevice_config"];
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig.TCloudLocalityConfig CloudLocalityConfig = 5 [json_name = "cloud_locality_config"];
+    }
+
+    message TTag {
+      string Value = 1 [json_name = "value"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated string Aliases = 3 [json_name = "aliases"];
+    .NAlice.EUserDeviceType Type = 4 [json_name = "type"];
+    .NAlice.EUserDeviceType OriginalType = 19 [json_name = "original_type"];
+    string ExternalId = 6 [json_name = "external_id"];
+    string ExternalName = 7 [json_name = "external_name"];
+    string SkillId = 8 [json_name = "skill_id"];
+    string RoomId = 9 [json_name = "room_id"];
+    repeated string GroupIds = 10 [json_name = "group_ids"];
+    repeated .NAlice.TIoTUserInfo.TCapability Capabilities = 11 [json_name = "capabilities"];
+    repeated .NAlice.TIoTUserInfo.TProperty Properties = 12 [json_name = "properties"];
+    .NAlice.TIoTUserInfo.TDevice.TDeviceInfo DeviceInfo = 13 [json_name = "device_info"];
+    .NAlice.TIoTUserInfo.TDevice.TQuasarInfo QuasarInfo = 14 [json_name = "quasar_info"];
+    bytes CustomData = 15 [json_name = "custom_data"];
+    double Updated = 16 [json_name = "updated"];
+    double Created = 17 [json_name = "created"];
+    string HouseholdId = 18 [json_name = "household_id"];
+    .NAlice.EDeviceState Status = 20 [json_name = "status"];
+    double StatusUpdated = 21 [json_name = "status_updated"];
+    string AnalyticsType = 22 [json_name = "analytics_type"];
+    string AnalyticsName = 23 [json_name = "analytics_name"];
+    string IconURL = 24 [json_name = "icon_url"];
+    bool Favorite = 25 [json_name = "favorite"];
+    .NAlice.TIoTUserInfo.TDevice.TDeviceConfig InternalConfig = 26 [json_name = "internal_config"];
+    .NAlice.TUserSharingInfo SharingInfo = 27 [json_name = "sharing_info"];
+    repeated string CustomGroupsIds = 28 [json_name = "custom_groups_ids"];
+    .NAlice.TDeviceStatusInfo StatusInfo = 29 [json_name = "status_info"];
+    .NAlice.TEndpoint Endpoint = 30 [json_name = "endpoint"];
+    repeated .NAlice.TIoTUserInfo.TDevice.TTag Tags = 31 [json_name = "tags"];
+    repeated string Permissions = 32 [json_name = "permissions"];
+    .NAlice.TDeviceRenderInfo RenderInfo = 33 [json_name = "render_info"];
+  }
+
+  message TAggregate {
+    reserved "MainDeviceID";
+    reserved "SubdeviceIDs";
+    reserved 1;
+    reserved 3;
+    message TAggregateMeta {
+    }
+
+    message TAggregateInternalConfig {
+    }
+
+    enum EAggregateType {
+      UnknownAggregateType = 0;
+      CompositeAggregateType = 1;
+      HubAggregateType = 2;
+      TandemAggregateType = 3;
+    }
+
+    string SkillID = 5 [json_name = "skill_id"];
+    string MainDeviceExternalID = 6 [json_name = "main_device_external_id"];
+    .NAlice.TIoTUserInfo.TAggregate.EAggregateType Type = 2 [json_name = "type"];
+    repeated string SubdeviceExternalIDs = 7 [json_name = "subdevice_external_ids"];
+    .NAlice.TIoTUserInfo.TAggregate.TAggregateMeta Meta = 4 [json_name = "meta"];
+    .NAlice.TIoTUserInfo.TAggregate.TAggregateInternalConfig InternalConfig = 8 [json_name = "internal_config"];
+    double CreatedAt = 9 [json_name = "created_at"];
+    double UpdatedAt = 10 [json_name = "updated_at"];
+  }
+
+  message THousehold {
+    message TTimezone {
+      int64 OffsetSeconds = 1 [json_name = "offset_seconds"];
+      string TimezoneName = 2 [json_name = "timezone_name"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string Type = 8 [json_name = "type"];
+    double Longitude = 3 [json_name = "longitude"];
+    double Latitude = 4 [json_name = "latitude"];
+    string Address = 5 [json_name = "address"];
+    .NAlice.TUserSharingInfo SharingInfo = 6 [json_name = "sharing_info"];
+    .NAlice.TIoTUserInfo.THousehold.TTimezone CustomTimezone = 7 [json_name = "custom_timezone"];
+    repeated string Aliases = 9 [json_name = "aliases"];
+    string ComplexID = 10 [json_name = "complex_id"];
+  }
+
+  message THouseholdGuestIDs {
+    repeated uint64 GuestIDs = 1 [json_name = "guest_ids"];
+  }
+
+  message TColor {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState.THSV HSV = 3 [json_name = "hsv"];
+    optional uint32 TemperatureK = 4 [json_name = "temperature_k"];
+    optional string GroupId = 5 [json_name = "group_id"];
+  }
+
+  message TSmartScenario {
+    message TTargetSettings {
+      double Value = 1 [json_name = "value"];
+      double UpdatedAtTs = 2 [json_name = "updated_at_ts"];
+    }
+
+    message TPredictSettings {
+      double LastValue = 1 [json_name = "last_value"];
+      double LastTs = 2 [json_name = "last_ts"];
+      uint64 CountOfErrors = 3 [json_name = "count_of_errors"];
+      double TrendEmaHeating = 4 [json_name = "trend_ema_heating"];
+      double TrendEmaCooling = 5 [json_name = "trend_ema_cooling"];
+      bool TrendEmaHeatingInitialized = 6 [json_name = "trend_ema_heating_initialized"];
+      bool TrendEmaCoolingInitialized = 7 [json_name = "trend_ema_cooling_initialized"];
+    }
+
+    message TControlSettings {
+      message TControlDevice {
+        string DeviceId = 1 [json_name = "device_id"];
+        uint64 ActionErrorsCount = 2 [json_name = "action_errors_count"];
+      }
+
+      message TTransitionProcess {
+        int64 StartedAt = 1 [json_name = "started_at"];
+        int64 EnterCompleteWindowAt = 2 [json_name = "enter_complete_window_at"];
+      }
+
+      message TNotifications {
+        int64 StaleSensorReadingsSentAt = 1 [json_name = "stale_sensor_readings_sent_at"];
+        int64 ValueErrorTooLargeSentAt = 2 [json_name = "value_error_too_large_sent_at"];
+      }
+
+      string TimeDependentTaskId = 1 [json_name = "time_dependent_task_id"];
+      repeated .NAlice.TIoTUserInfo.TSmartScenario.TControlSettings.TControlDevice ControlDevices = 2 [json_name = "control_devices"];
+      uint64 GeoId = 3 [json_name = "geo_id"];
+      .NAlice.TIoTUserInfo.TSmartScenario.TControlSettings.TTransitionProcess TransitionProcess = 4 [json_name = "transition_process"];
+      .NAlice.TIoTUserInfo.TSmartScenario.TControlSettings.TNotifications Notifications = 5 [json_name = "notifications"];
+      optional string HostDeviceID = 6 [json_name = "host_device_id"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    bool Active = 2 [json_name = "active"];
+    string Name = 3 [json_name = "name"];
+    string IconId = 4 [json_name = "icon_id"];
+    string Type = 5 [json_name = "type"];
+    string OutdoorSensorId = 6 [json_name = "outdoor_sensor_id"];
+    string IndoorSensorId = 7 [json_name = "indoor_sensor_id"];
+    .NAlice.TIoTUserInfo.TSmartScenario.TTargetSettings TargetSettings = 8 [json_name = "target_settings"];
+    .NAlice.TIoTUserInfo.TSmartScenario.TPredictSettings PredictSettings = 9 [json_name = "predict_settings"];
+    .NAlice.TIoTUserInfo.TSmartScenario.TControlSettings ControlSettings = 10 [json_name = "control_settings"];
+    double CreatedAt = 11 [json_name = "created_at"];
+    double UpdatedAt = 12 [json_name = "updated_at"];
+    repeated string Permissions = 13 [json_name = "permissions"];
+    .NAlice.TUserSharingInfo SharingInfo = 14 [json_name = "sharing_info"];
+    bool Favorite = 15 [json_name = "favorite"];
+  }
+
+  message TResidentialComplex {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string Timezone = 3 [json_name = "timezone"];
+    string ProviderID = 4 [json_name = "provider_id"];
+    string ExternalID = 5 [json_name = "external_id"];
+  }
+
+  message TScenario {
+    message TCapability {
+      .NAlice.TIoTUserInfo.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+      oneof State {
+        .NAlice.TIoTUserInfo.TCapability.TOnOffCapabilityState OnOffCapabilityState = 2 [json_name = "on_off_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState ColorSettingCapabilityState = 3 [json_name = "color_setting_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TModeCapabilityState ModeCapabilityState = 4 [json_name = "mode_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityState RangeCapabilityState = 5 [json_name = "range_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TToggleCapabilityState ToggleCapabilityState = 6 [json_name = "toggle_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TCustomButtonCapabilityState CustomButtonCapabilityState = 7 [json_name = "custom_button_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarServerActionCapabilityState QuasarServerActionCapabilityState = 8 [json_name = "quasar_server_action_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState QuasarCapabilityState = 9 [json_name = "quasar_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityState VideoStreamCapabilityState = 10 [json_name = "video_stream_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TBuzzerCapabilityState BuzzerCapabilityState = 11 [json_name = "buzzer_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TIdentifyCapabilityState IdentifyCapabilityState = 12 [json_name = "identify_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TIrCapabilityState IrCapabilityState = 13 [json_name = "ir_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVoIPCapabilityState VoIPCapabilityState = 14 [json_name = "vo_ipcapability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPlanarViewCapabilityState PlanarViewCapabilityState = 15 [json_name = "planar_view_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityState PresenceZoneCapabilityState = 16 [json_name = "presence_zone_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAutoCalibrationCapabilityState AutoCalibrationCapabilityState = 17 [json_name = "auto_calibration_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLockCapabilityState LockCapabilityState = 18 [json_name = "lock_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TIrRemoteCapabilityState IrRemoteCapabilityState = 19 [json_name = "ir_remote_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TDisplayOrientationCapabilityState DisplayOrientationCapabilityState = 20 [json_name = "display_orientation_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLedMaskCapabilityState LedMaskCapabilityState = 21 [json_name = "led_mask_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TOpenWindowDetectionCapabilityState OpenWindowDetectionCapabilityState = 22 [json_name = "open_window_detection_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TEventHistoryCapabilityState EventHistoryCapabilityState = 23 [json_name = "event_history_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAntifreezeCapabilityState AntifreezeCapabilityState = 24 [json_name = "antifreeze_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAntiscaleCapabilityState AntiscaleCapabilityState = 25 [json_name = "antiscale_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLocalSmartScenariosCapabilityState LocalSmartScenariosCapabilityState = 26 [json_name = "local_smart_scenarios_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState ColorAnimationCapabilityState = 27 [json_name = "color_animation_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TBordersCapabilityState BordersCapabilityState = 28 [json_name = "borders_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TOTACapabilityState OTACapabilityState = 29 [json_name = "otacapability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityState ZigbeeNodeCapabilityState = 30 [json_name = "zigbee_node_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TMatterLocalityCapabilityState MatterLocalityCapabilityState = 31 [json_name = "matter_locality_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TZenohLocalityCapabilityState ZenohLocalityCapabilityState = 32 [json_name = "zenoh_locality_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TRadioDiscoveryCapabilityState RadioDiscoveryCapabilityState = 33 [json_name = "radio_discovery_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TErrorListCapabilityState ErrorListCapabilityState = 34 [json_name = "error_list_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TExternalTemperatureMeasurementCapabilityState ExternalTemperatureMeasurementCapabilityState = 35 [json_name = "external_temperature_measurement_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityState MotionSettingCapabilityState = 36 [json_name = "motion_setting_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityState SoundAlarmCapabilityState = 37 [json_name = "sound_alarm_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TDoNotDisturbCapabilityState DoNotDisturbCapabilityState = 38 [json_name = "do_not_disturb_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TImpulseMeterCapabilityState ImpulseMeterCapabilityState = 39 [json_name = "impulse_meter_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TDoorLockDiscoveryCapabilityState DoorLockDiscoveryCapabilityState = 40 [json_name = "door_lock_discovery_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TScreenBrightnessCapabilityState ScreenBrightnessCapabilityState = 41 [json_name = "screen_brightness_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TBlinkCapabilityState BlinkCapabilityState = 42 [json_name = "blink_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TManualLeakControlCapabilityState ManualLeakControlCapabilityState = 43 [json_name = "manual_leak_control_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPtzMemoryCapabilityState PtzMemoryCapabilityState = 44 [json_name = "ptz_memory_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TWireLineCapabilityState WireLineCapabilityState = 45 [json_name = "wire_line_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityState WireLinesHubCapabilityState = 46 [json_name = "wire_lines_hub_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TState CompanionScreenUISkinCapabilityState = 47 [json_name = "companion_screen_uiskin_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPtzCalibrationCapabilityState PtzCalibrationCapabilityState = 48 [json_name = "ptz_calibration_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TZigbeeCoordinatorCapabilityState ZigbeeCoordinatorCapabilityState = 49 [json_name = "zigbee_coordinator_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TDigitalMeterHubCapabilityState DigitalMeterHubCapabilityState = 50 [json_name = "digital_meter_hub_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVoiceActivityDetectorCapabilityState VoiceActivityDetectorCapabilityState = 51 [json_name = "voice_activity_detector_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TIntonationSpotterCapabilityState IntonationSpotterCapabilityState = 52 [json_name = "intonation_spotter_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAlarmCapabilityState AlarmCapabilityState = 53 [json_name = "alarm_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TScreenSunriseCapabilityState ScreenSunriseCapabilityState = 54 [json_name = "screen_sunrise_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityState SpeakerDoNotDisturbCapabilityState = 55 [json_name = "speaker_do_not_disturb_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLocalizationCapabilityState LocalizationCapabilityState = 56 [json_name = "localization_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVoiceEnrollmentCapabilityState VoiceEnrollmentCapabilityState = 57 [json_name = "voice_enrollment_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TStereoPairCapabilityState StereoPairCapabilityState = 58 [json_name = "stereo_pair_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityState PhoneCallsCapabilityState = 59 [json_name = "phone_calls_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TBluetoothCapabilityState BluetoothCapabilityState = 60 [json_name = "bluetooth_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityState EqualizerCapabilityState = 61 [json_name = "equalizer_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAudioPlayerCapabilityState AudioPlayerCapabilityState = 62 [json_name = "audio_player_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TStandbyCapabilityState StandbyCapabilityState = 63 [json_name = "standby_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TSetupCapabilityState SetupCapabilityState = 64 [json_name = "setup_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TWifiCapabilityState WifiCapabilityState = 65 [json_name = "wifi_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TCradleCapabilityState CradleCapabilityState = 66 [json_name = "cradle_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TPositionCapabilityState PositionCapabilityState = 67 [json_name = "position_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVisualSpotterCapabilityState VisualSpotterCapabilityState = 68 [json_name = "visual_spotter_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TGestureRecognitionCapabilityState GestureRecognitionCapabilityState = 69 [json_name = "gesture_recognition_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState LedCapabilityState = 70 [json_name = "led_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TUltrasoundDetectorCapabilityState UltrasoundDetectorCapabilityState = 71 [json_name = "ultrasound_detector_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TBuiltInButtonsCapabilityState BuiltInButtonsCapabilityState = 72 [json_name = "built_in_buttons_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TCookingCapabilityState CookingCapabilityState = 73 [json_name = "cooking_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TNameViewCapabilityState NameViewCapabilityState = 74 [json_name = "name_view_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TManualCalibrationCapabilityState ManualCalibrationCapabilityState = 75 [json_name = "manual_calibration_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TKidsProCapabilityState KidsProCapabilityState = 76 [json_name = "kids_pro_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TAssistantResponseStyleCapabilityState AssistantResponseStyleCapabilityState = 77 [json_name = "assistant_response_style_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TCustomSpotterCapabilityState CustomSpotterCapabilityState = 78 [json_name = "custom_spotter_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TFlashlightCapabilityState FlashlightCapabilityState = 79 [json_name = "flashlight_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TScreenOnOffCapabilityState ScreenOnOffCapabilityState = 80 [json_name = "screen_on_off_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState WidgetStackCapabilityState = 81 [json_name = "widget_stack_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TSoundRoutingCapabilityState SoundRoutingCapabilityState = 82 [json_name = "sound_routing_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TVirtualSurroundCapabilityState VirtualSurroundCapabilityState = 83 [json_name = "virtual_surround_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TNoiseDetectorCapabilityState NoiseDetectorCapabilityState = 84 [json_name = "noise_detector_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TDoorLockDoNotDisturbCapabilityState DoorLockDoNotDisturbCapabilityState = 85 [json_name = "door_lock_do_not_disturb_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TScreenSunsetCapabilityState ScreenSunsetCapabilityState = 86 [json_name = "screen_sunset_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLedAnimationCapabilityState LedAnimationCapabilityState = 87 [json_name = "led_animation_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLedIdleAnimationCapabilityState LedIdleAnimationCapabilityState = 88 [json_name = "led_idle_animation_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityState LedTimeVisualizationCapabilityState = 89 [json_name = "led_time_visualization_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.THdmiAudioCapabilityState HdmiAudioCapabilityState = 90 [json_name = "hdmi_audio_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TSluCapabilityState SluCapabilityState = 91 [json_name = "slu_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TIntonationInterruptionCapabilityState IntonationInterruptionCapabilityState = 92 [json_name = "intonation_interruption_capability_state"];
+        .NAlice.TIoTUserInfo.TCapability.TScreenSaverCapabilityState ScreenSaverCapabilityState = 93 [json_name = "screen_saver_capability_state"];
+      }
+    }
+
+    message TDevice {
+      string Id = 1 [json_name = "id"];
+      repeated .NAlice.TIoTUserInfo.TScenario.TCapability Capabilities = 2 [json_name = "capabilities"];
+    }
+
+    message TLaunchDevice {
+      string Id = 1 [json_name = "id"];
+      string Name = 2 [json_name = "name"];
+      .NAlice.EUserDeviceType Type = 3 [json_name = "type"];
+      repeated .NAlice.TIoTUserInfo.TCapability Capabilities = 4 [json_name = "capabilities"];
+      bytes CustomData = 5 [json_name = "custom_data"];
+      string SkillID = 6 [json_name = "skill_id"];
+      repeated .NAlice.TIoTUserInfo.TScenarioDirective ScenarioDirectives = 7 [json_name = "scenario_directives"];
+      .NAlice.TIoTUserInfo.TDevice.TDeviceConfig InternalConfig = 8 [json_name = "internal_config"];
+    }
+
+    message TLaunchGroup {
+      string Id = 1 [json_name = "id"];
+      string Name = 2 [json_name = "name"];
+      .NAlice.EUserDeviceType Type = 3 [json_name = "type"];
+      repeated string DeviceIds = 4 [json_name = "device_ids"];
+      repeated .NAlice.TIoTUserInfo.TCapability Capabilities = 5 [json_name = "capabilities"];
+      repeated .NAlice.TIoTUserInfo.TScenarioDirective Directives = 6 [json_name = "directives"];
+    }
+
+    message TLaunchScenario {
+      message TScenarioActivateActionValue {
+        bool Enabled = 1 [json_name = "enabled"];
+      }
+
+      message TScenarioInvokeActionValue {
+      }
+
+      enum EScenarioAction {
+        UnknownScenarioAction = 0;
+        ActivateScenarioAction = 1;
+        InvokeScenarioAction = 2;
+      }
+
+      string Id = 1 [json_name = "id"];
+      string Name = 2 [json_name = "name"];
+      string Icon = 3 [json_name = "icon"];
+      .NAlice.TIoTUserInfo.TScenario.TLaunchScenario.EScenarioAction Action = 4 [json_name = "action"];
+      oneof Value {
+        .NAlice.TIoTUserInfo.TScenario.TLaunchScenario.TScenarioActivateActionValue ActivateValue = 5 [json_name = "activate_value"];
+        .NAlice.TIoTUserInfo.TScenario.TLaunchScenario.TScenarioInvokeActionValue InvokeValue = 6 [json_name = "invoke_value"];
+      }
+    }
+
+    message TSmartScenarioAction {
+      message TSmartScenarioSwitchActivationActionParameters {
+        bool Active = 1 [json_name = "active"];
+      }
+
+      enum ESmartScenarioAction {
+        UnknownAction = 0;
+        SwitchActivationAction = 1;
+      }
+
+      string Id = 1 [json_name = "id"];
+      string Type = 2 [json_name = "type"];
+      string Name = 3 [json_name = "name"];
+      string IconId = 4 [json_name = "icon_id"];
+      .NAlice.TIoTUserInfo.TScenario.TSmartScenarioAction.ESmartScenarioAction Action = 5 [json_name = "action"];
+      oneof Parameters {
+        .NAlice.TIoTUserInfo.TScenario.TSmartScenarioAction.TSmartScenarioSwitchActivationActionParameters SwitchActivationParameters = 6 [json_name = "switch_activation_parameters"];
+      }
+    }
+
+    message TLaunchAllLights {
+      string HouseholdId = 1 [json_name = "household_id"];
+      repeated .NAlice.TIoTUserInfo.TScenario.TCapability Capabilities = 2 [json_name = "capabilities"];
+    }
+
+    message TLaunchStopAllSpeakers {
+      string HouseholdId = 1 [json_name = "household_id"];
+      repeated .NAlice.TIoTUserInfo.TScenario.TCapability Capabilities = 2 [json_name = "capabilities"];
+    }
+
+    message TLaunchVariable {
+      message TSetActionValue {
+        bool Value = 1 [json_name = "value"];
+      }
+
+      enum EVariableAction {
+        UnknownVariableAction = 0;
+        IncrementVariableAction = 1;
+        SetVariableAction = 2;
+        InvertVariableAction = 3;
+      }
+
+      .NAlice.TIoTUserInfo.TScenario.TLaunchVariable.EVariableAction Action = 1 [json_name = "action"];
+      oneof Value {
+        .NAlice.TIoTUserInfo.TScenario.TLaunchVariable.TSetActionValue SetValue = 2 [json_name = "set_value"];
+      }
+    }
+
+    message TTrigger {
+      message TTimetable {
+        double TimeOffset = 1 [json_name = "time_offset"];
+        repeated int32 Weekdays = 2 [json_name = "weekdays"];
+      }
+
+      message TSolarTimetable {
+        double Offset = 1 [json_name = "offset"];
+        repeated int32 Weekdays = 2 [json_name = "weekdays"];
+        string Solar = 3 [json_name = "solar"];
+        .NAlice.TIoTUserInfo.THousehold Household = 4 [json_name = "household"];
+      }
+
+      message TPeriodicRecurrent {
+        repeated .google.protobuf.Timestamp StartTimestamps = 1 [json_name = "start_timestamps"];
+        int64 PeriodSeconds = 2 [json_name = "period_seconds"];
+        int64 StartTimeOffset = 3 [json_name = "start_time_offset"];
+        repeated int32 DaysOfWeek = 4 [json_name = "days_of_week"];
+      }
+
+      message TCalendarRecurrent {
+        string Second = 1 [json_name = "second"];
+        string Minute = 2 [json_name = "minute"];
+        string Hour = 3 [json_name = "hour"];
+        string DayOfMonth = 4 [json_name = "day_of_month"];
+        string Month = 5 [json_name = "month"];
+        string DayOfWeek = 6 [json_name = "day_of_week"];
+        string HouseholdID = 7 [json_name = "household_id"];
+      }
+
+      message TCallback {
+        string Name = 1 [json_name = "name"];
+        string CallbackID = 2 [json_name = "callback_id"];
+        string URL = 3 [json_name = "url"];
+      }
+
+      message TDeviceProperty {
+        message TEventPropertyCondition {
+          repeated string Values = 1 [json_name = "values"];
+        }
+
+        message TFloatPropertyCondition {
+          message TBound {
+            double Value = 1 [json_name = "value"];
+          }
+
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty.TFloatPropertyCondition.TBound LowerBound = 1 [json_name = "lower_bound"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty.TFloatPropertyCondition.TBound UpperBound = 3 [json_name = "upper_bound"];
+        }
+
+        enum PropertyTriggerConditionType {
+          UndefinedPropertyConditionType = 0;
+          FloatPropertyConditionType = 1;
+          EventPropertyConditionType = 2;
+        }
+
+        string DeviceID = 1 [json_name = "device_id"];
+        string PropertyType = 2 [json_name = "property_type"];
+        string Instance = 3 [json_name = "instance"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty.PropertyTriggerConditionType ConditionType = 4 [json_name = "condition_type"];
+        oneof Condition {
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty.TEventPropertyCondition EventPropertyCondition = 5 [json_name = "event_condition"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty.TFloatPropertyCondition FloatPropertyCondition = 6 [json_name = "float_condition"];
+        }
+      }
+
+      message TDeviceCapability {
+        message TOnOffCapabilityCondition {
+          repeated bool Values = 1 [json_name = "values"];
+        }
+
+        message TToggleCapabilityCondition {
+          repeated bool Values = 1 [json_name = "values"];
+        }
+
+        message TDeferredCapabilityCondition {
+          string DeferredCapabilityType = 1 [json_name = "deferred_capability_type"];
+          int64 DeferredFor = 2 [json_name = "deferred_for"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.CapabilityTriggerConditionType DeferredConditionType = 3 [json_name = "deferred_condition_type"];
+          oneof DeferredCondition {
+            .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TOnOffCapabilityCondition OnOffCapabilityCondition = 4 [json_name = "on_off_capability_condition"];
+            .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TToggleCapabilityCondition ToggleCapabilityCondition = 5 [json_name = "toggle_capability_condition"];
+            .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TLockCapabilityCondition LockCapabilityCondition = 6 [json_name = "lock_capability_condition"];
+          }
+        }
+
+        message TLockCapabilityCondition {
+          message TOperationCondition {
+            string Type = 1 [json_name = "type"];
+            oneof Payload {
+              .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TLockCapabilityCondition.TLockCapabilityReportOpenOperationCondition ReportOpenOperationCondition = 2 [json_name = "report_open_operation_condition"];
+              .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TLockCapabilityCondition.TLockCapabilityTooManyFailedAttemptsOperationCondition TooManyFailedAttemptsOperationCondition = 3 [json_name = "too_many_failed_attempts_operation_condition"];
+            }
+          }
+
+          message TLockCapabilityReportOpenOperationCondition {
+            optional string UserId = 1 [json_name = "user_id"];
+            optional string AccessMethod = 2 [json_name = "access_method"];
+          }
+
+          message TLockCapabilityTooManyFailedAttemptsOperationCondition {
+          }
+
+          repeated string Values = 1 [json_name = "values"];
+          optional .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TLockCapabilityCondition.TOperationCondition OperationCondition = 2 [json_name = "operation_condition"];
+        }
+
+        message TAlarmCapabilityCondition {
+          string AlarmId = 1 [json_name = "alarm_id"];
+          string EventType = 2 [json_name = "event_type"];
+        }
+
+        enum CapabilityTriggerConditionType {
+          UndefinedPropertyConditionType = 0;
+          OnOffCapabilityConditionType = 1;
+          DeferredCapabilityConditionType = 2;
+          ToggleCapabilityConditionType = 3;
+          LockCapabilityConditionType = 4;
+          AlarmCapabilityConditionType = 5;
+        }
+
+        string DeviceID = 1 [json_name = "device_id"];
+        string CapabilityType = 2 [json_name = "capability_type"];
+        string CapabilityInstance = 3 [json_name = "capability_instance"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.CapabilityTriggerConditionType ConditionType = 4 [json_name = "condition_type"];
+        oneof Condition {
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TOnOffCapabilityCondition OnOffCapabilityCondition = 5 [json_name = "on_off_capability_condition"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TDeferredCapabilityCondition DeferredCapabilityCondition = 6 [json_name = "deferred_capability_condition"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TToggleCapabilityCondition ToggleCapabilityCondition = 7 [json_name = "toggle_capability_condition"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TLockCapabilityCondition LockCapabilityCondition = 8 [json_name = "lock_capability_condition"];
+          .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability.TAlarmCapabilityCondition AlarmCapabilityCondition = 9 [json_name = "alarm_capability_condition"];
+        }
+      }
+
+      message TVariableCounter {
+        enum EOperator {
+          UnknownCounterOperator = 0;
+          ChangedCounterOperator = 1;
+          EqualCounterOperator = 2;
+          GreaterCounterOperator = 3;
+        }
+
+        enum EWindow {
+          UnknownCounterWindow = 0;
+          SinceStartOfDayCounterWindow = 1;
+          SinceStartOfWeekCounterWindow = 2;
+          SinceStartOfMonthCounterWindow = 3;
+        }
+
+        string VariableID = 1 [json_name = "variable_id"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TVariableCounter.EOperator Operator = 2 [json_name = "operator"];
+        optional int64 Value = 3 [json_name = "value"];
+        optional .NAlice.TIoTUserInfo.TScenario.TTrigger.TVariableCounter.EWindow Window = 4 [json_name = "window"];
+      }
+
+      message TVariableToggle {
+        enum EOperator {
+          UnknownToggleOperator = 0;
+          ChangedToggleOperator = 1;
+          EqualToggleOperator = 2;
+        }
+
+        string VariableID = 1 [json_name = "variable_id"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TVariableToggle.EOperator Operator = 2 [json_name = "operator"];
+        optional bool Value = 3 [json_name = "value"];
+      }
+
+      enum ETriggerType {
+        UnknownScenarioTriggerType = 0;
+        VoiceScenarioTriggerType = 1;
+        TimerScenarioTriggerType = 2;
+        TimetableScenarioTriggerType = 3;
+        DevicePropertyScenarioTriggerType = 4;
+        DeviceCapabilityScenarioTriggerType = 5;
+        VLMScenarioTriggerType = 6;
+        CallbackScenarioTriggerType = 7;
+        VariableCounterScenarioTriggerType = 8;
+        VariableToggleScenarioTriggerType = 9;
+      }
+
+      .NAlice.TIoTUserInfo.TScenario.TTrigger.ETriggerType Type = 1 [json_name = "type"];
+      oneof Value {
+        string VoiceTriggerPhrase = 2 [json_name = "voice"];
+        double TimerTriggerTimestamp = 3 [json_name = "timer"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TTimetable Timetable = 4 [json_name = "timetable"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceProperty DeviceProperty = 5 [json_name = "device_property"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TSolarTimetable SolarTimetable = 6 [json_name = "solar_timetable"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TDeviceCapability DeviceCapability = 7 [json_name = "device_capability"];
+        string VlmTriggerPrompt = 8 [json_name = "vlm_trigger_prompt"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TPeriodicRecurrent PeriodicRecurrent = 9 [json_name = "periodic_recurrent"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TCalendarRecurrent CalendarRecurrent = 10 [json_name = "calendar_recurrent"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TCallback Callback = 11 [json_name = "callback"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TVariableCounter VariableCounter = 12 [json_name = "variable_counter"];
+        .NAlice.TIoTUserInfo.TScenario.TTrigger.TVariableToggle VariableToggle = 13 [json_name = "variable_toggle"];
+      }
+    }
+
+    message TStep {
+      message TScenarioStepActionsParameters {
+        repeated .NAlice.TIoTUserInfo.TScenario.TLaunchDevice Devices = 1 [json_name = "devices"];
+        repeated .NAlice.TIoTUserInfo.TScenario.TCapability RequestedSpeakerCapabilities = 2 [json_name = "requested_speaker_capabilities"];
+      }
+
+      message TScenarioStepDelayParameters {
+        double Delay = 1 [json_name = "delay"];
+      }
+
+      message TScenarioStepActionItem {
+        string Id = 1 [json_name = "id"];
+        .NAlice.TIoTUserInfo.TScenario.TStep.EStepActionItemType Type = 2 [json_name = "type"];
+        oneof Value {
+          .NAlice.TIoTUserInfo.TScenario.TLaunchDevice Device = 3 [json_name = "device"];
+          .NAlice.TIoTUserInfo.TScenario.TCapability RequestedDeviceCapability = 4 [json_name = "requested_device_capability"];
+          .NAlice.TIoTUserInfo.TScenario.TLaunchGroup Group = 5 [json_name = "group"];
+          .NAlice.TIoTUserInfo.TScenario.TLaunchScenario Scenario = 6 [json_name = "scenario"];
+          .NAlice.TIoTUserInfo.TScenario.TLaunchAllLights AllLights = 7 [json_name = "all_lights"];
+          .NAlice.TIoTUserInfo.TScenario.TLaunchStopAllSpeakers StopAllSpeakers = 8 [json_name = "stop_all_speakers"];
+          .NAlice.TIoTUserInfo.TScenario.TSmartScenarioAction SmartScenario = 9 [json_name = "smart_scenario"];
+          .NAlice.TIoTUserInfo.TScenario.TLaunchVariable Variable = 10 [json_name = "variable"];
+        }
+      }
+
+      message TScenarioStepActionsV2Parameters {
+        reserved "RequestedSpeakerCapabilities";
+        reserved 2;
+        repeated .NAlice.TIoTUserInfo.TScenario.TStep.TScenarioStepActionItem Items = 1 [json_name = "items"];
+      }
+
+      enum EStepType {
+        UnknownScenarioStepType = 0;
+        ActionsScenarioStepType = 1;
+        DelayScenarioStepType = 2;
+        ActionsV2ScenarioStepType = 3;
+      }
+
+      enum EStepActionItemType {
+        UnknownStepActionItemType = 0;
+        DeviceStepActionItemType = 1;
+        GroupStepActionItemType = 2;
+        ScenarioStepActionItemType = 3;
+        RequestedDeviceCapabilityStepActionItemType = 4;
+        VirtualGroupStepActionItemType = 5;
+        AllLightsStepActionItemType = 6;
+        StopAllSpeakersStepActionItemType = 7;
+        SmartScenarioStepActionItemType = 8;
+        VariableStepActionItemType = 9;
+      }
+
+      .NAlice.TIoTUserInfo.TScenario.TStep.EStepType Type = 1 [json_name = "type"];
+      oneof Parameters {
+        .NAlice.TIoTUserInfo.TScenario.TStep.TScenarioStepActionsParameters ScenarioStepActionsParameters = 2 [json_name = "scenario_step_actions_parameters"];
+        .NAlice.TIoTUserInfo.TScenario.TStep.TScenarioStepDelayParameters ScenarioStepDelayParameters = 3 [json_name = "scenario_step_delay_parameters"];
+        .NAlice.TIoTUserInfo.TScenario.TStep.TScenarioStepActionsV2Parameters ScenarioStepActionsV2Parameters = 4 [json_name = "scenario_step_actions_v2_parameters"];
+      }
+    }
+
+    message TSettings {
+      bool ContinueExecutionAfterError = 1 [json_name = "continue_execution_after_error"];
+      bool IsRollbackable = 2 [json_name = "is_rollbackable"];
+      bool ForceRollback = 3 [json_name = "force_rollback"];
+    }
+
+    message TLocality {
+      bool IsLocal = 1 [json_name = "is_local"];
+      bool IsSynced = 2 [json_name = "is_synced"];
+    }
+
+    message TNotifications {
+      message TSMSNotification {
+      }
+
+      message TPhoneCallNotification {
+      }
+
+      message TPushNotification {
+      }
+
+      .NAlice.TIoTUserInfo.TScenario.TNotifications.TSMSNotification SMS = 1 [json_name = "sms"];
+      .NAlice.TIoTUserInfo.TScenario.TNotifications.TPhoneCallNotification PhoneCall = 2 [json_name = "phone_call"];
+      .NAlice.TIoTUserInfo.TScenario.TNotifications.TPushNotification Push = 3 [json_name = "push"];
+    }
+
+    message TArchivationPolicy {
+      message TLaunches {
+        uint32 Invoked = 1 [json_name = "invoked"];
+        uint32 Limit = 2 [json_name = "limit"];
+      }
+
+      .NAlice.TIoTUserInfo.TScenario.TArchivationPolicy.TLaunches Launches = 1 [json_name = "launches"];
+    }
+
+    message TActivationPolicy {
+      repeated string SpeakerHouseholdIds = 1 [json_name = "speaker_household_ids"];
+      repeated string SpeakerRoomIds = 2 [json_name = "speaker_room_ids"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string Icon = 3 [json_name = "icon"];
+    repeated .NAlice.TIoTUserInfo.TScenario.TDevice Devices = 4 [json_name = "devices"];
+    repeated .NAlice.TIoTUserInfo.TScenario.TCapability RequestedSpeakerCapabilities = 5 [json_name = "requested_speaker_capabilities"];
+    repeated .NAlice.TIoTUserInfo.TScenario.TTrigger Triggers = 6 [json_name = "triggers"];
+    bool IsActive = 7 [json_name = "is_active"];
+    repeated .NAlice.TIoTUserInfo.TScenario.TStep Steps = 8 [json_name = "steps"];
+    bool PushOnInvoke = 9 [json_name = "push_on_invoke"];
+    .NAlice.TIoTUserInfo.TScenario.TSettings Settings = 10 [json_name = "settings"];
+    .NAlice.TIoTUserInfo.TScenario.TLocality Locality = 11 [json_name = "locality"];
+    .NAlice.TIoTUserInfo.TScenario.TNotifications Notifications = 12 [json_name = "notifications"];
+    .NAlice.TIoTUserInfo.TScenario.TArchivationPolicy ArchivationPolicy = 13 [json_name = "archivation_policy"];
+    .NAlice.TIoTUserInfo.TScenario.TActivationPolicy ActivationPolicy = 14 [json_name = "activation_policy"];
+    .NAlice.TUserSharingInfo SharingInfo = 15 [json_name = "sharing_info"];
+    repeated string Permissions = 16 [json_name = "permissions"];
+  }
+
+  message TStereopair {
+    message TStereopairDevice {
+      string Id = 1 [json_name = "id"];
+      .NAlice.TIoTUserInfo.TStereopair.EStereopairChannel Channel = 2 [json_name = "channel"];
+      .NAlice.TIoTUserInfo.TStereopair.EStereopairRole Role = 3 [json_name = "role"];
+    }
+
+    enum EStereopairRole {
+      UnknownStereopairRole = 0;
+      LeaderStereopairRole = 1;
+      FollowerStereopairRole = 2;
+    }
+
+    enum EStereopairChannel {
+      UnknownStereopairChannel = 0;
+      LeftStereopairChannel = 1;
+      RightStereopairChannel = 2;
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated .NAlice.TIoTUserInfo.TStereopair.TStereopairDevice Devices = 3 [json_name = "devices"];
+    double Created = 4 [json_name = "created"];
+    string ConfigName = 5 [json_name = "config_name"];
+  }
+
+  message TCustomScene {
+    message THS {
+      int32 H = 1 [json_name = "h"];
+      int32 S = 2 [json_name = "s"];
+    }
+
+    message THSV {
+      int32 H = 1 [json_name = "h"];
+      int32 S = 2 [json_name = "s"];
+      int32 V = 3 [json_name = "v"];
+    }
+
+    message TStep {
+      .NAlice.TIoTUserInfo.TCustomScene.THS HS = 1 [json_name = "hs"];
+      double Duration = 2 [json_name = "duration"];
+      double Brightness = 3 [json_name = "brightness"];
+      double TransitionTime = 4 [json_name = "transition_time"];
+    }
+
+    message TColorAnimationSettings {
+      repeated .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting Animation = 1 [json_name = "animation"];
+    }
+
+    message TLightSequenceSettings {
+      repeated .NAlice.TIoTUserInfo.TCustomScene.TStep Steps = 1 [json_name = "steps"];
+    }
+
+    message TColorAnimationSetting {
+      message TRgbColorSetting {
+        uint32 R = 1 [json_name = "r"];
+        uint32 G = 2 [json_name = "g"];
+        uint32 B = 3 [json_name = "b"];
+      }
+
+      message THSVColorSetting {
+        uint32 H = 1 [json_name = "h"];
+        uint32 S = 2 [json_name = "s"];
+        uint32 V = 3 [json_name = "v"];
+      }
+
+      message TTemperatureKColorSetting {
+        uint64 TemperatureK = 1 [json_name = "temperature_k"];
+      }
+
+      message TSpeedSetting {
+        float Value = 1 [json_name = "value"];
+      }
+
+      message TVisualEffectSetting {
+        string Value = 1 [json_name = "value"];
+      }
+
+      oneof Setting {
+        .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting.TRgbColorSetting RgbColor = 2 [json_name = "rgb_color"];
+        .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting.THSVColorSetting HsvColor = 3 [json_name = "hsv_color"];
+        .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting.TTemperatureKColorSetting TemperatureKColor = 4 [json_name = "temperature_kcolor"];
+        .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting.TSpeedSetting Speed = 5 [json_name = "speed"];
+        .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSetting.TVisualEffectSetting VisualEffect = 6 [json_name = "visual_effect"];
+      }
+    }
+
+    string ID = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string DeviceID = 3 [json_name = "device_id"];
+    repeated .NAlice.TIoTUserInfo.TCustomScene.TStep Steps = 4 [json_name = "steps"];
+    .NAlice.ECustomSceneType Type = 5 [json_name = "type"];
+    string IconID = 8 [json_name = "icon_id"];
+    oneof Settings {
+      .NAlice.TIoTUserInfo.TCustomScene.TColorAnimationSettings ColorAnimationSettings = 6 [json_name = "color_animation_settings"];
+      .NAlice.TIoTUserInfo.TCustomScene.TLightSequenceSettings LightSequenceSettings = 7 [json_name = "light_sequence_settings"];
+    }
+  }
+
+  message TDevicePin {
+    message TProtectedItem {
+      string Kind = 1 [json_name = "kind"];
+      string CapabilityType = 2 [json_name = "capability_type"];
+      string State = 3 [json_name = "state"];
+      string OperationType = 4 [json_name = "operation_type"];
+      string Payload = 5 [json_name = "payload"];
+    }
+
+    message TPolicy {
+      bool RequireBLE = 1 [json_name = "require_ble"];
+      bool RequireFamiliarity = 2 [json_name = "require_familiarity"];
+      bool ProtectQueries = 3 [json_name = "protect_queries"];
+      repeated .NAlice.TIoTUserInfo.TDevicePin.TProtectedItem ProtectedItems = 4 [json_name = "protected_items"];
+    }
+
+    string DeviceID = 1 [json_name = "device_id"];
+    bool Active = 2 [json_name = "active"];
+    .NAlice.TIoTUserInfo.TDevicePin.TPolicy Policy = 3 [json_name = "policy"];
+  }
+
+  message TAccountProperties {
+    reserved "IsHotelMaster";
+    reserved "AllowDelegatedActions";
+    reserved 1;
+    reserved 4;
+    optional uint64 StoredDevicesLimit = 2 [json_name = "stored_devices_limit"];
+    optional bool ExcludeDevicesFromUserInfo = 3 [json_name = "exclude_devices_from_user_info"];
+  }
+
+  message TVariable {
+    string Id = 1 [json_name = "id"];
+    string Type = 2 [json_name = "type"];
+    string Name = 3 [json_name = "name"];
+    string Icon = 4 [json_name = "icon"];
+    string Color = 5 [json_name = "color"];
+    string HouseholdId = 6 [json_name = "household_id"];
+    .NAlice.TUserSharingInfo SharingInfo = 7 [json_name = "sharing_info"];
+  }
+
+  repeated .NAlice.TUserRoom Rooms = 1 [json_name = "rooms"];
+  repeated .NAlice.TUserGroup Groups = 2 [json_name = "groups"];
+  repeated .NAlice.TIoTUserInfo.TDevice Devices = 3 [json_name = "devices"];
+  repeated .NAlice.TIoTUserInfo.TScenario Scenarios = 4 [json_name = "scenarios"];
+  repeated .NAlice.TIoTUserInfo.TColor Colors = 5 [json_name = "colors"];
+  repeated .NAlice.TIoTUserInfo.THousehold Households = 6 [json_name = "households"];
+  map<string, .NAlice.TIoTUserInfo.THouseholdGuestIDs> HouseholdGuestsMap = 9 [json_name = "household_guests_map"];
+  repeated .NAlice.TIoTUserInfo.TStereopair Stereopairs = 8 [json_name = "stereopairs"];
+  repeated .NAlice.TIoTUserInfo.TSmartScenario SmartScenarios = 10 [json_name = "smart_scenarios"];
+  repeated .NAlice.TIoTUserInfo.TResidentialComplex ResidentialComplexes = 11 [json_name = "residential_complexes"];
+  repeated .NAlice.TIoTUserInfo.TAggregate Aggregates = 12 [json_name = "aggregates"];
+  repeated .NAlice.TIoTUserInfo.TCustomScene CustomScenes = 13 [json_name = "custom_scenes"];
+  repeated .NAlice.TIoTUserInfo.TDevicePin DevicePins = 14 [json_name = "device_pins"];
+  .NAlice.TIoTUserInfo.TAccountProperties AccountProperties = 16 [json_name = "account_properties"];
+  repeated .NAlice.TIoTUserInfo.TVariable Variables = 17 [json_name = "variables"];
+  string CurrentHouseholdId = 7 [json_name = "current_household_id"];
+  string RawUserInfo = 100 [json_name = "raw_user_info"];
+}
+
+message TIoTUserInfo_Rooms {
+  repeated .NAlice.TUserRoom Rooms = 1 [json_name = "rooms"];
+}
+
+message TIoTUserInfo_Groups {
+  repeated .NAlice.TUserGroup Groups = 1 [json_name = "groups"];
+}
+
+message TIoTUserInfo_Devices {
+  repeated .NAlice.TIoTUserInfo.TDevice Devices = 1 [json_name = "devices"];
+}
+
+message TIoTUserInfo_Scenarios {
+  repeated .NAlice.TIoTUserInfo.TScenario Scenarios = 1 [json_name = "scenarios"];
+}
+
+message TIoTUserInfo_SmartScenarios {
+  repeated .NAlice.TIoTUserInfo.TSmartScenario SmartScenarios = 1 [json_name = "smart_scenarios"];
+}
+
+message TIoTUserInfo_Colors {
+  repeated .NAlice.TIoTUserInfo.TColor Colors = 1 [json_name = "colors"];
+}
+
+message TIoTUserInfo_Households {
+  repeated .NAlice.TIoTUserInfo.THousehold Households = 1 [json_name = "households"];
+}
+
+message TIoTUserInfo_HouseholdGuestsMap {
+  map<string, .NAlice.TIoTUserInfo.THouseholdGuestIDs> HouseholdGuestsMap = 1 [json_name = "household_guests_map"];
+}
+
+message TIoTUserInfo_Stereopairs {
+  repeated .NAlice.TIoTUserInfo.TStereopair Stereopairs = 1 [json_name = "stereopairs"];
+}
+
+message TIoTUserInfo_CurrentHouseholdId {
+  string CurrentHouseholdId = 1 [json_name = "current_household_id"];
+}
+
+message TLimitedTextRules {
+  uint32 MaxLen = 1 [json_name = "max_len"];
+  string MaskingSymbol = 2 [json_name = "masking_symbol"];
+  string Charset = 3 [json_name = "charset"];
+}
+
+message TIoTCapabilityAction {
+  .NAlice.TIoTUserInfo.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+  oneof State {
+    .NAlice.TIoTUserInfo.TCapability.TOnOffCapabilityState OnOffCapabilityState = 2 [json_name = "on_off_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TColorSettingCapabilityState ColorSettingCapabilityState = 3 [json_name = "color_setting_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TModeCapabilityState ModeCapabilityState = 4 [json_name = "mode_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TRangeCapabilityState RangeCapabilityState = 5 [json_name = "range_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TToggleCapabilityState ToggleCapabilityState = 6 [json_name = "toggle_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TCustomButtonCapabilityState CustomButtonCapabilityState = 7 [json_name = "custom_button_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TQuasarServerActionCapabilityState QuasarServerActionCapabilityState = 8 [json_name = "quasar_server_action_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TQuasarCapabilityState QuasarCapabilityState = 9 [json_name = "quasar_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVideoStreamCapabilityState VideoStreamCapabilityState = 10 [json_name = "video_stream_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TBuzzerCapabilityState BuzzerCapabilityState = 11 [json_name = "buzzer_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TIdentifyCapabilityState IdentifyCapabilityState = 12 [json_name = "identify_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TIrCapabilityState IrCapabilityState = 13 [json_name = "ir_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVoIPCapabilityState VoIPCapabilityState = 14 [json_name = "vo_ipcapability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPlanarViewCapabilityState PlanarViewCapabilityState = 15 [json_name = "planar_view_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPresenceZoneCapabilityState PresenceZoneCapabilityState = 16 [json_name = "presence_zone_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAutoCalibrationCapabilityState AutoCalibrationCapabilityState = 17 [json_name = "auto_calibration_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLockCapabilityState LockCapabilityState = 18 [json_name = "lock_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TIrRemoteCapabilityState IrRemoteCapabilityState = 19 [json_name = "ir_remote_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TDisplayOrientationCapabilityState DisplayOrientationCapabilityState = 20 [json_name = "display_orientation_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLedMaskCapabilityState LedMaskCapabilityState = 21 [json_name = "led_mask_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TOpenWindowDetectionCapabilityState OpenWindowDetectionCapabilityState = 22 [json_name = "open_window_detection_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TEventHistoryCapabilityState EventHistoryCapabilityState = 23 [json_name = "event_history_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAntifreezeCapabilityState AntifreezeCapabilityState = 24 [json_name = "antifreeze_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAntiscaleCapabilityState AntiscaleCapabilityState = 25 [json_name = "antiscale_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TColorAnimationCapabilityState ColorAnimationCapabilityState = 26 [json_name = "color_animation_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLocalSmartScenariosCapabilityState LocalSmartScenariosCapabilityState = 27 [json_name = "local_smart_scenarios_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TBordersCapabilityState BordersCapabilityState = 28 [json_name = "borders_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TOTACapabilityState OTACapabilityState = 29 [json_name = "otacapability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TZigbeeNodeCapabilityState ZigbeeNodeCapabilityState = 30 [json_name = "zigbee_node_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TMatterLocalityCapabilityState MatterLocalityCapabilityState = 31 [json_name = "matter_locality_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TZenohLocalityCapabilityState ZenohLocalityCapabilityState = 32 [json_name = "zenoh_locality_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TRadioDiscoveryCapabilityState RadioDiscoveryCapabilityState = 33 [json_name = "radio_discovery_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TErrorListCapabilityState ErrorListCapabilityState = 34 [json_name = "error_list_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TExternalTemperatureMeasurementCapabilityState ExternalTemperatureMeasurementCapabilityState = 35 [json_name = "external_temperature_measurement_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TMotionSettingCapabilityState MotionSettingCapabilityState = 36 [json_name = "motion_setting_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TSoundAlarmCapabilityState SoundAlarmCapabilityState = 37 [json_name = "sound_alarm_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TDoNotDisturbCapabilityState DoNotDisturbCapabilityState = 38 [json_name = "do_not_disturb_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TImpulseMeterCapabilityState ImpulseMeterCapabilityState = 39 [json_name = "impulse_meter_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TDoorLockDiscoveryCapabilityState DoorLockDiscoveryCapabilityState = 40 [json_name = "door_lock_discovery_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TScreenBrightnessCapabilityState ScreenBrightnessCapabilityState = 41 [json_name = "screen_brightness_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TBlinkCapabilityState BlinkCapabilityState = 42 [json_name = "blink_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TManualLeakControlCapabilityState ManualLeakControlCapabilityState = 43 [json_name = "manual_leak_control_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPtzMemoryCapabilityState PtzMemoryCapabilityState = 44 [json_name = "ptz_memory_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TWireLineCapabilityState WireLineCapabilityState = 45 [json_name = "wire_line_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TWireLinesHubCapabilityState WireLinesHubCapabilityState = 46 [json_name = "wire_lines_hub_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TCompanionScreenUISkinCapability.TState CompanionScreenUISkinCapabilityState = 47 [json_name = "companion_screen_uiskin_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPtzCalibrationCapabilityState PtzCalibrationCapabilityState = 48 [json_name = "ptz_calibration_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TZigbeeCoordinatorCapabilityState ZigbeeCoordinatorCapabilityState = 49 [json_name = "zigbee_coordinator_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TDigitalMeterHubCapabilityState DigitalMeterHubCapabilityState = 50 [json_name = "digital_meter_hub_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVoiceActivityDetectorCapabilityState VoiceActivityDetectorCapabilityState = 51 [json_name = "voice_activity_detector_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TIntonationSpotterCapabilityState IntonationSpotterCapabilityState = 52 [json_name = "intonation_spotter_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAlarmCapabilityState AlarmCapabilityState = 53 [json_name = "alarm_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TScreenSunriseCapabilityState ScreenSunriseCapabilityState = 54 [json_name = "screen_sunrise_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TSpeakerDoNotDisturbCapabilityState SpeakerDoNotDisturbCapabilityState = 55 [json_name = "speaker_do_not_disturb_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLocalizationCapabilityState LocalizationCapabilityState = 56 [json_name = "localization_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVoiceEnrollmentCapabilityState VoiceEnrollmentCapabilityState = 57 [json_name = "voice_enrollment_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TStereoPairCapabilityState StereoPairCapabilityState = 58 [json_name = "stereo_pair_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPhoneCallsCapabilityState PhoneCallsCapabilityState = 59 [json_name = "phone_calls_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TBluetoothCapabilityState BluetoothCapabilityState = 60 [json_name = "bluetooth_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TEqualizerCapabilityState EqualizerCapabilityState = 61 [json_name = "equalizer_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAudioPlayerCapabilityState AudioPlayerCapabilityState = 62 [json_name = "audio_player_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TStandbyCapabilityState StandbyCapabilityState = 63 [json_name = "standby_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TSetupCapabilityState SetupCapabilityState = 64 [json_name = "setup_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TWifiCapabilityState WifiCapabilityState = 65 [json_name = "wifi_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TCradleCapabilityState CradleCapabilityState = 66 [json_name = "cradle_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TPositionCapabilityState PositionCapabilityState = 67 [json_name = "position_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVisualSpotterCapabilityState VisualSpotterCapabilityState = 68 [json_name = "visual_spotter_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TGestureRecognitionCapabilityState GestureRecognitionCapabilityState = 69 [json_name = "gesture_recognition_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLedCapabilityState LedCapabilityState = 70 [json_name = "led_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TUltrasoundDetectorCapabilityState UltrasoundDetectorCapabilityState = 71 [json_name = "ultrasound_detector_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TBuiltInButtonsCapabilityState BuiltInButtonsCapabilityState = 72 [json_name = "built_in_buttons_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TCookingCapabilityState CookingCapabilityState = 73 [json_name = "cooking_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TNameViewCapabilityState NameViewCapabilityState = 74 [json_name = "name_view_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TManualCalibrationCapabilityState ManualCalibrationCapabilityState = 75 [json_name = "manual_calibration_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TKidsProCapabilityState KidsProCapabilityState = 76 [json_name = "kids_pro_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TAssistantResponseStyleCapabilityState AssistantResponseStyleCapabilityState = 77 [json_name = "assistant_response_style_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TCustomSpotterCapabilityState CustomSpotterCapabilityState = 78 [json_name = "custom_spotter_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TFlashlightCapabilityState FlashlightCapabilityState = 79 [json_name = "flashlight_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TScreenOnOffCapabilityState ScreenOnOffCapabilityState = 80 [json_name = "screen_on_off_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TWidgetStackCapabilityState WidgetStackCapabilityState = 81 [json_name = "widget_stack_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TSoundRoutingCapabilityState SoundRoutingCapabilityState = 82 [json_name = "sound_routing_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TVirtualSurroundCapabilityState VirtualSurroundCapabilityState = 83 [json_name = "virtual_surround_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TNoiseDetectorCapabilityState NoiseDetectorCapabilityState = 84 [json_name = "noise_detector_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TDoorLockDoNotDisturbCapabilityState DoorLockDoNotDisturbCapabilityState = 85 [json_name = "door_lock_do_not_disturb_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TScreenSunsetCapabilityState ScreenSunsetCapabilityState = 86 [json_name = "screen_sunset_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLedAnimationCapabilityState LedAnimationCapabilityState = 87 [json_name = "led_animation_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLedIdleAnimationCapabilityState LedIdleAnimationCapabilityState = 88 [json_name = "led_idle_animation_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TLedTimeVisualizationCapabilityState LedTimeVisualizationCapabilityState = 89 [json_name = "led_time_visualization_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.THdmiAudioCapabilityState HdmiAudioCapabilityState = 90 [json_name = "hdmi_audio_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TSluCapabilityState SluCapabilityState = 91 [json_name = "slu_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TIntonationInterruptionCapabilityState IntonationInterruptionCapabilityState = 92 [json_name = "intonation_interruption_capability_state"];
+    .NAlice.TIoTUserInfo.TCapability.TScreenSaverCapabilityState ScreenSaverCapabilityState = 93 [json_name = "screen_saver_capability_state"];
+  }
+}
+
+message TIoTActionIntentParameters {
+  message TCapabilityValue {
+    string RelativityType = 1 [json_name = "relativity_type"];
+    string Unit = 2 [json_name = "unit"];
+    oneof Value {
+      bool BoolValue = 3 [json_name = "bool_value"];
+      double NumValue = 4 [json_name = "num_value"];
+      string ModeValue = 5 [json_name = "mode_value"];
+    }
+  }
+
+  string CapabilityType = 1 [json_name = "capability_type"];
+  string CapabilityInstance = 2 [json_name = "capability_instance"];
+  .NAlice.TIoTActionIntentParameters.TCapabilityValue CapabilityValue = 3 [json_name = "capability_value"];
+}
+
+message TIoTDeviceActionRequest {
+  .NAlice.TIoTActionIntentParameters IntentParameters = 1 [json_name = "intent_parameters"];
+  repeated string RoomIDs = 2 [json_name = "room_ids"];
+  repeated string HouseholdIDs = 3 [json_name = "household_ids"];
+  repeated string GroupIDs = 4 [json_name = "group_ids"];
+  repeated string DeviceIDs = 5 [json_name = "device_ids"];
+  repeated string DeviceTypes = 6 [json_name = "device_types"];
+  double AtTimestamp = 7 [json_name = "at_timestamp"];
+  double FromTimestamp = 8 [json_name = "from_timestamp"];
+  double ToTimestamp = 9 [json_name = "to_timestamp"];
+  double ForTimestamp = 10 [json_name = "for_timestamp"];
+}
+
+message TStartIotDiscoveryRequest {
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+}
+
+message TFinishIotDiscoveryRequest {
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks"];
+  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints"];
+  string SystemInfo = 4 [json_name = "system_info"];
+  repeated .NAlice.TAggregate DiscoveredAggregates = 5 [json_name = "discovered_aggregates"];
+}
+
+message TForgetIotEndpointsRequest {
+  repeated string EndpointIds = 1 [json_name = "endpoint_ids"];
+}
+
+message TIoTDeviceActions {
+  string DeviceId = 1 [json_name = "device_id"];
+  repeated .NAlice.TIoTCapabilityAction Actions = 2 [json_name = "actions"];
+  string ExternalDeviceId = 3 [json_name = "external_device_id"];
+  string SkillId = 4 [json_name = "skill_id"];
+  bytes CustomData = 5 [json_name = "custom_data"];
+  repeated .NAlice.TIoTUserInfo.TScenarioDirective ScenarioDirectives = 6 [json_name = "scenario_directives"];
+}
+
+message TIoTYandexIOActionRequest {
+  repeated .NAlice.TIoTDeviceActions EndpointActions = 1 [json_name = "endpoint_actions"];
+}
+
+message TIoTDeviceActionsBatch {
+  repeated .NAlice.TIoTDeviceActions Batch = 1 [json_name = "batch"];
+}
+
+message TEndpointStateUpdatesRequest {
+  repeated .NAlice.TEndpoint EndpointUpdates = 1 [json_name = "endpoint_updates"];
+}
+
+message TRenderInfo {
+  message TRenderInfoView {
+    message TIconView {
+      string Id = 1 [json_name = "id"];
+      string Color = 2 [json_name = "color"];
+    }
+
+    message TCustomSettings {
+      message TOccupancyZonesSettings {
+        string IconId = 1 [json_name = "icon_id"];
+        string ColorId = 2 [json_name = "color_id"];
+      }
+
+      string Type = 1 [json_name = "type"];
+      oneof Settings {
+        .NAlice.TRenderInfo.TRenderInfoView.TCustomSettings.TOccupancyZonesSettings OccupancyZonesSettings = 2 [json_name = "occupancy_zones_settings"];
+      }
+    }
+
+    .NAlice.TRenderInfo.TRenderInfoView.TIconView Icon = 1 [json_name = "icon"];
+    repeated .NAlice.TRenderInfo.TRenderInfoView.TCustomSettings CustomSettings = 2 [json_name = "custom_settings"];
+  }
+
+  message TItemRenderView {
+    string Id = 1 [json_name = "id"];
+    .NAlice.TRenderInfo.TRenderInfoView RenderInfo = 2 [json_name = "render_info"];
+  }
+
+  repeated .NAlice.TRenderInfo.TItemRenderView Devices = 1 [json_name = "devices"];
+}
+
+message TIoTRenderUserInfo {
+  .NAlice.TIoTUserInfo UserInfo = 1 [json_name = "user_info"];
+  .NAlice.TRenderInfo RenderInfo = 2 [json_name = "render_info"];
+}
+
+enum ECustomSceneType {
+  UnknownCustomSceneType = 0;
+  LightSequenceCustomSceneType = 1;
+  ColorAnimationCustomSceneType = 2;
+}
+

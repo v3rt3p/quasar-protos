@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NAnalytics;
+
+option java_package = "ru.yandex.alice.protos.analytics.client_analytics";
+option java_outer_classname = "TvClientCarouselAnalyticsProto";
+option go_package = "a.yandex-team.ru/alice/protos/analytics/client_analytics";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTvClientCarouselAnalytics {
+  optional string ScreenId = 1 [json_name = "screen_id"];
+  optional string CarouselId = 2 [json_name = "carousel_id"];
+}
+

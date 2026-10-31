@@ -20,28 +20,29 @@ message TFileUploadCapability {
   }
 
   message TPollingOptions {
-    uint64 TimeoutMs = 1;
+    uint64 TimeoutMs = 1 [json_name = "timeout_ms"];
   }
 
   message TFileDescription {
-    string InputSourceId = 1;
-    string Title = 2;
-    string MimeType = 3;
-    uint64 Size = 4;
+    string InputSourceId = 1 [json_name = "input_source_id"];
+    string Title = 2 [json_name = "title"];
+    string MimeType = 3 [json_name = "mime_type"];
+    uint64 Size = 4 [json_name = "size"];
+    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 5 [json_name = "origin"];
   }
 
   message TStartFileUploadDirective {
-    string Name = 1000;
-    string InteractionId = 1;
-    .NAlice.TFileUploadCapability.TFileDescription FileDescription = 2;
-    .NAlice.TFileUploadCapability.TPollingOptions AutoPolling = 3;
+    string Name = 1000 [json_name = "name"];
+    string InteractionId = 1 [json_name = "interaction_id"];
+    .NAlice.TFileUploadCapability.TFileDescription FileDescription = 2 [json_name = "file_description"];
+    .NAlice.TFileUploadCapability.TPollingOptions AutoPolling = 3 [json_name = "auto_polling"];
   }
 
   message TStartFilePollingDirective {
-    string Name = 1000;
-    string InteractionId = 1;
-    repeated string FileGuids = 2;
-    .NAlice.TFileUploadCapability.TPollingOptions PollingOptions = 3;
+    string Name = 1000 [json_name = "name"];
+    string InteractionId = 1 [json_name = "interaction_id"];
+    repeated string FileGuids = 2 [json_name = "file_guids"];
+    .NAlice.TFileUploadCapability.TPollingOptions PollingOptions = 3 [json_name = "polling_options"];
   }
 
   message TFileUploadStatusEvent {
@@ -49,7 +50,7 @@ message TFileUploadCapability {
     }
 
     message TUploadFinish {
-      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish ProtocolResponse = 1;
+      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish ProtocolResponse = 1 [json_name = "protocol_response"];
     }
 
     message TUploadError {
@@ -57,16 +58,16 @@ message TFileUploadCapability {
       }
 
       oneof Error {
-        .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError ProtocolError = 1;
-        .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError.TClientError ClientError = 2;
+        .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError ProtocolError = 1 [json_name = "protocol_error"];
+        .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError.TClientError ClientError = 2 [json_name = "client_error"];
       }
     }
 
-    string InteractionId = 1;
+    string InteractionId = 1 [json_name = "interaction_id"];
     oneof Status {
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadStart UploadStart = 2;
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadFinish UploadFinish = 3;
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError UploadError = 4;
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadStart UploadStart = 2 [json_name = "upload_start"];
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadFinish UploadFinish = 3 [json_name = "upload_finish"];
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError UploadError = 4 [json_name = "upload_error"];
     }
   }
 
@@ -82,30 +83,30 @@ message TFileUploadCapability {
       }
 
       message TPollingServerError {
-        .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 1;
+        .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 1 [json_name = "status"];
       }
 
       message TPollingClientError {
       }
 
       oneof Error {
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingTimeout PollingTimeout = 1;
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingServerError ServerError = 2;
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingClientError ClientError = 3;
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingTimeout PollingTimeout = 1 [json_name = "polling_timeout"];
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingServerError ServerError = 2 [json_name = "server_error"];
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingClientError ClientError = 3 [json_name = "client_error"];
       }
     }
 
-    string InteractionId = 1;
-    string Guid = 5;
+    string InteractionId = 1 [json_name = "interaction_id"];
+    string Guid = 5 [json_name = "guid"];
     oneof Status {
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingStart PollingStart = 2;
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingFinish PollingFinish = 3;
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError PollingError = 4;
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingStart PollingStart = 2 [json_name = "polling_start"];
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingFinish PollingFinish = 3 [json_name = "polling_finish"];
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError PollingError = 4 [json_name = "polling_error"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TFileUploadCapability.TParameters Parameters = 2;
-  .NAlice.TFileUploadCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TFileUploadCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TFileUploadCapability.TState State = 3 [json_name = "state"];
 }
 

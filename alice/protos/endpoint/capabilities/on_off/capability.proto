@@ -14,48 +14,48 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOnOffCapability {
   message TParameters {
-    bool Split = 1;
-    .NAlice.TOnOffCapability.EInstance Instance = 2;
+    bool Split = 1 [json_name = "split"];
+    .NAlice.TOnOffCapability.EInstance Instance = 2 [json_name = "instance"];
   }
 
   message TState {
-    bool On = 1;
-    .NAlice.TOnOffCapability.EStartupMode StartupMode = 2;
+    bool On = 1 [json_name = "on"];
+    .NAlice.TOnOffCapability.EStartupMode StartupMode = 2 [json_name = "startup_mode"];
   }
 
   message TOnOffDirective {
-    string Name = 1000;
-    bool On = 1;
+    string Name = 1000 [json_name = "name"];
+    bool On = 1 [json_name = "on"];
   }
 
   message TToggleDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TSetStartupModeDirective {
-    string Name = 1000;
-    .NAlice.TOnOffCapability.EStartupMode StartupMode = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TOnOffCapability.EStartupMode StartupMode = 1 [json_name = "startup_mode"];
   }
 
   message TScreenOffDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TOnWithTimedOffDirective {
-    string Name = 1000;
-    uint32 OnTimeMs = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 OnTimeMs = 1 [json_name = "on_time_ms"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TOnOffCapability Capability = 1;
+    .NAlice.TOnOffCapability Capability = 1 [json_name = "capability"];
   }
 
   message TCondition {
-    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1;
+    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state"];
   }
 
   message TOnOffFilter {
-    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1;
+    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state"];
   }
 
   enum EInstance {
@@ -76,8 +76,8 @@ message TOnOffCapability {
     ToggleCondition = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TOnOffCapability.TParameters Parameters = 2;
-  .NAlice.TOnOffCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TOnOffCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TOnOffCapability.TState State = 3 [json_name = "state"];
 }
 

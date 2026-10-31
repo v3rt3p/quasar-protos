@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.ya_disk";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/ya_disk";
+
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TYaDiskTeasersInstructionData {
+  string AlbumUrl = 1 [json_name = "album_url"];
+}
+
+message TYaDiskTeaserData {
+  .NAlice.NData.EOrientationType OrientationType = 1 [json_name = "orientation_type"];
+  .NAlice.NData.TYaDiskImage FirstImage = 2 [json_name = "first_image"];
+  .NAlice.NData.TYaDiskImage SecondImage = 3 [json_name = "second_image"];
+}
+
+message TYaDiskTeaserScenarioData {
+  bool AlbumIsEmpty = 1 [json_name = "album_is_empty"];
+  string AlbumUrl = 2 [json_name = "album_url"];
+}
+
+message TYaDiskImage {
+  string ItemId = 1 [json_name = "item_id"];
+  string Url = 2 [json_name = "url"];
+  int32 Width = 3 [json_name = "width"];
+  int32 Height = 4 [json_name = "height"];
+}
+
+enum EOrientationType {
+  Any = 0;
+  LandscapeOnly = 1;
+  PortraitOnly = 2;
+}
+

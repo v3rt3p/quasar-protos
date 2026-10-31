@@ -31,9 +31,9 @@ message TEnrollmentStatus {
     RegisterFaceEnrollmentTypedCallback = 5;
   }
 
-  bool Success = 1;
-  .NAlice.NData.NIoT.TEnrollmentStatus.EFailureReason FailureReason = 2;
-  string FailureReasonDetails = 3;
-  .NAlice.NData.NIoT.TEnrollmentStatus.ESource Source = 4;
+  bool Success = 1 [json_name = "success"];
+  .NAlice.NData.NIoT.TEnrollmentStatus.EFailureReason FailureReason = 2 [json_name = "failure_reason"];
+  string FailureReasonDetails = 3 [json_name = "failure_reason_details"];
+  .NAlice.NData.NIoT.TEnrollmentStatus.ESource Source = 4 [json_name = "source"];
 }
 

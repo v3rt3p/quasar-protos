@@ -11,7 +11,33 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/api/alicekit/events/alice_request/alice_request.proto";
 
 message TFinishRequest {
-  string RequestMessageId = 1;
-  .NAlice.TAliceRequestProto AliceRequest = 2;
+  message TFinishOptions {
+    message TSendPolicy {
+      message TWaitFinalization {
+      }
+
+      message TSkipFinalization {
+      }
+
+      oneof Policy {
+        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TWaitFinalization WaitFinalization = 1 [json_name = "wait_finalization"];
+        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TSkipFinalization SkipFinalization = 2 [json_name = "skip_finalization"];
+      }
+    }
+
+    message TUpdatePayloadOptions {
+      message TUpdateText {
+      }
+
+      .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions.TUpdateText UpdateText = 1 [json_name = "update_text"];
+    }
+
+    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy SendPolicy = 1 [json_name = "send_policy"];
+    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions UpdatePayloadOptions = 2 [json_name = "update_payload_options"];
+  }
+
+  string RequestMessageId = 1 [json_name = "requestMessageId"];
+  .NAlice.TAliceRequestProto AliceRequest = 2 [json_name = "alice_request"];
+  .NAlice.NAliceApi.TFinishRequest.TFinishOptions FinishOptions = 3 [json_name = "finish_options"];
 }
 

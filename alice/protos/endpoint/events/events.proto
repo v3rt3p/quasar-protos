@@ -11,44 +11,46 @@ import "google/protobuf/timestamp.proto";
 import "alice/protos/api/source/source.proto";
 import "alice/protos/endpoint/endpoint.proto";
 import "alice/protos/endpoint/capability.proto";
+import "alice/protos/endpoint/events/any_capability_event.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCapabilityEvent {
   reserved "IsEnvironmentStateDependant";
   reserved 5;
   message TEnvironmentStateMode {
-    bool IncludeLocalEndpoint = 1;
-    bool IncludeEmbeddedEndpoints = 2;
-    bool IncludeRemoteEndpoints = 3;
-    bool IncludeRemoteCapabilities = 4;
+    bool IncludeLocalEndpoint = 1 [json_name = "include_local_endpoint"];
+    bool IncludeEmbeddedEndpoints = 2 [json_name = "include_embedded_endpoints"];
+    bool IncludeRemoteEndpoints = 3 [json_name = "include_remote_endpoints"];
+    bool IncludeRemoteCapabilities = 4 [json_name = "include_remote_capabilities"];
   }
 
-  .google.protobuf.Timestamp Timestamp = 1;
-  .google.protobuf.Any Event = 2;
-  bool IsLocal = 3;
-  bool NonRetryable = 4;
-  .NAlice.TCapabilityEvent.TEnvironmentStateMode EnvironmentStateMode = 6;
-  .NAlice.NAliceApi.TSourceInfo SourceInfo = 7;
+  .google.protobuf.Timestamp Timestamp = 1 [json_name = "timestamp"];
+  .google.protobuf.Any Event = 2 [json_name = "event"];
+  bool IsLocal = 3 [json_name = "is_local"];
+  bool NonRetryable = 4 [json_name = "non_retryable"];
+  .NAlice.TCapabilityEvent.TEnvironmentStateMode EnvironmentStateMode = 6 [json_name = "environment_state_mode"];
+  .NAlice.NAliceApi.TSourceInfo SourceInfo = 7 [json_name = "source_info"];
+  .NAlice.TAnyCapabilityEventHolder AnyEvent = 8 [json_name = "any_event"];
 }
 
 message TEndpointCapabilityEvents {
-  string EndpointId = 1;
-  repeated .NAlice.TCapabilityEvent Events = 2;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  repeated .NAlice.TCapabilityEvent Events = 2 [json_name = "events"];
 }
 
 message TEndpointEvents {
-  string EndpointId = 1;
-  .NAlice.TEndpoint.TStatus EndpointStatus = 2;
-  repeated .NAlice.TCapabilityEvent CapabilityEvents = 3;
-  string EndpointPlatform = 4;
+  string EndpointId = 1 [json_name = "endpoint_id"];
+  .NAlice.TEndpoint.TStatus EndpointStatus = 2 [json_name = "endpoint_status"];
+  repeated .NAlice.TCapabilityEvent CapabilityEvents = 3 [json_name = "capability_events"];
+  string EndpointPlatform = 4 [json_name = "endpoint_platform"];
 }
 
 message TEndpointEventsBatch {
-  repeated .NAlice.TEndpointEvents Batch = 1;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
 }
 
 message TTypedCapabilityEvent {
-  .NAlice.TCapabilityEvent Event = 1;
-  .NAlice.TCapability.EEventType EventType = 2;
+  .NAlice.TCapabilityEvent Event = 1 [json_name = "event"];
+  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type"];
 }
 

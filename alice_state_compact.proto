@@ -1,0 +1,36 @@
+syntax = "proto2";
+
+package quark.core.proto;
+
+option java_package = "com.yandex.quark.protos";
+option java_outer_classname = "AliceStateCompactProtos";
+
+message AliceStateCompact {
+  message RequestState {
+    optional string dialog_id = 3;
+    optional bool is_final = 2 [default = false];
+  }
+
+  enum State {
+    IDLE = 0;
+    LISTENING = 1;
+    SPEAKING = 2;
+    BUSY = 3;
+    SHAZAM = 5;
+    NONE = 6;
+  }
+
+  optional .quark.core.proto.AliceStateCompact.State state = 1;
+  optional string recognized_phrase = 2;
+  optional .quark.core.proto.VinsResponseCompact vins_response = 3;
+  optional bool has_startup_requirements = 5 [default = false];
+  optional string request_id = 7;
+  optional bool is_connected = 11;
+  optional .quark.core.proto.AliceStateCompact.RequestState request_state = 15;
+}
+
+message VinsResponseCompact {
+  optional string output_speech = 1;
+  optional bool text_only = 3;
+}
+

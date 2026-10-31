@@ -91,6 +91,7 @@ message AliceState {
   optional .quasar.proto.AliceState.TextState text_state = 13;
   optional .quasar.proto.AliceState.ResponseState response_state = 14;
   optional .quasar.proto.AliceState.RequestState request_state = 15;
+  optional bool spotter_configuring = 16 [default = false];
 }
 
 message VinsResponse {

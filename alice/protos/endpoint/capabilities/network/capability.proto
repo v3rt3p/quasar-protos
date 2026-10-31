@@ -15,11 +15,11 @@ message TNetworkCapability {
   }
 
   message TState {
-    bool IsInternetReachable = 1;
+    bool IsInternetReachable = 1 [json_name = "is_internet_reachable"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TNetworkCapability Capability = 1;
+    .NAlice.TNetworkCapability Capability = 1 [json_name = "capability"];
   }
 
   message TInternetConnectionCondition {
@@ -28,11 +28,11 @@ message TNetworkCapability {
       NotConnectedCondition = 1;
     }
 
-    .NAlice.TNetworkCapability.TInternetConnectionCondition.EState State = 1;
+    .NAlice.TNetworkCapability.TInternetConnectionCondition.EState State = 1 [json_name = "state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNetworkCapability.TParameters Parameters = 2;
-  .NAlice.TNetworkCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNetworkCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNetworkCapability.TState State = 3 [json_name = "state"];
 }
 

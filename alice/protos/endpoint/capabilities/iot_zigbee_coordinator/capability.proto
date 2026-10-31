@@ -13,42 +13,53 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotZigbeeCoordinatorCapability {
   message TParameters {
+    .NAlice.TIotZigbeeCoordinatorCapability.ERadioInterface RadioInterface = 1 [json_name = "radio_interface"];
   }
 
   message TChannelInterferenceLevel {
-    .NAlice.TIotZigbeeCoordinatorCapability.EChannelInterferenceLevel Level = 1;
-    int32 CcaRssi = 2;
+    .NAlice.TIotZigbeeCoordinatorCapability.EChannelInterferenceLevel Level = 1 [json_name = "level"];
+    int32 CcaRssi = 2 [json_name = "cca_rssi"];
   }
 
   message TState {
-    uint32 Channel = 1;
-    .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 2;
+    uint32 Channel = 1 [json_name = "channel"];
+    .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 2 [json_name = "interference"];
+    bool ChannelMigrationInProgress = 3 [json_name = "channel_migration_in_progress"];
+    int32 CcaRssi = 4 [json_name = "cca_rssi"];
   }
 
   message TSetChannelDirective {
-    string Name = 1000;
-    uint32 Channel = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 Channel = 1 [json_name = "channel"];
   }
 
   message TStartEnergyScanDirective {
-    string Name = 1000;
-    uint32 TimeScanPerChannelMs = 1;
-    uint32 ChannelMask = 2;
+    string Name = 1000 [json_name = "name"];
+    uint32 TimeScanPerChannelMs = 1 [json_name = "time_scan_per_channel_ms"];
+    uint32 ChannelMask = 2 [json_name = "channel_mask"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZigbeeCoordinatorCapability Capability = 1;
+    .NAlice.TIotZigbeeCoordinatorCapability Capability = 1 [json_name = "capability"];
   }
 
   message TEnergyScanResultEvent {
     message TChannelScanResult {
-      uint32 Channel = 1;
-      int32 Rssi = 2;
-      .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 3;
+      uint32 Channel = 1 [json_name = "channel"];
+      int32 Rssi = 2 [json_name = "rssi"];
+      .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 3 [json_name = "interference"];
+      int32 CcaRssi = 4 [json_name = "cca_rssi"];
     }
 
-    repeated int32 Rssis = 1;
-    repeated .NAlice.TIotZigbeeCoordinatorCapability.TEnergyScanResultEvent.TChannelScanResult ChannelScanResults = 2;
+    repeated int32 Rssis = 1 [json_name = "rssis"];
+    repeated .NAlice.TIotZigbeeCoordinatorCapability.TEnergyScanResultEvent.TChannelScanResult ChannelScanResults = 2 [json_name = "channel_scan_results"];
+  }
+
+  enum ERadioInterface {
+    RadioInterfaceUnknown = 0;
+    RadioInterfaceSilabsEfr32 = 1;
+    RadioInterfaceW2l = 2;
+    RadioInterfaceTelinkB91 = 3;
   }
 
   enum EChannelInterferenceLevel {
@@ -59,8 +70,8 @@ message TIotZigbeeCoordinatorCapability {
     ChannelInterferenceLevelCongested = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotZigbeeCoordinatorCapability.TParameters Parameters = 2;
-  .NAlice.TIotZigbeeCoordinatorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotZigbeeCoordinatorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotZigbeeCoordinatorCapability.TState State = 3 [json_name = "state"];
 }
 

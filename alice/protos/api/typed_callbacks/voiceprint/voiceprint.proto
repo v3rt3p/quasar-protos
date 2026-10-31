@@ -12,29 +12,31 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRemoveVoiceprintTypedCallback {
-  string Puid = 1;
-  string PersId = 2;
+  string Puid = 1 [json_name = "puid"];
+  string PersId = 2 [json_name = "pers_id"];
 }
 
 message TSendIotEnrollmentPushTypedCallback {
-  string Puid = 1;
-  bool NeedNlg = 2;
+  string Puid = 1 [json_name = "puid"];
+  bool NeedNlg = 2 [json_name = "need_nlg"];
 }
 
 message TStartEnrollmentOnboardingTypedCallback {
-  string Puid = 1;
+  string Puid = 1 [json_name = "puid"];
 }
 
 message TStartEnrollmentTypedCallback {
-  string Puid = 1;
+  string Puid = 1 [json_name = "puid"];
+  string UserName = 2 [json_name = "user_name"];
+  repeated string Aliases = 3 [json_name = "aliases"];
 }
 
 message TCancelEnrollmentTypedCallback {
 }
 
 message TRegisterSharedEnrollmentTypedCallback {
-  string UserName = 1;
-  .NAlice.NData.NVoiceprint.EGender UserGender = 2;
+  string UserName = 1 [json_name = "user_name"];
+  .NAlice.NData.NVoiceprint.EGender UserGender = 2 [json_name = "user_gender"];
 }
 
 message TRegisterChildKolonkishTypedCallback {

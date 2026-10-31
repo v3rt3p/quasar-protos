@@ -8,9 +8,9 @@ option go_package = "a.yandex-team.ru/alice/protos/api/local_scenario";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalScenarioResponseData {
-  string ScenarioName = 1;
-  string ProductScenarioName = 2;
-  string RequestText = 3;
-  string ResponseText = 4;
+  string ScenarioName = 1 [json_name = "scenario_name"];
+  string ProductScenarioName = 2 [json_name = "product_scenario_name"];
+  string RequestText = 3 [json_name = "request_text"];
+  string ResponseText = 4 [json_name = "response_text"];
 }
 

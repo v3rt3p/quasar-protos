@@ -16,12 +16,12 @@ message TNoiseReductionCapability {
   }
 
   message TState {
-    .NAlice.TNoiseReductionCapability.EMode Mode = 1;
+    .NAlice.TNoiseReductionCapability.EMode Mode = 1 [json_name = "mode"];
   }
 
   message TSetModeDirective {
-    string Name = 1000;
-    .NAlice.TNoiseReductionCapability.EMode Mode = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TNoiseReductionCapability.EMode Mode = 1 [json_name = "mode"];
   }
 
   enum EMode {
@@ -30,8 +30,8 @@ message TNoiseReductionCapability {
     Nanny = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNoiseReductionCapability.TParameters Parameters = 2;
-  .NAlice.TNoiseReductionCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNoiseReductionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNoiseReductionCapability.TState State = 3 [json_name = "state"];
 }
 

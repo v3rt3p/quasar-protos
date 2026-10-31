@@ -16,20 +16,20 @@ message TIotSettingChildLockCapability {
   }
 
   message TState {
-    bool Locked = 1;
+    bool Locked = 1 [json_name = "locked"];
   }
 
   message TIotSettingChildLockDirective {
-    string Name = 1000;
-    bool Locked = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Locked = 1 [json_name = "locked"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotSettingChildLockCapability Capability = 1;
+    .NAlice.TIotSettingChildLockCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotSettingChildLockCapability.TParameters Parameters = 2;
-  .NAlice.TIotSettingChildLockCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotSettingChildLockCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotSettingChildLockCapability.TState State = 3 [json_name = "state"];
 }
 

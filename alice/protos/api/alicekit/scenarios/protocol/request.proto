@@ -29,7 +29,7 @@ message TInput {
   reserved 6;
   reserved 7;
   reserved 8;
-  repeated .NAlice.NAliceApi.TSemanticFrame SemanticFrames = 1;
+  repeated .NAlice.NAliceApi.TSemanticFrame SemanticFrames = 1 [json_name = "semantic_frames"];
 }
 
 message TDataSource {
@@ -160,7 +160,7 @@ message TDataSource {
   reserved 66;
   reserved 67;
   oneof Type {
-    .NAlice.TBlackBoxUserInfo UserInfo = 7;
+    .NAlice.TBlackBoxUserInfo UserInfo = 7 [json_name = "user_info"];
   }
 }
 
@@ -203,56 +203,51 @@ message TScenarioBaseRequest {
   reserved 22;
   reserved 23;
   reserved 24;
-  string RequestId = 1;
-  uint64 RandomSeed = 4;
-  .NAlice.TClientInfoProto ClientInfo = 5;
-  .NAlice.NAliceApi.TDeviceState DeviceState = 8;
-  .google.protobuf.Struct Experiments = 10;
+  string RequestId = 1 [json_name = "request_id"];
+  uint64 RandomSeed = 4 [json_name = "random_seed"];
+  .NAlice.TClientInfoProto ClientInfo = 5 [json_name = "client_info"];
+  .NAlice.NAliceApi.TDeviceState DeviceState = 8 [json_name = "device_state"];
+  .google.protobuf.Struct Experiments = 10 [json_name = "experiments"];
 }
 
 message TScenarioRunRequest {
   reserved 3;
-  message DataSourcesEntry {
-    int32 key = 1;
-    .NAlice.NAliceApi.TDataSource value = 2;
-  }
-
-  .NAlice.NAliceApi.TScenarioBaseRequest BaseRequest = 1;
-  .NAlice.NAliceApi.TInput Input = 2;
-  repeated .NAlice.NAliceApi.TScenarioRunRequest.DataSourcesEntry DataSources = 4;
+  .NAlice.NAliceApi.TScenarioBaseRequest BaseRequest = 1 [json_name = "base_request"];
+  .NAlice.NAliceApi.TInput Input = 2 [json_name = "input"];
+  map<int32, .NAlice.NAliceApi.TDataSource> DataSources = 4 [json_name = "data_sources"];
 }
 
 message TScenarioApplyRequest {
   reserved 4;
-  message DataSourcesEntry {
-    int32 key = 1;
-    .NAlice.NAliceApi.TDataSource value = 2;
-  }
+  .NAlice.NAliceApi.TScenarioBaseRequest BaseRequest = 1 [json_name = "base_request"];
+  .google.protobuf.Any Arguments = 2 [json_name = "arguments"];
+  .NAlice.NAliceApi.TInput Input = 3 [json_name = "input"];
+  map<int32, .NAlice.NAliceApi.TDataSource> DataSources = 5 [json_name = "data_sources"];
+}
 
-  .NAlice.NAliceApi.TScenarioBaseRequest BaseRequest = 1;
-  .google.protobuf.Any Arguments = 2;
-  .NAlice.NAliceApi.TInput Input = 3;
-  repeated .NAlice.NAliceApi.TScenarioApplyRequest.DataSourcesEntry DataSources = 5;
+message TRuntimeSettings {
+  .google.protobuf.Struct Payload = 1 [json_name = "payload"];
 }
 
 message TExactCapability {
-  .google.protobuf.Any Capability = 1;
+  .google.protobuf.Any Capability = 1 [json_name = "capability"];
 }
 
 message TExactTypedSemanticFrame {
-  .google.protobuf.Any SemanticFrame = 1;
+  .google.protobuf.Any SemanticFrame = 1 [json_name = "semantic_frame"];
 }
 
 message TLocalScenarioRunRequest {
-  .NAlice.NAliceApi.TScenarioRunRequest ScenarioRunRequest = 1;
-  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2;
-  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3;
-  bool IsPureLocal = 4;
+  .NAlice.NAliceApi.TScenarioRunRequest ScenarioRunRequest = 1 [json_name = "scenario_run_request"];
+  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities"];
+  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames"];
+  bool IsPureLocal = 4 [json_name = "is_pure_local"];
+  .NAlice.NAliceApi.TRuntimeSettings RuntimeSettings = 5 [json_name = "runtime_settings"];
 }
 
 message TLocalScenarioApplyRequest {
-  .NAlice.NAliceApi.TScenarioApplyRequest ScenarioApplyRequest = 1;
-  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2;
-  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3;
+  .NAlice.NAliceApi.TScenarioApplyRequest ScenarioApplyRequest = 1 [json_name = "scenario_apply_request"];
+  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities"];
+  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames"];
 }
 

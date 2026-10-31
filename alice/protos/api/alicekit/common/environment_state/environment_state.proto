@@ -14,18 +14,18 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TEnvironmentDeviceInfo {
   reserved "DeviceState";
   reserved 3;
-  .NAlice.TClientInfoProto Application = 1;
-  repeated string SupportedFeatures = 2;
+  .NAlice.TClientInfoProto Application = 1 [json_name = "application"];
+  repeated string SupportedFeatures = 2 [json_name = "supported_features"];
   oneof OneOfStates {
-    .NAlice.NAliceApi.TDeviceState SpeakerDeviceState = 4;
+    .NAlice.NAliceApi.TDeviceState SpeakerDeviceState = 4 [json_name = "device_state"];
   }
 }
 
 message TEnvironmentGroupInfo {
   message TEnvironmentGroupDeviceInfo {
-    string Id = 1;
-    string Platform = 2;
-    .NAlice.NAliceApi.TEnvironmentGroupInfo.EEnvironmentGroupDeviceRole Role = 3;
+    string Id = 1 [json_name = "id"];
+    string Platform = 2 [json_name = "platform"];
+    .NAlice.NAliceApi.TEnvironmentGroupInfo.EEnvironmentGroupDeviceRole Role = 3 [json_name = "role"];
   }
 
   enum EEnvironmentGroupType {
@@ -40,13 +40,13 @@ message TEnvironmentGroupInfo {
     follower = 2;
   }
 
-  .NAlice.NAliceApi.TEnvironmentGroupInfo.EEnvironmentGroupType Type = 1;
-  repeated .NAlice.NAliceApi.TEnvironmentGroupInfo.TEnvironmentGroupDeviceInfo Devices = 2;
+  .NAlice.NAliceApi.TEnvironmentGroupInfo.EEnvironmentGroupType Type = 1 [json_name = "type"];
+  repeated .NAlice.NAliceApi.TEnvironmentGroupInfo.TEnvironmentGroupDeviceInfo Devices = 2 [json_name = "devices"];
 }
 
 message TEnvironmentState {
-  repeated .NAlice.NAliceApi.TEnvironmentDeviceInfo Devices = 1;
-  repeated .NAlice.NAliceApi.TEnvironmentGroupInfo Groups = 2;
-  repeated .NAlice.TEndpoint Endpoints = 3;
+  repeated .NAlice.NAliceApi.TEnvironmentDeviceInfo Devices = 1 [json_name = "devices"];
+  repeated .NAlice.NAliceApi.TEnvironmentGroupInfo Groups = 2 [json_name = "groups"];
+  repeated .NAlice.TEndpoint Endpoints = 3 [json_name = "endpoints"];
 }
 

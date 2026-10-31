@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+option java_package = "ru.yandex.quasar.scaffolding.proto";
+
+import "alice/protos/data/color/color.proto";
+import "yandex_io/capabilities/config/protos/config.proto";
+
+message LauncherConfig {
+  optional .PathsConfig paths = 1;
+  optional .LimitsConfig limits = 2;
+  optional string auth_code = 3;
+  optional string device_id = 4;
+  optional string ca_certificates_path = 5;
+  optional bool disable_background_services = 6;
+  optional bool use_network_ipc = 7;
+  optional .quasar.proto.ConfigCapabilityProto config = 8;
+  optional string default_device_region = 9;
+  optional .NAlice.NData.EColor device_color = 10;
+}
+
+message PathsConfig {
+  reserved 2;
+  reserved 3;
+  optional string workdir_path = 1;
+}
+
+message LimitsConfig {
+  optional uint64 fileno_limit = 1;
+}
+

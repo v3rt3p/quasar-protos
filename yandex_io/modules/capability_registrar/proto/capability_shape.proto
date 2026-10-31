@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package YandexIO;
+
+option java_package = "ru.yandex.arcadia.yandex_io.modules.capability_registrar.proto";
+option java_outer_classname = "CapabilityShapeProto";
+option go_package = "a.yandex-team.ru/yandex_io/modules/capability_registrar/proto;capabilityregistrarpb";
+
+import "alice/protos/endpoint/capability.proto";
+
+message TCapabilityShape {
+  .NAlice.TCapability.TMeta Meta = 1;
+  bytes Parameters = 2;
+  bytes ParametersAtField3 = 3;
+}
+

@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package quark.core.proto;
+
+option java_package = "ru.yandex.quasar.protobuf";
+option java_outer_classname = "RequestAnnotationProto";
+
+import "cards.proto";
+
+message BaseAnnotation {
+  repeated .quark.core.proto.Card cards = 1;
+}
+
+message RequestAnnotation {
+  optional .quark.core.proto.BaseAnnotation base = 1;
+}
+

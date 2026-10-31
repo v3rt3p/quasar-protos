@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MakeOrderCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/make_order;makeorderpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/scenario/order/make_order.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/lat_lon.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMakeOrderCapability {
+  message TParameters {
+  }
+
+  message TState {
+    repeated .NAlice.NOrder.TItem CartItems = 1 [json_name = "cart_items"];
+    .NAlice.TMakeOrderCapability.TGeo Geo = 2 [json_name = "geo"];
+  }
+
+  message TGeo {
+    .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon"];
+    string TextAddress = 2 [json_name = "text_address"];
+  }
+
+  message TProcessSearchResultsDirective {
+    reserved "SearchResponses";
+    reserved 1;
+    message TSuccess {
+      repeated .NAlice.NOrder.TSearchResponse SearchResponses = 1 [json_name = "search_responses"];
+    }
+
+    message TError {
+      enum EErrorType {
+        Unknown = 0;
+        Unauthorized = 1;
+        UnsupportedProvider = 2;
+        UncertainLocation = 3;
+      }
+
+      string ErrorMessage = 1 [json_name = "error_message"];
+      .NAlice.TMakeOrderCapability.TProcessSearchResultsDirective.TError.EErrorType ErrorType = 2 [json_name = "error_type"];
+    }
+
+    string Name = 1000 [json_name = "name"];
+    oneof Result {
+      .NAlice.TMakeOrderCapability.TProcessSearchResultsDirective.TSuccess Success = 2 [json_name = "success"];
+      .NAlice.TMakeOrderCapability.TProcessSearchResultsDirective.TError Error = 3 [json_name = "error"];
+    }
+  }
+
+  message TLaunchApplicationDirective {
+    string Name = 1000 [json_name = "name"];
+  }
+
+  message TUpdateStateDirective {
+    message TSuccess {
+      .NAlice.TMakeOrderCapability.TState State = 1 [json_name = "state"];
+    }
+
+    message TError {
+      enum EErrorType {
+        Unknown = 0;
+        UncertainLocation = 1;
+        Unauthorized = 2;
+        FailedToGetState = 3;
+        FailedToGetCart = 4;
+      }
+
+      string ErrorMessage = 1 [json_name = "error_message"];
+      .NAlice.TMakeOrderCapability.TUpdateStateDirective.TError.EErrorType ErrorType = 2 [json_name = "error_type"];
+    }
+
+    string Name = 1000 [json_name = "name"];
+    oneof Result {
+      .NAlice.TMakeOrderCapability.TUpdateStateDirective.TSuccess Success = 1 [json_name = "success"];
+      .NAlice.TMakeOrderCapability.TUpdateStateDirective.TError Error = 2 [json_name = "error"];
+    }
+  }
+
+  message TProcessCheckoutResultDirective {
+    message TSuccess {
+    }
+
+    message TError {
+      enum EErrorType {
+        Unknown = 0;
+        UnsupportedProvider = 1;
+        Unauthorized = 2;
+        ProviderResponseError = 3;
+      }
+
+      string ErrorMessage = 1 [json_name = "error_message"];
+      .NAlice.TMakeOrderCapability.TProcessCheckoutResultDirective.TError.EErrorType ErrorType = 2 [json_name = "error_type"];
+    }
+
+    string Name = 1000 [json_name = "name"];
+    oneof Result {
+      .NAlice.TMakeOrderCapability.TProcessCheckoutResultDirective.TSuccess Success = 1 [json_name = "success"];
+      .NAlice.TMakeOrderCapability.TProcessCheckoutResultDirective.TError Error = 2 [json_name = "error"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TMakeOrderCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TMakeOrderCapability.TState State = 3 [json_name = "state"];
+}
+

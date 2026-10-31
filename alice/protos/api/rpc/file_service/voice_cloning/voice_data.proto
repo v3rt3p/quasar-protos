@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice.NApi.NFileService.NVoiceCloning;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.file_service.voice_cloning";
+option java_outer_classname = "VoiceDataProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/file_service/voice_cloning";
+
+import "alice/library/censor/protos/extension.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVoiceMetadata {
+  enum EGender {
+    Unknown = 0;
+    Female = 1;
+    Male = 2;
+  }
+
+  string Title = 1 [json_name = "title"];
+  .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata.EGender Gender = 2 [json_name = "gender"];
+}
+
+message TVoiceEmbedding {
+  string ModelVersion = 1 [json_name = "model_version"];
+  repeated float BioEmbedding = 2 [json_name = "bio_embedding"];
+}
+

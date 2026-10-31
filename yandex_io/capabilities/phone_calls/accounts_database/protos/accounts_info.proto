@@ -11,13 +11,13 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TAccountInfo {
   reserved "CredentialsKey";
   reserved 1;
-  .NAlice.TPhoneCallsCapability.TCredentials Credentials = 2;
-  .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 3;
-  string AccountId = 4;
-  .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 5;
+  .NAlice.TPhoneCallsCapability.TCredentials Credentials = 2 [json_name = "credentials"];
+  .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 3 [json_name = "lifetime_policy"];
+  string AccountId = 4 [json_name = "account_id"];
+  .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 5 [json_name = "provider"];
 }
 
 message TAccountsInfo {
-  repeated .NAlice.TAccountInfo AccountsInfo = 1;
+  repeated .NAlice.TAccountInfo AccountsInfo = 1 [json_name = "accounts_info"];
 }
 

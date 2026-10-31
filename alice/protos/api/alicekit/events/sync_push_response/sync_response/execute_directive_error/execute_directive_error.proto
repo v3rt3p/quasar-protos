@@ -12,6 +12,7 @@ message TExecuteDirectiveError {
     UNKNOWN = 0;
     PAYLOAD_TOO_LARGE = 1;
     STORAGE_LIMIT_EXCEEDED = 2;
+    BAD_PAYLOAD = 3;
   }
 
 }

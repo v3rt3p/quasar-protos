@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv";
+option java_outer_classname = "Music";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv";
+
+import "alice/protos/data/avatar/avatar.proto";
+import "alice/protos/data/scenario/music/content_id.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMusicItem {
+  message TArtistInfo {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+  }
+
+  message TTrackInfo {
+    string Id = 1 [json_name = "id"];
+  }
+
+  enum EMusicCategory {
+    Unknown = 0;
+    Music = 1;
+    Audiobook = 2;
+  }
+
+  enum EContentType {
+    Undefined = 0;
+    Album = 1;
+    Playlist = 2;
+    Artist = 3;
+    Wave = 4;
+  }
+
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  .NAlice.TAvatarMdsImage Thumbnails = 3 [json_name = "thumbnails"];
+  .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id"];
+  repeated .NAlice.NTv.TMusicItem.TArtistInfo Artists = 6 [json_name = "artists"];
+  .NAlice.NTv.TMusicItem.EMusicCategory MusicCategory = 9 [json_name = "music_category"];
+  .NAlice.NTv.TMusicItem.TTrackInfo TrackInfo = 10 [json_name = "track_info"];
+  .NAlice.NTv.TMusicItem.EContentType ContentType = 11 [json_name = "content_type"];
+  repeated string Genres = 13 [json_name = "genres"];
+  optional string Subtitle = 5 [json_name = "subtitle"];
+  optional float Progress = 7 [json_name = "progress"];
+  optional uint64 LastInteractionTime = 8 [json_name = "last_interaction_time"];
+  optional uint64 LikesCount = 12 [json_name = "likes_count"];
+}
+

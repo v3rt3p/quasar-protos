@@ -14,30 +14,30 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotExternalTemperatureMeasurementCapability {
   message TParameters {
-    .NAlice.EUnit Unit = 1;
+    .NAlice.EUnit Unit = 1 [json_name = "unit"];
   }
 
   message TState {
-    bool IsEnabled = 1;
-    double MeasuredValue = 2;
+    bool IsEnabled = 1 [json_name = "is_enabled"];
+    double MeasuredValue = 2 [json_name = "measured_value"];
   }
 
   message TSetEnabledExternalTemperatureMeasurementDirective {
-    string Name = 1000;
-    bool IsEnabled = 1;
+    string Name = 1000 [json_name = "name"];
+    bool IsEnabled = 1 [json_name = "is_enabled"];
   }
 
   message TSetMeasuredValueDirective {
-    string Name = 1000;
-    double MeasuredValue = 1;
+    string Name = 1000 [json_name = "name"];
+    double MeasuredValue = 1 [json_name = "measured_value"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotExternalTemperatureMeasurementCapability Capability = 1;
+    .NAlice.TIotExternalTemperatureMeasurementCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotExternalTemperatureMeasurementCapability.TParameters Parameters = 2;
-  .NAlice.TIotExternalTemperatureMeasurementCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotExternalTemperatureMeasurementCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotExternalTemperatureMeasurementCapability.TState State = 3 [json_name = "state"];
 }
 

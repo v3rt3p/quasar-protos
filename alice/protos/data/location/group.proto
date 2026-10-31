@@ -10,14 +10,14 @@ import "alice/protos/data/device/info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserGroup {
-  string Id = 1;
-  string Name = 2;
-  .NAlice.EUserDeviceType Type = 3;
-  repeated string Aliases = 4;
-  string HouseholdId = 5;
-  string AnalyticsType = 6;
-  string AnalyticsName = 7;
-  .NAlice.TUserSharingInfo SharingInfo = 8;
-  repeated string Permissions = 9;
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  .NAlice.EUserDeviceType Type = 3 [json_name = "type"];
+  repeated string Aliases = 4 [json_name = "aliases"];
+  string HouseholdId = 5 [json_name = "household_id"];
+  string AnalyticsType = 6 [json_name = "analytics_type"];
+  string AnalyticsName = 7 [json_name = "analytics_name"];
+  .NAlice.TUserSharingInfo SharingInfo = 8 [json_name = "sharing_info"];
+  repeated string Permissions = 9 [json_name = "permissions"];
 }
 

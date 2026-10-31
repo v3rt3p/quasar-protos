@@ -7,6 +7,7 @@ option java_outer_classname = "AudioTranscriptionInputRequest";
 option java_multiple_files = true;
 option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/audio_transcription_input";
 
+import "alice/megamind/protos/common/experiments/experiments.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioTranscriptionInputRequest {
@@ -15,30 +16,34 @@ message TAudioTranscriptionInputRequest {
     }
 
     oneof Params {
-      .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams.TOpusParams Opus = 1;
+      .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams.TOpusParams Opus = 1 [json_name = "opus"];
     }
   }
 
   message TStartStream {
     reserved "SessionId";
     reserved 2;
-    message PersonIdToPuidMappingEntry {
-      string key = 1;
-      string value = 2;
+    enum EStreamType {
+      STREAM_TYPE_UNKNOWN = 0;
+      STREAM_TYPE_REALTIME = 1;
+      STREAM_TYPE_HISTORICAL = 2;
     }
 
-    repeated .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream.PersonIdToPuidMappingEntry PersonIdToPuidMapping = 3;
-    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams EncodingParams = 1;
-    optional string DeviceId = 4;
+    map<string, string> PersonIdToPuidMapping = 3 [json_name = "person_id_to_puid_mapping"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams EncodingParams = 1 [json_name = "encoding_params"];
+    optional string DeviceId = 4 [json_name = "device_id"];
+    optional string SourceId = 5 [json_name = "source_id"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream.EStreamType StreamType = 6 [json_name = "stream_type"];
   }
 
   message TGracefulStop {
-    optional uint64 AudioEndTimestampMs = 1;
+    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms"];
   }
 
+  .NAlice.TExperimentsProto Experiments = 3 [json_name = "experiments"];
   oneof Request {
-    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream StartStream = 1;
-    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TGracefulStop GracefulStop = 2;
+    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream StartStream = 1 [json_name = "start_stream"];
+    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TGracefulStop GracefulStop = 2 [json_name = "graceful_stop"];
   }
 }
 

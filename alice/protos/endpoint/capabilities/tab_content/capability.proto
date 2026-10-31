@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TabContentCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tab_content;tab_contentpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTabContentCapability {
+  message TParameters {
+  }
+
+  message TState {
+    message TContent {
+      message TPageContent {
+        message TExtraData {
+          message TSegment {
+            int32 Begin = 1 [json_name = "begin"];
+            int32 End = 2 [json_name = "end"];
+          }
+
+          message TSegmentList {
+            repeated .NAlice.TTabContentCapability.TState.TContent.TPageContent.TExtraData.TSegment Segments = 1 [json_name = "segments"];
+          }
+
+          oneof Summarization {
+            string ReadabilityContent = 1 [json_name = "readability_content"];
+            .NAlice.TTabContentCapability.TState.TContent.TPageContent.TExtraData.TSegmentList MarkdownMarkup = 2 [json_name = "markdown_markup"];
+          }
+        }
+
+        .NAlice.TTabContentCapability.EContentType PageContentType = 3 [json_name = "page_content_type"];
+        .NAlice.TTabContentCapability.TState.TContent.TPageContent.TExtraData ExtraData = 4 [json_name = "extra_data"];
+        oneof Data {
+          string FileGuid = 1 [json_name = "file_guid"];
+          string PageContent = 2 [json_name = "page_content"];
+        }
+      }
+
+      message TFile {
+        oneof Data {
+          string FileGuid = 1 [json_name = "file_guid"];
+          string FileLink = 2 [json_name = "file_link"];
+        }
+      }
+
+      message TVideo {
+        string VideoId = 3 [json_name = "video_id"];
+        string VideoTitle = 4 [json_name = "video_title"];
+        string SourceLang = 5 [json_name = "source_lang"];
+        oneof Data {
+          string FileGuid = 1 [json_name = "file_guid"];
+          string VideoSubtitles = 2 [json_name = "video_subtitles"];
+        }
+      }
+
+      bool SupportsThesisScrolling = 4 [json_name = "supports_thesis_scrolling"];
+      .NAlice.TTabContentCapability.EContentProviderType ProviderType = 5 [json_name = "provider_type"];
+      bool IsOutdated = 6 [json_name = "is_outdated"];
+      oneof Data {
+        .NAlice.TTabContentCapability.TState.TContent.TPageContent PageContent = 1 [json_name = "page_content"];
+        .NAlice.TTabContentCapability.TState.TContent.TFile File = 2 [json_name = "file"];
+        .NAlice.TTabContentCapability.TState.TContent.TVideo Video = 3 [json_name = "video"];
+      }
+    }
+
+    string PageUrl = 1 [json_name = "page_url"];
+    repeated .NAlice.TTabContentCapability.TState.TContent Content = 2 [json_name = "content"];
+    .NAlice.TTabContentCapability.TFeaturesState FeaturesState = 3 [json_name = "features_state"];
+    .NAlice.TTabContentCapability.TPageInfo PageInfo = 4 [json_name = "page_info"];
+    bool ForceIgnoreFilesInContext = 5 [json_name = "force_ignore_files_in_context"];
+    optional string ContentID = 6 [json_name = "content_id"];
+    optional string PageURLClass = 7 [json_name = "page_url_class"];
+    optional .NAlice.TTabContentCapability.TVideoPreviewInfo VideoPreview = 8 [json_name = "video_preview_info"];
+    optional .NAlice.TTabContentCapability.TPredefinedSnapshot PredefinedSnapshot = 9 [json_name = "predefined_snapshot"];
+    optional bool IsNoIndex = 10 [json_name = "is_no_index"];
+  }
+
+  message TPageInfo {
+    string PageTitle = 1 [json_name = "page_title"];
+    string PageFaviconDataUrl = 2 [json_name = "page_favicon_data_url"];
+  }
+
+  message TFeaturesState {
+    .NAlice.TTabContentCapability.ESummarizationState SummarizationState = 1 [json_name = "summarization_state"];
+    .NAlice.TTabContentCapability.EQuestionsState QuestionsState = 2 [json_name = "questions_state"];
+  }
+
+  message TUpdateSiteContentDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TVideoPreviewInfo {
+    .NAlice.TTabContentCapability.TState.TContent.TVideo VideoPreview = 1 [json_name = "video_content"];
+  }
+
+  message TPredefinedSnapshot {
+    map<string, string> Data = 1 [json_name = "data"];
+  }
+
+  enum ESummarizationState {
+    Undefined = 0;
+    Progress = 1;
+    Available = 2;
+    NotAvailable = 3;
+  }
+
+  enum EQuestionsState {
+    QuestionsUndefined = 0;
+    QuestionsInProgress = 1;
+    QuestionsAvailable = 2;
+    QuestionsNotAvailable = 3;
+  }
+
+  enum EContentType {
+    Unknown = 0;
+    Markdown = 1;
+    Readability = 2;
+    Html = 3;
+  }
+
+  enum EContentProviderType {
+    WebPageProvider = 0;
+    PDFiumProvider = 1;
+    DocviewerProvider = 2;
+    GoogleDocsProvider = 3;
+    YandexDocsProvider = 4;
+    VideoProvider = 5;
+    BookReaderProvider = 6;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTabContentCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTabContentCapability.TState State = 3 [json_name = "state"];
+}
+

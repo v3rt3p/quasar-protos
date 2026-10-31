@@ -6,11 +6,18 @@ option java_package = "ru.yandex.alice.megamind.protos.common";
 option java_outer_classname = "ConditionalActionProto";
 option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
 
+import "alice/megamind/protos/common/frame.proto";
+import "alice/megamind/protos/scenarios/typed_callback/typed_callback_request_data.proto";
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
 message TConditionalAction {
-  reserved 1;
-  reserved 2;
-  reserved 3;
-  reserved 4;
-  reserved 5;
+  .NAlice.TTypedSemanticFrame ConditionalSemanticFrame = 1 [json_name = "conditional_semantic_frame"];
+  oneof Effect {
+    .NAlice.TSemanticFrameRequestData EffectFrameRequestData = 2 [json_name = "effect_frame_request_data"];
+    .NAlice.NScenarios.TTypedCallbackRequestData TypedCallback = 3 [json_name = "typed_callback"];
+    .NAlice.TTypedCallbackRequest TypedCallbackSerialized = 4 [json_name = "typed_callback_serialized"];
+    .NAlice.TSemanticFrameRequestData ConditionalFrameRequestData = 5 [json_name = "conditional_frame_request_data"];
+  }
 }
 

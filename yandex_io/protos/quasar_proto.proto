@@ -15,6 +15,7 @@ import "yandex_io/sdk/private/endpoint_storage/protos/endpoint.proto";
 import "yandex_io/sdk/directive_sequencer/protos/directive.proto";
 import "yandex_io/capabilities/config/sync_messages/sync_messages.proto";
 import "yandex_io/libs/metrica/db/protos/db_event.proto";
+import "google/protobuf/descriptor.proto";
 import "google/protobuf/timestamp.proto";
 
 message WifiConnect {
@@ -271,11 +272,6 @@ message SimplePlayerState {
     optional string repeat_mode = 7;
   }
 
-  message ExtraEntry {
-    optional string key = 1;
-    optional string value = 2;
-  }
-
   enum PlayerType {
     UNKNOWN = 0;
     MUSIC = 1;
@@ -307,7 +303,7 @@ message SimplePlayerState {
   optional .quasar.proto.SimplePlayerState.PlayerType player_type = 21;
   optional string playback_starter_user_id = 23;
   optional string current_screen = 24;
-  repeated .quasar.proto.SimplePlayerState.ExtraEntry extra = 100;
+  map<string, string> extra = 100;
 }
 
 message MordoviaShowMessage {
@@ -329,20 +325,6 @@ message MordoviaCommandMessage {
   optional string view_key = 4;
   optional string scenario_name = 5;
   optional string vins_request_id = 6;
-}
-
-message WebsocketClientState {
-  enum State {
-    DISCONNECTED = 0;
-    CONNECTING = 1;
-    CONNECTED = 2;
-  }
-
-  optional .quasar.proto.WebsocketClientState.State state = 1 [default = DISCONNECTED];
-}
-
-message XivaSubscriptions {
-  repeated string xiva_subscriptions = 1;
 }
 
 message SetupRcuAutoEvent {
@@ -377,6 +359,8 @@ message NsdEnable {
   optional uint32 server_port = 1;
   optional .quasar.proto.GlagolDiscoveryItem.GroupRole stereopair = 2;
   optional .quasar.proto.GlagolDiscoveryItem.GroupRole tandem = 3;
+  optional bool guest_mode = 4;
+  optional bool discovered_request = 5;
 }
 
 message BrickState {
@@ -426,24 +410,24 @@ message NetworkStats {
 message UpdateHealthCheck {
   message UpdateHealthCheckStatus {
     message RssStatuses {
-      message StatusesEntry {
-        optional string key = 1;
-        optional .quasar.proto.UpdateHealthCheck.UpdateHealthCheckStatus.RssStatuses.Status value = 2;
-      }
-
       enum Status {
         UNKNOWN = 0;
         OK = 1;
         EXCEEDED = 2;
       }
 
-      repeated .quasar.proto.UpdateHealthCheck.UpdateHealthCheckStatus.RssStatuses.StatusesEntry statuses = 1;
+      map<string, .quasar.proto.UpdateHealthCheck.UpdateHealthCheckStatus.RssStatuses.Status> statuses = 1;
+    }
+
+    message MinidumpInfos {
+      map<string, string> infos = 1;
     }
 
     optional bool is_alice_connected = 1;
     optional bool is_mic_audio_detected = 2;
     optional .quasar.proto.UpdateHealthCheck.UpdateHealthCheckStatus.RssStatuses rss_statuses = 3;
     optional bool spotter_started = 4;
+    optional .quasar.proto.UpdateHealthCheck.UpdateHealthCheckStatus.MinidumpInfos minidump_infos = 5;
   }
 
   optional bool failed = 1;
@@ -455,6 +439,11 @@ message RssStatus {
   optional bool is_ok = 2;
 }
 
+message MinidumpStatus {
+  optional string daemon = 1;
+  optional string info = 2;
+}
+
 message ForceCheckUpdates {
   optional uint64 timeout_seconds = 1;
 }
@@ -464,18 +453,177 @@ message EqualizerParameters {
   optional string config_hash = 2;
 }
 
+message ConfigurationStateHolder {
+  optional .quasar.proto.ConfigurationState state = 1;
+}
+
+message OnMediaErrorHolder {
+  optional .quasar.proto.MediaContentType media_content_type = 1;
+}
+
+message LogMessages {
+  repeated .quasar.proto.LogMessage log_messages = 1;
+  optional uint64 batch_id = 2;
+}
+
 message QuasarMessage {
+  reserved "alice_state";
+  reserved "broken_mic_info";
+  reserved "wifi_list_request";
+  reserved "wifi_list";
+  reserved "wifi_networks_disable";
+  reserved "wifi_networks_enable";
+  reserved "wifi_reassociate";
+  reserved "wifi_connect";
+  reserved "async_wifi_connect";
+  reserved "wifi_connect_response";
+  reserved "media_request";
+  reserved "add_user_request";
+  reserved "add_user_response";
+  reserved "delete_user_request";
+  reserved "delete_user_response";
+  reserved "change_user_request";
+  reserved "issue_auth_code_request";
+  reserved "issue_auth_code_response";
+  reserved "add_user_event";
+  reserved "change_user_event";
+  reserved "delete_user_event";
+  reserved "change_token_event";
+  reserved "owner_startup_info";
+  reserved "all_startup_info";
+  reserved "configuration_mode_ap_up";
+  reserved "metrica_message";
+  reserved "media_message";
+  reserved "recording_event";
+  reserved "app_state";
+  reserved "wifi_status";
+  reserved "critical_update_progress";
+  reserved "no_critical_update_found";
+  reserved "start_critical_update";
+  reserved "child_phrase_end_event";
+  reserved "volumeState";
+  reserved "external_command";
+  reserved "external_command_response";
+  reserved "timers_state";
+  reserved "alarms_state";
+  reserved "set_alarms_state";
+  reserved "watched_video";
   reserved "current_weather";
+  reserved "current_location";
+  reserved "push_notification";
   reserved "auth_failed";
+  reserved "reset_wifi";
+  reserved "user_config_update";
   reserved "subscription_state";
+  reserved "brick_state";
+  reserved "current_timezone";
+  reserved "bluetooth_request";
+  reserved "bluetooth_source_event";
+  reserved "bluetooth_sink_event";
+  reserved "wifi_config_reload";
+  reserved "leader_override";
+  reserved "volume_set_message";
+  reserved "vins_call_response";
+  reserved "device_group_state";
+  reserved "glagold_state";
+  reserved "simple_player_state";
+  reserved "io_event";
+  reserved "io_control";
+  reserved "io_hub_message";
+  reserved "io_audio_channels_data";
+  reserved "io_channel_request";
+  reserved "mordovia_show";
+  reserved "mordovia_command";
+  reserved "configuration_state";
+  reserved "control_request";
+  reserved "onboarding_request";
+  reserved "update_state";
   reserved "cached_user_config";
+  reserved "audio_inputs";
+  reserved "xiva_websocket_send_binary_message";
+  reserved "xiva_websocket_recv_binary_message";
+  reserved "xiva_websocket_client_state";
+  reserved "subscribe_to_pushd_xiva_websocket_events";
+  reserved "list_xiva_subscriptions";
+  reserved "xiva_subscriptions";
+  reserved "on_media_error";
+  reserved "check_updates";
+  reserved "audio_client_event";
+  reserved "multiroom_broadcast";
+  reserved "ready_to_apply_update";
+  reserved "confirm_update_apply";
+  reserved "postpone_update_apply";
+  reserved "notification_update_event";
+  reserved "ntp_sync_event";
   reserved "do_not_disturb_event";
+  reserved "setup_credentials_message";
+  reserved "multiroom_directive";
+  reserved "setup_credentials_handling_completed";
+  reserved "encrypted_setup_credentials_message";
+  reserved "setup_status_message";
+  reserved "multiroom_state";
+  reserved "testpoint_message";
+  reserved "service_name_ready";
+  reserved "rcu_event";
+  reserved "rcu_voice_event";
+  reserved "network_status";
+  reserved "reset_network";
+  reserved "networks_disable";
+  reserved "networks_enable";
+  reserved "network_config_reload";
+  reserved "network_stats_command";
+  reserved "network_stats";
+  reserved "refresh_user_event";
+  reserved "auth_token_update_request";
+  reserved "legacy_player_state_changed";
+  reserved "setup_rcu";
+  reserved "setup_rcu_auto";
+  reserved "setup_rcu_check";
+  reserved "setup_rcu_advanced";
+  reserved "setup_rcu_manual";
   reserved "account_devices_list";
   reserved "rerequest_devices_list";
+  reserved "led_screen_command";
+  reserved "glagol_cluster_message";
+  reserved "log_message";
+  reserved "glagol_discovery_request";
+  reserved "glagol_discovery_updated";
+  reserved "glagol_discovery_result";
+  reserved "all_startup_settings";
+  reserved "nsd_discovered_item";
+  reserved "nsd_discovered_items";
+  reserved "nsd_lost_item";
+  reserved "nsd_discovered_request";
+  reserved "nsd_disable";
+  reserved "nsd_enable";
+  reserved "nsd_disable_completed";
+  reserved "nsd_guest_mode";
+  reserved "nsd_stereo_pair_follower";
   reserved "features_config_message";
+  reserved "stereo_pair_message";
+  reserved "volume_manager_message";
+  reserved "spectrogram_animation_message";
+  reserved "alice_message";
   reserved "call_message";
+  reserved "environment_message";
+  reserved "remoting";
+  reserved "directive";
+  reserved "wifi_turn_off";
+  reserved "wifi_turn_on";
+  reserved "call_action";
+  reserved "backend_request";
+  reserved "backend_response";
   reserved "update_config_request";
   reserved "ab_testing_cookies";
+  reserved "vqe_info";
+  reserved "vqe_zone";
+  reserved "audio_error";
+  reserved "update_health_check";
+  reserved "force_check_updates";
+  reserved "database_metrica_message";
+  reserved "audio_storage_event";
+  reserved "rss_status";
+  reserved "equalizer_params";
   reserved 2;
   reserved 9;
   reserved 10;
@@ -539,12 +687,98 @@ message QuasarMessage {
   reserved 224;
   reserved 225;
   reserved 226;
+  reserved 228;
   reserved 238;
   reserved 239;
+  reserved 254 to 18999;
+  reserved 20000 to max;
+  reserved 3;
+  reserved 112;
+  reserved 4;
+  reserved 5;
+  reserved 30;
+  reserved 105;
+  reserved 249;
+  reserved 6;
+  reserved 64;
+  reserved 7;
+  reserved 8;
+  reserved 11;
+  reserved 12;
+  reserved 216;
+  reserved 217;
+  reserved 97;
+  reserved 242;
+  reserved 243;
+  reserved 219;
+  reserved 13;
+  reserved 220;
+  reserved 100;
+  reserved 221;
+  reserved 222;
+  reserved 89;
+  reserved 24;
+  reserved 27;
+  reserved 32;
+  reserved 33;
+  reserved 35;
+  reserved 36;
+  reserved 37;
+  reserved 38;
+  reserved 41;
+  reserved 42;
+  reserved 44;
+  reserved 45;
+  reserved 46;
+  reserved 47;
+  reserved 208;
+  reserved 51;
   reserved 53;
+  reserved 55;
+  reserved 57;
   reserved 59;
+  reserved 60;
+  reserved 63;
   reserved 65;
+  reserved 235;
+  reserved 67;
+  reserved 69;
+  reserved 71;
+  reserved 72;
+  reserved 74;
+  reserved 77;
+  reserved 78;
+  reserved 80;
+  reserved 81;
+  reserved 82;
+  reserved 84;
+  reserved 85;
+  reserved 88;
+  reserved 183;
+  reserved 158;
+  reserved 159;
+  reserved 95;
+  reserved 96;
+  reserved 98;
+  reserved 101;
+  reserved 103;
+  reserved 104;
   reserved 106;
+  reserved 108;
+  reserved 114;
+  reserved 115;
+  reserved 116;
+  reserved 117;
+  reserved 118;
+  reserved 119;
+  reserved 124;
+  reserved 126;
+  reserved 127;
+  reserved 128;
+  reserved 130;
+  reserved 131;
+  reserved 132;
+  reserved 134;
   reserved 135;
   reserved 136;
   reserved 137;
@@ -554,182 +788,217 @@ message QuasarMessage {
   reserved 141;
   reserved 142;
   reserved 139;
+  reserved 143;
   reserved 145;
+  reserved 146;
+  reserved 148;
+  reserved 149;
+  reserved 150;
+  reserved 151;
+  reserved 152;
+  reserved 154;
+  reserved 157;
+  reserved 160;
+  reserved 161;
+  reserved 162;
+  reserved 163;
+  reserved 164;
+  reserved 165;
+  reserved 166;
+  reserved 241;
+  reserved 240;
+  reserved 167;
+  reserved 171;
+  reserved 173;
+  reserved 153;
+  reserved 174;
+  reserved 175;
+  reserved 176;
+  reserved 177;
   reserved 179;
   reserved 189;
+  reserved 180;
+  reserved 181;
+  reserved 184;
+  reserved 185;
+  reserved 186;
+  reserved 187;
+  reserved 188;
+  reserved 190;
+  reserved 191;
+  reserved 192;
+  reserved 193;
+  reserved 194;
+  reserved 195;
+  reserved 196;
+  reserved 199;
+  reserved 202;
   reserved 197;
+  reserved 198;
+  reserved 200;
+  reserved 201;
+  reserved 204;
   reserved 205;
   reserved 206;
   reserved 209;
+  reserved 207;
+  reserved 210;
+  reserved 211;
+  reserved 213;
+  reserved 214;
+  reserved 229;
+  reserved 230;
   reserved 231;
   reserved 232;
-  message CallAction {
-    reserved "make_call_to_own_device";
-    reserved 5;
-    optional .quasar.proto.EmptyMessage accept_call = 1;
-    optional .quasar.proto.EmptyMessage decline_call = 2;
-    optional .quasar.proto.EmptyMessage hangup_call = 3;
-    optional .quasar.proto.EmptyMessage make_call = 4;
-    optional string call_guid = 6;
-    optional string device_id = 7;
-    optional string user_guid = 8;
-    repeated .quasar.proto.Directive on_accept = 9;
-    repeated .quasar.proto.Directive on_end = 10;
-    repeated .quasar.proto.Directive on_declined = 13;
-    optional string payload = 11;
-    optional bool is_nanny_call = 12;
-    optional string request_id = 14;
+  reserved 233;
+  reserved 248;
+  reserved 234;
+  reserved 244;
+  reserved 245;
+  reserved 246;
+  reserved 247;
+  reserved 250;
+  reserved 251;
+  enum Type {
+    TYPE_UNSPECIFIED = 0;
+    TYPE_ALICE_STATE = 3;
+    TYPE_WIFI_LIST_REQUEST = 4;
+    TYPE_WIFI_LIST = 5;
+    TYPE_WIFI_CONNECT = 6;
+    TYPE_WIFI_CONNECT_RESPONSE = 7;
+    TYPE_MEDIA_REQUEST = 8;
+    TYPE_ADD_USER_REQUEST = 11;
+    TYPE_ADD_USER_RESPONSE = 12;
+    TYPE_CHANGE_USER_EVENT = 13;
+    TYPE_METRICA_MESSAGE = 24;
+    TYPE_MEDIA_MESSAGE = 27;
+    TYPE_WIFI_NETWORKS_DISABLE = 30;
+    TYPE_APP_STATE = 33;
+    TYPE_WIFI_STATUS = 35;
+    TYPE_CRITICAL_UPDATE_PROGRESS = 36;
+    TYPE_NO_CRITICAL_UPDATE_FOUND = 37;
+    TYPE_START_CRITICAL_UPDATE = 38;
+    TYPE_VOLUME_STATE = 42;
+    TYPE_TIMERS_STATE = 46;
+    TYPE_ALARMS_STATE = 47;
+    TYPE_WATCHED_VIDEO = 51;
+    TYPE_CURRENT_LOCATION = 55;
+    TYPE_RESET_WIFI = 60;
+    TYPE_USER_CONFIG_UPDATE = 63;
+    TYPE_ASYNC_WIFI_CONNECT = 64;
+    TYPE_CURRENT_TIMEZONE = 67;
+    TYPE_BLUETOOTH_REQUEST = 69;
+    TYPE_BLUETOOTH_SOURCE_EVENT = 71;
+    TYPE_BLUETOOTH_SINK_EVENT = 72;
+    TYPE_WIFI_CONFIG_RELOAD = 74;
+    TYPE_LEADER_OVERRIDE = 77;
+    TYPE_VOLUME_SET_MESSAGE = 78;
+    TYPE_VINS_CALL_RESPONSE = 80;
+    TYPE_DEVICE_GROUP_STATE = 81;
+    TYPE_GLAGOLD_STATE = 82;
+    TYPE_SIMPLE_PLAYER_STATE = 84;
+    TYPE_IO_EVENT = 85;
+    TYPE_IO_CONTROL = 88;
+    TYPE_CONFIGURATION_MODE_AP_UP = 89;
+    TYPE_MORDOVIA_SHOW = 95;
+    TYPE_MORDOVIA_COMMAND = 96;
+    TYPE_CHANGE_USER_REQUEST = 97;
+    TYPE_CONFIGURATION_STATE = 98;
+    TYPE_CHANGE_TOKEN_EVENT = 100;
+    TYPE_CONTROL_REQUEST = 101;
+    TYPE_ONBOARDING_REQUEST = 103;
+    TYPE_UPDATE_STATE = 104;
+    TYPE_WIFI_NETWORKS_ENABLE = 105;
+    TYPE_BROKEN_MIC_INFO = 112;
+    TYPE_ON_MEDIA_ERROR = 124;
+    TYPE_CHECK_UPDATES = 126;
+    TYPE_AUDIO_CLIENT_EVENT = 127;
+    TYPE_MULTIROOM_BROADCAST = 128;
+    TYPE_READY_TO_APPLY_UPDATE = 130;
+    TYPE_CONFIRM_UPDATE_APPLY = 131;
+    TYPE_POSTPONE_UPDATE_APPLY = 132;
+    TYPE_NOTIFICATION_UPDATE_EVENT = 134;
+    TYPE_NTP_SYNC_EVENT = 143;
+    TYPE_SETUP_CREDENTIALS_MESSAGE = 146;
+    TYPE_MULTIROOM_DIRECTIVE = 148;
+    TYPE_SETUP_CREDENTIALS_HANDLING_COMPLETED = 149;
+    TYPE_ENCRYPTED_SETUP_CREDENTIALS_MESSAGE = 150;
+    TYPE_SETUP_STATUS_MESSAGE = 151;
+    TYPE_MULTIROOM_STATE = 152;
+    TYPE_SETUP_RCU = 153;
+    TYPE_TESTPOINT_MESSAGE = 154;
+    TYPE_SERVICE_NAME_READY = 157;
+    TYPE_IO_AUDIO_CHANNELS_DATA = 158;
+    TYPE_IO_CHANNEL_REQUEST = 159;
+    TYPE_NETWORK_STATUS = 162;
+    TYPE_RESET_NETWORK = 163;
+    TYPE_NETWORKS_DISABLE = 164;
+    TYPE_NETWORKS_ENABLE = 165;
+    TYPE_NETWORK_CONFIG_RELOAD = 166;
+    TYPE_REFRESH_USER_EVENT = 167;
+    TYPE_AUTH_TOKEN_UPDATE_REQUEST = 171;
+    TYPE_LEGACY_PLAYER_STATE_CHANGED = 173;
+    TYPE_SETUP_RCU_AUTO = 174;
+    TYPE_SETUP_RCU_CHECK = 175;
+    TYPE_SETUP_RCU_ADVANCED = 176;
+    TYPE_SETUP_RCU_MANUAL = 177;
+    TYPE_LED_SCREEN_COMMAND = 180;
+    TYPE_GLAGOL_CLUSTER_MESSAGE = 181;
+    TYPE_IO_HUB_MESSAGE = 183;
+    TYPE_LOG_MESSAGE = 184;
+    TYPE_GLAGOL_DISCOVERY_REQUEST = 185;
+    TYPE_GLAGOL_DISCOVERY_UPDATED = 186;
+    TYPE_GLAGOL_DISCOVERY_RESULT = 187;
+    TYPE_NSD_DISCOVERED_ITEM = 190;
+    TYPE_NSD_DISCOVERED_ITEMS = 191;
+    TYPE_NSD_LOST_ITEM = 192;
+    TYPE_NSD_DISABLE = 194;
+    TYPE_NSD_ENABLE = 195;
+    TYPE_NSD_DISABLE_COMPLETED = 196;
+    TYPE_STEREO_PAIR_MESSAGE = 198;
+    TYPE_SPECTROGRAM_ANIMATION_MESSAGE = 201;
+    TYPE_ALICE_MESSAGE = 204;
+    TYPE_ENVIRONMENT_MESSAGE = 207;
+    TYPE_SET_ALARMS_STATE = 208;
+    TYPE_REMOTING = 210;
+    TYPE_DIRECTIVE = 211;
+    TYPE_DELETE_USER_REQUEST = 216;
+    TYPE_DELETE_USER_RESPONSE = 217;
+    TYPE_ADD_USER_EVENT = 219;
+    TYPE_DELETE_USER_EVENT = 220;
+    TYPE_OWNER_STARTUP_INFO = 221;
+    TYPE_ALL_STARTUP_INFO = 222;
+    TYPE_BACKEND_REQUEST = 229;
+    TYPE_BACKEND_RESPONSE = 230;
+    TYPE_VQE_INFO = 233;
+    TYPE_AUDIO_ERROR = 234;
+    TYPE_BRICK_STATE = 235;
+    TYPE_CONFIG_CAPABILITY_EVENTS = 236;
+    TYPE_CONFIG_CAPABILITY_SUBSCRIPTIONS = 237;
+    TYPE_NETWORK_STATS = 240;
+    TYPE_NETWORK_STATS_COMMAND = 241;
+    TYPE_ISSUE_AUTH_CODE_REQUEST = 242;
+    TYPE_ISSUE_AUTH_CODE_RESPONSE = 243;
+    TYPE_UPDATE_HEALTH_CHECK = 244;
+    TYPE_FORCE_CHECK_UPDATES = 245;
+    TYPE_DATABASE_METRICA_MESSAGE = 246;
+    TYPE_AUDIO_STORAGE_EVENT = 247;
+    TYPE_VQE_ZONE = 248;
+    TYPE_WIFI_REASSOCIATE = 249;
+    TYPE_RSS_STATUS = 250;
+    TYPE_EQUALIZER_PARAMS = 251;
+    TYPE_WIFI_REPORT = 252;
+    TYPE_MINIDUMP_STATUS = 254;
+    TYPE_VINYL_JOG_WHEEL_EVENT = 255;
+    TYPE_LOG_MESSAGES = 256;
+    TYPE_REMOTE_AUDIO_SOURCE = 257;
   }
 
   optional string request_id = 1;
-  optional .quasar.proto.AliceState alice_state = 3;
-  optional .quasar.proto.BrokenMicInfo broken_mic_info = 112;
-  optional .quasar.proto.EmptyMessage wifi_list_request = 4;
-  optional .quasar.proto.WifiList wifi_list = 5;
-  optional .quasar.proto.EmptyMessage wifi_networks_disable = 30;
-  optional .quasar.proto.EmptyMessage wifi_networks_enable = 105;
-  optional .quasar.proto.EmptyMessage wifi_reassociate = 249;
-  optional .quasar.proto.WifiConnect wifi_connect = 6;
-  optional .quasar.proto.WifiConnect async_wifi_connect = 64;
-  optional .quasar.proto.WifiConnectResponse wifi_connect_response = 7;
-  optional .quasar.proto.MediaRequest media_request = 8;
-  optional .quasar.proto.AddUserRequest add_user_request = 11;
-  optional .quasar.proto.AddUserResponse add_user_response = 12;
-  optional .quasar.proto.DeleteUserRequest delete_user_request = 216;
-  optional .quasar.proto.DeleteUserResponse delete_user_response = 217;
-  optional .quasar.proto.ChangeUserRequest change_user_request = 97;
-  optional .quasar.proto.IssueAuthCodeRequest issue_auth_code_request = 242;
-  optional .quasar.proto.IssueAuthCodeResponse issue_auth_code_response = 243;
-  optional .quasar.proto.AuthEvent add_user_event = 219;
-  optional .quasar.proto.AuthEvent change_user_event = 13;
-  optional .quasar.proto.AuthEvent delete_user_event = 220;
-  optional .quasar.proto.AuthEvent change_token_event = 100;
-  optional .quasar.proto.OwnerStartupInfo owner_startup_info = 221;
-  optional .quasar.proto.AllStartupInfo all_startup_info = 222;
-  optional .quasar.proto.EmptyMessage configuration_mode_ap_up = 89;
-  optional .quasar.proto.MetricaMessage metrica_message = 24;
-  optional .quasar.proto.MediaMessage media_message = 27;
-  optional .quasar.proto.RecordingEvent recording_event = 32;
-  optional .quasar.proto.AppState app_state = 33;
-  optional .quasar.proto.WifiStatus wifi_status = 35;
-  optional .quasar.proto.UpdateProgress critical_update_progress = 36;
-  optional .quasar.proto.EmptyMessage no_critical_update_found = 37;
-  optional .quasar.proto.EmptyMessage start_critical_update = 38;
-  optional .quasar.proto.PhraseEndEvent child_phrase_end_event = 41;
-  optional .quasar.proto.VolumeState volumeState = 42;
-  optional .quasar.proto.ExternalCommandMessage external_command = 44;
-  optional .quasar.proto.ExternalCommandResponse external_command_response = 45;
-  optional .quasar.proto.TimersState timers_state = 46;
-  optional .quasar.proto.AlarmsState alarms_state = 47;
-  optional .quasar.proto.TimersState set_alarms_state = 208;
-  optional .quasar.proto.WatchedVideoState watched_video = 51;
-  optional .quasar.proto.Location current_location = 55;
-  optional .quasar.proto.PushNotification push_notification = 57;
-  optional .quasar.proto.EmptyMessage reset_wifi = 60;
-  optional .quasar.proto.UserConfig user_config_update = 63;
-  optional .quasar.proto.BrickState brick_state = 235;
-  optional .quasar.proto.Timezone current_timezone = 67;
-  optional .quasar.proto.BluetoothRequest bluetooth_request = 69;
-  optional .quasar.proto.BluetoothSourceEvent bluetooth_source_event = 71;
-  optional .quasar.proto.BluetoothSinkEvent bluetooth_sink_event = 72;
-  optional .quasar.proto.EmptyMessage wifi_config_reload = 74;
-  optional .quasar.proto.LeaderOverride leader_override = 77;
-  optional .quasar.proto.VolumeSetMessage volume_set_message = 78;
-  optional .quasar.proto.VinsCallResponse vins_call_response = 80;
-  optional .quasar.proto.DeviceGroupState device_group_state = 81;
-  optional .quasar.proto.GlagoldState glagold_state = 82;
-  optional .quasar.proto.SimplePlayerState simple_player_state = 84;
-  optional .quasar.proto.IOEvent io_event = 85;
-  optional .quasar.proto.IOControlCommand io_control = 88;
-  optional .quasar.proto.IOHubMessage io_hub_message = 183;
-  optional .quasar.proto.IOAudioChannelsData io_audio_channels_data = 158;
-  optional .quasar.proto.IOChannelRequest io_channel_request = 159;
-  optional .quasar.proto.MordoviaShowMessage mordovia_show = 95;
-  optional .quasar.proto.MordoviaCommandMessage mordovia_command = 96;
-  optional .quasar.proto.ConfigurationState configuration_state = 98;
-  optional .quasar.proto.ControlRequest control_request = 101;
-  optional .quasar.proto.OnboardingRequest onboarding_request = 103;
-  optional .quasar.proto.UpdateState update_state = 104;
-  repeated .quasar.proto.AudioInput audio_inputs = 108;
-  optional bytes xiva_websocket_send_binary_message = 114;
-  optional bytes xiva_websocket_recv_binary_message = 115;
-  optional .quasar.proto.WebsocketClientState xiva_websocket_client_state = 116;
-  optional .quasar.proto.EmptyMessage subscribe_to_pushd_xiva_websocket_events = 117;
-  optional .quasar.proto.EmptyMessage list_xiva_subscriptions = 118;
-  optional .quasar.proto.XivaSubscriptions xiva_subscriptions = 119;
-  optional .quasar.proto.MediaContentType on_media_error = 124;
-  optional .quasar.proto.EmptyMessage check_updates = 126;
-  optional .quasar.proto.AudioClientEvent audio_client_event = 127;
-  optional .quasar.proto.MultiroomBroadcast multiroom_broadcast = 128;
-  optional .quasar.proto.UpdateApplyTimeout ready_to_apply_update = 130;
-  optional .quasar.proto.EmptyMessage confirm_update_apply = 131;
-  optional .quasar.proto.EmptyMessage postpone_update_apply = 132;
-  optional .quasar.proto.NotificationUpdateEvent notification_update_event = 134;
-  optional .quasar.proto.NtpSyncEvent ntp_sync_event = 143;
-  optional .quasar.proto.SetupCredentialsMessage setup_credentials_message = 146;
-  optional .quasar.proto.MultiroomDirective multiroom_directive = 148;
-  optional .quasar.proto.EmptyMessage setup_credentials_handling_completed = 149;
-  optional .quasar.proto.EncryptedSetupCredentialsMessage encrypted_setup_credentials_message = 150;
-  optional .quasar.proto.SetupStatusMessage setup_status_message = 151;
-  optional .quasar.proto.MultiroomState multiroom_state = 152;
-  optional .quasar.proto.TestpointMessage testpoint_message = 154;
-  optional string service_name_ready = 157;
-  optional .quasar.proto.RcuEvent rcu_event = 160;
-  optional .quasar.proto.RcuVoiceEvent rcu_voice_event = 161;
-  optional .quasar.proto.NetworkStatus network_status = 162;
-  optional .quasar.proto.EmptyMessage reset_network = 163;
-  optional .quasar.proto.EmptyMessage networks_disable = 164;
-  optional .quasar.proto.EmptyMessage networks_enable = 165;
-  optional .quasar.proto.EmptyMessage network_config_reload = 166;
-  optional .quasar.proto.NetworkStatsCommand network_stats_command = 241;
-  optional .quasar.proto.NetworkStats network_stats = 240;
-  optional .quasar.proto.AuthEvent refresh_user_event = 167;
-  optional .quasar.proto.AuthTokenUpdateRequest auth_token_update_request = 171;
-  optional .quasar.proto.LegacyPlayerStateChanged legacy_player_state_changed = 173;
-  optional .quasar.proto.EmptyMessage setup_rcu = 153;
-  optional .quasar.proto.SetupRcuAutoEvent setup_rcu_auto = 174;
-  optional .quasar.proto.EmptyMessage setup_rcu_check = 175;
-  optional .quasar.proto.EmptyMessage setup_rcu_advanced = 176;
-  optional .quasar.proto.EmptyMessage setup_rcu_manual = 177;
-  optional .quasar.proto.LedScreenCommand led_screen_command = 180;
-  optional .quasar.proto.GlagolClusterMessage glagol_cluster_message = 181;
+  optional bytes payload = 252;
+  optional .quasar.proto.QuasarMessage.Type type = 253;
   optional .quasar.proto.GlagolClusterSign glagol_cluster_sign = 182;
-  optional .quasar.proto.LogMessage log_message = 184;
-  optional .quasar.proto.GlagolDiscoveryRequest glagol_discovery_request = 185;
-  optional .quasar.proto.EmptyMessage glagol_discovery_updated = 186;
-  optional .quasar.proto.GlagolDiscoveryResult glagol_discovery_result = 187;
-  optional .quasar.proto.AllStartupSettings all_startup_settings = 188;
-  optional .quasar.proto.NsdInfo nsd_discovered_item = 190;
-  optional .quasar.proto.NsdInfoList nsd_discovered_items = 191;
-  optional .quasar.proto.NsdInfo nsd_lost_item = 192;
-  optional .quasar.proto.EmptyMessage nsd_discovered_request = 193;
-  optional .quasar.proto.EmptyMessage nsd_disable = 194;
-  optional .quasar.proto.NsdEnable nsd_enable = 195;
-  optional .quasar.proto.EmptyMessage nsd_disable_completed = 196;
-  optional .quasar.proto.EmptyMessage nsd_guest_mode = 199;
-  optional .quasar.proto.EmptyMessage nsd_stereo_pair_follower = 202;
-  optional .quasar.proto.StereoPair stereo_pair_message = 198;
-  optional .quasar.proto.VolumeManager volume_manager_message = 200;
-  optional .quasar.proto.SpectrogramAnimation spectrogram_animation_message = 201;
-  optional .quasar.proto.Alice alice_message = 204;
-  optional .quasar.proto.EnvironmentMessage environment_message = 207;
-  optional .quasar.proto.Remoting remoting = 210;
-  optional .quasar.proto.Directive directive = 211;
-  optional .quasar.proto.EmptyMessage wifi_turn_off = 213;
-  optional .quasar.proto.EmptyMessage wifi_turn_on = 214;
-  optional .quasar.proto.QuasarMessage.CallAction call_action = 228;
-  optional .quasar.proto.BackendRequest backend_request = 229;
-  optional .quasar.proto.BackendResponse backend_response = 230;
-  optional .quasar.proto.VqeInfo vqe_info = 233;
-  optional string vqe_zone = 248;
-  optional .quasar.proto.EmptyMessage audio_error = 234;
   optional .quasar.proto.ConfigCapabilityEvents config_capability_events = 236;
   optional .quasar.proto.ConfigCapabilitySubscriptions config_capability_subscriptions = 237;
-  optional .quasar.proto.UpdateHealthCheck update_health_check = 244;
-  optional .quasar.proto.ForceCheckUpdates force_check_updates = 245;
-  optional .quasar.proto.DatabaseMetricaEvent database_metrica_message = 246;
-  optional .quasar.proto.AudioStorageEvent audio_storage_event = 247;
-  optional .quasar.proto.RssStatus rss_status = 250;
-  optional .quasar.proto.EqualizerParameters equalizer_params = 251;
 }
 

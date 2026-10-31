@@ -15,6 +15,7 @@ message MatterDevice {
     optional uint32 softwareVersion = 7;
     optional string serialNumber = 8;
     optional string setupCode = 9;
+    optional string softwareVersionString = 10;
   }
 
   message NetworkInterfaceInfo {
@@ -24,32 +25,17 @@ message MatterDevice {
   }
 
   message Cluster {
-    message AttributesEntry {
-      uint32 key = 1;
-      bytes value = 2;
-    }
-
-    repeated .proto.MatterDevice.Cluster.AttributesEntry attributes = 1;
+    map<uint32, bytes> attributes = 1;
   }
 
   message Endpoint {
-    message ServerClustersEntry {
-      uint32 key = 1;
-      .proto.MatterDevice.Cluster value = 2;
-    }
-
-    repeated .proto.MatterDevice.Endpoint.ServerClustersEntry serverClusters = 1;
+    map<uint32, .proto.MatterDevice.Cluster> serverClusters = 1;
     optional bool isBridgeRootNode = 2;
     optional .proto.MatterDevice.DeviceInfo bridgedDeviceInfo = 3;
   }
 
   message Endpoints {
-    message EndpointsEntry {
-      uint32 key = 1;
-      .proto.MatterDevice.Endpoint value = 2;
-    }
-
-    repeated .proto.MatterDevice.Endpoints.EndpointsEntry endpoints = 1;
+    map<uint32, .proto.MatterDevice.Endpoint> endpoints = 1;
   }
 
   .proto.MatterDevice.DeviceInfo info = 1;

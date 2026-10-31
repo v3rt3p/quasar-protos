@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "FlashlightCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/flashlight;flashlightpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFlashlightCapability {
+  message TParameters {
+  }
+
+  message TState {
+    bool Enabled = 1 [json_name = "enabled"];
+    .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness"];
+  }
+
+  message TSetFlashlightStateDirective {
+    string Name = 1000 [json_name = "name"];
+    bool Enabled = 1 [json_name = "enabled"];
+    optional .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness"];
+    optional uint64 DurationSeconds = 3 [json_name = "duration_seconds"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TFlashlightCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EBrightness {
+    BRIGHTNESS_UNKNOWN = 0;
+    BRIGHTNESS_LOW = 1;
+    BRIGHTNESS_MEDIUM = 2;
+    BRIGHTNESS_HIGH = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TFlashlightCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TFlashlightCapability.TState State = 3 [json_name = "state"];
+}
+

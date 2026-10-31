@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+import "alice_pro_state.proto";
+
+message TAliceState {
+  .quark.core.proto.TAliceProStateResponse.TAliceProState AliceProState = 1;
+  .quark.core.proto.TAliceModelsState AliceModels = 2;
+  .quark.core.proto.TFileUploadParams FileUploadParams = 3;
+}
+
+message TAliceStateResponse {
+  .quark.core.proto.TAliceState State = 1;
+}
+

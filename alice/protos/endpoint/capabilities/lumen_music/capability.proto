@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LumenMusicCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/lumen_music;lumen_musicpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLumenMusicCapability {
+  message TParameters {
+  }
+
+  message TReplica {
+    string ReplicaText = 1 [json_name = "replica_text"];
+    string CardId = 2 [json_name = "card_id"];
+    optional string TrackId = 3 [json_name = "track_id"];
+  }
+
+  message TState {
+    oneof scenario {
+      .NAlice.TLumenMusicCapability.TReplica Replica = 1;
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLumenMusicCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLumenMusicCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -17,13 +17,35 @@ message TSpeechMode {
   }
 
   message TVoice {
+    reserved "options";
+    reserved 1;
+    message TOptions {
+      enum EVoicePreset {
+        Default = 0;
+        Shtin = 1;
+        Filimonova = 2;
+        Shitova = 3;
+      }
+
+      optional .NAlice.TSpeechMode.TVoice.TOptions.EVoicePreset VoicePreset = 1 [json_name = "voice_preset"];
+      optional string CharacterId = 2 [json_name = "character_id"];
+      optional string VoiceId = 3 [json_name = "voice_id"];
+    }
+
+    .NAlice.TSpeechMode.TVoice.TOptions Options = 2 [json_name = "options"];
   }
 
   oneof Mode {
-    .NAlice.TSpeechMode.TNote Note = 1;
-    .NAlice.TSpeechMode.TMic Mic = 2;
-    .NAlice.TSpeechMode.TTranslate Translate = 3;
-    .NAlice.TSpeechMode.TVoice Voice = 4;
+    .NAlice.TSpeechMode.TNote Note = 1 [json_name = "note"];
+    .NAlice.TSpeechMode.TMic Mic = 2 [json_name = "mic"];
+    .NAlice.TSpeechMode.TTranslate Translate = 3 [json_name = "translate"];
+    .NAlice.TSpeechMode.TVoice Voice = 4 [json_name = "voice"];
+  }
+}
+
+message TSpeechModeOptions {
+  oneof Options {
+    .NAlice.TSpeechMode.TVoice.TOptions VoiceModeOptions = 1 [json_name = "voice_mode_options"];
   }
 }
 

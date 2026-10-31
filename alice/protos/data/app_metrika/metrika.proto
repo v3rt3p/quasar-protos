@@ -10,7 +10,7 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TAppMetrikaEvent {
-  string Name = 1;
-  .google.protobuf.Struct Payload = 2;
+  string Name = 1 [json_name = "name"];
+  .google.protobuf.Struct Payload = 2 [json_name = "payload"];
 }
 

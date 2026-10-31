@@ -11,6 +11,6 @@ import "alice/protos/api/alicekit/events/sync_push_response/sync_response/sync_r
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSyncPushResponse {
-  .NAlice.NAliceApi.TSyncResponse SyncResponse = 1;
+  .NAlice.NAliceApi.TSyncResponse SyncResponse = 1 [json_name = "sync_response"];
 }
 

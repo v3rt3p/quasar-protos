@@ -24,8 +24,8 @@ message TGregorianDate {
     December = 12;
   }
 
-  uint32 DayOfMonth = 1;
-  .NAlice.NData.TGregorianDate.EMonth Month = 2;
-  uint32 Year = 3;
+  uint32 DayOfMonth = 1 [json_name = "day_of_month"];
+  .NAlice.NData.TGregorianDate.EMonth Month = 2 [json_name = "month"];
+  uint32 Year = 3 [json_name = "year"];
 }
 

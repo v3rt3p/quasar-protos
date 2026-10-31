@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "WidgetStackCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/widget_stack;widgetstackpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TWidgetStackCapability {
+  message TParameters {
+    message TSupportedWidget {
+      .NAlice.TWidgetStackCapability.EWidgetType Type = 1 [json_name = "type"];
+    }
+
+    repeated .NAlice.TWidgetStackCapability.TParameters.TSupportedWidget SupportedWidgets = 1 [json_name = "supported_widgets"];
+    uint64 MaxWidgetCount = 2 [json_name = "max_widget_count"];
+  }
+
+  message TState {
+    repeated .NAlice.TWidgetStackCapability.TWidget Widgets = 1 [json_name = "widgets"];
+  }
+
+  message TWidget {
+    message TReminderWidget {
+    }
+
+    message TWeatherWidget {
+    }
+
+    message TIoTWidget {
+      message TGroupWidget {
+        string GroupID = 1 [json_name = "group_id"];
+      }
+
+      message TDeviceWidget {
+        string DeviceID = 1 [json_name = "device_id"];
+      }
+
+      message TScenarioWidget {
+        string ScenarioID = 1 [json_name = "scenario_id"];
+        string Name = 2 [json_name = "name"];
+      }
+
+      message TAggregatedWidget {
+        repeated string DeviceIDs = 1 [json_name = "device_ids"];
+        optional string Name = 2 [json_name = "name"];
+      }
+
+      oneof Widget {
+        .NAlice.TWidgetStackCapability.TWidget.TIoTWidget.TDeviceWidget DeviceWidget = 1 [json_name = "device_widget"];
+        .NAlice.TWidgetStackCapability.TWidget.TIoTWidget.TScenarioWidget ScenarioWidget = 2 [json_name = "scenario_widget"];
+        .NAlice.TWidgetStackCapability.TWidget.TIoTWidget.TGroupWidget GroupWidget = 3 [json_name = "group_widget"];
+        .NAlice.TWidgetStackCapability.TWidget.TIoTWidget.TAggregatedWidget AggregatedWidget = 4 [json_name = "aggregated_widget"];
+      }
+    }
+
+    uint64 ID = 1 [json_name = "id"];
+    uint64 Position = 2 [json_name = "position"];
+    oneof Widget {
+      .NAlice.TWidgetStackCapability.TWidget.TReminderWidget ReminderWidget = 3 [json_name = "reminder_widget"];
+      .NAlice.TWidgetStackCapability.TWidget.TWeatherWidget WeatherWidget = 4 [json_name = "weather_widget"];
+      .NAlice.TWidgetStackCapability.TWidget.TIoTWidget IoTWidget = 5 [json_name = "iot_widget"];
+    }
+  }
+
+  message TSetWidgetStackDirective {
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TWidgetStackCapability.TWidget CurrentStack = 1 [json_name = "current_stack"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TWidgetStackCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EWidgetType {
+    Unknown = 0;
+    ReminderWidgetType = 1;
+    WeatherWidgetType = 2;
+    IoTWidgetType = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TWidgetStackCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TWidgetStackCapability.TState State = 3 [json_name = "state"];
+}
+

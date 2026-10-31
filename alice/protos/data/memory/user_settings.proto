@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NData.NMemory;
+
+option java_package = "ru.yandex.alice.protos.data.memory";
+option go_package = "a.yandex-team.ru/alice/protos/data/memory";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TUserSettings {
+  optional bool UseBirthDateFromId = 1 [json_name = "use_birth_date_from_id"];
+  optional bool OnboardingCompleted = 2 [json_name = "onboarding_completed"];
+}
+

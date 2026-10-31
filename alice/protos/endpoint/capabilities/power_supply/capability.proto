@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PowerSupplyProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/power_supply;powersupplypb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPowerSupplyCapability {
+  message TParameters {
+  }
+
+  message TLimitations {
+    uint32 MaxVolumeLevelPercent = 1 [json_name = "max_volume_level_percent"];
+  }
+
+  message TState {
+    .NAlice.TPowerSupplyCapability.TLimitations Limitations = 1 [json_name = "limitations"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TPowerSupplyCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TPowerSupplyCapability.TState State = 3 [json_name = "state"];
+}
+

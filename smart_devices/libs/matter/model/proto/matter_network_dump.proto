@@ -5,17 +5,7 @@ package proto;
 import "smart_devices/libs/matter/model/proto/device.proto";
 
 message MatterNetworkDump {
-  message DevicesEntry {
-    string key = 1;
-    .proto.MatterDevice value = 2;
-  }
-
-  message ChipDataEntry {
-    string key = 1;
-    bytes value = 2;
-  }
-
-  repeated .proto.MatterNetworkDump.DevicesEntry devices = 1;
-  repeated .proto.MatterNetworkDump.ChipDataEntry chip_data = 2;
+  map<string, .proto.MatterDevice> devices = 1;
+  map<string, bytes> chip_data = 2;
 }
 

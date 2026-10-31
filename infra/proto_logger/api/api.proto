@@ -16,6 +16,7 @@ message TReqWrite2LogQuasar {
   uint64 Usec = 7;
   uint64 TimestampMicroSeconds = 8;
   uint64 ServerTimestampMicroSeconds = 9;
+  int64 TimezoneOffsetSec = 10;
 }
 
 message TReqWriteMetrics2LogQuasar {

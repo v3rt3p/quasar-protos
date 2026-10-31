@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.api.typed_callbacks.local_iot";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/typed_callbacks/local_iot";
+
+import "alice/megamind/protos/common/iot.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "google/protobuf/timestamp.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLocalIoTTypedCallback {
+  .NAlice.TIoTDeviceActionRequest DeviceActionFrame = 1 [json_name = "device_action_frame"];
+}
+
+message TLocalDelayedActionCallback {
+  string ID = 1 [json_name = "id"];
+  repeated string ExternalIDs = 2 [json_name = "external_ids"];
+  repeated string DeviceIDs = 5 [json_name = "device_ids"];
+  .google.protobuf.Timestamp ScheduledTimestamp = 3 [json_name = "scheduled_timestamp"];
+  uint64 DelayMs = 4 [json_name = "delay_ms"];
+}
+
+message TVirtualEndpointDirective {
+  string Name = 1 [json_name = "name"];
+  .NAlice.TCapability.EDirectiveType DirectiveType = 5 [json_name = "directive_type"];
+  string EndpointID = 2 [json_name = "endpoint_id"];
+  string SmartHomeID = 4 [json_name = "smart_home_id"];
+  bytes RawPayload = 3 [json_name = "raw_payload"];
+}
+
+message TExecuteVirtualEndpointDirectiveCallback {
+  .NAlice.TVirtualEndpointDirective Directive = 1 [json_name = "directive"];
+}
+

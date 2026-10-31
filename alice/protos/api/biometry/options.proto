@@ -10,15 +10,15 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOndeviceBiometryOptions {
   message TScoring {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
   message TClassification {
-    bool Enabled = 1;
+    bool Enabled = 1 [json_name = "enabled"];
   }
 
-  .NAlice.TOndeviceBiometryOptions.TScoring Scoring = 1;
-  bool IgnoreVoiceprintUpdate = 2;
-  .NAlice.TOndeviceBiometryOptions.TClassification Classification = 3;
+  .NAlice.TOndeviceBiometryOptions.TScoring Scoring = 1 [json_name = "scoring"];
+  bool IgnoreVoiceprintUpdate = 2 [json_name = "ignore_voiceprint_update"];
+  .NAlice.TOndeviceBiometryOptions.TClassification Classification = 3 [json_name = "classification"];
 }
 

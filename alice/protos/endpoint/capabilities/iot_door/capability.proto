@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TIotServiceabilityCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_door;door";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotDoorCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TIotDoorOpenedEvent {
+  }
+
+  message TIotDoorClosedEvent {
+  }
+
+  message TIotDoorAjarEvent {
+  }
+
+  message TIotDoorLockedEvent {
+  }
+
+  message TIotDoorRangEvent {
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotDoorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotDoorCapability.TState State = 3 [json_name = "state"];
+}
+

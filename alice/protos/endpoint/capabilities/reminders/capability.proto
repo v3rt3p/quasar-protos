@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "RemindersCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/reminders;reminderspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRemindersCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TRemindersCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TRemindersCapability.TState State = 3 [json_name = "state"];
+}
+

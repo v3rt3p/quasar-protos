@@ -12,9 +12,9 @@ import "alice/protos/api/matrix/common/analytics_meta_info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPush {
-  repeated string PushIds = 1;
-  repeated .NAlice.NAliceApi.TDirective Directives = 3;
-  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4;
-  optional string DeduplicationPushId = 2;
+  repeated string PushIds = 1 [json_name = "push_ids"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives"];
+  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4 [json_name = "analytics_meta_info"];
+  optional string DeduplicationPushId = 2 [json_name = "deduplication_push_id"];
 }
 

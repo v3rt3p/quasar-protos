@@ -48,6 +48,7 @@ message TDeviceStateCapability {
         .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus.TWifi Wifi = 1;
         .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus.TEthernet Ethernet = 2;
       }
+      optional bool ControlReachable = 4;
     }
 
     message TConfigurationStatus {
@@ -74,23 +75,23 @@ message TDeviceStateCapability {
       bool IsOn = 1;
     }
 
-    .NAlice.NAliceApi.TDeviceState DeviceState = 1;
-    repeated string SupportedFeatures = 3;
-    repeated string UnsupportedFeatures = 4;
-    .NAlice.TExperimentsProto Experiments = 5;
-    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 6;
-    .NAlice.NAliceApi.TEnvironmentDeviceInfo EnvironmentDeviceInfo = 8;
-    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 12;
-    repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 13;
-    .NAlice.TOndeviceBiometryOptions BiometryOptions = 14;
-    .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus InternetConnectionStatus = 15;
-    .NAlice.TDeviceStateCapability.TState.TConfigurationStatus ConfigurationStatus = 16;
-    .NAlice.TDeviceStateCapability.TState.TUpdateStatus UpdateStatus = 17;
-    .NAlice.TDeviceStateCapability.TState.TScreensaverState ScreensaverState = 18;
+    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state"];
+    repeated string SupportedFeatures = 3 [json_name = "supported_features"];
+    repeated string UnsupportedFeatures = 4 [json_name = "unsupported_features"];
+    .NAlice.TExperimentsProto Experiments = 5 [json_name = "experiments"];
+    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 6 [json_name = "enrollment_headers"];
+    .NAlice.NAliceApi.TEnvironmentDeviceInfo EnvironmentDeviceInfo = 8 [json_name = "environment_device_info"];
+    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 12 [json_name = "bass_options"];
+    repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 13 [json_name = "permissions"];
+    .NAlice.TOndeviceBiometryOptions BiometryOptions = 14 [json_name = "biometry_options"];
+    .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus InternetConnectionStatus = 15 [json_name = "internet_connection_status"];
+    .NAlice.TDeviceStateCapability.TState.TConfigurationStatus ConfigurationStatus = 16 [json_name = "configuration_status"];
+    .NAlice.TDeviceStateCapability.TState.TUpdateStatus UpdateStatus = 17 [json_name = "update_status"];
+    .NAlice.TDeviceStateCapability.TState.TScreensaverState ScreensaverState = 18 [json_name = "screensaver_state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TDeviceStateCapability.TParameters Parameters = 2;
-  .NAlice.TDeviceStateCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TDeviceStateCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TDeviceStateCapability.TState State = 3 [json_name = "state"];
 }
 

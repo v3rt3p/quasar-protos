@@ -26,11 +26,11 @@ message TSetupCapability {
       AddNetwork = 3;
     }
 
-    .NAlice.TSetupCapability.TStartSetupDirective.EMode SetupMode = 1;
+    .NAlice.TSetupCapability.TStartSetupDirective.EMode SetupMode = 1 [json_name = "setup_mode"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSetupCapability.TParameters Parameters = 2;
-  .NAlice.TSetupCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSetupCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSetupCapability.TState State = 3 [json_name = "state"];
 }
 

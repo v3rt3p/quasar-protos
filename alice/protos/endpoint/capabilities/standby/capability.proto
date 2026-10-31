@@ -26,11 +26,11 @@ message TStandbyCapability {
       PowerOff = 3;
     }
 
-    .NAlice.TStandbyCapability.TState.EMode Mode = 1;
+    .NAlice.TStandbyCapability.TState.EMode Mode = 1 [json_name = "mode"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TStandbyCapability.TParameters Parameters = 2;
-  .NAlice.TStandbyCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TStandbyCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TStandbyCapability.TState State = 3 [json_name = "state"];
 }
 

@@ -10,41 +10,41 @@ option go_package = "a.yandex-team.ru/alice/protos/data/iot;iotpb";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPoint {
-  sint32 XMm = 1;
-  sint32 YMm = 2;
+  sint32 XMm = 1 [json_name = "xmm"];
+  sint32 YMm = 2 [json_name = "ymm"];
 }
 
 message TCell {
-  uint32 X = 1;
-  uint32 Y = 2;
+  uint32 X = 1 [json_name = "x"];
+  uint32 Y = 2 [json_name = "y"];
 }
 
 message TBounds {
-  .NAlice.NIot.TPoint Lower = 1;
-  .NAlice.NIot.TPoint Upper = 2;
+  .NAlice.NIot.TPoint Lower = 1 [json_name = "lower"];
+  .NAlice.NIot.TPoint Upper = 2 [json_name = "upper"];
 }
 
 message TBasis {
-  .NAlice.NIot.TPoint Origin = 1;
-  float AngleDeg = 2;
+  .NAlice.NIot.TPoint Origin = 1 [json_name = "origin"];
+  float AngleDeg = 2 [json_name = "angle_deg"];
 }
 
 message TGrid {
-  uint32 CellSizeMm = 1;
+  uint32 CellSizeMm = 1 [json_name = "cell_size_mm"];
 }
 
 message TPolygonZoneShape {
-  repeated .NAlice.NIot.TPoint Vertices = 1;
+  repeated .NAlice.NIot.TPoint Vertices = 1 [json_name = "vertices"];
 }
 
 message TGridZoneShape {
-  repeated .NAlice.NIot.TCell Cells = 1;
+  repeated .NAlice.NIot.TCell Cells = 1 [json_name = "cells"];
 }
 
 message TZoneShape {
   oneof ZoneShape {
-    .NAlice.NIot.TPolygonZoneShape PolygonZoneShape = 1;
-    .NAlice.NIot.TGridZoneShape GridZoneShape = 2;
+    .NAlice.NIot.TPolygonZoneShape PolygonZoneShape = 1 [json_name = "polygon_zone_shape"];
+    .NAlice.NIot.TGridZoneShape GridZoneShape = 2 [json_name = "grid_zone_shape"];
   }
 }
 

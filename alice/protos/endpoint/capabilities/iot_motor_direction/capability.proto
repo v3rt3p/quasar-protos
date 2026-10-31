@@ -16,16 +16,16 @@ message TIotMotorDirectionCapability {
   }
 
   message TState {
-    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1;
+    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction"];
   }
 
   message TSetMotorDirectionDirective {
-    string Name = 1000;
-    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMotorDirectionCapability Capability = 1;
+    .NAlice.TIotMotorDirectionCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EDirection {
@@ -34,8 +34,8 @@ message TIotMotorDirectionCapability {
     REVERSED = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotMotorDirectionCapability.TParameters Parameters = 2;
-  .NAlice.TIotMotorDirectionCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotMotorDirectionCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotMotorDirectionCapability.TState State = 3 [json_name = "state"];
 }
 

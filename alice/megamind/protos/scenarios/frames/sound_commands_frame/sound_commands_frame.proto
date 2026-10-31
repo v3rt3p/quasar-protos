@@ -13,47 +13,47 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSoundAbsoluteChangeSlot {
   oneof Value {
-    int32 NumLevelValue = 1;
-    float FloatLevelValue = 2;
-    string CustomLevelValue = 3;
+    int32 NumLevelValue = 1 [json_name = "num_level_value"];
+    float FloatLevelValue = 2 [json_name = "float_level_value"];
+    string CustomLevelValue = 3 [json_name = "custom_level_value"];
   }
 }
 
 message TSoundRelativeChangeSlot {
   oneof Value {
-    int32 NumLevelValue = 1;
-    float FloatLevelValue = 2;
+    int32 NumLevelValue = 1 [json_name = "num_level_value"];
+    float FloatLevelValue = 2 [json_name = "float_level_value"];
   }
 }
 
 message TSoundPercentageChangeSlot {
   oneof Value {
-    int32 NumLevelValue = 1;
-    float FloatLevelValue = 2;
-    float PercentLevelValue = 3;
+    int32 NumLevelValue = 1 [json_name = "num_level_value"];
+    float FloatLevelValue = 2 [json_name = "float_level_value"];
+    float PercentLevelValue = 3 [json_name = "percent_level_value"];
   }
 }
 
 message TSoundDegreeChangeSlot {
   oneof Value {
-    string DegreeValue = 1;
+    string DegreeValue = 1 [json_name = "degree_value"];
   }
 }
 
 message TSoundLouderSemanticFrame {
-  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1;
-  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2;
-  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3;
-  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4;
-  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5;
+  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase"];
+  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
+  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change"];
+  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change"];
+  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change"];
 }
 
 message TSoundQuiterSemanticFrame {
-  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1;
-  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2;
-  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3;
-  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4;
-  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5;
+  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase"];
+  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
+  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change"];
+  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change"];
+  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change"];
 }
 
 message TSoundMuteSemanticFrame {
@@ -64,16 +64,16 @@ message TSoundUnmuteSemanticFrame {
 
 message TSoundLevelSlot {
   oneof Value {
-    int32 NumLevelValue = 1;
-    float FloatLevelValue = 2;
-    string CustomLevelValue = 3;
-    string CustomVolumeSettings = 4;
-    float PercentLevelValue = 5;
+    int32 NumLevelValue = 1 [json_name = "num_level_value"];
+    float FloatLevelValue = 2 [json_name = "float_level_value"];
+    string CustomLevelValue = 3 [json_name = "custom_level_value"];
+    string CustomVolumeSettings = 4 [json_name = "custom_volume_settings"];
+    float PercentLevelValue = 5 [json_name = "percent_level_value"];
   }
 }
 
 message TSoundSetLevelSemanticFrame {
-  .NAlice.TSoundLevelSlot Level = 1;
-  .NAlice.TSysNumSlot Denominator = 2;
+  .NAlice.TSoundLevelSlot Level = 1 [json_name = "level"];
+  .NAlice.TSysNumSlot Denominator = 2 [json_name = "denominator"];
 }
 

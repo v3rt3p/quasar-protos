@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "DeeplinkCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/deeplink;deeplinkpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDeeplinkCapability {
+  message TParameters {
+  }
+
+  message TState {
+    .NAlice.TDeeplinkCapability.TSupportedDeeplinks supported = 1 [json_name = "supported"];
+  }
+
+  message TSupportedDeeplinks {
+    repeated string Prefixes = 1 [json_name = "prefixes"];
+  }
+
+  message TOpenDeeplinkDirective {
+    string Name = 1 [json_name = "name"];
+    string Uri = 2 [json_name = "uri"];
+  }
+
+  message TUpdateDeeplinksPrefixesEvent {
+    repeated string Prefixes = 1 [json_name = "prefixes"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TDeeplinkCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TDeeplinkCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -18,13 +18,13 @@ message TClockAppCapability {
 
   message TState {
     oneof ScreenState {
-      .NAlice.TClockAppCapability.TAlarmListScreenState AlarmListScreenState = 1;
-      .NAlice.TClockAppCapability.TAlarmEditScreenState AlarmEditScreenState = 2;
-      .NAlice.TClockAppCapability.TAlarmActiveScreenState AlarmActiveScreenState = 3;
-      .NAlice.TClockAppCapability.TTimerListScreenState TimerListScreenState = 4;
-      .NAlice.TClockAppCapability.TTimerInfoScreenState TimerInfoScreenState = 5;
-      .NAlice.TClockAppCapability.TTimerActiveScreenState TimerActiveScreenState = 6;
-      .NAlice.TClockAppCapability.TTimerCreateScreenState TimerCreateScreenState = 7;
+      .NAlice.TClockAppCapability.TAlarmListScreenState AlarmListScreenState = 1 [json_name = "alarm_list_screen_state"];
+      .NAlice.TClockAppCapability.TAlarmEditScreenState AlarmEditScreenState = 2 [json_name = "alarm_edit_screen_state"];
+      .NAlice.TClockAppCapability.TAlarmActiveScreenState AlarmActiveScreenState = 3 [json_name = "alarm_active_screen_state"];
+      .NAlice.TClockAppCapability.TTimerListScreenState TimerListScreenState = 4 [json_name = "timer_list_screen_state"];
+      .NAlice.TClockAppCapability.TTimerInfoScreenState TimerInfoScreenState = 5 [json_name = "timer_info_screen_state"];
+      .NAlice.TClockAppCapability.TTimerActiveScreenState TimerActiveScreenState = 6 [json_name = "timer_active_screen_state"];
+      .NAlice.TClockAppCapability.TTimerCreateScreenState TimerCreateScreenState = 7 [json_name = "timer_create_screen_state"];
     }
   }
 
@@ -33,15 +33,15 @@ message TClockAppCapability {
     reserved "OtherAlarmIds";
     reserved 1;
     reserved 2;
-    .NAlice.TClockAppCapability.TAlarmList AlarmList = 3;
+    .NAlice.TClockAppCapability.TAlarmList AlarmList = 3 [json_name = "alarm_list"];
   }
 
   message TAlarmEditScreenState {
-    .NAlice.NData.TAlarm Alarm = 1;
+    .NAlice.NData.TAlarm Alarm = 1 [json_name = "alarm"];
   }
 
   message TAlarmActiveScreenState {
-    string AlarmId = 1;
+    string AlarmId = 1 [json_name = "alarm_id"];
   }
 
   message TTimerListScreenState {
@@ -53,68 +53,68 @@ message TClockAppCapability {
       History = 2;
     }
 
-    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 1;
+    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 1 [json_name = "target_section"];
     oneof ScreenInfo {
-      uint32 TimerDuration = 3;
-      .NAlice.TClockAppCapability.TTimerList TimerList = 4;
+      uint32 TimerDuration = 3 [json_name = "timer_duration"];
+      .NAlice.TClockAppCapability.TTimerList TimerList = 4 [json_name = "timer_list"];
     }
   }
 
   message TTimerInfoScreenState {
-    string TimerId = 1;
+    string TimerId = 1 [json_name = "timer_id"];
   }
 
   message TTimerActiveScreenState {
-    string TimerId = 1;
+    string TimerId = 1 [json_name = "timer_id"];
   }
 
   message TTimerCreateScreenState {
-    uint32 TimerDuration = 1;
+    uint32 TimerDuration = 1 [json_name = "timer_duration"];
   }
 
   message TOpenScreenAlarmListDirective {
-    string Name = 1;
-    repeated string TargetAlarmIds = 2;
-    bool ForceAutoClose = 3;
+    string Name = 1 [json_name = "name"];
+    repeated string TargetAlarmIds = 2 [json_name = "target_alarm_ids"];
+    bool ForceAutoClose = 3 [json_name = "force_auto_close"];
   }
 
   message TOpenScreenAlarmEditDirective {
-    string Name = 1;
-    string AlarmId = 2;
+    string Name = 1 [json_name = "name"];
+    string AlarmId = 2 [json_name = "alarm_id"];
   }
 
   message TCloseScreenAlarmActiveDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TOpenScreenTimerListDirective {
-    string Name = 1;
-    repeated string TargetTimerIds = 2;
-    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 3;
-    bool ForceAutoClose = 4;
+    string Name = 1 [json_name = "name"];
+    repeated string TargetTimerIds = 2 [json_name = "target_timer_ids"];
+    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 3 [json_name = "target_section"];
+    bool ForceAutoClose = 4 [json_name = "force_auto_close"];
   }
 
   message TOpenScreenTimerInfoDirective {
-    string Name = 1;
-    string TimerId = 2;
+    string Name = 1 [json_name = "name"];
+    string TimerId = 2 [json_name = "timer_id"];
   }
 
   message TCloseScreenTimerActiveDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TAlarmList {
-    repeated string TargetAlarmIds = 1;
-    repeated string OtherAlarmIds = 2;
+    repeated string TargetAlarmIds = 1 [json_name = "target_alarm_ids"];
+    repeated string OtherAlarmIds = 2 [json_name = "other_alarm_ids"];
   }
 
   message TTimerList {
-    repeated string TargetTimerIds = 1;
-    repeated string OtherTimerIds = 2;
+    repeated string TargetTimerIds = 1 [json_name = "target_timer_ids"];
+    repeated string OtherTimerIds = 2 [json_name = "other_timer_ids"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TClockAppCapability.TParameters Parameters = 2;
-  .NAlice.TClockAppCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TClockAppCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TClockAppCapability.TState State = 3 [json_name = "state"];
 }
 

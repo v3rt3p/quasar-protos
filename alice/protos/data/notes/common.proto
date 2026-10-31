@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package NAlice.NData.NNotes;
+
+option java_package = "ru.yandex.alice.protos.data.notes";
+option go_package = "a.yandex-team.ru/alice/protos/data/notes";
+
+enum ETimeStatus {
+  TS_UNTIMED = 0;
+  TS_ACTIVE = 1;
+  TS_EXPIRED = 2;
+}
+

@@ -9,9 +9,9 @@ option go_package = "a.yandex-team.ru/alice/protos/data/device_control_panel";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalTime {
-  uint32 Hour = 1;
-  uint32 Minute = 2;
-  uint32 Second = 3;
+  uint32 Hour = 1 [json_name = "hour"];
+  uint32 Minute = 2 [json_name = "minute"];
+  uint32 Second = 3 [json_name = "second"];
 }
 
 message TDayOfWeek {
@@ -25,6 +25,6 @@ message TDayOfWeek {
     saturday = 6;
   }
 
-  .NAlice.TDayOfWeek.EDayOfWeek DayOfWeek = 1;
+  .NAlice.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week"];
 }
 

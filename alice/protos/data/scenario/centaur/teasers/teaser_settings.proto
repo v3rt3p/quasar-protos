@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.centaur.teasers";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/centaur/teasers";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/scenario/news/news.proto";
+import "alice/protos/data/scenario/photoframe/screen_saver.proto";
+import "alice/protos/data/scenario/afisha/afisha.proto";
+import "alice/protos/data/scenario/music/teasers.proto";
+import "alice/protos/data/scenario/weather/weather.proto";
+import "alice/protos/data/scenario/dialogovo/skill.proto";
+import "alice/protos/data/scenario/universal_scenario/universal_scenario.proto";
+import "alice/protos/data/scenario/onboarding/proactivity_teaser.proto";
+import "alice/protos/data/scenario/ya_disk/ya_disk.proto";
+import "alice/protos/extensions/extensions.proto";
+
+message TCentaurTeaserConfigData {
+  string TeaserType = 1 [json_name = "teaser_type"];
+  string TeaserId = 2 [json_name = "teaser_id"];
+}
+
+message TTeaserSettingsData {
+  message TeaserSetting {
+    .NAlice.NData.TCentaurTeaserConfigData TeaserConfigData = 1 [json_name = "teaser_config_data"];
+    bool IsChosen = 3 [json_name = "is_chosen"];
+  }
+
+  repeated .NAlice.NData.TTeaserSettingsData.TeaserSetting TeaserSettings = 1 [json_name = "teaser_settings"];
+}
+
+message TTeaserPreviewScenarioData {
+  oneof PreviewScenarioData {
+    .NAlice.NData.TNewsTeaserData NewsTeaserData = 1 [json_name = "news_teaser_data"];
+    .NAlice.NData.TScreenSaverData ScreenSaverData = 2 [json_name = "screen_saver_data"];
+    .NAlice.NData.TAfishaTeaserData AfishaTeaserData = 3 [json_name = "afisha_teaser_data"];
+    .NAlice.NData.TWeatherTeaserData WeatherTeaserData = 4 [json_name = "weather_teaser_data"];
+    .NAlice.NData.TDialogovoSkillTeaserData DialogovoTeaserCardData = 5 [json_name = "dialogovo_teaser_card_data"];
+    .NAlice.NData.TProactivityTeaserData ProactivityTeaserData = 6 [json_name = "proactivity_teaser_card_data"];
+    .NAlice.NData.TUniversalScenarioTeaserCardData UniversalScenarioTeaserCardData = 7 [json_name = "universal_scenario_teaser_card_data"];
+    .NAlice.NData.NMusic.TMusicTeaserData MusicTeaserData = 8 [json_name = "music_teaser_data"];
+    .NAlice.NData.TYaDiskTeasersInstructionData YaDiskTeasersInstructionData = 9 [json_name = "ya_disk_teaser_data"];
+  }
+}
+
+message TTeaserSettingsWithContentData {
+  message TeaserSettingWithPreview {
+    .NAlice.NData.TCentaurTeaserConfigData TeaserConfigData = 1 [json_name = "teaser_config_data"];
+    bool IsChosen = 2 [json_name = "is_chosen"];
+    string TeaserName = 3 [json_name = "teaser_name"];
+    .NAlice.NData.TTeaserPreviewScenarioData TeaserPreviewScenarioData = 4 [json_name = "teaser_preview_scenario_data"];
+    bool IsNotConfigured = 5 [json_name = "is_configured"];
+    string PreviewImage = 6 [json_name = "preview_image"];
+    string TeaserDescription = 7 [json_name = "teaser_description"];
+  }
+
+  repeated .NAlice.NData.TTeaserSettingsWithContentData.TeaserSettingWithPreview TeaserSettingsWithPreview = 1 [json_name = "teaser_settings_with_preview"];
+}
+
+message TTeasersPreviewData {
+  message TTeaserPreview {
+    .NAlice.NData.TCentaurTeaserConfigData TeaserConfigData = 1 [json_name = "teaser_config_data"];
+    string TeaserName = 2 [json_name = "teaser_name"];
+    .NAlice.NData.TTeaserPreviewScenarioData TeaserPreviewScenarioData = 3 [json_name = "teaser_preview_scenario_data"];
+    bool IsNotConfigured = 4 [json_name = "is_configured"];
+  }
+
+  repeated .NAlice.NData.TTeasersPreviewData.TTeaserPreview TeaserPreviews = 1 [json_name = "teaser_previews"];
+}
+

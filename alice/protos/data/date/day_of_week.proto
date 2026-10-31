@@ -19,6 +19,6 @@ message TDayOfWeek {
     Sunday = 7;
   }
 
-  .NAlice.NData.TDayOfWeek.EDayOfWeek DayOfWeek = 1;
+  .NAlice.NData.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week"];
 }
 

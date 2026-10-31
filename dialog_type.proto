@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package quark.core.proto;
+
+option java_package = "ru.yandex.quasar.protobuf";
+option java_outer_classname = "DialogTypeProtos";
+
+enum DialogType {
+  UNKNOWN = 0;
+  EXTERNAL_SKILL = 1;
+  DEDICATED_CHAT = 2;
+  ENGLISH_TUTOR = 3;
+  CHERRY = 10;
+  NOTA = 13;
+}
+

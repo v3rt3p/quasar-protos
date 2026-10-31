@@ -13,40 +13,40 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOtaCapability {
   message TParameters {
-    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1;
+    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info"];
   }
 
   message TState {
-    uint32 SoftwareVersion = 1;
-    .NAlice.TOtaCapability.EUpdateStatus UpdateStatus = 2;
-    optional uint32 UpdateProgress = 3;
+    uint32 SoftwareVersion = 1 [json_name = "software_version"];
+    .NAlice.TOtaCapability.EUpdateStatus UpdateStatus = 2 [json_name = "update_status"];
+    optional uint32 UpdateProgress = 3 [json_name = "update_progress"];
   }
 
   message TDeviceInfo {
-    uint32 VendorId = 1;
-    uint32 ProductId = 2;
-    .NAlice.TOtaCapability.EProtocol Protocol = 3;
+    uint32 VendorId = 1 [json_name = "vendor_id"];
+    uint32 ProductId = 2 [json_name = "product_id"];
+    .NAlice.TOtaCapability.EProtocol Protocol = 3 [json_name = "protocol"];
   }
 
   message TOtaApplyDirective {
-    string Name = 1000;
-    uint32 SoftwareVersion = 1;
-    string DownloadUrl = 2;
-    .NAlice.TOtaCapability.EUpdateLevel UpdateLevel = 3;
+    string Name = 1000 [json_name = "name"];
+    uint32 SoftwareVersion = 1 [json_name = "software_version"];
+    string DownloadUrl = 2 [json_name = "download_url"];
+    .NAlice.TOtaCapability.EUpdateLevel UpdateLevel = 3 [json_name = "update_level"];
   }
 
   message TForceOtaRequestDirective {
-    string Name = 1000;
-    uint32 TimeoutSeconds = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 TimeoutSeconds = 1 [json_name = "timeout_seconds"];
   }
 
   message TOtaRequestEvent {
-    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1;
-    uint32 SoftwareVersion = 2;
+    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info"];
+    uint32 SoftwareVersion = 2 [json_name = "software_version"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TOtaCapability Capability = 1;
+    .NAlice.TOtaCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EProtocol {
@@ -73,8 +73,8 @@ message TOtaCapability {
     UPDATE_LEVEL_CRIT = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TOtaCapability.TParameters Parameters = 2;
-  .NAlice.TOtaCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TOtaCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TOtaCapability.TState State = 3 [json_name = "state"];
 }
 

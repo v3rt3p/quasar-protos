@@ -16,20 +16,20 @@ message TIotIndicatorCapability {
   }
 
   message TState {
-    bool Disabled = 1;
+    bool Disabled = 1 [json_name = "disabled"];
   }
 
   message TSetDisabledDirective {
-    string Name = 1000;
-    bool Disabled = 1;
+    string Name = 1000 [json_name = "name"];
+    bool Disabled = 1 [json_name = "disabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotIndicatorCapability Capability = 1;
+    .NAlice.TIotIndicatorCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotIndicatorCapability.TParameters Parameters = 2;
-  .NAlice.TIotIndicatorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotIndicatorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotIndicatorCapability.TState State = 3 [json_name = "state"];
 }
 

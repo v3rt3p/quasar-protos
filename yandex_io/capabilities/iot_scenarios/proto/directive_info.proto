@@ -5,7 +5,7 @@ package quasar.proto;
 import "yandex_io/sdk/directive_sequencer/protos/directive.proto";
 
 message TDirectiveInfo {
-  int64 Version = 1;
-  .quasar.proto.Directive SdkDirective = 2;
+  int64 Version = 1 [json_name = "version"];
+  .quasar.proto.Directive SdkDirective = 2 [json_name = "sdk_directive"];
 }
 

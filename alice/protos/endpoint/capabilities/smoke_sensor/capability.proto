@@ -16,7 +16,7 @@ message TSmokeSensorCapability {
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
   }
 
   message TSmokeSensorDetectedEvent {
@@ -29,11 +29,11 @@ message TSmokeSensorCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TSmokeSensorCapability.TParameters Parameters = 2;
-  .NAlice.TSmokeSensorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TSmokeSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TSmokeSensorCapability.TState State = 3 [json_name = "state"];
 }
 

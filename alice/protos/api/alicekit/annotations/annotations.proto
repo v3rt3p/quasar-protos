@@ -15,16 +15,16 @@ message TBaseAnnotation {
     Undefined = 0;
   }
 
-  repeated .NAlice.NAliceApi.TCard Cards = 1;
-  .NAlice.NAliceApi.TBaseAnnotation.EBoundType BoundType = 2;
+  repeated .NAlice.NAliceApi.TCard Cards = 1 [json_name = "cards"];
+  .NAlice.NAliceApi.TBaseAnnotation.EBoundType BoundType = 2 [json_name = "bound_type"];
 }
 
 message TRequestAnnotation {
   message TAnnotationsList {
-    repeated .NAlice.NAliceApi.TBaseAnnotation Annotations = 1;
+    repeated .NAlice.NAliceApi.TBaseAnnotation Annotations = 1 [json_name = "annotations"];
   }
 
-  .NAlice.NAliceApi.TBaseAnnotation Base = 1;
-  .NAlice.NAliceApi.TRequestAnnotation.TAnnotationsList AnnotationsList = 2;
+  .NAlice.NAliceApi.TBaseAnnotation Base = 1 [json_name = "base"];
+  .NAlice.NAliceApi.TRequestAnnotation.TAnnotationsList AnnotationsList = 2 [json_name = "annotations_list"];
 }
 

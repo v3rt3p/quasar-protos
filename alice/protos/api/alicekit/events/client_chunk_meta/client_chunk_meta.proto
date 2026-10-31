@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.events.client_chunk_meta";
+option java_outer_classname = "ClientChunkMeta";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/client_chunk_meta";
+
+import "alice/protos/api/alicekit/events/common/chunk_header/chunk_header.proto";
+import "alice/protos/api/alicekit/events/audio_transcription_input/audio_transcription_input_meta.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TClientChunkMeta {
+  message TChunkTimings {
+    optional uint64 SendSteadyTimepointMs = 1 [json_name = "send_steady_timepoint_ms"];
+  }
+
+  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header"];
+  .NAlice.NAliceApi.TClientChunkMeta.TChunkTimings Timings = 3 [json_name = "timings"];
+  oneof ChunkMeta {
+    .NAlice.NAliceApi.TAudioTranscriptionInputMeta AudioTranscriptionInput = 2 [json_name = "audio_transcription_input"];
+  }
+}
+

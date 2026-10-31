@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ChatCardsCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/chat_cards;chatcardspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TChatCardsCapability {
+  message TParameters {
+    repeated .NAlice.TChatCardsCapability.ECardType SupportedCardTypes = 1 [json_name = "supported_card_types"];
+  }
+
+  message TState {
+  }
+
+  enum ECardType {
+    UnknownCardType = 0;
+    TextCard = 1;
+    Div2Card = 2;
+    DivCard = 3;
+    TextWithButtonsCard = 4;
+    RichJsonCard = 5;
+    SourcesCard = 6;
+    ModeCard = 7;
+    NeuroStructuredBlocksCard = 8;
+    RichUICard = 9;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TChatCardsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TChatCardsCapability.TState State = 3 [json_name = "state"];
+}
+

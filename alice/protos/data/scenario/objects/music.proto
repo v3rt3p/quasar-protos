@@ -11,103 +11,103 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TDisclaimerInfo {
-  string Type = 1;
-  string Title = 2;
-  string Description = 3;
+  string Type = 1 [json_name = "type"];
+  string Title = 2 [json_name = "title"];
+  string Description = 3 [json_name = "description"];
 }
 
 message TAlbum {
-  string Id = 1;
-  string Title = 2;
-  string Genre = 3;
-  string CoverUri = 4;
-  repeated .NAlice.NData.TArtist Artists = 5;
-  int32 ReleaseYear = 6;
-  string Type = 7;
-  bool IsLiked = 8;
-  uint32 LikesCount = 9;
-  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 10;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Genre = 3 [json_name = "genre"];
+  string CoverUri = 4 [json_name = "cover_uri"];
+  repeated .NAlice.NData.TArtist Artists = 5 [json_name = "artists"];
+  int32 ReleaseYear = 6 [json_name = "release_year"];
+  string Type = 7 [json_name = "type"];
+  bool IsLiked = 8 [json_name = "like"];
+  uint32 LikesCount = 9 [json_name = "likes_count"];
+  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 10 [json_name = "disclaimers"];
 }
 
 message TPlaylist {
-  string Id = 1;
-  string Title = 2;
-  string CoverUri = 5;
-  int32 LikesCount = 6;
-  bool IsLiked = 7;
-  uint32 TracksCount = 8;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string CoverUri = 5 [json_name = "cover_uri"];
+  int32 LikesCount = 6 [json_name = "likes_count"];
+  bool IsLiked = 7 [json_name = "like"];
+  uint32 TracksCount = 8 [json_name = "tracks_count"];
 }
 
 message TArtist {
-  string Id = 1;
-  string Name = 2;
-  bool Composer = 3;
-  bool IsVarious = 4;
-  string CoverUri = 5;
-  repeated string Genre = 6;
-  bool IsLiked = 7;
-  uint32 LikesCount = 8;
-  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 9;
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  bool Composer = 3 [json_name = "composer"];
+  bool IsVarious = 4 [json_name = "is_various"];
+  string CoverUri = 5 [json_name = "cover_uri"];
+  repeated string Genre = 6 [json_name = "genre"];
+  bool IsLiked = 7 [json_name = "like"];
+  uint32 LikesCount = 8 [json_name = "likes_count"];
+  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 9 [json_name = "disclaimers"];
 }
 
 message TTrack {
-  string Id = 1;
-  string Title = 2;
-  string Subtype = 3;
-  string ArtImageUrl = 4;
-  .NAlice.NData.TAlbum Album = 5;
-  repeated .NAlice.NData.TArtist Artists = 6;
-  bool IsLiked = 7;
-  bool IsDisliked = 8;
-  uint32 DurationMs = 9;
-  string ArtistId = 10;
-  string AlbumId = 11;
-  string TrackId = 12;
-  string ShotText = 13;
-  bool HasAvailableLyrics = 14;
-  string Uuid = 15;
-  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 16;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Subtype = 3 [json_name = "subtype"];
+  string ArtImageUrl = 4 [json_name = "art_image_url"];
+  .NAlice.NData.TAlbum Album = 5 [json_name = "album"];
+  repeated .NAlice.NData.TArtist Artists = 6 [json_name = "artists"];
+  bool IsLiked = 7 [json_name = "like"];
+  bool IsDisliked = 8 [json_name = "dislike"];
+  uint32 DurationMs = 9 [json_name = "duration_ms"];
+  string ArtistId = 10 [json_name = "artist_id"];
+  string AlbumId = 11 [json_name = "album_id"];
+  string TrackId = 12 [json_name = "track_id"];
+  string ShotText = 13 [json_name = "shot_text"];
+  bool HasAvailableLyrics = 14 [json_name = "has_available_lyrics"];
+  string Uuid = 15 [json_name = "uuid"];
+  repeated .NAlice.NData.TDisclaimerInfo Disclaimers = 16 [json_name = "disclaimers"];
 }
 
 message TPodcastEpisode {
-  string Id = 1;
-  string Title = 2;
-  string CoverUri = 3;
-  string PublicationDate = 4;
-  .NAlice.NData.TAlbum Album = 5;
-  repeated .NAlice.NData.TArtist Artists = 6;
-  uint32 DurationMs = 7;
-  bool IsLiked = 8;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string CoverUri = 3 [json_name = "cover_uri"];
+  string PublicationDate = 4 [json_name = "publication_date"];
+  .NAlice.NData.TAlbum Album = 5 [json_name = "album"];
+  repeated .NAlice.NData.TArtist Artists = 6 [json_name = "artists"];
+  uint32 DurationMs = 7 [json_name = "duration_ms"];
+  bool IsLiked = 8 [json_name = "like"];
 }
 
 message TWave {
-  string Id = 1;
-  string Title = 2;
-  string Subtitle = 3;
-  string CoverUri = 4;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Subtitle = 3 [json_name = "subtitle"];
+  string CoverUri = 4 [json_name = "cover_uri"];
 }
 
 message TMusicBand {
-  string Id = 1;
-  string Title = 2;
-  string Subtitle = 3;
-  string GroupDescription = 4;
-  .NAlice.NData.TSingleImage.TImageRef Logo = 5;
-  int32 Year = 6;
-  string SearchUrl = 7;
-  string SearchRequest = 8;
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Subtitle = 3 [json_name = "subtitle"];
+  string GroupDescription = 4 [json_name = "group_description"];
+  .NAlice.NData.TSingleImage.TImageRef Logo = 5 [json_name = "logo"];
+  int32 Year = 6 [json_name = "year"];
+  string SearchUrl = 7 [json_name = "search_url"];
+  string SearchRequest = 8 [json_name = "search_request"];
 }
 
 message TMusicBands {
-  repeated .NAlice.NData.TMusicBand Bands = 1;
+  repeated .NAlice.NData.TMusicBand Bands = 1 [json_name = "bands"];
 }
 
 message TMusicAlbums {
-  repeated .NAlice.NData.TAlbum Albums = 1;
+  repeated .NAlice.NData.TAlbum Albums = 1 [json_name = "albums"];
 }
 
 message TMusicTracks {
-  repeated .NAlice.NData.TTrack Tracks = 1;
+  repeated .NAlice.NData.TTrack Tracks = 1 [json_name = "tracks"];
 }
 
 enum ELikeStatus {

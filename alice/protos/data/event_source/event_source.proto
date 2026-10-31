@@ -60,11 +60,11 @@ message TEventSource {
     SpeechInput = 8;
   }
 
-  .NAlice.TEventSource.EEvent Event = 1;
-  .NAlice.TEventSource.ESource Source = 2;
-  .NAlice.TEventSource.EType Type = 3;
-  optional string Id = 4;
-  optional string EndpointId = 5;
-  optional string SourceName = 6;
+  .NAlice.TEventSource.EEvent Event = 1 [json_name = "event"];
+  .NAlice.TEventSource.ESource Source = 2 [json_name = "source"];
+  .NAlice.TEventSource.EType Type = 3 [json_name = "type"];
+  optional string Id = 4 [json_name = "id"];
+  optional string EndpointId = 5 [json_name = "endpoint_id"];
+  optional string SourceName = 6 [json_name = "source_name"];
 }
 

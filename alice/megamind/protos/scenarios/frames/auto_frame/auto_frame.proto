@@ -1,0 +1,694 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.scenarios.frames.auto_frame";
+option java_outer_classname = "FrameAuto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/scenarios/frames/auto_frame;autoframe";
+
+import "alice/megamind/protos/scenarios/frames/common/common.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message THvacAirHeatingSemanticFrame {
+  message TAirHeatingActionSlot {
+    oneof Value {
+      string ActionValue = 1 [json_name = "action_value"];
+    }
+  }
+
+  message TAirHeatingSeatSlot {
+    oneof Value {
+      string SeatTypeValue = 1 [json_name = "seat_type_value"];
+    }
+  }
+
+  message TAirHeatingLevelSlot {
+    oneof Value {
+      string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value"];
+      uint32 NumValue = 2 [json_name = "num_value"];
+    }
+  }
+
+  message TAirHeatingUnitSlot {
+    oneof Value {
+      string UnitValue = 1 [json_name = "unit_value"];
+    }
+  }
+
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingActionSlot Action = 1 [json_name = "action"];
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingSeatSlot Seat = 2 [json_name = "seat"];
+  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level"];
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingUnitSlot Unit = 4 [json_name = "unit"];
+  .NAlice.TBoolSlot ConditioningSystem = 5 [json_name = "conditioning_system"];
+  .NAlice.TBoolSlot AutoConditioningSystem = 6 [json_name = "auto_conditioning_system"];
+}
+
+message TSeatHeatingActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TSeatTypeSlot {
+  oneof Value {
+    string SeatTypeValue = 1 [json_name = "seat_type_value"];
+  }
+}
+
+message TSeatHeatingLevelSlot {
+  oneof Value {
+    string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message TSetSeatHeatingStateSemanticFrame {
+  .NAlice.TSeatHeatingActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level"];
+}
+
+message TSeatVentilationActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TSeatVentilationAbsoluteChangeSlot {
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "num_value"];
+    string CustomValue = 2 [json_name = "custom_value"];
+  }
+}
+
+message TSetSeatVentilationStateSemanticFrame {
+  reserved "AbsoluteChange";
+  reserved 3;
+  .NAlice.TSeatVentilationActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  .NAlice.TSysNumSlot AbsoluteSetChange = 4 [json_name = "absolute_set_change"];
+  .NAlice.TSysNumSlot FactorChange = 5 [json_name = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 6 [json_name = "percentage_change"];
+  .NAlice.TSeatVentilationAbsoluteChangeSlot AbsoluteChangeValue = 7 [json_name = "absolute_change_value"];
+}
+
+message THvacSetDefrosterStateSemanticFrame {
+  message TSetDefrosterStateActionSlot {
+    oneof Value {
+      string ActionValue = 1 [json_name = "action_value"];
+    }
+  }
+
+  message TSetDefrosterStateWindowSlot {
+    oneof Value {
+      string WindowValue = 1 [json_name = "window_value"];
+    }
+  }
+
+  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateActionSlot Action = 1 [json_name = "action"];
+  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateWindowSlot Window = 2 [json_name = "window"];
+}
+
+message THvacAirDirectionSemanticFrame {
+  message TFanDirectionSlot {
+    oneof Value {
+      string FanDirectionValue = 1 [json_name = "fan_direction_value"];
+    }
+  }
+
+  .NAlice.THvacAirDirectionSemanticFrame.TFanDirectionSlot Direction = 1 [json_name = "direction"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message THvacAirDirectionSwitchSemanticFrame {
+  .NAlice.TSeatTypeSlot Seat = 1 [json_name = "seat"];
+}
+
+message TAirFanSpeedActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAirFanSpeedLevelSlot {
+  oneof Value {
+    string FanSpeedCustomValue = 1 [json_name = "fan_speed_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message THvacAirFanSpeedSemanticFrame {
+  .NAlice.TAirFanSpeedActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAirFanSpeedLevelSlot Level = 2 [json_name = "level"];
+  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat"];
+}
+
+message TBodySideMirrorsSemanticFrame {
+  .NAlice.TSideMirrorsActionSlot Action = 1 [json_name = "action"];
+}
+
+message TSideMirrorsActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TBodySetTrunkPositionSemanticFrame {
+  .NAlice.TSetTrunkPositionActionSlot Action = 1 [json_name = "action"];
+}
+
+message TSetTrunkPositionActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TSunVisorRegulationActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TSunVisorRegulationLevelSlot {
+  oneof Value {
+    uint32 VisorLevelCustomValue = 1 [json_name = "visor_level_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message TSunVisorRegulationUnitSlot {
+  oneof Value {
+    string UnitValue = 1 [json_name = "unit_value"];
+  }
+}
+
+message TSunVisorRegulationSideSlot {
+  oneof Value {
+    string SideValue = 1 [json_name = "side_value"];
+  }
+}
+
+message TBodySunVisorRegulationSemanticFrame {
+  .NAlice.TSunVisorRegulationActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSunVisorRegulationLevelSlot Level = 2 [json_name = "level"];
+  .NAlice.TSunVisorRegulationUnitSlot Unit = 3 [json_name = "unit"];
+  .NAlice.TSunVisorRegulationSideSlot Side = 4 [json_name = "side"];
+}
+
+message TTrapdoorRegulationActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TTrapdoorRegulationLevelSlot {
+  oneof Value {
+    uint32 TrapdoorLevelCustomValue = 1 [json_name = "trapdoor_level_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message TTrapdoorRegulationUnitSlot {
+  oneof Value {
+    string UnitValue = 1 [json_name = "unit_value"];
+  }
+}
+
+message TBodyTrapdoorRegulationSemanticFrame {
+  .NAlice.TTrapdoorRegulationActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TTrapdoorRegulationLevelSlot Level = 2 [json_name = "level"];
+  .NAlice.TTrapdoorRegulationUnitSlot Unit = 3 [json_name = "unit"];
+}
+
+message TWindowRegulationActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TWindowRegulationLevelSlot {
+  oneof Value {
+    uint32 WindowLevelCustomValue = 1 [json_name = "window_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message TWindowRegulationUnitSlot {
+  oneof Value {
+    string UnitValue = 1 [json_name = "unit_value"];
+  }
+}
+
+message TWindowRegulationAreaSlot {
+  oneof Value {
+    string AreaValue = 1 [json_name = "area_value"];
+  }
+}
+
+message TWindowRegulationCountSlot {
+  oneof Value {
+    string CountValue = 1 [json_name = "count_value"];
+  }
+}
+
+message TBodyWindowRegulationSemanticFrame {
+  .NAlice.TWindowRegulationActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TWindowRegulationLevelSlot Level = 2 [json_name = "level"];
+  .NAlice.TWindowRegulationUnitSlot Unit = 3 [json_name = "unit"];
+  .NAlice.TWindowRegulationAreaSlot Area = 4 [json_name = "area"];
+  .NAlice.TWindowRegulationCountSlot Count = 5 [json_name = "count"];
+}
+
+message THvacSteeringWheelHeatingActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message THvacSteeringWheelHeatingSemanticFrame {
+  .NAlice.THvacSteeringWheelHeatingActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoConditoningSystemActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoConditoningSystemSemanticFrame {
+  .NAlice.TAutoConditoningSystemActionSlot Action = 1 [json_name = "action"];
+}
+
+message TConditioningSystemActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TConditioningSystemSemanticFrame {
+  .NAlice.TConditioningSystemActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message TCoolingSystemActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TCoolingSystemSemanticFrame {
+  .NAlice.TCoolingSystemActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetRecirculationModeActionSlot {
+  oneof Value {
+    string ModeValue = 1 [json_name = "mode_value"];
+  }
+}
+
+message TAutoSetRecirculationModeSemanticFrame {
+  .NAlice.TAutoSetRecirculationModeActionSlot Mode = 1 [json_name = "mode"];
+}
+
+message TAutoSwitchRecirculationModeSemanticFrame {
+}
+
+message TBodyTrapdoorVentilationSemanticFrame {
+}
+
+message TAutoGetTemperatureSemanticFrame {
+}
+
+message TAutoMassageSeatSpeedActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoMassageSeatSpeedLevelSlot {
+  oneof Value {
+    string MassageLevelCustomValue = 1 [json_name = "massage_level_custom_value"];
+    uint32 NumValue = 2 [json_name = "num_value"];
+  }
+}
+
+message TAutoMassageSeatSpeedSemanticFrame {
+  .NAlice.TAutoMassageSeatSpeedActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAutoMassageSeatSpeedLevelSlot Level = 2 [json_name = "level"];
+  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat"];
+}
+
+message TAutoMassageModeSlot {
+  oneof Value {
+    string ModeValue = 1 [json_name = "mode_value"];
+  }
+}
+
+message TAutoMassageModeSemanticFrame {
+  .NAlice.TAutoMassageModeSlot Mode = 1 [json_name = "mode"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message TAutoMassageActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoMassageSeatStateSemanticFrame {
+  .NAlice.TAutoMassageActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message TAutoHudStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoHudStateSemanticFrame {
+  .NAlice.TAutoHudStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoHudBrightnessActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoHudBrightnessAbsoluteChangeSlot {
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "num_value"];
+    string CustomValue = 2 [json_name = "custom_value"];
+  }
+}
+
+message TAutoHudBrightnessSemanticFrame {
+  .NAlice.TAutoHudBrightnessActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAutoHudBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
+}
+
+message TAutoHudModeSlot {
+  oneof Value {
+    string ModeValue = 1 [json_name = "mode_value"];
+  }
+}
+
+message TAutoHudModeSemanticFrame {
+  .NAlice.TAutoHudModeSlot Mode = 1 [json_name = "mode"];
+}
+
+message TAutoHudHeightActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoHudHeightAbsoluteChangeSlot {
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "num_value"];
+    string CustomValue = 2 [json_name = "custom_value"];
+  }
+}
+
+message TAutoHudHeightSemanticFrame {
+  .NAlice.TAutoHudHeightActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAutoHudHeightAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
+  .NAlice.TSysNumSlot AbsoluteSetChange = 5 [json_name = "absolute_set_change"];
+}
+
+message TAutoSetAmbientLightingStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoSetAmbientLightingStateSemanticFrame {
+  .NAlice.TAutoSetAmbientLightingStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoChangeAmbientLightingColorSlot {
+  oneof Value {
+    string ColorValue = 1 [json_name = "color_value"];
+  }
+}
+
+message TAutoChangeAmbientLightingColorSemanticFrame {
+  .NAlice.TAutoChangeAmbientLightingColorSlot Color = 1 [json_name = "color"];
+}
+
+message TAutoSetInstrumentPanelBrightnessActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoSetInstrumentPanelBrightnessAbsoluteChangeSlot {
+  oneof Value {
+    uint32 NumValue = 1 [json_name = "num_value"];
+    string CustomValue = 2 [json_name = "custom_value"];
+  }
+}
+
+message TAutoSetInstrumentPanelBrightnessSemanticFrame {
+  .NAlice.TAutoSetInstrumentPanelBrightnessActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAutoSetInstrumentPanelBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
+}
+
+message TAutoSetPanoramicDisplayStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message TAutoSetPanoramicDisplayStateSemanticFrame {
+  .NAlice.TAutoSetPanoramicDisplayStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoInfoFuelTypeSlot {
+  oneof Value {
+    string FuelTypeValue = 1 [json_name = "fuel_type_value"];
+  }
+}
+
+message TAutoInfoTankSlot {
+  oneof Value {
+    string TankValue = 1 [json_name = "tank_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoInfoGetFuelAndChargeLevelSemanticFrame {
+  .NAlice.TAutoInfoFuelTypeSlot FuelType = 1 [json_name = "fuel_type"];
+  .NAlice.TAutoInfoTankSlot Tank = 2 [json_name = "tank"];
+}
+
+message TAutoInfoGetRangeRemainingSemanticFrame {
+}
+
+message TAutoInfoTotalMileageSemanticFrame {
+}
+
+message THvacHotOrColdConditionSlot {
+  oneof Value {
+    string ConditionValue = 1 [json_name = "condition_value"];
+  }
+}
+
+message THvacHotOrColdSemanticFrame {
+  .NAlice.THvacHotOrColdConditionSlot Condition = 1 [json_name = "condition"];
+}
+
+message TAutoSeatHeatingActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message THvacAutoSeatHeatingSemanticFrame {
+  .NAlice.TAutoSeatHeatingActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message TAutoSeatVentilationActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+  }
+}
+
+message THvacAutoSeatVentilationSemanticFrame {
+  .NAlice.TAutoSeatVentilationActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+}
+
+message TAutoSetFridgeStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetFridgeStateSemanticFrame {
+  .NAlice.TAutoSetFridgeStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetMirrorHeatingStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAirFreshenerStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetMirrorHeatingStateSemanticFrame {
+  .NAlice.TAutoSetMirrorHeatingStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetHeatingSystemStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAirQualitySystemStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetHeatingSystemStateSemanticFrame {
+  .NAlice.TAutoSetHeatingSystemStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoChangeAromaSemanticFrame {
+}
+
+message TAutoSetAirQualitySystemStateSemanticFrame {
+  .NAlice.TAutoSetAirQualitySystemStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoGetTireStatusMetricSlot {
+  oneof Value {
+    string MetricValue = 1 [json_name = "metric_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoGetTireStatusWheelScopeSlot {
+  oneof Value {
+    string WheelScopeValue = 1 [json_name = "wheel_scope_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoGetTireStatusSemanticFrame {
+  .NAlice.TAutoGetTireStatusMetricSlot Metric = 1 [json_name = "metric"];
+  .NAlice.TAutoGetTireStatusWheelScopeSlot WheelScope = 2 [json_name = "wheel_scope"];
+}
+
+message TAutoSetWirelessChargingStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAirFreshenerIntensityActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetWirelessChargingStatePositionSlot {
+  oneof Value {
+    string SeatTypeValue = 1 [json_name = "seat_type_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetWirelessChargingStateSemanticFrame {
+  .NAlice.TAutoSetWirelessChargingStateActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TAutoSetWirelessChargingStatePositionSlot Position = 2 [json_name = "position"];
+}
+
+message TAutoSetAirPurificationStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAirPurificationStateSemanticFrame {
+  .NAlice.TAutoSetAirPurificationStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetAirFreshenerStateSemanticFrame {
+  .NAlice.TAutoSetAirFreshenerStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetAirFreshenerIntensitySemanticFrame {
+  .NAlice.TAutoSetAirFreshenerIntensityActionSlot Action = 1 [json_name = "action"];
+  .NAlice.TSysNumSlot Delta = 2 [json_name = "delta"];
+}
+
+message TAutoSetAcMaxStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetHvacTemperatureSyncStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAutomaticDefrostingStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetClimateEcoModeStateActionSlot {
+  oneof Value {
+    string ActionValue = 1 [json_name = "action_value"];
+    string StringValue = 2 [json_name = "string_value"];
+  }
+}
+
+message TAutoSetAcMaxStateSemanticFrame {
+  .NAlice.TAutoSetAcMaxStateActionSlot AcMax = 1 [json_name = "ac_max"];
+}
+
+message TAutoSetClimateEcoModeStateSemanticFrame {
+  .NAlice.TAutoSetClimateEcoModeStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetAutomaticDefrostingStateSemanticFrame {
+  .NAlice.TAutoSetAutomaticDefrostingStateActionSlot Action = 1 [json_name = "action"];
+}
+
+message TAutoSetHvacTemperatureSyncStateSemanticFrame {
+  .NAlice.TAutoSetHvacTemperatureSyncStateActionSlot Action = 1 [json_name = "action"];
+}
+

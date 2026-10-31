@@ -18,23 +18,23 @@ message TMusicTouchTypedCallback {
   reserved "CallbackFrame";
   reserved 1;
   message TLikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1;
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
   }
 
   message TRemoveLikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1;
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
   }
 
   message TDislikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1;
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
   }
 
   message TRemoveDislikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1;
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
   }
 
   message TRepeatCommand {
-    .NAlice.NData.ERepeatMode RepeatMode = 1;
+    .NAlice.NData.ERepeatMode RepeatMode = 1 [json_name = "repeat_mode"];
   }
 
   message TShuffleCommand {
@@ -44,15 +44,15 @@ message TMusicTouchTypedCallback {
   }
 
   message TNextTrackCommand {
-    bool SetPause = 1;
+    bool SetPause = 1 [json_name = "set_pause"];
   }
 
   message TPrevTrackCommand {
-    bool SetPause = 1;
+    bool SetPause = 1 [json_name = "set_pause"];
   }
 
   message TContinueCommand {
-    bool SkipPlayerStateCheck = 1;
+    bool SkipPlayerStateCheck = 1 [json_name = "skip_player_state_check"];
   }
 
   message TGetLyricsCommand {
@@ -65,8 +65,8 @@ message TMusicTouchTypedCallback {
   }
 
   message TFmRadioPlayCommand {
-    string FmRadioStation = 1;
-    string FmRadioFreq = 2;
+    string FmRadioStation = 1 [json_name = "fm_radio_station"];
+    string FmRadioFreq = 2 [json_name = "fm_radio_freq"];
   }
 
   message TMusicPlayCommand {
@@ -74,32 +74,35 @@ message TMusicTouchTypedCallback {
     reserved "ObjectId";
     reserved 1;
     reserved 2;
-    string StartFromTrackId = 3;
-    .NAlice.NData.NMusic.TContentId ContentId = 4;
-    bool UseIchwillRecommendations = 5;
-    bool DisableAutoflow = 6;
-    bool PlaySingleTrack = 7;
-    .NAlice.NData.NMusic.TDurationRestrictions DurationRestrictions = 8;
-    bool KeepInStack = 9;
-    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 10;
-    bool DisableAutoflowSoft = 11;
-    bool IsStashUpdate = 12;
-    string Offset = 13;
-    uint32 TrackOffsetIndex = 14;
+    string StartFromTrackId = 3 [json_name = "start_from_track_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id"];
+    bool UseIchwillRecommendations = 5 [json_name = "use_ichwill_recommendations"];
+    bool DisableAutoflow = 6 [json_name = "disable_autoflow"];
+    bool PlaySingleTrack = 7 [json_name = "play_single_track"];
+    .NAlice.NData.NMusic.TDurationRestrictions DurationRestrictions = 8 [json_name = "duration_restrictions"];
+    bool KeepInStack = 9 [json_name = "keep_in_stack"];
+    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 10 [json_name = "karaoke_mode"];
+    bool DisableAutoflowSoft = 11 [json_name = "disable_autoflow_soft"];
+    bool IsStashUpdate = 12 [json_name = "is_stash_update"];
+    string Offset = 13 [json_name = "offset"];
+    uint32 TrackOffsetIndex = 14 [json_name = "track_offset_index"];
   }
 
   message TMoveToTrackIdCommand {
-    string StartFromTrackId = 1;
-    optional string StartFromTrackUuid = 2;
+    string StartFromTrackId = 1 [json_name = "start_from_track_id"];
+    optional string StartFromTrackUuid = 2 [json_name = "start_from_track_uuid"];
   }
 
   message TShowArtistCommand {
-    string Id = 1;
-    bool DisableShowView = 2;
+    string Id = 1 [json_name = "id"];
+    bool DisableShowView = 2 [json_name = "disable_show_view"];
+    uint32 PopularTracksLimit = 3 [json_name = "popular_tracks_limit"];
   }
 
   message TShowAlbumCommand {
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
+    uint32 Offset = 2 [json_name = "offset"];
+    uint32 Limit = 3 [json_name = "limit"];
   }
 
   message TShowAllArtistContent {
@@ -110,63 +113,67 @@ message TMusicTouchTypedCallback {
       Playlists = 3;
     }
 
-    string ArtistId = 1;
-    .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent.EContentType ContentType = 2;
+    string ArtistId = 1 [json_name = "artist_id"];
+    .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent.EContentType ContentType = 2 [json_name = "content_type"];
+    uint32 Offset = 3 [json_name = "offset"];
+    uint32 Limit = 4 [json_name = "limit"];
   }
 
   message TShowPlaylistCommand {
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
+    uint32 Offset = 2 [json_name = "offset"];
+    uint32 Limit = 3 [json_name = "limit"];
   }
 
   message TCommand {
     oneof Value {
-      .NAlice.TMusicTouchTypedCallback.TLikeCommand Like = 1;
-      .NAlice.TMusicTouchTypedCallback.TRemoveLikeCommand RemoveLike = 2;
-      .NAlice.TMusicTouchTypedCallback.TDislikeCommand Dislike = 3;
-      .NAlice.TMusicTouchTypedCallback.TRemoveDislikeCommand RemoveDislike = 4;
-      .NAlice.TMusicTouchTypedCallback.TRepeatCommand Repeat = 5;
-      .NAlice.TMusicTouchTypedCallback.TShuffleCommand Shuffle = 6;
-      .NAlice.TMusicTouchTypedCallback.TUnshuffleCommand Unshuffle = 7;
-      .NAlice.TMusicTouchTypedCallback.TNextTrackCommand NextTrack = 8;
-      .NAlice.TMusicTouchTypedCallback.TPrevTrackCommand PrevTrack = 9;
-      .NAlice.TMusicTouchTypedCallback.TFmRadioPlayCommand FmRadioPlay = 10;
-      .NAlice.TMusicTouchTypedCallback.TMusicPlayCommand MusicPlay = 11;
-      .NAlice.TMusicTouchTypedCallback.TGetLyricsCommand GetLyrics = 12;
-      .NAlice.TMusicTouchTypedCallback.TMoveToTrackIdCommand MoveToTrackId = 13;
-      .NAlice.TMusicTouchTypedCallback.TContinueCommand Continue = 14;
-      .NAlice.TMusicTouchTypedCallback.TShowAlbumCommand ShowAlbum = 15;
-      .NAlice.TMusicTouchTypedCallback.TShowArtistCommand ShowArtist = 16;
-      .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent ShowAllArtistContent = 17;
-      .NAlice.TMusicTouchTypedCallback.TShowPlaylistCommand ShowPlaylist = 18;
-      .NAlice.TMusicTouchTypedCallback.TEnableKaraokeModeCommand EnableKaraokeMode = 19;
-      .NAlice.TMusicTouchTypedCallback.TDisableKaraokeModeCommand DisableKaraokeMode = 20;
+      .NAlice.TMusicTouchTypedCallback.TLikeCommand Like = 1 [json_name = "like"];
+      .NAlice.TMusicTouchTypedCallback.TRemoveLikeCommand RemoveLike = 2 [json_name = "remove_like"];
+      .NAlice.TMusicTouchTypedCallback.TDislikeCommand Dislike = 3 [json_name = "dislike"];
+      .NAlice.TMusicTouchTypedCallback.TRemoveDislikeCommand RemoveDislike = 4 [json_name = "remove_dislike"];
+      .NAlice.TMusicTouchTypedCallback.TRepeatCommand Repeat = 5 [json_name = "repeat"];
+      .NAlice.TMusicTouchTypedCallback.TShuffleCommand Shuffle = 6 [json_name = "shuffle"];
+      .NAlice.TMusicTouchTypedCallback.TUnshuffleCommand Unshuffle = 7 [json_name = "unshuffle"];
+      .NAlice.TMusicTouchTypedCallback.TNextTrackCommand NextTrack = 8 [json_name = "next_track"];
+      .NAlice.TMusicTouchTypedCallback.TPrevTrackCommand PrevTrack = 9 [json_name = "prev_track"];
+      .NAlice.TMusicTouchTypedCallback.TFmRadioPlayCommand FmRadioPlay = 10 [json_name = "fm_radio_play"];
+      .NAlice.TMusicTouchTypedCallback.TMusicPlayCommand MusicPlay = 11 [json_name = "music_play"];
+      .NAlice.TMusicTouchTypedCallback.TGetLyricsCommand GetLyrics = 12 [json_name = "get_lyrics"];
+      .NAlice.TMusicTouchTypedCallback.TMoveToTrackIdCommand MoveToTrackId = 13 [json_name = "change_track_number"];
+      .NAlice.TMusicTouchTypedCallback.TContinueCommand Continue = 14 [json_name = "continue"];
+      .NAlice.TMusicTouchTypedCallback.TShowAlbumCommand ShowAlbum = 15 [json_name = "show_album"];
+      .NAlice.TMusicTouchTypedCallback.TShowArtistCommand ShowArtist = 16 [json_name = "show_artist"];
+      .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent ShowAllArtistContent = 17 [json_name = "show_all_artist_content"];
+      .NAlice.TMusicTouchTypedCallback.TShowPlaylistCommand ShowPlaylist = 18 [json_name = "show_playlist"];
+      .NAlice.TMusicTouchTypedCallback.TEnableKaraokeModeCommand EnableKaraokeMode = 19 [json_name = "enable_karaoke_mode"];
+      .NAlice.TMusicTouchTypedCallback.TDisableKaraokeModeCommand DisableKaraokeMode = 20 [json_name = "disable_karaoke_mode"];
     }
   }
 
-  .NAlice.TMusicTouchTypedCallback.TCommand Command = 2;
+  .NAlice.TMusicTouchTypedCallback.TCommand Command = 2 [json_name = "command"];
 }
 
 message TCollectMusicVerticalTypedCallback {
-  bool IsStashUpdate = 1;
+  bool IsStashUpdate = 1 [json_name = "is_stash_update"];
 }
 
 message TCentaurMusicEnrichTracksTypedCallback {
   message TDiv2Id {
-    string CardId = 1;
-    string CardName = 2;
+    string CardId = 1 [json_name = "card_id"];
+    string CardName = 2 [json_name = "card_name"];
   }
 
-  repeated string TracksIds = 1;
-  string CurrentTrackId = 2;
-  uint32 Limit = 3;
-  .NAlice.NData.NMusic.TContentId ParentContentId = 4;
-  .NAlice.TCentaurMusicEnrichTracksTypedCallback.TDiv2Id Div2Id = 5;
+  repeated string TracksIds = 1 [json_name = "tracks_ids"];
+  string CurrentTrackId = 2 [json_name = "current_track_id"];
+  uint32 Limit = 3 [json_name = "limit"];
+  .NAlice.NData.NMusic.TContentId ParentContentId = 4 [json_name = "parent_content_id"];
+  .NAlice.TCentaurMusicEnrichTracksTypedCallback.TDiv2Id Div2Id = 5 [json_name = "div2_id"];
 }
 
 message TMusicSearchTypedCallback {
-  string Query = 1;
-  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2;
-  uint32 Offset = 3;
-  uint32 Limit = 4;
+  string Query = 1 [json_name = "query"];
+  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
+  uint32 Offset = 3 [json_name = "offset"];
+  uint32 Limit = 4 [json_name = "limit"];
 }
 

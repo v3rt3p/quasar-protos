@@ -22,8 +22,8 @@ message TLocalIoTCapability {
   message TState {
     reserved "IoTUserInfoSerialized";
     reserved 1;
-    .NAlice.TLocalIoTCapability.TIoTAccountSettings IoTAccountSettings = 2;
-    .NAlice.TIoTClientUserInfo IoTUserInfo = 3;
+    .NAlice.TLocalIoTCapability.TIoTAccountSettings IoTAccountSettings = 2 [json_name = "iot_account_settings"];
+    .NAlice.TIoTClientUserInfo IoTUserInfo = 3 [json_name = "iot_user_info"];
   }
 
   message TIoTAccountSettings {
@@ -32,54 +32,54 @@ message TLocalIoTCapability {
       NLG = 1;
     }
 
-    .NAlice.TLocalIoTCapability.TIoTAccountSettings.EReactionType ResponseReactionType = 1;
+    .NAlice.TLocalIoTCapability.TIoTAccountSettings.EReactionType ResponseReactionType = 1 [json_name = "response_reaction_type"];
   }
 
   message TSyncIoTUserInfoDirective {
     reserved "IoTUserInfoType";
     reserved 2;
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TSetIoTUserInfoDirective {
     reserved "IoTUserInfoType";
     reserved 3;
-    string Name = 1;
-    bytes IoTUserInfoSerialized = 2;
-    .NAlice.TIoTClientUserInfo IoTClientUserInfo = 4;
+    string Name = 1 [json_name = "name"];
+    bytes IoTUserInfoSerialized = 2 [json_name = "iot_user_info_serialized"];
+    .NAlice.TIoTClientUserInfo IoTClientUserInfo = 4 [json_name = "iot_client_user_info"];
   }
 
   message TSetIoTAccountSettingsDirective {
-    string Name = 1;
-    .NAlice.TLocalIoTCapability.TIoTAccountSettings IoTAccountSettings = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TLocalIoTCapability.TIoTAccountSettings IoTAccountSettings = 2 [json_name = "iot_account_settings"];
   }
 
   message TRouteDirective {
-    string Name = 1;
-    .NAlice.NAliceApi.TDirective Directive = 2;
-    .NAlice.NAliceApi.TDirective FallbackDirective = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NAliceApi.TDirective Directive = 2 [json_name = "directive"];
+    .NAlice.NAliceApi.TDirective FallbackDirective = 3 [json_name = "fallback_directive"];
   }
 
   message TScenarioVoiceTriggerDirective {
-    string Name = 1;
-    string ScenarioID = 2;
+    string Name = 1 [json_name = "name"];
+    string ScenarioID = 2 [json_name = "scenario_id"];
   }
 
   message TAction {
-    string ID = 1;
-    repeated .NAlice.NAliceApi.TDirective Directives = 2;
-    uint64 DelayMs = 3;
+    string ID = 1 [json_name = "id"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+    uint64 DelayMs = 3 [json_name = "delay_ms"];
   }
 
   message TScheduledAction {
-    .NAlice.TLocalIoTCapability.TAction Action = 1;
-    .google.protobuf.Timestamp ScheduledTimestamp = 2;
+    .NAlice.TLocalIoTCapability.TAction Action = 1 [json_name = "action"];
+    .google.protobuf.Timestamp ScheduledTimestamp = 2 [json_name = "scheduled_timestamp"];
   }
 
   message TScheduleActionDirective {
-    string Name = 1;
-    .NAlice.TLocalIoTCapability.TAction Action = 2;
-    .NAlice.NAliceApi.TDirective OnScheduledActionCallback = 3;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TLocalIoTCapability.TAction Action = 2 [json_name = "action"];
+    .NAlice.NAliceApi.TDirective OnScheduledActionCallback = 3 [json_name = "on_scheduled_action_callback"];
   }
 
   message TCancelScheduledActionDirective {
@@ -90,35 +90,35 @@ message TLocalIoTCapability {
     }
 
     message TCancelExactPolicy {
-      string ActionID = 1;
+      string ActionID = 1 [json_name = "action_id"];
     }
 
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
     oneof Policy {
-      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelAllPolicy CancelAllPolicy = 2;
-      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelLastPolicy CancelLastPolicy = 3;
-      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelExactPolicy CancelExactPolicy = 4;
+      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelAllPolicy CancelAllPolicy = 2 [json_name = "cancel_all_policy"];
+      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelLastPolicy CancelLastPolicy = 3 [json_name = "cancel_last_policy"];
+      .NAlice.TLocalIoTCapability.TCancelScheduledActionDirective.TCancelExactPolicy CancelExactPolicy = 4 [json_name = "cancel_exact_policy"];
     }
   }
 
   message TIoTEndpointsStateChangedDirective {
-    string Name = 1;
-    .NAlice.NAliceApi.TEndpointsStateChanged EndpointsStateChanged = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NAliceApi.TEndpointsStateChanged EndpointsStateChanged = 2 [json_name = "endpoints_state_changed"];
   }
 
   message TIoTEndpointsRemovedDirective {
-    string Name = 1;
-    .NAlice.NAliceApi.TEndpointsRemoved EndpointsRemoved = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.NAliceApi.TEndpointsRemoved EndpointsRemoved = 2 [json_name = "endpoints_removed"];
   }
 
   message TSubscribeIoTEndpointsDirective {
-    string Name = 1;
-    repeated .NAlice.NAliceApi.TUniversalEndpointSubscription Subscriptions = 2;
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.NAliceApi.TUniversalEndpointSubscription Subscriptions = 2 [json_name = "subscriptions"];
   }
 
   message TUnsubscribeIoTEndpointsDirective {
-    string Name = 1;
-    repeated .NAlice.NAliceApi.TUniversalEndpointSubscription Subscriptions = 2;
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.NAliceApi.TUniversalEndpointSubscription Subscriptions = 2 [json_name = "subscriptions"];
   }
 
   message TSyncIoTUserInfoEvent {
@@ -127,19 +127,19 @@ message TLocalIoTCapability {
   }
 
   message TScenarioVoiceTriggerEvent {
-    string ScenarioID = 1;
+    string ScenarioID = 1 [json_name = "scenario_id"];
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
   message TScheduledActionEvent {
-    .NAlice.TLocalIoTCapability.TScheduledAction ScheduledAction = 1;
+    .NAlice.TLocalIoTCapability.TScheduledAction ScheduledAction = 1 [json_name = "scheduled_action"];
   }
 
   message TCancelScheduledActionsEvent {
-    repeated string ActionIDs = 1;
+    repeated string ActionIDs = 1 [json_name = "action_ids"];
   }
 
   message TCompleteScheduledActionEvent {
@@ -148,8 +148,8 @@ message TLocalIoTCapability {
       FAIL = 1;
     }
 
-    string ActionID = 1;
-    .NAlice.TLocalIoTCapability.TCompleteScheduledActionEvent.EStatus Status = 2;
+    string ActionID = 1 [json_name = "action_id"];
+    .NAlice.TLocalIoTCapability.TCompleteScheduledActionEvent.EStatus Status = 2 [json_name = "status"];
   }
 
   enum TIoTUserInfoType {
@@ -158,8 +158,8 @@ message TLocalIoTCapability {
     USER_INFO_CLIENT = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TLocalIoTCapability.TParameters Parameters = 2;
-  .NAlice.TLocalIoTCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLocalIoTCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLocalIoTCapability.TState State = 3 [json_name = "state"];
 }
 

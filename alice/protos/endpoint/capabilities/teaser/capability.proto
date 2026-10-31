@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TeasersCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/teaser;teaserpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/scenario/centaur/teasers/teaser_settings.proto";
+import "alice/protos/div/div2card.proto";
+import "google/protobuf/struct.proto";
+
+message TTeaserCapability {
+  message TParameters {
+    bool SupportsVoiceControls = 1 [json_name = "supports_voice_controls"];
+    bool SupportsS3VideoTeasers = 2 [json_name = "supports_s3_video_teasers"];
+  }
+
+  message TState {
+    repeated string CurrentStickyTeasers = 1 [json_name = "current_sticky_teasers"];
+  }
+
+  message TAddTeaserDirective {
+    enum EOrientationType {
+      Any = 0;
+      LandscapeOnly = 1;
+      PortraitOnly = 2;
+    }
+
+    string Name = 1 [json_name = "name"];
+    string TeaserId = 2 [json_name = "teaser_id"];
+    uint32 TeaserShowTimeSec = 3 [json_name = "teaser_show_time_sec"];
+    .NAlice.TDiv2Card Div2Card = 4 [json_name = "div2_card"];
+    .google.protobuf.Struct Div2Templates = 5 [json_name = "div2_templates"];
+    .NAlice.NData.TCentaurTeaserConfigData TeaserConfig = 6 [json_name = "teaser_config"];
+    string TeaserGroupId = 7 [json_name = "teaser_group_id"];
+    .NAlice.TTeaserCapability.TAddTeaserDirective.EOrientationType SupportedOrientations = 8 [json_name = "supported_orientations"];
+    bool IsStickyTeaser = 9 [json_name = "is_sticky_teaser"];
+  }
+
+  message TYaDiskTeasersInfo {
+    string AlbumUrl = 1 [json_name = "album_url"];
+  }
+
+  message TRotateTeasersDirective {
+    string Name = 1 [json_name = "name"];
+    bool SettingsChanged = 2 [json_name = "settings_changed"];
+    bool YaDiskAlbumIsEmpty = 3 [json_name = "ya_disk_album_is_empty"];
+    .NAlice.TTeaserCapability.TYaDiskTeasersInfo YaDiskTeasersInfo = 4 [json_name = "ya_disk_teasers_info"];
+  }
+
+  message TRemoveTeaserDirective {
+    string Name = 1 [json_name = "name"];
+    string TeaserId = 2 [json_name = "teaser_id"];
+  }
+
+  message TOpenTretyakovkaInfoDirective {
+    reserved "Title";
+    reserved "Description";
+    reserved "Author";
+    reserved "Date";
+    reserved "BrowserUrl";
+    reserved "ImageUrl";
+    reserved 1;
+    reserved 2;
+    reserved 3;
+    reserved 4;
+    reserved 5;
+    reserved 6;
+    string Name = 7 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTeaserCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTeaserCapability.TState State = 3 [json_name = "state"];
+}
+

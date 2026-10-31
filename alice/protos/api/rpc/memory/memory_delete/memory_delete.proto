@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NMemory;
+
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/memory/memory_delete";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMemoryDeleteRequest {
+}
+
+message TMemoryDeleteResponse {
+}
+

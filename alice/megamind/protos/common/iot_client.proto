@@ -15,30 +15,40 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIoTClientUserInfo {
   message TDevice {
-    string Id = 1;
-    string Name = 2;
-    repeated string Aliases = 3;
-    .NAlice.EUserDeviceType Type = 4;
-    string ExternalId = 6;
-    string SkillId = 8;
-    string RoomId = 9;
-    repeated string GroupIds = 10;
-    .NAlice.TUserDeviceInfo DeviceInfo = 13;
-    string HouseholdId = 18;
-    .NAlice.TDeviceStatusInfo StatusInfo = 29;
-    .NAlice.TEndpoint Endpoint = 30;
+    reserved "ForceServerInteraction";
+    reserved 34;
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    repeated string Aliases = 3 [json_name = "aliases"];
+    .NAlice.EUserDeviceType Type = 4 [json_name = "type"];
+    string ExternalId = 6 [json_name = "external_id"];
+    string SkillId = 8 [json_name = "skill_id"];
+    string RoomId = 9 [json_name = "room_id"];
+    repeated string GroupIds = 10 [json_name = "group_ids"];
+    .NAlice.TUserDeviceInfo DeviceInfo = 13 [json_name = "device_info"];
+    string HouseholdId = 18 [json_name = "household_id"];
+    .NAlice.TDeviceStatusInfo StatusInfo = 29 [json_name = "status_info"];
+    .NAlice.TEndpoint Endpoint = 30 [json_name = "endpoint"];
+    .NAlice.TDeviceRenderInfo RenderInfo = 33 [json_name = "render_info"];
   }
 
   message THousehold {
-    string Id = 1;
-    string Name = 2;
-    .NAlice.TUserSharingInfo SharingInfo = 6;
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    .NAlice.TUserSharingInfo SharingInfo = 6 [json_name = "sharing_info"];
   }
 
-  repeated .NAlice.TUserRoom Rooms = 1;
-  repeated .NAlice.TUserGroup Groups = 2;
-  repeated .NAlice.TIoTClientUserInfo.TDevice Devices = 3;
-  repeated .NAlice.TIoTClientUserInfo.THousehold Households = 4;
-  repeated .NAlice.TAggregate Aggregates = 5;
+  message TScenario {
+    string Id = 1 [json_name = "id"];
+    string Name = 2 [json_name = "name"];
+    string Icon = 3 [json_name = "icon"];
+  }
+
+  repeated .NAlice.TUserRoom Rooms = 1 [json_name = "rooms"];
+  repeated .NAlice.TUserGroup Groups = 2 [json_name = "groups"];
+  repeated .NAlice.TIoTClientUserInfo.TDevice Devices = 3 [json_name = "devices"];
+  repeated .NAlice.TIoTClientUserInfo.THousehold Households = 4 [json_name = "households"];
+  repeated .NAlice.TAggregate Aggregates = 5 [json_name = "aggregates"];
+  repeated .NAlice.TIoTClientUserInfo.TScenario Scenarios = 6 [json_name = "scenarios"];
 }
 

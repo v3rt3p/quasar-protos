@@ -12,8 +12,8 @@ import "yt/yt_proto/yt/formats/extension.proto";
 message TAdhan {
   message TActivationDay {
     oneof ActivationDay {
-      .NAlice.NData.TDayOfWeek Weekday = 1;
-      .NAlice.NData.TGregorianDate Date = 2;
+      .NAlice.NData.TDayOfWeek Weekday = 1 [json_name = "weekday"];
+      .NAlice.NData.TGregorianDate Date = 2 [json_name = "date"];
     }
   }
 
@@ -26,13 +26,13 @@ message TAdhan {
     IshaAdhanType = 5;
   }
 
-  string AdhanId = 1;
-  .NAlice.NData.TAdhan.EAdhanType AdhanType = 2;
-  repeated .NAlice.NData.TAdhan.TActivationDay ActivationDays = 3;
+  string AdhanId = 1 [json_name = "adhan_id"];
+  .NAlice.NData.TAdhan.EAdhanType AdhanType = 2 [json_name = "adhan_type"];
+  repeated .NAlice.NData.TAdhan.TActivationDay ActivationDays = 3 [json_name = "activation_days"];
 }
 
 message TAdhanMuezzinSettings {
-  string FajrAdhanMelodyS3Url = 1;
-  string OtherAdhansMelodyS3Url = 2;
+  string FajrAdhanMelodyS3Url = 1 [json_name = "fajr_adhan_melody_s3_url"];
+  string OtherAdhansMelodyS3Url = 2 [json_name = "other_adhans_melody_s3_url"];
 }
 

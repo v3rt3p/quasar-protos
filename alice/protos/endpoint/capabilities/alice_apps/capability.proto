@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceApps";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_apps;aliceappspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/data/dialogs/alice_agent_app_deployment.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceAppsCapability {
+  message TParameters {
+  }
+
+  message TState {
+    string SelectedAppId = 1 [json_name = "selected_app_id"];
+    bool DeveloperMode = 3 [json_name = "developer_mode"];
+    optional .NAlice.NData.NDialogs.EAliceAgentAppDeployment SelectedDeployment = 2 [json_name = "selected_deployment"];
+  }
+
+  message TSelectAliceAppsDirective {
+    string Name = 1000 [json_name = "name"];
+    string Id = 1 [json_name = "id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAliceAppsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAliceAppsCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -10,8 +10,8 @@ import "alice/protos/data/tv/sources/source_type.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentSourceItem {
-  string InputId = 1;
-  .NAlice.NTv.ESourceType SourceType = 2;
-  string InputName = 3;
+  string InputId = 1 [json_name = "input_id"];
+  .NAlice.NTv.ESourceType SourceType = 2 [json_name = "source_type"];
+  string InputName = 3 [json_name = "input_name"];
 }
 

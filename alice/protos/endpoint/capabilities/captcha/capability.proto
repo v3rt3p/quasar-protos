@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CaptchaProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/captcha;captchapb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCaptchaCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TShowCaptchaDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TCaptchaCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TCaptchaCapability.TState State = 3 [json_name = "state"];
+}
+

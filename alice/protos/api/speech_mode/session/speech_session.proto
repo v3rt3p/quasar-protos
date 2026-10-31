@@ -8,6 +8,12 @@ import "alice/protos/api/speech_mode/mode/speech_mode.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSpeechSession {
-  .NAlice.TSpeechMode SpeechMode = 1;
+  message TInitialRequestRef {
+    string RequestId = 1 [json_name = "request_id"];
+    string MessageId = 2 [json_name = "message_id"];
+  }
+
+  .NAlice.TSpeechMode SpeechMode = 1 [json_name = "speech_mode"];
+  .NAlice.TSpeechSession.TInitialRequestRef InitialRequestRef = 2 [json_name = "initial_request_ref"];
 }
 

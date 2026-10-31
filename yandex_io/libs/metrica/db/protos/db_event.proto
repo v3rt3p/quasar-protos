@@ -6,12 +6,7 @@ import "yandex_io/protos/connection_type/connection_type.proto";
 
 message DatabaseMetricaEvent {
   message NewEnvironment {
-    message EnvironmentValuesEntry {
-      optional string key = 1;
-      optional string value = 2;
-    }
-
-    repeated .quasar.proto.DatabaseMetricaEvent.NewEnvironment.EnvironmentValuesEntry environment_values = 1;
+    map<string, string> environment_values = 1;
   }
 
   message NewEvent {

@@ -14,10 +14,10 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnimationCapability {
   message TParameters {
-    repeated .NAlice.TAnimationCapability.EFormat SupportedFormats = 1;
-    repeated .NAlice.TAnimationCapability.TScreen Screens = 2;
-    repeated .NAlice.TAnimationCapability.EAnimationType SupportedTypes = 3;
-    bool SupportsStreaming = 4;
+    repeated .NAlice.TAnimationCapability.EFormat SupportedFormats = 1 [json_name = "supported_formats"];
+    repeated .NAlice.TAnimationCapability.TScreen Screens = 2 [json_name = "screens"];
+    repeated .NAlice.TAnimationCapability.EAnimationType SupportedTypes = 3 [json_name = "supported_types"];
+    bool SupportsStreaming = 4 [json_name = "supports_streaming"];
   }
 
   message TScreen {
@@ -45,9 +45,9 @@ message TAnimationCapability {
       Brukva = 10;
     }
 
-    string Guid = 1;
-    .NAlice.TAnimationCapability.TScreen.EScreenType ScreenType = 2;
-    .NAlice.TAnimationCapability.TScreen.EFamily Family = 3;
+    string Guid = 1 [json_name = "guid"];
+    .NAlice.TAnimationCapability.TScreen.EScreenType ScreenType = 2 [json_name = "screen_type"];
+    .NAlice.TAnimationCapability.TScreen.EFamily Family = 3 [json_name = "family"];
   }
 
   message TAnimation {
@@ -59,7 +59,7 @@ message TAnimationCapability {
       TimerCountdown = 4;
     }
 
-    .NAlice.TAnimationCapability.TAnimation.EAnimationType AnimationType = 1;
+    .NAlice.TAnimationCapability.TAnimation.EAnimationType AnimationType = 1 [json_name = "animation_type"];
   }
 
   message TState {
@@ -68,23 +68,18 @@ message TAnimationCapability {
     message TScreenState {
       reserved "Screen";
       reserved 1;
-      bool Enabled = 2;
-      .NAlice.TAnimationCapability.TAnimation Animation = 3;
+      bool Enabled = 2 [json_name = "enabled"];
+      .NAlice.TAnimationCapability.TAnimation Animation = 3 [json_name = "animation"];
     }
 
-    message ScreenStatesMapEntry {
-      string key = 1;
-      .NAlice.TAnimationCapability.TState.TScreenState value = 2;
-    }
-
-    repeated .NAlice.TAnimationCapability.TState.ScreenStatesMapEntry ScreenStatesMap = 2;
+    map<string, .NAlice.TAnimationCapability.TState.TScreenState> ScreenStatesMap = 2 [json_name = "screen_states_map"];
   }
 
   message TDrawAnimationDirective {
     message TAnimation {
       message TS3Directory {
-        string Bucket = 1;
-        string Path = 2;
+        string Bucket = 1 [json_name = "bucket"];
+        string Path = 2 [json_name = "path"];
       }
 
       message TBinaryAnimation {
@@ -94,18 +89,18 @@ message TAnimationCapability {
           Gzip = 2;
         }
 
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation.ECompressionType Compression = 1;
-        string Base64EncodedValue = 2;
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation.ECompressionType Compression = 1 [json_name = "compression_type"];
+        string Base64EncodedValue = 2 [json_name = "base64_encoded_value"];
       }
 
       message TTypedAnimation {
-        .NAlice.TAnimationCapability.EAnimationType Type = 1;
+        .NAlice.TAnimationCapability.EAnimationType Type = 1 [json_name = "type"];
       }
 
       oneof Value {
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation BinaryAnimation = 1;
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TS3Directory S3Directory = 2;
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TTypedAnimation TypedAnimation = 3;
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation BinaryAnimation = 1 [json_name = "binary_animation"];
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TS3Directory S3Directory = 2 [json_name = "s3_directory"];
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TTypedAnimation TypedAnimation = 3 [json_name = "typed_animation"];
       }
     }
 
@@ -117,9 +112,9 @@ message TAnimationCapability {
         Substitution = 3;
       }
 
-      .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions.ESubstitutionType SubstitutionType = 1;
-      optional uint64 MinDurationMs = 2;
-      optional uint64 MaxDurationMs = 3;
+      .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions.ESubstitutionType SubstitutionType = 1 [json_name = "substitution_type"];
+      optional uint64 MinDurationMs = 2 [json_name = "min_duration_ms"];
+      optional uint64 MaxDurationMs = 3 [json_name = "max_duration_ms"];
     }
 
     enum EAnimationStopPolicy {
@@ -137,26 +132,26 @@ message TAnimationCapability {
       SkipSpeakingAnimation = 2;
     }
 
-    string Name = 1000;
-    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation Animations = 1;
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.EAnimationStopPolicy AnimationStopPolicy = 2;
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.ESpeakingAnimationPolicy SpeakingAnimationPolicy = 3;
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions AnimationOptions = 4;
-    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation FadeOutAnimations = 5;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation Animations = 1 [json_name = "animations"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.EAnimationStopPolicy AnimationStopPolicy = 2 [json_name = "animation_stop_policy"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.ESpeakingAnimationPolicy SpeakingAnimationPolicy = 3 [json_name = "speaking_animation_policy"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions AnimationOptions = 4 [json_name = "animation_options"];
+    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation FadeOutAnimations = 5 [json_name = "fade_out_animations"];
   }
 
   message TEnableScreenDirective {
     reserved "Screen";
     reserved 1;
-    string Name = 1000;
-    string Guid = 2;
+    string Name = 1000 [json_name = "name"];
+    string Guid = 2 [json_name = "guid"];
   }
 
   message TDisableScreenDirective {
     reserved "Screen";
     reserved 1;
-    string Name = 1000;
-    string Guid = 2;
+    string Name = 1000 [json_name = "name"];
+    string Guid = 2 [json_name = "guid"];
   }
 
   enum EFormat {
@@ -182,8 +177,8 @@ message TAnimationCapability {
     EmotionalLove = 13;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAnimationCapability.TParameters Parameters = 2;
-  .NAlice.TAnimationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAnimationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAnimationCapability.TState State = 3 [json_name = "state"];
 }
 

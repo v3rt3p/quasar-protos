@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+import "alice/protos/api/request_parts/request_params.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFrameRequestParams {
+  bool DisableOutputSpeech = 1 [json_name = "disable_output_speech"];
+  bool DisableShouldListen = 2 [json_name = "disable_should_listen"];
+  bool IsParallel = 3 [json_name = "is_parallel"];
+  .NAlice.TRequestParams.ERequestType RequestType = 4 [json_name = "request_type"];
+  bool EnableOutputSpeechScenarioControl = 5 [json_name = "enable_output_speech_scenario_control"];
+}
+

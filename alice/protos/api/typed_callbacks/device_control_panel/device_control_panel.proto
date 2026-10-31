@@ -18,32 +18,32 @@ message TDeviceControlPanelBlockData {
   }
 
   message TScheduledBlock {
-    .NAlice.TTimeInterval TimeInterval = 1;
+    .NAlice.TTimeInterval TimeInterval = 1 [json_name = "time_interval"];
   }
 
   message TDailyLimitBlock {
-    .google.protobuf.Duration DailyLimit = 1;
+    .google.protobuf.Duration DailyLimit = 1 [json_name = "daily_limit"];
   }
 
-  .NAlice.EDeviceBlockType DeviceBlockType = 5;
+  .NAlice.EDeviceBlockType DeviceBlockType = 5 [json_name = "device_block_type"];
   oneof Reason {
-    .NAlice.TDeviceControlPanelBlockData.TManualBlock ManualBlock = 2;
-    .NAlice.TDeviceControlPanelBlockData.TScheduledBlock ScheduledBlock = 3;
-    .NAlice.TDeviceControlPanelBlockData.TDailyLimitBlock DailyLimitBlock = 4;
+    .NAlice.TDeviceControlPanelBlockData.TManualBlock ManualBlock = 2 [json_name = "manual_block"];
+    .NAlice.TDeviceControlPanelBlockData.TScheduledBlock ScheduledBlock = 3 [json_name = "scheduled_block"];
+    .NAlice.TDeviceControlPanelBlockData.TDailyLimitBlock DailyLimitBlock = 4 [json_name = "daily_limit_block"];
   }
 }
 
 message TDeviceControlPanelBlockActivatedTypedCallback {
-  .NAlice.TDeviceControlPanelBlockData Data = 1;
+  .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
 }
 
 message TDeviceControlPanelBlockDeactivatedTypedCallback {
-  .NAlice.TDeviceControlPanelBlockData Data = 1;
+  .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
 }
 
 message TDeviceControlPanelBlockWarningTypedCallback {
-  .NAlice.TDeviceControlPanelBlockData Data = 1;
-  .google.protobuf.Duration TimeLeft = 2;
+  .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
+  .google.protobuf.Duration TimeLeft = 2 [json_name = "time_left"];
 }
 
 message TDeviceControlPanelBlockCommandSpotterTypedCallback {

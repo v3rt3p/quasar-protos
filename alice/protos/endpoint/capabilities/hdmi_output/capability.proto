@@ -17,24 +17,24 @@ message THdmiOutputCapability {
   }
 
   message TState {
-    bool IsHdmiConnected = 1;
-    bool IsHdmiAudioOn = 2;
+    bool IsHdmiConnected = 1 [json_name = "is_hdmi_connected"];
+    bool IsHdmiAudioOn = 2 [json_name = "is_hdmi_audio_on"];
   }
 
   message TCecVolumeUpDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TCecVolumeDownDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.THdmiOutputCapability Capability = 1;
+    .NAlice.THdmiOutputCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.THdmiOutputCapability.TParameters Parameters = 2;
-  .NAlice.THdmiOutputCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.THdmiOutputCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.THdmiOutputCapability.TState State = 3 [json_name = "state"];
 }
 

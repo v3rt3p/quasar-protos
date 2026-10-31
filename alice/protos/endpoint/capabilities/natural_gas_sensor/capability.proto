@@ -16,7 +16,7 @@ message TNaturalGasSensorCapability {
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
   }
 
   message TNaturalGasSensorDetectedEvent {
@@ -29,11 +29,11 @@ message TNaturalGasSensorCapability {
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TNaturalGasSensorCapability.TParameters Parameters = 2;
-  .NAlice.TNaturalGasSensorCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TNaturalGasSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TNaturalGasSensorCapability.TState State = 3 [json_name = "state"];
 }
 

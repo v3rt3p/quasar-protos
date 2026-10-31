@@ -9,6 +9,6 @@ option go_package = "a.yandex-team.ru/alice/library/client/protos";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientAnalyticsInfoProto {
-  optional string ClientUrl = 1;
+  optional string ClientUrl = 1 [json_name = "client_url"];
 }
 

@@ -10,7 +10,7 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnyCapabilityEventHolder {
-  bytes RawEvent = 1;
-  .NAlice.TCapability.EEventType EventType = 2;
+  bytes RawEvent = 1 [json_name = "raw_event"];
+  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type"];
 }
 

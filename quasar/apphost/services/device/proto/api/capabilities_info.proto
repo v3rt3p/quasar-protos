@@ -31,11 +31,6 @@ message TEndpointsCapabilitiesInfoRequest {
 }
 
 message TEndpointsCapabilitiesInfoResponse {
-  message EndpointsCapabilitiesInfoByDeviceIdEntry {
-    string key = 1;
-    .NQuasar.NDeviceService.NApi.TEndpointsCapabilitiesInfo value = 2;
-  }
-
-  repeated .NQuasar.NDeviceService.NApi.TEndpointsCapabilitiesInfoResponse.EndpointsCapabilitiesInfoByDeviceIdEntry EndpointsCapabilitiesInfoByDeviceId = 1;
+  map<string, .NQuasar.NDeviceService.NApi.TEndpointsCapabilitiesInfo> EndpointsCapabilitiesInfoByDeviceId = 1;
 }
 

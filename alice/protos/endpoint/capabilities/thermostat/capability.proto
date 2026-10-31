@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ThermostatCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/thermostat;thermostat";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/endpoint/common.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TThermostatCapability {
+  message TParameters {
+    repeated .NAlice.TThermostatCapability.EMode SupportedModes = 1 [json_name = "supported_modes"];
+    .NAlice.TRange LocalTemperatureRange = 2 [json_name = "local_temperature_range"];
+    .NAlice.EUnit LocalTemperatureUnit = 3 [json_name = "local_temperature_unit"];
+    .NAlice.TRange SetpointTemperatureRange = 4 [json_name = "setpoint_temperature_range"];
+    .NAlice.EUnit SetpointTemperatureUnit = 5 [json_name = "setpoint_temperature_unit"];
+  }
+
+  message TState {
+    .NAlice.TThermostatCapability.EMode Mode = 1 [json_name = "mode"];
+    double LocalTemperatureLevel = 2 [json_name = "local_temperature_level"];
+    double SetpointTemperatureLevel = 3 [json_name = "setpoint_temperature_level"];
+  }
+
+  message TSetModeDirective {
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TThermostatCapability.EMode Mode = 1 [json_name = "mode"];
+  }
+
+  message TSetAbsoluteSetpointDirective {
+    string Name = 1000 [json_name = "name"];
+    double TargetSetpointTemperatureLevel = 1 [json_name = "target_setpoint_temperature_level"];
+  }
+
+  message TSetRelativeSetpointDirective {
+    string Name = 1000 [json_name = "name"];
+    double RelativeSetpointTemperatureLevel = 1 [json_name = "relative_setpoint_temperature_level"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TThermostatCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EMode {
+    OFF = 0;
+    AUTO = 1;
+    COOL = 2;
+    DRY = 3;
+    FAN_ONLY = 4;
+    HEAT = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TThermostatCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TThermostatCapability.TState State = 3 [json_name = "state"];
+}
+

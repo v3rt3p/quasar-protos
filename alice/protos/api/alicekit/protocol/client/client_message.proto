@@ -20,11 +20,13 @@ import "alice/protos/api/alicekit/events/data_proxy_input/data_proxy_input.proto
 import "alice/protos/api/alicekit/events/file_upload_request/file_upload_request.proto";
 import "alice/protos/api/alicekit/events/finish_request/finish_request.proto";
 import "alice/protos/api/alicekit/events/log_spotter/log_spotter.proto";
+import "alice/protos/api/alicekit/events/ping/ping.proto";
 import "alice/protos/api/alicekit/events/record_input_request/record_input_request.proto";
 import "alice/protos/api/alicekit/events/request_stat/request_stat.proto";
 import "alice/protos/api/alicekit/events/stream_control/stream_control.proto";
 import "alice/protos/api/alicekit/events/sync_push_response/sync_push_response.proto";
 import "alice/protos/api/alicekit/events/synchronize_state_request/synchronize_state_request.proto";
+import "alice/protos/api/alicekit/events/deferred_tts_generate/deferred_tts_generate.proto";
 import "alice/protos/api/alicekit/events/translate_input/translate_input.proto";
 import "alice/protos/api/alicekit/events/tts_generate/tts_generate.proto";
 import "alice/protos/api/alicekit/events/tts_update_state/tts_update_state.proto";
@@ -50,37 +52,39 @@ message TClientMessage {
     reserved 26;
     reserved 27;
     reserved 30;
-    .NAlice.NAliceApi.TEventHeader Header = 1;
+    .NAlice.NAliceApi.TEventHeader Header = 1 [json_name = "header"];
     oneof Event {
-      .NAlice.TAliceRequestProto TextInput = 2;
-      .NAlice.TAliceRequestProto VoiceInput = 3;
-      .NAlice.TAliceRequestProto MusicInput = 4;
-      .NAlice.NAliceApi.TSynchronizeStateRequest SynchronizeStateRequest = 5;
-      .NAlice.NAliceApi.TLogSpotter LogSpotter = 6;
-      .NAlice.TAliceRequestProto MatchedUser = 7;
-      .NAlice.NAliceApi.TSyncPushResponse SyncPushResponse = 8;
-      .NAlice.NAliceApi.TAck Ack = 9;
-      .NAlice.NAliceApi.TContinueRequest ContinueRequest = 10;
-      .NAlice.NAliceApi.TCancelRequest CancelRequest = 11;
-      .NAlice.NAliceApi.TAsrRecognize AsrRecognize = 12;
-      .NAlice.NAliceApi.TTtsGenerate TtsGenerate = 13;
-      .NAlice.NAliceApi.TDataProxyInput DataProxyInput = 14;
-      .NAlice.NAliceApi.TFileUploadRequest FileUploadRequest = 16;
-      .NAlice.NAliceApi.TCapabilityUpdateState CapabilityUpdateState = 17;
-      .NAlice.TAliceRequestProto SpeechInput = 18;
-      .NAlice.NAliceApi.TTtsUpdateState TtsUpdateState = 19;
-      .NAlice.NAliceApi.TRecordInputRequest RecordInput = 22;
-      .NAlice.NAliceApi.TClientSubscriptionState ClientSubscriptionState = 25;
-      .NAlice.NAliceApi.TRequestStat RequestStat = 28;
-      .NAlice.NAliceApi.TTranslateInput TranslateInput = 29;
-      .NAlice.NAliceApi.TAudioTranscriptionInputRequest AudioTranscriptionInputRequest = 31;
-      .NAlice.NAliceApi.TFinishRequest FinishRequest = 32;
+      .NAlice.TAliceRequestProto TextInput = 2 [json_name = "text_input"];
+      .NAlice.TAliceRequestProto VoiceInput = 3 [json_name = "voice_input"];
+      .NAlice.TAliceRequestProto MusicInput = 4 [json_name = "music_input"];
+      .NAlice.NAliceApi.TSynchronizeStateRequest SynchronizeStateRequest = 5 [json_name = "synchronize_state_request"];
+      .NAlice.NAliceApi.TLogSpotter LogSpotter = 6 [json_name = "log_spotter"];
+      .NAlice.TAliceRequestProto MatchedUser = 7 [json_name = "matched_user"];
+      .NAlice.NAliceApi.TSyncPushResponse SyncPushResponse = 8 [json_name = "sync_push_response"];
+      .NAlice.NAliceApi.TAck Ack = 9 [json_name = "ack"];
+      .NAlice.NAliceApi.TContinueRequest ContinueRequest = 10 [json_name = "continue_request"];
+      .NAlice.NAliceApi.TCancelRequest CancelRequest = 11 [json_name = "cancel_request"];
+      .NAlice.NAliceApi.TAsrRecognize AsrRecognize = 12 [json_name = "asr_recognize"];
+      .NAlice.NAliceApi.TTtsGenerate TtsGenerate = 13 [json_name = "tts_generate"];
+      .NAlice.NAliceApi.TDeferredTtsGenerate DeferredTtsGenerate = 34 [json_name = "deferred_tts_generate"];
+      .NAlice.NAliceApi.TDataProxyInput DataProxyInput = 14 [json_name = "data_proxy_input"];
+      .NAlice.NAliceApi.TFileUploadRequest FileUploadRequest = 16 [json_name = "file_upload_request"];
+      .NAlice.NAliceApi.TCapabilityUpdateState CapabilityUpdateState = 17 [json_name = "capability_update_state"];
+      .NAlice.TAliceRequestProto SpeechInput = 18 [json_name = "speech_input"];
+      .NAlice.NAliceApi.TTtsUpdateState TtsUpdateState = 19 [json_name = "tts_update_state"];
+      .NAlice.NAliceApi.TRecordInputRequest RecordInput = 22 [json_name = "record_input"];
+      .NAlice.NAliceApi.TClientSubscriptionState ClientSubscriptionState = 25 [json_name = "client_subscription_state"];
+      .NAlice.NAliceApi.TRequestStat RequestStat = 28 [json_name = "request_stat"];
+      .NAlice.NAliceApi.TTranslateInput TranslateInput = 29 [json_name = "translate_input"];
+      .NAlice.NAliceApi.TAudioTranscriptionInputRequest AudioTranscriptionInputRequest = 31 [json_name = "audio_transcription_input_request"];
+      .NAlice.NAliceApi.TFinishRequest FinishRequest = 32 [json_name = "finish_request"];
+      .NAlice.NAliceApi.TPing Ping = 33 [json_name = "ping"];
     }
   }
 
   oneof Message {
-    .NAlice.NAliceApi.TClientMessage.TEvent Event = 1;
-    .NAlice.NAliceApi.TStreamControl StreamControl = 2;
+    .NAlice.NAliceApi.TClientMessage.TEvent Event = 1 [json_name = "event"];
+    .NAlice.NAliceApi.TStreamControl StreamControl = 2 [json_name = "stream_control"];
   }
 }
 

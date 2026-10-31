@@ -9,19 +9,19 @@ option go_package = "a.yandex-team.ru/alice/protos/endpoint;endpointpb";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRange {
-  double Min = 1;
-  double Max = 2;
-  double Precision = 3;
+  double Min = 1 [json_name = "min"];
+  double Max = 2 [json_name = "max"];
+  double Precision = 3 [json_name = "precision"];
 }
 
 message TPositiveIntegerRange {
-  uint64 Min = 1;
-  uint64 Max = 2;
+  uint64 Min = 1 [json_name = "min"];
+  uint64 Max = 2 [json_name = "max"];
 }
 
 message THueAndSaturation {
-  double Hue = 1;
-  double Saturation = 2;
+  double Hue = 1 [json_name = "hue"];
+  double Saturation = 2 [json_name = "saturation"];
 }
 
 enum EUnit {

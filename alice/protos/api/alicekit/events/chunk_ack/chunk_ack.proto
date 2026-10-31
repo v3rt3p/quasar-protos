@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.events.chunk_ack";
+option java_outer_classname = "ChunkAck";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/chunk_ack";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TChunkAck {
+  message TChunkIdPolicy {
+    uint64 MaxChunkId = 1 [json_name = "max_chunk_id"];
+  }
+
+  oneof AckPolicy {
+    .NAlice.NAliceApi.TChunkAck.TChunkIdPolicy ChunkIdPolicy = 1 [json_name = "chunk_id_policy"];
+  }
+}
+

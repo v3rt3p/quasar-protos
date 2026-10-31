@@ -11,51 +11,46 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPlaybackControlCapability {
   message TTrackInfo {
-    string Id = 1;
-    string Type = 2;
+    string Id = 1 [json_name = "id"];
+    string Type = 2 [json_name = "type"];
   }
 
   message TEntityInfo {
-    string Id = 1;
-    string Type = 2;
-    string Description = 3;
-    .NAlice.TPlaybackControlCapability.TTrackInfo Prev = 4;
-    .NAlice.TPlaybackControlCapability.TTrackInfo Next = 5;
-    bool Shuffled = 6;
-    string RepeatMode = 7;
+    string Id = 1 [json_name = "id"];
+    string Type = 2 [json_name = "type"];
+    string Description = 3 [json_name = "description"];
+    .NAlice.TPlaybackControlCapability.TTrackInfo Prev = 4 [json_name = "prev"];
+    .NAlice.TPlaybackControlCapability.TTrackInfo Next = 5 [json_name = "next"];
+    bool Shuffled = 6 [json_name = "shuffled"];
+    string RepeatMode = 7 [json_name = "repeat_mode"];
   }
 
   message TParameters {
   }
 
   message TState {
-    message ExtraEntry {
-      string key = 1;
-      string value = 2;
-    }
-
-    string Id = 1;
-    string RawType = 2;
-    string RawPlayerType = 3;
-    .NAlice.TPlaybackControlCapability.EPlayerType PlayerType = 4;
-    bool HasPause = 5;
-    bool HasPlay = 6;
-    bool HasNext = 7;
-    bool HasPrev = 8;
-    bool HasLike = 9;
-    bool HasDislike = 10;
-    int64 PositionTimePoint = 11;
-    uint32 PositionSec = 12;
-    uint32 DurationSec = 13;
-    string Title = 14;
-    string Subtitle = 15;
-    bool HasProgressBar = 16;
-    bool ShowPlayer = 17;
-    string LiveStreamText = 18;
-    .NAlice.TPlaybackControlCapability.TEntityInfo EntityInfo = 19;
-    string ProviderName = 20;
-    bool HideProgressBar = 21;
-    repeated .NAlice.TPlaybackControlCapability.TState.ExtraEntry Extra = 22;
+    string Id = 1 [json_name = "id"];
+    string RawType = 2 [json_name = "raw_type"];
+    string RawPlayerType = 3 [json_name = "raw_player_type"];
+    .NAlice.TPlaybackControlCapability.EPlayerType PlayerType = 4 [json_name = "player_type"];
+    bool HasPause = 5 [json_name = "has_pause"];
+    bool HasPlay = 6 [json_name = "has_play"];
+    bool HasNext = 7 [json_name = "has_next"];
+    bool HasPrev = 8 [json_name = "has_prev"];
+    bool HasLike = 9 [json_name = "has_like"];
+    bool HasDislike = 10 [json_name = "has_dislike"];
+    int64 PositionTimePoint = 11 [json_name = "position_time_point"];
+    uint32 PositionSec = 12 [json_name = "position_sec"];
+    uint32 DurationSec = 13 [json_name = "duration_sec"];
+    string Title = 14 [json_name = "title"];
+    string Subtitle = 15 [json_name = "subtitle"];
+    bool HasProgressBar = 16 [json_name = "has_progress_bar"];
+    bool ShowPlayer = 17 [json_name = "show_player"];
+    string LiveStreamText = 18 [json_name = "live_stream_text"];
+    .NAlice.TPlaybackControlCapability.TEntityInfo EntityInfo = 19 [json_name = "entity_info"];
+    string ProviderName = 20 [json_name = "provider_name"];
+    bool HideProgressBar = 21 [json_name = "hide_progress_bar"];
+    map<string, string> Extra = 22 [json_name = "extra"];
   }
 
   enum EPlayerType {
@@ -66,8 +61,8 @@ message TPlaybackControlCapability {
     Video = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TPlaybackControlCapability.TParameters Parameters = 2;
-  .NAlice.TPlaybackControlCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TPlaybackControlCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TPlaybackControlCapability.TState State = 3 [json_name = "state"];
 }
 

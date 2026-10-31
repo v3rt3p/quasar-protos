@@ -1,0 +1,33 @@
+syntax = "proto2";
+
+package quark.core.proto;
+
+option java_package = "ru.yandex.quasar.protobuf";
+option java_outer_classname = "ResponseStateProtos";
+
+import "cards.proto";
+import "dialog_type.proto";
+import "alice_mode.proto";
+import "alice_pro_trial.proto";
+import "request_annotation.proto";
+
+message TSuggest {
+  optional string Title = 3;
+  repeated bytes DirectiveBlobs = 4;
+}
+
+message ResponseState {
+  optional string text = 1;
+  repeated .quark.core.proto.Card cards = 2;
+  optional bool is_final = 3;
+  optional string request_id = 4;
+  repeated .quark.core.proto.TSuggest suggests = 5;
+  optional bool is_cancelled = 6;
+  optional bool has_voice_response = 7;
+  optional string dialog_id = 8;
+  optional .quark.core.proto.DialogType dialog_type = 9;
+  optional .quark.core.proto.AliceProTrialState alice_pro_trial_state = 10;
+  optional .quark.core.proto.AliceMode alice_mode = 11;
+  repeated .quark.core.proto.RequestAnnotation request_annotations = 12;
+}
+

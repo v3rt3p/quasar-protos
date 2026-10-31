@@ -9,31 +9,31 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceShowConfig {
   message TFallbackPlaylistId {
-    int32 Uid = 1;
-    int32 Kind = 2;
+    int32 Uid = 1 [json_name = "uid"];
+    int32 Kind = 2 [json_name = "kind"];
   }
 
   message TShowPart {
     message TOnBoarding {
-      string Selector = 1;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Greeting = 2;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot OnBoarding = 3;
+      string Selector = 1 [json_name = "selector"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Greeting = 2 [json_name = "greeting"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot OnBoarding = 3 [json_name = "onBoarding"];
     }
 
     message TPlaylist {
-      string Selector = 1;
-      string Announce = 2;
-      int32 TrackIndex = 3;
+      string Selector = 1 [json_name = "selector"];
+      string Announce = 2 [json_name = "announce"];
+      int32 TrackIndex = 3 [json_name = "trackIndex"];
     }
 
     message TShot {
-      string Selector = 1;
-      bool MandatoryGeo = 2;
-      bool MandatoryUid = 3;
-      string ShotType = 4;
-      string ShotSubType = 5;
-      repeated string Tags = 6;
-      bool MandatoryHistory = 7;
+      string Selector = 1 [json_name = "selector"];
+      bool MandatoryGeo = 2 [json_name = "mandatoryGeo"];
+      bool MandatoryUid = 3 [json_name = "mandatoryUid"];
+      string ShotType = 4 [json_name = "shotType"];
+      string ShotSubType = 5 [json_name = "shotSubType"];
+      repeated string Tags = 6 [json_name = "tags"];
+      bool MandatoryHistory = 7 [json_name = "mandatoryHistory"];
     }
 
     message TParts {
@@ -41,43 +41,43 @@ message TAliceShowConfig {
       reserved 2;
       message TPartsItem {
         oneof TItem {
-          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 1;
-          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2;
+          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 1 [json_name = "shot"];
+          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist"];
         }
       }
 
-      string Selector = 1;
-      repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts.TPartsItem PartsItems = 3;
+      string Selector = 1 [json_name = "selector"];
+      repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts.TPartsItem PartsItems = 3 [json_name = "parts_items"];
     }
 
     message TPodcast {
-      string Selector = 1;
-      string Group = 2;
+      string Selector = 1 [json_name = "selector"];
+      string Group = 2 [json_name = "group"];
     }
 
     message TPromo {
-      string Selector = 1;
+      string Selector = 1 [json_name = "selector"];
     }
 
     message TTail {
-      string Selector = 1;
-      int32 StartFrom = 2;
+      string Selector = 1 [json_name = "selector"];
+      int32 StartFrom = 2 [json_name = "startFrom"];
     }
 
     oneof ShowPart {
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TOnBoarding OnBoarding = 1;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 3;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts Parts = 4;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPromo Promo = 5;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TTail Tail = 6;
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPodcast Podcast = 7;
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TOnBoarding OnBoarding = 1 [json_name = "onBoarding"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 3 [json_name = "shot"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts Parts = 4 [json_name = "parts"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPromo Promo = 5 [json_name = "promo"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TTail Tail = 6 [json_name = "tail"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPodcast Podcast = 7 [json_name = "podcast"];
     }
   }
 
-  .NAlice.NData.NMusic.TAliceShowConfig.TFallbackPlaylistId FallbackPlaylistId = 1;
-  int32 Id = 2;
-  string MainPlaylist = 3;
-  repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart ShowParts = 4;
+  .NAlice.NData.NMusic.TAliceShowConfig.TFallbackPlaylistId FallbackPlaylistId = 1 [json_name = "fallbackPlaylistId"];
+  int32 Id = 2 [json_name = "id"];
+  string MainPlaylist = 3 [json_name = "mainPlaylist"];
+  repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart ShowParts = 4 [json_name = "showParts"];
 }
 

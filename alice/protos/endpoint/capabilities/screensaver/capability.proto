@@ -16,15 +16,15 @@ import "alice/protos/div/div2card.proto";
 
 message TScreensaverCapability {
   message TParameters {
-    .NAlice.TScreensaverCapability.EResolution Resolution = 1;
-    .NAlice.TDivExtensions SupportedDivExtensions = 2;
-    bool IsLottieAnimatedClockSupported = 3;
-    bool IsMusicWidgetSupported = 4;
-    bool IsRequestingLightweightThemes = 5;
+    .NAlice.TScreensaverCapability.EResolution Resolution = 1 [json_name = "resolution"];
+    .NAlice.TDivExtensions SupportedDivExtensions = 2 [json_name = "supported_div_extensions"];
+    bool IsLottieAnimatedClockSupported = 3 [json_name = "is_lottie_animated_clock_supported"];
+    bool IsMusicWidgetSupported = 4 [json_name = "is_music_widget_supported"];
+    bool IsRequestingLightweightThemes = 5 [json_name = "is_requesting_lightweight_themes"];
   }
 
   message TScreensaverContentMeta {
-    string Description = 1;
+    string Description = 1 [json_name = "description"];
   }
 
   message TState {
@@ -42,38 +42,62 @@ message TScreensaverCapability {
       NotShown = 2;
     }
 
-    .NAlice.TScreensaverCapability.TState.EScreensaverState ScreensaverState = 1;
-    .NAlice.TScreensaverCapability.TState.EScreensaverStatus ScreensaverStatus = 3;
-    .NAlice.TScreensaverCapability.TScreensaverContentMeta CurrentScreensaverMeta = 4;
+    .NAlice.TScreensaverCapability.TState.EScreensaverState ScreensaverState = 1 [json_name = "screensaver_state"];
+    .NAlice.TScreensaverCapability.TState.EScreensaverStatus ScreensaverStatus = 3 [json_name = "screensaver_status"];
+    .NAlice.TScreensaverCapability.TScreensaverContentMeta CurrentScreensaverMeta = 4 [json_name = "current_screensaver_meta"];
   }
 
   message TOpenScreensaverDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   message TLoadScreensaversDirective {
     message TMediaItem {
-      string Url = 1;
-      .NAlice.TScreensaverCapability.EMediaType MediaType = 2;
-      string Id = 3;
+      string Url = 1 [json_name = "url"];
+      .NAlice.TScreensaverCapability.EMediaType MediaType = 2 [json_name = "media_type"];
+      string Id = 3 [json_name = "id"];
+      bool HasSound = 4 [json_name = "has_sound"];
+    }
+
+    message TInformers {
+      bool ShowTime = 1 [json_name = "show_time"];
+      bool ShowDate = 2 [json_name = "show_date"];
+      bool ShowWeather = 3 [json_name = "show_weather"];
+      .NAlice.TScreensaverCapability.TLoadScreensaversDirective.EWidgetPosition Position = 4 [json_name = "position"];
+    }
+
+    message TWidget {
+      string Id = 1 [json_name = "widget_id"];
+      string Type = 2 [json_name = "widget_type"];
+      string ImageUrl = 5 [json_name = "image_url"];
     }
 
     message TScreensaverItem {
-      .NAlice.TDiv2Card Overlay = 1;
-      .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TMediaItem MediaItem = 2;
-      repeated .NAlice.TVoiceControl VoiceControls = 3;
-      .NAlice.TScreensaverCapability.TScreensaverContentMeta ContentMeta = 4;
-      uint64 ShowDurationSeconds = 5;
+      .NAlice.TDiv2Card Overlay = 1 [json_name = "overlay"];
+      .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TMediaItem MediaItem = 2 [json_name = "media_item"];
+      repeated .NAlice.TVoiceControl VoiceControls = 3 [json_name = "voice_controls"];
+      .NAlice.TScreensaverCapability.TScreensaverContentMeta ContentMeta = 4 [json_name = "content_meta"];
+      uint64 ShowDurationSeconds = 5 [json_name = "show_duration_seconds"];
+      repeated string Suggests = 6 [json_name = "suggests"];
+      .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TInformers Informers = 7 [json_name = "informers"];
+      repeated .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TWidget Widgets = 8 [json_name = "widgets"];
     }
 
-    string Name = 1;
-    repeated .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TScreensaverItem ScreensaverItems = 2;
-    .NAlice.TScreensaverCapability.EResolution Resolution = 3;
-    int32 NewHighlight = 4;
+    enum EWidgetPosition {
+      UnknownWidgetPosition = 0;
+      StartTop = 1;
+      CenterBottom = 2;
+    }
+
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.TScreensaverCapability.TLoadScreensaversDirective.TScreensaverItem ScreensaverItems = 2 [json_name = "screensaver_items"];
+    .NAlice.TScreensaverCapability.EResolution Resolution = 3 [json_name = "resolution"];
+    int32 NewHighlight = 4 [json_name = "new_highlight"];
+    bool HasDynamicContent = 5 [json_name = "has_dynamic_content"];
   }
 
   message TCloseScreensaverDirective {
-    string Name = 1;
+    string Name = 1 [json_name = "name"];
   }
 
   enum EResolution {
@@ -91,8 +115,8 @@ message TScreensaverCapability {
     LottieAnimatedClockArchive = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TScreensaverCapability.TParameters Parameters = 2;
-  .NAlice.TScreensaverCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TScreensaverCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TScreensaverCapability.TState State = 3 [json_name = "state"];
 }
 

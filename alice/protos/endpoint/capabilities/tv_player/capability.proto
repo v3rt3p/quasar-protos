@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TTvPlayerCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tv_player;tvplayerpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTvPlayerCapability {
+  message TParameters {
+  }
+
+  message TState {
+  }
+
+  message TPlayChannelDirective {
+    string Name = 1000 [json_name = "name"];
+    bool IsMultiplex = 3 [json_name = "is_multiplex"];
+    oneof Id {
+      string Uri = 1 [json_name = "uri"];
+      string ContentId = 2 [json_name = "content_id"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TTvPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TTvPlayerCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -33,25 +33,25 @@ message TDivViewCapability {
       TextCenteringDivKit39Fix = 0;
     }
 
-    bool SupportsStringDiv2Card = 1;
-    bool SupportsCardStashing = 2;
-    .NAlice.TDivViewCapability.TParameters.EUIFamily UIFamily = 3;
-    repeated .NAlice.TDivViewCapability.TParameters.EDivKitFeature DivKitFeatures = 4;
-    repeated .NAlice.TDivExternalVariable.ESourceType availableExternalSources = 5;
+    bool SupportsStringDiv2Card = 1 [json_name = "supports_string_div2_card"];
+    bool SupportsCardStashing = 2 [json_name = "supports_card_stashing"];
+    .NAlice.TDivViewCapability.TParameters.EUIFamily UIFamily = 3 [json_name = "ui_family"];
+    repeated .NAlice.TDivViewCapability.TParameters.EDivKitFeature DivKitFeatures = 4 [json_name = "div_kit_features"];
+    repeated .NAlice.TDivExternalVariable.ESourceType availableExternalSources = 5 [json_name = "available_external_sources"];
   }
 
   message TState {
-    repeated string GlobalTemplatesCache = 1;
+    repeated string GlobalTemplatesCache = 1 [json_name = "global_templates_cache"];
   }
 
   message TStashViewDirective {
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
   }
 
   message TUnstashViewDirective {
-    string Name = 1;
-    .NAlice.TDiv2Id CardSearchCriteria = 2;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
   }
 
   message TSetDivVariablesDirective {
@@ -62,21 +62,21 @@ message TDivViewCapability {
         Mixed = 2;
       }
 
-      string VariableName = 4;
-      .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable.EVariableType VariableType = 5;
+      string VariableName = 4 [json_name = "variable_name"];
+      .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable.EVariableType VariableType = 5 [json_name = "variable_type"];
       oneof SetVariable {
-        bool BoolValue = 1;
-        string StringValue = 2;
-        int64 LongValue = 3;
+        bool BoolValue = 1 [json_name = "bool_value"];
+        string StringValue = 2 [json_name = "string_value"];
+        int64 LongValue = 3 [json_name = "long_value"];
       }
     }
 
-    string Name = 1;
-    repeated .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable SetVariable = 2;
+    string Name = 1 [json_name = "name"];
+    repeated .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable SetVariable = 2 [json_name = "set_variable"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TDivViewCapability.TParameters Parameters = 2;
-  .NAlice.TDivViewCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TDivViewCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TDivViewCapability.TState State = 3 [json_name = "state"];
 }
 

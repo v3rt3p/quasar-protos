@@ -10,19 +10,19 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/analytics/scenar
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimePoint {
-  string Time = 1;
+  string Time = 1 [json_name = "time"];
 }
 
 message TTimeInterval {
-  string StartTime = 1;
-  string EndTime = 2;
+  string StartTime = 1 [json_name = "start_time"];
+  string EndTime = 2 [json_name = "end_time"];
 }
 
 message TTimeInfo {
   reserved 56788;
   oneof Value {
-    .NAlice.NAliceApi.TTimePoint TimePoint = 1;
-    .NAlice.NAliceApi.TTimeInterval TimeInterval = 2;
+    .NAlice.NAliceApi.TTimePoint TimePoint = 1 [json_name = "time_point"];
+    .NAlice.NAliceApi.TTimeInterval TimeInterval = 2 [json_name = "time_interval"];
   }
 }
 
@@ -34,23 +34,23 @@ message TReaction {
   reserved 4;
   reserved 5;
   message TActionParameters {
-    string CapabilityType = 1;
-    string CapabilityInstance = 2;
-    string CapabilityUnit = 3;
-    string RelativityType = 4;
-    string CapabilityValue = 5;
-    repeated string Devices = 6;
-    .NAlice.NAliceApi.TTimeInfo TimeInfo = 7;
+    string CapabilityType = 1 [json_name = "capability_type"];
+    string CapabilityInstance = 2 [json_name = "capability_instance"];
+    string CapabilityUnit = 3 [json_name = "capability_unit"];
+    string RelativityType = 4 [json_name = "relativity_type"];
+    string CapabilityValue = 5 [json_name = "capability_value"];
+    repeated string Devices = 6 [json_name = "devices"];
+    .NAlice.NAliceApi.TTimeInfo TimeInfo = 7 [json_name = "time_info"];
   }
 
-  string Type = 1;
+  string Type = 1 [json_name = "type"];
   oneof Parameters {
-    .NAlice.NAliceApi.TReaction.TActionParameters ActionParameters = 2;
+    .NAlice.NAliceApi.TReaction.TActionParameters ActionParameters = 2 [json_name = "action_parameters"];
   }
 }
 
 message TReactions {
-  repeated .NAlice.NAliceApi.TReaction Reactions = 1;
+  repeated .NAlice.NAliceApi.TReaction Reactions = 1 [json_name = "reactions"];
 }
 
 message TScenarioAnalyticsInfo {
@@ -206,14 +206,14 @@ message TScenarioAnalyticsInfo {
     reserved 65;
     reserved 66;
     reserved 67;
-    string Id = 1;
+    string Id = 1 [json_name = "id"];
     oneof Payload {
-      .NAlice.NAliceApi.TReactions IotReactions = 32;
+      .NAlice.NAliceApi.TReactions IotReactions = 32 [json_name = "iot_reactions"];
     }
   }
 
-  string Intent = 2;
-  repeated .NAlice.NAliceApi.TScenarioAnalyticsInfo.TObject Objects = 5;
-  string ProductScenarioName = 9;
+  string Intent = 2 [json_name = "intent"];
+  repeated .NAlice.NAliceApi.TScenarioAnalyticsInfo.TObject Objects = 5 [json_name = "objects"];
+  string ProductScenarioName = 9 [json_name = "product_scenario_name"];
 }
 

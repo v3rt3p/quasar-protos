@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.events.common.message_group";
+option java_outer_classname = "MessageGroupProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/common/message_group";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMessageGroupInfo {
+  message TSubRequestRef {
+    string MessageId = 1 [json_name = "message_id"];
+    string RequestId = 2 [json_name = "request_id"];
+  }
+
+  repeated .NAlice.NAliceApi.TMessageGroupInfo.TSubRequestRef SubRequestRefs = 1 [json_name = "sub_request_refs"];
+}
+

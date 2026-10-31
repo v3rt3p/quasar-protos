@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ColorMusicCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/color_music;colormusicpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TColorMusicCapability {
+  message AnimationSetting {
+  }
+
+  message TAnimationType {
+    .NAlice.TColorMusicCapability.EAnimationType Type = 1 [json_name = "type"];
+    string LastAnimationId = 2 [json_name = "last_animation_id"];
+    repeated .NAlice.TColorMusicCapability.AnimationSetting CommonSettings = 3 [json_name = "common_settings"];
+  }
+
+  message TAnimation {
+    string AnimationId = 1 [json_name = "animation_id"];
+    repeated .NAlice.TColorMusicCapability.AnimationSetting Settings = 2 [json_name = "settings"];
+    .NAlice.TColorMusicCapability.EAnimationType Type = 3 [json_name = "type"];
+  }
+
+  message TParameters {
+  }
+
+  message TState {
+    bool Enabled = 1 [json_name = "enabled"];
+    string CurrentAnimation = 2 [json_name = "current_animation"];
+    repeated .NAlice.TColorMusicCapability.TAnimation Animations = 3 [json_name = "animations"];
+    .NAlice.TColorMusicCapability.EAnimationType CurrentAnimationType = 4 [json_name = "current_animation_type"];
+    repeated .NAlice.TColorMusicCapability.TAnimationType AnimationsTypeParameters = 5 [json_name = "animations_type_parameters"];
+  }
+
+  message TSetEnableColorMusicDirective {
+    string Name = 1000 [json_name = "name"];
+    bool Enable = 1 [json_name = "enable"];
+  }
+
+  message TSetAnimationColorMusicDirective {
+    string Name = 1000 [json_name = "name"];
+    string AnimationId = 1 [json_name = "animation_id"];
+    bool AutoEnable = 2 [json_name = "autoenable"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TColorMusicCapability Capability = 1 [json_name = "capability"];
+  }
+
+  enum EAnimationType {
+    Unknown = 0;
+    Color = 1;
+    Scene = 2;
+    ColorMusic = 3;
+    Stroboscope = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TColorMusicCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TColorMusicCapability.TState State = 3 [json_name = "state"];
+}
+

@@ -11,20 +11,20 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFileUploadResponse {
   message TFileUploadStart {
-    optional uint64 MinChunkSize = 1;
-    optional uint64 MaxChunkSize = 2;
+    optional uint64 MinChunkSize = 1 [json_name = "min_chunk_size"];
+    optional uint64 MaxChunkSize = 2 [json_name = "max_chunk_size"];
   }
 
   message TFileUploadContinue {
   }
 
   message TFileUploadFinish {
-    optional string FileGuid = 1;
-    optional string PreviewUrl = 2;
-    optional string Title = 3;
-    optional string MimeType = 4;
-    optional string Extension = 5;
-    optional uint64 SizeBytes = 6;
+    optional string FileGuid = 1 [json_name = "file_guid"];
+    optional string PreviewUrl = 2 [json_name = "preview_url"];
+    optional string Title = 3 [json_name = "title"];
+    optional string MimeType = 4 [json_name = "mime_type"];
+    optional string Extension = 5 [json_name = "extension"];
+    optional uint64 SizeBytes = 6 [json_name = "size_bytes"];
   }
 
   message TFileUploadError {
@@ -32,24 +32,24 @@ message TFileUploadResponse {
     }
 
     message TInvalidFileSize {
-      optional uint64 MaxFileSize = 1;
+      optional uint64 MaxFileSize = 1 [json_name = "max_file_size"];
     }
 
     message TQuotaExceeded {
     }
 
     oneof Error {
-      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TUnsupportedMimeType UnsupportedMimeType = 1;
-      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TInvalidFileSize InvalidFileSize = 2;
-      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TQuotaExceeded QuotaExceeded = 3;
+      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TUnsupportedMimeType UnsupportedMimeType = 1 [json_name = "unsupported_mime_type"];
+      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TInvalidFileSize InvalidFileSize = 2 [json_name = "invalid_file_size"];
+      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError.TQuotaExceeded QuotaExceeded = 3 [json_name = "quota_exceeded"];
     }
   }
 
   oneof Response {
-    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadStart FileUploadStart = 1;
-    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadContinue FileUploadContinue = 2;
-    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish FileUploadFinish = 3;
-    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError FileUploadError = 4;
+    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadStart FileUploadStart = 1 [json_name = "file_upload_start"];
+    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadContinue FileUploadContinue = 2 [json_name = "file_upload_continue"];
+    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish FileUploadFinish = 3 [json_name = "file_upload_finish"];
+    .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError FileUploadError = 4 [json_name = "file_upload_error"];
   }
 }
 

@@ -16,16 +16,16 @@ message TIotDisplayOrientationCapability {
   }
 
   message TState {
-    .NAlice.TIotDisplayOrientationCapability.EOrientation Orientation = 1;
+    .NAlice.TIotDisplayOrientationCapability.EOrientation Orientation = 1 [json_name = "orientation"];
   }
 
   message TSetIotDisplayOrientationDirective {
-    string Name = 1000;
-    .NAlice.TIotDisplayOrientationCapability.EOrientation Orientation = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.TIotDisplayOrientationCapability.EOrientation Orientation = 1 [json_name = "orientation"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotDisplayOrientationCapability Capability = 1;
+    .NAlice.TIotDisplayOrientationCapability Capability = 1 [json_name = "capability"];
   }
 
   enum EOrientation {
@@ -33,8 +33,8 @@ message TIotDisplayOrientationCapability {
     VERTICAL_REVERSE = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotDisplayOrientationCapability.TParameters Parameters = 2;
-  .NAlice.TIotDisplayOrientationCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotDisplayOrientationCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotDisplayOrientationCapability.TState State = 3 [json_name = "state"];
 }
 

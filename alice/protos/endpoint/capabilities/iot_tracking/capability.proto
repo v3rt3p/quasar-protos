@@ -18,30 +18,36 @@ message TIotTrackingCapability {
   }
 
   message TState {
-    bool Active = 1;
-    uint64 ReportFrequencyMs = 2;
+    bool Active = 1 [json_name = "active"];
+    uint64 ReportFrequencyMs = 2 [json_name = "report_frequency_ms"];
   }
 
   message TIotStartTrackingDirective {
-    uint64 ReportFrequencyMs = 1;
-    uint64 TimeoutMs = 2;
+    uint64 ReportFrequencyMs = 1 [json_name = "report_frequency_ms"];
+    uint64 TimeoutMs = 2 [json_name = "timeout_ms"];
   }
 
   message TIotStopTrackingDirective {
   }
 
-  message TIotTrackingEvent {
-    message TObjectState {
-      uint32 ID = 1;
-      .NAlice.NIot.TPoint Position = 2;
-      float VelocityMmS = 4;
-    }
-
-    repeated .NAlice.TIotTrackingCapability.TIotTrackingEvent.TObjectState ObjectStates = 1;
+  message TUpdateStateEvent {
+    .NAlice.TIotTrackingCapability Capability = 1 [json_name = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TIotTrackingCapability.TParameters Parameters = 2;
-  .NAlice.TIotTrackingCapability.TState State = 3;
+  message TIotTrackingEvent {
+    message TObjectState {
+      uint32 ID = 1 [json_name = "id"];
+      .NAlice.NIot.TPoint Position = 2 [json_name = "position"];
+      float VelocityMmS = 4 [json_name = "velocity_mm_s"];
+      float XVelocityMmS = 5 [json_name = "x_velocity_mm_s"];
+      float YVelocityMmS = 6 [json_name = "y_velocity_mm_s"];
+    }
+
+    repeated .NAlice.TIotTrackingCapability.TIotTrackingEvent.TObjectState ObjectStates = 1 [json_name = "object_states"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TIotTrackingCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TIotTrackingCapability.TState State = 3 [json_name = "state"];
 }
 

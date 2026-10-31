@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LyricsProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/lyrics;lyricspb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/data/lyrics/lyrics.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLyricsCapability {
+  message TParameters {
+  }
+
+  message TState {
+    .NAlice.NData.TLyrics Lyrics = 1 [json_name = "lyrics"];
+    bool Enabled = 2 [json_name = "enabled"];
+  }
+
+  message TSetLyricsDirective {
+    string Name = 1 [json_name = "name"];
+    .NAlice.NData.TLyrics Lyrics = 2 [json_name = "lyrics"];
+    .google.protobuf.Struct ShowLyricsCallback = 3 [json_name = "show_lyrics_callback"];
+  }
+
+  message TEnableLyricsDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  message TDisableLyricsDirective {
+    string Name = 1 [json_name = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TLyricsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TLyricsCapability.TState State = 3 [json_name = "state"];
+}
+

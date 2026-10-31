@@ -19,6 +19,7 @@ import "alice/protos/data/external_entity_description.proto";
 import "voicetech/library/channel_types/proto/channel_types.proto";
 
 message IOEvent {
+  reserved "push_notification";
   reserved 6 to 18;
   reserved 21;
   reserved 22;
@@ -50,6 +51,7 @@ message IOEvent {
   reserved 74;
   reserved 75;
   reserved 76;
+  reserved 59;
   message SetupError {
     optional string request_id = 1;
     optional int32 error_code = 2;
@@ -185,7 +187,6 @@ message IOEvent {
   optional .quasar.proto.AudioClientEvent on_audio_client_event = 56;
   optional .quasar.proto.BrickStatus brick_status = 58;
   optional .quasar.proto.BrickInfo brick_info = 66;
-  optional .quasar.proto.PushNotification push_notification = 59;
   optional .quasar.proto.RegistrationResult registration_result = 60;
   optional .quasar.proto.DirectiveList directives_preprocess_request = 77;
   optional .quasar.proto.DeviceGroupState device_group_state = 63;
@@ -403,10 +404,5 @@ message VoiceButtonsInfo {
 
 message UserOptionsList {
   repeated .NAlice.TUserOptions users_options = 1;
-}
-
-message FilePlayerCapabilityEvent {
-  optional string request_id = 1;
-  optional .quasar.proto.AudioClientEvent audio_client_event = 2;
 }
 

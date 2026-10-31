@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "BuiltInButtonsProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/builtin_buttons;builtinbuttonspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBuiltInButtonsCapability {
+  message TParameters {
+    bool SupportsBlockingByUser = 1 [json_name = "supports_blocking_by_user"];
+  }
+
+  message TState {
+    bool Blocked = 1 [json_name = "blocked"];
+  }
+
+  message TSetBlockedDirective {
+    bool Blocked = 1 [json_name = "blocked"];
+  }
+
+  message TUpdateStateEvent {
+    .NAlice.TBuiltInButtonsCapability Capability = 1 [json_name = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TBuiltInButtonsCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TBuiltInButtonsCapability.TState State = 3 [json_name = "state"];
+}
+

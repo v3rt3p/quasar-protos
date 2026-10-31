@@ -17,53 +17,53 @@ message TAdhanCapability {
   }
 
   message TState {
-    repeated .NAlice.NData.TAdhan Adhans = 1;
-    uint32 SoundLevel = 2;
-    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 3;
-    bool CurrentlyPlaying = 4;
+    repeated .NAlice.NData.TAdhan Adhans = 1 [json_name = "adhans"];
+    uint32 SoundLevel = 2 [json_name = "sound_level"];
+    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 3 [json_name = "adhan_muezzin_settings"];
+    bool CurrentlyPlaying = 4 [json_name = "currently_playing"];
   }
 
   message TAdhanSetSoundLevelDirective {
-    string Name = 1000;
-    uint32 SoundLevel = 1;
+    string Name = 1000 [json_name = "name"];
+    uint32 SoundLevel = 1 [json_name = "sound_level"];
   }
 
   message TAdhanSetMuezzinSettingsDirective {
-    string Name = 1000;
-    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 1;
+    string Name = 1000 [json_name = "name"];
+    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 1 [json_name = "adhan_muezzin_settings"];
   }
 
   message TAdhanAddOrUpdateDirective {
     message TAdhanWithActivationTimes {
-      .NAlice.NData.TAdhan Adhan = 1;
-      repeated uint64 ActivationTimestamps = 2;
+      .NAlice.NData.TAdhan Adhan = 1 [json_name = "adhan"];
+      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps"];
     }
 
-    string Name = 1000;
-    repeated .NAlice.TAdhanCapability.TAdhanAddOrUpdateDirective.TAdhanWithActivationTimes AdhansWithActivationTimes = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TAdhanCapability.TAdhanAddOrUpdateDirective.TAdhanWithActivationTimes AdhansWithActivationTimes = 1 [json_name = "adhans_with_activation_times"];
   }
 
   message TAdhanRemoveDirective {
-    string Name = 1000;
-    repeated string AdhanIds = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated string AdhanIds = 1 [json_name = "adhan_ids"];
   }
 
   message TAdhanUpdateActivationTimesDirective {
     message TAdhanActivationTimes {
-      string AdhanId = 1;
-      repeated uint64 ActivationTimestamps = 2;
+      string AdhanId = 1 [json_name = "adhan_id"];
+      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps"];
     }
 
-    string Name = 1000;
-    repeated .NAlice.TAdhanCapability.TAdhanUpdateActivationTimesDirective.TAdhanActivationTimes AdhansActivationTimes = 1;
+    string Name = 1000 [json_name = "name"];
+    repeated .NAlice.TAdhanCapability.TAdhanUpdateActivationTimesDirective.TAdhanActivationTimes AdhansActivationTimes = 1 [json_name = "adhans_activation_times"];
   }
 
   message TAdhanStopDirective {
-    string Name = 1000;
+    string Name = 1000 [json_name = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1;
-  .NAlice.TAdhanCapability.TParameters Parameters = 2;
-  .NAlice.TAdhanCapability.TState State = 3;
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
+  .NAlice.TAdhanCapability.TParameters Parameters = 2 [json_name = "parameters"];
+  .NAlice.TAdhanCapability.TState State = 3 [json_name = "state"];
 }
 
