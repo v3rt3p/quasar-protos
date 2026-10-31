@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package NAlice.NFeaturesLimiter.NProto.NApi;
+
+option java_package = "ru.yandex.alice.cuttlefish.services.features_limiter.proto.api";
+option go_package = "a.yandex-team.ru/alice/cuttlefish/services/features_limiter/proto/api";
+
+enum EDecision {
+  D_UNKNOWN = 0;
+  D_ALLOW = 1;
+  D_TOO_MANY_REQUESTS = 2;
+  D_NOT_AWAILABLE_FOR_USER = 3;
+}
