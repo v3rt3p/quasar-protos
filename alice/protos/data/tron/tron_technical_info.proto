@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package NAlice.NData.NTron.NNotes;
+
+message TTronTechnicalInfo {
+  // stub
+}

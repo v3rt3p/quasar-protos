@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package NAlice.NOrder;
+
+message TItem {
+  // stub
+}
+
+message TSearchResponse {
+  // stub
+}

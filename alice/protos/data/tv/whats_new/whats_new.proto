@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+message TWhatsNewTile {
+  // stub
+}
+
+message TWhatsNewContent {
+  // stub
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NData.NHealthData;
+
+message TVitals {
+  // stub
+}
+
+message TSleep {
+  // stub
+}
+
+message TActivity {
+  // stub
+}
