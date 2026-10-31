@@ -15,42 +15,48 @@ import "alice/protos/endpoint/events/any_capability_event.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCapabilityEvent {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "IsEnvironmentStateDependant";
   reserved 5;
   message TEnvironmentStateMode {
-    bool IncludeLocalEndpoint = 1 [json_name = "include_local_endpoint"];
-    bool IncludeEmbeddedEndpoints = 2 [json_name = "include_embedded_endpoints"];
-    bool IncludeRemoteEndpoints = 3 [json_name = "include_remote_endpoints"];
-    bool IncludeRemoteCapabilities = 4 [json_name = "include_remote_capabilities"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IncludeLocalEndpoint = 1 [json_name = "include_local_endpoint", (.NYT.column_name) = "include_local_endpoint"];
+    bool IncludeEmbeddedEndpoints = 2 [json_name = "include_embedded_endpoints", (.NYT.column_name) = "include_embedded_endpoints"];
+    bool IncludeRemoteEndpoints = 3 [json_name = "include_remote_endpoints", (.NYT.column_name) = "include_remote_endpoints"];
+    bool IncludeRemoteCapabilities = 4 [json_name = "include_remote_capabilities", (.NYT.column_name) = "include_remote_capabilities"];
   }
 
-  .google.protobuf.Timestamp Timestamp = 1 [json_name = "timestamp"];
-  .google.protobuf.Any Event = 2 [json_name = "event"];
-  bool IsLocal = 3 [json_name = "is_local"];
-  bool NonRetryable = 4 [json_name = "non_retryable"];
-  .NAlice.TCapabilityEvent.TEnvironmentStateMode EnvironmentStateMode = 6 [json_name = "environment_state_mode"];
-  .NAlice.NAliceApi.TSourceInfo SourceInfo = 7 [json_name = "source_info"];
-  .NAlice.TAnyCapabilityEventHolder AnyEvent = 8 [json_name = "any_event"];
+  .google.protobuf.Timestamp Timestamp = 1 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
+  .google.protobuf.Any Event = 2 [json_name = "event", (.NYT.column_name) = "event"];
+  bool IsLocal = 3 [json_name = "is_local", (.NYT.column_name) = "is_local"];
+  bool NonRetryable = 4 [json_name = "non_retryable", (.NYT.column_name) = "non_retryable"];
+  .NAlice.TCapabilityEvent.TEnvironmentStateMode EnvironmentStateMode = 6 [json_name = "environment_state_mode", (.NYT.column_name) = "environment_state_mode"];
+  .NAlice.NAliceApi.TSourceInfo SourceInfo = 7 [json_name = "source_info", (.NYT.column_name) = "source_info"];
+  .NAlice.TAnyCapabilityEventHolder AnyEvent = 8 [json_name = "any_event", (.NYT.column_name) = "any_event"];
 }
 
 message TEndpointCapabilityEvents {
-  string EndpointId = 1 [json_name = "endpoint_id"];
-  repeated .NAlice.TCapabilityEvent Events = 2 [json_name = "events"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  repeated .NAlice.TCapabilityEvent Events = 2 [json_name = "events", (.NYT.column_name) = "events"];
 }
 
 message TEndpointEvents {
-  string EndpointId = 1 [json_name = "endpoint_id"];
-  .NAlice.TEndpoint.TStatus EndpointStatus = 2 [json_name = "endpoint_status"];
-  repeated .NAlice.TCapabilityEvent CapabilityEvents = 3 [json_name = "capability_events"];
-  string EndpointPlatform = 4 [json_name = "endpoint_platform"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  .NAlice.TEndpoint.TStatus EndpointStatus = 2 [json_name = "endpoint_status", (.NYT.column_name) = "endpoint_status"];
+  repeated .NAlice.TCapabilityEvent CapabilityEvents = 3 [json_name = "capability_events", (.NYT.column_name) = "capability_events"];
+  string EndpointPlatform = 4 [json_name = "endpoint_platform", (.NYT.column_name) = "endpoint_platform"];
 }
 
 message TEndpointEventsBatch {
-  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch", (.NYT.column_name) = "batch"];
 }
 
 message TTypedCapabilityEvent {
-  .NAlice.TCapabilityEvent Event = 1 [json_name = "event"];
-  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TCapabilityEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type", (.NYT.column_name) = "event_type"];
 }
 

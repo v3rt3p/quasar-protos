@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CameraSnapshotCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/camera_snapshot;camera_snapshotpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCameraSnapshotCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CameraSnapshotCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TSendDataInput {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+  }
+
+  message TTakePictureDirective {
+    option (.NAlice.SpeechKitName) = "camera_snapshot_take_picture_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraSnapshotTakePictureDirectiveType;
+    .NAlice.TCameraSnapshotCapability.EFormat Format = 1 [json_name = "format", (.NYT.column_name) = "format"];
+    oneof Action {
+      .NAlice.TCameraSnapshotCapability.TSendDataInput SendDataInput = 10 [json_name = "send_data_input", (.NYT.column_name) = "send_data_input"];
+    }
+    optional int32 QualityLevel = 2 [json_name = "quality_level", (.NYT.column_name) = "quality_level"];
+    optional uint32 Width = 3 [json_name = "width", (.NYT.column_name) = "width"];
+    optional uint32 Height = 4 [json_name = "height", (.NYT.column_name) = "height"];
+  }
+
+  enum EFormat {
+    FMT_UNKNOWN = 0;
+    FMT_JPEG = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCameraSnapshotCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCameraSnapshotCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

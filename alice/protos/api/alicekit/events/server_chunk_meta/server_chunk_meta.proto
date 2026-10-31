@@ -11,6 +11,7 @@ import "alice/protos/api/alicekit/events/common/chunk_header/chunk_header.proto"
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TServerChunkMeta {
-  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
 }
 

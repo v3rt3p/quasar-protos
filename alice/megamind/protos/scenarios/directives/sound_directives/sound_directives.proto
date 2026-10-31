@@ -13,34 +13,44 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSoundMuteDirective {
-  string Name = 1 [json_name = "name"];
+  option (.NAlice.SpeechKitName) = "sound_mute";
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
 }
 
 message TSoundUnmuteDirective {
-  string Name = 1 [json_name = "name"];
+  option (.NAlice.SpeechKitName) = "sound_unmute";
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
 }
 
 message TSoundSetLevelDirective {
-  string Name = 1 [json_name = "name"];
-  int32 NewLevel = 2 [json_name = "new_level"];
-  string MultiroomSessionId = 3 [json_name = "multiroom_session_id"];
-  string RoomId = 4 [json_name = "room_id"];
-  .NAlice.NScenarios.TLocationInfo LocationInfo = 5 [json_name = "location_info"];
-  optional int32 NewPercentLevel = 6 [json_name = "new_percent_level"];
-  optional bool IsWhisper = 7 [json_name = "is_whisper"];
+  option (.NAlice.SpeechKitName) = "sound_set_level";
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  int32 NewLevel = 2 [json_name = "new_level", (.NYT.column_name) = "new_level"];
+  string MultiroomSessionId = 3 [json_name = "multiroom_session_id", (.NAlice.NScenarios.OuterField) = true, (.NYT.column_name) = "multiroom_session_id"];
+  string RoomId = 4 [json_name = "room_id", deprecated = true, (.NYT.column_name) = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 5 [json_name = "location_info", (.NYT.column_name) = "location_info"];
+  optional int32 NewPercentLevel = 6 [json_name = "new_percent_level", (.NYT.column_name) = "new_percent_level"];
+  optional bool IsWhisper = 7 [json_name = "is_whisper", (.NYT.column_name) = "is_whisper"];
 }
 
 message TSoundQuiterDirective {
-  string Name = 1 [json_name = "name"];
-  string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
-  string RoomId = 3 [json_name = "room_id"];
-  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info"];
+  option (.NAlice.SpeechKitName) = "sound_quiter";
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  string MultiroomSessionId = 2 [json_name = "multiroom_session_id", (.NAlice.NScenarios.OuterField) = true, (.NYT.column_name) = "multiroom_session_id"];
+  string RoomId = 3 [json_name = "room_id", deprecated = true, (.NYT.column_name) = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info", (.NYT.column_name) = "location_info"];
 }
 
 message TSoundLouderDirective {
-  string Name = 1 [json_name = "name"];
-  string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
-  string RoomId = 3 [json_name = "room_id"];
-  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info"];
+  option (.NAlice.SpeechKitName) = "sound_louder";
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  string MultiroomSessionId = 2 [json_name = "multiroom_session_id", (.NAlice.NScenarios.OuterField) = true, (.NYT.column_name) = "multiroom_session_id"];
+  string RoomId = 3 [json_name = "room_id", deprecated = true, (.NYT.column_name) = "room_id"];
+  .NAlice.NScenarios.TLocationInfo LocationInfo = 4 [json_name = "location_info", (.NYT.column_name) = "location_info"];
 }
 

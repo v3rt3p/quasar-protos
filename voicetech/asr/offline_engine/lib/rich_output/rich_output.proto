@@ -4,38 +4,41 @@ package NAsr.NProto;
 
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.FieldOptions {
+  optional bool hybrid_serializable = 54308;
+}
 message TOnDeviceHypothesis {
-  repeated int32 TokenIds = 1;
+  repeated int32 TokenIds = 1 [(.NAsr.NProto.hybrid_serializable) = true];
 }
 
 message TAdditionalFeatures {
-  optional int32 Version = 1;
-  repeated int32 IntFeatures = 2;
-  repeated float FloatFeatures = 3;
-  optional int32 FeaturesVersion = 4;
+  optional int32 Version = 1 [deprecated = true, (.NAsr.NProto.hybrid_serializable) = true];
+  repeated int32 IntFeatures = 2 [(.NAsr.NProto.hybrid_serializable) = true];
+  repeated float FloatFeatures = 3 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional int32 FeaturesVersion = 4 [(.NAsr.NProto.hybrid_serializable) = true];
 }
 
 message TConfidence {
-  optional float Score = 1;
-  optional bool IsConfident = 2;
+  optional float Score = 1 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional bool IsConfident = 2 [(.NAsr.NProto.hybrid_serializable) = true];
 }
 
 message TDiagnosticInfo {
-  repeated float LoadAverage = 1;
-  optional uint64 Rss = 2;
-  optional uint32 EnqueuedSoundMs = 3;
-  optional uint32 EnqueuedOutgoingPartials = 4;
+  repeated float LoadAverage = 1 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional uint64 Rss = 2 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional uint32 EnqueuedSoundMs = 3 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional uint32 EnqueuedOutgoingPartials = 4 [(.NAsr.NProto.hybrid_serializable) = true];
 }
 
 message TRichOutput {
-  optional .NAsr.NProto.TOnDeviceHypothesis TopHypo = 2;
-  optional .NAsr.NProto.TAdditionalFeatures Features = 3;
-  optional int32 AsrTimeSpentMs = 4;
-  optional int32 NumProcessedSamples = 5;
-  optional int32 Version = 6;
-  optional string SessionTopHypoText = 7;
-  optional bool SessionIsEou = 8;
-  optional .NAsr.NProto.TConfidence Confidence = 9;
-  optional .NAsr.NProto.TDiagnosticInfo DiagnosticInfo = 10;
+  optional .NAsr.NProto.TOnDeviceHypothesis TopHypo = 2 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional .NAsr.NProto.TAdditionalFeatures Features = 3 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional int32 AsrTimeSpentMs = 4 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional int32 NumProcessedSamples = 5 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional int32 Version = 6 [(.NAsr.NProto.hybrid_serializable) = false];
+  optional string SessionTopHypoText = 7 [(.NAsr.NProto.hybrid_serializable) = false];
+  optional bool SessionIsEou = 8 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional .NAsr.NProto.TConfidence Confidence = 9 [(.NAsr.NProto.hybrid_serializable) = true];
+  optional .NAsr.NProto.TDiagnosticInfo DiagnosticInfo = 10 [(.NAsr.NProto.hybrid_serializable) = true];
 }
 

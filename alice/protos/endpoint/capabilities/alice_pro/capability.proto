@@ -12,21 +12,34 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceProCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceProCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TAliceProCapability.ESubscriptionStatus SubscriptionStatus = 1 [json_name = "subscription_status"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAliceProCapability.ESubscriptionStatus SubscriptionStatus = 1 [json_name = "subscription_status", (.NYT.column_name) = "subscription_status"];
   }
 
   message TOpenProPurchaseScreenDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_pro_purchase_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenProPurchaseScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TForceSubscriptionCheckDirective {
+    option (.NAlice.SpeechKitName) = "force_subscription_check_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForceSubscriptionCheckDirectiveType;
   }
 
   message TShowAliceProBannerDirective {
+    option (.NAlice.SpeechKitName) = "show_alice_pro_banner_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAliceProBannerDirectiveType;
   }
 
   enum ESubscriptionStatus {
@@ -34,8 +47,8 @@ message TAliceProCapability {
     SubscriptionActive = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAliceProCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAliceProCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceProCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceProCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

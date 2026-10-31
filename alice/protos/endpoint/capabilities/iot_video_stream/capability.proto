@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TIotVideoStreamCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_video_stream;videostreampb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotVideoStreamCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotVideoStreamCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TStartWHIPVideoStreamDirective {
+    option (.NAlice.SpeechKitName) = "iot_start_whip_video_stream_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStartWHIPVideoStreamDirectiveType;
+    reserved "Jwt";
+    reserved 2;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string WhipUrl = 1 [json_name = "whip_url", (.NYT.column_name) = "whip_url"];
+    string RoomID = 3 [json_name = "room_id", (.NYT.column_name) = "room_id"];
+    repeated .NAlice.TIotVideoStreamCapability.IceServer IceServers = 4 [json_name = "ice_servers", (.NYT.column_name) = "ice_servers"];
+  }
+
+  message IceServer {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Hostname = 1 [json_name = "hostname", (.NYT.column_name) = "hostname"];
+    uint32 Port = 2 [json_name = "port", (.NYT.column_name) = "port"];
+    .NAlice.TIotVideoStreamCapability.IceServerType Type = 3 [json_name = "type", (.NYT.column_name) = "type"];
+    string Username = 4 [json_name = "username", (.NYT.column_name) = "username"];
+    string Password = 5 [json_name = "password", (.NYT.column_name) = "password"];
+    .NAlice.TIotVideoStreamCapability.RelayType RelayType = 6 [json_name = "relay_type", (.NYT.column_name) = "relay_type"];
+  }
+
+  message TStopVideoStreamDirective {
+    option (.NAlice.SpeechKitName) = "iot_stop_video_stream_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStopVideoStreamDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TSetVideoStreamResolutionDirective {
+    option (.NAlice.SpeechKitName) = "iot_set_video_stream_resolution_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetVideoStreamResolutionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotVideoStreamCapability.EVideoResolution VideoResolution = 1 [json_name = "video_resolution", (.NYT.column_name) = "video_resolution"];
+  }
+
+  message TSetVideoStreamKeepaliveModeDirective {
+    option (.NAlice.SpeechKitName) = "iot_set_video_stream_keepalive_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetVideoStreamKeepaliveModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum IceServerType {
+    ICE_SERVER_TYPE_UNKNOWN = 0;
+    STUN = 1;
+    TURN = 2;
+  }
+
+  enum RelayType {
+    RELAY_TYPE_UNKNOWN = 0;
+    TURN_UDP = 1;
+    TURN_TCP = 2;
+    TURN_TLS = 3;
+  }
+
+  enum EVideoResolution {
+    VIDEO_RESOLUTION_UNKNOWN = 0;
+    VIDEO_RESOLUTION_480 = 1;
+    VIDEO_RESOLUTION_1080 = 2;
+    VIDEO_RESOLUTION_1440 = 3;
+    VIDEO_RESOLUTION_AUTO = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotVideoStreamCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotVideoStreamCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

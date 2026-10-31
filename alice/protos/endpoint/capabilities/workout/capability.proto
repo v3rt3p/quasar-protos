@@ -13,16 +13,23 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWorkoutCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WorkoutCapabilityType;
   message TParameters {
-    repeated .NAlice.TWorkoutCapability.EWorkoutType SupportedWorkoutTypes = 1 [json_name = "supported_workout_types"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TWorkoutCapability.EWorkoutType SupportedWorkoutTypes = 1 [json_name = "supported_workout_types", (.NYT.column_name) = "supported_workout_types"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TStartWorkoutDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TWorkoutCapability.EWorkoutType WorkoutType = 1 [json_name = "workout_type"];
+    option (.NAlice.SpeechKitName) = "start_workout_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartWorkoutDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TWorkoutCapability.EWorkoutType WorkoutType = 1 [json_name = "workout_type", (.NYT.column_name) = "workout_type"];
   }
 
   enum EWorkoutType {
@@ -134,8 +141,8 @@ message TWorkoutCapability {
     SocialDance = 104;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWorkoutCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWorkoutCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWorkoutCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWorkoutCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

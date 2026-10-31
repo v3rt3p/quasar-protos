@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveWallpaperCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_wallpaper;automotive_wallpaperpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveWallpaperCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveWallpaperCapabilityType;
+  message TWallpaper {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveWallpaperCapability.EWallpaperType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    optional bool IsOpened = 2 [json_name = "is_opened", (.NYT.column_name) = "is_opened"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TSetWallpaperDirective {
+    option (.NAlice.SpeechKitName) = "set_wallpaper_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetWallpaperDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveWallpaperCapability.EWallpaperType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  }
+
+  enum EWallpaperType {
+    WALLPAPER_TYPE_DESKTOP = 0;
+    WALLPAPER_TYPE_3D = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveWallpaperCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveWallpaperCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

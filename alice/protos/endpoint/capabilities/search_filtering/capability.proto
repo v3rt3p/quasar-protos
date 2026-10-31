@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SearchFilteringCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/search_filtering;searchfilteringpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSearchFilteringCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SearchFilteringCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TSearchFilteringCapability.ESearchFilteringMode FilteringMode = 1 [json_name = "filtering_mode", (.NYT.column_name) = "filtering_mode"];
+  }
+
+  message TSearchFilteringToggleSettingDirective {
+    option (.NAlice.SpeechKitName) = "search_filtering_toggle_setting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SearchFilteringToggleSettingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TSearchFilteringCapability.ESearchFilteringMode SettingState = 2 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  enum ESearchFilteringMode {
+    MODERATE = 0;
+    FAMILY = 1;
+    CHILD = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSearchFilteringCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSearchFilteringCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

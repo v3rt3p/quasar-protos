@@ -11,60 +11,73 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/extensions/extensions.proto";
 
 message TBoolSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    bool BoolValue = 1 [json_name = "bool_value"];
+    option (.NYT.variant_field_name) = "value";
+    bool BoolValue = 1 [json_name = "bool_value", (.NYT.column_name) = "bool_value", (.NAlice.SlotType) = "bool"];
   }
 }
 
 message TSysNumSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TUInt32Slot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    uint32 UInt32Value = 1 [json_name = "uint32_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 UInt32Value = 1 [json_name = "uint32_value", (.NYT.column_name) = "uint32_value", (.NAlice.SlotType) = "uint32"];
   }
 }
 
 message TInt64Slot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    int64 Int64Value = 1 [json_name = "int64_value"];
+    option (.NYT.variant_field_name) = "value";
+    int64 Int64Value = 1 [json_name = "int64_value", (.NYT.column_name) = "int64_value", (.NAlice.SlotType) = "int64"];
   }
 }
 
 message TLocationSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string UserIotRoomValue = 1 [json_name = "user_iot_room_value"];
-    string DeviceIotRoomValue = 2 [json_name = "device_iot_room_value"];
-    string UserIotGroupValue = 3 [json_name = "user_iot_group_value"];
-    string DeviceIotGroupValue = 4 [json_name = "device_iot_group_value"];
-    string UserIotDeviceValue = 5 [json_name = "user_iot_device_value"];
-    string DeviceIotDeviceValue = 6 [json_name = "device_iot_device_value"];
-    string UserIotMultiroomAllDevicesValue = 7 [json_name = "user_iot_multiroom_all_devices_value"];
-    string DeviceIotMultiroomAllDevicesValue = 8 [json_name = "device_iot_multiroom_all_devices_value"];
+    option (.NYT.variant_field_name) = "value";
+    string UserIotRoomValue = 1 [json_name = "user_iot_room_value", (.NYT.column_name) = "user_iot_room_value", (.NAlice.SlotType) = "user.iot.room"];
+    string DeviceIotRoomValue = 2 [json_name = "device_iot_room_value", (.NYT.column_name) = "device_iot_room_value", (.NAlice.SlotType) = "device.iot.room"];
+    string UserIotGroupValue = 3 [json_name = "user_iot_group_value", (.NYT.column_name) = "user_iot_group_value", (.NAlice.SlotType) = "user.iot.group"];
+    string DeviceIotGroupValue = 4 [json_name = "device_iot_group_value", (.NYT.column_name) = "device_iot_group_value", (.NAlice.SlotType) = "device.iot.group"];
+    string UserIotDeviceValue = 5 [json_name = "user_iot_device_value", (.NYT.column_name) = "user_iot_device_value", (.NAlice.SlotType) = "user.iot.device"];
+    string DeviceIotDeviceValue = 6 [json_name = "device_iot_device_value", (.NYT.column_name) = "device_iot_device_value", (.NAlice.SlotType) = "device.iot.device"];
+    string UserIotMultiroomAllDevicesValue = 7 [json_name = "user_iot_multiroom_all_devices_value", (.NYT.column_name) = "user_iot_multiroom_all_devices_value", (.NAlice.SlotType) = "user.iot.multiroom_all_devices"];
+    string DeviceIotMultiroomAllDevicesValue = 8 [json_name = "device_iot_multiroom_all_devices_value", (.NYT.column_name) = "device_iot_multiroom_all_devices_value", (.NAlice.SlotType) = "device.iot.multiroom_all_devices"];
   }
 }
 
 message TStringSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    string StringValue = 1 [json_name = "string_value"];
-    string SpecialPlaylistValue = 2 [json_name = "special_playlist_value"];
-    string NewsTopicValue = 3 [json_name = "news_topic_value"];
-    string SpecialAnswerInfoValue = 4 [json_name = "special_answer_info"];
-    string VideoContentTypeValue = 5 [json_name = "video_content_type_value"];
-    string VideoActionValue = 6 [json_name = "video_action_value"];
-    string ActionRequestValue = 8 [json_name = "action_request_value"];
-    string EpochValue = 9 [json_name = "epoch_value"];
-    string VideoSelectionActionValue = 10 [json_name = "video_selection_action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string StringValue = 1 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
+    string SpecialPlaylistValue = 2 [json_name = "special_playlist_value", (.NYT.column_name) = "special_playlist_value", (.NAlice.SlotType) = "special_playlist"];
+    string NewsTopicValue = 3 [json_name = "news_topic_value", (.NYT.column_name) = "news_topic_value", (.NAlice.SlotType) = "custom.news_topic"];
+    string SpecialAnswerInfoValue = 4 [json_name = "special_answer_info", (.NYT.column_name) = "special_answer_info", (.NAlice.SlotType) = "special_answer_info"];
+    string VideoContentTypeValue = 5 [json_name = "video_content_type_value", (.NYT.column_name) = "video_content_type_value", (.NAlice.SlotType) = "video_content_type"];
+    string VideoActionValue = 6 [json_name = "video_action_value", (.NYT.column_name) = "video_action_value", (.NAlice.SlotType) = "video_action"];
+    string ActionRequestValue = 8 [json_name = "action_request_value", deprecated = true, (.NYT.column_name) = "action_request_value", (.NAlice.SlotType) = "action_request"];
+    string EpochValue = 9 [json_name = "epoch_value", (.NYT.column_name) = "epoch_value", (.NAlice.SlotType) = "epoch"];
+    string VideoSelectionActionValue = 10 [json_name = "video_selection_action_value", (.NYT.column_name) = "video_selection_action_value", (.NAlice.SlotType) = "custom.video_selection_action"];
   }
 }
 
 message TTokenTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     XToken = 1;
@@ -72,27 +85,34 @@ message TTokenTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TTokenTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TTokenTypeSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "enum_value"];
   }
 }
 
 message TLanguageSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    string LanguageValue = 1 [json_name = "language_value"];
+    option (.NYT.variant_field_name) = "value";
+    string LanguageValue = 1 [json_name = "language_value", (.NYT.column_name) = "language_value", (.NAlice.SlotType) = "language"];
   }
 }
 
 message TNumSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "num"];
   }
 }
 
 message TDoubleSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    double DoubleValue = 1 [json_name = "double_value"];
+    option (.NYT.variant_field_name) = "value";
+    double DoubleValue = 1 [json_name = "double_value", (.NYT.column_name) = "double_value", (.NAlice.SlotType) = "double"];
   }
 }
 

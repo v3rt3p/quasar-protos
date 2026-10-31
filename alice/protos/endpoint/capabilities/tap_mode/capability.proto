@@ -12,12 +12,16 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTapModeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TapModeCapabilityType;
   message TParameters {
-    repeated .NAlice.TTapModeCapability.EAction SupportedActions = 1 [json_name = "supported_actions"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TTapModeCapability.EAction SupportedActions = 1 [json_name = "supported_actions", (.NYT.column_name) = "supported_actions"];
   }
 
   message TState {
-    .NAlice.TTapModeCapability.EAction SelectedAction = 1 [json_name = "selected_action"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TTapModeCapability.EAction SelectedAction = 1 [json_name = "selected_action", (.NYT.column_name) = "selected_action"];
   }
 
   enum EAction {
@@ -26,8 +30,8 @@ message TTapModeCapability {
     ToggleNoiseCancelling = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTapModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTapModeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTapModeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTapModeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

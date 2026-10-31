@@ -4,6 +4,7 @@ package google.protobuf;
 
 option java_package = "com.google.protobuf";
 option java_outer_classname = "DescriptorProtos";
+option optimize_for = SPEED;
 option go_package = "google.golang.org/protobuf/types/descriptorpb";
 option cc_enable_arenas = true;
 option objc_class_prefix = "GPB";
@@ -54,6 +55,7 @@ message DescriptorProto {
 }
 
 message ExtensionRangeOptions {
+  extensions 1000 to max;
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
@@ -138,6 +140,7 @@ message MethodDescriptorProto {
 }
 
 message FileOptions {
+  extensions 1000 to max;
   reserved 38;
   enum OptimizeMode {
     SPEED = 1;
@@ -148,7 +151,7 @@ message FileOptions {
   optional string java_package = 1;
   optional string java_outer_classname = 8;
   optional bool java_multiple_files = 10 [default = false];
-  optional bool java_generate_equals_and_hash = 20;
+  optional bool java_generate_equals_and_hash = 20 [deprecated = true];
   optional bool java_string_check_utf8 = 27 [default = false];
   optional .google.protobuf.FileOptions.OptimizeMode optimize_for = 9 [default = SPEED];
   optional string go_package = 11;
@@ -169,6 +172,7 @@ message FileOptions {
 }
 
 message MessageOptions {
+  extensions 1000 to max;
   reserved 4;
   reserved 5;
   reserved 6;
@@ -178,11 +182,12 @@ message MessageOptions {
   optional bool no_standard_descriptor_accessor = 2 [default = false];
   optional bool deprecated = 3 [default = false];
   optional bool map_entry = 7;
-  optional bool deprecated_legacy_json_field_conflicts = 11;
+  optional bool deprecated_legacy_json_field_conflicts = 11 [deprecated = true];
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
 message FieldOptions {
+  extensions 1000 to max;
   reserved 4;
   enum CType {
     STRING = 0;
@@ -229,28 +234,33 @@ message FieldOptions {
 }
 
 message OneofOptions {
+  extensions 1000 to max;
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
 message EnumOptions {
+  extensions 1000 to max;
   reserved 5;
   optional bool allow_alias = 2;
   optional bool deprecated = 3 [default = false];
-  optional bool deprecated_legacy_json_field_conflicts = 6;
+  optional bool deprecated_legacy_json_field_conflicts = 6 [deprecated = true];
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
 message EnumValueOptions {
+  extensions 1000 to max;
   optional bool deprecated = 1 [default = false];
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
 message ServiceOptions {
+  extensions 1000 to max;
   optional bool deprecated = 33 [default = false];
   repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
 }
 
 message MethodOptions {
+  extensions 1000 to max;
   enum IdempotencyLevel {
     IDEMPOTENCY_UNKNOWN = 0;
     NO_SIDE_EFFECTS = 1;
@@ -279,8 +289,8 @@ message UninterpretedOption {
 
 message SourceCodeInfo {
   message Location {
-    repeated int32 path = 1;
-    repeated int32 span = 2;
+    repeated int32 path = 1 [packed = true];
+    repeated int32 span = 2 [packed = true];
     optional string leading_comments = 3;
     optional string trailing_comments = 4;
     repeated string leading_detached_comments = 6;
@@ -297,7 +307,7 @@ message GeneratedCodeInfo {
       ALIAS = 2;
     }
 
-    repeated int32 path = 1;
+    repeated int32 path = 1 [packed = true];
     optional string source_file = 2;
     optional int32 begin = 3;
     optional int32 end = 4;

@@ -14,40 +14,55 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/data/iot/geometry.proto";
 
 message TIotTrackingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotTrackingCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Active = 1 [json_name = "active"];
-    uint64 ReportFrequencyMs = 2 [json_name = "report_frequency_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Active = 1 [json_name = "active", (.NYT.column_name) = "active"];
+    uint64 ReportFrequencyMs = 2 [json_name = "report_frequency_ms", (.NYT.column_name) = "report_frequency_ms"];
   }
 
   message TIotStartTrackingDirective {
-    uint64 ReportFrequencyMs = 1 [json_name = "report_frequency_ms"];
-    uint64 TimeoutMs = 2 [json_name = "timeout_ms"];
+    option (.NAlice.SpeechKitName) = "iot_start_tracking_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStartTrackingDirectiveType;
+    uint64 ReportFrequencyMs = 1 [json_name = "report_frequency_ms", (.NYT.column_name) = "report_frequency_ms"];
+    uint64 TimeoutMs = 2 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
   }
 
   message TIotStopTrackingDirective {
+    option (.NAlice.SpeechKitName) = "iot_stop_tracking_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStopTrackingDirectiveType;
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotTrackingCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotTrackingUpdateStateEventType;
+    .NAlice.TIotTrackingCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TIotTrackingEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotTrackingEventType;
     message TObjectState {
-      uint32 ID = 1 [json_name = "id"];
-      .NAlice.NIot.TPoint Position = 2 [json_name = "position"];
-      float VelocityMmS = 4 [json_name = "velocity_mm_s"];
-      float XVelocityMmS = 5 [json_name = "x_velocity_mm_s"];
-      float YVelocityMmS = 6 [json_name = "y_velocity_mm_s"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      .NAlice.NIot.TPoint Position = 2 [json_name = "position", (.NYT.column_name) = "position"];
+      float VelocityMmS = 4 [json_name = "velocity_mm_s", (.NYT.column_name) = "velocity_mm_s"];
+      float XVelocityMmS = 5 [json_name = "x_velocity_mm_s", (.NYT.column_name) = "x_velocity_mm_s"];
+      float YVelocityMmS = 6 [json_name = "y_velocity_mm_s", (.NYT.column_name) = "y_velocity_mm_s"];
     }
 
-    repeated .NAlice.TIotTrackingCapability.TIotTrackingEvent.TObjectState ObjectStates = 1 [json_name = "object_states"];
+    repeated .NAlice.TIotTrackingCapability.TIotTrackingEvent.TObjectState ObjectStates = 1 [json_name = "object_states", (.NYT.column_name) = "object_states"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotTrackingCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotTrackingCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotTrackingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotTrackingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

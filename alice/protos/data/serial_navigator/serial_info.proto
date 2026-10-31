@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.serialnavigator";
+option java_outer_classname = "SerialInfoProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/serial_navigator";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/avatar/avatar.proto";
+import "alice/protos/data/video/video.proto";
+
+message TSerialInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved 2;
+  reserved 4;
+  reserved 5;
+  message TSeasonEpisodesInfo {
+    optional uint32 SeasonNumber = 1 [json_name = "season_number", (.NYT.column_name) = "season_number"];
+    optional uint32 EpisodesCount = 2 [json_name = "episodes_count", (.NYT.column_name) = "episodes_count"];
+  }
+
+  string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+  uint32 SeasonsCount = 6 [json_name = "seasons_count", (.NYT.column_name) = "seasons_count"];
+  repeated .NAlice.TSerialInfo.TSeasonEpisodesInfo EpisodesInSeasonsCount = 7 [json_name = "episodes_count", (.NYT.column_name) = "episodes_count"];
+  .NAlice.TAvatarMdsImage Cover = 8 [json_name = "cover", (.NYT.column_name) = "cover"];
+  string OntoId = 9 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 11 [json_name = "view_options", (.NYT.column_name) = "view_options"];
+  string KpId = 12 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
+  optional uint32 AgeLimit = 10 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+}
+

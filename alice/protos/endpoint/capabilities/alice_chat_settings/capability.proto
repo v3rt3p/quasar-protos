@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatSettingsProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_settings;alicechatsettingspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatSettingsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatSettingsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SilentModeEnabled = 1 [json_name = "silent_mode_enabled", (.NYT.column_name) = "silent_mode_enabled"];
+    bool HybridSettingsEnabled = 2 [json_name = "hybrid_settings_enabled", (.NYT.column_name) = "hybrid_settings_enabled"];
+  }
+
+  message TShowAliceChatSettingsDirective {
+    option (.NAlice.SpeechKitName) = "show_alice_chat_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAliceChatSettingsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TSetChatSettingModeDirective {
+    option (.NAlice.SpeechKitName) = "set_chat_setting_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetChatSettingModeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+    bool IsActive = 3 [json_name = "isActive", (.NYT.column_name) = "isActive"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatSettingsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatSettingsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

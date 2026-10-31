@@ -13,28 +13,28 @@ import "alice/protos/data/date/day_of_week.proto";
 
 message TLocalScenarioCondition {
   message TAnyOfCondition {
-    repeated .NAlice.NIot.TLocalScenarioCondition Conditions = 1 [json_name = "conditions"];
+    repeated .NAlice.NIot.TLocalScenarioCondition Conditions = 1 [json_name = "conditions", (.NYT.column_name) = "conditions"];
   }
 
   message TAllOfCondition {
-    repeated .NAlice.NIot.TLocalScenarioCondition Conditions = 1 [json_name = "conditions"];
+    repeated .NAlice.NIot.TLocalScenarioCondition Conditions = 1 [json_name = "conditions", (.NYT.column_name) = "conditions"];
   }
 
   message TCapabilityEventCondition {
-    string EndpointID = 1 [json_name = "endpoint_id"];
-    .google.protobuf.Any EventCondition = 2 [json_name = "event_condition"];
-    .google.protobuf.Any TriggeredEvent = 3 [json_name = "triggered_event"];
+    string EndpointID = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+    .google.protobuf.Any EventCondition = 2 [json_name = "event_condition", (.NYT.column_name) = "event_condition"];
+    .google.protobuf.Any TriggeredEvent = 3 [json_name = "triggered_event", (.NYT.column_name) = "triggered_event"];
   }
 
   message TActiveForCondition {
-    .NAlice.NIot.TLocalScenarioCondition Condition = 1 [json_name = "condition"];
-    uint32 DurationSeconds = 2 [json_name = "duration_seconds"];
+    .NAlice.NIot.TLocalScenarioCondition Condition = 1 [json_name = "condition", (.NYT.column_name) = "condition"];
+    uint32 DurationSeconds = 2 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
   }
 
   message TScheduleCondition {
-    uint32 TimeOfDaySeconds = 1 [json_name = "time_of_day_seconds"];
-    repeated string DaysOfWeek = 2 [json_name = "days_of_week"];
-    optional uint64 StartTimeSeconds = 3 [json_name = "start_time_seconds"];
+    uint32 TimeOfDaySeconds = 1 [json_name = "time_of_day_seconds", (.NYT.column_name) = "time_of_day_seconds"];
+    repeated string DaysOfWeek = 2 [json_name = "days_of_week", (.NYT.column_name) = "days_of_week"];
+    optional uint64 StartTimeSeconds = 3 [json_name = "start_time_seconds", (.NYT.column_name) = "start_time_seconds"];
   }
 
   message TEffectiveTimeCondition {
@@ -44,18 +44,18 @@ message TLocalScenarioCondition {
       Unlimited = 2;
     }
 
-    uint32 StartTimeSeconds = 1 [json_name = "start_time_seconds"];
-    uint32 DurationSeconds = 2 [json_name = "duration_seconds"];
-    repeated .NAlice.NData.TDayOfWeek Weekdays = 3 [json_name = "weekdays"];
-    .NAlice.NIot.TLocalScenarioCondition.TEffectiveTimeCondition.ETriggerPolicy TriggerPolicy = 4 [json_name = "trigger_policy"];
-    .NAlice.NIot.TLocalScenarioCondition Condition = 5 [json_name = "condition"];
-    bool AsTrigger = 6 [json_name = "as_trigger"];
+    uint32 StartTimeSeconds = 1 [json_name = "start_time_seconds", (.NYT.column_name) = "start_time_seconds"];
+    uint32 DurationSeconds = 2 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
+    repeated .NAlice.NData.TDayOfWeek Weekdays = 3 [json_name = "weekdays", (.NYT.column_name) = "weekdays"];
+    .NAlice.NIot.TLocalScenarioCondition.TEffectiveTimeCondition.ETriggerPolicy TriggerPolicy = 4 [json_name = "trigger_policy", (.NYT.column_name) = "trigger_policy"];
+    .NAlice.NIot.TLocalScenarioCondition Condition = 5 [json_name = "condition", (.NYT.column_name) = "condition"];
+    bool AsTrigger = 6 [json_name = "as_trigger", (.NYT.column_name) = "as_trigger"];
   }
 
   message TConditionFilter {
-    string EndpointID = 1 [json_name = "endpoint_id"];
-    .google.protobuf.Any Filter = 2 [json_name = "filter"];
-    optional string ID = 3 [json_name = "id"];
+    string EndpointID = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+    .google.protobuf.Any Filter = 2 [json_name = "filter", (.NYT.column_name) = "filter"];
+    optional string ID = 3 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   enum EConditionType {
@@ -68,16 +68,17 @@ message TLocalScenarioCondition {
     EffectiveTime = 6;
   }
 
-  repeated .NAlice.NIot.TLocalScenarioCondition.TConditionFilter Filters = 6 [json_name = "filters"];
+  repeated .NAlice.NIot.TLocalScenarioCondition.TConditionFilter Filters = 6 [json_name = "filters", (.NYT.column_name) = "filters"];
   oneof Condition {
-    .NAlice.NIot.TLocalScenarioCondition.TCapabilityEventCondition CapabilityEventCondition = 1 [json_name = "capability_event_condition"];
-    .NAlice.NIot.TLocalScenarioCondition.TAnyOfCondition AnyOfCondition = 2 [json_name = "any_of_condition"];
-    .NAlice.NIot.TLocalScenarioCondition.TActiveForCondition ActiveForCondition = 3 [json_name = "active_for_condition"];
-    .NAlice.NIot.TLocalScenarioCondition.TScheduleCondition ScheduleCondition = 4 [json_name = "schedule_condition"];
-    .NAlice.NIot.TLocalScenarioCondition.TAllOfCondition AllOfCondition = 7 [json_name = "all_of_condition"];
-    .NAlice.NIot.TLocalScenarioCondition.TEffectiveTimeCondition EffectiveTimeCondition = 8 [json_name = "effective_time_condition"];
+    option (.NYT.variant_field_name) = "condition";
+    .NAlice.NIot.TLocalScenarioCondition.TCapabilityEventCondition CapabilityEventCondition = 1 [json_name = "capability_event_condition", (.NYT.column_name) = "capability_event_condition"];
+    .NAlice.NIot.TLocalScenarioCondition.TAnyOfCondition AnyOfCondition = 2 [json_name = "any_of_condition", (.NYT.column_name) = "any_of_condition"];
+    .NAlice.NIot.TLocalScenarioCondition.TActiveForCondition ActiveForCondition = 3 [json_name = "active_for_condition", (.NYT.column_name) = "active_for_condition"];
+    .NAlice.NIot.TLocalScenarioCondition.TScheduleCondition ScheduleCondition = 4 [json_name = "schedule_condition", (.NYT.column_name) = "schedule_condition"];
+    .NAlice.NIot.TLocalScenarioCondition.TAllOfCondition AllOfCondition = 7 [json_name = "all_of_condition", (.NYT.column_name) = "all_of_condition"];
+    .NAlice.NIot.TLocalScenarioCondition.TEffectiveTimeCondition EffectiveTimeCondition = 8 [json_name = "effective_time_condition", (.NYT.column_name) = "effective_time_condition"];
   }
-  optional string ID = 5 [json_name = "id"];
+  optional string ID = 5 [json_name = "id", (.NYT.column_name) = "id"];
 }
 
 message TLocalScenario {
@@ -88,20 +89,21 @@ message TLocalScenario {
       Unlimited = 2;
     }
 
-    uint32 StartTimeSeconds = 1 [json_name = "start_time_seconds"];
-    uint32 EndTimeSeconds = 2 [json_name = "end_time_seconds"];
-    repeated string DaysOfWeek = 3 [json_name = "days_of_week"];
-    .NAlice.NIot.TLocalScenario.TEffectiveTime.ETriggerPolicy TriggerPolicy = 4 [json_name = "trigger_policy"];
-    uint32 DurationSeconds = 5 [json_name = "duration_seconds"];
+    uint32 StartTimeSeconds = 1 [json_name = "start_time_seconds", (.NYT.column_name) = "start_time_seconds"];
+    uint32 EndTimeSeconds = 2 [json_name = "end_time_seconds", (.NYT.column_name) = "end_time_seconds"];
+    repeated string DaysOfWeek = 3 [json_name = "days_of_week", (.NYT.column_name) = "days_of_week"];
+    .NAlice.NIot.TLocalScenario.TEffectiveTime.ETriggerPolicy TriggerPolicy = 4 [json_name = "trigger_policy", (.NYT.column_name) = "trigger_policy"];
+    uint32 DurationSeconds = 5 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
   }
 
   message TStep {
     message TDirectivesStep {
-      repeated .google.protobuf.Any Directives = 1 [json_name = "directives"];
+      repeated .google.protobuf.Any Directives = 1 [json_name = "directives", (.NYT.column_name) = "directives"];
     }
 
     oneof Step {
-      .NAlice.NIot.TLocalScenario.TStep.TDirectivesStep DirectivesStep = 1 [json_name = "directives_step"];
+      option (.NYT.variant_field_name) = "step";
+      .NAlice.NIot.TLocalScenario.TStep.TDirectivesStep DirectivesStep = 1 [json_name = "directives_step", (.NYT.column_name) = "directives_step"];
     }
   }
 
@@ -115,8 +117,8 @@ message TLocalScenario {
           Failure = 3;
         }
 
-        .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult.EDirectiveExecStatus Status = 1 [json_name = "status"];
-        optional string EndpointId = 2 [json_name = "endpoint_id"];
+        .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult.EDirectiveExecStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+        optional string EndpointId = 2 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
       }
 
       enum EStatus {
@@ -125,20 +127,21 @@ message TLocalScenario {
         Failure = 2;
       }
 
-      .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.EStatus Status = 1 [json_name = "status"];
-      repeated .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult DirectivesExecResults = 2 [json_name = "directives_exec_results"];
+      .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.EStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+      repeated .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult.TDirectiveExecResult DirectivesExecResults = 2 [json_name = "directives_exec_results", (.NYT.column_name) = "directives_exec_results"];
     }
 
     oneof Step {
-      .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult DirectivesStepResult = 1 [json_name = "directives_step_result"];
+      option (.NYT.variant_field_name) = "step";
+      .NAlice.NIot.TLocalScenario.TStepResult.TDirectivesStepResult DirectivesStepResult = 1 [json_name = "directives_step_result", (.NYT.column_name) = "directives_step_result"];
     }
   }
 
-  string ID = 1 [json_name = "id"];
-  .NAlice.NIot.TLocalScenarioCondition Condition = 2 [json_name = "condition"];
-  repeated .NAlice.NIot.TLocalScenario.TStep Steps = 3 [json_name = "steps"];
-  .NAlice.NIot.TLocalScenario.TEffectiveTime EffectiveTime = 4 [json_name = "effective_time"];
-  bool ContinueExecutionAfterError = 5 [json_name = "continue_execution_after_error"];
-  optional bool IsActive = 6 [json_name = "is_active"];
+  string ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  .NAlice.NIot.TLocalScenarioCondition Condition = 2 [json_name = "condition", (.NYT.column_name) = "condition"];
+  repeated .NAlice.NIot.TLocalScenario.TStep Steps = 3 [json_name = "steps", (.NYT.column_name) = "steps"];
+  .NAlice.NIot.TLocalScenario.TEffectiveTime EffectiveTime = 4 [json_name = "effective_time", (.NYT.column_name) = "effective_time"];
+  bool ContinueExecutionAfterError = 5 [json_name = "continue_execution_after_error", (.NYT.column_name) = "continue_execution_after_error"];
+  optional bool IsActive = 6 [json_name = "is_active", (.NYT.column_name) = "is_active"];
 }
 

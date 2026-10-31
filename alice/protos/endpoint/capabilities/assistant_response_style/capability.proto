@@ -10,15 +10,20 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAssistantResponseStyleCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AssistantResponseStyleCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSettings {
-      .NAlice.TAssistantResponseStyleCapability.EAssistantResponseStyle ResponseStyle = 1 [json_name = "response_style"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAssistantResponseStyleCapability.EAssistantResponseStyle ResponseStyle = 1 [json_name = "response_style", (.NYT.column_name) = "response_style"];
     }
 
-    .NAlice.TAssistantResponseStyleCapability.TState.TSettings Settings = 1 [json_name = "settings"];
+    .NAlice.TAssistantResponseStyleCapability.TState.TSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
   }
 
   enum EAssistantResponseStyle {
@@ -26,8 +31,8 @@ message TAssistantResponseStyleCapability {
     ChildOriented = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAssistantResponseStyleCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAssistantResponseStyleCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAssistantResponseStyleCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAssistantResponseStyleCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

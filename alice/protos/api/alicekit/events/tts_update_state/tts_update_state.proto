@@ -11,7 +11,9 @@ import "google/protobuf/duration.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsUpdateState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTsState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     .google.protobuf.Duration PlayedTtsDuration = 1;
     bool IsPlaying = 2;
   }
@@ -22,9 +24,9 @@ message TTtsUpdateState {
     Finish = 2;
   }
 
-  string RequestMessageId = 1 [json_name = "requestMessageId"];
-  .NAlice.NAliceApi.TTtsUpdateState.TTsState State = 2 [json_name = "state"];
-  .NAlice.NAliceApi.TTtsUpdateState.EReportReason ReportReason = 3 [json_name = "report_reason"];
-  uint32 SubStreamId = 4 [json_name = "sub_stream_id"];
+  string RequestMessageId = 1 [json_name = "requestMessageId", (.NYT.column_name) = "request_message_id"];
+  .NAlice.NAliceApi.TTtsUpdateState.TTsState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
+  .NAlice.NAliceApi.TTtsUpdateState.EReportReason ReportReason = 3 [json_name = "report_reason", (.NYT.column_name) = "report_reason"];
+  uint32 SubStreamId = 4 [json_name = "sub_stream_id", (.NYT.column_name) = "sub_stream_id"];
 }
 

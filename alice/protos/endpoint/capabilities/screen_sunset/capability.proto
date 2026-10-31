@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ScreenSunsetCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/screen_sunset;screen_sunsetpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScreenSunsetCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ScreenSunsetCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TScreenSunsetCapability.TAnimation SupportedAnimations = 1 [json_name = "supported_animations", (.NYT.column_name) = "supported_animations"];
+    .NAlice.TScreenSunsetCapability.TDurationParameters Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 DurationSeconds = 1 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
+    .NAlice.TScreenSunsetCapability.TAnimation CurrentAnimation = 2 [json_name = "current_animation", (.NYT.column_name) = "current_animation"];
+  }
+
+  message TDurationParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MinDurationSeconds = 1 [json_name = "min_duration_seconds", (.NYT.column_name) = "min_duration_seconds"];
+    uint32 MaxDurationSeconds = 2 [json_name = "max_duration_seconds", (.NYT.column_name) = "max_duration_seconds"];
+  }
+
+  message TAnimation {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EAnimation {
+      Unknown = 0;
+    }
+
+    .NAlice.TScreenSunsetCapability.TAnimation.EAnimation Animation = 1 [json_name = "animation", (.NYT.column_name) = "animation"];
+  }
+
+  message TSetScreenSunsetDirective {
+    option (.NAlice.SpeechKitName) = "set_screen_sunset_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetScreenSunsetDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 DurationSec = 1 [json_name = "duration_sec", (.NYT.column_name) = "duration_sec"];
+    .NAlice.TScreenSunsetCapability.TAnimation Animation = 2 [json_name = "animation", (.NYT.column_name) = "animation"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ScreenSunsetUpdateStateEventType;
+    .NAlice.TScreenSunsetCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TScreenSunsetCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TScreenSunsetCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

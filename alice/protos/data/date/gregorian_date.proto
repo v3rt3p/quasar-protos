@@ -8,6 +8,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/date";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGregorianDate {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EMonth {
     None = 0;
     January = 1;
@@ -24,8 +25,8 @@ message TGregorianDate {
     December = 12;
   }
 
-  uint32 DayOfMonth = 1 [json_name = "day_of_month"];
-  .NAlice.NData.TGregorianDate.EMonth Month = 2 [json_name = "month"];
-  uint32 Year = 3 [json_name = "year"];
+  uint32 DayOfMonth = 1 [json_name = "day_of_month", (.NYT.column_name) = "day_of_month"];
+  .NAlice.NData.TGregorianDate.EMonth Month = 2 [json_name = "month", (.NYT.column_name) = "month"];
+  uint32 Year = 3 [json_name = "year", (.NYT.column_name) = "year"];
 }
 

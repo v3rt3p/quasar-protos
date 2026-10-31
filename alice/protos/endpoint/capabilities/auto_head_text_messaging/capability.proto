@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutoHeadTextMessagingCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/auto_head_text_messaging;autoheadtextmessagingpb";
+
+import "alice/protos/data/telecom/providers.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutoHeadTextMessagingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutoHeadTextMessagingCapabilityType;
+  message TSupportedProvider {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NTelecom.EProvider Provider = 1 [json_name = "provider", (.NYT.column_name) = "provider"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutoHeadTextMessagingCapability.TSupportedProvider SupportedProviders = 1 [json_name = "supported_providers", (.NYT.column_name) = "supported_providers"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TConnectedDeviceState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      message TDeviceProviderState {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        .NAlice.NTelecom.EProvider Provider = 1 [json_name = "provider", (.NYT.column_name) = "provider"];
+        bool SyncEnabled = 2 [json_name = "sync_enabled", (.NYT.column_name) = "sync_enabled"];
+      }
+
+      repeated .NAlice.TAutoHeadTextMessagingCapability.TState.TConnectedDeviceState.TDeviceProviderState ProviderStates = 1 [json_name = "provider_states", (.NYT.column_name) = "provider_states"];
+    }
+
+    message TProviderState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NTelecom.EProvider Provider = 1 [json_name = "provider", (.NYT.column_name) = "provider"];
+      bool SyncEnabled = 2 [json_name = "sync_enabled", (.NYT.column_name) = "sync_enabled"];
+    }
+
+    repeated .NAlice.TAutoHeadTextMessagingCapability.TState.TProviderState ProviderStates = 1 [json_name = "provider_states", (.NYT.column_name) = "provider_states"];
+    optional .NAlice.TAutoHeadTextMessagingCapability.TState.TConnectedDeviceState ConnectedDeviceState = 2 [json_name = "connected_device_state", (.NYT.column_name) = "connected_device_state"];
+  }
+
+  message TSendMessageDirective {
+    option (.NAlice.SpeechKitName) = "auto_head_text_messaging_send_message";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AutoHeadTextMessagingSendMessageDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTelecom.TProviderContact ProviderContact = 3 [json_name = "provider_contact", (.NYT.column_name) = "provider_contact"];
+    string Message = 4 [json_name = "message", (.NYT.column_name) = "message"];
+  }
+
+  message TEnableSyncDirective {
+    option (.NAlice.SpeechKitName) = "auto_head_text_messaging_enable_sync";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AutoHeadTextMessagingEnableSyncDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTelecom.EProvider Provider = 2 [json_name = "provider", (.NYT.column_name) = "provider"];
+  }
+
+  message TDisableSyncDirective {
+    option (.NAlice.SpeechKitName) = "auto_head_text_messaging_disable_sync";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AutoHeadTextMessagingDisableSyncDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTelecom.EProvider Provider = 2 [json_name = "provider", (.NYT.column_name) = "provider"];
+  }
+
+  message TOpenPopupMessageDirective {
+    option (.NAlice.SpeechKitName) = "auto_head_text_messaging_open_popup_message";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AutoHeadTextMessagingOpenPopupMessageDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTelecom.TProviderContact ProviderContact = 2 [json_name = "provider_contact", (.NYT.column_name) = "provider_contact"];
+    string Message = 3 [json_name = "message", (.NYT.column_name) = "message"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutoHeadTextMessagingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutoHeadTextMessagingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

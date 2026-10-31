@@ -12,28 +12,39 @@ import "alice/protos/endpoint/events/events.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSmokeSensorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SmokeSensorCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event", (.NYT.column_name) = "last_event"];
   }
 
   message TSmokeSensorDetectedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SmokeSensorDetectedEventType;
   }
 
   message TSmokeSensorNotDetectedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SmokeSensorNotDetectedEventType;
   }
 
   message TSmokeSensorHighEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SmokeSensorHighEventType;
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events", (.NYT.column_name) = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSmokeSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSmokeSensorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSmokeSensorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSmokeSensorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

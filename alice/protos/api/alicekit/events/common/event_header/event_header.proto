@@ -21,17 +21,18 @@ message TEventHeader {
   reserved 9;
   reserved 10;
   message TSubRequestRef {
-    string MessageId = 1 [json_name = "message_id"];
-    string RequestId = 2 [json_name = "request_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string MessageId = 1 [json_name = "message_id", (.NYT.column_name) = "message_id"];
+    string RequestId = 2 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
-  string MessageId = 1 [json_name = "messageId"];
-  string RefMessageId = 2 [json_name = "refMessageId"];
-  .NAlice.NAliceApi.TEventHeader.TSubRequestRef SubRequestRef = 13 [json_name = "sub_request_ref"];
-  optional int64 StreamId = 4 [json_name = "streamId"];
-  optional int64 Ack = 5 [json_name = "ack"];
-  optional string RtLogId = 8 [json_name = "rtLogId"];
-  optional string SubRequestId = 11 [json_name = "sub_request_id"];
-  optional uint32 RetryNumber = 12 [json_name = "retry_number"];
+  string MessageId = 1 [json_name = "messageId", (.NYT.column_name) = "messageId"];
+  string RefMessageId = 2 [json_name = "refMessageId", (.NYT.column_name) = "refMessageId"];
+  .NAlice.NAliceApi.TEventHeader.TSubRequestRef SubRequestRef = 13 [json_name = "sub_request_ref", (.NYT.column_name) = "sub_request_ref"];
+  optional int64 StreamId = 4 [json_name = "streamId", (.NYT.column_name) = "streamId"];
+  optional int64 Ack = 5 [json_name = "ack", (.NYT.column_name) = "ack"];
+  optional string RtLogId = 8 [json_name = "rtLogId", (.NYT.column_name) = "rtLogId"];
+  optional string SubRequestId = 11 [json_name = "sub_request_id", deprecated = true, (.NYT.column_name) = "sub_request_id"];
+  optional uint32 RetryNumber = 12 [json_name = "retry_number", (.NYT.column_name) = "retry_number"];
 }
 

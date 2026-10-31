@@ -75,7 +75,7 @@ message TAliceModelsState {
     optional string Provider = 3;
     optional string Model = 4;
     optional string Id = 5;
-    optional bool External = 6;
+    optional bool External = 6 [deprecated = true];
     optional string CategoryId = 7;
     optional bool WillBeSoon = 8;
     optional .quark.core.proto.TAlice2ModeInfo ModeInfo = 9;

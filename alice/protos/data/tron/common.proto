@@ -9,13 +9,14 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTronRegularNoteTrigger {
   message TCronTrigger {
-    string CronExpression = 1 [json_name = "cron_expression"];
-    optional uint64 StartInvocation = 2 [json_name = "start_invocation"];
-    optional uint64 EndInvocation = 3 [json_name = "end_invocation"];
+    string CronExpression = 1 [json_name = "cron_expression", (.NYT.column_name) = "cron_expression"];
+    optional uint64 StartInvocation = 2 [json_name = "start_invocation", (.NYT.column_name) = "start_invocation"];
+    optional uint64 EndInvocation = 3 [json_name = "end_invocation", (.NYT.column_name) = "end_invocation"];
   }
 
   oneof Value {
-    .NAlice.NData.NTron.TTronRegularNoteTrigger.TCronTrigger CronTrigger = 1 [json_name = "cron_trigger"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.NTron.TTronRegularNoteTrigger.TCronTrigger CronTrigger = 1 [json_name = "cron_trigger", (.NYT.column_name) = "cron_trigger"];
   }
 }
 

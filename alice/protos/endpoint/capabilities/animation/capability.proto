@@ -13,11 +13,14 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnimationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AnimationCapabilityType;
   message TParameters {
-    repeated .NAlice.TAnimationCapability.EFormat SupportedFormats = 1 [json_name = "supported_formats"];
-    repeated .NAlice.TAnimationCapability.TScreen Screens = 2 [json_name = "screens"];
-    repeated .NAlice.TAnimationCapability.EAnimationType SupportedTypes = 3 [json_name = "supported_types"];
-    bool SupportsStreaming = 4 [json_name = "supports_streaming"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAnimationCapability.EFormat SupportedFormats = 1 [json_name = "supported_formats", (.NYT.column_name) = "supported_formats"];
+    repeated .NAlice.TAnimationCapability.TScreen Screens = 2 [json_name = "screens", (.NYT.column_name) = "screens"];
+    repeated .NAlice.TAnimationCapability.EAnimationType SupportedTypes = 3 [json_name = "supported_types", (.NYT.column_name) = "supported_types"];
+    bool SupportsStreaming = 4 [json_name = "supports_streaming", (.NYT.column_name) = "supports_streaming"];
   }
 
   message TScreen {
@@ -45,9 +48,9 @@ message TAnimationCapability {
       Brukva = 10;
     }
 
-    string Guid = 1 [json_name = "guid"];
-    .NAlice.TAnimationCapability.TScreen.EScreenType ScreenType = 2 [json_name = "screen_type"];
-    .NAlice.TAnimationCapability.TScreen.EFamily Family = 3 [json_name = "family"];
+    string Guid = 1 [json_name = "guid", (.NYT.column_name) = "guid"];
+    .NAlice.TAnimationCapability.TScreen.EScreenType ScreenType = 2 [json_name = "screen_type", (.NYT.column_name) = "screen_type"];
+    .NAlice.TAnimationCapability.TScreen.EFamily Family = 3 [json_name = "family", (.NYT.column_name) = "family"];
   }
 
   message TAnimation {
@@ -59,27 +62,33 @@ message TAnimationCapability {
       TimerCountdown = 4;
     }
 
-    .NAlice.TAnimationCapability.TAnimation.EAnimationType AnimationType = 1 [json_name = "animation_type"];
+    .NAlice.TAnimationCapability.TAnimation.EAnimationType AnimationType = 1 [json_name = "animation_type", (.NYT.column_name) = "animation_type"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "ScreenStates";
     reserved 1;
     message TScreenState {
       reserved "Screen";
       reserved 1;
-      bool Enabled = 2 [json_name = "enabled"];
-      .NAlice.TAnimationCapability.TAnimation Animation = 3 [json_name = "animation"];
+      bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+      .NAlice.TAnimationCapability.TAnimation Animation = 3 [json_name = "animation", (.NYT.column_name) = "animation"];
     }
 
-    map<string, .NAlice.TAnimationCapability.TState.TScreenState> ScreenStatesMap = 2 [json_name = "screen_states_map"];
+    map<string, .NAlice.TAnimationCapability.TState.TScreenState> ScreenStatesMap = 2 [json_name = "screen_states_map", (.NYT.column_name) = "screen_states_map"];
   }
 
   message TDrawAnimationDirective {
+    option (.NAlice.SpeechKitName) = "draw_animation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DrawAnimationDirectiveType;
     message TAnimation {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TS3Directory {
-        string Bucket = 1 [json_name = "bucket"];
-        string Path = 2 [json_name = "path"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Bucket = 1 [json_name = "bucket", (.NYT.column_name) = "bucket"];
+        string Path = 2 [json_name = "path", (.NYT.column_name) = "path"];
       }
 
       message TBinaryAnimation {
@@ -89,18 +98,19 @@ message TAnimationCapability {
           Gzip = 2;
         }
 
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation.ECompressionType Compression = 1 [json_name = "compression_type"];
-        string Base64EncodedValue = 2 [json_name = "base64_encoded_value"];
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation.ECompressionType Compression = 1 [json_name = "compression_type", (.NYT.column_name) = "compression_type"];
+        string Base64EncodedValue = 2 [json_name = "base64_encoded_value", (.NYT.column_name) = "base64_encoded_value"];
       }
 
       message TTypedAnimation {
-        .NAlice.TAnimationCapability.EAnimationType Type = 1 [json_name = "type"];
+        .NAlice.TAnimationCapability.EAnimationType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
       }
 
       oneof Value {
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation BinaryAnimation = 1 [json_name = "binary_animation"];
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TS3Directory S3Directory = 2 [json_name = "s3_directory"];
-        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TTypedAnimation TypedAnimation = 3 [json_name = "typed_animation"];
+        option (.NYT.variant_field_name) = "value";
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TBinaryAnimation BinaryAnimation = 1 [json_name = "binary_animation", (.NYT.column_name) = "binary_animation"];
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TS3Directory S3Directory = 2 [json_name = "s3_directory", (.NYT.column_name) = "s3_directory"];
+        .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation.TTypedAnimation TypedAnimation = 3 [json_name = "typed_animation", (.NYT.column_name) = "typed_animation"];
       }
     }
 
@@ -112,9 +122,9 @@ message TAnimationCapability {
         Substitution = 3;
       }
 
-      .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions.ESubstitutionType SubstitutionType = 1 [json_name = "substitution_type"];
-      optional uint64 MinDurationMs = 2 [json_name = "min_duration_ms"];
-      optional uint64 MaxDurationMs = 3 [json_name = "max_duration_ms"];
+      .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions.ESubstitutionType SubstitutionType = 1 [json_name = "substitution_type", (.NYT.column_name) = "substitution_type"];
+      optional uint64 MinDurationMs = 2 [json_name = "min_duration_ms", (.NYT.column_name) = "min_duration_ms"];
+      optional uint64 MaxDurationMs = 3 [json_name = "max_duration_ms", (.NYT.column_name) = "max_duration_ms"];
     }
 
     enum EAnimationStopPolicy {
@@ -132,26 +142,32 @@ message TAnimationCapability {
       SkipSpeakingAnimation = 2;
     }
 
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation Animations = 1 [json_name = "animations"];
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.EAnimationStopPolicy AnimationStopPolicy = 2 [json_name = "animation_stop_policy"];
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.ESpeakingAnimationPolicy SpeakingAnimationPolicy = 3 [json_name = "speaking_animation_policy"];
-    .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions AnimationOptions = 4 [json_name = "animation_options"];
-    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation FadeOutAnimations = 5 [json_name = "fade_out_animations"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation Animations = 1 [json_name = "animations", (.NYT.column_name) = "animations"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.EAnimationStopPolicy AnimationStopPolicy = 2 [json_name = "animation_stop_policy", (.NYT.column_name) = "animation_stop_policy"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.ESpeakingAnimationPolicy SpeakingAnimationPolicy = 3 [json_name = "speaking_animation_policy", (.NYT.column_name) = "speaking_animation_policy"];
+    .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimationOptions AnimationOptions = 4 [json_name = "animation_options", (.NYT.column_name) = "animation_options"];
+    repeated .NAlice.TAnimationCapability.TDrawAnimationDirective.TAnimation FadeOutAnimations = 5 [json_name = "fade_out_animations", (.NYT.column_name) = "fade_out_animations"];
   }
 
   message TEnableScreenDirective {
+    option (.NAlice.SpeechKitName) = "enable_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnableScreenDirectiveType;
     reserved "Screen";
     reserved 1;
-    string Name = 1000 [json_name = "name"];
-    string Guid = 2 [json_name = "guid"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string Guid = 2 [json_name = "guid", (.NYT.column_name) = "guid"];
   }
 
   message TDisableScreenDirective {
+    option (.NAlice.SpeechKitName) = "disable_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DisableScreenDirectiveType;
     reserved "Screen";
     reserved 1;
-    string Name = 1000 [json_name = "name"];
-    string Guid = 2 [json_name = "guid"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string Guid = 2 [json_name = "guid", (.NYT.column_name) = "guid"];
   }
 
   enum EFormat {
@@ -177,8 +193,8 @@ message TAnimationCapability {
     EmotionalLove = 13;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAnimationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAnimationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAnimationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAnimationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

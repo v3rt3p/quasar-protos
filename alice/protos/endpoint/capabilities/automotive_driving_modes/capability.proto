@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveDrivingModesCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_driving_modes;automotive_driving_modespb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveDrivingModesCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveDrivingModesCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveDrivingModesCapability.EDrivingMode SupportedModes = 1 [json_name = "supported_modes", (.NYT.column_name) = "supported_modes"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TDrivingModeState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveDrivingModesCapability.EDrivingMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+      optional bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    }
+
+    repeated .NAlice.TAutomotiveDrivingModesCapability.TState.TDrivingModeState DrivingModeStates = 1 [json_name = "driving_mode_states", (.NYT.column_name) = "driving_mode_states"];
+    optional bool GarageModeAvailability = 2 [json_name = "garage_mode_availability", (.NYT.column_name) = "garage_mode_availability"];
+  }
+
+  message TSetDrivingModeStateDirective {
+    option (.NAlice.SpeechKitName) = "set_driving_mode_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetDrivingModeStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveDrivingModesCapability.EDrivingMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EDrivingMode {
+    DRIVING_MODE_UNKNOWN = 0;
+    DRIVING_MODE_BASEMENT = 1;
+    DRIVING_MODE_LIFTING = 2;
+    DRIVING_MODE_HEIGHT_LOCK = 3;
+    DRIVING_MODE_WADING = 4;
+    DRIVING_MODE_EXPERT = 5;
+    DRIVING_MODE_INDIVIDUAL = 6;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveDrivingModesCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveDrivingModesCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

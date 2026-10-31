@@ -1,0 +1,168 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CompanionScreenCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/companion_screen;companionscreenpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/api/rpc/notes/notes.proto";
+import "alice/protos/api/rpc/reminders/reminders.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCompanionScreenCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CompanionScreenCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TShowTimersDirective {
+    option (.NAlice.SpeechKitName) = "show_timers_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowTimersDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TShowAlarmsDirective {
+    option (.NAlice.SpeechKitName) = "show_alarms_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAlarmsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TShowRemindersDirective {
+    option deprecated = true;
+    option (.NAlice.SpeechKitName) = "show_reminders_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowRemindersDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.NReminders.NRpcApi.TReminder Reminders = 2 [json_name = "reminders", (.NYT.column_name) = "reminders"];
+    repeated .NAlice.NNotes.NApi.TNote Notes = 3 [json_name = "notes", (.NYT.column_name) = "notes"];
+  }
+
+  message TNotesEventDirective {
+    option (.NAlice.SpeechKitName) = "notes_event_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = NotesEventDirectiveType;
+    enum ENotesEvent {
+      Unknown = 0;
+      NoteCreated = 1;
+      NoteCompleted = 2;
+      ReminderCreated = 3;
+      ReminderTriggered = 4;
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCompanionScreenCapability.TNotesEventDirective.ENotesEvent Event = 2 [json_name = "event", (.NYT.column_name) = "event"];
+  }
+
+  message TReminderTriggeredDirective {
+    option (.NAlice.SpeechKitName) = "reminder_triggered_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ReminderTriggeredDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TShowWeatherDirective {
+    option (.NAlice.SpeechKitName) = "show_weather_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowWeatherDirectiveType;
+    message TWeather {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+      string Subtitle = 2 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+      string AnimationUrl = 3 [json_name = "animation_url", (.NYT.column_name) = "animation_url"];
+      int32 Temperature = 4 [json_name = "temperature", (.NYT.column_name) = "temperature"];
+      string PreviewUrl = 5 [json_name = "preview_url", (.NYT.column_name) = "preview_url"];
+      .NAlice.TCompanionScreenCapability.TShowWeatherDirective.EWeatherType WeatherType = 6 [json_name = "weather_type", (.NYT.column_name) = "weather_type"];
+    }
+
+    message TCurrentWeather {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 Temperature = 1 [json_name = "temperature", (.NYT.column_name) = "temperature"];
+      string Icon128Url = 2 [json_name = "icon_128_url", (.NYT.column_name) = "icon_128_url"];
+      string Description = 3 [json_name = "description", (.NYT.column_name) = "description"];
+      .NAlice.TCompanionScreenCapability.TShowWeatherDirective.EWeatherType WeatherType = 4 [json_name = "weather_type", (.NYT.column_name) = "weather_type"];
+    }
+
+    enum EWeatherType {
+      Other = 0;
+      Rain = 1;
+      Snow = 2;
+      Sunny = 3;
+      Cloudy = 4;
+    }
+
+    enum ETarget {
+      Unknown = 0;
+      ShowWeatherScreen = 1;
+      UpdateWeather = 2;
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TCompanionScreenCapability.TShowWeatherDirective.TWeather RequestedWeather = 2 [json_name = "requested_weather", (.NYT.column_name) = "requested_weather"];
+    .NAlice.TCompanionScreenCapability.TShowWeatherDirective.TCurrentWeather CurrentWeather = 3 [json_name = "current_weather", (.NYT.column_name) = "current_weather"];
+    .NAlice.TCompanionScreenCapability.TShowWeatherDirective.ETarget Target = 4 [json_name = "target", (.NYT.column_name) = "target"];
+  }
+
+  message TShowAnimationDirective {
+    option (.NAlice.SpeechKitName) = "show_animation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAnimationDirectiveType;
+    message TAnimation {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      message TS3Directory {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Bucket = 1 [json_name = "bucket", (.NYT.column_name) = "bucket"];
+        string Path = 2 [json_name = "path", (.NYT.column_name) = "path"];
+      }
+
+      message TSensorValue {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+      }
+
+      enum ESourceType {
+        Unknown = 0;
+        TemperatureSensor = 1;
+        HumiditySensor = 2;
+      }
+
+      .NAlice.TCompanionScreenCapability.TShowAnimationDirective.TAnimation.ESourceType SourceType = 2 [json_name = "source_type", (.NYT.column_name) = "source_type"];
+      oneof Value {
+        option (.NYT.variant_field_name) = "value";
+        .NAlice.TCompanionScreenCapability.TShowAnimationDirective.TAnimation.TS3Directory S3Directory = 1 [json_name = "s3_directory", (.NYT.column_name) = "s3_directory"];
+      }
+      oneof SourceValue {
+        option (.NYT.variant_field_name) = "source_value";
+        .NAlice.TCompanionScreenCapability.TShowAnimationDirective.TAnimation.TSensorValue SensorValue = 3 [json_name = "sensor_value", (.NYT.column_name) = "sensor_value"];
+      }
+    }
+
+    enum EAnimationStopPolicy {
+      Unknown = 0;
+      PlayOnce = 1;
+      PlayOnceTillEndOfTTS = 2;
+      RepeatLastTillEndOfTTS = 3;
+      RepeatLastTillNextDirective = 4;
+      RepeatTillScreenAlive = 5;
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TCompanionScreenCapability.TShowAnimationDirective.TAnimation Animations = 1 [json_name = "animations", (.NYT.column_name) = "animations"];
+    .NAlice.TCompanionScreenCapability.TShowAnimationDirective.EAnimationStopPolicy AnimationStopPolicy = 2 [json_name = "animation_stop_policy", (.NYT.column_name) = "animation_stop_policy"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCompanionScreenCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCompanionScreenCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -14,12 +14,15 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSoundAlarmCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SoundAlarmCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "TimeoutUnit";
     reserved "TimeoutRange";
     reserved 1;
     reserved 2;
-    .NAlice.TRange TimeoutRangeSec = 3 [json_name = "timeout_range_sec"];
+    .NAlice.TRange TimeoutRangeSec = 3 [json_name = "timeout_range_sec", (.NYT.column_name) = "timeout_range_sec"];
   }
 
   message TDisablePolicy {
@@ -31,37 +34,46 @@ message TSoundAlarmCapability {
   message TTimeoutPolicy {
     reserved "Time";
     reserved 1;
-    double TimeoutSec = 2 [json_name = "timeout_sec"];
+    double TimeoutSec = 2 [json_name = "timeout_sec", (.NYT.column_name) = "timeout_sec"];
   }
 
   message TStrategy {
     oneof Policy {
-      .NAlice.TSoundAlarmCapability.TDisablePolicy Disable = 1 [json_name = "disable"];
-      .NAlice.TSoundAlarmCapability.TInfinityPolicy Infinity = 2 [json_name = "infinity"];
-      .NAlice.TSoundAlarmCapability.TTimeoutPolicy Timeout = 3 [json_name = "timeout"];
+      .NAlice.TSoundAlarmCapability.TDisablePolicy Disable = 1 [json_name = "disable", (.NYT.column_name) = "disable"];
+      .NAlice.TSoundAlarmCapability.TInfinityPolicy Infinity = 2 [json_name = "infinity", (.NYT.column_name) = "infinity"];
+      .NAlice.TSoundAlarmCapability.TTimeoutPolicy Timeout = 3 [json_name = "timeout", (.NYT.column_name) = "timeout"];
     }
   }
 
   message TState {
-    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1 [json_name = "strategy"];
-    bool IsAlarmActive = 2 [json_name = "is_alarm_active"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1 [json_name = "strategy", (.NYT.column_name) = "strategy"];
+    bool IsAlarmActive = 2 [json_name = "is_alarm_active", (.NYT.column_name) = "is_alarm_active"];
   }
 
   message TSetStrategyDirective {
+    option (.NAlice.SpeechKitName) = "set_strategy_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSoundAlarmStrategyDirectiveType;
     .NAlice.TSoundAlarmCapability.TStrategy Strategy = 1 [json_name = "strategy"];
-    string Name = 1000 [json_name = "name"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TStopCurrentSoundAlarmDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "stop_current_sound_alarm_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopCurrentSoundAlarmDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSoundAlarmCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SoundAlarmUpdateStateEventType;
+    .NAlice.TSoundAlarmCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSoundAlarmCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSoundAlarmCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSoundAlarmCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSoundAlarmCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

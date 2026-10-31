@@ -13,9 +13,10 @@ import "google/protobuf/any.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTypedCallbackRequestData {
-  .google.protobuf.Any TypedCallback = 1 [json_name = "typed_callback"];
-  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics"];
-  .NAlice.TOrigin Origin = 3 [json_name = "origin"];
-  .NAlice.TRequestParams RequestParams = 4 [json_name = "request_params"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .google.protobuf.Any TypedCallback = 1 [json_name = "typed_callback", (.NYT.column_name) = "typed_callback"];
+  .NAlice.TAnalyticsTrackingModule Analytics = 2 [json_name = "analytics", (.NYT.column_name) = "analytics"];
+  .NAlice.TOrigin Origin = 3 [json_name = "origin", (.NYT.column_name) = "origin"];
+  .NAlice.TRequestParams RequestParams = 4 [json_name = "request_params", (.NYT.column_name) = "request_params"];
 }
 

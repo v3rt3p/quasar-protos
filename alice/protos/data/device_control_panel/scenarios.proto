@@ -11,27 +11,27 @@ import "alice/protos/data/device_control_panel/common_scenario_state.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTotalScenario {
-  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings"];
-  .NAlice.TCommonScenarioState State = 2 [json_name = "state"];
+  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  .NAlice.TCommonScenarioState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TVideoScenario {
-  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings"];
-  .NAlice.TCommonScenarioState State = 2 [json_name = "state"];
+  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  .NAlice.TCommonScenarioState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TTvChannelsScenario {
-  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings"];
-  .NAlice.TCommonScenarioState State = 2 [json_name = "state"];
+  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  .NAlice.TCommonScenarioState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TInputControlScenario {
-  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings"];
-  .NAlice.TCommonScenarioState State = 2 [json_name = "state"];
+  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  .NAlice.TCommonScenarioState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TExternalAppScenario {
-  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings"];
-  .NAlice.TCommonScenarioState State = 2 [json_name = "state"];
+  .NAlice.TCommonScenarioSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  .NAlice.TCommonScenarioState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

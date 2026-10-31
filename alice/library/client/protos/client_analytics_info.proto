@@ -9,6 +9,7 @@ option go_package = "a.yandex-team.ru/alice/library/client/protos";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientAnalyticsInfoProto {
-  optional string ClientUrl = 1 [json_name = "client_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string ClientUrl = 1 [json_name = "client_url", (.NYT.column_name) = "client_url"];
 }
 

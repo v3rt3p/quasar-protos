@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AccessibilityVoiceControlCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/accessibility_voice_control;accessibilityvoicecontrolpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAccessibilityVoiceControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AccessibilityVoiceControlType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Layout = 1 [json_name = "layout", (.NYT.column_name) = "layout"];
+    .NAlice.TAccessibilityVoiceControlCapability.EControlMode ControlMode = 2 [json_name = "control_mode", (.NYT.column_name) = "control_mode"];
+    .NAlice.TAccessibilityVoiceControlCapability.TApplicationState ApplicationState = 3 [json_name = "application_state", (.NYT.column_name) = "application_state"];
+  }
+
+  message TApplicationState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string PackageName = 1 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+    optional string ScreenName = 2 [json_name = "screen_name", (.NYT.column_name) = "screen_name"];
+  }
+
+  message TAccessibilityPressButtonByIdDirective {
+    option (.NAlice.SpeechKitName) = "accessibility_press_button_by_id_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AccessibilityPressButtonByIdDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 ButtonId = 2 [json_name = "button_id", (.NYT.column_name) = "button_id"];
+    optional string Reason = 3 [json_name = "reason", (.NYT.column_name) = "reason"];
+  }
+
+  message TAccessibilityWriteTextInInputDirective {
+    option (.NAlice.SpeechKitName) = "accessibility_write_text_in_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AccessibilityWriteTextInInputDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 InputId = 2 [json_name = "input_id", (.NYT.column_name) = "input_id"];
+    string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+  }
+
+  enum EControlMode {
+    Unknown = 0;
+    OverlayOnly = 1;
+    GptOnly = 2;
+    OverlayFirst = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAccessibilityVoiceControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAccessibilityVoiceControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

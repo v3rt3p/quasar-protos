@@ -8,9 +8,10 @@ import "alice/protos/data/video/video.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFilmPurchaseDetails {
-  string QRUrl = 1 [json_name = "qr_url"];
-  string Title = 2 [json_name = "title"];
-  .NAlice.TVHLicenceInfo VhLicences = 3 [json_name = "vh_licenses"];
-  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 4 [json_name = "view_options"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string QRUrl = 1 [json_name = "qr_url", (.NYT.column_name) = "qr_url"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TVHLicenceInfo VhLicences = 3 [json_name = "vh_licenses", (.NYT.column_name) = "vh_licenses"];
+  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 4 [json_name = "view_options", (.NYT.column_name) = "view_options"];
 }
 

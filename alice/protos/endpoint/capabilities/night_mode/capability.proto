@@ -13,21 +13,28 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNightModeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = NightModeCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TSetNightModeDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Enabled = 1 [json_name = "enabled"];
-    bool ManuallyToggled = 2 [json_name = "manually_toggled"];
+    option (.NAlice.SpeechKitName) = "set_night_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetNightModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    bool ManuallyToggled = 2 [json_name = "manually_toggled", (.NYT.column_name) = "manually_toggled"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TNightModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TNightModeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TNightModeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TNightModeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

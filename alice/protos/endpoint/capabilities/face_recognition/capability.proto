@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "FaceRecognitionCapability";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/face_recognition;face_recognitionpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/megamind/protos/guest/enrollment_headers/enrollment_headers.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFaceRecognitionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FaceRecognitionCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TCurrentRecognizedData {
+    reserved "Puid";
+    reserved 1;
+    repeated string Puids = 2 [json_name = "puids", (.NYT.column_name) = "puids", (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    map<string, .NAlice.TEnrollmentHeader> Enrollments = 1 [json_name = "enrollments", (.NYT.column_name) = "enrollments"];
+    bool FaceIdScopeIsActive = 3 [json_name = "face_id_scope_is_active", (.NYT.column_name) = "face_id_scope_is_active"];
+    optional .NAlice.TFaceRecognitionCapability.TCurrentRecognizedData currentRecognizedData = 2 [json_name = "current_recognized_data", (.NYT.column_name) = "current_recognized_data"];
+  }
+
+  message TStartFaceEnrollmentDirective {
+    option (.NAlice.SpeechKitName) = "start_face_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartFaceEnrollmentDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string PersId = 1 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  message TStartFaceRecordingDirective {
+    option (.NAlice.SpeechKitName) = "start_face_recording_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartFaceRecordingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string PersId = 1 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  message TForgetFaceEnrollmentDirective {
+    option (.NAlice.SpeechKitName) = "forget_face_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForgetFaceEnrollmentDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string PersId = 1 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  message TForgetAllFacesDirective {
+    option (.NAlice.SpeechKitName) = "forget_all_faces_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForgetAllFacesDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenSmartHomeConfirmQrDirective {
+    option (.NAlice.SpeechKitName) = "open_smart_home_confirm_qr_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSmartHomeConfirmQrDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+    string PersId = 2 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    string Puid = 3 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFaceRecognitionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFaceRecognitionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -10,113 +10,119 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDialogovoSkillCardData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
   message TSkillInfo {
-    string Name = 1 [json_name = "name"];
-    string Logo = 2 [json_name = "logo"];
-    string SkillId = 3 [json_name = "skill_id"];
-    string PaletteId = 4 [json_name = "palette_id"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Logo = 2 [json_name = "logo", (.NYT.column_name) = "logo"];
+    string SkillId = 3 [json_name = "skill_id", (.NYT.column_name) = "skill_id"];
+    string PaletteId = 4 [json_name = "palette_id", (.NYT.column_name) = "palette_id"];
   }
 
   message TSkillRequest {
-    string Text = 1 [json_name = "text"];
+    string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
   }
 
   message TSkillResponse {
     message TButton {
-      string Text = 1 [json_name = "text"];
-      string Url = 2 [json_name = "url"];
-      string Payload = 3 [json_name = "payload"];
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+      string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+      string Payload = 3 [json_name = "payload", (.NYT.column_name) = "payload"];
     }
 
     message TSuggest {
-      string Text = 1 [json_name = "text"];
-      string Url = 2 [json_name = "url"];
-      string Payload = 3 [json_name = "payload"];
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+      string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+      string Payload = 3 [json_name = "payload", (.NYT.column_name) = "payload"];
     }
 
     message TTextResponse {
-      string Text = 1 [json_name = "text"];
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TImageItem {
-      string ImageUrl = 1 [json_name = "image_url"];
-      string Title = 2 [json_name = "title"];
-      string Description = 3 [json_name = "description"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton Button = 4 [json_name = "button"];
+      string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+      string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+      string Description = 3 [json_name = "description", (.NYT.column_name) = "description"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton Button = 4 [json_name = "button", (.NYT.column_name) = "button"];
     }
 
     message TBigImageResponse {
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItem = 1 [json_name = "image_item"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItem = 1 [json_name = "image_item", (.NYT.column_name) = "image_item"];
     }
 
     message TImageGalleryResponse {
-      repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItems = 1 [json_name = "image_items"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListHeader ItemsListHeader = 2 [json_name = "items_list_header"];
+      repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItems = 1 [json_name = "image_items", (.NYT.column_name) = "image_items"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListHeader ItemsListHeader = 2 [json_name = "items_list_header", (.NYT.column_name) = "items_list_header"];
     }
 
     message TItemsListHeader {
-      string Text = 1 [json_name = "text"];
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TItemsListFooter {
-      string Text = 1 [json_name = "text"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton Button = 2 [json_name = "button"];
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton Button = 2 [json_name = "button", (.NYT.column_name) = "button"];
     }
 
     message TItemsListResponse {
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListHeader ItemsLisetHeader = 1 [json_name = "items_list_header"];
-      repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItems = 2 [json_name = "image_items"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListFooter ItemsLisetFooter = 3 [json_name = "items_list_footer"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListHeader ItemsLisetHeader = 1 [json_name = "items_list_header", (.NYT.column_name) = "items_list_header"];
+      repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageItem ImageItems = 2 [json_name = "image_items", (.NYT.column_name) = "image_items"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListFooter ItemsLisetFooter = 3 [json_name = "items_list_footer", (.NYT.column_name) = "items_list_footer"];
     }
 
     message TFullScreenResponse {
-      string BackgroundImageUrl = 1 [json_name = "background_image_url"];
-      string Title = 2 [json_name = "title"];
-      string Body = 3 [json_name = "body"];
+      string BackgroundImageUrl = 1 [json_name = "background_image_url", (.NYT.column_name) = "background_image_url"];
+      string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+      string Body = 3 [json_name = "body", (.NYT.column_name) = "body"];
     }
 
-    repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton buttons = 5 [json_name = "buttons"];
-    repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TSuggest suggests = 6 [json_name = "suggests"];
-    bool EndSession = 7 [json_name = "end_session"];
+    repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TButton buttons = 5 [json_name = "buttons", (.NYT.column_name) = "buttons"];
+    repeated .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TSuggest suggests = 6 [json_name = "suggests", (.NYT.column_name) = "suggests"];
+    bool EndSession = 7 [json_name = "end_session", (.NYT.column_name) = "end_session"];
     oneof ResponseCard {
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TTextResponse TextResponse = 1 [json_name = "text_response"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TBigImageResponse BigImageResponse = 2 [json_name = "big_image_response"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageGalleryResponse ImageGalleryResponse = 3 [json_name = "image_gallery_response"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListResponse ItemsListResponse = 4 [json_name = "items_list_response"];
-      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TFullScreenResponse FullScreenResponse = 8 [json_name = "full_screen_response"];
+      option (.NYT.variant_field_name) = "response_card";
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TTextResponse TextResponse = 1 [json_name = "text_response", (.NYT.column_name) = "text_response"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TBigImageResponse BigImageResponse = 2 [json_name = "big_image_response", (.NYT.column_name) = "big_image_response"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TImageGalleryResponse ImageGalleryResponse = 3 [json_name = "image_gallery_response", (.NYT.column_name) = "image_gallery_response"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TItemsListResponse ItemsListResponse = 4 [json_name = "items_list_response", (.NYT.column_name) = "items_list_response"];
+      .NAlice.NData.TDialogovoSkillCardData.TSkillResponse.TFullScreenResponse FullScreenResponse = 8 [json_name = "full_screen_response", (.NYT.column_name) = "full_screen_response"];
     }
   }
 
-  .NAlice.NData.TDialogovoSkillCardData.TSkillInfo SkillInfo = 1 [json_name = "skill_info"];
-  .NAlice.NData.TDialogovoSkillCardData.TSkillRequest SkillRequest = 2 [json_name = "skill_request"];
-  .NAlice.NData.TDialogovoSkillCardData.TSkillResponse SkillResponse = 3 [json_name = "skill_response"];
+  .NAlice.NData.TDialogovoSkillCardData.TSkillInfo SkillInfo = 1 [json_name = "skill_info", (.NYT.column_name) = "skill_info"];
+  .NAlice.NData.TDialogovoSkillCardData.TSkillRequest SkillRequest = 2 [json_name = "skill_request", (.NYT.column_name) = "skill_request"];
+  .NAlice.NData.TDialogovoSkillCardData.TSkillResponse SkillResponse = 3 [json_name = "skill_response", (.NYT.column_name) = "skill_response"];
 }
 
 message TDialogovoSkillTeaserData {
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
   message TSkillInfo {
-    string Name = 1 [json_name = "name"];
-    string Logo = 2 [json_name = "logo"];
-    string SkillId = 3 [json_name = "skill_id"];
-    string PaletteId = 4 [json_name = "palette_id"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Logo = 2 [json_name = "logo", (.NYT.column_name) = "logo"];
+    string SkillId = 3 [json_name = "skill_id", (.NYT.column_name) = "skill_id"];
+    string PaletteId = 4 [json_name = "palette_id", (.NYT.column_name) = "palette_id"];
   }
 
-  .NAlice.NData.TDialogovoSkillTeaserData.TSkillInfo SkillInfo = 1 [json_name = "skill_info"];
-  string ImageUrl = 2 [json_name = "image_url"];
-  string Text = 3 [json_name = "text"];
-  string Title = 4 [json_name = "title"];
-  string Action = 5 [json_name = "action"];
+  .NAlice.NData.TDialogovoSkillTeaserData.TSkillInfo SkillInfo = 1 [json_name = "skill_info", (.NYT.column_name) = "skill_info"];
+  string ImageUrl = 2 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+  string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+  string Action = 5 [json_name = "action", (.NYT.column_name) = "action"];
 }
 
 message TSkillInfo {
-  string Name = 1 [json_name = "name"];
-  string Logo = 2 [json_name = "logo"];
-  string SkillId = 3 [json_name = "skill_id"];
-  string PaletteId = 4 [json_name = "palette_id"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  string Logo = 2 [json_name = "logo", (.NYT.column_name) = "logo"];
+  string SkillId = 3 [json_name = "skill_id", (.NYT.column_name) = "skill_id"];
+  string PaletteId = 4 [json_name = "palette_id", (.NYT.column_name) = "palette_id"];
 }
 
 message TDialogovoDeactivateSkillData {
-  .NAlice.NData.TSkillInfo SkillInfo = 1 [json_name = "skill_info"];
-  string Text = 2 [json_name = "text"];
-  string Request = 3 [json_name = "request"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  .NAlice.NData.TSkillInfo SkillInfo = 1 [json_name = "skill_info", (.NYT.column_name) = "skill_info"];
+  string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+  string Request = 3 [json_name = "request", (.NYT.column_name) = "request"];
 }
 

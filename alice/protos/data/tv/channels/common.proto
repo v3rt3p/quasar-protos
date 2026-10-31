@@ -11,43 +11,47 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTvChannelId {
   oneof IdentityMethod {
-    string ChannelUri = 1 [json_name = "channel_uri"];
-    string ContentId = 2 [json_name = "content_id"];
+    option (.NYT.oneof_flags) = VARIANT;
+    option (.NYT.variant_field_name) = "identity_method";
+    string ChannelUri = 1 [json_name = "channel_uri", (.NYT.column_name) = "channel_uri"];
+    string ContentId = 2 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 }
 
 message TChannel {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "BageUrl";
   reserved 10;
-  int32 ChannelId = 1 [json_name = "channel_id"];
-  string ChannelProvider = 2 [json_name = "channel_provider"];
-  string ChannelProviderId = 3 [json_name = "channel_provider_id"];
-  string Title = 4 [json_name = "title"];
-  string Description = 5 [json_name = "description"];
-  string DisplayNumber = 6 [json_name = "display_number"];
-  string Thumbnail = 7 [json_name = "thumbnail"];
-  string Icon = 8 [json_name = "icon"];
-  string IconBgColor = 9 [json_name = "icon_bg_color"];
-  bool HasCatchup = 11 [json_name = "has_catchup"];
-  int32 CatchupAgeSeconds = 12 [json_name = "catchup_age_seconds"];
-  string RestrictionAge = 13 [json_name = "restriction_age"];
-  .NAlice.NTv.TWatchingOption WatchingOption = 14 [json_name = "watching_option"];
-  string BadgeUrl = 15 [json_name = "badge_url"];
-  string ChannelProviderLogo = 16 [json_name = "channel_provider_logo"];
-  repeated .NAlice.NTv.TAdvertisementItem Advertisement = 17 [json_name = "advertisement"];
-  .NAlice.NTv.TTvis Tvis = 18 [json_name = "tvis"];
-  repeated .NAlice.NTv.TProgramItem CurrentEpisodes = 19 [json_name = "current_episodes"];
-  int32 ItemSelectionNumber = 20 [json_name = "item_selection_number"];
-  string ChannelBgColor = 21 [json_name = "channel_bg_color"];
-  .NAlice.NTv.TViewOptions ViewOptions = 22 [json_name = "view_options"];
-  bool IsMultiplex = 23 [json_name = "is_multiplex"];
-  string LogoUrl = 24 [json_name = "logo_url"];
-  optional .NAlice.TAvatarMdsImage BadgeMds = 25 [json_name = "badge_mds"];
-  optional .NAlice.TAvatarMdsImage IconMds = 26 [json_name = "icon_mds"];
+  int32 ChannelId = 1 [json_name = "channel_id", (.NYT.column_name) = "channel_id"];
+  string ChannelProvider = 2 [json_name = "channel_provider", (.NYT.column_name) = "channel_provider"];
+  string ChannelProviderId = 3 [json_name = "channel_provider_id", (.NYT.column_name) = "channel_provider_id"];
+  string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+  string Description = 5 [json_name = "description", (.NYT.column_name) = "description"];
+  string DisplayNumber = 6 [json_name = "display_number", (.NYT.column_name) = "display_number"];
+  string Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  string Icon = 8 [json_name = "icon", (.NYT.column_name) = "icon"];
+  string IconBgColor = 9 [json_name = "icon_bg_color", (.NYT.column_name) = "icon_bg_color"];
+  bool HasCatchup = 11 [json_name = "has_catchup", (.NYT.column_name) = "has_catchup"];
+  int32 CatchupAgeSeconds = 12 [json_name = "catchup_age_seconds", (.NYT.column_name) = "catchup_age_seconds"];
+  string RestrictionAge = 13 [json_name = "restriction_age", (.NYT.column_name) = "restriction_age"];
+  .NAlice.NTv.TWatchingOption WatchingOption = 14 [json_name = "watching_option", (.NYT.column_name) = "watching_option"];
+  string BadgeUrl = 15 [json_name = "badge_url", (.NYT.column_name) = "badge_url"];
+  string ChannelProviderLogo = 16 [json_name = "channel_provider_logo", (.NYT.column_name) = "channel_provider_logo"];
+  repeated .NAlice.NTv.TAdvertisementItem Advertisement = 17 [json_name = "advertisement", (.NYT.column_name) = "advertisement"];
+  .NAlice.NTv.TTvis Tvis = 18 [json_name = "tvis", (.NYT.column_name) = "tvis"];
+  repeated .NAlice.NTv.TProgramItem CurrentEpisodes = 19 [json_name = "current_episodes", deprecated = true, (.NYT.column_name) = "current_episodes"];
+  int32 ItemSelectionNumber = 20 [json_name = "item_selection_number", (.NYT.column_name) = "item_selection_number"];
+  string ChannelBgColor = 21 [json_name = "channel_bg_color", (.NYT.column_name) = "channel_bg_color"];
+  .NAlice.NTv.TViewOptions ViewOptions = 22 [json_name = "view_options", (.NYT.column_name) = "view_options"];
+  bool IsMultiplex = 23 [json_name = "is_multiplex", (.NYT.column_name) = "is_multiplex"];
+  string LogoUrl = 24 [json_name = "logo_url", (.NYT.column_name) = "logo_url"];
+  optional .NAlice.TAvatarMdsImage BadgeMds = 25 [json_name = "badge_mds", (.NYT.column_name) = "badge_mds"];
+  optional .NAlice.TAvatarMdsImage IconMds = 26 [json_name = "icon_mds", (.NYT.column_name) = "icon_mds"];
 }
 
 message TWatchingOption {
-  bool IsPaid = 1 [json_name = "is_paid"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool IsPaid = 1 [json_name = "is_paid", (.NYT.column_name) = "is_paid"];
 }
 
 message TViewOptions {
@@ -76,59 +80,65 @@ message TViewOptions {
     P_UNPURCHASABLE = 3;
   }
 
-  string Type = 1 [json_name = "type"];
-  repeated string MonetizationModels = 2 [json_name = "monetization_models"];
-  .NAlice.NTv.TViewOptions.EWatchabilityStatus Watchability = 3 [json_name = "watchability"];
-  .NAlice.NTv.TViewOptions.EPurchasabilityStatus Purchasability = 4 [json_name = "purchasability"];
-  string BillingFeatureName = 12 [json_name = "billing_feature_name"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  repeated string MonetizationModels = 2 [json_name = "monetization_models", (.NYT.column_name) = "monetization_models"];
+  .NAlice.NTv.TViewOptions.EWatchabilityStatus Watchability = 3 [json_name = "watchability", (.NYT.column_name) = "watchability"];
+  .NAlice.NTv.TViewOptions.EPurchasabilityStatus Purchasability = 4 [json_name = "purchasability", (.NYT.column_name) = "purchasability"];
+  string BillingFeatureName = 12 [json_name = "billing_feature_name", (.NYT.column_name) = "billing_feature_name"];
 }
 
 message TCategory {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TChannelWrapper {
     oneof Id {
-      int32 ChannelId = 1 [json_name = "channel_id"];
-      int32 InternalId = 2 [json_name = "internal_id"];
+      option (.NYT.variant_field_name) = "id";
+      int32 ChannelId = 1 [json_name = "channel_id", (.NYT.column_name) = "channel_id"];
+      int32 InternalId = 2 [json_name = "internal_id", (.NYT.column_name) = "internal_id"];
     }
   }
 
-  string Name = 1 [json_name = "name"];
-  repeated .NAlice.NTv.TCategory.TChannelWrapper Channels = 2 [json_name = "channels"];
-  string CategoryId = 3 [json_name = "category_id"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  repeated .NAlice.NTv.TCategory.TChannelWrapper Channels = 2 [json_name = "channels", (.NYT.column_name) = "channels"];
+  string CategoryId = 3 [json_name = "category_id", (.NYT.column_name) = "category_id"];
 }
 
 message TProgramItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "EpisodeTitle";
   reserved 12;
-  string Title = 1 [json_name = "title"];
-  int32 ProgramId = 2 [json_name = "program_id"];
-  string StartTime = 3 [json_name = "start_time"];
-  string EndTime = 4 [json_name = "end_time"];
-  string ContentId = 5 [json_name = "content_id"];
-  int32 Duration = 6 [json_name = "duration"];
-  string Thumbnail = 7 [json_name = "thumbnail"];
-  string Description = 8 [json_name = "description"];
-  string RestrictionAge = 9 [json_name = "restriction_age"];
-  repeated .NAlice.NTv.TAdvertisementItem Advertisement = 10 [json_name = "advertisement"];
-  .NAlice.NTv.TTvis Tvis = 11 [json_name = "tvis"];
-  string Genre = 13 [json_name = "genre"];
-  string CatchupContentId = 14 [json_name = "catchup_content_id"];
-  optional .NAlice.TAvatarMdsImage ThumbnailMds = 15 [json_name = "thumbnail_mds"];
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  int32 ProgramId = 2 [json_name = "program_id", (.NYT.column_name) = "program_id"];
+  string StartTime = 3 [json_name = "start_time", (.NYT.column_name) = "start_time"];
+  string EndTime = 4 [json_name = "end_time", (.NYT.column_name) = "end_time"];
+  string ContentId = 5 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  int32 Duration = 6 [json_name = "duration", (.NYT.column_name) = "duration"];
+  string Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  string Description = 8 [json_name = "description", (.NYT.column_name) = "description"];
+  string RestrictionAge = 9 [json_name = "restriction_age", (.NYT.column_name) = "restriction_age"];
+  repeated .NAlice.NTv.TAdvertisementItem Advertisement = 10 [json_name = "advertisement", (.NYT.column_name) = "advertisement"];
+  .NAlice.NTv.TTvis Tvis = 11 [json_name = "tvis", (.NYT.column_name) = "tvis"];
+  string Genre = 13 [json_name = "genre", (.NYT.column_name) = "genre"];
+  string CatchupContentId = 14 [json_name = "catchup_content_id", (.NYT.column_name) = "catchup_content_id"];
+  optional .NAlice.TAvatarMdsImage ThumbnailMds = 15 [json_name = "thumbnail_mds", (.NYT.column_name) = "thumbnail_mds"];
 }
 
 message TAdvertisementItem {
-  string Position = 1 [json_name = "position"];
-  .NAlice.NTv.TSdkData SdkData = 3 [json_name = "sdk_data"];
-  repeated string Urls = 2 [json_name = "urls"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Position = 1 [json_name = "position", (.NYT.column_name) = "position"];
+  .NAlice.NTv.TSdkData SdkData = 3 [json_name = "sdk_data", (.NYT.column_name) = "sdk_data"];
+  repeated string Urls = 2 [json_name = "urls", (.NYT.column_name) = "urls"];
 }
 
 message TSdkData {
-  string Type = 1 [json_name = "type"];
-  string VendorClientId = 2 [json_name = "vendor_client_id"];
-  map<string, string> Params = 3 [json_name = "params"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string VendorClientId = 2 [json_name = "vendor_client_id", (.NYT.column_name) = "vendor_client_id"];
+  map<string, string> Params = 3 [json_name = "params", (.NYT.column_name) = "params"];
 }
 
 message TTvis {
-  string Url = 1 [json_name = "url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
 }
 
 enum EChannelType {

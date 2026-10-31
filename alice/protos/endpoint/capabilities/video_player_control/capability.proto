@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VideoPlayerControlCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/video_player_control;videoplayercontrolpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/video/video_track.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVideoPlayerControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VideoPlayerControlCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TTrackVariant VideoTrack = 1 [json_name = "video_track", (.NYT.column_name) = "video_track"];
+    repeated .NAlice.TTrackVariant AudioTrack = 2 [json_name = "audio_track", (.NYT.column_name) = "audio_track"];
+    repeated .NAlice.TTrackVariant SubtitlesTrack = 3 [json_name = "subtitles_track", (.NYT.column_name) = "subtitles_track"];
+    bool IsAdvertisementPlaying = 4 [json_name = "is_advertisement_playing", (.NYT.column_name) = "is_advertisement_playing"];
+    double PlaybackSpeed = 5 [json_name = "playback_speed", (.NYT.column_name) = "playback_speed"];
+    bool UseAvailableSpeeds = 6 [json_name = "use_available_speeds", (.NYT.column_name) = "use_available_speeds"];
+    repeated double AvailableSpeeds = 7 [json_name = "available_speeds", (.NYT.column_name) = "available_speeds"];
+    bool SupportsSetSpeed = 8 [json_name = "supports_set_speed", (.NYT.column_name) = "supports_set_speed"];
+  }
+
+  message TChangeVideoPlayerTrackDirective {
+    option (.NAlice.SpeechKitName) = "change_video_player_track";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ChangeVideoPlayerTrackDirectiveType;
+    .NAlice.ETrackType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string TrackId = 2 [json_name = "track_id", (.NYT.column_name) = "track_id"];
+    string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TShowVideoPlayerTrackSettingsDirective {
+    option (.NAlice.SpeechKitName) = "show_video_player_track_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowVideoPlayerTrackSettingsDirectiveType;
+    .NAlice.ETrackType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TVideoSkipAdvertisementDirective {
+    option (.NAlice.SpeechKitName) = "video_skip_advertisement";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VideoSkipAdvertisementDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TCancelAutoskipDirective {
+    option (.NAlice.SpeechKitName) = "cancel_autoskip";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CancelAutoskipDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TVideoSetSpeedLevelDirective {
+    option (.NAlice.SpeechKitName) = "video_set_speed_level";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VideoSetSpeedLevelDirectiveType;
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    optional double PlaybackSpeed = 1 [json_name = "playback_speed", (.NYT.column_name) = "playback_speed"];
+  }
+
+  message TSetFullScreenModeDirective {
+    option (.NAlice.SpeechKitName) = "video_set_full_screen_mode";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFullScreenModeDirectiveType;
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSkipVideoFragmentDirective {
+    option (.NAlice.SpeechKitName) = "skip_video_fragment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SkipVideoFragmentDirectiveType;
+    uint32 RewindTo = 1 [json_name = "rewind_to", (.NYT.column_name) = "rewind_to"];
+    string FragmentType = 2 [json_name = "fragment_type", (.NYT.column_name) = "fragment_type"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVideoPlayerControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVideoPlayerControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

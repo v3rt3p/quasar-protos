@@ -9,31 +9,31 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceShowConfig {
   message TFallbackPlaylistId {
-    int32 Uid = 1 [json_name = "uid"];
-    int32 Kind = 2 [json_name = "kind"];
+    int32 Uid = 1 [json_name = "uid", (.NYT.column_name) = "uid"];
+    int32 Kind = 2 [json_name = "kind", (.NYT.column_name) = "kind"];
   }
 
   message TShowPart {
     message TOnBoarding {
-      string Selector = 1 [json_name = "selector"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Greeting = 2 [json_name = "greeting"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot OnBoarding = 3 [json_name = "onBoarding"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Greeting = 2 [json_name = "greeting", (.NYT.column_name) = "greeting"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot OnBoarding = 3 [json_name = "onBoarding", (.NYT.column_name) = "on_boarding"];
     }
 
     message TPlaylist {
-      string Selector = 1 [json_name = "selector"];
-      string Announce = 2 [json_name = "announce"];
-      int32 TrackIndex = 3 [json_name = "trackIndex"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      string Announce = 2 [json_name = "announce", (.NYT.column_name) = "announce"];
+      int32 TrackIndex = 3 [json_name = "trackIndex", (.NYT.column_name) = "track_index"];
     }
 
     message TShot {
-      string Selector = 1 [json_name = "selector"];
-      bool MandatoryGeo = 2 [json_name = "mandatoryGeo"];
-      bool MandatoryUid = 3 [json_name = "mandatoryUid"];
-      string ShotType = 4 [json_name = "shotType"];
-      string ShotSubType = 5 [json_name = "shotSubType"];
-      repeated string Tags = 6 [json_name = "tags"];
-      bool MandatoryHistory = 7 [json_name = "mandatoryHistory"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      bool MandatoryGeo = 2 [json_name = "mandatoryGeo", (.NYT.column_name) = "mandatory_geo"];
+      bool MandatoryUid = 3 [json_name = "mandatoryUid", (.NYT.column_name) = "mandatory_uid"];
+      string ShotType = 4 [json_name = "shotType", (.NYT.column_name) = "shot_type"];
+      string ShotSubType = 5 [json_name = "shotSubType", (.NYT.column_name) = "shot_sub_type"];
+      repeated string Tags = 6 [json_name = "tags", (.NYT.column_name) = "tags"];
+      bool MandatoryHistory = 7 [json_name = "mandatoryHistory", (.NYT.column_name) = "mandatory_history"];
     }
 
     message TParts {
@@ -41,43 +41,45 @@ message TAliceShowConfig {
       reserved 2;
       message TPartsItem {
         oneof TItem {
-          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 1 [json_name = "shot"];
-          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist"];
+          option (.NYT.variant_field_name) = "parts_item";
+          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 1 [json_name = "shot", (.NYT.column_name) = "shot"];
+          .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist", (.NYT.column_name) = "playlist"];
         }
       }
 
-      string Selector = 1 [json_name = "selector"];
-      repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts.TPartsItem PartsItems = 3 [json_name = "parts_items"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts.TPartsItem PartsItems = 3 [json_name = "parts_items", (.NYT.column_name) = "parts_items"];
     }
 
     message TPodcast {
-      string Selector = 1 [json_name = "selector"];
-      string Group = 2 [json_name = "group"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      string Group = 2 [json_name = "group", (.NYT.column_name) = "group"];
     }
 
     message TPromo {
-      string Selector = 1 [json_name = "selector"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
     }
 
     message TTail {
-      string Selector = 1 [json_name = "selector"];
-      int32 StartFrom = 2 [json_name = "startFrom"];
+      string Selector = 1 [json_name = "selector", (.NYT.column_name) = "selector"];
+      int32 StartFrom = 2 [json_name = "startFrom", (.NYT.column_name) = "start_from"];
     }
 
     oneof ShowPart {
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TOnBoarding OnBoarding = 1 [json_name = "onBoarding"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 3 [json_name = "shot"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts Parts = 4 [json_name = "parts"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPromo Promo = 5 [json_name = "promo"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TTail Tail = 6 [json_name = "tail"];
-      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPodcast Podcast = 7 [json_name = "podcast"];
+      option (.NYT.variant_field_name) = "show_part";
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TOnBoarding OnBoarding = 1 [json_name = "onBoarding", (.NYT.column_name) = "on_boarding"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPlaylist Playlist = 2 [json_name = "playlist", (.NYT.column_name) = "playlist"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TShot Shot = 3 [json_name = "shot", (.NYT.column_name) = "shot"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TParts Parts = 4 [json_name = "parts", (.NYT.column_name) = "parts"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPromo Promo = 5 [json_name = "promo", (.NYT.column_name) = "promo"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TTail Tail = 6 [json_name = "tail", (.NYT.column_name) = "tail"];
+      .NAlice.NData.NMusic.TAliceShowConfig.TShowPart.TPodcast Podcast = 7 [json_name = "podcast", (.NYT.column_name) = "podcast"];
     }
   }
 
-  .NAlice.NData.NMusic.TAliceShowConfig.TFallbackPlaylistId FallbackPlaylistId = 1 [json_name = "fallbackPlaylistId"];
-  int32 Id = 2 [json_name = "id"];
-  string MainPlaylist = 3 [json_name = "mainPlaylist"];
-  repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart ShowParts = 4 [json_name = "showParts"];
+  .NAlice.NData.NMusic.TAliceShowConfig.TFallbackPlaylistId FallbackPlaylistId = 1 [json_name = "fallbackPlaylistId", (.NYT.column_name) = "fallback_playlist_id"];
+  int32 Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+  string MainPlaylist = 3 [json_name = "mainPlaylist", (.NYT.column_name) = "main_playlist"];
+  repeated .NAlice.NData.NMusic.TAliceShowConfig.TShowPart ShowParts = 4 [json_name = "showParts", (.NYT.column_name) = "show_parts"];
 }
 

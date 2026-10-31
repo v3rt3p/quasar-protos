@@ -11,9 +11,11 @@ import "alice/protos/api/alicekit/common/environment_state/environment_state.pro
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDataProxyResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TStreamHeaders {
-    optional uint64 ContentSize = 1 [json_name = "content_size"];
-    optional string ContentType = 2 [json_name = "content_type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional uint64 ContentSize = 1 [json_name = "content_size", (.NYT.column_name) = "content_size"];
+    optional string ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
   }
 
   enum EStatusCode {
@@ -24,8 +26,8 @@ message TDataProxyResponse {
     KeyNotFound = 4;
   }
 
-  optional .NAlice.NAliceApi.TDataProxyResponse.EStatusCode Status = 1 [json_name = "status"];
-  optional .NAlice.NAliceApi.TDataProxyResponse.TStreamHeaders Headers = 2 [json_name = "headers"];
-  optional .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 10 [json_name = "environment_state"];
+  optional .NAlice.NAliceApi.TDataProxyResponse.EStatusCode Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+  optional .NAlice.NAliceApi.TDataProxyResponse.TStreamHeaders Headers = 2 [json_name = "headers", (.NYT.column_name) = "headers"];
+  optional .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 10 [json_name = "environment_state", (.NYT.column_name) = "environment_state"];
 }
 

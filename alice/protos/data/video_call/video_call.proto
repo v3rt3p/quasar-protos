@@ -8,19 +8,20 @@ option go_package = "a.yandex-team.ru/alice/protos/data/video_call";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TProviderContactList {
-  repeated .NAlice.NData.TProviderContactData ContactData = 1 [json_name = "contact_data"];
+  repeated .NAlice.NData.TProviderContactData ContactData = 1 [json_name = "contact_data", (.NYT.column_name) = "contact_data"];
 }
 
 message TProviderContactData {
   message TTelegramContactData {
     reserved "LookupKey";
     reserved 3;
-    string DisplayName = 1 [json_name = "display_name"];
-    string UserId = 2 [json_name = "user_id"];
+    string DisplayName = 1 [json_name = "display_name", (.NYT.column_name) = "display_name"];
+    string UserId = 2 [json_name = "user_id", (.NYT.column_name) = "user_id"];
   }
 
   oneof ProviderData {
-    .NAlice.NData.TProviderContactData.TTelegramContactData TelegramContactData = 1 [json_name = "telegram_contact_data"];
+    option (.NYT.variant_field_name) = "provider_data";
+    .NAlice.NData.TProviderContactData.TTelegramContactData TelegramContactData = 1 [json_name = "telegram_contact_data", (.NYT.column_name) = "telegram_contact_data"];
   }
 }
 

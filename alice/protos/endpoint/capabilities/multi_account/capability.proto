@@ -15,117 +15,171 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMultiAccountCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MultiAccountCapabilityType;
   message TParameters {
-    bool SupportsAddAccountDirective = 1 [json_name = "supports_add_account_directive"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsAddAccountDirective = 1 [json_name = "supports_add_account_directive", deprecated = true, (.NYT.column_name) = "supports_add_account_directive"];
   }
 
   message TAccount {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Puid";
     reserved 2;
-    string Name = 1 [json_name = "name"];
-    bool IsActive = 3 [json_name = "is_active"];
-    bool IsChild = 4 [json_name = "is_child"];
-    bool IsOwner = 5 [json_name = "is_owner"];
-    string PersonId = 6 [json_name = "person_id"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsActive = 3 [json_name = "is_active", (.NYT.column_name) = "is_active"];
+    bool IsChild = 4 [json_name = "is_child", (.NYT.column_name) = "is_child"];
+    bool IsOwner = 5 [json_name = "is_owner", (.NYT.column_name) = "is_owner"];
+    string PersonId = 6 [json_name = "person_id", (.NYT.column_name) = "person_id"];
   }
 
   message TState {
-    repeated .NAlice.TMultiAccountCapability.TAccount Accounts = 1 [json_name = "accounts"];
-    bool ChildAccountSwitchBlockEnabled = 2 [json_name = "child_account_switch_block_enabled"];
-    .NAlice.TMultiAccountCapability.TParentalControlsSettings ParentalControlsSettings = 3 [json_name = "parental_controls_settings"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TMultiAccountCapability.TAccount Accounts = 1 [json_name = "accounts", (.NYT.column_name) = "accounts"];
+    bool ChildAccountSwitchBlockEnabled = 2 [json_name = "child_account_switch_block_enabled", (.NYT.column_name) = "child_account_switch_block_enabled"];
+    .NAlice.TMultiAccountCapability.TParentalControlsSettings ParentalControlsSettings = 3 [json_name = "parental_controls_settings", (.NYT.column_name) = "parental_controls_settings"];
   }
 
   message TParentalControlsSettings {
-    bool Enabled = 1 [json_name = "enabled"];
-    bool AppWhiteListEnabled = 2 [json_name = "app_whitelist_enabled"];
-    repeated string AppWhitelistPackageNames = 3 [json_name = "app_whitelist_package_names"];
-    bool VideoSearchProhibited = 4 [json_name = "video_search_prohibited"];
-    bool YoutubeProhibited = 5 [json_name = "youtube_prohibited"];
-    bool BrowserProhibited = 6 [json_name = "browser_prohibited"];
-    bool HistoryRecordTrackingEnabled = 7 [json_name = "history_record_tracking_enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    bool AppWhiteListEnabled = 2 [json_name = "app_whitelist_enabled", (.NYT.column_name) = "app_whitelist_enabled"];
+    repeated string AppWhitelistPackageNames = 3 [json_name = "app_whitelist_package_names", (.NYT.column_name) = "app_whitelist_package_names"];
+    bool VideoSearchProhibited = 4 [json_name = "video_search_prohibited", (.NYT.column_name) = "video_search_prohibited"];
+    bool YoutubeProhibited = 5 [json_name = "youtube_prohibited", (.NYT.column_name) = "youtube_prohibited"];
+    bool BrowserProhibited = 6 [json_name = "browser_prohibited", (.NYT.column_name) = "browser_prohibited"];
+    bool HistoryRecordTrackingEnabled = 7 [json_name = "history_record_tracking_enabled", (.NYT.column_name) = "history_record_tracking_enabled"];
   }
 
   message TSwitchAccountDirective {
-    string SelectedPersonId = 1 [json_name = "selected_person_id"];
-    string Name = 2 [json_name = "name"];
-    bool ShouldCheckPIN = 3 [json_name = "should_check_pin"];
+    option (.NAlice.SpeechKitName) = "switch_account_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SwitchAccountDirectiveType;
+    string SelectedPersonId = 1 [json_name = "selected_person_id", (.NYT.column_name) = "selected_person_id"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    bool ShouldCheckPIN = 3 [json_name = "should_check_pin", (.NYT.column_name) = "should_check_pin"];
   }
 
   message TOpenAccountListDirective {
+    option (.NAlice.SpeechKitName) = "open_account_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenAccountListDirectiveType;
     enum ESource {
       Undefined = 0;
       VoiceEnrollment = 1;
     }
 
-    string Name = 1 [json_name = "name"];
-    .NAlice.TMultiAccountCapability.TOpenAccountListDirective.ESource Source = 2 [json_name = "source"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TMultiAccountCapability.TOpenAccountListDirective.ESource Source = 2 [json_name = "source", (.NYT.column_name) = "source"];
   }
 
   message TRefreshAccountDirective {
-    string Name = 1 [json_name = "name"];
-    string PersonId = 2 [json_name = "person_id"];
+    option (.NAlice.SpeechKitName) = "refresh_account_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RefreshAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string PersonId = 2 [json_name = "person_id", (.NYT.column_name) = "person_id"];
   }
 
   message TAddAccountDirective {
-    string Name = 1 [json_name = "name"];
-    string EncryptedCode = 2 [json_name = "encrypted_code"];
-    string Signature = 3 [json_name = "signature"];
-    string EncryptedSessionKey = 4 [json_name = "encrypted_session_key"];
-    string Puid = 5 [json_name = "puid"];
-    .NAlice.TTypedCallbackRequest OnSuccess = 6 [json_name = "on_success"];
-    .NAlice.TTypedCallbackRequest OnFail = 7 [json_name = "on_fail"];
+    option (.NAlice.SpeechKitName) = "add_account_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string EncryptedCode = 2 [json_name = "encrypted_code", (.NYT.column_name) = "encrypted_code", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Signature = 3 [json_name = "signature", (.NYT.column_name) = "signature", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string EncryptedSessionKey = 4 [json_name = "encrypted_session_key", (.NYT.column_name) = "encrypted_session_key", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Puid = 5 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    .NAlice.TTypedCallbackRequest OnSuccess = 6 [json_name = "on_success", (.NYT.column_name) = "on_success"];
+    .NAlice.TTypedCallbackRequest OnFail = 7 [json_name = "on_fail", (.NYT.column_name) = "on_fail"];
   }
 
   message TLocalAddAccountDirective {
-    string Code = 1 [json_name = "code"];
+    option (.NAlice.SpeechKitName) = "local_add_account_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LocalAddAccountDirectiveType;
+    string Code = 1 [json_name = "code", (.NYT.column_name) = "code"];
   }
 
   message TExpandAccountListDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "expand_account_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ExpandAccountListDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TShowLoginScreenDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "show_login_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowLoginScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TAuthorizePupaDirective {
-    string PupaPuid = 1 [json_name = "pupa_puid"];
-    string Name = 2 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "authorize_pupa_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AuthorizePupaDirectiveType;
+    string PupaPuid = 1 [json_name = "pupa_puid", (.NYT.column_name) = "pupa_puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TAddGuestUserDirective {
-    string Name = 1 [json_name = "name"];
-    string JwtToken = 2 [json_name = "jwt_token"];
+    option (.NAlice.SpeechKitName) = "add_guest_user_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddGuestUserDirective;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string JwtToken = 2 [json_name = "jwt_token", (.NYT.column_name) = "jwt_token"];
   }
 
   message TClearGuestUserDirective {
-    string Name = 1 [json_name = "name"];
-    string UserId = 2 [json_name = "user_id"];
-    string OwnerId = 3 [json_name = "owner_id"];
+    option (.NAlice.SpeechKitName) = "clear_guest_user_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ClearGuestUserDirective;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string UserId = 2 [json_name = "user_id", deprecated = true, (.NYT.column_name) = "user_id"];
+    string OwnerId = 3 [json_name = "owner_id", (.NYT.column_name) = "owner_id"];
   }
 
   message TAddAccountWithCookieDirective {
-    string Cookie = 1 [json_name = "cookie"];
+    option (.NAlice.SpeechKitName) = "add_account_with_cookie_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddAccountWithCookieDirectiveType;
+    string Cookie = 1 [json_name = "cookie", (.NYT.column_name) = "cookie", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TRemoveAccountDirective {
-    string Puid = 1 [json_name = "puid"];
+    option (.NAlice.SpeechKitName) = "remove_account_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemoveAccountDirectiveType;
+    string Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  }
+
+  message TChangeOwnerDirective {
+    option (.NAlice.SpeechKitName) = "change_owner_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ChangeOwnerDirectiveType;
+    string Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TAuthActionResultEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = MultiAccountAuthActionResultEventType;
     message TSuccess {
-      optional string Message = 1 [json_name = "message"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string Message = 1 [json_name = "message", (.NYT.column_name) = "message"];
     }
 
     message TFailure {
-      .NAlice.TMultiAccountCapability.EAuthFailureReason Reason = 2 [json_name = "reason"];
-      optional string Message = 1 [json_name = "message"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TMultiAccountCapability.EAuthFailureReason Reason = 2 [json_name = "reason", (.NYT.column_name) = "reason"];
+      optional string Message = 1 [json_name = "message", (.NYT.column_name) = "message"];
     }
 
-    string RequestId = 1 [json_name = "request_id"];
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
     oneof Result {
-      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TSuccess Success = 2 [json_name = "success"];
-      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TFailure Failure = 3 [json_name = "failure"];
+      option (.NYT.variant_field_name) = "result";
+      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TSuccess Success = 2 [json_name = "success", (.NYT.column_name) = "success"];
+      .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TFailure Failure = 3 [json_name = "failure", (.NYT.column_name) = "failure"];
     }
   }
 
@@ -141,8 +195,8 @@ message TMultiAccountCapability {
     AUTH_FAILURE_NETWORK = 8;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMultiAccountCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMultiAccountCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMultiAccountCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMultiAccountCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

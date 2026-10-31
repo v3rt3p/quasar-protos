@@ -9,11 +9,14 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TOrigin {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof OptionalDeviceId {
-    string DeviceId = 1 [json_name = "device_id"];
+    option (.NYT.variant_field_name) = "optional_device_id";
+    string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
   oneof OptionalUuid {
-    string Uuid = 2 [json_name = "uuid"];
+    option (.NYT.variant_field_name) = "optional_uuid";
+    string Uuid = 2 [json_name = "uuid", (.NYT.column_name) = "uuid", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 }
 

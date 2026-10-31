@@ -14,35 +14,43 @@ import "alice/protos/data/screen/screen.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScreenCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ScreenCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TScreenCapability.TCurrentScreenInfo CurrentScreen = 1 [json_name = "current_screen"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TScreenCapability.TCurrentScreenInfo CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
   }
 
   message TCurrentScreenInfo {
-    string Name = 1 [json_name = "name"];
-    .google.protobuf.Struct ScreenData = 4 [json_name = "screen_data"];
-    .NAlice.TScreenInfo ScreenInfo = 5 [json_name = "screen_info"];
-    repeated .NAlice.TAppInfo VisibleAppInfo = 6 [json_name = "visible_app_info"];
-    .NAlice.TScreenCapability.TA11YNode A11yScreenData = 7 [json_name = "a11y_screen_data"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name", deprecated = true, (.NYT.column_name) = "name"];
+    .google.protobuf.Struct ScreenData = 4 [json_name = "screen_data", deprecated = true, (.NYT.column_name) = "screen_data"];
+    .NAlice.TScreenInfo ScreenInfo = 5 [json_name = "screen_info", (.NYT.column_name) = "screen_info"];
+    repeated .NAlice.TAppInfo VisibleAppInfo = 6 [json_name = "visible_app_info", (.NYT.column_name) = "visible_app_info"];
+    .NAlice.TScreenCapability.TA11YNode A11yScreenData = 7 [json_name = "a11y_screen_data", (.NYT.column_name) = "a11y_screen_data"];
     oneof Type {
-      .NAlice.TScreenCapability.TDivScreenInfo Div = 2 [json_name = "div"];
-      .NAlice.TScreenCapability.TNativeScreenInfo Native = 3 [json_name = "native"];
+      option (.NYT.variant_field_name) = "type";
+      .NAlice.TScreenCapability.TDivScreenInfo Div = 2 [json_name = "div", (.NYT.column_name) = "div"];
+      .NAlice.TScreenCapability.TNativeScreenInfo Native = 3 [json_name = "native", (.NYT.column_name) = "native"];
     }
   }
 
   message TDivScreenInfo {
-    string CardName = 1 [json_name = "card_name"];
-    string CardId = 2 [json_name = "card_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string CardName = 1 [json_name = "card_name", (.NYT.column_name) = "card_name"];
+    string CardId = 2 [json_name = "card_id", (.NYT.column_name) = "card_id"];
   }
 
   message TNativeScreenInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "On";
     reserved 3;
-    string ScreenName = 1 [json_name = "screen_name"];
-    string PackageName = 2 [json_name = "package_name"];
+    string ScreenName = 1 [json_name = "screen_name", deprecated = true, (.NYT.column_name) = "screen_name"];
+    string PackageName = 2 [json_name = "package_name", (.NYT.column_name) = "package_name"];
   }
 
   message TA11YNode {
@@ -84,11 +92,13 @@ message TScreenCapability {
   }
 
   message TSendScreenDataEvent {
-    .NAlice.TScreenCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SendScreenDataEventType;
+    .NAlice.TScreenCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TScreenCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TScreenCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TScreenCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TScreenCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

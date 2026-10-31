@@ -13,37 +13,46 @@ import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TActionDeviceResult {
-  string ID = 1 [json_name = "id"];
-  string Status = 2 [json_name = "status"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Status = 2 [json_name = "status", (.NYT.column_name) = "status"];
 }
 
 message TScenarioActionDeviceResultCallback {
-  string LaunchID = 1 [json_name = "launch_id"];
-  repeated .NAlice.TActionDeviceResult DeviceResults = 2 [json_name = "device_results"];
-  uint64 StepIndex = 3 [json_name = "step_index"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "alice.iot.scenario.action";
+  string LaunchID = 1 [json_name = "launch_id", (.NYT.column_name) = "launch_id"];
+  repeated .NAlice.TActionDeviceResult DeviceResults = 2 [json_name = "device_results", (.NYT.column_name) = "device_results"];
+  uint64 StepIndex = 3 [json_name = "step_index", (.NYT.column_name) = "step_index"];
 }
 
 message TFinishDiscoveryCallback {
-  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
-  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks"];
-  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints"];
-  string SystemInfo = 4 [json_name = "system_info"];
-  uint32 CallbackId = 5 [json_name = "callback_id"];
-  string SessionId = 6 [json_name = "session_id"];
-  repeated .NAlice.TAggregate DiscoveredAggregates = 7 [json_name = "discovered_aggregates"];
-  .NAlice.TIotDiscoveryCapability.EMode Mode = 8 [json_name = "mode"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "alice.iot.discovery.finish";
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols", (.NYT.column_name) = "protocols"];
+  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks", (.NYT.column_name) = "networks"];
+  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints", (.NYT.column_name) = "discovered_endpoints"];
+  string SystemInfo = 4 [json_name = "system_info", (.NYT.column_name) = "system_info"];
+  uint32 CallbackId = 5 [json_name = "callback_id", (.NYT.column_name) = "callback_id"];
+  string SessionId = 6 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+  repeated .NAlice.TAggregate DiscoveredAggregates = 7 [json_name = "discovered_aggregates", (.NYT.column_name) = "discovered_aggregates"];
+  .NAlice.TIotDiscoveryCapability.EMode Mode = 8 [json_name = "mode", (.NYT.column_name) = "mode"];
 }
 
 message TFinishSystemDiscoveryCallback {
-  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
-  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks"];
-  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints"];
-  string SystemInfo = 4 [json_name = "system_info"];
-  uint32 CallbackId = 5 [json_name = "callback_id"];
-  repeated .NAlice.TAggregate DiscoveredAggregates = 6 [json_name = "discovered_aggregates"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "alice.iot.system_discovery.finish";
+  repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols", (.NYT.column_name) = "protocols"];
+  .NAlice.TIotDiscoveryCapability.TNetworks Networks = 2 [json_name = "networks", (.NYT.column_name) = "networks"];
+  repeated .NAlice.TEndpoint DiscoveredEndpoints = 3 [json_name = "discovered_endpoints", (.NYT.column_name) = "discovered_endpoints"];
+  string SystemInfo = 4 [json_name = "system_info", (.NYT.column_name) = "system_info"];
+  uint32 CallbackId = 5 [json_name = "callback_id", (.NYT.column_name) = "callback_id"];
+  repeated .NAlice.TAggregate DiscoveredAggregates = 6 [json_name = "discovered_aggregates", (.NYT.column_name) = "discovered_aggregates"];
 }
 
 message TCancelDiscoveryCallback {
-  repeated string SessionIds = 1 [json_name = "session_ids"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "alice.iot.discovery.cancel";
+  repeated string SessionIds = 1 [json_name = "session_ids", (.NYT.column_name) = "session_ids"];
 }
 

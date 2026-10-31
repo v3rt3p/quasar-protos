@@ -13,38 +13,50 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotBindCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotBindCapabilityType;
   message TBindType {
-    .NAlice.NIotBind.TIotBindKey BindKey = 1 [json_name = "bind_key"];
-    .NAlice.TIotBindCapability.EConstraint Constraint = 2 [json_name = "constraint"];
+    .NAlice.NIotBind.TIotBindKey BindKey = 1 [json_name = "bind_key", (.NYT.column_name) = "bind_key"];
+    .NAlice.TIotBindCapability.EConstraint Constraint = 2 [json_name = "constraint", (.NYT.column_name) = "constraint"];
   }
 
   message TBind {
-    .NAlice.TIotBindCapability.TBindType Type = 1 [json_name = "type"];
-    string DestinationEndpointId = 2 [json_name = "destination_endpoint_id"];
+    .NAlice.TIotBindCapability.TBindType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string DestinationEndpointId = 2 [json_name = "destination_endpoint_id", (.NYT.column_name) = "destination_endpoint_id"];
   }
 
   message TParameters {
-    repeated .NAlice.TIotBindCapability.TBindType SupportedBindTypes = 1 [json_name = "supported_bind_types"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotBindCapability.TBindType SupportedBindTypes = 1 [json_name = "supported_bind_types", (.NYT.column_name) = "supported_bind_types"];
   }
 
   message TState {
-    repeated .NAlice.TIotBindCapability.TBind Binds = 1 [json_name = "binds"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotBindCapability.TBind Binds = 1 [json_name = "binds", (.NYT.column_name) = "binds"];
   }
 
   message TBindDirective {
-    string Name = 1000 [json_name = "name"];
-    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id"];
-    uint32 ClusterId = 2 [json_name = "cluster_id"];
+    option (.NAlice.SpeechKitName) = "iot_bind_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotBindDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id", (.NYT.column_name) = "destination_endpoint_id"];
+    uint32 ClusterId = 2 [json_name = "cluster_id", (.NYT.column_name) = "cluster_id"];
   }
 
   message TUnbindDirective {
-    string Name = 1000 [json_name = "name"];
-    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id"];
-    uint32 ClusterId = 2 [json_name = "cluster_id"];
+    option (.NAlice.SpeechKitName) = "iot_unbind_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotUnbindDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DestinationEndpointId = 1 [json_name = "destination_endpoint_id", (.NYT.column_name) = "destination_endpoint_id"];
+    uint32 ClusterId = 2 [json_name = "cluster_id", (.NYT.column_name) = "cluster_id"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotBindCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotBindUpdateStateEventType;
+    .NAlice.TIotBindCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EConstraint {
@@ -52,8 +64,8 @@ message TIotBindCapability {
     CONSTANT_EXCLUSIVE_LOCK = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotBindCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotBindCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotBindCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotBindCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -2,6 +2,39 @@ syntax = "proto3";
 
 package NAlice.NTv;
 
+option java_package = "ru.yandex.alice.protos.data.tv.carousel_item_config";
+option java_outer_classname = "CarouselItemConfig";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/carousel_item_config";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
 message TItemConfig {
-  // stub
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTv.EDisplayType DisplayType = 1 [json_name = "display_type", (.NYT.column_name) = "display_type"];
+  .NAlice.NTv.EItemBadge ItemBadge = 2 [json_name = "item_badge", (.NYT.column_name) = "item_badge"];
+  bool ShowProgress = 3 [json_name = "show_progress", (.NYT.column_name) = "show_progress"];
+  bool ShowTitleOnImage = 4 [json_name = "show_title_on_image", (.NYT.column_name) = "show_title_on_image"];
 }
+
+enum EDisplayType {
+  Unknown = 0;
+  HorizontalSmall = 1;
+  HorizontalMedium = 2;
+  HorizontalBig = 3;
+  SquareMedium = 4;
+  SquareBig = 5;
+  VerticalMedium = 6;
+}
+
+enum EItemBadge {
+  None = 0;
+  Free = 1;
+  Bought = 2;
+  Rent = 3;
+  Plus = 4;
+  KpPurchase = 5;
+  PlusAmediateka = 6;
+  NewEpisode = 7;
+  Duration = 8;
+}
+

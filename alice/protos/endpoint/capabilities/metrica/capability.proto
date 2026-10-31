@@ -12,24 +12,32 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMetricaCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MetricaCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TMetricaEvent {
-    string Name = 1 [json_name = "name"];
-    .google.protobuf.Struct Body = 3 [json_name = "body"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .google.protobuf.Struct Body = 3 [json_name = "body", (.NYT.column_name) = "body"];
   }
 
   message TSendMetricaEventDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.TMetricaCapability.TMetricaEvent Event = 2 [json_name = "event"];
+    option (.NAlice.SpeechKitName) = "send_metrica_event";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendMetricaEventDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TMetricaCapability.TMetricaEvent Event = 2 [json_name = "event", (.NYT.column_name) = "event"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMetricaCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMetricaCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMetricaCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMetricaCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -10,5 +10,6 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/iot/iot_user_inf
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIoTUserInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 

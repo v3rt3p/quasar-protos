@@ -12,35 +12,51 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNotificationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = NotificationCapabilityType;
   message TNotification {
-    string Id = 1 [json_name = "id"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    int32 NotificationCount = 1 [json_name = "notification_count"];
-    .NAlice.TNotificationCapability.ENotificationMode NotificationMode = 2 [json_name = "notification_mode"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int32 NotificationCount = 1 [json_name = "notification_count", (.NYT.column_name) = "notification_count"];
+    .NAlice.TNotificationCapability.ENotificationMode NotificationMode = 2 [json_name = "notification_mode", (.NYT.column_name) = "notification_mode"];
   }
 
   message TNotificationPendingEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = NotificationPendingEventType;
   }
 
   message TNotificationStartedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = NotificationStartedEventType;
   }
 
   message TNotificationFinishedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = NotificationFinishedEventType;
   }
 
   message TNotifyDirective {
-    string Name = 1 [json_name = "name"];
-    repeated .NAlice.TNotificationCapability.TNotification Notifications = 2 [json_name = "notifications"];
-    .NAlice.TNotificationCapability.ERingType Ring = 3 [json_name = "ring"];
-    string VersionId = 4 [json_name = "version_id"];
+    option (.NAlice.SpeechKitName) = "notify";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = NotifyDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TNotificationCapability.TNotification Notifications = 2 [json_name = "notifications", (.NYT.column_name) = "notifications"];
+    .NAlice.TNotificationCapability.ERingType Ring = 3 [json_name = "ring", (.NYT.column_name) = "ring"];
+    string VersionId = 4 [json_name = "version_id", (.NYT.column_name) = "version_id"];
   }
 
   message TApproveNotifyDirective {
+    option (.NAlice.SpeechKitName) = "approve_notify";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ApproveNotifyDirectiveType;
   }
 
   enum ENotificationMode {
@@ -55,8 +71,8 @@ message TNotificationCapability {
     Proactive = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TNotificationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TNotificationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TNotificationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TNotificationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

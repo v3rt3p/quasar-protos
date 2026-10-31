@@ -13,75 +13,89 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMapsAgentCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MapsAgentCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSpan {
-      double LatDelta = 1 [json_name = "lat_delta"];
-      double LonDelta = 2 [json_name = "lon_delta"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      double LatDelta = 1 [json_name = "lat_delta", (.NYT.column_name) = "lat_delta"];
+      double LonDelta = 2 [json_name = "lon_delta", (.NYT.column_name) = "lon_delta"];
     }
 
     message TAgentFlag {
-      string Key = 1 [json_name = "key"];
-      string Value = 2 [json_name = "value"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Key = 1 [json_name = "key", (.NYT.column_name) = "key"];
+      string Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
     }
 
     message TInsetBoxInfo {
-      string RequestId = 1 [json_name = "request_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
     }
 
-    .NAlice.NData.TLatLon CameraPosition = 1 [json_name = "camera_position"];
-    .NAlice.TMapsAgentCapability.TState.TSpan CameraSpan = 2 [json_name = "camera_span"];
-    repeated .NAlice.TMapsAgentCapability.TState.TAgentFlag AgentFlags = 3 [json_name = "agent_flags"];
-    .NAlice.TMapsAgentCapability.TState.TInsetBoxInfo InsetBoxInfo = 4 [json_name = "inset_box_info"];
+    .NAlice.NData.TLatLon CameraPosition = 1 [json_name = "camera_position", (.NYT.column_name) = "camera_position"];
+    .NAlice.TMapsAgentCapability.TState.TSpan CameraSpan = 2 [json_name = "camera_span", (.NYT.column_name) = "camera_span"];
+    repeated .NAlice.TMapsAgentCapability.TState.TAgentFlag AgentFlags = 3 [json_name = "agent_flags", (.NYT.column_name) = "agent_flags"];
+    .NAlice.TMapsAgentCapability.TState.TInsetBoxInfo InsetBoxInfo = 4 [json_name = "inset_box_info", (.NYT.column_name) = "inset_box_info"];
   }
 
   message TShowAgentPinsDirective {
+    option (.NAlice.SpeechKitName) = "show_agent_pins_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAgentPinsDirectiveType;
     message TBoundingBox {
-      .NAlice.NData.TLatLon LowerCorner = 1 [json_name = "lower_corner"];
-      .NAlice.NData.TLatLon UpperCorner = 2 [json_name = "upper_corner"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NData.TLatLon LowerCorner = 1 [json_name = "lower_corner", (.NYT.column_name) = "lower_corner"];
+      .NAlice.NData.TLatLon UpperCorner = 2 [json_name = "upper_corner", (.NYT.column_name) = "upper_corner"];
     }
 
     message TSubtitleItem {
-      string Type = 1 [json_name = "type"];
-      map<string, string> Properties = 3 [json_name = "properties"];
-      optional string Text = 2 [json_name = "text"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+      map<string, string> Properties = 3 [json_name = "properties", (.NYT.column_name) = "properties"];
+      optional string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TDecorations {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       enum EClosedStatus {
         CLOSED_STATUS_UNKNOWN = 0;
         CLOSED_STATUS_PERMANENT = 1;
         CLOSED_STATUS_TEMPORARY = 2;
       }
 
-      .google.protobuf.Any PinHints = 1 [json_name = "pin_hints"];
-      map<string, string> BrandedImageData = 2 [json_name = "branded_image_data"];
-      string ShortName = 3 [json_name = "short_name"];
-      bool IsClosedNow = 4 [json_name = "is_closed_now"];
-      optional .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations.EClosedStatus ClosedStatus = 5 [json_name = "closed_status"];
+      .google.protobuf.Any PinHints = 1 [json_name = "pin_hints", (.NYT.column_name) = "pin_hints"];
+      map<string, string> BrandedImageData = 2 [json_name = "branded_image_data", (.NYT.column_name) = "branded_image_data"];
+      string ShortName = 3 [json_name = "short_name", (.NYT.column_name) = "short_name"];
+      bool IsClosedNow = 4 [json_name = "is_closed_now", (.NYT.column_name) = "is_closed_now"];
+      optional .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations.EClosedStatus ClosedStatus = 5 [json_name = "closed_status", (.NYT.column_name) = "closed_status"];
     }
 
     message TAgentPin {
-      string Id = 1 [json_name = "id"];
-      .NAlice.NData.TLatLon Point = 2 [json_name = "point"];
-      float priority = 3 [json_name = "priority"];
-      string Title = 4 [json_name = "title"];
-      repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TSubtitleItem SubtitleItems = 5 [json_name = "subtitle_items"];
-      string Uri = 7 [json_name = "uri"];
-      string Deeplink = 8 [json_name = "deeplink"];
-      .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations Decorations = 9 [json_name = "decorations"];
-      string LogId = 10 [json_name = "log_id"];
-      optional string Category = 6 [json_name = "category"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      .NAlice.NData.TLatLon Point = 2 [json_name = "point", (.NYT.column_name) = "point"];
+      float priority = 3 [json_name = "priority", (.NYT.column_name) = "priority"];
+      string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+      repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TSubtitleItem SubtitleItems = 5 [json_name = "subtitle_items", (.NYT.column_name) = "subtitle_items"];
+      string Uri = 7 [json_name = "uri", (.NYT.column_name) = "uri"];
+      string Deeplink = 8 [json_name = "deeplink", (.NYT.column_name) = "deeplink"];
+      .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TDecorations Decorations = 9 [json_name = "decorations", (.NYT.column_name) = "decorations"];
+      string LogId = 10 [json_name = "log_id", (.NYT.column_name) = "log_id"];
+      optional string Category = 6 [json_name = "category", (.NYT.column_name) = "category"];
     }
 
-    .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TBoundingBox BoundingBox = 1 [json_name = "bounding_box"];
-    repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TAgentPin Pins = 2 [json_name = "pins"];
+    .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TBoundingBox BoundingBox = 1 [json_name = "bounding_box", (.NYT.column_name) = "bounding_box"];
+    repeated .NAlice.TMapsAgentCapability.TShowAgentPinsDirective.TAgentPin Pins = 2 [json_name = "pins", (.NYT.column_name) = "pins"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMapsAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMapsAgentCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMapsAgentCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMapsAgentCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

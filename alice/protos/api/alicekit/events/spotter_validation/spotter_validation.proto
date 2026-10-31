@@ -10,6 +10,7 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/spotter_v
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSpotterValidation {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Valid";
   reserved "MultiactivationId";
   reserved 2;
@@ -19,7 +20,7 @@ message TSpotterValidation {
     Ok = 1;
   }
 
-  .NAlice.NAliceApi.TSpotterValidation.EResult Result = 1 [json_name = "result"];
-  optional bool CanceledCauseOfMultiactivation = 3 [json_name = "canceled_cause_of_multiactivation"];
+  .NAlice.NAliceApi.TSpotterValidation.EResult Result = 1 [json_name = "result", (.NYT.column_name) = "result"];
+  optional bool CanceledCauseOfMultiactivation = 3 [json_name = "canceled_cause_of_multiactivation", (.NYT.column_name) = "canceled_cause_of_multiactivation"];
 }
 

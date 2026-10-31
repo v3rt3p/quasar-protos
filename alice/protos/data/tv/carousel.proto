@@ -25,82 +25,92 @@ import "google/protobuf/struct.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCarouselItemWrapper {
-  int32 Number = 1 [json_name = "number"];
-  repeated .NAlice.TTvAction OnClickAction = 2 [json_name = "on_click_action"];
-  repeated .NAlice.TTvAction OnLongClickAction = 3 [json_name = "on_long_click_action"];
-  repeated .NAlice.TTvAction OnDoubleClickAction = 4 [json_name = "on_double_click_action"];
-  .NAlice.NTv.TItemConfig ItemConfig = 5 [json_name = "item_config"];
-  .google.protobuf.Struct CarouselItemGeneralAnalyticsInfoPayload = 6 [json_name = "carousel_item_general_analytics_info"];
-  repeated .NAlice.TVoiceControl VoiceControls = 7 [json_name = "voice_controls"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  int32 Number = 1 [json_name = "number", (.NYT.column_name) = "number"];
+  repeated .NAlice.TTvAction OnClickAction = 2 [json_name = "on_click_action", (.NYT.column_name) = "on_click_action"];
+  repeated .NAlice.TTvAction OnLongClickAction = 3 [json_name = "on_long_click_action", (.NYT.column_name) = "on_long_click_action"];
+  repeated .NAlice.TTvAction OnDoubleClickAction = 4 [json_name = "on_double_click_action", (.NYT.column_name) = "on_double_click_action"];
+  .NAlice.NTv.TItemConfig ItemConfig = 5 [json_name = "item_config", (.NYT.column_name) = "item_config"];
+  .google.protobuf.Struct CarouselItemGeneralAnalyticsInfoPayload = 6 [json_name = "carousel_item_general_analytics_info", (.NYT.column_name) = "carousel_item_general_analytics_info"];
+  repeated .NAlice.TVoiceControl VoiceControls = 7 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
   oneof Item {
-    .NAlice.TPersonItem PersonItem = 101 [json_name = "person_item"];
-    .NAlice.TCollectionItem CollectionItem = 102 [json_name = "collection_item"];
-    .NAlice.TOttVideoItem VideoItem = 103 [json_name = "video_item"];
-    .NAlice.TWebVideoItem SearchVideoItem = 104 [json_name = "search_video_item"];
-    .NAlice.NTv.TRecentApplicationsItem RecentApplicationsItem = 105 [json_name = "recent_applications_item"];
-    .NAlice.NTv.TMusicItem MusicItem = 106 [json_name = "music_item"];
-    .NAlice.NTv.TRecentApplicationItem RecentApplicationItem = 107 [json_name = "recent_application_item"];
-    .NAlice.NTv.TRecentChannelItem RecentChannelItem = 108 [json_name = "recent_channel_item"];
-    .NAlice.NTv.TRecentSourceItem RecentSourceItem = 109 [json_name = "recent_source_item"];
-    .NAlice.NTv.TWhatsNewTile WhatsNewTile = 110 [json_name = "whats_new_tile"];
-    .NAlice.NTv.TTvChannelItemWrapper TvChannelItem = 111 [json_name = "tv_channel_item"];
-    .NAlice.NTv.TSportEventItem SportEventItem = 112 [json_name = "sport_event_item"];
-    .NAlice.NTv.TRecentExternalAppVideoItem RecentExternalAppVideoItem = 113 [json_name = "recent_external_app_video_item"];
+    option (.NYT.variant_field_name) = "item";
+    .NAlice.TPersonItem PersonItem = 101 [json_name = "person_item", (.NYT.column_name) = "person_item"];
+    .NAlice.TCollectionItem CollectionItem = 102 [json_name = "collection_item", (.NYT.column_name) = "collection_item"];
+    .NAlice.TOttVideoItem VideoItem = 103 [json_name = "video_item", (.NYT.column_name) = "video_item"];
+    .NAlice.TWebVideoItem SearchVideoItem = 104 [json_name = "search_video_item", (.NYT.column_name) = "search_video_item"];
+    .NAlice.NTv.TRecentApplicationsItem RecentApplicationsItem = 105 [json_name = "recent_applications_item", (.NYT.column_name) = "recent_applications_item"];
+    .NAlice.NTv.TMusicItem MusicItem = 106 [json_name = "music_item", (.NYT.column_name) = "music_item"];
+    .NAlice.NTv.TRecentApplicationItem RecentApplicationItem = 107 [json_name = "recent_application_item", (.NYT.column_name) = "recent_application_item"];
+    .NAlice.NTv.TRecentChannelItem RecentChannelItem = 108 [json_name = "recent_channel_item", (.NYT.column_name) = "recent_channel_item"];
+    .NAlice.NTv.TRecentSourceItem RecentSourceItem = 109 [json_name = "recent_source_item", (.NYT.column_name) = "recent_source_item"];
+    .NAlice.NTv.TWhatsNewTile WhatsNewTile = 110 [json_name = "whats_new_tile", (.NYT.column_name) = "whats_new_tile"];
+    .NAlice.NTv.TTvChannelItemWrapper TvChannelItem = 111 [json_name = "tv_channel_item", (.NYT.column_name) = "tv_channel_item"];
+    .NAlice.NTv.TSportEventItem SportEventItem = 112 [json_name = "sport_event_item", (.NYT.column_name) = "sport_event_item"];
+    .NAlice.NTv.TRecentExternalAppVideoItem RecentExternalAppVideoItem = 113 [json_name = "recent_external_app_video_item", (.NYT.column_name) = "recent_external_app_video_item"];
   }
 }
 
 message TCarouselImageBackground {
-  string Url = 1 [json_name = "url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
 }
 
 message TCarousel {
-  string Title = 1 [json_name = "title"];
-  repeated .NAlice.NTv.TCarouselItemWrapper Items = 2 [json_name = "items"];
-  string Id = 3 [json_name = "id"];
-  string CacheHash = 4 [json_name = "cache_hash"];
-  repeated .NAlice.TVoiceControl VoiceControls = 5 [json_name = "voice_controls"];
-  bool HasMore = 6 [json_name = "has_more"];
-  string LogoUrl = 7 [json_name = "logo_url"];
-  repeated string Tags = 8 [json_name = "tags"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  repeated .NAlice.NTv.TCarouselItemWrapper Items = 2 [json_name = "items", (.NYT.column_name) = "items"];
+  string Id = 3 [json_name = "id", (.NYT.column_name) = "id"];
+  string CacheHash = 4 [json_name = "cache_hash", (.NYT.column_name) = "cache_hash"];
+  repeated .NAlice.TVoiceControl VoiceControls = 5 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
+  bool HasMore = 6 [json_name = "has_more", (.NYT.column_name) = "has_more"];
+  string LogoUrl = 7 [json_name = "logo_url", (.NYT.column_name) = "logo_url"];
+  repeated string Tags = 8 [json_name = "tags", (.NYT.column_name) = "tags"];
   oneof Background {
-    .NAlice.NTv.TCarouselImageBackground ImageBackground = 101 [json_name = "image_background"];
+    option (.NYT.variant_field_name) = "background";
+    .NAlice.NTv.TCarouselImageBackground ImageBackground = 101 [json_name = "image_background", (.NYT.column_name) = "image_background"];
   }
-  optional .NAlice.TAvatarMdsImage ImageBackgroundMds = 9 [json_name = "image_background_mds"];
+  optional .NAlice.TAvatarMdsImage ImageBackgroundMds = 9 [json_name = "image_background_mds", (.NYT.column_name) = "image_background_mds"];
 }
 
 message TDivCarousel {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "DivJson";
   reserved 2;
-  string Id = 1 [json_name = "id"];
-  int32 ElementsCount = 3 [json_name = "elements_count"];
-  .NAlice.TDiv2Card DivCardJson = 4 [json_name = "div_card_json"];
-  string Title = 5 [json_name = "title"];
-  repeated .NAlice.TVoiceControl VoiceControls = 6 [json_name = "voice_controls"];
-  .NAlice.NTv.TDivMetaInfo DivMetaInfo = 14 [json_name = "div_meta_info"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  int32 ElementsCount = 3 [json_name = "elements_count", (.NYT.column_name) = "elements_count"];
+  .NAlice.TDiv2Card DivCardJson = 4 [json_name = "div_card_json", (.NYT.column_name) = "div_card_json"];
+  string Title = 5 [json_name = "title", (.NYT.column_name) = "title"];
+  repeated .NAlice.TVoiceControl VoiceControls = 6 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
+  .NAlice.NTv.TDivMetaInfo DivMetaInfo = 14 [json_name = "div_meta_info", (.NYT.column_name) = "div_meta_info"];
 }
 
 message TEmptyCarousel {
-  string Id = 1 [json_name = "id"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
 }
 
 message TDivMetaInfo {
-  string OntoId = 1 [json_name = "onto_id"];
-  uint64 CreationTimestamp = 2 [json_name = "creation_timestamp"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string OntoId = 1 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+  uint64 CreationTimestamp = 2 [json_name = "creation_timestamp", (.NYT.column_name) = "creation_timestamp"];
 }
 
 message TDeleteOttCandidate {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "OntoId";
   reserved 1;
-  string KpId = 2 [json_name = "kp_id"];
+  string KpId = 2 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
 }
 
 message TDeleteWebCandidate {
-  string Url = 1 [json_name = "url"];
-  string KpId = 2 [json_name = "kp_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+  string KpId = 2 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
 }
 
 message TDeleteMusicCandidate {
-  string ContentId = 1 [json_name = "content_id"];
-  string ContentType = 2 [json_name = "content_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  string ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
 }
 

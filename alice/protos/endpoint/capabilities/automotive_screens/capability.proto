@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveScreensCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_screens;automotive_screenspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/endpoint/capabilities/app_launch/capability.proto";
+import "alice/protos/endpoint/capabilities/automotive_wallpaper/capability.proto";
+import "alice/protos/endpoint/capabilities/voice_zone/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveScreensCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveScreensCapabilityType;
+  message TBrightnessBounds {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+    int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TScreenParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveScreensCapability.EScreenId ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+      .NAlice.TAutomotiveScreensCapability.TBrightnessBounds BrightnessBounds = 2 [json_name = "brightness_bounds", (.NYT.column_name) = "brightness_bounds"];
+      repeated .NAlice.TVoiceZoneCapability.TZone VoiceZones = 3 [json_name = "voice_zones", (.NYT.column_name) = "voice_zones"];
+    }
+
+    repeated .NAlice.TAutomotiveScreensCapability.TParameters.TScreenParameters AvailableScreens = 1 [json_name = "available_screens", (.NYT.column_name) = "available_screens"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TScreenState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveScreensCapability.EScreenId ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+      repeated .NAlice.TAppLaunchCapability.TApp SupportedApps = 5 [json_name = "supported_apps", (.NYT.column_name) = "supported_apps"];
+      repeated .NAlice.TAutomotiveWallpaperCapability.TWallpaper SupportedWallpapers = 6 [json_name = "supported_wallpapers", (.NYT.column_name) = "supported_wallpapers"];
+      optional bool PowerOn = 2 [json_name = "power_on", (.NYT.column_name) = "power_on"];
+      optional int32 Brightness = 3 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+      optional bool AutoBrightness = 4 [json_name = "auto_brightness", (.NYT.column_name) = "auto_brightness"];
+    }
+
+    repeated .NAlice.TAutomotiveScreensCapability.TState.TScreenState ScreenStates = 1 [json_name = "screen_states", (.NYT.column_name) = "screen_states"];
+  }
+
+  message TSetScreenPowerDirective {
+    option (.NAlice.SpeechKitName) = "set_screen_power_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetScreenPowerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveScreensCapability.EScreenId ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+    bool On = 2 [json_name = "on", (.NYT.column_name) = "on"];
+  }
+
+  message TSetScreenBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_screen_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetScreenBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveScreensCapability.EScreenId ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+    int32 Brightness = 2 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+  }
+
+  message TSetScreenAutoBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_screen_auto_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetScreenAutoBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveScreensCapability.EScreenId ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EScreenId {
+    SCREEN_UNKNOWN = 0;
+    SCREEN_CENTRAL = 1;
+    SCREEN_CO_PILOT = 2;
+    SCREEN_CEILING = 3;
+    SCREEN_INSTRUMENT_PANEL = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveScreensCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveScreensCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

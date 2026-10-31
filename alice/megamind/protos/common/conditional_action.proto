@@ -12,12 +12,14 @@ import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TConditionalAction {
-  .NAlice.TTypedSemanticFrame ConditionalSemanticFrame = 1 [json_name = "conditional_semantic_frame"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TTypedSemanticFrame ConditionalSemanticFrame = 1 [json_name = "conditional_semantic_frame", (.NYT.column_name) = "conditional_semantic_frame"];
   oneof Effect {
-    .NAlice.TSemanticFrameRequestData EffectFrameRequestData = 2 [json_name = "effect_frame_request_data"];
-    .NAlice.NScenarios.TTypedCallbackRequestData TypedCallback = 3 [json_name = "typed_callback"];
-    .NAlice.TTypedCallbackRequest TypedCallbackSerialized = 4 [json_name = "typed_callback_serialized"];
-    .NAlice.TSemanticFrameRequestData ConditionalFrameRequestData = 5 [json_name = "conditional_frame_request_data"];
+    option (.NYT.variant_field_name) = "effect";
+    .NAlice.TSemanticFrameRequestData EffectFrameRequestData = 2 [json_name = "effect_frame_request_data", (.NYT.column_name) = "effect_frame_request_data"];
+    .NAlice.NScenarios.TTypedCallbackRequestData TypedCallback = 3 [json_name = "typed_callback", (.NYT.column_name) = "typed_callback"];
+    .NAlice.TTypedCallbackRequest TypedCallbackSerialized = 4 [json_name = "typed_callback_serialized", (.NYT.column_name) = "typed_callback_serialized"];
+    .NAlice.TSemanticFrameRequestData ConditionalFrameRequestData = 5 [json_name = "conditional_frame_request_data", (.NYT.column_name) = "conditional_frame_request_data"];
   }
 }
 

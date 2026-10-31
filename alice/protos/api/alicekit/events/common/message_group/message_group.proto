@@ -10,11 +10,13 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/common/me
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMessageGroupInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSubRequestRef {
-    string MessageId = 1 [json_name = "message_id"];
-    string RequestId = 2 [json_name = "request_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string MessageId = 1 [json_name = "message_id", (.NYT.column_name) = "message_id"];
+    string RequestId = 2 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
-  repeated .NAlice.NAliceApi.TMessageGroupInfo.TSubRequestRef SubRequestRefs = 1 [json_name = "sub_request_refs"];
+  repeated .NAlice.NAliceApi.TMessageGroupInfo.TSubRequestRef SubRequestRefs = 1 [json_name = "sub_request_refs", (.NYT.column_name) = "sub_request_refs"];
 }
 

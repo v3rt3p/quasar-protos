@@ -13,52 +13,63 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWebPlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WebPlayerCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TPlayWebVideoDirective {
+    option (.NAlice.SpeechKitName) = "play_web_video_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayWebVideoDirectiveType;
     message TEmbedContent {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       oneof source {
-        string EmbedUri = 1 [json_name = "embed_uri"];
-        string EmbedHtml = 2 [json_name = "embed_html"];
+        string EmbedUri = 1 [json_name = "embed_uri", (.NYT.column_name) = "embed_uri"];
+        string EmbedHtml = 2 [json_name = "embed_html", (.NYT.column_name) = "embed_html"];
       }
     }
 
     message TPlaybackTiming {
-      uint32 Progress = 1 [json_name = "progress"];
-      uint32 Duration = 2 [json_name = "duration"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 Progress = 1 [json_name = "progress", (.NYT.column_name) = "progress"];
+      uint32 Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
     }
 
     message TEpisodeInfo {
-      uint32 Episode = 1 [json_name = "episode"];
-      uint32 Season = 2 [json_name = "season"];
-      string OntoId = 3 [json_name = "onto_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 Episode = 1 [json_name = "episode", (.NYT.column_name) = "episode"];
+      uint32 Season = 2 [json_name = "season", (.NYT.column_name) = "season"];
+      string OntoId = 3 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
     }
 
     message TRestrictions {
-      bool IsPorn = 1 [json_name = "is_porn"];
-      optional string AgeLimit = 2 [json_name = "age_limit"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool IsPorn = 1 [json_name = "is_porn", (.NYT.column_name) = "is_porn"];
+      optional string AgeLimit = 2 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
     }
 
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TEmbedContent EmbedContent = 1 [json_name = "embed_content"];
-    string HostDomain = 2 [json_name = "host_domain"];
-    string Title = 3 [json_name = "title"];
-    string VideoId = 4 [json_name = "video_id"];
-    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TPlaybackTiming PlaybackTiming = 6 [json_name = "playback_timing"];
-    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TRestrictions Restrictions = 7 [json_name = "restrictions"];
-    string Doc2docUrl = 8 [json_name = "doc2doc_url"];
-    string SearchUrl = 9 [json_name = "search_url"];
-    string SandboxName = 11 [json_name = "sandbox_name"];
-    optional .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TEpisodeInfo EpisodeInfo = 5 [json_name = "episode_info"];
-    optional string RecommendReqId = 10 [json_name = "recommend_req_id"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TEmbedContent EmbedContent = 1 [json_name = "embed_content", (.NYT.column_name) = "embed_content"];
+    string HostDomain = 2 [json_name = "host_domain", (.NYT.column_name) = "host_domain"];
+    string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+    string VideoId = 4 [json_name = "video_id", (.NYT.column_name) = "video_id"];
+    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TPlaybackTiming PlaybackTiming = 6 [json_name = "playback_timing", (.NYT.column_name) = "playback_timing"];
+    .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TRestrictions Restrictions = 7 [json_name = "restrictions", (.NYT.column_name) = "restrictions"];
+    string Doc2docUrl = 8 [json_name = "doc2doc_url", (.NYT.column_name) = "doc2doc_url"];
+    string SearchUrl = 9 [json_name = "search_url", (.NYT.column_name) = "search_url"];
+    string SandboxName = 11 [json_name = "sandbox_name", (.NYT.column_name) = "sandbox_name"];
+    optional .NAlice.TWebPlayerCapability.TPlayWebVideoDirective.TEpisodeInfo EpisodeInfo = 5 [json_name = "episode_info", (.NYT.column_name) = "episode_info"];
+    optional string RecommendReqId = 10 [json_name = "recommend_req_id", (.NYT.column_name) = "recommend_req_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWebPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWebPlayerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWebPlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWebPlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

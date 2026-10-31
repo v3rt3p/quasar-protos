@@ -8,21 +8,22 @@ option go_package = "a.yandex-team.ru/alice/protos/data/entity_meta";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVideoGalleryItemMeta {
-  uint32 Duration = 1 [json_name = "duration"];
-  uint32 Episode = 2 [json_name = "episode"];
-  uint32 EpisodesCount = 3 [json_name = "episodes_count"];
-  string Genre = 4 [json_name = "genre"];
-  uint32 MinAge = 5 [json_name = "min_age"];
-  string ProviderName = 6 [json_name = "provider_name"];
-  double Rating = 7 [json_name = "rating"];
-  uint32 ReleaseYear = 8 [json_name = "release_year"];
-  uint32 Season = 9 [json_name = "season"];
-  uint32 SeasonsCount = 10 [json_name = "seasons_count"];
-  string Type = 11 [json_name = "type"];
-  uint64 ViewCount = 12 [json_name = "view_count"];
-  uint32 Position = 13 [json_name = "position"];
-  string VideoId = 14 [json_name = "video_id"];
-  string OntoId = 15 [json_name = "onto_id"];
-  string Title = 16 [json_name = "title"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 Duration = 1 [json_name = "duration", (.NYT.column_name) = "duration"];
+  uint32 Episode = 2 [json_name = "episode", (.NYT.column_name) = "episode"];
+  uint32 EpisodesCount = 3 [json_name = "episodes_count", (.NYT.column_name) = "episodes_count"];
+  string Genre = 4 [json_name = "genre", (.NYT.column_name) = "genre"];
+  uint32 MinAge = 5 [json_name = "min_age", (.NYT.column_name) = "min_age"];
+  string ProviderName = 6 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  double Rating = 7 [json_name = "rating", (.NYT.column_name) = "rating"];
+  uint32 ReleaseYear = 8 [json_name = "release_year", (.NYT.column_name) = "release_year"];
+  uint32 Season = 9 [json_name = "season", (.NYT.column_name) = "season"];
+  uint32 SeasonsCount = 10 [json_name = "seasons_count", (.NYT.column_name) = "seasons_count"];
+  string Type = 11 [json_name = "type", (.NYT.column_name) = "type"];
+  uint64 ViewCount = 12 [json_name = "view_count", (.NYT.column_name) = "view_count"];
+  uint32 Position = 13 [json_name = "position", (.NYT.column_name) = "position"];
+  string VideoId = 14 [json_name = "video_id", (.NYT.column_name) = "video_id"];
+  string OntoId = 15 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+  string Title = 16 [json_name = "title", (.NYT.column_name) = "title"];
 }
 

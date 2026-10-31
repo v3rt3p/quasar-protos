@@ -2,6 +2,16 @@ syntax = "proto3";
 
 package NAlice.NTv;
 
+option java_package = "ru.yandex.alice.protos.data.tv.channels";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/channels";
+
+import "alice/protos/data/tv/channels/common.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
 message TTvChannelItemWrapper {
-  // stub
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTv.TChannel Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
+  repeated .NAlice.NTv.TProgramItem Programs = 2 [json_name = "programs", (.NYT.column_name) = "programs"];
 }
+

@@ -12,41 +12,55 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOtaCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = OtaCapabilityType;
   message TParameters {
-    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info", (.NYT.column_name) = "device_info"];
   }
 
   message TState {
-    uint32 SoftwareVersion = 1 [json_name = "software_version"];
-    .NAlice.TOtaCapability.EUpdateStatus UpdateStatus = 2 [json_name = "update_status"];
-    optional uint32 UpdateProgress = 3 [json_name = "update_progress"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 SoftwareVersion = 1 [json_name = "software_version", (.NYT.column_name) = "software_version"];
+    .NAlice.TOtaCapability.EUpdateStatus UpdateStatus = 2 [json_name = "update_status", (.NYT.column_name) = "update_status"];
+    optional uint32 UpdateProgress = 3 [json_name = "update_progress", (.NYT.column_name) = "update_progress"];
   }
 
   message TDeviceInfo {
-    uint32 VendorId = 1 [json_name = "vendor_id"];
-    uint32 ProductId = 2 [json_name = "product_id"];
-    .NAlice.TOtaCapability.EProtocol Protocol = 3 [json_name = "protocol"];
+    uint32 VendorId = 1 [json_name = "vendor_id", (.NYT.column_name) = "vendor_id"];
+    uint32 ProductId = 2 [json_name = "product_id", (.NYT.column_name) = "product_id"];
+    .NAlice.TOtaCapability.EProtocol Protocol = 3 [json_name = "protocol", (.NYT.column_name) = "protocol"];
   }
 
   message TOtaApplyDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 SoftwareVersion = 1 [json_name = "software_version"];
-    string DownloadUrl = 2 [json_name = "download_url"];
-    .NAlice.TOtaCapability.EUpdateLevel UpdateLevel = 3 [json_name = "update_level"];
+    option (.NAlice.SpeechKitName) = "ota_apply_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OtaApplyDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 SoftwareVersion = 1 [json_name = "software_version", (.NYT.column_name) = "software_version"];
+    string DownloadUrl = 2 [json_name = "download_url", (.NYT.column_name) = "download_url"];
+    .NAlice.TOtaCapability.EUpdateLevel UpdateLevel = 3 [json_name = "update_level", (.NYT.column_name) = "update_level"];
   }
 
   message TForceOtaRequestDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 TimeoutSeconds = 1 [json_name = "timeout_seconds"];
+    option (.NAlice.SpeechKitName) = "force_ota_request_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForceOtaRequestDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 TimeoutSeconds = 1 [json_name = "timeout_seconds", (.NYT.column_name) = "timeout_seconds"];
   }
 
   message TOtaRequestEvent {
-    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info"];
-    uint32 SoftwareVersion = 2 [json_name = "software_version"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = OtaRequestEventType;
+    .NAlice.TOtaCapability.TDeviceInfo DeviceInfo = 1 [json_name = "device_info", (.NYT.column_name) = "device_info"];
+    uint32 SoftwareVersion = 2 [json_name = "software_version", (.NYT.column_name) = "software_version"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TOtaCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = OtaUpdateStateEventType;
+    .NAlice.TOtaCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EProtocol {
@@ -73,8 +87,8 @@ message TOtaCapability {
     UPDATE_LEVEL_CRIT = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TOtaCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TOtaCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TOtaCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TOtaCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

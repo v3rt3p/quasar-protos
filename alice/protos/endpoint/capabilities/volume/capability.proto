@@ -12,67 +12,87 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVolumeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VolumeCapabilityType;
   message TParameters {
-    bool SupportsPercentLevel = 1 [json_name = "supports_platform_level"];
-    bool UseCoarseScale = 2 [json_name = "use_coarse_scale"];
-    bool SupportVolumeDbLevels = 3 [json_name = "support_volume_db_levels"];
-    repeated .NAlice.TVolumeCapability.EAudioStream SupportedStreams = 4 [json_name = "supported_streams"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsPercentLevel = 1 [json_name = "supports_platform_level", (.NYT.column_name) = "supports_platform_level"];
+    bool UseCoarseScale = 2 [json_name = "use_coarse_scale", (.NYT.column_name) = "use_coarse_scale"];
+    bool SupportVolumeDbLevels = 3 [json_name = "support_volume_db_levels", (.NYT.column_name) = "support_volume_db_levels"];
+    repeated .NAlice.TVolumeCapability.EAudioStream SupportedStreams = 4 [json_name = "supported_streams", (.NYT.column_name) = "supported_streams"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TStreamState {
-      .NAlice.TVolumeCapability.EAudioStream Stream = 1 [json_name = "stream"];
-      bool IsMuted = 2 [json_name = "is_muted"];
-      uint32 Level = 3 [json_name = "level"];
-      uint32 MaxLevel = 4 [json_name = "max_level"];
-      float PercentLevel = 5 [json_name = "percent_level"];
-      .NAlice.TVolumeCapability.ESource LastChangeSource = 6 [json_name = "last_change_source"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TVolumeCapability.EAudioStream Stream = 1 [json_name = "stream", (.NYT.column_name) = "stream"];
+      bool IsMuted = 2 [json_name = "is_muted", (.NYT.column_name) = "is_muted"];
+      uint32 Level = 3 [json_name = "level", (.NYT.column_name) = "level"];
+      uint32 MaxLevel = 4 [json_name = "max_level", (.NYT.column_name) = "max_level"];
+      float PercentLevel = 5 [json_name = "percent_level", (.NYT.column_name) = "percent_level"];
+      .NAlice.TVolumeCapability.ESource LastChangeSource = 6 [json_name = "last_change_source", (.NYT.column_name) = "last_change_source"];
     }
 
-    bool IsMuted = 1 [json_name = "is_muted"];
-    uint32 Level = 2 [json_name = "level"];
-    uint32 MaxLevel = 3 [json_name = "max_level"];
-    float PercentLevel = 4 [json_name = "percent_level"];
-    .NAlice.TVolumeCapability.ESource LastChangeSource = 5 [json_name = "last_change_source"];
-    repeated float VolumeDbLevels = 6 [json_name = "volume_db_levels"];
-    repeated .NAlice.TVolumeCapability.TState.TStreamState StreamStates = 7 [json_name = "stream_states"];
+    bool IsMuted = 1 [json_name = "is_muted", (.NYT.column_name) = "is_muted"];
+    uint32 Level = 2 [json_name = "level", (.NYT.column_name) = "level"];
+    uint32 MaxLevel = 3 [json_name = "max_level", (.NYT.column_name) = "max_level"];
+    float PercentLevel = 4 [json_name = "percent_level", (.NYT.column_name) = "percent_level"];
+    .NAlice.TVolumeCapability.ESource LastChangeSource = 5 [json_name = "last_change_source", (.NYT.column_name) = "last_change_source"];
+    repeated float VolumeDbLevels = 6 [json_name = "volume_db_levels", (.NYT.column_name) = "volume_db_levels"];
+    repeated .NAlice.TVolumeCapability.TState.TStreamState StreamStates = 7 [json_name = "stream_states", (.NYT.column_name) = "stream_states"];
   }
 
   message TVolumeMuteDirective {
-    bool IsMuted = 1 [json_name = "is_muted"];
-    .NAlice.TVolumeCapability.ESource Source = 2 [json_name = "source"];
-    .NAlice.TVolumeCapability.EAudioStream Stream = 3 [json_name = "stream"];
+    option (.NAlice.SpeechKitName) = "volume_mute";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VolumeMuteDirectiveType;
+    bool IsMuted = 1 [json_name = "is_muted", (.NYT.column_name) = "is_muted"];
+    .NAlice.TVolumeCapability.ESource Source = 2 [json_name = "source", (.NYT.column_name) = "source"];
+    .NAlice.TVolumeCapability.EAudioStream Stream = 3 [json_name = "stream", (.NYT.column_name) = "stream"];
   }
 
   message TVolumeUnmuteDirective {
-    .NAlice.TVolumeCapability.EAudioStream Stream = 1 [json_name = "stream"];
+    option (.NAlice.SpeechKitName) = "volume_unmute";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VolumeUnmuteDirectiveType;
+    .NAlice.TVolumeCapability.EAudioStream Stream = 1 [json_name = "stream", (.NYT.column_name) = "stream"];
   }
 
   message TVolumeStartVolumeChange {
-    uint32 InitialPercentLevel = 1 [json_name = "initial_percent_level"];
-    uint32 FinalPercentLevel = 2 [json_name = "final_percent_level"];
+    option (.NAlice.SpeechKitName) = "start_volume_change";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VolumeStartVolumeChangeDirectiveType;
+    uint32 InitialPercentLevel = 1 [json_name = "initial_percent_level", (.NYT.column_name) = "initial_percent_level"];
+    uint32 FinalPercentLevel = 2 [json_name = "final_percent_level", (.NYT.column_name) = "final_percent_level"];
     oneof TimeStepPolicy {
-      uint32 StepMs = 3 [json_name = "step_ms"];
-      uint32 FullTimeMs = 4 [json_name = "full_time_ms"];
+      uint32 StepMs = 3 [json_name = "step_ms", (.NYT.column_name) = "step_ms"];
+      uint32 FullTimeMs = 4 [json_name = "full_time_ms", (.NYT.column_name) = "full_time_ms"];
     }
-    optional uint32 PercentStep = 5 [json_name = "percent_step"];
+    optional uint32 PercentStep = 5 [json_name = "percent_step", (.NYT.column_name) = "percent_step"];
   }
 
   message TVolumeStopVolumeChange {
-    bool RestoreVolumeLevel = 1 [json_name = "restore_volume_level"];
+    option (.NAlice.SpeechKitName) = "stop_volume_change";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VolumeStopVolumeChangeDirectiveType;
+    bool RestoreVolumeLevel = 1 [json_name = "restore_volume_level", (.NYT.column_name) = "restore_volume_level"];
   }
 
   message TVolumeSetDirective {
+    option (.NAlice.SpeechKitName) = "volume_set";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VolumeSetDirectiveType;
     enum EMode {
       EModeDefault = 0;
       EModeNotLessThan = 1;
       EModeNotMoreThan = 2;
     }
 
-    float PercentLevel = 1 [json_name = "percent_level"];
-    .NAlice.TVolumeCapability.TVolumeSetDirective.EMode Mode = 2 [json_name = "mode"];
-    .NAlice.TVolumeCapability.ESource Source = 3 [json_name = "source"];
-    .NAlice.TVolumeCapability.EAudioStream Stream = 4 [json_name = "stream"];
+    float PercentLevel = 1 [json_name = "percent_level", (.NYT.column_name) = "percent_level"];
+    .NAlice.TVolumeCapability.TVolumeSetDirective.EMode Mode = 2 [json_name = "mode", (.NYT.column_name) = "mode"];
+    .NAlice.TVolumeCapability.ESource Source = 3 [json_name = "source", (.NYT.column_name) = "source"];
+    .NAlice.TVolumeCapability.EAudioStream Stream = 4 [json_name = "stream", (.NYT.column_name) = "stream"];
   }
 
   enum EAudioStream {
@@ -91,8 +111,8 @@ message TVolumeCapability {
     ESourceOther = 1000;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TVolumeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TVolumeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVolumeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVolumeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

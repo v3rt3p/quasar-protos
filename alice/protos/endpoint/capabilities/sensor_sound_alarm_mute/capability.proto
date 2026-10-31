@@ -13,28 +13,40 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSensorSoundAlarmMuteCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SensorSoundAlarmMuteCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Mute = 1 [json_name = "mute"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Mute = 1 [json_name = "mute", (.NYT.column_name) = "mute"];
   }
 
   message TMuteDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Mute = 1 [json_name = "mute"];
+    option (.NAlice.SpeechKitName) = "sensor_sound_alarm_mute_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SensorSoundAlarmMuteDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Mute = 1 [json_name = "mute", (.NYT.column_name) = "mute"];
   }
 
   message TToggleDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "toggle_sensor_sound_alarm_mute_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ToggleSensorSoundAlarmMuteDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSensorSoundAlarmMuteCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SensorSoundAlarmMuteUpdateStateEventType;
+    .NAlice.TSensorSoundAlarmMuteCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSensorSoundAlarmMuteCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSensorSoundAlarmMuteCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSensorSoundAlarmMuteCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSensorSoundAlarmMuteCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -79,6 +79,7 @@ message ReportMessage {
       }
 
       message Account {
+        option deprecated = true;
         required string id = 1;
         optional string type = 2;
         optional string options = 3;
@@ -136,7 +137,7 @@ message ReportMessage {
       optional .ReportMessage.Location location = 6;
       optional .ReportMessage.Session.Event.NetworkInfo network_info = 7;
       optional string environment = 8;
-      optional .ReportMessage.Session.Event.Account account = 9;
+      optional .ReportMessage.Session.Event.Account account = 9 [deprecated = true];
       optional uint32 bytes_truncated = 10;
       optional .ReportMessage.Session.Event.EncodingType encoding_type = 12 [default = NONE];
       optional .ReportMessage.OptionalBool location_tracking_enabled = 13 [default = OPTIONAL_BOOL_UNDEFINED];

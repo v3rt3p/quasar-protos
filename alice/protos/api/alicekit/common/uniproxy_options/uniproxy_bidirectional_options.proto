@@ -11,46 +11,55 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUniproxyBidirectionalOptions {
   message TRequestOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TAsrMode {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TAliceRequestMode {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     oneof RequestMode {
-      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAsrMode Asr = 1 [json_name = "asr"];
-      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAliceRequestMode AliceRequest = 2 [json_name = "alice_request"];
+      option (.NYT.variant_field_name) = "request_mode";
+      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAsrMode Asr = 1 [json_name = "asr", (.NYT.column_name) = "asr"];
+      .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions.TAliceRequestMode AliceRequest = 2 [json_name = "alice_request", (.NYT.column_name) = "alice_request"];
     }
   }
 
   message TIterationOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TStartIterationPolicy {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TSequentialPolicy {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       message TInterruptionPolicy {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof Policy {
-        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TSequentialPolicy Sequential = 2 [json_name = "sequential"];
-        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TInterruptionPolicy Interruption = 1 [json_name = "interruption"];
+        option (.NYT.variant_field_name) = "policy";
+        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TSequentialPolicy Sequential = 2 [json_name = "sequential", (.NYT.column_name) = "sequential"];
+        .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy.TInterruptionPolicy Interruption = 1 [json_name = "interruption", (.NYT.column_name) = "interruption"];
       }
     }
 
-    .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy StartIterationPolicy = 1 [json_name = "start_iteration_policy"];
+    .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions.TStartIterationPolicy StartIterationPolicy = 1 [json_name = "start_iteration_policy", (.NYT.column_name) = "start_iteration_policy"];
   }
 
   message TFinishEvent {
-    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw"];
+    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw", (.NYT.column_name) = "alice_event_raw"];
   }
 
   message TStartEvent {
-    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw"];
+    optional bytes AliceEventRaw = 1 [json_name = "alice_event_raw", (.NYT.column_name) = "alice_event_raw"];
   }
 
-  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions Request = 1 [json_name = "request"];
-  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions Iteration = 2 [json_name = "iteration"];
-  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TFinishEvent FinishEvent = 3 [json_name = "finish_event"];
-  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TStartEvent StartEvent = 4 [json_name = "start_event"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TRequestOptions Request = 1 [json_name = "request", (.NYT.column_name) = "request"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TIterationOptions Iteration = 2 [json_name = "iteration", (.NYT.column_name) = "iteration"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TFinishEvent FinishEvent = 3 [json_name = "finish_event", (.NYT.column_name) = "finish_event"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions.TStartEvent StartEvent = 4 [json_name = "start_event", (.NYT.column_name) = "start_event"];
 }
 

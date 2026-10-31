@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatNativeAuthCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_native_auth;alicechatnativeauthpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatNativeAuthCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatNativeAuthCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TOpenNativePassportDirective {
+    option (.NAlice.SpeechKitName) = "open_native_passport";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenNativePassportDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string Deeplink = 2 [json_name = "deeplink", (.NYT.column_name) = "deeplink"];
+  }
+
+  message TNativeLogoutDirective {
+    option (.NAlice.SpeechKitName) = "native_logout";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = NativeLogoutDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TNativeDeleteAccountDirective {
+    option (.NAlice.SpeechKitName) = "native_delete_account";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = NativeDeleteAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatNativeAuthCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatNativeAuthCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "BestPriceChatCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/best_price_chat;best_price_chatpb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBestPriceChatCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BestPriceChatCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .google.protobuf.Struct AdditionalData = 2 [json_name = "additional_data", (.NYT.column_name) = "additional_data"];
+    optional int32 Region = 1 [json_name = "region", (.NYT.column_name) = "region"];
+    optional string RegionHumanReadable = 3 [json_name = "region_human_readable", (.NYT.column_name) = "region_human_readable"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBestPriceChatCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBestPriceChatCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

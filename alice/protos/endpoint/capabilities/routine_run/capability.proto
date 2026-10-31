@@ -10,24 +10,29 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRoutineRunCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = RoutineRunCapabilityType;
   message TParameters {
-    .NAlice.TRoutineRunCapability.TScheduleRun Run = 1 [json_name = "run"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TRoutineRunCapability.TScheduleRun Run = 1 [json_name = "run", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "run"];
   }
 
   message TScheduleRun {
-    string ScheduleId = 1 [json_name = "schedule_id"];
-    string RunId = 2 [json_name = "run_id"];
-    string Title = 3 [json_name = "title"];
-    string Description = 4 [json_name = "description"];
-    string Instruction = 5 [json_name = "instruction"];
-    string TimeZone = 6 [json_name = "time_zone"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ScheduleId = 1 [json_name = "schedule_id", (.NYT.column_name) = "schedule_id"];
+    string RunId = 2 [json_name = "run_id", (.NYT.column_name) = "run_id"];
+    string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+    string Description = 4 [json_name = "description", (.NYT.column_name) = "description"];
+    string Instruction = 5 [json_name = "instruction", (.NYT.column_name) = "instruction"];
+    string TimeZone = 6 [json_name = "time_zone", (.NYT.column_name) = "time_zone"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TRoutineRunCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TRoutineRunCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TRoutineRunCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TRoutineRunCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

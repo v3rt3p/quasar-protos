@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.calls";
+option java_outer_classname = "CallableDevices";
+option go_package = "a.yandex-team.ru/alice/protos/data/calls";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+
+message TCallableDevice {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TQuasarInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Platform = 2 [json_name = "platform", (.NYT.column_name) = "platform"];
+  }
+
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string RoomId = 3 [json_name = "room_id", (.NYT.column_name) = "room_id"];
+  string HouseholdId = 4 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+  .NAlice.TCallableDevice.TQuasarInfo QuasarInfo = 5 [json_name = "quasar_info", (.NYT.column_name) = "quasar_info"];
+  string DeviceIconUrl = 6 [json_name = "device_icon_url", (.NYT.column_name) = "device_icon_url"];
+  bool RadioNannyEnabled = 7 [json_name = "radio_nanny_enabled", (.NYT.column_name) = "radio_nanny_enabled"];
+  bool DropInEnabled = 8 [json_name = "drop_in_enabled", (.NYT.column_name) = "drop_in_enabled"];
+  bool VideoCallEnabled = 9 [json_name = "video_call_enabled", (.NYT.column_name) = "video_call_enabled"];
+}
+
+message TRoom {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string HouseholdId = 3 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+}
+
+message THousehold {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+}
+
+message TCallableDevicesData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TCallableDevice CallableDevices = 1 [json_name = "callable_devices", (.NYT.column_name) = "callable_devices"];
+  repeated .NAlice.THousehold Households = 2 [json_name = "households", (.NYT.column_name) = "households"];
+  repeated .NAlice.TRoom Rooms = 3 [json_name = "rooms", (.NYT.column_name) = "rooms"];
+}
+

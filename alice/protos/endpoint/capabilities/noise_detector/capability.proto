@@ -12,37 +12,52 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNoiseDetectorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = NoiseDetectorCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TCustomNoise {
-    string Id = 1 [json_name = "id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TNoiseDetectedEvent {
-    .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventType = 1 [json_name = "noise_event_type"];
-    optional string EventId = 2 [json_name = "event_id"];
-    optional .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoise = 3 [json_name = "custom_noise"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = NoiseDetectedEventType;
+    .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventType = 1 [json_name = "noise_event_type", (.NYT.column_name) = "noise_event_type"];
+    optional string EventId = 2 [json_name = "event_id", (.NYT.column_name) = "event_id"];
+    optional .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoise = 3 [json_name = "custom_noise", (.NYT.column_name) = "custom_noise"];
   }
 
   message TStartCustomNoiseRecordingDirective {
-    string Name = 1000 [json_name = "name"];
-    string SessionId = 1 [json_name = "session_id"];
+    option (.NAlice.SpeechKitName) = "start_custom_noise_recording_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartCustomNoiseRecordingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
   }
 
   message TStopCustomNoiseRecordingDirective {
-    string Name = 1000 [json_name = "name"];
-    string SessionId = 1 [json_name = "session_id"];
+    option (.NAlice.SpeechKitName) = "stop_custom_noise_recording_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopCustomNoiseRecordingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
-    repeated .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventTypes = 2 [json_name = "noise_event_types"];
-    repeated .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoises = 3 [json_name = "custom_noises"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = NoiseDetectedEventType;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events", (.NYT.column_name) = "events"];
+    repeated .NAlice.TNoiseDetectorCapability.ENoiseEventType NoiseEventTypes = 2 [json_name = "noise_event_types", (.NYT.column_name) = "noise_event_types"];
+    repeated .NAlice.TNoiseDetectorCapability.TCustomNoise CustomNoises = 3 [json_name = "custom_noises", (.NYT.column_name) = "custom_noises"];
   }
 
   enum ENoiseEventType {
@@ -63,8 +78,8 @@ message TNoiseDetectorCapability {
     CUSTOM = 14;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TNoiseDetectorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TNoiseDetectorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TNoiseDetectorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TNoiseDetectorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

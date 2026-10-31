@@ -11,14 +11,16 @@ import "alice/protos/data/tv/tags/data/catalog_tag.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetTagsRequest {
-  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags"];
-  bool KidModeEnabled = 2 [json_name = "kid_mode_enabled"];
-  string RestrictionAge = 3 [json_name = "restriction_age"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags", (.NYT.column_name) = "selected_tags"];
+  bool KidModeEnabled = 2 [json_name = "kid_mode_enabled", (.NYT.column_name) = "kid_mode_enabled"];
+  string RestrictionAge = 3 [json_name = "restriction_age", (.NYT.column_name) = "restriction_age"];
 }
 
 message TGetTagsResponse {
-  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags"];
-  repeated .NAlice.NTv.TCatalogTag AvailableTags = 2 [json_name = "available_tags"];
-  repeated .NAlice.TVoiceControl VoiceControls = 3 [json_name = "voice_controls"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 1 [json_name = "selected_tags", (.NYT.column_name) = "selected_tags"];
+  repeated .NAlice.NTv.TCatalogTag AvailableTags = 2 [json_name = "available_tags", (.NYT.column_name) = "available_tags"];
+  repeated .NAlice.TVoiceControl VoiceControls = 3 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
 }
 

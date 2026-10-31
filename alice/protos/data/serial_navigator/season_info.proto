@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.serialnavigator";
+option java_outer_classname = "SeasonInfoProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/serial_navigator";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSeasonInfo {
+  string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  int32 Season = 3 [json_name = "season", (.NYT.column_name) = "season"];
+  uint32 EpisodeCount = 4 [json_name = "episode_count", (.NYT.column_name) = "episode_count"];
+  string SeasonName = 5 [json_name = "season_name", (.NYT.column_name) = "season_name"];
+}
+

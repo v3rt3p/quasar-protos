@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "RemindersPlayCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/reminders_play;reminders_playpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRemindersPlayCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = RemindersPlayCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TRemindersPlayCapability.EPlayType PlayType = 1 [json_name = "play_type", (.NYT.column_name) = "play_type"];
+  }
+
+  message TQueuedReminder {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+    uint64 ShootTimestampSeconds = 3 [json_name = "shoot_timestamp_seconds", (.NYT.column_name) = "shoot_timestamp_seconds"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TRemindersPlayCapability.TQueuedReminder QueuedReminders = 1 [json_name = "queued_reminders", (.NYT.column_name) = "queued_reminders"];
+  }
+
+  message TAddReminderToQueueDirective {
+    option (.NAlice.SpeechKitName) = "reminders_play_add_reminder_to_queue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemindersPlayAddReminderToQueueDirectiveType;
+    .NAlice.TRemindersPlayCapability.TQueuedReminder Reminder = 1 [json_name = "reminder", (.NYT.column_name) = "reminder"];
+  }
+
+  message TRemoveRemindersFromQueueDirective {
+    option (.NAlice.SpeechKitName) = "reminders_play_remove_reminders_from_queue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemindersPlayRemoveRemindersFromQueueDirectiveType;
+    repeated string Ids = 1 [json_name = "ids", (.NYT.column_name) = "ids"];
+  }
+
+  enum EPlayType {
+    Undefined = 0;
+    Instant = 1;
+    QueueWithConfirmation = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TRemindersPlayCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TRemindersPlayCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

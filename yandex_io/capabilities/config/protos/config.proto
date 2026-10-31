@@ -1,7 +1,14 @@
-syntax = "proto3";
+syntax = "proto2";
 
 package quasar.proto;
 
+option java_package = "ru.yandex.quasar.protobuf";
+
 message ConfigCapabilityProto {
-  // stub
+  map<string, string> placeholders = 3;
+  oneof Config {
+    string config_path = 1;
+    string config_json = 2;
+  }
 }
+

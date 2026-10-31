@@ -13,49 +13,74 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOnOffCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = OnOffCapabilityType;
   message TParameters {
-    bool Split = 1 [json_name = "split"];
-    .NAlice.TOnOffCapability.EInstance Instance = 2 [json_name = "instance"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Split = 1 [json_name = "split", (.NYT.column_name) = "split"];
+    .NAlice.TOnOffCapability.EInstance Instance = 2 [json_name = "instance", (.NYT.column_name) = "instance"];
   }
 
   message TState {
-    bool On = 1 [json_name = "on"];
-    .NAlice.TOnOffCapability.EStartupMode StartupMode = 2 [json_name = "startup_mode"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool On = 1 [json_name = "on", (.NYT.column_name) = "on"];
+    .NAlice.TOnOffCapability.EStartupMode StartupMode = 2 [json_name = "startup_mode", (.NYT.column_name) = "startup_mode"];
   }
 
   message TOnOffDirective {
-    string Name = 1000 [json_name = "name"];
-    bool On = 1 [json_name = "on"];
+    option (.NAlice.SpeechKitName) = "on_off_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OnOffDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool On = 1 [json_name = "on", (.NYT.column_name) = "on"];
   }
 
   message TToggleDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "toggle_on_off_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ToggleOnOffDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TSetStartupModeDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TOnOffCapability.EStartupMode StartupMode = 1 [json_name = "startup_mode"];
+    option (.NAlice.SpeechKitName) = "set_startup_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetStartupModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TOnOffCapability.EStartupMode StartupMode = 1 [json_name = "startup_mode", (.NYT.column_name) = "startup_mode"];
   }
 
   message TScreenOffDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "screen_off_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ScreenOffDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TOnWithTimedOffDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 OnTimeMs = 1 [json_name = "on_time_ms"];
+    option (.NAlice.SpeechKitName) = "on_with_timed_off_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OnWithTimedOffDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 OnTimeMs = 1 [json_name = "on_time_ms", (.NYT.column_name) = "on_time_ms"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TOnOffCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = OnOffUpdateStateEventType;
+    .NAlice.TOnOffCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TCondition {
-    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = OnOffUpdateStateEventType;
+    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state", (.NYT.column_name) = "on_off_state"];
   }
 
   message TOnOffFilter {
-    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = OnOffUpdateStateEventType;
+    .NAlice.TOnOffCapability.EOnOffConditionState OnOffState = 1 [json_name = "on_off_state", (.NYT.column_name) = "on_off_state"];
   }
 
   enum EInstance {
@@ -76,8 +101,8 @@ message TOnOffCapability {
     ToggleCondition = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TOnOffCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TOnOffCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TOnOffCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TOnOffCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

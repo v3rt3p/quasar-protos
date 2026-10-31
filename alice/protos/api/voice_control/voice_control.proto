@@ -12,32 +12,33 @@ import "alice/megamind/protos/common/conditional_action.proto";
 import "alice/protos/data/external_entity_description.proto";
 
 message TVoiceControl {
-  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions"];
-  repeated .NAlice.TConditionalAction Actions = 2 [json_name = "actions"];
-  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions"];
+  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions", (.NYT.column_name) = "activation_conditions"];
+  repeated .NAlice.TConditionalAction Actions = 2 [json_name = "actions", (.NYT.column_name) = "actions"];
+  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions", (.NYT.column_name) = "external_entities_descriptions"];
 }
 
 message TUnstructuredVoiceControl {
-  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions"];
-  repeated .google.protobuf.Struct Actions = 2 [json_name = "actions"];
-  repeated .google.protobuf.Struct ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions"];
+  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions", (.NYT.column_name) = "activation_conditions"];
+  repeated .google.protobuf.Struct Actions = 2 [json_name = "actions", (.NYT.column_name) = "actions"];
+  repeated .google.protobuf.Struct ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions", (.NYT.column_name) = "external_entities_descriptions"];
 }
 
 message TBinaryVoiceControl {
-  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions"];
-  repeated bytes Actions = 2 [json_name = "actions"];
-  repeated bytes ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions"];
+  repeated .NAlice.TActivationCondition ActivationConditions = 1 [json_name = "activation_conditions", (.NYT.column_name) = "activation_conditions"];
+  repeated bytes Actions = 2 [json_name = "actions", (.NYT.column_name) = "actions"];
+  repeated bytes ExternalEntitiesDescriptions = 3 [json_name = "external_entities_descriptions", (.NYT.column_name) = "external_entities_descriptions"];
 }
 
 message TActivationCondition {
   oneof ConditionType {
-    .NAlice.TVisibleCondition VisibleCondition = 1 [json_name = "visible_condition"];
-    .NAlice.TAlwaysTrueCondition AlwaysTrueCondition = 2 [json_name = "always_true_condition"];
+    option (.NYT.variant_field_name) = "condition_type";
+    .NAlice.TVisibleCondition VisibleCondition = 1 [json_name = "visible_condition", (.NYT.column_name) = "visible_condition"];
+    .NAlice.TAlwaysTrueCondition AlwaysTrueCondition = 2 [json_name = "always_true_condition", (.NYT.column_name) = "always_true_condition"];
   }
 }
 
 message TVisibleCondition {
-  double VisibleShare = 1 [json_name = "visible_share"];
+  double VisibleShare = 1 [json_name = "visible_share", (.NYT.column_name) = "visible_share"];
 }
 
 message TAlwaysTrueCondition {

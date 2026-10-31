@@ -10,21 +10,25 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAppStateCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AppStateCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EAppState {
       Unknown = 0;
       Background = 1;
       Foreground = 2;
     }
 
-    .NAlice.TAppStateCapability.TState.EAppState CurrentAppState = 1 [json_name = "current_app_state"];
+    .NAlice.TAppStateCapability.TState.EAppState CurrentAppState = 1 [json_name = "current_app_state", (.NYT.column_name) = "current_app_state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAppStateCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAppStateCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAppStateCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAppStateCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

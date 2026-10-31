@@ -14,16 +14,19 @@ import "alice/protos/api/datum/personal_data.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserData {
-  .NAlice.TBlackBoxUserInfo UserInfo = 1 [json_name = "user_info"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TBlackBoxUserInfo UserInfo = 1 [json_name = "user_info", (.NYT.column_name) = "user_info"];
   oneof OptionalRawPersonalData {
-    string RawPersonalData = 2 [json_name = "raw_personal_data"];
+    option (.NYT.variant_field_name) = "optional_raw_personal_data";
+    string RawPersonalData = 2 [json_name = "raw_personal_data", (.NYT.column_name) = "raw_personal_data", (.NAliceYT.PrivateGroup) = PrivateGroupClose];
   }
   oneof OptionalMementoData {
-    string MementoData = 3 [json_name = "memento"];
+    option (.NYT.variant_field_name) = "optional_memento_data";
+    string MementoData = 3 [json_name = "memento", (.NYT.column_name) = "memento", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
-  optional .NAlice.TBlackBoxFullUserInfoProto FullUserInfo = 7 [json_name = "full_user_info"];
-  optional .NAlice.ECredentialStatus BlackboxStatus = 4 [json_name = "blackbox_status"];
-  optional string BlackboxStatusReason = 5 [json_name = "blackbox_status_reason"];
-  optional .NAlice.NDatumApi.TDatumPersonalData DatumPersonalData = 6 [json_name = "datum_personal_data"];
+  optional .NAlice.TBlackBoxFullUserInfoProto FullUserInfo = 7 [json_name = "full_user_info", (.NYT.column_name) = "full_user_info"];
+  optional .NAlice.ECredentialStatus BlackboxStatus = 4 [json_name = "blackbox_status", (.NYT.column_name) = "blackbox_status"];
+  optional string BlackboxStatusReason = 5 [json_name = "blackbox_status_reason", (.NYT.column_name) = "blackbox_status_reason"];
+  optional .NAlice.NDatumApi.TDatumPersonalData DatumPersonalData = 6 [json_name = "datum_personal_data", (.NYT.column_name) = "datum_personal_data"];
 }
 

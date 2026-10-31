@@ -13,22 +13,29 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalizationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LocalizationCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.NData.ECountry Country = 1 [json_name = "country"];
-    .NAlice.NData.ELocale Locale = 2 [json_name = "locale"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.ECountry Country = 1 [json_name = "country", (.NYT.column_name) = "country"];
+    .NAlice.NData.ELocale Locale = 2 [json_name = "locale", (.NYT.column_name) = "locale"];
   }
 
   message TSetLocalizationDirective {
-    .NAlice.NData.ECountry Country = 1 [json_name = "country"];
-    .NAlice.NData.ELocale Locale = 2 [json_name = "locale"];
-    string Name = 3 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "set_localization";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetLocalizationDirectiveType;
+    .NAlice.NData.ECountry Country = 1 [json_name = "country", (.NYT.column_name) = "country"];
+    .NAlice.NData.ELocale Locale = 2 [json_name = "locale", (.NYT.column_name) = "locale"];
+    string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLocalizationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLocalizationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLocalizationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLocalizationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

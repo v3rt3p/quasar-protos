@@ -9,13 +9,15 @@ option go_package = "a.yandex-team.ru/alice/protos/data/tts_interruption_timings
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsInterruptionTimings {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTiming {
-    string Word = 1 [json_name = "word"];
-    uint64 StartMs = 2 [json_name = "start_ms"];
-    uint64 FinishMs = 3 [json_name = "finish_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Word = 1 [json_name = "word", (.NYT.column_name) = "word"];
+    uint64 StartMs = 2 [json_name = "start_ms", (.NYT.column_name) = "start_ms"];
+    uint64 FinishMs = 3 [json_name = "finish_ms", (.NYT.column_name) = "finish_ms"];
   }
 
-  repeated .NAlice.TTtsInterruptionTimings.TTiming Timings = 1 [json_name = "timings"];
-  uint64 TriggerMs = 2 [json_name = "trigger_ms"];
+  repeated .NAlice.TTtsInterruptionTimings.TTiming Timings = 1 [json_name = "timings", (.NYT.column_name) = "timings"];
+  uint64 TriggerMs = 2 [json_name = "trigger_ms", (.NYT.column_name) = "trigger_ms"];
 }
 

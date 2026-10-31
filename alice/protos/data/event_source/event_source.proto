@@ -10,6 +10,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/event_source";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEventSource {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EEvent {
     UnknownEvent = 0;
     Spotter = 1;
@@ -45,7 +46,7 @@ message TEventSource {
     Hardware = 2;
     Software = 3;
     TWS = 4;
-    OverlayedUI = 5;
+    OverlayedUI = 5 [deprecated = true];
   }
 
   enum EType {
@@ -60,11 +61,11 @@ message TEventSource {
     SpeechInput = 8;
   }
 
-  .NAlice.TEventSource.EEvent Event = 1 [json_name = "event"];
-  .NAlice.TEventSource.ESource Source = 2 [json_name = "source"];
-  .NAlice.TEventSource.EType Type = 3 [json_name = "type"];
-  optional string Id = 4 [json_name = "id"];
-  optional string EndpointId = 5 [json_name = "endpoint_id"];
-  optional string SourceName = 6 [json_name = "source_name"];
+  .NAlice.TEventSource.EEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+  .NAlice.TEventSource.ESource Source = 2 [json_name = "source", (.NYT.column_name) = "source"];
+  .NAlice.TEventSource.EType Type = 3 [json_name = "type", (.NYT.column_name) = "type"];
+  optional string Id = 4 [json_name = "id", (.NYT.column_name) = "id"];
+  optional string EndpointId = 5 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  optional string SourceName = 6 [json_name = "source_name", (.NYT.column_name) = "source_name"];
 }
 

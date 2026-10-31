@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VideoObjectDetection";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/video_object_detection;video_object_detection";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVideoObjectDetectionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VideoObjectDetectionCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TVideoObjectDetectionCapability.EObjectPresenceState ObjectPresenceState = 1 [json_name = "object_presence_state", (.NYT.column_name) = "object_presence_state"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VideoObjectDetectionCapabilityUpdateStateEventType;
+    .NAlice.TVideoObjectDetectionCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  message TPresenceHeartbeatEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VideoObjectDetectionCapabilityPresenceHeartbeatEventType;
+  }
+
+  enum EObjectPresenceState {
+    OBJECT_PRESENCE_STATE_UNKNOWN = 0;
+    OBJECT_PRESENCE_STATE_NOT_PRESENT = 1;
+    OBJECT_PRESENCE_STATE_PRESENT = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVideoObjectDetectionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVideoObjectDetectionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

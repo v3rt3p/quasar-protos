@@ -12,29 +12,39 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLongPollingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LongPollingCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TLongPollingJobDirective {
+    option (.NAlice.SpeechKitName) = "long_polling_job_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LongPollingJobDirectiveType;
     message TFilesPolling {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TFile {
-        string Guid = 1 [json_name = "guid"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Guid = 1 [json_name = "guid", (.NYT.column_name) = "guid"];
       }
 
-      repeated .NAlice.TLongPollingCapability.TLongPollingJobDirective.TFilesPolling.TFile Files = 1 [json_name = "files"];
+      repeated .NAlice.TLongPollingCapability.TLongPollingJobDirective.TFilesPolling.TFile Files = 1 [json_name = "files", (.NYT.column_name) = "files"];
     }
 
-    string Name = 1000 [json_name = "name"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
     oneof LongPollingJob {
-      .NAlice.TLongPollingCapability.TLongPollingJobDirective.TFilesPolling FilesPolling = 1 [json_name = "files_polling"];
+      option (.NYT.variant_field_name) = "long_polling_job";
+      .NAlice.TLongPollingCapability.TLongPollingJobDirective.TFilesPolling FilesPolling = 1 [json_name = "files_polling", (.NYT.column_name) = "files_polling"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLongPollingCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLongPollingCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLongPollingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLongPollingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

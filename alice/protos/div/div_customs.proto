@@ -10,13 +10,16 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDivVideo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TDivIndicator {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TDivCustoms {
-  .NAlice.TDivVideo DivVideo = 1 [json_name = "div_video"];
-  .NAlice.TDivIndicator DivIndicator = 2 [json_name = "div_indicator"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TDivVideo DivVideo = 1 [json_name = "div_video", (.NYT.column_name) = "div_video", (.NAlice.DivName) = "video"];
+  .NAlice.TDivIndicator DivIndicator = 2 [json_name = "div_indicator", (.NYT.column_name) = "div_indicator", (.NAlice.DivName) = "indicator"];
 }
 

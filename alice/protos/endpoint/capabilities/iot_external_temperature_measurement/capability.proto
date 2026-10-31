@@ -13,31 +13,43 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotExternalTemperatureMeasurementCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotExternalTemperatureMeasurementCapabilityType;
   message TParameters {
-    .NAlice.EUnit Unit = 1 [json_name = "unit"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.EUnit Unit = 1 [json_name = "unit", (.NYT.column_name) = "unit"];
   }
 
   message TState {
-    bool IsEnabled = 1 [json_name = "is_enabled"];
-    double MeasuredValue = 2 [json_name = "measured_value"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsEnabled = 1 [json_name = "is_enabled", (.NYT.column_name) = "is_enabled"];
+    double MeasuredValue = 2 [json_name = "measured_value", (.NYT.column_name) = "measured_value"];
   }
 
   message TSetEnabledExternalTemperatureMeasurementDirective {
-    string Name = 1000 [json_name = "name"];
-    bool IsEnabled = 1 [json_name = "is_enabled"];
+    option (.NAlice.SpeechKitName) = "set_enabled_external_temperature_measurement_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetEnabledExternalTemperatureMeasurementDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsEnabled = 1 [json_name = "is_enabled", (.NYT.column_name) = "is_enabled"];
   }
 
   message TSetMeasuredValueDirective {
-    string Name = 1000 [json_name = "name"];
-    double MeasuredValue = 1 [json_name = "measured_value"];
+    option (.NAlice.SpeechKitName) = "set_measured_value_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMeasuredValueDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double MeasuredValue = 1 [json_name = "measured_value", (.NYT.column_name) = "measured_value"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotExternalTemperatureMeasurementCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotExternalTemperatureMeasurementUpdateStateEventType;
+    .NAlice.TIotExternalTemperatureMeasurementCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotExternalTemperatureMeasurementCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotExternalTemperatureMeasurementCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotExternalTemperatureMeasurementCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotExternalTemperatureMeasurementCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

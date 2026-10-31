@@ -9,13 +9,16 @@ option go_package = "a.yandex-team.ru/alice/protos/div";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDirectiveDivAction {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TTextQueryDivAction {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TDivActions {
-  .NAlice.TDirectiveDivAction DirectiveDivAction = 1 [json_name = "directive_div_action"];
-  .NAlice.TTextQueryDivAction TextQueryDivAction = 2 [json_name = "text_query_div_action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TDirectiveDivAction DirectiveDivAction = 1 [json_name = "directive_div_action", (.NYT.column_name) = "directive_div_action"];
+  .NAlice.TTextQueryDivAction TextQueryDivAction = 2 [json_name = "text_query_div_action", (.NYT.column_name) = "text_query_div_action"];
 }
 

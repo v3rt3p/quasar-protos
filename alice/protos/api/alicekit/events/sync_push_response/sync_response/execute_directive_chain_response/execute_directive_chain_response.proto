@@ -13,7 +13,9 @@ import "alice/protos/endpoint/any_capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TExecuteDirectiveChainResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TExecutionResult {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TReceivedChain {
     }
 
@@ -22,41 +24,43 @@ message TExecuteDirectiveChainResponse {
       }
 
       message TFailed {
-        string Error = 1 [json_name = "error"];
-        .NAlice.NAliceApi.TExecuteDirectiveError.EErrorCode Code = 2 [json_name = "code"];
+        string Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
+        .NAlice.NAliceApi.TExecuteDirectiveError.EErrorCode Code = 2 [json_name = "code", (.NYT.column_name) = "code"];
       }
 
-      string DirectiveId = 3 [json_name = "directive_id"];
-      .NAlice.NAliceApi.DirectiveTimings DirectiveTimings = 4 [json_name = "directive_timings"];
+      string DirectiveId = 3 [json_name = "directive_id", (.NYT.column_name) = "directive_id"];
+      .NAlice.NAliceApi.DirectiveTimings DirectiveTimings = 4 [json_name = "directive_timings", (.NYT.column_name) = "directive_timings"];
       oneof Status {
-        .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted.TSucceed Succeed = 1 [json_name = "succeed"];
-        .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted.TFailed Failed = 2 [json_name = "failed"];
+        .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted.TSucceed Succeed = 1 [json_name = "succeed", (.NYT.column_name) = "succeed"];
+        .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted.TFailed Failed = 2 [json_name = "failed", (.NYT.column_name) = "failed"];
       }
-      optional .NAlice.TAnyCapabilityHolder AnyCapability = 5 [json_name = "any_capability"];
+      optional .NAlice.TAnyCapabilityHolder AnyCapability = 5 [json_name = "any_capability", (.NYT.column_name) = "any_capability"];
     }
 
     message TCompletedChain {
-      repeated .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted Completed = 1 [json_name = "completed"];
+      repeated .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompleted Completed = 1 [json_name = "completed", (.NYT.column_name) = "completed"];
     }
 
-    .NAlice.NAliceApi.ExecutionTimings ExecutionTimings = 3 [json_name = "execution_timings"];
+    .NAlice.NAliceApi.ExecutionTimings ExecutionTimings = 3 [json_name = "execution_timings", (.NYT.column_name) = "execution_timings"];
     oneof Result {
-      .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TReceivedChain ExecutionStarted = 1 [json_name = "execution_started"];
-      .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompletedChain ExecutionCompleted = 2 [json_name = "execution_completed"];
+      .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TReceivedChain ExecutionStarted = 1 [json_name = "execution_started", (.NYT.column_name) = "execution_started"];
+      .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult.TCompletedChain ExecutionCompleted = 2 [json_name = "execution_completed", (.NYT.column_name) = "execution_completed"];
     }
   }
 
-  .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult ExecutionResult = 1 [json_name = "execution_result"];
-  .NAlice.NAliceApi.TEnvironmentState AffectedEnvironmentState = 2 [json_name = "affected_environment_state"];
+  .NAlice.NAliceApi.TExecuteDirectiveChainResponse.TExecutionResult ExecutionResult = 1 [json_name = "execution_result", (.NYT.column_name) = "execution_result"];
+  .NAlice.NAliceApi.TEnvironmentState AffectedEnvironmentState = 2 [json_name = "affected_environment_state", (.NYT.column_name) = "affected_environment_state"];
 }
 
 message DirectiveTimings {
-  optional uint64 StartedTimestamp = 1 [json_name = "started_timestamp"];
-  optional uint64 CompletedTimestamp = 2 [json_name = "completed_timestamp"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint64 StartedTimestamp = 1 [json_name = "started_timestamp", (.NYT.column_name) = "started_timestamp"];
+  optional uint64 CompletedTimestamp = 2 [json_name = "completed_timestamp", (.NYT.column_name) = "completed_timestamp"];
 }
 
 message ExecutionTimings {
-  optional uint64 StartedTimestamp = 1 [json_name = "started_timestamp"];
-  optional uint64 CompletedTimestamp = 2 [json_name = "completed_timestamp"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint64 StartedTimestamp = 1 [json_name = "started_timestamp", (.NYT.column_name) = "started_timestamp"];
+  optional uint64 CompletedTimestamp = 2 [json_name = "completed_timestamp", (.NYT.column_name) = "completed_timestamp"];
 }
 

@@ -12,6 +12,7 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSpeechActivityTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     Started = 1;
@@ -19,12 +20,15 @@ message TSpeechActivityTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TSpeechActivityTypeSlot.EValue SpeechActivityTypeValue = 1 [json_name = "speech_activity_type_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TSpeechActivityTypeSlot.EValue SpeechActivityTypeValue = 1 [json_name = "speech_activity_type_value", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "speech_activity_type_value", (.NAlice.SlotType) = "custom.speech_activity_type"];
   }
 }
 
 message TVoiceActivityDetectorSemanticFrame {
-  .NAlice.TSpeechActivityTypeSlot SpeechActivityType = 1 [json_name = "speech_activity_type"];
-  .NAlice.TInt64Slot TimestampSeconds = 2 [json_name = "timestamp_seconds"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.smart_speaker.voice_activity_detector";
+  .NAlice.TSpeechActivityTypeSlot SpeechActivityType = 1 [json_name = "speech_activity_type", (.NYT.column_name) = "speech_activity_type", (.NAlice.SlotName) = "speech_activity_type"];
+  .NAlice.TInt64Slot TimestampSeconds = 2 [json_name = "timestamp_seconds", (.NYT.column_name) = "timestamp_seconds", (.NAlice.SlotName) = "timestamp_seconds"];
 }
 

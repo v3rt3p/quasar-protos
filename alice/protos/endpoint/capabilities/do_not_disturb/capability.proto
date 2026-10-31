@@ -12,31 +12,39 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDoNotDisturbCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DoNotDisturbCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TFeatures {
-    bool AllowIncomingCalls = 1 [json_name = "allow_incoming_calls"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool AllowIncomingCalls = 1 [json_name = "allow_incoming_calls", (.NYT.column_name) = "allow_incoming_calls"];
   }
 
   message TState {
-    bool IsDoNotDisturbEnabled = 1 [json_name = "is_do_not_disturb_enabled"];
-    .NAlice.TDoNotDisturbCapability.TFeatures Features = 2 [json_name = "features"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsDoNotDisturbEnabled = 1 [json_name = "is_do_not_disturb_enabled", (.NYT.column_name) = "is_do_not_disturb_enabled"];
+    .NAlice.TDoNotDisturbCapability.TFeatures Features = 2 [json_name = "features", (.NYT.column_name) = "features"];
   }
 
   message TSetDoNotDisturbStateDirective {
+    option (.NAlice.SpeechKitName) = "set_do_not_disturb_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetDoNotDisturbStateDirectiveType;
     enum EForceDoNotDisturbState {
       NoForceState = 0;
       ForceDisable = 1;
       ForceEnable = 2;
     }
 
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TDoNotDisturbCapability.TSetDoNotDisturbStateDirective.EForceDoNotDisturbState ForceDoNotDisturbState = 1 [json_name = "force_do_not_disturb_state"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TDoNotDisturbCapability.TSetDoNotDisturbStateDirective.EForceDoNotDisturbState ForceDoNotDisturbState = 1 [json_name = "force_do_not_disturb_state", (.NYT.column_name) = "force_do_not_disturb_state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TDoNotDisturbCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TDoNotDisturbCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDoNotDisturbCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDoNotDisturbCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

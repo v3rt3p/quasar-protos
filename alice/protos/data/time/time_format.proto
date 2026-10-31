@@ -8,12 +8,13 @@ option go_package = "a.yandex-team.ru/alice/protos/data/time";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimeFormat {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EFormat {
     Undefined = 0;
     Hours12 = 1;
     Hours24 = 2;
   }
 
-  .NAlice.NData.TTimeFormat.EFormat Format = 1 [json_name = "format"];
+  .NAlice.NData.TTimeFormat.EFormat Format = 1 [json_name = "format", (.NYT.column_name) = "format"];
 }
 

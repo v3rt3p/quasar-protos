@@ -9,7 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/data/tv";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentApplicationsItem {
-  repeated string PackageIds = 1 [json_name = "package_ids"];
-  string Title = 2 [json_name = "title"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string PackageIds = 1 [json_name = "package_ids", (.NYT.column_name) = "package_ids"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
 }
 

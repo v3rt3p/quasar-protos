@@ -8,7 +8,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDecimal {
-  string DecimalValue = 1 [json_name = "decimal_value"];
+  string DecimalValue = 1 [json_name = "decimal_value", (.NYT.column_name) = "decimal_value"];
 }
 
 message TPrice {
@@ -17,7 +17,7 @@ message TPrice {
     Rub = 1;
   }
 
-  .NAlice.NData.TDecimal Value = 1 [json_name = "value"];
-  .NAlice.NData.TPrice.ECurrency Currency = 2 [json_name = "currency"];
+  .NAlice.NData.TDecimal Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+  .NAlice.NData.TPrice.ECurrency Currency = 2 [json_name = "currency", (.NYT.column_name) = "currency"];
 }
 

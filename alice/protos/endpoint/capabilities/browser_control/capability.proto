@@ -1,0 +1,642 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "BrowserControlCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/browser_control;browsercontrolpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBrowserControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BrowserControlCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TAliceChatData {
+      int32 AliceChatWindowId = 1 [json_name = "alice_chat_window_id"];
+      int32 AliceChatTabId = 2 [json_name = "alice_chat_tab_id"];
+    }
+
+    message TColorSchemeData {
+      .NAlice.TBrowserControlCapability.EColorScheme ColorScheme = 1 [json_name = "color_scheme"];
+      optional .NAlice.TBrowserControlCapability.EColor Color = 2 [json_name = "color"];
+      optional .NAlice.TBrowserControlCapability.ETint Tint = 3 [json_name = "tint"];
+    }
+
+    message TAvailableThemesData {
+      repeated .NAlice.TBrowserControlCapability.EColorScheme AvailableColorSchemes = 1 [json_name = "available_color_schemes"];
+      repeated .NAlice.TBrowserControlCapability.EColor AvailableColors = 2 [json_name = "available_colors"];
+      repeated .NAlice.TBrowserControlCapability.ETint AvailableTints = 3 [json_name = "available_tints"];
+    }
+
+    message TTabGroupsUserSettings {
+      optional bool PrefersCloudTabGroups = 1 [json_name = "prefers_cloud_tab_groups"];
+      optional bool PrefersPinnedTabGroups = 2 [json_name = "prefers_pinned_tab_groups"];
+    }
+
+    message TBrowserState {
+      reserved "AvailableThemes";
+      reserved "AvailableBrowsingDataTypes";
+      reserved 4;
+      reserved 5;
+      .NAlice.TBrowserControlCapability.TState.TColorSchemeData CurrentColorScheme = 1 [json_name = "current_color_scheme"];
+      .NAlice.TBrowserControlCapability.TState.TAliceChatData AliceChatData = 2 [json_name = "alice_chat_data"];
+      string BrowserVersion = 3 [json_name = "browser_version"];
+      .NAlice.TBrowserControlCapability.TState.TTabGroupsUserSettings TabGroupsUserSettings = 6 [json_name = "tab_groups_user_settings"];
+      .NAlice.TBrowserControlCapability.EBookmarksPanelVisibility BookmarksPanelVisibilityState = 7 [json_name = "bookmarks_panel_visibility_state"];
+    }
+
+    .NAlice.TBrowserControlCapability.TState.TBrowserState CurrentBrowserState = 2 [json_name = "current_browser_state", (.NYT.column_name) = "current_browser_state"];
+    .NAlice.TBrowserControlCapability.TState.TAvailableThemesData AvailableThemes = 3 [json_name = "available_themes", (.NYT.column_name) = "available_themes"];
+    repeated .NAlice.TBrowserControlCapability.EClearData AvailableBrowsingDataTypes = 4 [json_name = "available_browsing_data_types", (.NYT.column_name) = "available_browsing_data_types"];
+  }
+
+  message TActivateTabDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_activate_tab";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlActivateTabDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabId = 3 [json_name = "tab_id"];
+  }
+
+  message TActivateTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_activate_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlActivateTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabGroupId = 3 [json_name = "tab_group_id"];
+  }
+
+  message TActivateWindowDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_activate_window";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlActivateWindowDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 WindowId = 3 [json_name = "window_id"];
+  }
+
+  message TAddTabDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_add_tab";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlAddTabDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    string Url = 3 [json_name = "url"];
+    int32 WindowId = 4 [json_name = "window_id"];
+    bool IsActive = 5 [json_name = "is_active"];
+    bool IsPinned = 6 [json_name = "is_pinned"];
+    optional int32 Index = 7 [json_name = "index"];
+  }
+
+  message TClearBrowsingDataDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_clear_browsing_data";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlClearBrowsingDataDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated .NAlice.TBrowserControlCapability.EClearData ClearData = 3 [json_name = "clear_data"];
+    string BeginTimeSinceUnixEpochMs = 4 [json_name = "begin_time_since_unix_epoch_ms"];
+    string EndTimeSinceUnixEpochMs = 5 [json_name = "end_time_since_unix_epoch_ms"];
+    optional bool IgnoreAliceData = 6 [json_name = "ignore_alice_data"];
+  }
+
+  message TCloseTabDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_close_tab";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlCloseTabDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabId = 3 [json_name = "tab_id"];
+  }
+
+  message TCloseTabsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_close_tabs";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlCloseTabsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+  }
+
+  message TCloseWindowDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_close_window";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlCloseWindowDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 WindowId = 3 [json_name = "window_id"];
+    bool IfEmpty = 4 [json_name = "if_empty"];
+  }
+
+  message TCreateTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_create_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlCreateTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 WindowId = 3 [json_name = "window_id"];
+    string GroupName = 4 [json_name = "group_name"];
+    bool IsCloud = 5 [json_name = "is_cloud"];
+    bool IsPinned = 6 [json_name = "is_pinned"];
+    bool IsActive = 7 [json_name = "is_active"];
+    optional bool ShowInfoEditor = 8 [json_name = "show_info_editor"];
+  }
+
+  message TGetBookmarksDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_bookmarks";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetBookmarksDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TGetBrowserStatusDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_browser_status";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetBrowserStatusDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TGetClearBrowsingDataCountersDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_clear_browsing_data_counters";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetClearBrowsingDataCountersDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated .NAlice.TBrowserControlCapability.EClearData ClearData = 3 [json_name = "clear_data"];
+    string BeginTimeSinceUnixEpochMs = 4 [json_name = "begin_time_since_unix_epoch_ms"];
+    string EndTimeSinceUnixEpochMs = 5 [json_name = "end_time_since_unix_epoch_ms"];
+  }
+
+  message TGetCurrentTimeDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_current_time";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetCurrentTimeDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TGetTabGroupsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_tab_groups";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetTabGroupsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TGetTabsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_tabs";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetTabsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    optional int32 WindowId = 3 [json_name = "window_id"];
+  }
+
+  message TGetWindowsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_get_windows";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlGetWindowsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TMoveTabsToTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_move_tabs_to_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlMoveTabsToTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+    int32 TabGroupId = 4 [json_name = "tab_group_id"];
+  }
+
+  message TMoveTabsToWindowDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_move_tabs_to_window";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlMoveTabsToWindowDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+    int32 WindowId = 4 [json_name = "window_id"];
+  }
+
+  message TOpenNewWindowDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_open_new_window";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlOpenNewWindowDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TPinTabGroupsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_pin_tab_groups";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlPinTabGroupsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabGroupIds = 3 [json_name = "tab_group_ids"];
+  }
+
+  message TPinTabsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_pin_tabs";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlPinTabsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+  }
+
+  message TRemoveTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_remove_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRemoveTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabGroupId = 3 [json_name = "tab_group_id"];
+    bool IfEmpty = 4 [json_name = "if_empty"];
+  }
+
+  message TRenameTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_rename_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRenameTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabGroupId = 3 [json_name = "tab_group_id"];
+    string NewGroupName = 4 [json_name = "new_group_name"];
+  }
+
+  message TRestoreTabDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_restore_tab";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRestoreTabDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabId = 3 [json_name = "tab_id"];
+    optional .NAlice.TBrowserControlCapability.ERestoreTabDisposition TabDisposition = 4 [json_name = "tab_disposition"];
+  }
+
+  message TRestoreTabGroupDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_restore_tab_group";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRestoreTabGroupDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 TabGroupId = 3 [json_name = "tab_group_id"];
+    optional .NAlice.TBrowserControlCapability.ERestoreTabDisposition FirstTabDisposition = 4 [json_name = "first_tab_disposition"];
+  }
+
+  message TRestoreTabsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_restore_tabs";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRestoreTabsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+    optional .NAlice.TBrowserControlCapability.ERestoreTabDisposition FirstTabDisposition = 4 [json_name = "first_tab_disposition"];
+  }
+
+  message TRestoreWindowDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_restore_window";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlRestoreWindowDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    int32 WindowId = 3 [json_name = "window_id"];
+  }
+
+  message TSetBookmarksPanelVisibilityDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_set_bookmarks_panel_visibility";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlSetBookmarksPanelVisibilityDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    .NAlice.TBrowserControlCapability.EBookmarksPanelVisibility VisibilityType = 3 [json_name = "visibility_type"];
+  }
+
+  message TSetDefaultBrowserDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_set_default_browser";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlSetDefaultBrowserDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TSwitchColorSchemeDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_switch_color_scheme";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlSwitchColorSchemeDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    .NAlice.TBrowserControlCapability.EColorScheme Scheme = 3 [json_name = "scheme"];
+    optional .NAlice.TBrowserControlCapability.EColor Color = 4 [json_name = "color"];
+    optional .NAlice.TBrowserControlCapability.ETint Tint = 5 [json_name = "tint"];
+  }
+
+  message TUnpinTabGroupsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_unpin_tab_groups";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlUnpinTabGroupsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabGroupIds = 3 [json_name = "tab_group_ids"];
+  }
+
+  message TUnpinTabsDirective {
+    option (.NAlice.SpeechKitName) = "browser_control_unpin_tabs";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BrowserControlUnpinTabsDirectiveType;
+    string Name = 1 [json_name = "name"];
+    string QueryId = 2 [json_name = "query_id"];
+    repeated int32 TabIds = 3 [json_name = "tab_ids"];
+  }
+
+  message TFailure {
+    reserved "Reason";
+    reserved 2;
+    int32 EntityId = 1 [json_name = "entity_id"];
+    string Status = 3 [json_name = "status"];
+  }
+
+  message TTab {
+    int32 Id = 1 [json_name = "id"];
+    string Url = 2 [json_name = "url"];
+    string Title = 3 [json_name = "title"];
+    int32 Index = 4 [json_name = "index"];
+    bool IsPinned = 5 [json_name = "is_pinned"];
+    int32 WindowId = 7 [json_name = "window_id"];
+    optional int32 TabGroupId = 6 [json_name = "tab_group_id"];
+    optional string CreationTimeSinceUnixEpochMs = 8 [json_name = "creation_time_since_unix_epoch_ms"];
+  }
+
+  message TTabGroup {
+    int32 Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    string Guid = 3 [json_name = "guid"];
+    int32 Index = 4 [json_name = "index"];
+    bool IsPinned = 5 [json_name = "is_pinned"];
+    bool IsHome = 6 [json_name = "is_home"];
+    bool IsCloud = 7 [json_name = "is_cloud"];
+    int32 WindowId = 8 [json_name = "window_id"];
+  }
+
+  message TWindow {
+    int32 Id = 1 [json_name = "id"];
+    bool SupportsTabGroups = 2 [json_name = "supports_tab_groups"];
+    int32 ActiveTabId = 4 [json_name = "active_tab_id"];
+    repeated int32 VisibleTabGroupIds = 5 [json_name = "visible_tab_group_ids"];
+    optional int32 DefaultTabGroupId = 3 [json_name = "default_tab_group_id"];
+    optional int32 ActiveTabGroupId = 6 [json_name = "active_tab_group_id"];
+    optional int32 DefaultTabGroupWindowNumber = 7 [json_name = "default_tab_group_window_number"];
+  }
+
+  message TBookmark {
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    bool IsFolder = 3 [json_name = "is_folder"];
+    optional string ParentId = 4 [json_name = "parent_id"];
+    optional string Url = 5 [json_name = "url"];
+  }
+
+  message TBrowsingHistoryCounter {
+    int64 UniqueDomains = 1 [json_name = "unique_domains_count"];
+    bool IsSyncEnabled = 2 [json_name = "is_sync_enabled"];
+    bool HasSyncedVisits = 3 [json_name = "has_synced_visits"];
+    string LastVisitedDomain = 4 [json_name = "last_visited_domain"];
+  }
+
+  message TCacheCounter {
+    int64 Bytes = 1 [json_name = "bytes"];
+    bool IsUpperLimit = 2 [json_name = "is_upper_limit"];
+  }
+
+  message TCookiesCounter {
+    int64 UniqueHosts = 1 [json_name = "unique_hosts_count"];
+  }
+
+  message TDownloadHistoryCounter {
+    int64 Downloads = 1 [json_name = "downloads_count"];
+  }
+
+  message TFormDataCounter {
+    int64 Suggestions = 1 [json_name = "suggestions_count"];
+    int64 PaymentMethods = 2 [json_name = "payment_methods_count"];
+    int64 Addresses = 3 [json_name = "addresses_count"];
+    int64 Entities = 4 [json_name = "entities_count"];
+    bool IsSyncEnabled = 5 [json_name = "is_sync_enabled"];
+  }
+
+  message THostedAppsDataCounter {
+    int64 Apps = 1 [json_name = "apps_count"];
+    repeated string Examples = 2 [json_name = "examples"];
+  }
+
+  message TSiteSettingsCounter {
+    int64 Sites = 1 [json_name = "sites_count"];
+  }
+
+  message TBrowsingDataCounter {
+    .NAlice.TBrowserControlCapability.EClearData DataType = 1 [json_name = "data_type"];
+    oneof CounterValue {
+      option (.NYT.variant_field_name) = "counter_value";
+      .NAlice.TBrowserControlCapability.TBrowsingHistoryCounter BrowsingHistory = 2 [json_name = "browsing_history", (.NYT.column_name) = "browsing_history"];
+      .NAlice.TBrowserControlCapability.TCacheCounter Cache = 3 [json_name = "cache", (.NYT.column_name) = "cache"];
+      .NAlice.TBrowserControlCapability.TCookiesCounter Cookies = 4 [json_name = "cookies", (.NYT.column_name) = "cookies"];
+      .NAlice.TBrowserControlCapability.TDownloadHistoryCounter DownloadHistory = 5 [json_name = "download_history", (.NYT.column_name) = "download_history"];
+      .NAlice.TBrowserControlCapability.TFormDataCounter FormData = 6 [json_name = "form_data", (.NYT.column_name) = "form_data"];
+      .NAlice.TBrowserControlCapability.THostedAppsDataCounter HostedAppsData = 7 [json_name = "hosted_apps_data", (.NYT.column_name) = "hosted_apps_data"];
+      .NAlice.TBrowserControlCapability.TSiteSettingsCounter SiteSettings = 8 [json_name = "site_settings", (.NYT.column_name) = "site_settings"];
+    }
+  }
+
+  message TBatchDirectiveCompletedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BatchDirectiveCompletedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TFailure Failures = 3 [json_name = "failures"];
+  }
+
+  message TBatchDirectiveCompletedWithAssociatedEntitiesEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BatchDirectiveCompletedWithAssociatedEntitiesEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    map<string, int32> AssociatedEntities = 3 [json_name = "associated_entities"];
+    repeated .NAlice.TBrowserControlCapability.TFailure Failures = 4 [json_name = "failures"];
+  }
+
+  message TBookmarksQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BookmarksQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TBookmark Bookmarks = 3 [json_name = "bookmarks"];
+  }
+
+  message TBrowserStatusQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BrowserStatusQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    optional bool IsDefaultBrowser = 3 [json_name = "is_default_browser"];
+  }
+
+  message TClearBrowsingDataCountersQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ClearBrowsingDataCountersQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TBrowsingDataCounter Counters = 3 [json_name = "counters"];
+  }
+
+  message TFailedBrowsingDataInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TBrowserControlCapability.EClearData DataType = 1 [json_name = "data_type"];
+    string Status = 2 [json_name = "status"];
+  }
+
+  message TClearBrowsingDataCompletedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ClearBrowsingDataCompletedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TFailedBrowsingDataInfo FailedBrowsingDataInfos = 3 [json_name = "failed_browsing_data_infos"];
+  }
+
+  message TCurrentTimeQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CurrentTimeQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    string Timezone = 3 [json_name = "timezone"];
+    string CurrentTimeSinceUnixEpochMs = 4 [json_name = "current_time_since_unix_epoch_ms"];
+  }
+
+  message TDirectiveCompletedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = DirectiveCompletedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+  }
+
+  message TIgnoredParam {
+    string Name = 1 [json_name = "name"];
+    string Reason = 2 [json_name = "reason"];
+  }
+
+  message TDirectiveCompletedWithAssociatedEntityEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = DirectiveCompletedWithAssociatedEntityEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TIgnoredParam IgnoredParams = 4 [json_name = "ignored_params"];
+    optional int32 EntityId = 3 [json_name = "entity_id"];
+  }
+
+  message TDirectiveNotFoundEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = DirectiveNotFoundEventType;
+    string DirectiveName = 1 [json_name = "directive_name"];
+    optional string QueryId = 2 [json_name = "query_id"];
+  }
+
+  message TSetDefaultBrowserCompletedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SetDefaultBrowserCompletedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+  }
+
+  message TTabGroupsQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = TabGroupsQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TTabGroup TabGroups = 3 [json_name = "tab_groups"];
+  }
+
+  message TTabsQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = TabsQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TTab Tabs = 3 [json_name = "tabs"];
+  }
+
+  message TWindowsQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = WindowsQueriedEventType;
+    string QueryId = 1 [json_name = "query_id"];
+    string Status = 2 [json_name = "status"];
+    repeated .NAlice.TBrowserControlCapability.TWindow Windows = 3 [json_name = "windows"];
+  }
+
+  enum EColorScheme {
+    ColorSchemeTransparent = 0;
+    ColorSchemeColor = 1;
+    ColorSchemeLight = 2;
+    ColorSchemeDark = 3;
+    ColorSchemeSystem = 4;
+  }
+
+  enum EColor {
+    ColorBlue = 0;
+    ColorAqua = 1;
+    ColorGreen = 2;
+    ColorYellow = 3;
+    ColorOrange = 4;
+    ColorRed = 5;
+    ColorPurple = 6;
+  }
+
+  enum ETint {
+    TintLight = 0;
+    TintHalf = 1;
+    TintColor = 2;
+    TintFull = 3;
+    TintDesignSystemLight = 4;
+    TintDesignSystemDark = 5;
+  }
+
+  enum EClearData {
+    ClearDataNone = 0;
+    ClearDataBrowsingHistory = 1;
+    ClearDataCache = 2;
+    ClearDataCookies = 3;
+    ClearDataDownloadHistory = 4;
+    ClearDataFormData = 5;
+    ClearDataHostedAppsData = 6;
+    ClearDataSiteSettings = 7;
+  }
+
+  enum ERestoreTabDisposition {
+    RestoreTabDispositionUnknown = 0;
+    RestoreTabDispositionForeground = 1;
+    RestoreTabDispositionBackground = 2;
+  }
+
+  enum EBookmarksPanelVisibility {
+    BookmarksPanelVisibilityNever = 0;
+    BookmarksPanelVisibilityAlways = 1;
+    BookmarksPanelVisibilityOnlyOnTablo = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBrowserControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBrowserControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

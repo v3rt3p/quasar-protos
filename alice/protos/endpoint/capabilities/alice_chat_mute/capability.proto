@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatMuteProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_mute;alicechatmutepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/aliceapp_native_settings/aliceapp_native_binary_setting.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatMuteCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatMuteCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus SettingState = 1 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  message TAliceChatMuteToggleSettingDirective {
+    option (.NAlice.SpeechKitName) = "alice_chat_mute_toggle_setting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceChatMuteToggleSettingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus SettingState = 2 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatMuteCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatMuteCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

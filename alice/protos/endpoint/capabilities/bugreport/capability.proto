@@ -12,29 +12,40 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBugreportCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BugreportCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TSendBugReport {
+    option (.NAlice.SpeechKitName) = "capability_send_bugreport";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendBugReportType;
     message TAnalytics {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
-    string UserMessage = 1 [json_name = "user_message"];
-    string BugreportId = 2 [json_name = "bugreport_id"];
-    .NAlice.TBugreportCapability.TSendBugReport.TAnalytics Analytics = 999 [json_name = "analytics"];
-    string Name = 1000 [json_name = "name"];
+    string UserMessage = 1 [json_name = "user_message", (.NYT.column_name) = "user_message"];
+    string BugreportId = 2 [json_name = "bugreport_id", (.NYT.column_name) = "bugreport_id"];
+    .NAlice.TBugreportCapability.TSendBugReport.TAnalytics Analytics = 999 [json_name = "analytics", (.NYT.column_name) = "analytics"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TLegacySendBugReport {
-    string Name = 1 [json_name = "name"];
-    string RequestId = 2 [json_name = "id"];
+    option (.NAlice.SpeechKitName) = "send_bug_report";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LegacySendBugReportType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string RequestId = 2 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBugreportCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBugreportCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBugreportCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBugreportCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

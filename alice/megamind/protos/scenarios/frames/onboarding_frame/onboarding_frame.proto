@@ -12,6 +12,7 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOnboardingTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     unknown = 0;
     first_session = 1;
@@ -19,31 +20,44 @@ message TOnboardingTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TOnboardingTypeSlot.EValue TypeValue = 1 [json_name = "type_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TOnboardingTypeSlot.EValue TypeValue = 1 [json_name = "type_value", (.NYT.column_name) = "type_value", (.NAlice.SlotType) = "type_value"];
   }
 }
 
 message TOnboardingGetGreetingsSemanticFrame {
-  .NAlice.TOnboardingTypeSlot OnboardingType = 1 [json_name = "onboarding_type"];
-  .NAlice.TBoolSlot IsTextExpected = 2 [json_name = "is_text_expected"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.get_greetings";
+  .NAlice.TOnboardingTypeSlot OnboardingType = 1 [json_name = "onboarding_type", (.NYT.column_name) = "onboarding_type", (.NAlice.SlotName) = "onboarding_type"];
+  .NAlice.TBoolSlot IsTextExpected = 2 [json_name = "is_text_expected", (.NYT.column_name) = "is_text_expected", (.NAlice.SlotName) = "is_text_expected"];
 }
 
 message TOnboardingGetPromoSemanticFrame {
-  .NAlice.TStringSlot PromoId = 1 [json_name = "promo_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.get_promo";
+  .NAlice.TStringSlot PromoId = 1 [json_name = "promo_id", (.NYT.column_name) = "promo_id", (.NAlice.SlotName) = "promo_id"];
 }
 
 message TOnboardingStartingConfigureSuccessSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.starting_configure_success";
 }
 
 message TOnboardingStartingCriticalUpdateSemanticFrame {
-  .NAlice.TBoolSlot IsFirstSetup = 1 [json_name = "is_first_setup"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.starting_critical_update";
+  .NAlice.TBoolSlot IsFirstSetup = 1 [json_name = "is_first_setup", (.NYT.column_name) = "is_first_setup", (.NAlice.SlotName) = "is_first_setup"];
 }
 
 message TOnboardingAddNetworkSuccessSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.add_network_success";
 }
 
 message TOnboardingWhatCanYouDoSemanticFrame {
-  .NAlice.TUInt32Slot PhraseIndex = 1 [json_name = "phrase_index"];
-  .NAlice.TStringSlot RequiredTag = 2 [json_name = "required_tag"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.onboarding.what_can_you_do";
+  .NAlice.TUInt32Slot PhraseIndex = 1 [json_name = "phrase_index", (.NYT.column_name) = "phrase_index", (.NAlice.SlotName) = "phrase_index"];
+  .NAlice.TStringSlot RequiredTag = 2 [json_name = "required_tag", (.NYT.column_name) = "required_tag", (.NAlice.SlotName) = "required_tag"];
 }
 

@@ -9,25 +9,26 @@ import "alice/protos/data/video/video.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSeasonSeriesDetails {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSeasonInfo {
-    string ProviderItemId = 1 [json_name = "provider_item_id"];
-    string ContentType = 2 [json_name = "content_type"];
-    uint32 Season = 3 [json_name = "season"];
-    uint32 EpisodeCount = 4 [json_name = "episode_count"];
-    string SeasonName = 5 [json_name = "season_name"];
+    string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+    string ContentType = 2 [json_name = "content_type", deprecated = true, (.NYT.column_name) = "content_type"];
+    uint32 Season = 3 [json_name = "season", (.NYT.column_name) = "season"];
+    uint32 EpisodeCount = 4 [json_name = "episode_count", (.NYT.column_name) = "episode_count"];
+    string SeasonName = 5 [json_name = "season_name", (.NYT.column_name) = "season_name"];
   }
 
   message TEpisodeInfo {
-    .NAlice.TOttVideoItem Episode = 1 [json_name = "episode"];
-    repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+    .NAlice.TOttVideoItem Episode = 1 [json_name = "episode", (.NYT.column_name) = "episode"];
+    repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
   }
 
-  string ProviderItemId = 1 [json_name = "provider_item_id"];
-  string ContentType = 2 [json_name = "content_type"];
-  string Name = 3 [json_name = "name"];
-  repeated .NAlice.TSeasonSeriesDetails.TSeasonInfo Seasons = 4 [json_name = "seasons"];
-  uint32 CurrentSeason = 5 [json_name = "current_season"];
-  repeated .NAlice.TSeasonSeriesDetails.TEpisodeInfo EpisodeInfo = 6 [json_name = "episode_info"];
-  repeated .NAlice.TVoiceControl VoiceControls = 7 [json_name = "voice_controls"];
+  string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+  repeated .NAlice.TSeasonSeriesDetails.TSeasonInfo Seasons = 4 [json_name = "seasons", (.NYT.column_name) = "seasons"];
+  uint32 CurrentSeason = 5 [json_name = "current_season", (.NYT.column_name) = "current_season"];
+  repeated .NAlice.TSeasonSeriesDetails.TEpisodeInfo EpisodeInfo = 6 [json_name = "episode_info", (.NYT.column_name) = "episode_info"];
+  repeated .NAlice.TVoiceControl VoiceControls = 7 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
 }
 

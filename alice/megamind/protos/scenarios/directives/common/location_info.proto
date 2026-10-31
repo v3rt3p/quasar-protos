@@ -11,12 +11,13 @@ import "alice/protos/data/device/info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocationInfo {
-  repeated string RoomsIds = 1 [json_name = "rooms_ids"];
-  repeated string GroupsIds = 2 [json_name = "groups_ids"];
-  repeated string DevicesIds = 3 [json_name = "devices_ids"];
-  bool Everywhere = 4 [json_name = "everywhere"];
-  repeated .NAlice.EUserDeviceType SmartSpeakerModels = 6 [json_name = "smart_speaker_models"];
-  bool IncludeCurrentDeviceId = 7 [json_name = "include_current_device_id"];
-  bool CurrentGroup = 5 [json_name = "current_group"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string RoomsIds = 1 [json_name = "rooms_ids", (.NYT.column_name) = "rooms_ids"];
+  repeated string GroupsIds = 2 [json_name = "groups_ids", (.NYT.column_name) = "groups_ids"];
+  repeated string DevicesIds = 3 [json_name = "devices_ids", (.NYT.column_name) = "devices_ids"];
+  bool Everywhere = 4 [json_name = "everywhere", (.NYT.column_name) = "everywhere"];
+  repeated .NAlice.EUserDeviceType SmartSpeakerModels = 6 [json_name = "smart_speaker_models", (.NYT.column_name) = "smart_speaker_models"];
+  bool IncludeCurrentDeviceId = 7 [json_name = "include_current_device_id", (.NYT.column_name) = "include_current_device_id"];
+  bool CurrentGroup = 5 [json_name = "current_group", (.NYT.column_name) = "current_group"];
 }
 

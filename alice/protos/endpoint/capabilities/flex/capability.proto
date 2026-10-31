@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "FlexCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/flex;flexpb";
+
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFlexCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FlexCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Consumer = 1 [json_name = "consumer", (.NYT.column_name) = "consumer"];
+  }
+
+  message TSendPayloadDirective {
+    option (.NAlice.SpeechKitName) = "send_payload";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendPayloadDirectiveType;
+    .google.protobuf.Struct Payload = 1 [json_name = "payload", (.NYT.column_name) = "payload"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFlexCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFlexCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

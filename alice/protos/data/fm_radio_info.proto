@@ -8,9 +8,10 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFmRadioInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   repeated string FmRadioIds = 1 [json_name = "fm_radio_ids"];
   bool SimpleNlu = 2 [json_name = "simple_nlu"];
-  string ContentMetatag = 3 [json_name = "content_metatag"];
-  string TrackId = 4 [json_name = "track_id"];
+  string ContentMetatag = 3 [json_name = "content_metatag", (.NYT.column_name) = "content_metatag"];
+  string TrackId = 4 [json_name = "track_id", (.NYT.column_name) = "track_id"];
 }
 

@@ -10,12 +10,14 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDivVariable {
-  bool supportsId = 1 [json_name = "supports_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool supportsId = 1 [json_name = "supports_id", (.NYT.column_name) = "supports_id"];
 }
 
 message TDivVariables {
-  .NAlice.TDivVariable IsAudioPlaying = 1 [json_name = "is_audio_playing"];
-  .NAlice.TDivVariable IsRadioPlaying = 2 [json_name = "is_radio_playing"];
-  .NAlice.TDivVariable IsAlicePartialTextVisible = 3 [json_name = "is_alice_partial_text_visible"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TDivVariable IsAudioPlaying = 1 [json_name = "is_audio_playing", (.NYT.column_name) = "is_audio_playing", (.NAlice.DivName) = "is_audio_playing"];
+  .NAlice.TDivVariable IsRadioPlaying = 2 [json_name = "is_radio_playing", (.NYT.column_name) = "is_radio_playing", (.NAlice.DivName) = "is_radio_playing"];
+  .NAlice.TDivVariable IsAlicePartialTextVisible = 3 [json_name = "is_alice_partial_text_visible", (.NYT.column_name) = "is_alice_partial_text_visible", (.NAlice.DivName) = "is_alice_partial_text_visible"];
 }
 

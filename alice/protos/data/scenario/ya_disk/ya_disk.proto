@@ -9,25 +9,31 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TYaDiskTeasersInstructionData {
-  string AlbumUrl = 1 [json_name = "album_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string AlbumUrl = 1 [json_name = "album_url", (.NYT.column_name) = "album_url"];
 }
 
 message TYaDiskTeaserData {
-  .NAlice.NData.EOrientationType OrientationType = 1 [json_name = "orientation_type"];
-  .NAlice.NData.TYaDiskImage FirstImage = 2 [json_name = "first_image"];
-  .NAlice.NData.TYaDiskImage SecondImage = 3 [json_name = "second_image"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  .NAlice.NData.EOrientationType OrientationType = 1 [json_name = "orientation_type", (.NYT.column_name) = "orientation_type"];
+  .NAlice.NData.TYaDiskImage FirstImage = 2 [json_name = "first_image", (.NYT.column_name) = "first_image"];
+  .NAlice.NData.TYaDiskImage SecondImage = 3 [json_name = "second_image", (.NYT.column_name) = "second_image"];
 }
 
 message TYaDiskTeaserScenarioData {
-  bool AlbumIsEmpty = 1 [json_name = "album_is_empty"];
-  string AlbumUrl = 2 [json_name = "album_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  bool AlbumIsEmpty = 1 [json_name = "album_is_empty", (.NYT.column_name) = "album_is_empty"];
+  string AlbumUrl = 2 [json_name = "album_url", (.NYT.column_name) = "album_url"];
 }
 
 message TYaDiskImage {
-  string ItemId = 1 [json_name = "item_id"];
-  string Url = 2 [json_name = "url"];
-  int32 Width = 3 [json_name = "width"];
-  int32 Height = 4 [json_name = "height"];
+  string ItemId = 1 [json_name = "item_id", (.NYT.column_name) = "item_id"];
+  string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+  int32 Width = 3 [json_name = "width", (.NYT.column_name) = "width"];
+  int32 Height = 4 [json_name = "height", (.NYT.column_name) = "height"];
 }
 
 enum EOrientationType {

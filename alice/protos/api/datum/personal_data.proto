@@ -10,11 +10,13 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDatumScopePersonalData {
-  optional .NAlice.NDatumApi.TDatumAddressesList Addresses = 1 [json_name = "addresses"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NDatumApi.TDatumAddressesList Addresses = 1 [json_name = "addresses", (.NYT.column_name) = "addresses"];
 }
 
 message TDatumPersonalData {
-  optional .NAlice.NDatumApi.TDatumScopePersonalData Passport = 1 [json_name = "passport"];
-  optional .NAlice.NDatumApi.TDatumScopePersonalData Alice = 2 [json_name = "alice"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NDatumApi.TDatumScopePersonalData Passport = 1 [json_name = "passport", (.NYT.column_name) = "passport", (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  optional .NAlice.NDatumApi.TDatumScopePersonalData Alice = 2 [json_name = "alice", (.NYT.column_name) = "alice", (.NAliceYT.PrivateGroup) = PrivateGroupClose];
 }
 

@@ -14,41 +14,54 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIntonationSpottingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IntonationSpottingCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TSettings {
-    optional bool Enabled = 1 [json_name = "enabled"];
-    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms", (.NYT.column_name) = "enable_time_ms"];
+    optional bool EnableIntonationInterruption = 3 [json_name = "enable_intonation_interruption", (.NYT.column_name) = "enable_intonation_interruption"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "ActivationReason";
     reserved 3;
-    bool IsIntonationSpottingEnabled = 1 [json_name = "is_intonation_spotting_enabled"];
-    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold"];
-    .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason"];
-    .NAlice.TIntonationSpottingCapability.TSettings Settings = 5 [json_name = "settings"];
+    bool IsIntonationSpottingEnabled = 1 [json_name = "is_intonation_spotting_enabled", (.NYT.column_name) = "is_intonation_spotting_enabled"];
+    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold", (.NYT.column_name) = "threshold"];
+    .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason", (.NYT.column_name) = "enabling_reason"];
+    .NAlice.TIntonationSpottingCapability.TSettings Settings = 5 [json_name = "settings", (.NYT.column_name) = "settings"];
   }
 
   message TSetIntonationSpottingDirective {
+    option (.NAlice.SpeechKitName) = "set_intonation_spotting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIntonationSpottingDirectiveType;
     reserved "ActivationReason";
     reserved 3;
-    string Name = 1000 [json_name = "name"];
-    bool EnableIntonationSpotting = 1 [json_name = "enable_intonation_spotting"];
-    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold"];
-    optional .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason"];
-    optional uint32 EnableTimeMs = 5 [json_name = "enable_time_ms"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool EnableIntonationSpotting = 1 [json_name = "enable_intonation_spotting", (.NYT.column_name) = "enable_intonation_spotting"];
+    .NAlice.NData.ESpotterThresholdType Threshold = 2 [json_name = "threshold", (.NYT.column_name) = "threshold"];
+    optional .NAlice.NData.ESpotterEnablingReason EnablingReason = 4 [json_name = "enabling_reason", (.NYT.column_name) = "enabling_reason"];
+    optional uint32 EnableTimeMs = 5 [json_name = "enable_time_ms", (.NYT.column_name) = "enable_time_ms"];
   }
 
   message TSetIntonationSpottingSettingsDirective {
-    string Name = 1000 [json_name = "name"];
-    optional bool Enabled = 1 [json_name = "enabled"];
-    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms"];
+    option (.NAlice.SpeechKitName) = "set_intonation_spotting_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIntonationSpottingSettingsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    optional bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    optional uint32 EnableTimeMs = 2 [json_name = "enable_time_ms", (.NYT.column_name) = "enable_time_ms"];
+    optional bool EnableIntonationInterruption = 3 [json_name = "enable_intonation_interruption", (.NYT.column_name) = "enable_intonation_interruption"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIntonationSpottingCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIntonationSpottingCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIntonationSpottingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIntonationSpottingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

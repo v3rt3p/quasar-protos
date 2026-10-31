@@ -11,10 +11,12 @@ import "google/protobuf/struct.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetVideoGalleriesRequest {
-  string CategoryId = 1 [json_name = "category_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string CategoryId = 1 [json_name = "category_id", (.NYT.column_name) = "category_id"];
 }
 
 message TSearchResultItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EItemType {
     unknown = 0;
     entity = 1;
@@ -24,26 +26,28 @@ message TSearchResultItem {
     collection = 5;
   }
 
-  bool Visible = 1 [json_name = "visible"];
-  int32 Number = 2 [json_name = "number"];
-  .NAlice.TSearchResultItem.EItemType ContentType = 3 [json_name = "content_type"];
+  bool Visible = 1 [json_name = "visible", (.NYT.column_name) = "visible"];
+  int32 Number = 2 [json_name = "number", (.NYT.column_name) = "number"];
+  .NAlice.TSearchResultItem.EItemType ContentType = 3 [json_name = "content_type", (.NYT.column_name) = "content_type"];
   oneof Item {
-    .NAlice.TVideoItem VideoItem = 21 [json_name = "video_item"];
-    .NAlice.TPersonItem PersonItem = 22 [json_name = "person_item"];
-    .NAlice.TCollectionItem CollectionItem = 23 [json_name = "collection_item"];
-    .NAlice.TOttVideoItem OttVideoItem = 24 [json_name = "ott_video_item"];
-    .NAlice.TWebVideoItem SearchVideoItem = 25 [json_name = "search_video_item"];
+    .NAlice.TVideoItem VideoItem = 21 [json_name = "video_item", (.NYT.column_name) = "video_item"];
+    .NAlice.TPersonItem PersonItem = 22 [json_name = "person_item", (.NYT.column_name) = "person_item"];
+    .NAlice.TCollectionItem CollectionItem = 23 [json_name = "collection_item", (.NYT.column_name) = "collection_item"];
+    .NAlice.TOttVideoItem OttVideoItem = 24 [json_name = "ott_video_item", (.NYT.column_name) = "ott_video_item"];
+    .NAlice.TWebVideoItem SearchVideoItem = 25 [json_name = "search_video_item", (.NYT.column_name) = "search_video_item"];
   }
 }
 
 message TSearchResultGallery {
-  string Title = 1 [json_name = "title"];
-  bool Visible = 2 [json_name = "visible"];
-  repeated .NAlice.TSearchResultItem Items = 3 [json_name = "items"];
-  .google.protobuf.Struct DivJson = 4 [json_name = "div_json"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  bool Visible = 2 [json_name = "visible", (.NYT.column_name) = "visible"];
+  repeated .NAlice.TSearchResultItem Items = 3 [json_name = "items", (.NYT.column_name) = "items"];
+  .google.protobuf.Struct DivJson = 4 [json_name = "div_json", (.NYT.column_name) = "div_json"];
 }
 
 message TSearchResultData {
-  repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries", (.NYT.column_name) = "galleries"];
 }
 

@@ -12,7 +12,8 @@ import "alice/protos/api/alicekit/common/environment_state/environment_state.pro
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetDeviceStateResponse {
-  .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state"];
-  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2 [json_name = "environment_state"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state", (.NYT.column_name) = "device_state"];
+  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2 [json_name = "environment_state", (.NYT.column_name) = "environment_state"];
 }
 

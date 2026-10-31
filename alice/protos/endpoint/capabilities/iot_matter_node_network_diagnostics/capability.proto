@@ -11,30 +11,38 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotMatterNodeNetworkDiagnosticsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotMatterNodeNetworkDiagnosticsCapabilityType;
   message TWiFiDiagnostics {
-    bytes Bssid = 1 [json_name = "bssid"];
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiSecurityType SecurityType = 2 [json_name = "security_type"];
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiVersion WiFiVersion = 3 [json_name = "wifi_version"];
-    uint32 ChannelNumber = 4 [json_name = "channel_number"];
-    int32 Rssi = 5 [json_name = "rssi"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bytes Bssid = 1 [json_name = "bssid", (.NYT.column_name) = "bssid"];
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiSecurityType SecurityType = 2 [json_name = "security_type", (.NYT.column_name) = "security_type"];
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EWiFiVersion WiFiVersion = 3 [json_name = "wifi_version", (.NYT.column_name) = "wifi_version"];
+    uint32 ChannelNumber = 4 [json_name = "channel_number", (.NYT.column_name) = "channel_number"];
+    int32 Rssi = 5 [json_name = "rssi", (.NYT.column_name) = "rssi"];
   }
 
   message TNetworkDiagnostics {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof NetworkInfo {
-      .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TWiFiDiagnostics WiFi = 1 [json_name = "wifi"];
+      .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TWiFiDiagnostics WiFi = 1 [json_name = "wifi", (.NYT.column_name) = "wifi"];
     }
   }
 
   message TParameters {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EInterfaceType InterfaceType = 1 [json_name = "interface_type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.EInterfaceType InterfaceType = 1 [json_name = "interface_type", (.NYT.column_name) = "interface_type"];
   }
 
   message TState {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TNetworkDiagnostics NetworkDiagnostics = 1 [json_name = "network_diagnostics"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TNetworkDiagnostics NetworkDiagnostics = 1 [json_name = "network_diagnostics", (.NYT.column_name) = "network_diagnostics"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotMatterNodeNetworkDiagnosticsUpdateStateEventType;
+    .NAlice.TIotMatterNodeNetworkDiagnosticsCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EInterfaceType {
@@ -65,8 +73,8 @@ message TIotMatterNodeNetworkDiagnosticsCapability {
     WiFiVersionAH = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotMatterNodeNetworkDiagnosticsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -12,24 +12,33 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotAntifreezeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotAntifreezeCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TSetIotAntifreezeDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "set_iot_antifreeze_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotAntifreezeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAntifreezeCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotAntifreezeUpdateStateEventType;
+    .NAlice.TIotAntifreezeCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotAntifreezeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotAntifreezeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotAntifreezeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotAntifreezeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

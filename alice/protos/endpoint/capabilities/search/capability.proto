@@ -15,12 +15,16 @@ import "alice/protos/data/common_search/feature.proto";
 import "alice/protos/data/tv/search/tv_search_result.proto";
 
 message TSearchCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SearchCapabilityType;
   message TParameters {
-    repeated .NAlice.EMultiSearchContent SupportedContentTypes = 1 [json_name = "supported_content_types"];
-    repeated .NAlice.ESearchFeatures Features = 2 [json_name = "features"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.EMultiSearchContent SupportedContentTypes = 1 [json_name = "supported_content_types", (.NYT.column_name) = "supported_content_types"];
+    repeated .NAlice.ESearchFeatures Features = 2 [json_name = "features", (.NYT.column_name) = "features"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum ESearchState {
       Empty = 0;
       HasData = 1;
@@ -32,20 +36,23 @@ message TSearchCapability {
       AliceRPC = 2;
     }
 
-    string SearchQuery = 1 [json_name = "search_query"];
-    .NAlice.TSearchCapability.TState.ESearchState SearchState = 2 [json_name = "search_state"];
-    .NAlice.TSearchCapability.TState.ESearchSource SearchSource = 3 [json_name = "search_source"];
+    string SearchQuery = 1 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+    .NAlice.TSearchCapability.TState.ESearchState SearchState = 2 [json_name = "search_state", (.NYT.column_name) = "search_state"];
+    .NAlice.TSearchCapability.TState.ESearchSource SearchSource = 3 [json_name = "search_source", (.NYT.column_name) = "search_source"];
   }
 
   message TOpenSearchDirective {
-    string SearchQuery = 1 [json_name = "search_query"];
-    .NAlice.TTvSearchResultData SearchResultData = 2 [json_name = "search_result"];
-    string Name = 3 [json_name = "name"];
-    optional string HostFiltration = 4 [json_name = "host_filtration"];
+    option (.NAlice.SpeechKitName) = "open_search";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSearchDirectiveType;
+    string SearchQuery = 1 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+    .NAlice.TTvSearchResultData SearchResultData = 2 [json_name = "search_result", (.NYT.column_name) = "search_result"];
+    string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string HostFiltration = 4 [json_name = "host_filtration", (.NYT.column_name) = "host_filtration"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSearchCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSearchCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSearchCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSearchCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

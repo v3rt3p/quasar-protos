@@ -11,11 +11,15 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TChatCardsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ChatCardsCapabilityType;
   message TParameters {
-    repeated .NAlice.TChatCardsCapability.ECardType SupportedCardTypes = 1 [json_name = "supported_card_types"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TChatCardsCapability.ECardType SupportedCardTypes = 1 [json_name = "supported_card_types", (.NYT.column_name) = "supported_card_types"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   enum ECardType {
@@ -31,8 +35,8 @@ message TChatCardsCapability {
     RichUICard = 9;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TChatCardsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TChatCardsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TChatCardsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TChatCardsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

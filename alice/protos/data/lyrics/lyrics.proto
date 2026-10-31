@@ -9,13 +9,13 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLyrics {
   message TSongLine {
-    uint32 OffsetMilliseconds = 1 [json_name = "offset_milliseconds"];
-    string Text = 2 [json_name = "text"];
+    uint32 OffsetMilliseconds = 1 [json_name = "offset_milliseconds", (.NYT.column_name) = "offset_milliseconds"];
+    string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
   }
 
-  string Id = 1 [json_name = "id"];
-  repeated .NAlice.NData.TLyrics.TSongLine SongLines = 2 [json_name = "song_lines"];
-  repeated string Writers = 3 [json_name = "writers"];
-  string Source = 4 [json_name = "source"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  repeated .NAlice.NData.TLyrics.TSongLine SongLines = 2 [json_name = "song_lines", (.NYT.column_name) = "song_lines"];
+  repeated string Writers = 3 [json_name = "writers", (.NYT.column_name) = "writers"];
+  string Source = 4 [json_name = "source", (.NYT.column_name) = "source"];
 }
 

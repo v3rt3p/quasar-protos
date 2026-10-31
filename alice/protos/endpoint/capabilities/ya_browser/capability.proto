@@ -13,23 +13,33 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TYaBrowserCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = YaBrowserCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TOpenUrlDirective {
-    string Name = 1 [json_name = "name"];
-    string Url = 2 [json_name = "url"];
+    option (.NAlice.SpeechKitName) = "ya_browser_open_url_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenUrlDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
   }
 
   message TOpenBrowserDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_browser_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBrowserDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TYaBrowserCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TYaBrowserCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TYaBrowserCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TYaBrowserCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

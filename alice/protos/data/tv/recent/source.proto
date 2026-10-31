@@ -10,8 +10,9 @@ import "alice/protos/data/tv/sources/source_type.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentSourceItem {
-  string InputId = 1 [json_name = "input_id"];
-  .NAlice.NTv.ESourceType SourceType = 2 [json_name = "source_type"];
-  string InputName = 3 [json_name = "input_name"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string InputId = 1 [json_name = "input_id", (.NYT.column_name) = "input_id"];
+  .NAlice.NTv.ESourceType SourceType = 2 [json_name = "source_type", (.NYT.column_name) = "source_type"];
+  string InputName = 3 [json_name = "input_name", (.NYT.column_name) = "input_name"];
 }
 

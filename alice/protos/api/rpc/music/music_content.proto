@@ -1,0 +1,201 @@
+syntax = "proto3";
+
+package NAlice.NMusic.NArpc;
+
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/music";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/avatar/avatar.proto";
+
+message TDisclaimerInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string Description = 3 [json_name = "description", (.NYT.column_name) = "description"];
+}
+
+message TArtist {
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  repeated .NAlice.NMusic.NArpc.TDisclaimerInfo Disclaimers = 3 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  .NAlice.TAvatarMdsImage AvatarImage = 4 [json_name = "avatar_image", (.NYT.column_name) = "avatar_image"];
+  repeated string Genres = 5 [json_name = "genres", (.NYT.column_name) = "genres"];
+}
+
+message TTrack {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved "ArtImageUrl";
+  reserved 4;
+  enum ELikeStatus {
+    Undefined = 0;
+    None = 1;
+    Liked = 2;
+    Disliked = 3;
+  }
+
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string Version = 3 [json_name = "version", (.NYT.column_name) = "version"];
+  uint32 DurationMs = 5 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+  .NAlice.NMusic.NArpc.TTrack.ELikeStatus LikeStatus = 6 [json_name = "like_status", (.NYT.column_name) = "like_status"];
+  bool IsAvailable = 7 [json_name = "is_available", (.NYT.column_name) = "is_available"];
+  repeated .NAlice.NMusic.NArpc.TArtist Artists = 8 [json_name = "artists", (.NYT.column_name) = "artists"];
+  repeated .NAlice.NMusic.NArpc.TDisclaimerInfo Disclaimers = 9 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  .NAlice.TAvatarMdsImage ArtImage = 10 [json_name = "art_image", (.NYT.column_name) = "art_image"];
+}
+
+message TAlbum {
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TAvatarMdsImage ArtImage = 3 [json_name = "art_image", (.NYT.column_name) = "art_image"];
+  repeated .NAlice.NMusic.NArpc.TArtist Artists = 4 [json_name = "artists", (.NYT.column_name) = "artists"];
+}
+
+message TPlaylist {
+  string Id = 1 [json_name = "playlist_id", (.NYT.column_name) = "playlist_id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TAvatarMdsImage ArtImage = 3 [json_name = "art_image", (.NYT.column_name) = "art_image"];
+  bool IsLiked = 4 [json_name = "is_liked", (.NYT.column_name) = "is_liked"];
+  uint32 LikesCount = 5 [json_name = "likes_count", (.NYT.column_name) = "likes_count"];
+}
+
+message TGetMusicPlaylistInfoRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string PlaylistId = 1 [json_name = "playlist_id", (.NYT.column_name) = "playlist_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicPlaylistInfoResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message THeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "ArtImageUrl";
+    reserved 3;
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    string Description = 2 [json_name = "description", (.NYT.column_name) = "description"];
+    bool IsLiked = 4 [json_name = "is_liked", (.NYT.column_name) = "is_liked"];
+    .NAlice.TAvatarMdsImage ArtImage = 5 [json_name = "art_image", (.NYT.column_name) = "art_image"];
+    .NAlice.NMusic.NArpc.TGetMusicPlaylistInfoResponse.EPlaylistType PlaylistType = 6 [json_name = "playlist_type"];
+  }
+
+  enum EPlaylistType {
+    Undefined = 0;
+    MyLikes = 1;
+    RadioLikes = 2;
+    Shazam = 3;
+    LastFmLikes = 4;
+    LastFmTop = 5;
+    KinopoiskLikes = 6;
+  }
+
+  string PlaylistId = 1 [json_name = "playlist_id", (.NYT.column_name) = "playlist_id"];
+  .NAlice.NMusic.NArpc.TGetMusicPlaylistInfoResponse.THeader Header = 2 [json_name = "header", (.NYT.column_name) = "header"];
+  repeated .NAlice.NMusic.NArpc.TTrack Tracks = 3 [json_name = "tracks", (.NYT.column_name) = "tracks"];
+}
+
+message TGetMusicAlbumInfoRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string AlbumId = 1 [json_name = "album_id", (.NYT.column_name) = "album_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicAlbumInfoResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message THeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    string Genre = 3 [json_name = "genre", (.NYT.column_name) = "genre"];
+    .NAlice.TAvatarMdsImage ArtImage = 4 [json_name = "art_image", (.NYT.column_name) = "art_image"];
+    uint32 ReleaseYear = 5 [json_name = "release_year", (.NYT.column_name) = "release_year"];
+    bool IsLiked = 6 [json_name = "is_liked", (.NYT.column_name) = "is_liked"];
+    repeated .NAlice.NMusic.NArpc.TArtist Artists = 7 [json_name = "artists", (.NYT.column_name) = "artists"];
+    repeated .NAlice.NMusic.NArpc.TDisclaimerInfo Disclaimers = 8 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  }
+
+  string AlbumId = 1 [json_name = "album_id", (.NYT.column_name) = "album_id"];
+  .NAlice.NMusic.NArpc.TGetMusicAlbumInfoResponse.THeader Header = 2 [json_name = "header", (.NYT.column_name) = "header"];
+  repeated .NAlice.NMusic.NArpc.TTrack Tracks = 3 [json_name = "tracks", (.NYT.column_name) = "tracks"];
+}
+
+message TGetMusicArtistInfoRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  uint32 PopularTracksLimit = 2 [json_name = "popular_tracks_limit", (.NYT.column_name) = "popular_tracks_limit"];
+  uint32 PopularAlbumsLimit = 3 [json_name = "popular_albums_limit", (.NYT.column_name) = "popular_albums_limit"];
+  uint32 PlaylistsLimit = 4 [json_name = "playlists_limit", (.NYT.column_name) = "playlists_limit"];
+  uint32 SimilarArtistsLimit = 5 [json_name = "similar_artists_limit", (.NYT.column_name) = "similar_artists_limit"];
+}
+
+message TGetMusicArtistInfoResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message THeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name"];
+    .NAlice.TAvatarMdsImage AvatarImage = 2 [json_name = "avatar_image", (.NYT.column_name) = "avatar_image"];
+    uint32 LastMonthListeners = 3 [json_name = "last_month_listeners", (.NYT.column_name) = "last_month_listeners"];
+    repeated .NAlice.NMusic.NArpc.TDisclaimerInfo Disclaimers = 4 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  }
+
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  .NAlice.NMusic.NArpc.TGetMusicArtistInfoResponse.THeader Header = 2 [json_name = "header", (.NYT.column_name) = "header"];
+  repeated .NAlice.NMusic.NArpc.TTrack PopularTracks = 3 [json_name = "popular_tracks", (.NYT.column_name) = "popular_tracks"];
+  repeated .NAlice.NMusic.NArpc.TAlbum PopularAlbums = 4 [json_name = "popular_albums", (.NYT.column_name) = "popular_albums"];
+  repeated .NAlice.NMusic.NArpc.TPlaylist Playlists = 5 [json_name = "playlists", (.NYT.column_name) = "playlists"];
+  repeated .NAlice.NMusic.NArpc.TArtist SimilarArtists = 6 [json_name = "similar_artists", (.NYT.column_name) = "similar_artists"];
+}
+
+message TGetMusicArtistPopularTracksRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicArtistPopularTracksResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NMusic.NArpc.TTrack PopularTracks = 1 [json_name = "popular_tracks", (.NYT.column_name) = "popular_tracks"];
+  string ArtistId = 2 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+}
+
+message TGetMusicArtistPopularAlbumsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicArtistPopularAlbumsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NMusic.NArpc.TAlbum PopularAlbums = 1 [json_name = "popular_albums", (.NYT.column_name) = "popular_albums"];
+  string ArtistId = 2 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+}
+
+message TGetMusicArtistPlaylistsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicArtistPlaylistsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NMusic.NArpc.TPlaylist Playlists = 1 [json_name = "playlists", (.NYT.column_name) = "playlists"];
+  string ArtistId = 2 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+}
+
+message TGetMusicArtistSimilarArtistsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+  uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TGetMusicArtistSimilarArtistsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NMusic.NArpc.TArtist SimilarArtists = 1 [json_name = "similar_artists", (.NYT.column_name) = "similar_artists"];
+  string ArtistId = 2 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+}
+

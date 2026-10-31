@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "DisplayCharacteristicProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/display_characteristic;displaycharacteristicpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDisplayCharacteristicCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DisplayCharacteristicCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TDisplayCharacteristicCapability.EScreenResolution SupportedScreenResolutions = 1 [json_name = "supported_screen_resolutions", (.NYT.column_name) = "supported_screen_resolutions"];
+    .NAlice.TDisplayCharacteristicCapability.EHdcpLevel HdcpLevel = 2 [json_name = "hdcp_level", (.NYT.column_name) = "hdcp_level"];
+    repeated .NAlice.TDisplayCharacteristicCapability.EDynamicRange DynamicRanges = 3 [json_name = "dynamic_ranges", (.NYT.column_name) = "dynamic_ranges"];
+  }
+
+  enum EScreenResolution {
+    SCREEN_RESOLUTION_UNKNOWN = 0;
+    SCREEN_RESOLUTION_SD = 1;
+    SCREEN_RESOLUTION_HD = 2;
+    SCREEN_RESOLUTION_UHD = 3;
+  }
+
+  enum EHdcpLevel {
+    HDCP_LEVEL_UNKNOWN = 0;
+    HDCP_LEVEL_NONE = 1;
+    HDCP_LEVEL_1X = 2;
+    HDCP_LEVEL_2X = 3;
+  }
+
+  enum EDynamicRange {
+    DYNAMIC_RANGE_UNKNOWN = 0;
+    DYNAMIC_RANGE_SDR = 1;
+    DYNAMIC_RANGE_HDR10 = 2;
+    DYNAMIC_RANGE_HDR10PLUS = 3;
+    DYNAMIC_RANGE_DV = 4;
+    DYNAMIC_RANGE_HLG = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDisplayCharacteristicCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDisplayCharacteristicCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

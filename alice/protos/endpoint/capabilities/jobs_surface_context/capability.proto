@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "JobsSurfaceContextCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/jobs_surface_context;jobs_surface_contextpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TJobsSurfaceContextCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = JobsSurfaceContextCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TAppliedFilters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated string PublicProfessions = 1 [json_name = "public_professions", (.NYT.column_name) = "public_professions"];
+      repeated string ProLevels = 2 [json_name = "pro_levels", (.NYT.column_name) = "pro_levels"];
+      repeated string Cities = 3 [json_name = "cities", (.NYT.column_name) = "cities"];
+      repeated string WorkModes = 4 [json_name = "work_modes", (.NYT.column_name) = "work_modes"];
+      repeated string Services = 5 [json_name = "services", (.NYT.column_name) = "services"];
+      repeated uint64 Skills = 6 [json_name = "skills", (.NYT.column_name) = "skills"];
+      optional bool IsFastTrack = 7 [json_name = "is_fast_track", (.NYT.column_name) = "is_fast_track"];
+    }
+
+    string PublicationId = 1 [json_name = "publication_id", (.NYT.column_name) = "publication_id"];
+    .NAlice.TJobsSurfaceContextCapability.TState.TAppliedFilters AppliedFilters = 2 [json_name = "applied_filters", (.NYT.column_name) = "applied_filters"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TJobsSurfaceContextCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TJobsSurfaceContextCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

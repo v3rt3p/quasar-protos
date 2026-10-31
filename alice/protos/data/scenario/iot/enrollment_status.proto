@@ -8,12 +8,13 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/iot";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEnrollmentStatus {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EFailureReason {
     Unknown = 0;
     ClientTimeout = 1;
     ScenarioError = 2;
     PassportError = 3;
-    RequestedByUser = 4;
+    RequestedByUser = 4 [deprecated = true];
     EnrolledUser = 5;
     ActiveEnrollment = 6;
     SoundEnrollmentError = 7;
@@ -31,9 +32,9 @@ message TEnrollmentStatus {
     RegisterFaceEnrollmentTypedCallback = 5;
   }
 
-  bool Success = 1 [json_name = "success"];
-  .NAlice.NData.NIoT.TEnrollmentStatus.EFailureReason FailureReason = 2 [json_name = "failure_reason"];
-  string FailureReasonDetails = 3 [json_name = "failure_reason_details"];
-  .NAlice.NData.NIoT.TEnrollmentStatus.ESource Source = 4 [json_name = "source"];
+  bool Success = 1 [json_name = "success", (.NYT.column_name) = "success"];
+  .NAlice.NData.NIoT.TEnrollmentStatus.EFailureReason FailureReason = 2 [json_name = "failure_reason", (.NYT.column_name) = "failure_reason"];
+  string FailureReasonDetails = 3 [json_name = "failure_reason_details", (.NYT.column_name) = "failure_reason_details"];
+  .NAlice.NData.NIoT.TEnrollmentStatus.ESource Source = 4 [json_name = "source", (.NYT.column_name) = "source"];
 }
 

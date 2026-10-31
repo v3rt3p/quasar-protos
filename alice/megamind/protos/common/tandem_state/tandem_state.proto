@@ -9,6 +9,7 @@ option go_package = "a.yandex-team.ru/alice/megamind/protos/common/tandem_state;
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTandemState {
-  bool Connected = 1 [json_name = "connected"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool Connected = 1 [json_name = "connected", (.NYT.column_name) = "connected"];
 }
 

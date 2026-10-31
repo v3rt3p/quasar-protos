@@ -12,20 +12,29 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotPowerProfileCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotPowerProfileCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile", (.NYT.column_name) = "profile"];
   }
 
   message TSetProfileDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile"];
+    option (.NAlice.SpeechKitName) = "iot_set_power_profile_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetPowerProfileDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotPowerProfileCapability.EProfile Profile = 1 [json_name = "profile", (.NYT.column_name) = "profile"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotPowerProfileCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotPowerProfileUpdateStateEventType;
+    .NAlice.TIotPowerProfileCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EProfile {
@@ -36,8 +45,8 @@ message TIotPowerProfileCapability {
     FullPowerDetectedByHw = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotPowerProfileCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotPowerProfileCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotPowerProfileCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotPowerProfileCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

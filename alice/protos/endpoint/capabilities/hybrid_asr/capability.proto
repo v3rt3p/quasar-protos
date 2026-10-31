@@ -11,25 +11,31 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THybridAsrCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = HybridAsrCapabilityType;
   message TParameters {
-    optional bool EnabledHybridAsr = 1 [json_name = "enabled_hybrid_asr"];
-    optional string LingwareVersion = 2 [json_name = "lingware_version"];
-    optional string LingwareHash = 3 [json_name = "lingware_hash"];
-    optional string DeviceType = 4 [json_name = "device_type"];
-    optional bool UltimatelyEnabledHybridAsr = 5 [json_name = "ultimately_enabled_hybrid_asr"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool EnabledHybridAsr = 1 [json_name = "enabled_hybrid_asr", (.NYT.column_name) = "enabled_hybrid_asr"];
+    optional string LingwareVersion = 2 [json_name = "lingware_version", (.NYT.column_name) = "lingware_version"];
+    optional string LingwareHash = 3 [json_name = "lingware_hash", (.NYT.column_name) = "lingware_hash"];
+    optional string DeviceType = 4 [json_name = "device_type", (.NYT.column_name) = "device_type"];
+    optional bool UltimatelyEnabledHybridAsr = 5 [json_name = "ultimately_enabled_hybrid_asr", (.NYT.column_name) = "ultimately_enabled_hybrid_asr"];
   }
 
   message TState {
-    repeated string PreparedHybridPartials = 1 [json_name = "prepared_hybrid_partials"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string PreparedHybridPartials = 1 [json_name = "prepared_hybrid_partials", (.NYT.column_name) = "prepared_hybrid_partials"];
   }
 
   message TRecognitionResultEvent {
-    string Partial = 1 [json_name = "partial"];
-    bool EndOfUtterance = 2 [json_name = "end_of_utterance"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = RecognitionResultEventType;
+    string Partial = 1 [json_name = "partial", (.NYT.column_name) = "partial"];
+    bool EndOfUtterance = 2 [json_name = "end_of_utterance", (.NYT.column_name) = "end_of_utterance"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.THybridAsrCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.THybridAsrCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.THybridAsrCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.THybridAsrCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

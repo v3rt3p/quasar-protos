@@ -8,8 +8,9 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLatLon {
-  double Latitude = 1 [json_name = "latitude"];
-  double Longitude = 2 [json_name = "longitude"];
-  double Accuracy = 3 [json_name = "accuracy"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  double Latitude = 1 [json_name = "latitude", (.NYT.column_name) = "latitude"];
+  double Longitude = 2 [json_name = "longitude", (.NYT.column_name) = "longitude"];
+  double Accuracy = 3 [json_name = "accuracy", (.NYT.column_name) = "accuracy"];
 }
 

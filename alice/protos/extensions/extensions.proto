@@ -8,6 +8,54 @@ option go_package = "a.yandex-team.ru/alice/protos/extensions;extensionspb";
 
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.MessageOptions {
+  string SpeechKitName = 51234;
+}
+extend .google.protobuf.MessageOptions {
+  string promo_template_name = 57333;
+}
+extend .google.protobuf.MessageOptions {
+  string SemanticFrameName = 57331;
+}
+extend .google.protobuf.MessageOptions {
+  string MMTypedCallbackName = 57335;
+}
+extend .google.protobuf.MessageOptions {
+  bool SupportsSourceInfo = 57339;
+}
+extend .google.protobuf.MessageOptions {
+  .NAlice.EWrapperDirectiveActionProperty.Enum DirectiveActionProperty = 57336;
+}
+extend .google.protobuf.FieldOptions {
+  string SlotName = 57431;
+}
+extend .google.protobuf.FieldOptions {
+  string SlotType = 57432;
+}
+extend .google.protobuf.MessageOptions {
+  bool single_directive = 56501;
+}
+extend .google.protobuf.FieldOptions {
+  string feature = 57531;
+}
+extend .google.protobuf.FieldOptions {
+  .NAlice.TFeatureType.EFeatureType feature_type = 57532;
+}
+extend .google.protobuf.FieldOptions {
+  .NAlice.TLanguageDependent.EType LanguageDependent = 57533;
+}
+extend .google.protobuf.FieldOptions {
+  bool SkipDefaultSerialization = 52674;
+}
+extend .google.protobuf.FieldOptions {
+  string DivName = 57337;
+}
+extend .google.protobuf.MessageOptions {
+  string java_marker_interface = 57338;
+}
+extend .google.protobuf.MessageOptions {
+  string java_builder_marker_interface = 57340;
+}
 message EWrapperDirectiveActionProperty {
   enum Enum {
     ACTION = 0;

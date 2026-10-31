@@ -14,57 +14,60 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TVideoItemDebugInfo {
-  string WebPageUrl = 1 [json_name = "web_page_url"];
-  string SearchReqId = 2 [json_name = "search_reqid"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string WebPageUrl = 1 [json_name = "web_page_url", (.NYT.column_name) = "web_page_url"];
+  string SearchReqId = 2 [json_name = "search_reqid", (.NYT.column_name) = "search_reqid"];
 }
 
 message TMiscIds {
-  string Kinopoisk = 1 [json_name = "kinopoisk"];
-  string KinopoiskUUID = 2 [json_name = "kinopoisk_uuid"];
-  string IMDB = 3 [json_name = "imdb"];
-  string OntoId = 4 [json_name = "onto_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Kinopoisk = 1 [json_name = "kinopoisk", (.NYT.column_name) = "kinopoisk"];
+  string KinopoiskUUID = 2 [json_name = "kinopoisk_uuid", (.NYT.column_name) = "kinopoisk_uuid"];
+  string IMDB = 3 [json_name = "imdb", (.NYT.column_name) = "imdb"];
+  string OntoId = 4 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
 }
 
 message TLightVideoItem {
-  string Type = 1 [json_name = "type"];
-  string ProviderName = 2 [json_name = "provider_name"];
-  string ProviderItemId = 3 [json_name = "provider_item_id"];
-  string TvShowSeasonId = 4 [json_name = "tv_show_season_id"];
-  string TvShowItemId = 5 [json_name = "tv_show_item_id"];
-  string HumanReadableId = 6 [json_name = "human_readable_id"];
-  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids"];
-  uint32 Available = 8 [json_name = "available"];
-  uint32 PriceFrom = 9 [json_name = "price_from"];
-  uint32 Episode = 10 [json_name = "episode"];
-  uint32 Season = 11 [json_name = "season"];
-  uint32 ProviderNumber = 12 [json_name = "provider_number"];
-  uint32 Unauthorized = 13 [json_name = "unauthorized"];
-  string AudioLanguage = 14 [json_name = "audio_language"];
-  string SubtitlesLanguage = 15 [json_name = "subtitles_language"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string TvShowSeasonId = 4 [json_name = "tv_show_season_id", (.NYT.column_name) = "tv_show_season_id"];
+  string TvShowItemId = 5 [json_name = "tv_show_item_id", (.NYT.column_name) = "tv_show_item_id"];
+  string HumanReadableId = 6 [json_name = "human_readable_id", (.NYT.column_name) = "human_readable_id"];
+  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids", (.NYT.column_name) = "misc_ids"];
+  uint32 Available = 8 [json_name = "available", (.NYT.column_name) = "available"];
+  uint32 PriceFrom = 9 [json_name = "price_from", (.NYT.column_name) = "price_from"];
+  uint32 Episode = 10 [json_name = "episode", (.NYT.column_name) = "episode"];
+  uint32 Season = 11 [json_name = "season", (.NYT.column_name) = "season"];
+  uint32 ProviderNumber = 12 [json_name = "provider_number", (.NYT.column_name) = "provider_number"];
+  uint32 Unauthorized = 13 [json_name = "unauthorized", (.NYT.column_name) = "unauthorized"];
+  string AudioLanguage = 14 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+  string SubtitlesLanguage = 15 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
 }
 
 message TSeasonsItem {
-  uint64 Number = 1 [json_name = "number"];
+  uint64 Number = 1 [json_name = "number", (.NYT.column_name) = "number"];
 }
 
 message TVideoRelated {
-  string Related = 1 [json_name = "related"];
-  string RelatedVideo = 2 [json_name = "relatedVideo"];
-  string RelatedFamily = 3 [json_name = "related_family"];
-  string RelatedOrigText = 4 [json_name = "related_orig_text"];
-  string RelatedSrc = 5 [json_name = "related_src"];
-  string RelatedUrl = 6 [json_name = "related_url"];
-  int32 RelatedVfp = 7 [json_name = "related_vfp"];
-  string Text = 8 [json_name = "text"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Related = 1 [json_name = "related", (.NYT.column_name) = "related"];
+  string RelatedVideo = 2 [json_name = "relatedVideo", (.NYT.column_name) = "related_video"];
+  string RelatedFamily = 3 [json_name = "related_family", (.NYT.column_name) = "related_family"];
+  string RelatedOrigText = 4 [json_name = "related_orig_text", (.NYT.column_name) = "related_orig_text"];
+  string RelatedSrc = 5 [json_name = "related_src", (.NYT.column_name) = "related_src"];
+  string RelatedUrl = 6 [json_name = "related_url", (.NYT.column_name) = "related_url"];
+  int32 RelatedVfp = 7 [json_name = "related_vfp", (.NYT.column_name) = "related_vfp"];
+  string Text = 8 [json_name = "text", (.NYT.column_name) = "text"];
 }
 
 message TVideoExtra {
-  .NAlice.TVideoRelated Related = 1 [json_name = "related"];
+  .NAlice.TVideoRelated Related = 1 [json_name = "related", (.NYT.column_name) = "related"];
 }
 
 message TVideoProgress {
-  double Played = 1 [json_name = "played"];
-  double Duration = 2 [json_name = "duration"];
+  double Played = 1 [json_name = "played", (.NYT.column_name) = "played"];
+  double Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
 }
 
 message TWatchedVideoItem {
@@ -77,27 +80,27 @@ message TWatchedVideoItem {
   reserved 9;
   reserved 12;
   reserved 13;
-  string ProviderName = 2 [json_name = "provider_name"];
-  string ProviderItemId = 3 [json_name = "provider_item_id"];
-  uint32 Episode = 10 [json_name = "episode"];
-  uint32 Season = 11 [json_name = "season"];
-  .NAlice.TVideoProgress Progress = 14 [json_name = "progress"];
-  uint32 Timestamp = 15 [json_name = "timestamp"];
-  string PlayUri = 16 [json_name = "play_uri"];
-  string AudioLanguage = 17 [json_name = "audio_language"];
-  string SubtitlesLanguage = 18 [json_name = "subtitles_language"];
-  string Kind = 19 [json_name = "kind"];
-  string Name = 20 [json_name = "name"];
-  string CoverUrl = 21 [json_name = "cover_url"];
-  string Type = 22 [json_name = "type"];
-  string VideoId = 23 [json_name = "video_id"];
-  .NAlice.TMiscIds MiscIds = 24 [json_name = "misc_ids"];
-  string Genre = 26 [json_name = "genre"];
-  .NAlice.TVideoFeature Features = 29 [json_name = "features"];
-  string AgeLimit = 30 [json_name = "age_limit"];
-  optional string EmbedUri = 25 [json_name = "embed_uri"];
-  optional string Doc2docUrl = 27 [json_name = "doc2doc_url"];
-  optional string SourceHost = 28 [json_name = "source_host"];
+  string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  uint32 Episode = 10 [json_name = "episode", (.NYT.column_name) = "episode"];
+  uint32 Season = 11 [json_name = "season", (.NYT.column_name) = "season"];
+  .NAlice.TVideoProgress Progress = 14 [json_name = "progress", (.NYT.column_name) = "progress"];
+  uint32 Timestamp = 15 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
+  string PlayUri = 16 [json_name = "play_uri", (.NYT.column_name) = "play_uri"];
+  string AudioLanguage = 17 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+  string SubtitlesLanguage = 18 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
+  string Kind = 19 [json_name = "kind", (.NYT.column_name) = "kind"];
+  string Name = 20 [json_name = "name", (.NYT.column_name) = "name"];
+  string CoverUrl = 21 [json_name = "cover_url", (.NYT.column_name) = "cover_url"];
+  string Type = 22 [json_name = "type", (.NYT.column_name) = "type"];
+  string VideoId = 23 [json_name = "video_id", (.NYT.column_name) = "video_id"];
+  .NAlice.TMiscIds MiscIds = 24 [json_name = "misc_ids", (.NYT.column_name) = "misc_ids"];
+  string Genre = 26 [json_name = "genre", (.NYT.column_name) = "genre"];
+  .NAlice.TVideoFeature Features = 29 [json_name = "features", (.NYT.column_name) = "features"];
+  string AgeLimit = 30 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+  optional string EmbedUri = 25 [json_name = "embed_uri", (.NYT.column_name) = "embed_uri"];
+  optional string Doc2docUrl = 27 [json_name = "doc2doc_url", (.NYT.column_name) = "doc2doc_url"];
+  optional string SourceHost = 28 [json_name = "source_host", (.NYT.column_name) = "source_host"];
 }
 
 message TWatchedTvShowItem {
@@ -111,85 +114,92 @@ message TWatchedTvShowItem {
   reserved 12;
   reserved 13;
   reserved 16;
-  string ProviderName = 2 [json_name = "provider_name"];
-  string ProviderItemId = 3 [json_name = "provider_item_id"];
-  uint32 Episode = 10 [json_name = "episode"];
-  uint32 Season = 11 [json_name = "season"];
-  .NAlice.TWatchedVideoItem Item = 14 [json_name = "item"];
-  .NAlice.TWatchedVideoItem TvShowItem = 15 [json_name = "tv_show_item"];
-  string AudioLanguage = 17 [json_name = "audio_language"];
-  string SubtitlesLanguage = 18 [json_name = "subtitles_language"];
+  string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  uint32 Episode = 10 [json_name = "episode", (.NYT.column_name) = "episode"];
+  uint32 Season = 11 [json_name = "season", (.NYT.column_name) = "season"];
+  .NAlice.TWatchedVideoItem Item = 14 [json_name = "item", (.NYT.column_name) = "item"];
+  .NAlice.TWatchedVideoItem TvShowItem = 15 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item"];
+  string AudioLanguage = 17 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+  string SubtitlesLanguage = 18 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
 }
 
 message TSkippableFragment {
-  double StartTime = 1 [json_name = "start_time"];
-  double EndTime = 2 [json_name = "end_time"];
-  string Type = 3 [json_name = "type"];
-  string Result = 4 [json_name = "result"];
+  double StartTime = 1 [json_name = "start_time", (.NYT.column_name) = "start_time"];
+  double EndTime = 2 [json_name = "end_time", (.NYT.column_name) = "end_time"];
+  string Type = 3 [json_name = "type", (.NYT.column_name) = "type"];
+  string Result = 4 [json_name = "result", (.NYT.column_name) = "result"];
 }
 
 message TSkippableFragmentsDepr {
-  double IntroStart = 1 [json_name = "intro_start"];
-  double IntroEnd = 2 [json_name = "intro_end"];
-  double CreditsStart = 3 [json_name = "credits_start"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  double IntroStart = 1 [json_name = "intro_start", (.NYT.column_name) = "intro_start"];
+  double IntroEnd = 2 [json_name = "intro_end", (.NYT.column_name) = "intro_end"];
+  double CreditsStart = 3 [json_name = "credits_start", (.NYT.column_name) = "credits_start"];
 }
 
 message TAudioStreamOrSubtitle {
-  string Title = 1 [json_name = "title"];
-  string Language = 2 [json_name = "language"];
-  uint32 Index = 3 [json_name = "index"];
-  string Suggest = 4 [json_name = "suggest"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  string Language = 2 [json_name = "language", (.NYT.column_name) = "language"];
+  uint32 Index = 3 [json_name = "index", (.NYT.column_name) = "index"];
+  string Suggest = 4 [json_name = "suggest", (.NYT.column_name) = "suggest"];
 }
 
 message TPlayerRestrictionConfig {
-  uint32 SubtitlesButtonEnable = 1 [json_name = "subtitles_button_enable"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 SubtitlesButtonEnable = 1 [json_name = "subtitles_button_enable", (.NYT.column_name) = "subtitles_button_enable"];
 }
 
 message TVHLicenceInfo {
-  uint32 Avod = 1 [json_name = "avod"];
-  uint32 Tvod = 2 [json_name = "tvod"];
-  uint32 UserHasTvod = 3 [json_name = "user_has_tvod"];
-  uint32 Est = 4 [json_name = "est"];
-  uint32 UserHasEst = 5 [json_name = "user_has_est"];
-  repeated string Svod = 6 [json_name = "svod"];
-  string ContentType = 7 [json_name = "content_type"];
-  bool HasActiveLicenses = 8 [json_name = "has_active_licenses"];
-  string UserSubscription = 9 [json_name = "user_subscription"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 Avod = 1 [json_name = "avod", (.NYT.column_name) = "avod"];
+  uint32 Tvod = 2 [json_name = "tvod", (.NYT.column_name) = "tvod"];
+  uint32 UserHasTvod = 3 [json_name = "user_has_tvod", (.NYT.column_name) = "user_has_tvod"];
+  uint32 Est = 4 [json_name = "est", (.NYT.column_name) = "est"];
+  uint32 UserHasEst = 5 [json_name = "user_has_est", (.NYT.column_name) = "user_has_est"];
+  repeated string Svod = 6 [json_name = "svod", (.NYT.column_name) = "svod"];
+  string ContentType = 7 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  bool HasActiveLicenses = 8 [json_name = "has_active_licenses", (.NYT.column_name) = "has_active_licenses"];
+  string UserSubscription = 9 [json_name = "user_subscription", (.NYT.column_name) = "user_subscription"];
 }
 
 message TVideoItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "EventNotStarted";
   reserved 29;
   reserved 39;
   reserved 84;
   message TNestedVideoItem {
-    string Type = 1 [json_name = "type"];
-    string ProviderName = 2 [json_name = "provider_name"];
-    string ProviderItemId = 3 [json_name = "provider_item_id"];
-    uint32 Available = 8 [json_name = "available"];
-    uint32 PriceFrom = 9 [json_name = "price_from"];
-    string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9"];
-    string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small"];
-    string Name = 19 [json_name = "name"];
-    string NormalizedName = 20 [json_name = "normalized_name"];
-    string Description = 21 [json_name = "description"];
-    uint32 Duration = 22 [json_name = "duration"];
-    string SourceHost = 33 [json_name = "source_host"];
-    uint64 ViewCount = 34 [json_name = "view_count"];
-    string PlayUri = 35 [json_name = "play_uri"];
-    repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info"];
-    .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info"];
-    string Source = 51 [json_name = "source"];
-    .NAlice.TVideoRelated Related = 52 [json_name = "related"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+    string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+    uint32 Available = 8 [json_name = "available", (.NYT.column_name) = "available"];
+    uint32 PriceFrom = 9 [json_name = "price_from", (.NYT.column_name) = "price_from"];
+    string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9", (.NYT.column_name) = "thumbnail_url_16x9"];
+    string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small", (.NYT.column_name) = "thumbnail_url_16x9_small"];
+    string Name = 19 [json_name = "name", (.NYT.column_name) = "name"];
+    string NormalizedName = 20 [json_name = "normalized_name", (.NYT.column_name) = "normalized_name"];
+    string Description = 21 [json_name = "description", (.NYT.column_name) = "description"];
+    uint32 Duration = 22 [json_name = "duration", (.NYT.column_name) = "duration"];
+    string SourceHost = 33 [json_name = "source_host", (.NYT.column_name) = "source_host"];
+    uint64 ViewCount = 34 [json_name = "view_count", (.NYT.column_name) = "view_count"];
+    string PlayUri = 35 [json_name = "play_uri", (.NYT.column_name) = "play_uri"];
+    repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info", (.NYT.column_name) = "provider_info"];
+    .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info", (.NYT.column_name) = "debug_info"];
+    string Source = 51 [json_name = "source", (.NYT.column_name) = "source"];
+    .NAlice.TVideoRelated Related = 52 [json_name = "related", (.NYT.column_name) = "related"];
   }
 
   message TTvStreamInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TProgram {
-      string TvEpisodeId = 1 [json_name = "tv_episode_id"];
-      string TvEpisodeName = 2 [json_name = "tv_episode_name"];
-      int64 StartTime = 3 [json_name = "start_time"];
-      int64 EndTime = 4 [json_name = "end_time"];
-      string AgeLimit = 5 [json_name = "age_limit"];
+      string TvEpisodeId = 1 [json_name = "tv_episode_id", (.NYT.column_name) = "tv_episode_id"];
+      string TvEpisodeName = 2 [json_name = "tv_episode_name", (.NYT.column_name) = "tv_episode_name"];
+      int64 StartTime = 3 [json_name = "start_time", (.NYT.column_name) = "start_time"];
+      int64 EndTime = 4 [json_name = "end_time", (.NYT.column_name) = "end_time"];
+      string AgeLimit = 5 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
     }
 
     enum EChannelType {
@@ -197,266 +207,282 @@ message TVideoItem {
       CT_MULTIPLEX = 1;
     }
 
-    string ChannelType = 1 [json_name = "channel_type"];
-    string TvEpisodeId = 2 [json_name = "tv_episode_id"];
-    string TvEpisodeName = 3 [json_name = "tv_episode_name"];
-    uint32 DeepHD = 4 [json_name = "deep_hd"];
-    uint32 IsPersonal = 5 [json_name = "is_personal"];
-    string LogoUrl = 6 [json_name = "logo_url"];
-    int64 StartTime = 7 [json_name = "start_time"];
-    int64 EndTime = 8 [json_name = "end_time"];
-    repeated .NAlice.TVideoItem.TTvStreamInfo.TProgram Programs = 9 [json_name = "programs"];
-    .NAlice.TVideoItem.TTvStreamInfo.EChannelType Type = 10 [json_name = "multiplex"];
+    string ChannelType = 1 [json_name = "channel_type", (.NYT.column_name) = "channel_type"];
+    string TvEpisodeId = 2 [json_name = "tv_episode_id", (.NYT.column_name) = "tv_episode_id"];
+    string TvEpisodeName = 3 [json_name = "tv_episode_name", (.NYT.column_name) = "tv_episode_name"];
+    uint32 DeepHD = 4 [json_name = "deep_hd", (.NYT.column_name) = "deep_hd"];
+    uint32 IsPersonal = 5 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
+    string LogoUrl = 6 [json_name = "logo_url", (.NYT.column_name) = "logo_url"];
+    int64 StartTime = 7 [json_name = "start_time", (.NYT.column_name) = "start_time"];
+    int64 EndTime = 8 [json_name = "end_time", (.NYT.column_name) = "end_time"];
+    repeated .NAlice.TVideoItem.TTvStreamInfo.TProgram Programs = 9 [json_name = "programs", (.NYT.column_name) = "programs"];
+    .NAlice.TVideoItem.TTvStreamInfo.EChannelType Type = 10 [json_name = "multiplex", (.NYT.column_name) = "multiplex"];
   }
 
   message TAvailabilityRequest {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSingleAvailabilityRequest {
-      string Id = 1 [json_name = "id"];
-      string SeasonId = 2 [json_name = "season_id"];
-      string TvShowId = 3 [json_name = "tv_show_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      string SeasonId = 2 [json_name = "season_id", (.NYT.column_name) = "season_id"];
+      string TvShowId = 3 [json_name = "tv_show_id", (.NYT.column_name) = "tv_show_id"];
     }
 
-    string Type = 1 [json_name = "type"];
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Amediateka = 2 [json_name = "amediateka"];
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Ivi = 3 [json_name = "ivi"];
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Kinopoisk = 4 [json_name = "kinopoisk"];
-    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Okko = 5 [json_name = "okko"];
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Amediateka = 2 [json_name = "amediateka", (.NYT.column_name) = "amediateka"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Ivi = 3 [json_name = "ivi", (.NYT.column_name) = "ivi"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Kinopoisk = 4 [json_name = "kinopoisk", (.NYT.column_name) = "kinopoisk"];
+    .NAlice.TVideoItem.TAvailabilityRequest.TSingleAvailabilityRequest Okko = 5 [json_name = "okko", (.NYT.column_name) = "okko"];
   }
 
   message TCameraStreamInfo {
-    string Type = 1 [json_name = "type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
-  string Type = 1 [json_name = "type"];
-  string ProviderName = 2 [json_name = "provider_name"];
-  string ProviderItemId = 3 [json_name = "provider_item_id"];
-  string TvShowSeasonId = 4 [json_name = "tv_show_season_id"];
-  string TvShowItemId = 5 [json_name = "tv_show_item_id"];
-  string HumanReadableId = 6 [json_name = "human_readable_id"];
-  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids"];
-  uint32 Available = 8 [json_name = "available"];
-  uint32 PriceFrom = 9 [json_name = "price_from"];
-  uint32 Episode = 10 [json_name = "episode"];
-  uint32 Season = 11 [json_name = "season"];
-  uint32 ProviderNumber = 12 [json_name = "provider_number"];
-  uint32 Unauthorized = 13 [json_name = "unauthorized"];
-  string CoverUrl2x3 = 14 [json_name = "cover_url_2x3"];
-  string CoverUrl16x9 = 15 [json_name = "cover_url_16x9"];
-  string ThumbnailUrl2x3Small = 16 [json_name = "thumbnail_url_2x3_small"];
-  string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9"];
-  string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small"];
-  string Name = 19 [json_name = "name"];
-  string NormalizedName = 20 [json_name = "normalized_name"];
-  string Description = 21 [json_name = "description"];
-  uint32 Duration = 22 [json_name = "duration"];
-  string Genre = 23 [json_name = "genre"];
-  double Rating = 24 [json_name = "rating"];
-  uint32 ReviewAvailable = 25 [json_name = "review_available"];
-  double Progress = 26 [json_name = "progress"];
-  uint32 SeasonsCount = 27 [json_name = "seasons_count"];
-  uint32 EpisodesCount = 28 [json_name = "episodes_count"];
-  uint32 ReleaseYear = 30 [json_name = "release_year"];
-  string Directors = 31 [json_name = "directors"];
-  string Actors = 32 [json_name = "actors"];
-  string SourceHost = 33 [json_name = "source_host"];
-  uint64 ViewCount = 34 [json_name = "view_count"];
-  string PlayUri = 35 [json_name = "play_uri"];
-  uint64 Relevance = 36 [json_name = "relevance"];
-  double RelevancePrediction = 37 [json_name = "relevance_prediction"];
-  repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info"];
-  repeated .NAlice.TVideoItem.TNestedVideoItem NextItems = 40 [json_name = "next_items"];
-  repeated .NAlice.TVideoItem.TNestedVideoItem PreviousItems = 41 [json_name = "previous_items"];
-  repeated .NAlice.TSeasonsItem Seasons = 42 [json_name = "seasons"];
-  uint32 MinAge = 43 [json_name = "min_age"];
-  .NAlice.TVideoItem.TTvStreamInfo TvStreamInfo = 44 [json_name = "tv_stream_info"];
-  string ChannelType = 45 [json_name = "channel_type"];
-  string TvEpisodeName = 46 [json_name = "tv_episode_name"];
-  uint32 Soon = 47 [json_name = "soon"];
-  uint64 UpdateAtUs = 48 [json_name = "update_at_us"];
-  .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info"];
-  .NAlice.TVideoItem.TAvailabilityRequest AvailabilityRequest = 50 [json_name = "availability_request"];
-  string Source = 51 [json_name = "source"];
-  .NAlice.TVideoRelated Related = 52 [json_name = "related"];
-  .NAlice.TSkippableFragmentsDepr SkippableFragmentsDepr = 53 [json_name = "skippable_fragments_depr"];
-  repeated .NAlice.TSkippableFragment SkippableFragments = 54 [json_name = "skippable_fragments"];
-  repeated .NAlice.TAudioStreamOrSubtitle AudioStreams = 55 [json_name = "audio_streams"];
-  repeated .NAlice.TAudioStreamOrSubtitle Subtitles = 56 [json_name = "subtitles"];
-  string Entref = 57 [json_name = "entref"];
-  string AudioLanguage = 58 [json_name = "audio_language"];
-  string SubtitlesLanguage = 59 [json_name = "subtitles_language"];
-  .NAlice.TPlayerRestrictionConfig PlayerRestrictionConfig = 60 [json_name = "player_restriction_config"];
-  string Legal = 61 [json_name = "legal"];
-  string AgeLimit = 62 [json_name = "age_limit"];
-  string MusicalTrackId = 63 [json_name = "musical_track_id"];
-  .NAlice.TAvatarMdsImage Thumbnail = 64 [json_name = "thumbnail"];
-  .NAlice.TAvatarMdsImage Poster = 65 [json_name = "poster"];
-  string SearchQuery = 66 [json_name = "search_query"];
-  string PlayerId = 67 [json_name = "player_id"];
-  .NAlice.TVHLicenceInfo VhLicences = 69 [json_name = "vh_licenses"];
-  string HintDescription = 70 [json_name = "hint_description"];
-  uint64 Mtime = 71 [json_name = "mtime"];
-  string EmbedUri = 72 [json_name = "embed_uri"];
-  string ContentUri = 73 [json_name = "content_uri"];
-  .NAlice.TVideoItem.TCameraStreamInfo CameraStreamInfo = 74 [json_name = "camera_stream_info"];
-  string Html = 75 [json_name = "html"];
-  string EpisodeName = 76 [json_name = "episode_name"];
-  string TvShowItemName = 77 [json_name = "tv_show_item_name"];
-  repeated int32 CountryIds = 78 [json_name = "county_ids"];
-  string VideoId = 79 [json_name = "video_id"];
-  string Doc2docUrl = 80 [json_name = "doc2doc_url"];
-  .NAlice.TVideoFeature Features = 81 [json_name = "features"];
-  string DeviceID = 82 [json_name = "device_id"];
-  string PaymentTargetId = 83 [json_name = "payment_target_id"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string TvShowSeasonId = 4 [json_name = "tv_show_season_id", (.NYT.column_name) = "tv_show_season_id"];
+  string TvShowItemId = 5 [json_name = "tv_show_item_id", (.NYT.column_name) = "tv_show_item_id"];
+  string HumanReadableId = 6 [json_name = "human_readable_id", (.NYT.column_name) = "human_readable_id"];
+  .NAlice.TMiscIds MiscIds = 7 [json_name = "misc_ids", (.NYT.column_name) = "misc_ids"];
+  uint32 Available = 8 [json_name = "available", (.NYT.column_name) = "available"];
+  uint32 PriceFrom = 9 [json_name = "price_from", (.NYT.column_name) = "price_from"];
+  uint32 Episode = 10 [json_name = "episode", (.NYT.column_name) = "episode"];
+  uint32 Season = 11 [json_name = "season", (.NYT.column_name) = "season"];
+  uint32 ProviderNumber = 12 [json_name = "provider_number", (.NYT.column_name) = "provider_number"];
+  uint32 Unauthorized = 13 [json_name = "unauthorized", (.NYT.column_name) = "unauthorized"];
+  string CoverUrl2x3 = 14 [json_name = "cover_url_2x3", (.NYT.column_name) = "cover_url_2x3"];
+  string CoverUrl16x9 = 15 [json_name = "cover_url_16x9", (.NYT.column_name) = "cover_url_16x9"];
+  string ThumbnailUrl2x3Small = 16 [json_name = "thumbnail_url_2x3_small", (.NYT.column_name) = "thumbnail_url_2x3_small"];
+  string ThumbnailUrl16x9 = 17 [json_name = "thumbnail_url_16x9", (.NYT.column_name) = "thumbnail_url_16x9"];
+  string ThumbnailUrl16x9Small = 18 [json_name = "thumbnail_url_16x9_small", (.NYT.column_name) = "thumbnail_url_16x9_small"];
+  string Name = 19 [json_name = "name", (.NYT.column_name) = "name"];
+  string NormalizedName = 20 [json_name = "normalized_name", (.NYT.column_name) = "normalized_name"];
+  string Description = 21 [json_name = "description", (.NYT.column_name) = "description"];
+  uint32 Duration = 22 [json_name = "duration", (.NYT.column_name) = "duration"];
+  string Genre = 23 [json_name = "genre", (.NYT.column_name) = "genre"];
+  double Rating = 24 [json_name = "rating", (.NYT.column_name) = "rating"];
+  uint32 ReviewAvailable = 25 [json_name = "review_available", (.NYT.column_name) = "review_available"];
+  double Progress = 26 [json_name = "progress", (.NYT.column_name) = "progress"];
+  uint32 SeasonsCount = 27 [json_name = "seasons_count", (.NYT.column_name) = "seasons_count"];
+  uint32 EpisodesCount = 28 [json_name = "episodes_count", (.NYT.column_name) = "episodes_count"];
+  uint32 ReleaseYear = 30 [json_name = "release_year", (.NYT.column_name) = "release_year"];
+  string Directors = 31 [json_name = "directors", (.NYT.column_name) = "directors"];
+  string Actors = 32 [json_name = "actors", (.NYT.column_name) = "actors"];
+  string SourceHost = 33 [json_name = "source_host", (.NYT.column_name) = "source_host"];
+  uint64 ViewCount = 34 [json_name = "view_count", (.NYT.column_name) = "view_count"];
+  string PlayUri = 35 [json_name = "play_uri", (.NYT.column_name) = "play_uri"];
+  uint64 Relevance = 36 [json_name = "relevance", (.NYT.column_name) = "relevance"];
+  double RelevancePrediction = 37 [json_name = "relevance_prediction", (.NYT.column_name) = "relevance_prediction"];
+  repeated .NAlice.TLightVideoItem ProviderInfo = 38 [json_name = "provider_info", (.NYT.column_name) = "provider_info"];
+  repeated .NAlice.TVideoItem.TNestedVideoItem NextItems = 40 [json_name = "next_items", (.NYT.column_name) = "next_items"];
+  repeated .NAlice.TVideoItem.TNestedVideoItem PreviousItems = 41 [json_name = "previous_items", (.NYT.column_name) = "previous_items"];
+  repeated .NAlice.TSeasonsItem Seasons = 42 [json_name = "seasons", (.NYT.column_name) = "seasons"];
+  uint32 MinAge = 43 [json_name = "min_age", (.NYT.column_name) = "min_age"];
+  .NAlice.TVideoItem.TTvStreamInfo TvStreamInfo = 44 [json_name = "tv_stream_info", (.NYT.column_name) = "tv_stream_info"];
+  string ChannelType = 45 [json_name = "channel_type", (.NYT.column_name) = "channel_type"];
+  string TvEpisodeName = 46 [json_name = "tv_episode_name", (.NYT.column_name) = "tv_episode_name"];
+  uint32 Soon = 47 [json_name = "soon", (.NYT.column_name) = "soon"];
+  uint64 UpdateAtUs = 48 [json_name = "update_at_us", (.NYT.column_name) = "update_at_us"];
+  .NAlice.TVideoItemDebugInfo DebugInfo = 49 [json_name = "debug_info", (.NYT.column_name) = "debug_info"];
+  .NAlice.TVideoItem.TAvailabilityRequest AvailabilityRequest = 50 [json_name = "availability_request", (.NYT.column_name) = "availability_request"];
+  string Source = 51 [json_name = "source", (.NYT.column_name) = "source"];
+  .NAlice.TVideoRelated Related = 52 [json_name = "related", (.NYT.column_name) = "related"];
+  .NAlice.TSkippableFragmentsDepr SkippableFragmentsDepr = 53 [json_name = "skippable_fragments_depr", (.NYT.column_name) = "skippable_fragments_depr"];
+  repeated .NAlice.TSkippableFragment SkippableFragments = 54 [json_name = "skippable_fragments", (.NYT.column_name) = "skippable_fragments"];
+  repeated .NAlice.TAudioStreamOrSubtitle AudioStreams = 55 [json_name = "audio_streams", (.NYT.column_name) = "audio_streams"];
+  repeated .NAlice.TAudioStreamOrSubtitle Subtitles = 56 [json_name = "subtitles", (.NYT.column_name) = "subtitles"];
+  string Entref = 57 [json_name = "entref", (.NYT.column_name) = "entref"];
+  string AudioLanguage = 58 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+  string SubtitlesLanguage = 59 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
+  .NAlice.TPlayerRestrictionConfig PlayerRestrictionConfig = 60 [json_name = "player_restriction_config", (.NYT.column_name) = "player_restriction_config"];
+  string Legal = 61 [json_name = "legal", (.NYT.column_name) = "legal"];
+  string AgeLimit = 62 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+  string MusicalTrackId = 63 [json_name = "musical_track_id", (.NYT.column_name) = "musical_track_id"];
+  .NAlice.TAvatarMdsImage Thumbnail = 64 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 65 [json_name = "poster", (.NYT.column_name) = "poster"];
+  string SearchQuery = 66 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  string PlayerId = 67 [json_name = "player_id", (.NYT.column_name) = "player_id"];
+  .NAlice.TVHLicenceInfo VhLicences = 69 [json_name = "vh_licenses", (.NYT.column_name) = "vh_licenses"];
+  string HintDescription = 70 [json_name = "hint_description", (.NYT.column_name) = "hint_description"];
+  uint64 Mtime = 71 [json_name = "mtime", (.NYT.column_name) = "mtime"];
+  string EmbedUri = 72 [json_name = "embed_uri", (.NYT.column_name) = "embed_uri"];
+  string ContentUri = 73 [json_name = "content_uri", (.NYT.column_name) = "content_uri"];
+  .NAlice.TVideoItem.TCameraStreamInfo CameraStreamInfo = 74 [json_name = "camera_stream_info", (.NYT.column_name) = "camera_stream_info"];
+  string Html = 75 [json_name = "html", (.NYT.column_name) = "html"];
+  string EpisodeName = 76 [json_name = "episode_name", (.NYT.column_name) = "episode_name"];
+  string TvShowItemName = 77 [json_name = "tv_show_item_name", (.NYT.column_name) = "tv_show_item_name"];
+  repeated int32 CountryIds = 78 [json_name = "county_ids", (.NYT.column_name) = "county_ids"];
+  string VideoId = 79 [json_name = "video_id", (.NYT.column_name) = "video_id"];
+  string Doc2docUrl = 80 [json_name = "doc2doc_url", (.NYT.column_name) = "doc2doc_url"];
+  .NAlice.TVideoFeature Features = 81 [json_name = "features", (.NYT.column_name) = "features"];
+  string DeviceID = 82 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  string PaymentTargetId = 83 [json_name = "payment_target_id", (.NYT.column_name) = "payment_target_id"];
 }
 
 message TVideoGalleryDebugInfo {
-  string YaVideoRequest = 1 [json_name = "ya_video_request"];
-  string Url = 2 [json_name = "url"];
+  string YaVideoRequest = 1 [json_name = "ya_video_request", (.NYT.column_name) = "ya_video_request"];
+  string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
 }
 
 message TPersonItem {
-  string KpId = 1 [json_name = "kp_id"];
-  string Name = 2 [json_name = "name"];
-  string Description = 3 [json_name = "description"];
-  string Subtitle = 4 [json_name = "subtitle"];
-  string Entref = 5 [json_name = "entref"];
-  string SearchQuery = 6 [json_name = "search_query"];
-  .NAlice.TAvatarMdsImage Image = 7 [json_name = "image"];
+  string KpId = 1 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string Description = 3 [json_name = "description", (.NYT.column_name) = "description"];
+  string Subtitle = 4 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+  string Entref = 5 [json_name = "entref", (.NYT.column_name) = "entref"];
+  string SearchQuery = 6 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  .NAlice.TAvatarMdsImage Image = 7 [json_name = "image", (.NYT.column_name) = "image"];
 }
 
 message TCollectionItem {
-  string Id = 1 [json_name = "id"];
-  string Title = 2 [json_name = "title"];
-  string Entref = 3 [json_name = "entref"];
-  string SearchQuery = 4 [json_name = "search_query"];
-  repeated .NAlice.TAvatarMdsImage Images = 5 [json_name = "images"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string Entref = 3 [json_name = "entref", (.NYT.column_name) = "entref"];
+  string SearchQuery = 4 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  repeated .NAlice.TAvatarMdsImage Images = 5 [json_name = "images", (.NYT.column_name) = "images"];
 }
 
 message TRequestContentPayload {
-  .NAlice.TVideoItem Item = 1 [json_name = "item"];
-  uint32 SeasonIndex = 2 [json_name = "season_index"];
+  .NAlice.TVideoItem Item = 1 [json_name = "item", (.NYT.column_name) = "item"];
+  uint32 SeasonIndex = 2 [json_name = "season_index", (.NYT.column_name) = "season_index"];
 }
 
 message TVideoPlayCommandData {
-  string Uri = 1 [json_name = "uri"];
-  string Payload = 2 [json_name = "payload"];
-  string SessionToken = 3 [json_name = "session_token"];
-  .NAlice.TVideoItem Item = 4 [json_name = "item"];
-  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item"];
-  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item"];
-  double StartAt = 7 [json_name = "start_at"];
-  string AudioLanguage = 8 [json_name = "audio_language"];
-  string SubtitlesLanguage = 9 [json_name = "subtitles_language"];
+  string Uri = 1 [json_name = "uri", (.NYT.column_name) = "uri"];
+  string Payload = 2 [json_name = "payload", (.NYT.column_name) = "payload"];
+  string SessionToken = 3 [json_name = "session_token", (.NYT.column_name) = "session_token"];
+  .NAlice.TVideoItem Item = 4 [json_name = "item", (.NYT.column_name) = "item"];
+  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item", (.NYT.column_name) = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item"];
+  double StartAt = 7 [json_name = "start_at", (.NYT.column_name) = "start_at"];
+  string AudioLanguage = 8 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+  string SubtitlesLanguage = 9 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
 }
 
 message TVideoPlayActionData {
-  .NAlice.TVideoItem Item = 1 [json_name = "item"];
-  .NAlice.TVideoItem TvShowItem = 2 [json_name = "tv_show_item"];
+  .NAlice.TVideoItem Item = 1 [json_name = "item", (.NYT.column_name) = "item"];
+  .NAlice.TVideoItem TvShowItem = 2 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item"];
 }
 
 message TDebugInfoDirective {
-  string Name = 1 [json_name = "name"];
-  string AnalyticsTag = 2 [json_name = "analytics_tag"];
-  .google.protobuf.Struct Payload = 3 [json_name = "payload"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  string AnalyticsTag = 2 [json_name = "analytics_tag", (.NYT.column_name) = "analytics_tag"];
+  .google.protobuf.Struct Payload = 3 [json_name = "payload", (.NYT.column_name) = "payload"];
 }
 
 message TScreenState {
-  string CurrentScreen = 1 [json_name = "current_screen"];
+  string CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
 }
 
 message TDescriptionScreenState {
-  string CurrentScreen = 1 [json_name = "current_screen"];
-  .NAlice.TVideoItem Item = 2 [json_name = "item"];
-  .NAlice.TVideoItem NextItem = 3 [json_name = "next_item"];
-  .NAlice.TVideoItem TvShowItem = 4 [json_name = "tv_show_item"];
+  string CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
+  .NAlice.TVideoItem Item = 2 [json_name = "item", (.NYT.column_name) = "item"];
+  .NAlice.TVideoItem NextItem = 3 [json_name = "next_item", (.NYT.column_name) = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 4 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item"];
 }
 
 message TVideoCurrentlyPlaying {
-  string CurrentScreen = 1 [json_name = "current_screen"];
-  uint32 Paused = 2 [json_name = "paused"];
-  .NAlice.TVideoProgress Progress = 3 [json_name = "progress"];
-  .NAlice.TVideoItem Item = 4 [json_name = "item"];
-  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item"];
-  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item"];
+  string CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
+  uint32 Paused = 2 [json_name = "paused", (.NYT.column_name) = "paused"];
+  .NAlice.TVideoProgress Progress = 3 [json_name = "progress", (.NYT.column_name) = "progress"];
+  .NAlice.TVideoItem Item = 4 [json_name = "item", (.NYT.column_name) = "item"];
+  .NAlice.TVideoItem NextItem = 5 [json_name = "next_item", (.NYT.column_name) = "next_item"];
+  .NAlice.TVideoItem TvShowItem = 6 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item"];
 }
 
 message TCatchupInfo {
-  string ContentId = 1 [json_name = "content_id"];
-  string ChannelTitle = 3 [json_name = "channel_title"];
-  .NAlice.TAvatarMdsImage ChannelLogo = 4 [json_name = "channel_logo"];
-  uint64 EndOfLife = 5 [json_name = "end_of_life"];
-  optional string StreamTitle = 2 [json_name = "stream_title"];
-  optional string ChannelId = 6 [json_name = "channel_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  string ChannelTitle = 3 [json_name = "channel_title", (.NYT.column_name) = "channel_title"];
+  .NAlice.TAvatarMdsImage ChannelLogo = 4 [json_name = "channel_logo", (.NYT.column_name) = "channel_logo"];
+  uint64 EndOfLife = 5 [json_name = "end_of_life", (.NYT.column_name) = "end_of_life"];
+  optional string StreamTitle = 2 [json_name = "stream_title", (.NYT.column_name) = "stream_title"];
+  optional string ChannelId = 6 [json_name = "channel_id", (.NYT.column_name) = "channel_id"];
 }
 
 message TOttVideoItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TCinema {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "DeepLink";
     reserved 10;
     message TVariant {
-      string EmbedUrl = 1 [json_name = "embed_url"];
-      uint32 Price = 2 [json_name = "price"];
-      string Currency = 3 [json_name = "currency"];
-      string Type = 4 [json_name = "type"];
-      string Quality = 5 [json_name = "quality"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string EmbedUrl = 1 [json_name = "embed_url", (.NYT.column_name) = "embed_url"];
+      uint32 Price = 2 [json_name = "price", (.NYT.column_name) = "price"];
+      string Currency = 3 [json_name = "currency", (.NYT.column_name) = "currency"];
+      string Type = 4 [json_name = "type", (.NYT.column_name) = "type"];
+      string Quality = 5 [json_name = "quality", (.NYT.column_name) = "quality"];
     }
 
-    repeated .NAlice.TOttVideoItem.TCinema.TVariant Variants = 1 [json_name = "variants"];
-    .NAlice.TAvatarMdsImage KeyArt = 2 [json_name = "keyart"];
-    string Favicon = 3 [json_name = "favicon"];
-    string CinemaName = 4 [json_name = "cinema_name"];
-    bool HidePrice = 5 [json_name = "hide_price"];
-    string Code = 6 [json_name = "code"];
-    uint64 Duration = 7 [json_name = "duration"];
-    string EmbedUrl = 8 [json_name = "embed_url"];
-    string Link = 9 [json_name = "link"];
-    string TvDeepLink = 11 [json_name = "tv_deeplink"];
-    string TvPackageName = 12 [json_name = "tv_package_name"];
-    string TvFallbackLink = 13 [json_name = "tv_fallback_link"];
-    repeated .NAlice.TTvAction OnClickAction = 14 [json_name = "on_click_action"];
+    repeated .NAlice.TOttVideoItem.TCinema.TVariant Variants = 1 [json_name = "variants", (.NYT.column_name) = "variants"];
+    .NAlice.TAvatarMdsImage KeyArt = 2 [json_name = "keyart", (.NYT.column_name) = "keyart"];
+    string Favicon = 3 [json_name = "favicon", (.NYT.column_name) = "favicon"];
+    string CinemaName = 4 [json_name = "cinema_name", (.NYT.column_name) = "cinema_name"];
+    bool HidePrice = 5 [json_name = "hide_price", (.NYT.column_name) = "hide_price"];
+    string Code = 6 [json_name = "code", (.NYT.column_name) = "code"];
+    uint64 Duration = 7 [json_name = "duration", (.NYT.column_name) = "duration"];
+    string EmbedUrl = 8 [json_name = "embed_url", (.NYT.column_name) = "embed_url"];
+    string Link = 9 [json_name = "link", (.NYT.column_name) = "link"];
+    string TvDeepLink = 11 [json_name = "tv_deeplink", (.NYT.column_name) = "tv_deeplink"];
+    string TvPackageName = 12 [json_name = "tv_package_name", (.NYT.column_name) = "tv_package_name"];
+    string TvFallbackLink = 13 [json_name = "tv_fallback_link", (.NYT.column_name) = "tv_fallback_link"];
+    repeated .NAlice.TTvAction OnClickAction = 14 [json_name = "on_click_action", (.NYT.column_name) = "on_click_action"];
   }
 
   message TTrailerInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TThumbnailInfo {
-      int32 OriginalHeight = 1 [json_name = "thmb_h_orig"];
-      int32 OriginalWidth = 2 [json_name = "thmb_w_orig"];
-      string Url = 3 [json_name = "thmb_href"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 OriginalHeight = 1 [json_name = "thmb_h_orig", (.NYT.column_name) = "thmb_h_orig"];
+      int32 OriginalWidth = 2 [json_name = "thmb_w_orig", (.NYT.column_name) = "thmb_w_orig"];
+      string Url = 3 [json_name = "thmb_href", (.NYT.column_name) = "thmb_href"];
     }
 
-    string Date = 1 [json_name = "date"];
-    int32 Duration = 2 [json_name = "duration"];
-    int32 External = 3 [json_name = "external"];
-    string StreamUrl = 4 [json_name = "stream_url"];
-    .NAlice.TOttVideoItem.TTrailerInfo.TThumbnailInfo ThumbnailInfo = 5 [json_name = "thumbnail"];
-    string Url = 6 [json_name = "url"];
-    string VhUuid = 7 [json_name = "vh_uuid"];
+    string Date = 1 [json_name = "date", (.NYT.column_name) = "date"];
+    int32 Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
+    int32 External = 3 [json_name = "external", (.NYT.column_name) = "external"];
+    string StreamUrl = 4 [json_name = "stream_url", (.NYT.column_name) = "stream_url"];
+    .NAlice.TOttVideoItem.TTrailerInfo.TThumbnailInfo ThumbnailInfo = 5 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+    string Url = 6 [json_name = "url", (.NYT.column_name) = "url"];
+    string VhUuid = 7 [json_name = "vh_uuid", (.NYT.column_name) = "vh_uuid"];
   }
 
   message TOffer {
-    optional string FullSubscriptionName = 1 [json_name = "full_subscription_name"];
-    optional string ButtonText = 2 [json_name = "button_text"];
-    optional string ButtonTextWithDetails = 3 [json_name = "button_text_with_details"];
-    optional bool SilentPurchaseAvailable = 4 [json_name = "silent_purchase_available"];
-    optional string LegalText = 5 [json_name = "legal_text"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string FullSubscriptionName = 1 [json_name = "full_subscription_name", (.NYT.column_name) = "full_subscription_name"];
+    optional string ButtonText = 2 [json_name = "button_text", (.NYT.column_name) = "button_text"];
+    optional string ButtonTextWithDetails = 3 [json_name = "button_text_with_details", (.NYT.column_name) = "button_text_with_details"];
+    optional bool SilentPurchaseAvailable = 4 [json_name = "silent_purchase_available", (.NYT.column_name) = "silent_purchase_available"];
+    optional string LegalText = 5 [json_name = "legal_text", (.NYT.column_name) = "legal_text"];
   }
 
   message TPrice {
-    optional string CurrencyCode = 1 [json_name = "currency_code"];
-    optional double Amount = 2 [json_name = "amount"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string CurrencyCode = 1 [json_name = "currency_code", (.NYT.column_name) = "currency_code"];
+    optional double Amount = 2 [json_name = "amount", (.NYT.column_name) = "amount"];
   }
 
   message TDiscount {
-    repeated .NAlice.TAvatarMdsImage Icons = 2 [json_name = "icons"];
-    optional .NAlice.TOttVideoItem.TPrice Price = 1 [json_name = "price"];
-    optional .NAlice.TOttVideoItem.TPrice Amount = 3 [json_name = "amount"];
-    optional string Text = 4 [json_name = "text"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAvatarMdsImage Icons = 2 [json_name = "icons", (.NYT.column_name) = "icons"];
+    optional .NAlice.TOttVideoItem.TPrice Price = 1 [json_name = "price", (.NYT.column_name) = "price"];
+    optional .NAlice.TOttVideoItem.TPrice Amount = 3 [json_name = "amount", (.NYT.column_name) = "amount"];
+    optional string Text = 4 [json_name = "text", (.NYT.column_name) = "text"];
   }
 
   message TViewOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TCardDetailsButton {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TOpenAppAction {
-        string PackageName = 1 [json_name = "package_name"];
-        string Deeplink = 2 [json_name = "deeplink"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string PackageName = 1 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+        string Deeplink = 2 [json_name = "deeplink", (.NYT.column_name) = "deeplink"];
       }
 
       enum EActionType {
@@ -472,69 +498,74 @@ message TOttVideoItem {
         BT_KP = 2;
       }
 
-      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EActionType Type = 1 [json_name = "type"];
-      string Text = 2 [json_name = "text"];
-      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EBackgroundType Background = 3 [json_name = "background"];
-      string ButtonSubText = 4 [json_name = "button_subtext"];
+      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EActionType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+      string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+      .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.EBackgroundType Background = 3 [json_name = "background", (.NYT.column_name) = "background"];
+      string ButtonSubText = 4 [json_name = "button_subtext", (.NYT.column_name) = "button_subtext"];
       oneof Action {
-        .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.TOpenAppAction OpenAppAction = 6 [json_name = "open_app_action"];
+        option (.NYT.variant_field_name) = "action";
+        .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton.TOpenAppAction OpenAppAction = 6 [json_name = "open_app_action", (.NYT.column_name) = "open_app_action"];
       }
-      optional .NAlice.TAvatarMdsImage Icon = 5 [json_name = "icon"];
+      optional .NAlice.TAvatarMdsImage Icon = 5 [json_name = "icon", (.NYT.column_name) = "icon"];
     }
 
-    string Type = 1 [json_name = "type"];
-    repeated string MonetizationModels = 2 [json_name = "monetization_models"];
-    string ButtonText = 13 [json_name = "button_text"];
-    string ButtonColor = 14 [json_name = "button_color"];
-    repeated .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton CardDetailsButtons = 21 [json_name = "card_details_buttons"];
-    optional .NAlice.TOttVideoItem.EWatchabilityStatus Watchability = 3 [json_name = "watchability"];
-    optional .NAlice.TOttVideoItem.EPurchasabilityStatus Purchasability = 4 [json_name = "purchasability"];
-    optional .NAlice.TOttVideoItem.EAvailabilityStatus Availability = 18 [json_name = "availability"];
-    optional string PosterWithRightholderLogo = 5 [json_name = "poster_with_rightholder_logo"];
-    optional string PurchasedSubscriptionName = 6 [json_name = "purchased_subscription_name"];
-    optional uint32 TimeToExpire = 7 [json_name = "time_to_expire"];
-    optional .NAlice.TOttVideoItem.TOffer Offer = 8 [json_name = "offer"];
-    optional string Disclaimer = 9 [json_name = "disclaimer"];
-    optional .NAlice.TOttVideoItem.TPrice TransactionalMinimumPrice = 10 [json_name = "transactional_minimum_price"];
-    optional .NAlice.TOttVideoItem.TPrice TransactionalPrice = 11 [json_name = "transactional_price"];
-    optional string BillingFeatureName = 12 [json_name = "billing_feature_name"];
-    optional string OfferText = 15 [json_name = "offer_text"];
-    optional string SubofferText = 16 [json_name = "suboffer_text"];
-    optional string FullSubscriptionName = 17 [json_name = "full_subscription_name"];
-    optional .NAlice.TOttVideoItem.TDiscount Discount = 19 [json_name = "discount"];
-    optional string BillingProductId = 20 [json_name = "billing_product_id"];
-    optional bool SilentPurchaseAvailable = 24 [json_name = "silent_purchase_available"];
-    optional string SubscriptionBadge = 22 [json_name = "subscription_badge"];
-    optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 23 [json_name = "subscription_badge_mds"];
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    repeated string MonetizationModels = 2 [json_name = "monetization_models", (.NYT.column_name) = "monetization_models"];
+    string ButtonText = 13 [json_name = "button_text", deprecated = true, (.NYT.column_name) = "button_text"];
+    string ButtonColor = 14 [json_name = "button_color", deprecated = true, (.NYT.column_name) = "button_color"];
+    repeated .NAlice.TOttVideoItem.TViewOptions.TCardDetailsButton CardDetailsButtons = 21 [json_name = "card_details_buttons", (.NYT.column_name) = "card_details_buttons"];
+    optional .NAlice.TOttVideoItem.EWatchabilityStatus Watchability = 3 [json_name = "watchability", (.NYT.column_name) = "watchability"];
+    optional .NAlice.TOttVideoItem.EPurchasabilityStatus Purchasability = 4 [json_name = "purchasability", (.NYT.column_name) = "purchasability"];
+    optional .NAlice.TOttVideoItem.EAvailabilityStatus Availability = 18 [json_name = "availability", (.NYT.column_name) = "availability"];
+    optional string PosterWithRightholderLogo = 5 [json_name = "poster_with_rightholder_logo", (.NYT.column_name) = "poster_with_rightholder_logo"];
+    optional string PurchasedSubscriptionName = 6 [json_name = "purchased_subscription_name", (.NYT.column_name) = "purchased_subscription_name"];
+    optional uint32 TimeToExpire = 7 [json_name = "time_to_expire", (.NYT.column_name) = "time_to_expire"];
+    optional .NAlice.TOttVideoItem.TOffer Offer = 8 [json_name = "offer", (.NYT.column_name) = "offer"];
+    optional string Disclaimer = 9 [json_name = "disclaimer", (.NYT.column_name) = "disclaimer"];
+    optional .NAlice.TOttVideoItem.TPrice TransactionalMinimumPrice = 10 [json_name = "transactional_minimum_price", (.NYT.column_name) = "transactional_minimum_price"];
+    optional .NAlice.TOttVideoItem.TPrice TransactionalPrice = 11 [json_name = "transactional_price", (.NYT.column_name) = "transactional_price"];
+    optional string BillingFeatureName = 12 [json_name = "billing_feature_name", (.NYT.column_name) = "billing_feature_name"];
+    optional string OfferText = 15 [json_name = "offer_text", (.NYT.column_name) = "offer_text"];
+    optional string SubofferText = 16 [json_name = "suboffer_text", (.NYT.column_name) = "suboffer_text"];
+    optional string FullSubscriptionName = 17 [json_name = "full_subscription_name", (.NYT.column_name) = "full_subscription_name"];
+    optional .NAlice.TOttVideoItem.TDiscount Discount = 19 [json_name = "discount", (.NYT.column_name) = "discount"];
+    optional string BillingProductId = 20 [json_name = "billing_product_id", (.NYT.column_name) = "billing_product_id"];
+    optional bool SilentPurchaseAvailable = 24 [json_name = "silent_purchase_available", deprecated = true, (.NYT.column_name) = "silent_purchase_available"];
+    optional string SubscriptionBadge = 22 [json_name = "subscription_badge", (.NYT.column_name) = "subscription_badge"];
+    optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 23 [json_name = "subscription_badge_mds", (.NYT.column_name) = "subscription_badge_mds"];
   }
 
   message TEpisodeInfo {
-    .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
-    optional int32 SeasonNumber = 1 [json_name = "season_number"];
-    optional int32 EpisodeNumber = 2 [json_name = "episode_number"];
-    optional string EpisodeTitle = 3 [json_name = "episode_title"];
-    optional bool Seen = 4 [json_name = "seen"];
-    optional bool Watching = 5 [json_name = "watching"];
-    optional string ContentId = 6 [json_name = "content_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+    optional int32 SeasonNumber = 1 [json_name = "season_number", (.NYT.column_name) = "season_number"];
+    optional int32 EpisodeNumber = 2 [json_name = "episode_number", (.NYT.column_name) = "episode_number"];
+    optional string EpisodeTitle = 3 [json_name = "episode_title", (.NYT.column_name) = "episode_title"];
+    optional bool Seen = 4 [json_name = "seen", (.NYT.column_name) = "seen"];
+    optional bool Watching = 5 [json_name = "watching", (.NYT.column_name) = "watching"];
+    optional string ContentId = 6 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 
   message TUgcFlags {
-    bool AlreadySeen = 1 [json_name = "already_seen"];
-    bool NotInterested = 2 [json_name = "not_interested"];
-    bool Like = 3 [json_name = "like"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool AlreadySeen = 1 [json_name = "already_seen", (.NYT.column_name) = "already_seen"];
+    bool NotInterested = 2 [json_name = "not_interested", (.NYT.column_name) = "not_interested"];
+    bool Like = 3 [json_name = "like", (.NYT.column_name) = "like"];
   }
 
   message TAudioTrack {
-    string LanguageName = 1 [json_name = "language_name"];
-    bool ForAdult = 4 [json_name = "for_adult"];
-    optional string Quality = 2 [json_name = "quality"];
-    optional string Studio = 3 [json_name = "studio"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string LanguageName = 1 [json_name = "language_name", (.NYT.column_name) = "language_name"];
+    bool ForAdult = 4 [json_name = "for_adult", (.NYT.column_name) = "for_adult"];
+    optional string Quality = 2 [json_name = "quality", (.NYT.column_name) = "quality"];
+    optional string Studio = 3 [json_name = "studio", (.NYT.column_name) = "studio"];
   }
 
   message TSubtitleTrack {
-    string LanguageName = 1 [json_name = "language_name"];
-    bool ForAdult = 3 [json_name = "for_adult"];
-    optional string Type = 2 [json_name = "type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string LanguageName = 1 [json_name = "language_name", (.NYT.column_name) = "language_name"];
+    bool ForAdult = 3 [json_name = "for_adult", (.NYT.column_name) = "for_adult"];
+    optional string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
   enum EWatchabilityStatus {
@@ -570,193 +601,198 @@ message TOttVideoItem {
     VF_DOLBY_DIGITAL = 3;
   }
 
-  string Id = 1 [json_name = "id"];
-  string ProviderItemId = 2 [json_name = "provider_item_id"];
-  .NAlice.TMiscIds MiscIds = 3 [json_name = "misc_ids"];
-  string ContentType = 4 [json_name = "content_type"];
-  string Title = 5 [json_name = "title"];
-  string Description = 6 [json_name = "description"];
-  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
-  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster"];
-  string Entref = 9 [json_name = "entref"];
-  string AgeLimit = 10 [json_name = "age_limit"];
-  string SearchQuery = 11 [json_name = "search_query"];
-  string Annotation = 12 [json_name = "annotation"];
-  int32 Duration = 13 [json_name = "duration"];
-  .NAlice.TVHLicenceInfo VhLicences = 14 [json_name = "vh_licenses"];
-  string EmbedUri = 15 [json_name = "embed_uri"];
-  double Rating = 16 [json_name = "rating"];
-  repeated .NAlice.TOttVideoItem.TCinema Cinemas = 17 [json_name = "cinemas"];
-  .NAlice.TAppMetrikaEvent OnVhContentCardOpenedEvent = 18 [json_name = "on_vh_content_card_opened_event"];
-  uint64 ReleaseDate = 19 [json_name = "release_date"];
-  string HintDescription = 20 [json_name = "hint_description"];
-  string Genres = 21 [json_name = "genres"];
-  int32 ReleaseYear = 22 [json_name = "release_year"];
-  int32 Progress = 23 [json_name = "progress"];
-  repeated string Genre = 24 [json_name = "genre"];
-  repeated string Country = 25 [json_name = "country"];
-  repeated string Actor = 26 [json_name = "actor"];
-  repeated string Director = 27 [json_name = "director"];
-  repeated string AudioTrack = 28 [json_name = "audio_track"];
-  repeated string SubtitleTrack = 29 [json_name = "subtitle_track"];
-  .NAlice.TAvatarMdsImage Cover = 30 [json_name = "cover"];
-  .NAlice.TAvatarMdsImage Logo = 31 [json_name = "logo"];
-  .NAlice.TAvatarMdsImage LegalLogo = 32 [json_name = "legal_logo"];
-  bool WillWatch = 33 [json_name = "will_watch"];
-  .NAlice.TOttVideoItem.TTrailerInfo TrailerInfo = 34 [json_name = "trailer"];
-  uint64 SeasonsEndDate = 35 [json_name = "seasons_end_date"];
-  string OttStatus = 36 [json_name = "ott_status"];
-  bool WillWatchAvailable = 37 [json_name = "will_watch_available"];
-  bool IsNewDelayedEpisode = 38 [json_name = "is_new_delayed_episode"];
-  string QRBillingUrl = 40 [json_name = "qr_billing_url"];
-  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 44 [json_name = "view_options"];
-  string SubscriptionBadge = 45 [json_name = "subscription_badge"];
-  repeated string Producer = 49 [json_name = "producer"];
-  string ShortDescription = 50 [json_name = "short_description"];
-  repeated .NAlice.TPersonItem ActorItems = 53 [json_name = "actor_items"];
-  uint32 SeasonsCount = 54 [json_name = "seasons_count"];
-  string ShortDisplayName = 55 [json_name = "short_display_name"];
-  .NAlice.TOttVideoItem.ESerialStructureType SerialStructureType = 56 [json_name = "serial_structure_type"];
-  repeated .NAlice.TOttVideoItem.TAudioTrack AudioTracks = 58 [json_name = "audio_tracks"];
-  repeated .NAlice.TOttVideoItem.TSubtitleTrack SubtitleTracks = 59 [json_name = "subtitle_tracks"];
-  repeated .NAlice.TOttVideoItem.EVideoFeature Features = 60 [json_name = "features"];
-  optional .NAlice.TAvatarMdsImage HorizontalPoster = 39 [json_name = "horizontal_poster"];
-  optional bool IsInKPTop10 = 41 [json_name = "is_in_kp_top10"];
-  optional bool IsInKPTop250 = 42 [json_name = "is_in_kp_top250"];
-  optional .NAlice.TOttVideoItem.TEpisodeInfo EpisodeInfo = 43 [json_name = "episode_info"];
-  optional .NAlice.TOttVideoItem.TUgcFlags UgcFlags = 46 [json_name = "ugc_flags"];
-  optional .NAlice.TCatchupInfo CatchupInfo = 47 [json_name = "catchup_info"];
-  optional .NAlice.TAdConfig AdConfig = 48 [json_name = "ad_config"];
-  optional uint64 LastInteractionTime = 51 [json_name = "last_interaction_time"];
-  optional string PromoCinema = 52 [json_name = "promo_cinema"];
-  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 57 [json_name = "subscription_badge_mds"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string ProviderItemId = 2 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  .NAlice.TMiscIds MiscIds = 3 [json_name = "misc_ids", (.NYT.column_name) = "misc_ids"];
+  string ContentType = 4 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string Title = 5 [json_name = "title", (.NYT.column_name) = "title"];
+  string Description = 6 [json_name = "description", (.NYT.column_name) = "description"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster", (.NYT.column_name) = "poster"];
+  string Entref = 9 [json_name = "entref", (.NYT.column_name) = "entref"];
+  string AgeLimit = 10 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+  string SearchQuery = 11 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  string Annotation = 12 [json_name = "annotation", (.NYT.column_name) = "annotation"];
+  int32 Duration = 13 [json_name = "duration", (.NYT.column_name) = "duration"];
+  .NAlice.TVHLicenceInfo VhLicences = 14 [json_name = "vh_licenses", (.NYT.column_name) = "vh_licenses"];
+  string EmbedUri = 15 [json_name = "embed_uri", (.NYT.column_name) = "embed_uri"];
+  double Rating = 16 [json_name = "rating", (.NYT.column_name) = "rating"];
+  repeated .NAlice.TOttVideoItem.TCinema Cinemas = 17 [json_name = "cinemas", (.NYT.column_name) = "cinemas"];
+  .NAlice.TAppMetrikaEvent OnVhContentCardOpenedEvent = 18 [json_name = "on_vh_content_card_opened_event", (.NYT.column_name) = "on_vh_content_card_opened_event"];
+  uint64 ReleaseDate = 19 [json_name = "release_date", (.NYT.column_name) = "release_date"];
+  string HintDescription = 20 [json_name = "hint_description", (.NYT.column_name) = "hint_description"];
+  string Genres = 21 [json_name = "genres", deprecated = true, (.NYT.column_name) = "genres"];
+  int32 ReleaseYear = 22 [json_name = "release_year", (.NYT.column_name) = "release_year"];
+  int32 Progress = 23 [json_name = "progress", (.NYT.column_name) = "progress"];
+  repeated string Genre = 24 [json_name = "genre", (.NYT.column_name) = "genre"];
+  repeated string Country = 25 [json_name = "country", (.NYT.column_name) = "country"];
+  repeated string Actor = 26 [json_name = "actor", (.NYT.column_name) = "actor"];
+  repeated string Director = 27 [json_name = "director", (.NYT.column_name) = "director"];
+  repeated string AudioTrack = 28 [json_name = "audio_track", deprecated = true, (.NYT.column_name) = "audio_track"];
+  repeated string SubtitleTrack = 29 [json_name = "subtitle_track", deprecated = true, (.NYT.column_name) = "subtitle_track"];
+  .NAlice.TAvatarMdsImage Cover = 30 [json_name = "cover", (.NYT.column_name) = "cover"];
+  .NAlice.TAvatarMdsImage Logo = 31 [json_name = "logo", (.NYT.column_name) = "logo"];
+  .NAlice.TAvatarMdsImage LegalLogo = 32 [json_name = "legal_logo", (.NYT.column_name) = "legal_logo"];
+  bool WillWatch = 33 [json_name = "will_watch", (.NYT.column_name) = "will_watch"];
+  .NAlice.TOttVideoItem.TTrailerInfo TrailerInfo = 34 [json_name = "trailer", (.NYT.column_name) = "trailer"];
+  uint64 SeasonsEndDate = 35 [json_name = "seasons_end_date", (.NYT.column_name) = "seasons_end_date"];
+  string OttStatus = 36 [json_name = "ott_status", (.NYT.column_name) = "ott_status"];
+  bool WillWatchAvailable = 37 [json_name = "will_watch_available", (.NYT.column_name) = "will_watch_available"];
+  bool IsNewDelayedEpisode = 38 [json_name = "is_new_delayed_episode", (.NYT.column_name) = "is_new_delayed_episode"];
+  string QRBillingUrl = 40 [json_name = "qr_billing_url", (.NYT.column_name) = "qr_billing_url"];
+  .NAlice.TOttVideoItem.TViewOptions ViewOptions = 44 [json_name = "view_options", (.NYT.column_name) = "view_options"];
+  string SubscriptionBadge = 45 [json_name = "subscription_badge", (.NYT.column_name) = "subscription_badge"];
+  repeated string Producer = 49 [json_name = "producer", (.NYT.column_name) = "producer"];
+  string ShortDescription = 50 [json_name = "short_description", (.NYT.column_name) = "short_description"];
+  repeated .NAlice.TPersonItem ActorItems = 53 [json_name = "actor_items", (.NYT.column_name) = "actor_items"];
+  uint32 SeasonsCount = 54 [json_name = "seasons_count", (.NYT.column_name) = "seasons_count"];
+  string ShortDisplayName = 55 [json_name = "short_display_name", (.NYT.column_name) = "short_display_name"];
+  .NAlice.TOttVideoItem.ESerialStructureType SerialStructureType = 56 [json_name = "serial_structure_type", (.NYT.column_name) = "serial_structure_type"];
+  repeated .NAlice.TOttVideoItem.TAudioTrack AudioTracks = 58 [json_name = "audio_tracks", (.NYT.column_name) = "audio_tracks"];
+  repeated .NAlice.TOttVideoItem.TSubtitleTrack SubtitleTracks = 59 [json_name = "subtitle_tracks", (.NYT.column_name) = "subtitle_tracks"];
+  repeated .NAlice.TOttVideoItem.EVideoFeature Features = 60 [json_name = "features", (.NYT.column_name) = "features"];
+  optional .NAlice.TAvatarMdsImage HorizontalPoster = 39 [json_name = "horizontal_poster", (.NYT.column_name) = "horizontal_poster"];
+  optional bool IsInKPTop10 = 41 [json_name = "is_in_kp_top10", (.NYT.column_name) = "is_in_kp_top10"];
+  optional bool IsInKPTop250 = 42 [json_name = "is_in_kp_top250", (.NYT.column_name) = "is_in_kp_top250"];
+  optional .NAlice.TOttVideoItem.TEpisodeInfo EpisodeInfo = 43 [json_name = "episode_info", (.NYT.column_name) = "episode_info"];
+  optional .NAlice.TOttVideoItem.TUgcFlags UgcFlags = 46 [json_name = "ugc_flags", (.NYT.column_name) = "ugc_flags"];
+  optional .NAlice.TCatchupInfo CatchupInfo = 47 [json_name = "catchup_info", (.NYT.column_name) = "catchup_info"];
+  optional .NAlice.TAdConfig AdConfig = 48 [json_name = "ad_config", (.NYT.column_name) = "ad_config"];
+  optional uint64 LastInteractionTime = 51 [json_name = "last_interaction_time", (.NYT.column_name) = "last_interaction_time"];
+  optional string PromoCinema = 52 [json_name = "promo_cinema", (.NYT.column_name) = "promo_cinema"];
+  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 57 [json_name = "subscription_badge_mds", (.NYT.column_name) = "subscription_badge_mds"];
 }
 
 message TThinOttVideoItem {
-  string OntoId = 1 [json_name = "onto_id"];
-  string ProviderItemId = 2 [json_name = "provider_item_id"];
-  string ContentType = 3 [json_name = "content_type"];
-  string SearchQuery = 4 [json_name = "search_query"];
-  string Title = 5 [json_name = "title"];
-  string Description = 6 [json_name = "description"];
-  string HintDescription = 7 [json_name = "hint_description"];
-  .NAlice.TAvatarMdsImage Thumbnail = 8 [json_name = "thumbnail"];
-  .NAlice.TAvatarMdsImage Poster = 9 [json_name = "poster"];
-  string AgeLimit = 10 [json_name = "age_limit"];
-  repeated string Genre = 12 [json_name = "genre"];
-  optional int32 ReleaseYear = 11 [json_name = "release_year"];
-  optional double Rating = 13 [json_name = "rating"];
-  optional .NAlice.TAdConfig AdConfig = 14 [json_name = "ad_config"];
+  string OntoId = 1 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+  string ProviderItemId = 2 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string ContentType = 3 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string SearchQuery = 4 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  string Title = 5 [json_name = "title", (.NYT.column_name) = "title"];
+  string Description = 6 [json_name = "description", (.NYT.column_name) = "description"];
+  string HintDescription = 7 [json_name = "hint_description", (.NYT.column_name) = "hint_description"];
+  .NAlice.TAvatarMdsImage Thumbnail = 8 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 9 [json_name = "poster", (.NYT.column_name) = "poster"];
+  string AgeLimit = 10 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+  repeated string Genre = 12 [json_name = "genre", (.NYT.column_name) = "genre"];
+  optional int32 ReleaseYear = 11 [json_name = "release_year", (.NYT.column_name) = "release_year"];
+  optional double Rating = 13 [json_name = "rating", (.NYT.column_name) = "rating"];
+  optional .NAlice.TAdConfig AdConfig = 14 [json_name = "ad_config", (.NYT.column_name) = "ad_config"];
 }
 
 message TWebVideoPreview {
-  string Type = 1 [json_name = "type"];
-  string Url = 2 [json_name = "url"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
 }
 
 message TWebVideoItem {
   message TFeature {
-    optional bool IsPorn = 1 [json_name = "is_porn"];
-    optional bool IsShockVideo = 2 [json_name = "is_shock_video"];
+    optional bool IsPorn = 1 [json_name = "is_porn", (.NYT.column_name) = "is_porn"];
+    optional bool IsShockVideo = 2 [json_name = "is_shock_video", (.NYT.column_name) = "is_shock_video"];
   }
 
   message TEpisodeInfo {
-    optional int32 SeasonNumber = 1 [json_name = "season_number"];
-    optional int32 EpisodeNumber = 2 [json_name = "episode_number"];
-    optional string EpisodeTitle = 3 [json_name = "episode_title"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional int32 SeasonNumber = 1 [json_name = "season_number", (.NYT.column_name) = "season_number"];
+    optional int32 EpisodeNumber = 2 [json_name = "episode_number", (.NYT.column_name) = "episode_number"];
+    optional string EpisodeTitle = 3 [json_name = "episode_title", (.NYT.column_name) = "episode_title"];
   }
 
-  string Id = 1 [json_name = "id"];
-  string ContentType = 2 [json_name = "content_type"];
-  string Title = 3 [json_name = "title"];
-  .NAlice.TMiscIds MiscIds = 4 [json_name = "misc_ids"];
-  string PlayerId = 5 [json_name = "player_id"];
-  string ProviderItemId = 6 [json_name = "provider_item_id"];
-  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
-  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster"];
-  string Hosting = 9 [json_name = "hosting"];
-  string EmbedUri = 10 [json_name = "embed_uri"];
-  bool IsCommercialVideo = 11 [json_name = "is_commercial_video"];
-  uint64 ReleaseDate = 12 [json_name = "release_date"];
-  uint64 Duration = 13 [json_name = "duration"];
-  string ReqId = 14 [json_name = "req_id"];
-  string Html = 15 [json_name = "html"];
-  .NAlice.TWebVideoItem.TFeature Feature = 17 [json_name = "feature"];
-  string VideoId = 20 [json_name = "video_id"];
-  repeated .NAlice.TWebVideoPreview VideoPreview = 21 [json_name = "video_preview"];
-  .NAlice.TWebVideoItem.TEpisodeInfo EpisodeInfo = 22 [json_name = "episode_info"];
-  int32 Progress = 23 [json_name = "progress"];
-  string Badge = 24 [json_name = "badge"];
-  string Description = 25 [json_name = "description"];
-  string SearchQuery = 26 [json_name = "search_query"];
-  string AgeLimit = 27 [json_name = "age_limit"];
-  bool IsLive = 28 [json_name = "is_live"];
-  optional .NAlice.TAdConfig AdConfig = 16 [json_name = "ad_config"];
-  optional string Doc2docUrl = 18 [json_name = "doc2doc_url"];
-  optional uint64 ViewsCount = 19 [json_name = "views_count"];
-  optional .NAlice.TAvatarMdsImage BadgeMds = 29 [json_name = "badge_mds"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TMiscIds MiscIds = 4 [json_name = "misc_ids", (.NYT.column_name) = "misc_ids"];
+  string PlayerId = 5 [json_name = "player_id", (.NYT.column_name) = "player_id"];
+  string ProviderItemId = 6 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+  .NAlice.TAvatarMdsImage Poster = 8 [json_name = "poster", (.NYT.column_name) = "poster"];
+  string Hosting = 9 [json_name = "hosting", (.NYT.column_name) = "hosting"];
+  string EmbedUri = 10 [json_name = "embed_uri", (.NYT.column_name) = "embed_uri"];
+  bool IsCommercialVideo = 11 [json_name = "is_commercial_video", (.NYT.column_name) = "is_commercial_video"];
+  uint64 ReleaseDate = 12 [json_name = "release_date", (.NYT.column_name) = "release_date"];
+  uint64 Duration = 13 [json_name = "duration", (.NYT.column_name) = "duration"];
+  string ReqId = 14 [json_name = "req_id", (.NYT.column_name) = "req_id"];
+  string Html = 15 [json_name = "html", (.NYT.column_name) = "html"];
+  .NAlice.TWebVideoItem.TFeature Feature = 17 [json_name = "feature", (.NYT.column_name) = "feature"];
+  string VideoId = 20 [json_name = "video_id", (.NYT.column_name) = "video_id"];
+  repeated .NAlice.TWebVideoPreview VideoPreview = 21 [json_name = "video_preview", (.NYT.column_name) = "video_preview"];
+  .NAlice.TWebVideoItem.TEpisodeInfo EpisodeInfo = 22 [json_name = "episode_info", (.NYT.column_name) = "episode_info"];
+  int32 Progress = 23 [json_name = "progress", (.NYT.column_name) = "progress"];
+  string Badge = 24 [json_name = "badge", (.NYT.column_name) = "badge"];
+  string Description = 25 [json_name = "description", (.NYT.column_name) = "description"];
+  string SearchQuery = 26 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  string AgeLimit = 27 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+  bool IsLive = 28 [json_name = "is_live", (.NYT.column_name) = "is_live"];
+  optional .NAlice.TAdConfig AdConfig = 16 [json_name = "ad_config", (.NYT.column_name) = "ad_config"];
+  optional string Doc2docUrl = 18 [json_name = "doc2doc_url", (.NYT.column_name) = "doc2doc_url"];
+  optional uint64 ViewsCount = 19 [json_name = "views_count", (.NYT.column_name) = "views_count"];
+  optional .NAlice.TAvatarMdsImage BadgeMds = 29 [json_name = "badge_mds", (.NYT.column_name) = "badge_mds"];
 }
 
 message TExternalCinemaRequest {
-  repeated string Flags = 1 [json_name = "flags"];
+  repeated string Flags = 1 [json_name = "flags", (.NYT.column_name) = "flags"];
 }
 
 message TExternalCinemaData {
   message TCinemaTvData {
-    string CinemaCode = 1 [json_name = "cinema_code"];
-    string CinemaName = 2 [json_name = "cinema_name"];
-    string TvPackageName = 3 [json_name = "tv_package_name"];
-    bool AllowTvDeepLink = 4 [json_name = "allow_tv_deep_link"];
-    string TvFallbackLink = 5 [json_name = "tv_fallback_link"];
+    string CinemaCode = 1 [json_name = "cinema_code", (.NYT.column_name) = "cinema_code"];
+    string CinemaName = 2 [json_name = "cinema_name", (.NYT.column_name) = "cinema_name"];
+    string TvPackageName = 3 [json_name = "tv_package_name", (.NYT.column_name) = "tv_package_name"];
+    bool AllowTvDeepLink = 4 [json_name = "allow_tv_deep_link", (.NYT.column_name) = "allow_tv_deep_link"];
+    string TvFallbackLink = 5 [json_name = "tv_fallback_link", (.NYT.column_name) = "tv_fallback_link"];
   }
 
-  repeated .NAlice.TExternalCinemaData.TCinemaTvData ExternalCinemasData = 1 [json_name = "external_cinemas"];
+  repeated .NAlice.TExternalCinemaData.TCinemaTvData ExternalCinemasData = 1 [json_name = "external_cinemas", (.NYT.column_name) = "external_cinemas"];
 }
 
 message TAdConfig {
-  int64 Category = 3 [json_name = "category"];
-  bool HasPreroll = 4 [json_name = "has_preroll"];
-  optional int64 PartnerId = 1 [json_name = "partner_id"];
-  optional int64 PageId = 2 [json_name = "page_id"];
+  int64 Category = 3 [json_name = "category", (.NYT.column_name) = "category"];
+  bool HasPreroll = 4 [json_name = "has_preroll", (.NYT.column_name) = "has_preroll"];
+  optional int64 PartnerId = 1 [json_name = "partner_id", (.NYT.column_name) = "partner_id"];
+  optional int64 PageId = 2 [json_name = "page_id", (.NYT.column_name) = "page_id"];
 }
 
 message TVideoFeature {
-  optional bool IsPorn = 1 [json_name = "is_porn"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional bool IsPorn = 1 [json_name = "is_porn", (.NYT.column_name) = "is_porn"];
 }
 
 message TYangoVideoItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message Title {
-    string Lang = 1 [json_name = "lang"];
-    string Value = 2 [json_name = "value"];
+    string Lang = 1 [json_name = "lang", (.NYT.column_name) = "lang"];
+    string Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
   }
 
-  string ContentUuid = 1 [json_name = "content_uuid"];
-  string Id = 2 [json_name = "id"];
-  string OttStatus = 3 [json_name = "ott_status"];
-  repeated .NAlice.TYangoVideoItem.Title Titles = 4 [json_name = "titles"];
+  string ContentUuid = 1 [json_name = "content_uuid", (.NYT.column_name) = "content_uuid"];
+  string Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+  string OttStatus = 3 [json_name = "ott_status", (.NYT.column_name) = "ott_status"];
+  repeated .NAlice.TYangoVideoItem.Title Titles = 4 [json_name = "titles", (.NYT.column_name) = "titles"];
 }
 
 message TWebVideoInfo {
-  string PlayerId = 1 [json_name = "player_id"];
-  string Url = 2 [json_name = "url"];
-  string Id = 3 [json_name = "id"];
-  string Hosting = 4 [json_name = "hosting"];
-  string Title = 5 [json_name = "title"];
-  string Doc2docUrl = 6 [json_name = "doc2doc_url"];
+  string PlayerId = 1 [json_name = "player_id", (.NYT.column_name) = "player_id"];
+  string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+  string Id = 3 [json_name = "id", (.NYT.column_name) = "id"];
+  string Hosting = 4 [json_name = "hosting", (.NYT.column_name) = "hosting"];
+  string Title = 5 [json_name = "title", (.NYT.column_name) = "title"];
+  string Doc2docUrl = 6 [json_name = "doc2doc_url", (.NYT.column_name) = "doc2doc_url"];
 }
 
 message TSubscriptionPaySdk {
-  repeated string Features = 1 [json_name = "features"];
-  string TitleVideo = 2 [json_name = "title_video"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string Features = 1 [json_name = "features", (.NYT.column_name) = "features"];
+  string TitleVideo = 2 [json_name = "title_video", (.NYT.column_name) = "title_video"];
 }
 
 message TVideoPaySdk {
-  string ProviderItemId = 1 [json_name = "provider_item_id"];
-  string Title = 2 [json_name = "title"];
-  string ContentType = 3 [json_name = "content_type"];
-  string ViewOptionsType = 4 [json_name = "view_options_type"];
-  string BillingFeatureName = 5 [json_name = "billing_feature_name"];
-  .NAlice.TAvatarMdsImage Poster = 6 [json_name = "poster"];
-  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string ContentType = 3 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string ViewOptionsType = 4 [json_name = "view_options_type", (.NYT.column_name) = "view_options_type"];
+  string BillingFeatureName = 5 [json_name = "billing_feature_name", (.NYT.column_name) = "billing_feature_name"];
+  .NAlice.TAvatarMdsImage Poster = 6 [json_name = "poster", (.NYT.column_name) = "poster"];
+  .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
 }
 

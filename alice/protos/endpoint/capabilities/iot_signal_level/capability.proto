@@ -11,18 +11,24 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSignalLevelCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SignalLevelCapabilityType;
   message TParameters {
-    .NAlice.TSignalLevelCapability.ESignalValueType SignalValueType = 1 [json_name = "signal_value_type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TSignalLevelCapability.ESignalValueType SignalValueType = 1 [json_name = "signal_value_type", (.NYT.column_name) = "signal_value_type"];
   }
 
   message TState {
-    .NAlice.TSignalLevelCapability.ESignalQualityStatus Status = 1 [json_name = "status"];
-    optional int32 Rssi = 2 [json_name = "rssi"];
-    optional uint32 Lqa = 3 [json_name = "lqa"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TSignalLevelCapability.ESignalQualityStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    optional int32 Rssi = 2 [json_name = "rssi", (.NYT.column_name) = "rssi"];
+    optional uint32 Lqa = 3 [json_name = "lqa", (.NYT.column_name) = "lqa"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TSignalLevelCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SignalLevelUpdateStateEventType;
+    .NAlice.TSignalLevelCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum ESignalValueType {
@@ -41,8 +47,8 @@ message TSignalLevelCapability {
     EXCELLENT = 5;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSignalLevelCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSignalLevelCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSignalLevelCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSignalLevelCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

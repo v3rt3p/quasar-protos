@@ -8,11 +8,12 @@ option go_package = "a.yandex-team.ru/alice/protos/data/music_provider";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message ArtistRelation {
-  string id = 1 [json_name = "id"];
-  .Alice.Music.ArtistType artist_type = 2 [json_name = "artist_type"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  .Alice.Music.ArtistType artist_type = 2 [json_name = "artist_type", (.NYT.column_name) = "artist_type"];
 }
 
 message ContentId {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ContentType {
     CONTENT_TYPE_UNSPECIFIED = 0;
     CONTENT_TYPE_TRACK = 1;
@@ -22,9 +23,9 @@ message ContentId {
     CONTENT_TYPE_RECOMMENDATIONS = 5;
   }
 
-  .Alice.Music.ContentId.ContentType content_type = 1 [json_name = "content_type"];
-  string id = 2 [json_name = "id"];
-  bool is_trial = 3 [json_name = "is_trial"];
+  .Alice.Music.ContentId.ContentType content_type = 1 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  string id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+  bool is_trial = 3 [json_name = "is_trial", (.NYT.column_name) = "is_trial"];
 }
 
 message AgeRestrictions {
@@ -35,129 +36,131 @@ message AgeRestrictions {
     RESTRICTION_LEVEL_CHILD_SAFE = 3;
   }
 
-  .Alice.Music.AgeRestrictions.RestrictionLevel restriction_level = 1 [json_name = "restriction_level"];
+  .Alice.Music.AgeRestrictions.RestrictionLevel restriction_level = 1 [json_name = "restriction_level", (.NYT.column_name) = "restriction_level"];
 }
 
 message AlbumItemInfo {
-  .Alice.Music.AlbumMeta album_meta = 1 [json_name = "album_meta"];
-  repeated .Alice.Music.TrackMeta tracks_meta = 2 [json_name = "tracks_meta"];
-  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta"];
-  .Alice.Music.LastListenedInfo last_listened_info = 4 [json_name = "last_listened_info"];
+  .Alice.Music.AlbumMeta album_meta = 1 [json_name = "album_meta", (.NYT.column_name) = "album_meta"];
+  repeated .Alice.Music.TrackMeta tracks_meta = 2 [json_name = "tracks_meta", (.NYT.column_name) = "tracks_meta"];
+  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta", (.NYT.column_name) = "artists_meta"];
+  .Alice.Music.LastListenedInfo last_listened_info = 4 [json_name = "last_listened_info", (.NYT.column_name) = "last_listened_info"];
 }
 
 message ArtistItemInfo {
-  repeated .Alice.Music.TrackMeta tracks_meta = 1 [json_name = "tracks_meta"];
-  repeated .Alice.Music.AlbumMeta albums_meta = 2 [json_name = "albums_meta"];
-  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta"];
+  repeated .Alice.Music.TrackMeta tracks_meta = 1 [json_name = "tracks_meta", (.NYT.column_name) = "tracks_meta"];
+  repeated .Alice.Music.AlbumMeta albums_meta = 2 [json_name = "albums_meta", (.NYT.column_name) = "albums_meta"];
+  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta", (.NYT.column_name) = "artists_meta"];
 }
 
 message TrackItemInfo {
-  .Alice.Music.TrackMeta track_meta = 1 [json_name = "track_meta"];
-  .Alice.Music.AlbumMeta album_meta = 2 [json_name = "album_meta"];
-  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta"];
+  .Alice.Music.TrackMeta track_meta = 1 [json_name = "track_meta", (.NYT.column_name) = "track_meta"];
+  .Alice.Music.AlbumMeta album_meta = 2 [json_name = "album_meta", (.NYT.column_name) = "album_meta"];
+  repeated .Alice.Music.ArtistMeta artists_meta = 3 [json_name = "artists_meta", (.NYT.column_name) = "artists_meta"];
 }
 
 message PlaylistItemInfo {
-  .Alice.Music.PlaylistMeta playlist_meta = 1 [json_name = "playlist_meta"];
-  repeated .Alice.Music.TrackMeta tracks_meta = 2 [json_name = "tracks_meta"];
-  repeated .Alice.Music.AlbumMeta albums_meta = 3 [json_name = "albums_meta"];
-  repeated .Alice.Music.ArtistMeta artists_meta = 4 [json_name = "artists_meta"];
+  .Alice.Music.PlaylistMeta playlist_meta = 1 [json_name = "playlist_meta", (.NYT.column_name) = "playlist_meta"];
+  repeated .Alice.Music.TrackMeta tracks_meta = 2 [json_name = "tracks_meta", (.NYT.column_name) = "tracks_meta"];
+  repeated .Alice.Music.AlbumMeta albums_meta = 3 [json_name = "albums_meta", (.NYT.column_name) = "albums_meta"];
+  repeated .Alice.Music.ArtistMeta artists_meta = 4 [json_name = "artists_meta", (.NYT.column_name) = "artists_meta"];
 }
 
 message Fade {
-  optional uint64 in_start_ms = 1 [json_name = "in_start_ms"];
-  optional uint64 in_stop_ms = 2 [json_name = "in_stop_ms"];
-  optional uint64 out_start_ms = 3 [json_name = "out_start_ms"];
-  optional uint64 out_stop_ms = 4 [json_name = "out_stop_ms"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint64 in_start_ms = 1 [json_name = "in_start_ms", (.NYT.column_name) = "in_start_ms"];
+  optional uint64 in_stop_ms = 2 [json_name = "in_stop_ms", (.NYT.column_name) = "in_stop_ms"];
+  optional uint64 out_start_ms = 3 [json_name = "out_start_ms", (.NYT.column_name) = "out_start_ms"];
+  optional uint64 out_stop_ms = 4 [json_name = "out_stop_ms", (.NYT.column_name) = "out_stop_ms"];
 }
 
 message DisclaimerInfo {
-  string type = 1 [json_name = "type"];
-  string title = 3 [json_name = "title"];
-  string description = 4 [json_name = "description"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+  string description = 4 [json_name = "description", (.NYT.column_name) = "description"];
 }
 
 message TrackMeta {
   reserved "is_explicit";
   reserved 6;
-  string id = 1 [json_name = "id"];
-  repeated string artist_ids = 3 [json_name = "artist_ids"];
-  .Alice.Music.StreamUrl stream_url = 9 [json_name = "stream_url"];
-  repeated .Alice.Music.ArtistRelation artist_relations = 10 [json_name = "artist_relations"];
-  .Alice.Music.AgeRestrictions age_restrictions = 11 [json_name = "age_restrictions"];
-  .Alice.Music.Fade fade = 13 [json_name = "fade"];
-  repeated .Alice.Music.DisclaimerInfo disclaimers = 16 [json_name = "disclaimers"];
-  optional string album_id = 2 [json_name = "album_id"];
-  optional string title = 4 [json_name = "title"];
-  optional string image_url = 5 [json_name = "image_url"];
-  optional string background_image_url = 7 [json_name = "background_image_url"];
-  optional bool has_available_sync_lyrics = 8 [json_name = "has_available_sync_lyrics"];
-  optional uint32 duration_ms = 12 [json_name = "duration_ms"];
-  optional .Alice.Music.ColorScheme colors = 14 [json_name = "color"];
-  optional bool available = 15 [json_name = "available"];
-  optional bool ever_finished_chapter = 17 [json_name = "ever_finished_chapter"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  repeated string artist_ids = 3 [json_name = "artist_ids", deprecated = true, (.NYT.column_name) = "artist_ids"];
+  .Alice.Music.StreamUrl stream_url = 9 [json_name = "stream_url", (.NYT.column_name) = "stream_url"];
+  repeated .Alice.Music.ArtistRelation artist_relations = 10 [json_name = "artist_relations", (.NYT.column_name) = "artist_relations"];
+  .Alice.Music.AgeRestrictions age_restrictions = 11 [json_name = "age_restrictions", (.NYT.column_name) = "age_restrictions"];
+  .Alice.Music.Fade fade = 13 [json_name = "fade", (.NYT.column_name) = "fade"];
+  repeated .Alice.Music.DisclaimerInfo disclaimers = 16 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  optional string album_id = 2 [json_name = "album_id", (.NYT.column_name) = "album_id"];
+  optional string title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string image_url = 5 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  optional string background_image_url = 7 [json_name = "background_image_url", (.NYT.column_name) = "background_image_url"];
+  optional bool has_available_sync_lyrics = 8 [json_name = "has_available_sync_lyrics", (.NYT.column_name) = "has_available_sync_lyrics"];
+  optional uint32 duration_ms = 12 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+  optional .Alice.Music.ColorScheme colors = 14 [json_name = "color", (.NYT.column_name) = "colors"];
+  optional bool available = 15 [json_name = "available", (.NYT.column_name) = "available"];
+  optional bool ever_finished_chapter = 17 [json_name = "ever_finished_chapter", (.NYT.column_name) = "ever_finished_chapter"];
 }
 
 message AlbumMeta {
-  string id = 1 [json_name = "id"];
-  repeated string artist_ids = 3 [json_name = "artist_ids"];
-  repeated .Alice.Music.ArtistRelation artist_relations = 8 [json_name = "artist_relations"];
-  .Alice.Music.AgeRestrictions age_restrictions = 9 [json_name = "age_restrictions"];
-  repeated .Alice.Music.DisclaimerInfo disclaimers = 10 [json_name = "disclaimers"];
-  optional string title = 2 [json_name = "title"];
-  optional string image_url = 4 [json_name = "image_url"];
-  optional string background_image_url = 5 [json_name = "background_image_url"];
-  optional int32 year = 6 [json_name = "year"];
-  optional uint32 total_tracks_count = 7 [json_name = "total_tracks_count"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  repeated string artist_ids = 3 [json_name = "artist_ids", deprecated = true, (.NYT.column_name) = "artist_ids"];
+  repeated .Alice.Music.ArtistRelation artist_relations = 8 [json_name = "artist_relations", (.NYT.column_name) = "artist_relations"];
+  .Alice.Music.AgeRestrictions age_restrictions = 9 [json_name = "age_restrictions", (.NYT.column_name) = "age_restrictions"];
+  repeated .Alice.Music.DisclaimerInfo disclaimers = 10 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  optional string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string image_url = 4 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  optional string background_image_url = 5 [json_name = "background_image_url", (.NYT.column_name) = "background_image_url"];
+  optional int32 year = 6 [json_name = "year", (.NYT.column_name) = "year"];
+  optional uint32 total_tracks_count = 7 [json_name = "total_tracks_count", (.NYT.column_name) = "total_tracks_count"];
 }
 
 message ArtistMeta {
-  string id = 1 [json_name = "id"];
-  repeated .Alice.Music.DisclaimerInfo disclaimers = 5 [json_name = "disclaimers"];
-  optional string name = 2 [json_name = "name"];
-  optional string image_url = 3 [json_name = "image_url"];
-  optional uint32 total_tracks_count = 4 [json_name = "total_tracks_count"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  repeated .Alice.Music.DisclaimerInfo disclaimers = 5 [json_name = "disclaimers", (.NYT.column_name) = "disclaimers"];
+  optional string name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  optional string image_url = 3 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  optional uint32 total_tracks_count = 4 [json_name = "total_tracks_count", (.NYT.column_name) = "total_tracks_count"];
 }
 
 message StreamUrl {
-  optional string url = 1 [json_name = "url"];
-  optional uint64 valid_until = 2 [json_name = "valid_until"];
+  optional string url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+  optional uint64 valid_until = 2 [json_name = "valid_until", (.NYT.column_name) = "valid_until"];
 }
 
 message PlaylistMeta {
-  string id = 1 [json_name = "id"];
-  optional string title = 2 [json_name = "title"];
-  optional string image_url = 3 [json_name = "image_url"];
-  optional string background_image_url = 4 [json_name = "background_image_url"];
-  optional uint32 total_tracks_count = 5 [json_name = "total_tracks_count"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  optional string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string image_url = 3 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  optional string background_image_url = 4 [json_name = "background_image_url", (.NYT.column_name) = "background_image_url"];
+  optional uint32 total_tracks_count = 5 [json_name = "total_tracks_count", (.NYT.column_name) = "total_tracks_count"];
 }
 
 message RecommendationsMeta {
-  string id = 1 [json_name = "id"];
-  optional string title = 2 [json_name = "title"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  optional string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
 }
 
 message GenerativeMeta {
-  string id = 1 [json_name = "id"];
-  optional string title = 2 [json_name = "title"];
-  optional string image_url = 3 [json_name = "image_url"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  optional string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string image_url = 3 [json_name = "image_url", (.NYT.column_name) = "image_url"];
 }
 
 message FmRadioMeta {
-  string id = 1 [json_name = "id"];
-  optional string title = 2 [json_name = "title"];
-  optional string image_url = 3 [json_name = "image_url"];
-  optional string background_image_url = 4 [json_name = "background_image_url"];
+  string id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  optional string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string image_url = 3 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  optional string background_image_url = 4 [json_name = "background_image_url", (.NYT.column_name) = "background_image_url"];
 }
 
 message LastListenedInfo {
-  uint32 track_position_inside_entity = 1 [json_name = "track_position_inside_entity"];
-  uint32 offset_ms = 2 [json_name = "offset_ms"];
+  uint32 track_position_inside_entity = 1 [json_name = "track_position_inside_entity", (.NYT.column_name) = "track_position_inside_entity"];
+  uint32 offset_ms = 2 [json_name = "offset_ms", (.NYT.column_name) = "offset_ms"];
 }
 
 message ColorScheme {
-  string MainColor = 1 [json_name = "main_color"];
-  string AdditionalColor = 2 [json_name = "additional_color"];
+  string MainColor = 1 [json_name = "main_color", (.NYT.column_name) = "main_color"];
+  string AdditionalColor = 2 [json_name = "additional_color", (.NYT.column_name) = "additional_color"];
 }
 
 enum MusicProvider {

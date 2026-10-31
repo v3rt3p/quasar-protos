@@ -8,9 +8,10 @@ option go_package = "a.yandex-team.ru/alice/protos/data/entity_meta";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTvChannelItemMeta {
-  string ChannelTitle = 1 [json_name = "channel_title"];
-  string ContentId = 2 [json_name = "content_id"];
-  uint32 ChannelNumber = 3 [json_name = "channel_number"];
-  string CurrentProgramTitle = 4 [json_name = "current_program_title"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ChannelTitle = 1 [json_name = "channel_title", (.NYT.column_name) = "channel_title"];
+  string ContentId = 2 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  uint32 ChannelNumber = 3 [json_name = "channel_number", (.NYT.column_name) = "channel_number"];
+  string CurrentProgramTitle = 4 [json_name = "current_program_title", (.NYT.column_name) = "current_program_title"];
 }
 

@@ -10,20 +10,23 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TDiv2Patch {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message Template {
     oneof TemplateBody {
-      .google.protobuf.Struct Body = 1 [json_name = "body"];
-      string StringBody = 2 [json_name = "string_body"];
+      option (.NYT.variant_field_name) = "template_body";
+      .google.protobuf.Struct Body = 1 [json_name = "body", deprecated = true, (.NYT.column_name) = "body"];
+      string StringBody = 2 [json_name = "string_body", (.NYT.column_name) = "string_body"];
     }
   }
 
-  string Templates = 4 [json_name = "templates"];
-  map<string, .NAlice.TDiv2Patch.Template> GlobalTemplates = 6 [json_name = "global_templates"];
-  string CardName = 2 [json_name = "card_name"];
-  string CardId = 3 [json_name = "card_id"];
+  string Templates = 4 [json_name = "templates", (.NYT.column_name) = "templates"];
+  map<string, .NAlice.TDiv2Patch.Template> GlobalTemplates = 6 [json_name = "global_templates", (.NYT.column_name) = "global_templates"];
+  string CardName = 2 [json_name = "card_name", deprecated = true, (.NYT.column_name) = "card_name"];
+  string CardId = 3 [json_name = "card_id", deprecated = true, (.NYT.column_name) = "card_id"];
   oneof Div2PatchBody {
-    .google.protobuf.Struct Body = 1 [json_name = "body"];
-    string StringBody = 5 [json_name = "string_body"];
+    option (.NYT.variant_field_name) = "div2_patch_body";
+    .google.protobuf.Struct Body = 1 [json_name = "body", deprecated = true, (.NYT.column_name) = "body"];
+    string StringBody = 5 [json_name = "string_body", (.NYT.column_name) = "string_body"];
   }
 }
 

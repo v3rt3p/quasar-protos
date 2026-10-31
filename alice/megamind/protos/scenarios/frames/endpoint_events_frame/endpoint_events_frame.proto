@@ -12,12 +12,16 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEndpointEventsBatchSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    .NAlice.TEndpointEventsBatch BatchValue = 1 [json_name = "batch_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TEndpointEventsBatch BatchValue = 1 [json_name = "batch_value", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "batch_value", (.NAlice.SlotType) = "custom.endpoint.events.batch"];
   }
 }
 
 message TEndpointEventsBatchSemanticFrame {
-  .NAlice.TEndpointEventsBatchSlot Batch = 1 [json_name = "batch"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.endpoint.events.batch";
+  .NAlice.TEndpointEventsBatchSlot Batch = 1 [json_name = "batch", (.NYT.column_name) = "batch", (.NAlice.SlotName) = "batch"];
 }
 

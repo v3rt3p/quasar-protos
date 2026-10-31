@@ -10,19 +10,24 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPowerSupplyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PowerSupplyCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TLimitations {
-    uint32 MaxVolumeLevelPercent = 1 [json_name = "max_volume_level_percent"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MaxVolumeLevelPercent = 1 [json_name = "max_volume_level_percent", (.NYT.column_name) = "max_volume_level_percent"];
   }
 
   message TState {
-    .NAlice.TPowerSupplyCapability.TLimitations Limitations = 1 [json_name = "limitations"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TPowerSupplyCapability.TLimitations Limitations = 1 [json_name = "limitations", (.NYT.column_name) = "limitations"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TPowerSupplyCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TPowerSupplyCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPowerSupplyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPowerSupplyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

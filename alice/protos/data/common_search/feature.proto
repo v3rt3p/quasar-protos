@@ -2,8 +2,18 @@ syntax = "proto3";
 
 package NAlice;
 
+option java_package = "ru.yandex.alice.protos.data.common_search";
+option go_package = "a.yandex-team.ru/alice/protos/data/common_search";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMetaInfoVideo {
+  optional string SourceRecomReqId = 1 [json_name = "source_recom_req_id", (.NYT.column_name) = "source_recom_req_id"];
+  optional string SourceOntoId = 2 [json_name = "source_onto_id", (.NYT.column_name) = "source_onto_id"];
+}
+
 enum ESearchFeatures {
-  ESEARCHFEATURES_UNKNOWN = 0;
-  // stub
+  UnknownFeature = 0;
+  NoVoiceControls = 1;
 }
 

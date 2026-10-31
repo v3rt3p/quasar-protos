@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveSeatsCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_seats;automotive_seatspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveSeatsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveSeatsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveSeatsCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveSeatsCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveSeatsCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValue {
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveSeatsCapability.TVehiclePropertyValue.TBoolValue BoolValue = 1 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TSetThreeRowSeatingModeDirective {
+    option (.NAlice.SpeechKitName) = "set_three_row_seating_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetThreeRowSeatingModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    THREE_ROW_SEATING_MODE = 1;
+    BED_MODE_ON = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveSeatsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveSeatsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

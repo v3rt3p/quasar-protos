@@ -16,11 +16,15 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioPlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AudioPlayerCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "IsMultiroomSequenceStateSharingSupported";
     reserved 6;
     message TSequenceStateConditionalSupportParams {
-      bool AllowMultiroomSharing = 1 [json_name = "allow_multiroom_sharing"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool AllowMultiroomSharing = 1 [json_name = "allow_multiroom_sharing", (.NYT.column_name) = "allow_multiroom_sharing"];
     }
 
     enum ECodec {
@@ -48,17 +52,18 @@ message TAudioPlayerCapability {
       Lossless = 5;
     }
 
-    bool GenericHlsPlaybackSupport = 1 [json_name = "generic_hls_playback_support"];
-    repeated .NAlice.TAudioPlayerCapability.TParameters.ECodec SupportedCodecs = 2 [json_name = "supported_codecs"];
-    repeated .NAlice.TAudioPlayerCapability.TParameters.EStrmFeatures SupportedStrmFeatures = 3 [json_name = "supported_strm_features"];
-    bool KaraokeSupport = 4 [json_name = "karaoke_support"];
-    .NAlice.TAudioPlayerCapability.TParameters.EQuality Quality = 5 [json_name = "quality"];
-    bool AutoQualityEnabled = 8 [json_name = "auto_quality_enabled"];
-    .NAlice.TAudioPlayerCapability.TParameters.TSequenceStateConditionalSupportParams SequenceStateConditionalSupportParams = 7 [json_name = "sequence_state_conditional_support_params"];
-    bool MusicSetSupport = 9 [json_name = "music_set_support"];
+    bool GenericHlsPlaybackSupport = 1 [json_name = "generic_hls_playback_support", (.NYT.column_name) = "generic_hls_playback_support"];
+    repeated .NAlice.TAudioPlayerCapability.TParameters.ECodec SupportedCodecs = 2 [json_name = "supported_codecs", (.NYT.column_name) = "supported_codecs"];
+    repeated .NAlice.TAudioPlayerCapability.TParameters.EStrmFeatures SupportedStrmFeatures = 3 [json_name = "supported_strm_features", (.NYT.column_name) = "supported_strm_features"];
+    bool KaraokeSupport = 4 [json_name = "karaoke_support", (.NYT.column_name) = "karaoke_support"];
+    .NAlice.TAudioPlayerCapability.TParameters.EQuality Quality = 5 [json_name = "quality", (.NYT.column_name) = "quality"];
+    bool AutoQualityEnabled = 8 [json_name = "auto_quality_enabled", (.NYT.column_name) = "auto_quality_enabled"];
+    .NAlice.TAudioPlayerCapability.TParameters.TSequenceStateConditionalSupportParams SequenceStateConditionalSupportParams = 7 [json_name = "sequence_state_conditional_support_params", (.NYT.column_name) = "sequence_state_conditional_support_params"];
+    bool MusicSetSupport = 9 [json_name = "music_set_support", (.NYT.column_name) = "music_set_support"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "PlaybackOptions";
     reserved "SwitchingStreamsMetadata";
     reserved "HasPrefetchedTrack";
@@ -66,12 +71,13 @@ message TAudioPlayerCapability {
     reserved 9;
     reserved 17;
     message TFinishingTrackPlayerState {
-      .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state"];
-      string StreamId = 2 [json_name = "stream_id"];
+      .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state", (.NYT.column_name) = "common_player_state"];
+      string StreamId = 2 [json_name = "stream_id", (.NYT.column_name) = "stream_id"];
     }
 
     message TPrefetchedTrack {
-      string RequestId = 1 [json_name = "request_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
     }
 
     enum EStateType {
@@ -84,104 +90,157 @@ message TAudioPlayerCapability {
       Finished = 6;
     }
 
-    .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state"];
-    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 2 [json_name = "state_type"];
-    string StreamId = 3 [json_name = "stream_id"];
-    string StreamType = 4 [json_name = "stream_type"];
-    string Title = 5 [json_name = "title"];
-    string SubTitle = 6 [json_name = "subtitle"];
-    .NAlice.TAudioPlayerSequenceState SequenceState = 7 [json_name = "sequence_state"];
-    .NAlice.NData.NMusic.TSwitchingStreamsMetadata SwitchStreamsMetadata = 10 [json_name = "switch_streams_metadata"];
-    .NAlice.NData.TPlaybackOptions PlaybackOpts = 11 [json_name = "playback_opts"];
-    double PlaybackSpeed = 12 [json_name = "playback_speed"];
-    bool IsCrossfaded = 13 [json_name = "is_crossfaded"];
-    int64 UserMusicSessionTimestamp = 14 [json_name = "user_music_session_timestamp"];
-    .NAlice.TAudioPlayerCapability.TState.TFinishingTrackPlayerState FinishingTrackPlayerState = 15 [json_name = "finishing_track_player_state"];
-    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 16 [json_name = "karaoke_mode"];
-    bool IsVinylPlayer = 19 [json_name = "is_vinyl_player"];
-    optional .NAlice.TAudioPlayerCapability.TState.TPrefetchedTrack PrefetchedTrack = 18 [json_name = "prefetched_track"];
+    .NAlice.TCommonPlayerState CommonPlayerState = 1 [json_name = "common_player_state", (.NYT.column_name) = "common_player_state"];
+    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 2 [json_name = "state_type", (.NYT.column_name) = "state_type"];
+    string StreamId = 3 [json_name = "stream_id", (.NYT.column_name) = "stream_id"];
+    string StreamType = 4 [json_name = "stream_type", (.NYT.column_name) = "stream_type"];
+    string Title = 5 [json_name = "title", (.NYT.column_name) = "title"];
+    string SubTitle = 6 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+    .NAlice.TAudioPlayerSequenceState SequenceState = 7 [json_name = "sequence_state", (.NYT.column_name) = "sequence_state"];
+    .NAlice.NData.NMusic.TSwitchingStreamsMetadata SwitchStreamsMetadata = 10 [json_name = "switch_streams_metadata", (.NYT.column_name) = "switch_streams_metadata"];
+    .NAlice.NData.TPlaybackOptions PlaybackOpts = 11 [json_name = "playback_opts", (.NYT.column_name) = "playback_opts"];
+    double PlaybackSpeed = 12 [json_name = "playback_speed", (.NYT.column_name) = "playback_speed"];
+    bool IsCrossfaded = 13 [json_name = "is_crossfaded", (.NYT.column_name) = "is_crossfaded"];
+    int64 UserMusicSessionTimestamp = 14 [json_name = "user_music_session_timestamp", (.NYT.column_name) = "user_music_session_timestamp"];
+    .NAlice.TAudioPlayerCapability.TState.TFinishingTrackPlayerState FinishingTrackPlayerState = 15 [json_name = "finishing_track_player_state", (.NYT.column_name) = "finishing_track_player_state"];
+    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 16 [json_name = "karaoke_mode", (.NYT.column_name) = "karaoke_mode"];
+    bool IsVinylPlayer = 19 [json_name = "is_vinyl_player", (.NYT.column_name) = "vinyl_player"];
+    optional .NAlice.TAudioPlayerCapability.TState.TPrefetchedTrack PrefetchedTrack = 18 [json_name = "prefetched_track", (.NYT.column_name) = "prefetched_track"];
   }
 
   message TProgressEvent {
-    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 1 [json_name = "state_type"];
-    int64 OffsetMs = 2 [json_name = "offset_ms"];
-    int64 DurationMs = 3 [json_name = "duration_ms"];
-    int64 PlayedMs = 4 [json_name = "played_ms"];
-    string StreamId = 5 [json_name = "stream_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = AudioPlayerProgressEventType;
+    .NAlice.TAudioPlayerCapability.TState.EStateType StateType = 1 [json_name = "state_type", (.NYT.column_name) = "state_type"];
+    int64 OffsetMs = 2 [json_name = "offset_ms", (.NYT.column_name) = "offset_ms"];
+    int64 DurationMs = 3 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+    int64 PlayedMs = 4 [json_name = "played_ms", (.NYT.column_name) = "played_ms"];
+    string StreamId = 5 [json_name = "stream_id", (.NYT.column_name) = "stream_id"];
   }
 
   message TSetSequenceStateDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TAudioPlayerSequenceState SequenceState = 1 [json_name = "sequence_state"];
+    option (.NAlice.SpeechKitName) = "set_audio_player_sequence_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAudioPlayerSequenceStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAudioPlayerSequenceState SequenceState = 1 [json_name = "sequence_state", (.NYT.column_name) = "sequence_state"];
   }
 
   message TPlayDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_play_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerPlayDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TLikeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_like_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerLikeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TUnlikeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_unlike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerUnlikeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TDislikeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_dislike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerDislikeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TUndislikeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_undislike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerUndislikeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TNextDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_next_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerNextDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TPreviousDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_previous_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerPreviousDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TRepeatOneDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_repeat_one_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerRepeatOneDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TRepeatAllDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_repeat_all_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerRepeatAllDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TUnrepeatDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_unrepeat_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerUnrepeatDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TShuffleDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_shuffle_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerShuffleDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TUnshuffleDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "audio_player_unshuffle_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerUnshuffleDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TGetLyricsDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "get_lyrics_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerGetLyricsDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TAudioSetSpeedLevelDirective {
-    string Name = 1000 [json_name = "name"];
-    optional double PlaybackSpeed = 1 [json_name = "playback_speed"];
+    option (.NAlice.SpeechKitName) = "audio_set_speed_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerSetSpeedLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    optional double PlaybackSpeed = 1 [json_name = "playback_speed", (.NYT.column_name) = "playback_speed"];
   }
 
   message TEnableKaraokeModeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "enable_karaoke_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerEnableKaraokeModeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
   message TDisableKaraokeModeDirective {
-    optional string TrackId = 1 [json_name = "track_id"];
+    option (.NAlice.SpeechKitName) = "disable_karaoke_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AudioPlayerDisableKaraokeModeDirectiveType;
+    optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAudioPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAudioPlayerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAudioPlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAudioPlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

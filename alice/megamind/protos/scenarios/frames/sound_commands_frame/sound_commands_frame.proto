@@ -12,68 +12,88 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSoundAbsoluteChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    int32 NumLevelValue = 1 [json_name = "num_level_value"];
-    float FloatLevelValue = 2 [json_name = "float_level_value"];
-    string CustomLevelValue = 3 [json_name = "custom_level_value"];
+    option (.NYT.variant_field_name) = "value";
+    int32 NumLevelValue = 1 [json_name = "num_level_value", (.NYT.column_name) = "num_level_value", (.NAlice.SlotType) = "sys.num"];
+    float FloatLevelValue = 2 [json_name = "float_level_value", (.NYT.column_name) = "float_level_value", (.NAlice.SlotType) = "sys.float"];
+    string CustomLevelValue = 3 [json_name = "custom_level_value", (.NYT.column_name) = "custom_level_value", (.NAlice.SlotType) = "custom.number"];
   }
 }
 
 message TSoundRelativeChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    int32 NumLevelValue = 1 [json_name = "num_level_value"];
-    float FloatLevelValue = 2 [json_name = "float_level_value"];
+    option (.NYT.variant_field_name) = "value";
+    int32 NumLevelValue = 1 [json_name = "num_level_value", (.NYT.column_name) = "num_level_value", (.NAlice.SlotType) = "sys.num"];
+    float FloatLevelValue = 2 [json_name = "float_level_value", (.NYT.column_name) = "float_level_value", (.NAlice.SlotType) = "sys.float"];
   }
 }
 
 message TSoundPercentageChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    int32 NumLevelValue = 1 [json_name = "num_level_value"];
-    float FloatLevelValue = 2 [json_name = "float_level_value"];
-    float PercentLevelValue = 3 [json_name = "percent_level_value"];
+    option (.NYT.variant_field_name) = "value";
+    int32 NumLevelValue = 1 [json_name = "num_level_value", (.NYT.column_name) = "num_level_value", (.NAlice.SlotType) = "sys.num"];
+    float FloatLevelValue = 2 [json_name = "float_level_value", (.NYT.column_name) = "float_level_value", (.NAlice.SlotType) = "sys.float"];
+    float PercentLevelValue = 3 [json_name = "percent_level_value", (.NYT.column_name) = "percent_level_value", (.NAlice.SlotType) = "sys.percent_value"];
   }
 }
 
 message TSoundDegreeChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string DegreeValue = 1 [json_name = "degree_value"];
+    option (.NYT.variant_field_name) = "value";
+    string DegreeValue = 1 [json_name = "degree_value", (.NYT.column_name) = "degree_value", (.NAlice.SlotType) = "custom.degree"];
   }
 }
 
 message TSoundLouderSemanticFrame {
-  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase"];
-  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
-  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change"];
-  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change"];
-  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.sound.louder";
+  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase", (.NYT.column_name) = "repeat_interrupted_phrase", (.NAlice.SlotName) = "repeat_interrupted_phrase"];
+  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change", (.NYT.column_name) = "absolute_change", (.NAlice.SlotName) = "absolute_change"];
+  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change", (.NYT.column_name) = "relative_change", (.NAlice.SlotName) = "relative_change"];
+  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
+  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change", (.NYT.column_name) = "degree_change", (.NAlice.SlotName) = "degree_change"];
 }
 
 message TSoundQuiterSemanticFrame {
-  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase"];
-  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
-  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change"];
-  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change"];
-  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.sound.quiter";
+  .NAlice.TBoolSlot RepeatInterruptedPhrase = 1 [json_name = "repeat_interrupted_phrase", (.NYT.column_name) = "repeat_interrupted_phrase", (.NAlice.SlotName) = "repeat_interrupted_phrase"];
+  .NAlice.TSoundAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change", (.NYT.column_name) = "absolute_change", (.NAlice.SlotName) = "absolute_change"];
+  .NAlice.TSoundRelativeChangeSlot RelativeChange = 3 [json_name = "relative_change", (.NYT.column_name) = "relative_change", (.NAlice.SlotName) = "relative_change"];
+  .NAlice.TSoundPercentageChangeSlot PercentageChange = 4 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
+  .NAlice.TSoundDegreeChangeSlot DegreeChange = 5 [json_name = "degree_change", (.NYT.column_name) = "degree_change", (.NAlice.SlotName) = "degree_change"];
 }
 
 message TSoundMuteSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.sound.mute";
 }
 
 message TSoundUnmuteSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.sound.unmute";
 }
 
 message TSoundLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    int32 NumLevelValue = 1 [json_name = "num_level_value"];
-    float FloatLevelValue = 2 [json_name = "float_level_value"];
-    string CustomLevelValue = 3 [json_name = "custom_level_value"];
-    string CustomVolumeSettings = 4 [json_name = "custom_volume_settings"];
-    float PercentLevelValue = 5 [json_name = "percent_level_value"];
+    option (.NYT.variant_field_name) = "value";
+    int32 NumLevelValue = 1 [json_name = "num_level_value", (.NYT.column_name) = "num_level_value", (.NAlice.SlotType) = "sys.num"];
+    float FloatLevelValue = 2 [json_name = "float_level_value", (.NYT.column_name) = "float_level_value", (.NAlice.SlotType) = "sys.float"];
+    string CustomLevelValue = 3 [json_name = "custom_level_value", (.NYT.column_name) = "custom_level_value", (.NAlice.SlotType) = "custom.number"];
+    string CustomVolumeSettings = 4 [json_name = "custom_volume_settings", (.NYT.column_name) = "custom_volume_settings", (.NAlice.SlotType) = "custom.volume_setting"];
+    float PercentLevelValue = 5 [json_name = "percent_level_value", (.NYT.column_name) = "percent_level_value", (.NAlice.SlotType) = "sys.percent_value"];
   }
 }
 
 message TSoundSetLevelSemanticFrame {
-  .NAlice.TSoundLevelSlot Level = 1 [json_name = "level"];
-  .NAlice.TSysNumSlot Denominator = 2 [json_name = "denominator"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.sound.set_level";
+  .NAlice.TSoundLevelSlot Level = 1 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TSysNumSlot Denominator = 2 [json_name = "denominator", (.NYT.column_name) = "denominator", (.NAlice.SlotName) = "denominator"];
 }
 

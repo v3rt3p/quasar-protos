@@ -13,33 +13,43 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TKidsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = KidsCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EStateType {
       Undefined = 0;
       Awakening = 1;
     }
 
-    .NAlice.TKidsCapability.TState.EStateType StateType = 1 [json_name = "state_type"];
+    .NAlice.TKidsCapability.TState.EStateType StateType = 1 [json_name = "state_type", (.NYT.column_name) = "state_type"];
   }
 
   message TKidsStartAwakeningDirective {
-    string Name = 1000 [json_name = "name"];
-    string TrackUrl = 1 [json_name = "track_url"];
-    .NAlice.NAliceApi.TDirective Callback = 5 [json_name = "callback"];
-    uint32 InitialPercentVolumeLevel = 2 [json_name = "initial_percent_volume_level"];
-    uint32 FinalPercentVolumeLevel = 3 [json_name = "final_percent_volume_level"];
-    uint32 TimeoutSeconds = 4 [json_name = "timeout_seconds"];
+    option (.NAlice.SpeechKitName) = "kids_start_awakening";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = KidsStartAwakeningDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string TrackUrl = 1 [json_name = "track_url", (.NYT.column_name) = "track_url"];
+    .NAlice.NAliceApi.TDirective Callback = 5 [json_name = "callback", (.NYT.column_name) = "callback"];
+    uint32 InitialPercentVolumeLevel = 2 [json_name = "initial_percent_volume_level", (.NYT.column_name) = "initial_percent_volume_level"];
+    uint32 FinalPercentVolumeLevel = 3 [json_name = "final_percent_volume_level", (.NYT.column_name) = "final_percent_volume_level"];
+    uint32 TimeoutSeconds = 4 [json_name = "timeout_seconds", (.NYT.column_name) = "timeout_seconds"];
   }
 
   message TKidsStopAwakeningDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "kids_stop_awakening";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = KidsStopAwakeningDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TKidsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TKidsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TKidsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TKidsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

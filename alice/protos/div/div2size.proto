@@ -9,7 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/div";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDiv2Size {
-  double Width = 1 [json_name = "width"];
-  double Height = 2 [json_name = "height"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  double Width = 1 [json_name = "width", (.NYT.column_name) = "width"];
+  double Height = 2 [json_name = "height", (.NYT.column_name) = "height"];
 }
 

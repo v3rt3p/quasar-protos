@@ -10,23 +10,27 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/tts_timin
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsTimings {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTiming {
-    float Time = 1 [json_name = "time"];
-    string Phoneme = 2 [json_name = "phoneme"];
-    optional string Word = 3 [json_name = "word"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    float Time = 1 [json_name = "time", (.NYT.column_name) = "time"];
+    string Phoneme = 2 [json_name = "phoneme", (.NYT.column_name) = "phoneme"];
+    optional string Word = 3 [json_name = "word", (.NYT.column_name) = "word"];
   }
 
   message TUtterance {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message Word {
-      string Word = 1 [json_name = "word"];
-      repeated string Phonemes = 2 [json_name = "phonemes"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Word = 1 [json_name = "word", (.NYT.column_name) = "word"];
+      repeated string Phonemes = 2 [json_name = "phonemes", (.NYT.column_name) = "phonemes"];
     }
 
-    repeated .NAlice.NAliceApi.TTtsTimings.TUtterance.Word Words = 1 [json_name = "words"];
+    repeated .NAlice.NAliceApi.TTtsTimings.TUtterance.Word Words = 1 [json_name = "words", (.NYT.column_name) = "words"];
   }
 
-  repeated .NAlice.NAliceApi.TTtsTimings.TTiming Timings = 1 [json_name = "timings"];
-  .NAlice.NAliceApi.TTtsTimings.TUtterance Utterance = 2 [json_name = "utterance"];
-  bool FromCache = 3 [json_name = "from_cache"];
+  repeated .NAlice.NAliceApi.TTtsTimings.TTiming Timings = 1 [json_name = "timings", (.NYT.column_name) = "timings"];
+  .NAlice.NAliceApi.TTtsTimings.TUtterance Utterance = 2 [json_name = "utterance", (.NYT.column_name) = "utterance"];
+  bool FromCache = 3 [json_name = "from_cache", (.NYT.column_name) = "from_cache"];
 }
 

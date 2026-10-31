@@ -9,62 +9,69 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TContactsList {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TContact {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TAlias {
-      string Id = 1 [json_name = "id"];
-      string Name = 2 [json_name = "name"];
+      string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      string Name = 2 [json_name = "name", (.NYT.column_name) = "name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
     }
 
-    string AccountName = 1 [json_name = "account_name"];
-    string AccountType = 2 [json_name = "account_type"];
-    string DisplayName = 3 [json_name = "display_name"];
-    string FirstName = 4 [json_name = "first_name"];
-    string MiddleName = 5 [json_name = "middle_name"];
-    string SecondName = 6 [json_name = "second_name"];
-    int64 ContactId = 7 [json_name = "contact_id"];
-    int32 Id = 8 [json_name = "_id"];
-    string LookupKey = 9 [json_name = "lookup_key"];
-    uint64 LastTimeContacted = 10 [json_name = "last_time_contacted"];
-    uint32 TimesContacted = 11 [json_name = "times_contacted"];
-    uint32 LookupKeyIndex = 12 [json_name = "lookup_key_index"];
-    repeated .NAlice.NData.TContactsList.TContact.TAlias Aliases = 13 [json_name = "aliases"];
+    string AccountName = 1 [json_name = "account_name", (.NYT.column_name) = "account_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string AccountType = 2 [json_name = "account_type", (.NYT.column_name) = "account_type"];
+    string DisplayName = 3 [json_name = "display_name", (.NYT.column_name) = "display_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string FirstName = 4 [json_name = "first_name", (.NYT.column_name) = "first_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string MiddleName = 5 [json_name = "middle_name", (.NYT.column_name) = "middle_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string SecondName = 6 [json_name = "second_name", (.NYT.column_name) = "second_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    int64 ContactId = 7 [json_name = "contact_id", (.NYT.column_name) = "contact_id"];
+    int32 Id = 8 [json_name = "_id", (.NYT.column_name) = "id"];
+    string LookupKey = 9 [json_name = "lookup_key", (.NYT.column_name) = "lookup_key"];
+    uint64 LastTimeContacted = 10 [json_name = "last_time_contacted", (.NYT.column_name) = "last_time_contacted"];
+    uint32 TimesContacted = 11 [json_name = "times_contacted", (.NYT.column_name) = "times_contacted"];
+    uint32 LookupKeyIndex = 12 [json_name = "lookup_key_index", (.NYT.column_name) = "lookup_key_index"];
+    repeated .NAlice.NData.TContactsList.TContact.TAlias Aliases = 13 [json_name = "aliases", (.NYT.column_name) = "aliases"];
   }
 
   message TPhone {
-    int32 Id = 1 [json_name = "_id"];
-    string AccountType = 2 [json_name = "account_type"];
-    string LookupKey = 3 [json_name = "lookup_key"];
-    string Phone = 4 [json_name = "phone"];
-    string Type = 5 [json_name = "type"];
-    string IdString = 6 [json_name = "_id_string"];
-    uint32 LookupKeyIndex = 7 [json_name = "lookup_key_index"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int32 Id = 1 [json_name = "_id", (.NYT.column_name) = "id"];
+    string AccountType = 2 [json_name = "account_type", (.NYT.column_name) = "account_type"];
+    string LookupKey = 3 [json_name = "lookup_key", (.NYT.column_name) = "lookup_key"];
+    string Phone = 4 [json_name = "phone", (.NYT.column_name) = "phone", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Type = 5 [json_name = "type", (.NYT.column_name) = "type"];
+    string IdString = 6 [json_name = "_id_string", (.NYT.column_name) = "id_string"];
+    uint32 LookupKeyIndex = 7 [json_name = "lookup_key_index", (.NYT.column_name) = "lookup_key_index"];
   }
 
-  repeated .NAlice.NData.TContactsList.TContact Contacts = 1 [json_name = "contacts"];
-  repeated .NAlice.NData.TContactsList.TPhone Phones = 2 [json_name = "phones"];
-  bool IsKnownUuid = 3 [json_name = "is_known_uuid"];
-  bool Deleted = 4 [json_name = "deleted"];
-  bool Truncated = 5 [json_name = "truncated"];
-  bytes LookupKeyMapSerialized = 6 [json_name = "lookup_key_map_serialized"];
+  repeated .NAlice.NData.TContactsList.TContact Contacts = 1 [json_name = "contacts", (.NYT.column_name) = "contacts"];
+  repeated .NAlice.NData.TContactsList.TPhone Phones = 2 [json_name = "phones", (.NYT.column_name) = "phones"];
+  bool IsKnownUuid = 3 [json_name = "is_known_uuid", (.NYT.column_name) = "is_known_uuid"];
+  bool Deleted = 4 [json_name = "deleted", (.NYT.column_name) = "deleted"];
+  bool Truncated = 5 [json_name = "truncated", (.NYT.column_name) = "truncated"];
+  bytes LookupKeyMapSerialized = 6 [json_name = "lookup_key_map_serialized", (.NYT.column_name) = "lookup_key_map_serialized"];
 }
 
 message TUpdateContactsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTelegramContactInfo {
-    string UserId = 1 [json_name = "user_id"];
-    string Provider = 2 [json_name = "provider"];
-    string ContactId = 3 [json_name = "contact_id"];
-    string FirstName = 4 [json_name = "first_name"];
-    string SecondName = 6 [json_name = "second_name"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string UserId = 1 [json_name = "user_id", (.NYT.column_name) = "user_id"];
+    string Provider = 2 [json_name = "provider", (.NYT.column_name) = "provider"];
+    string ContactId = 3 [json_name = "contact_id", (.NYT.column_name) = "contact_id"];
+    string FirstName = 4 [json_name = "first_name", (.NYT.column_name) = "first_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string SecondName = 6 [json_name = "second_name", (.NYT.column_name) = "second_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TContactInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof ContactInfo {
-      .NAlice.NData.TUpdateContactsRequest.TTelegramContactInfo TelegramContactInfo = 1 [json_name = "telegram_contact_info"];
+      option (.NYT.variant_field_name) = "optional_contact_info";
+      .NAlice.NData.TUpdateContactsRequest.TTelegramContactInfo TelegramContactInfo = 1 [json_name = "telegram_contact_info", (.NYT.column_name) = "telegram_contact_info"];
     }
   }
 
-  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo CreatedContacts = 7 [json_name = "created_contacts"];
-  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo UpdatedContacts = 1 [json_name = "updated_contacts"];
-  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo RemovedContacts = 2 [json_name = "removed_contacts"];
+  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo CreatedContacts = 7 [json_name = "created_contacts", (.NYT.column_name) = "created_contacts"];
+  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo UpdatedContacts = 1 [json_name = "updated_contacts", (.NYT.column_name) = "updated_contacts"];
+  repeated .NAlice.NData.TUpdateContactsRequest.TContactInfo RemovedContacts = 2 [json_name = "removed_contacts", (.NYT.column_name) = "removed_contacts"];
 }
 

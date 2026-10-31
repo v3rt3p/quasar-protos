@@ -12,49 +12,62 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAppLaunchCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AppLaunchCapabilityType;
   message TApp {
-    string AppName = 1 [json_name = "app_name"];
-    string PackageName = 2 [json_name = "package_name"];
-    uint64 VersionCode = 3 [json_name = "version_code"];
-    optional bool IsOpened = 4 [json_name = "is_opened"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string AppName = 1 [json_name = "app_name", (.NYT.column_name) = "app_name"];
+    string PackageName = 2 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+    uint64 VersionCode = 3 [json_name = "version_code", (.NYT.column_name) = "version_code"];
+    optional bool IsOpened = 4 [json_name = "is_opened", (.NYT.column_name) = "is_opened"];
   }
 
   message TParameters {
-    bool SupportsActivateOwnApp = 1 [json_name = "supports_activate_own_app"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsActivateOwnApp = 1 [json_name = "supports_activate_own_app", (.NYT.column_name) = "supports_activate_own_app"];
   }
 
   message TState {
-    repeated .NAlice.TAppLaunchCapability.TApp InstalledAppsList = 1 [json_name = "installed_apps_list"];
-    bool SupportsExtendedParametersSet = 2 [json_name = "supports_extended_parameters_set"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAppLaunchCapability.TApp InstalledAppsList = 1 [json_name = "installed_apps_list", (.NYT.column_name) = "installed_apps_list"];
+    bool SupportsExtendedParametersSet = 2 [json_name = "supports_extended_parameters_set", (.NYT.column_name) = "supports_extended_parameters_set"];
   }
 
   message TLaunchAppDirective {
+    option (.NAlice.SpeechKitName) = "launch_app";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LaunchAppDirectiveType;
     message TAnalytics {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message AppLaunchAnalyticsData {
-        string PackageName = 1 [json_name = "package_name"];
-        string VisibleName = 2 [json_name = "visible_name"];
-        string OpenFrom = 3 [json_name = "open_from"];
+        string PackageName = 1 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+        string VisibleName = 2 [json_name = "visible_name", (.NYT.column_name) = "visible_name"];
+        string OpenFrom = 3 [json_name = "open_from", (.NYT.column_name) = "open_from"];
       }
 
       oneof Value {
-        .NAlice.TAppLaunchCapability.TLaunchAppDirective.TAnalytics.AppLaunchAnalyticsData AppLaunch = 1 [json_name = "app_launch"];
+        option (.NYT.variant_field_name) = "value";
+        .NAlice.TAppLaunchCapability.TLaunchAppDirective.TAnalytics.AppLaunchAnalyticsData AppLaunch = 1 [json_name = "app_launch", (.NYT.column_name) = "app_launch"];
       }
     }
 
-    string PackageToLaunch = 1 [json_name = "package_to_launch"];
-    string IntentAction = 2 [json_name = "intent_action"];
-    string IntentData = 3 [json_name = "intent_data"];
-    string IntentExtrasJson = 4 [json_name = "intent_extras_json"];
-    string ActivityToLaunch = 7 [json_name = "activity_to_launch"];
-    string IntentCategory = 8 [json_name = "intent_category"];
-    string IntentType = 9 [json_name = "intent_type"];
-    .NAlice.TAppLaunchCapability.TLaunchAppDirective.TAnalytics Analytics = 6 [json_name = "analytics"];
-    string Name = 5 [json_name = "name"];
-    optional .NAlice.TAppLaunchCapability.EScreenId ScreenId = 10 [json_name = "screen_id"];
+    string PackageToLaunch = 1 [json_name = "package_to_launch", (.NYT.column_name) = "package_to_launch"];
+    string IntentAction = 2 [json_name = "intent_action", (.NYT.column_name) = "intent_action"];
+    string IntentData = 3 [json_name = "intent_data", (.NYT.column_name) = "intent_data"];
+    string IntentExtrasJson = 4 [json_name = "intent_extras_json", (.NYT.column_name) = "intent_extras_json"];
+    string ActivityToLaunch = 7 [json_name = "activity_to_launch", (.NYT.column_name) = "activity_to_launch"];
+    string IntentCategory = 8 [json_name = "intent_category", (.NYT.column_name) = "intent_category"];
+    string IntentType = 9 [json_name = "intent_type", (.NYT.column_name) = "intent_type"];
+    .NAlice.TAppLaunchCapability.TLaunchAppDirective.TAnalytics Analytics = 6 [json_name = "analytics", (.NYT.column_name) = "analytics"];
+    string Name = 5 [json_name = "name", (.NYT.column_name) = "name"];
+    optional .NAlice.TAppLaunchCapability.EScreenId ScreenId = 10 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
   }
 
   message TActivateOwnAppDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "activate_own_app";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ActivateOwnAppDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   enum EScreenId {
@@ -64,8 +77,8 @@ message TAppLaunchCapability {
     SCREEN_INSTRUMENT_PANEL = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAppLaunchCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAppLaunchCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAppLaunchCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAppLaunchCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

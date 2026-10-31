@@ -7,7 +7,35 @@ option go_package = "a.yandex-team.ru/alice/library/yt/extensions;alice_options_
 
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.EnumValueOptions {
+  optional bool SerializeAsInt = 86100;
+}
+extend .google.protobuf.EnumValueOptions {
+  optional string CustomString = 86101;
+}
+extend .google.protobuf.MessageOptions {
+  optional .NAliceYT.EPrivateGroup PrivateGroupMessage = 86200;
+}
+extend .google.protobuf.FieldOptions {
+  optional bool DumpInException = 86300;
+}
+extend .google.protobuf.FieldOptions {
+  optional .NAliceYT.EOutputFormat OutputFormat = 86302;
+}
+extend .google.protobuf.FieldOptions {
+  optional .NAliceYT.EPrivateGroup PrivateGroup = 86303;
+}
+extend .google.protobuf.FieldOptions {
+  optional bool AlwaysExport = 86304;
+}
+extend .google.protobuf.FieldOptions {
+  optional bool UseJsonNamesAsYtColumnNames = 86305;
+}
 enum EOutputFormat {
+  reserved "OutputFormatAsBinary";
+  reserved "OutputFormatAsDict";
+  reserved 2;
+  reserved 4;
   OutputFormatDefault = 0;
   OutputFormatAsYson = 1;
   OutputFormatExpandAny = 3;

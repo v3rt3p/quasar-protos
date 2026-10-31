@@ -14,55 +14,79 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TColorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ColorCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TTemperatureKParameters {
-      .NAlice.TPositiveIntegerRange Range = 1 [json_name = "range"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TPositiveIntegerRange Range = 1 [json_name = "range", (.NYT.column_name) = "range"];
     }
 
     message TColorSceneParameters {
-      repeated .NAlice.TColorCapability.EColorScene SupportedScenes = 1 [json_name = "supported_scenes"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.TColorCapability.EColorScene SupportedScenes = 1 [json_name = "supported_scenes", (.NYT.column_name) = "supported_scenes"];
     }
 
-    .NAlice.TColorCapability.TParameters.TColorSceneParameters ColorSceneParameters = 1 [json_name = "color_scene_parameters"];
-    .NAlice.TColorCapability.TParameters.TTemperatureKParameters TemperatureKParameters = 2 [json_name = "temperature_k_parameters"];
+    .NAlice.TColorCapability.TParameters.TColorSceneParameters ColorSceneParameters = 1 [json_name = "color_scene_parameters", (.NYT.column_name) = "color_scene_parameters"];
+    .NAlice.TColorCapability.TParameters.TTemperatureKParameters TemperatureKParameters = 2 [json_name = "temperature_k_parameters", (.NYT.column_name) = "temperature_k_parameters"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      .NAlice.TColorCapability.EColorScene ColorScene = 1 [json_name = "color_scene"];
-      uint64 TemperatureK = 2 [json_name = "temperature_k"];
-      .NAlice.THueAndSaturation HueSaturation = 3 [json_name = "hue_saturation"];
+      option (.NYT.variant_field_name) = "value";
+      .NAlice.TColorCapability.EColorScene ColorScene = 1 [json_name = "color_scene", (.NYT.column_name) = "color_scene"];
+      uint64 TemperatureK = 2 [json_name = "temperature_k", (.NYT.column_name) = "temperature_k"];
+      .NAlice.THueAndSaturation HueSaturation = 3 [json_name = "hue_saturation", (.NYT.column_name) = "hue_saturation"];
     }
   }
 
   message TSetColorSceneDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TColorCapability.EColorScene ColorScene = 1 [json_name = "color_scene"];
+    option (.NAlice.SpeechKitName) = "set_color_scene_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetColorSceneDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TColorCapability.EColorScene ColorScene = 1 [json_name = "color_scene", (.NYT.column_name) = "color_scene"];
   }
 
   message TSetTemperatureKDirective {
-    string Name = 1000 [json_name = "name"];
-    uint64 TargetValue = 1 [json_name = "target_value"];
+    option (.NAlice.SpeechKitName) = "set_temperature_k_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetTemperatureKDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint64 TargetValue = 1 [json_name = "target_value", (.NYT.column_name) = "target_value"];
   }
 
   message TSetHueAndSaturationDirective {
-    string Name = 1000 [json_name = "name"];
-    double HueTargetValue = 1 [json_name = "hue_target_value"];
-    double SaturationTargetValue = 2 [json_name = "saturation_target_value"];
+    option (.NAlice.SpeechKitName) = "set_hue_and_saturation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHueAndSaturationDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double HueTargetValue = 1 [json_name = "hue_target_value", (.NYT.column_name) = "hue_target_value"];
+    double SaturationTargetValue = 2 [json_name = "saturation_target_value", (.NYT.column_name) = "saturation_target_value"];
   }
 
   message TSetHueDirective {
-    string Name = 1000 [json_name = "name"];
-    double HueTargetValue = 1 [json_name = "hue_target_value"];
+    option (.NAlice.SpeechKitName) = "set_hue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHueDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double HueTargetValue = 1 [json_name = "hue_target_value", (.NYT.column_name) = "hue_target_value"];
   }
 
   message TSetSaturationDirective {
-    string Name = 1000 [json_name = "name"];
-    double SaturationTargetValue = 1 [json_name = "saturation_target_value"];
+    option (.NAlice.SpeechKitName) = "set_saturation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSaturationDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double SaturationTargetValue = 1 [json_name = "saturation_target_value", (.NYT.column_name) = "saturation_target_value"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TColorCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ColorUpdateStateEventType;
+    .NAlice.TColorCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EColorScene {
@@ -93,8 +117,8 @@ message TColorCapability {
     ChristmasScene = 24;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TColorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TColorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TColorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TColorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

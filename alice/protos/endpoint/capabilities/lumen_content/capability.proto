@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LumenContentCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/lumen_content;lumencontentpb";
+
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLumenContentCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LumenContentCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string InAppContentTypes = 1 [json_name = "in_app_content_types", (.NYT.column_name) = "in_app_content_types"];
+  }
+
+  message TOpenContentDirective {
+    option (.NAlice.SpeechKitName) = "open_content";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenContentDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TLumenContentCapability.TContentEntity Entity = 2 [json_name = "entity", (.NYT.column_name) = "entity"];
+  }
+
+  message TContentEntity {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+    string Url = 3 [json_name = "url", (.NYT.column_name) = "url"];
+    .google.protobuf.Struct Details = 4 [json_name = "details", (.NYT.column_name) = "details"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLumenContentCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLumenContentCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -15,21 +15,28 @@ import "alice/protos/data/tv/tags/catalog_tags.proto";
 import "alice/protos/data/tv/tags/data/catalog_tag.proto";
 
 message TTvCatalogCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TvCatalogCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.NTv.TCatalogTag AlreadySelectedTags = 1 [json_name = "already_selected_tags"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.NTv.TCatalogTag AlreadySelectedTags = 1 [json_name = "already_selected_tags", (.NYT.column_name) = "already_selected_tags"];
   }
 
   message TOpenCatalogDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.NTv.TTvCarouselResultData Gallery = 2 [json_name = "gallery"];
-    .NAlice.NTv.TGetTagsResponse CatalogTags = 3 [json_name = "catalog_tags"];
+    option (.NAlice.SpeechKitName) = "open_catalog_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenCatalogDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTv.TTvCarouselResultData Gallery = 2 [json_name = "gallery", (.NYT.column_name) = "gallery"];
+    .NAlice.NTv.TGetTagsResponse CatalogTags = 3 [json_name = "catalog_tags", (.NYT.column_name) = "catalog_tags"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTvCatalogCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTvCatalogCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTvCatalogCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTvCatalogCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

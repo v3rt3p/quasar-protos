@@ -9,15 +9,17 @@ import "alice/protos/endpoint/capabilities/phone_calls/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAccountInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "CredentialsKey";
   reserved 1;
-  .NAlice.TPhoneCallsCapability.TCredentials Credentials = 2 [json_name = "credentials"];
-  .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 3 [json_name = "lifetime_policy"];
-  string AccountId = 4 [json_name = "account_id"];
-  .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 5 [json_name = "provider"];
+  .NAlice.TPhoneCallsCapability.TCredentials Credentials = 2 [json_name = "credentials", (.NYT.column_name) = "credentials"];
+  .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 3 [json_name = "lifetime_policy", (.NYT.column_name) = "lifetime_policy"];
+  string AccountId = 4 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+  .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 5 [json_name = "provider", (.NYT.column_name) = "provider"];
 }
 
 message TAccountsInfo {
-  repeated .NAlice.TAccountInfo AccountsInfo = 1 [json_name = "accounts_info"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TAccountInfo AccountsInfo = 1 [json_name = "accounts_info", (.NYT.column_name) = "accounts_info"];
 }
 

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+option java_package = "ru.yandex.alice.protos.api.alicekit.common.tts_options";
+option java_outer_classname = "TtsOptionsProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/common/tts_options";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TClientTtsOptions {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string VoiceId = 1 [json_name = "voice_id", (.NYT.column_name) = "voice_id"];
+}
+

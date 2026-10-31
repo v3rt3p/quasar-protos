@@ -20,38 +20,42 @@ message TUniproxyOptions {
   reserved 6;
   reserved 7;
   message TContextLoadOptions {
-    bool UseBlackbox = 1 [json_name = "use_blackbox"];
-    bool UseCachalotMMSession = 2 [json_name = "use_cachalot_mm_session"];
-    bool UseContacts = 3 [json_name = "use_contacts"];
-    bool UseDatasync = 4 [json_name = "use_datasync"];
-    bool UseFlagsJson = 5 [json_name = "use_flags_json"];
-    bool UseIotUserInfo = 6 [json_name = "use_iot_user_info"];
-    bool UseLaas = 7 [json_name = "use_laas"];
-    bool UseMemento = 8 [json_name = "use_memento"];
-    bool UseNotifications = 9 [json_name = "use_notifications"];
+    bool UseBlackbox = 1 [json_name = "use_blackbox", (.NYT.column_name) = "use_blackbox"];
+    bool UseCachalotMMSession = 2 [json_name = "use_cachalot_mm_session", (.NYT.column_name) = "use_cachalot_mm_session"];
+    bool UseContacts = 3 [json_name = "use_contacts", (.NYT.column_name) = "use_contacts"];
+    bool UseDatasync = 4 [json_name = "use_datasync", (.NYT.column_name) = "use_datasync"];
+    bool UseFlagsJson = 5 [json_name = "use_flags_json", (.NYT.column_name) = "use_flags_json"];
+    bool UseIotUserInfo = 6 [json_name = "use_iot_user_info", (.NYT.column_name) = "use_iot_user_info"];
+    bool UseLaas = 7 [json_name = "use_laas", (.NYT.column_name) = "use_laas"];
+    bool UseMemento = 8 [json_name = "use_memento", (.NYT.column_name) = "use_memento"];
+    bool UseNotifications = 9 [json_name = "use_notifications", (.NYT.column_name) = "use_notifications"];
   }
 
   message TCapabilityUpdatesOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TCapabilityUpdateInfo {
-      .NAlice.TCapability.ECapabilityType CapabilityType = 1 [json_name = "capability_type"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TCapability.ECapabilityType CapabilityType = 1 [json_name = "capability_type", (.NYT.column_name) = "capability_type"];
     }
 
-    repeated .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions.TCapabilityUpdateInfo WaitClientCapabilityUpdates = 1 [json_name = "wait_client_capability_updates"];
+    repeated .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions.TCapabilityUpdateInfo WaitClientCapabilityUpdates = 1 [json_name = "wait_client_capability_updates", (.NYT.column_name) = "wait_client_capability_updates"];
   }
 
   message TBackgroundResponseStreamingOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRequestWithShownNewDialog {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
-    .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions.TRequestWithShownNewDialog RequestWithShownNewDialog = 1 [json_name = "request_with_shown_new_dialog"];
+    .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions.TRequestWithShownNewDialog RequestWithShownNewDialog = 1 [json_name = "request_with_shown_new_dialog", (.NYT.column_name) = "request_with_shown_new_dialog"];
   }
 
-  .NAlice.NAliceApi.TUniproxyOptions.TContextLoadOptions OwnerContextLoadOptions = 2 [json_name = "owner_context_load_options"];
-  .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions CapabilityUpdatesOptions = 8 [json_name = "capability_updates_options"];
-  .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions BackgroundResponseStreamingOptions = 9 [json_name = "background_response_streaming_options"];
-  .NAlice.NAliceApi.TUniproxyBidirectionalOptions BidirectionalOptions = 10 [json_name = "bidirectional_options"];
-  .NAlice.NApi.NDialogHistory.TDialogOptions DialogOptions = 11 [json_name = "dialog_options"];
-  optional string MegamindUrl = 1 [json_name = "megamind_url"];
-  optional bool WaitClientApproval = 4 [json_name = "wait_client_approval"];
+  .NAlice.NAliceApi.TUniproxyOptions.TContextLoadOptions OwnerContextLoadOptions = 2 [json_name = "owner_context_load_options", (.NYT.column_name) = "owner_context_load_options"];
+  .NAlice.NAliceApi.TUniproxyOptions.TCapabilityUpdatesOptions CapabilityUpdatesOptions = 8 [json_name = "capability_updates_options", (.NYT.column_name) = "capability_updates_options"];
+  .NAlice.NAliceApi.TUniproxyOptions.TBackgroundResponseStreamingOptions BackgroundResponseStreamingOptions = 9 [json_name = "background_response_streaming_options", (.NYT.column_name) = "background_response_streaming_options"];
+  .NAlice.NAliceApi.TUniproxyBidirectionalOptions BidirectionalOptions = 10 [json_name = "bidirectional_options", (.NYT.column_name) = "bidirectional_options"];
+  .NAlice.NApi.NDialogHistory.TDialogOptions DialogOptions = 11 [json_name = "dialog_options", (.NYT.column_name) = "dialog_options"];
+  optional string MegamindUrl = 1 [json_name = "megamind_url", (.NYT.column_name) = "megamind_url"];
+  optional bool WaitClientApproval = 4 [json_name = "wait_client_approval", (.NYT.column_name) = "wait_client_approval"];
 }
 

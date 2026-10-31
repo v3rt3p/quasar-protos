@@ -9,15 +9,16 @@ option go_package = "a.yandex-team.ru/alice/megamind/protos/guest/enrollment_hea
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEnrollmentHeader {
-  string PersonId = 1 [json_name = "person_id"];
-  string Version = 2 [json_name = "version"];
-  .NAlice.EUserType UserType = 3 [json_name = "user_type"];
-  bool EnrollmentSoundIsPresent = 4 [json_name = "enrollment_sound_is_present"];
-  bool SupportsSharing = 5 [json_name = "supports_sharing"];
+  string PersonId = 1 [json_name = "person_id", (.NYT.column_name) = "person_id"];
+  string Version = 2 [json_name = "version", (.NYT.column_name) = "version"];
+  .NAlice.EUserType UserType = 3 [json_name = "user_type", (.NYT.column_name) = "user_type"];
+  bool EnrollmentSoundIsPresent = 4 [json_name = "enrollment_sound_is_present", (.NYT.column_name) = "enrollment_sound_is_present"];
+  bool SupportsSharing = 5 [json_name = "supports_sharing", (.NYT.column_name) = "supports_sharing"];
 }
 
 message TEnrollmentHeaders {
-  repeated .NAlice.TEnrollmentHeader Headers = 1 [json_name = "headers"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TEnrollmentHeader Headers = 1 [json_name = "headers", (.NYT.column_name) = "headers"];
 }
 
 enum EUserType {

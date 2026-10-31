@@ -15,43 +15,54 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TInformersCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = InformersCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TUpdateInformerDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "update_informer_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = UpdateInformerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
     oneof InformerState {
-      .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state"];
-      .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state"];
+      option (.NYT.variant_field_name) = "informer_state";
+      .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state", (.NYT.column_name) = "reminder_informer_state"];
+      .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state", (.NYT.column_name) = "weather_informer_state"];
     }
   }
 
   message TUpdateAllInformersDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state"];
-    .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state"];
+    option (.NAlice.SpeechKitName) = "update_all_informers_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = UpdateAllInformersDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TInformersCapability.TReminderInformerState ReminderInformerState = 1 [json_name = "reminder_informer_state", (.NYT.column_name) = "reminder_informer_state"];
+    .NAlice.TInformersCapability.TWeatherInformerState WeatherInformerState = 2 [json_name = "weather_informer_state", (.NYT.column_name) = "weather_informer_state"];
   }
 
   message TReminderInformerState {
-    string ReminderText = 1 [json_name = "reminder_text"];
-    uint64 ReminderDate = 2 [json_name = "reminder_date"];
-    uint32 RemindersCounter = 3 [json_name = "reminders_counter"];
-    .NAlice.NData.TDateTime ShootAt = 4 [json_name = "shoot_at"];
+    string ReminderText = 1 [json_name = "reminder_text", (.NYT.column_name) = "reminder_text"];
+    uint64 ReminderDate = 2 [json_name = "reminder_date", deprecated = true, (.NYT.column_name) = "reminder_date"];
+    uint32 RemindersCounter = 3 [json_name = "reminders_counter", (.NYT.column_name) = "reminders_counter"];
+    .NAlice.NData.TDateTime ShootAt = 4 [json_name = "shoot_at", (.NYT.column_name) = "shoot_at"];
   }
 
   message TWeatherInformerState {
-    string Degrees = 1 [json_name = "degrees"];
-    string Icon = 2 [json_name = "icon"];
-    double Temperature = 3 [json_name = "temperature"];
-    string IconType = 5 [json_name = "icon_type"];
-    .NAlice.NData.TWeatherCondition Condition = 6 [json_name = "condition"];
+    string Degrees = 1 [json_name = "degrees", deprecated = true, (.NYT.column_name) = "degrees"];
+    string Icon = 2 [json_name = "icon", (.NYT.column_name) = "icon"];
+    double Temperature = 3 [json_name = "temperature", (.NYT.column_name) = "temperature"];
+    string IconType = 5 [json_name = "icon_type", (.NYT.column_name) = "icon_type"];
+    .NAlice.NData.TWeatherCondition Condition = 6 [json_name = "condition", (.NYT.column_name) = "condition"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TInformersCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TInformersCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TInformersCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TInformersCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

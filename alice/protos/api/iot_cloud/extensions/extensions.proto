@@ -9,3 +9,12 @@ option go_package = "a.yandex-team.ru/alice/protos/api/iot_cloud/extensions;exte
 import "alice/protos/api/iot_cloud/endpoint/capabilities/common/capability.proto";
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.MessageOptions {
+  string DirectiveName = 54387;
+}
+extend .google.protobuf.MessageOptions {
+  .NAlice.NIotCloud.TCapability.EDirectiveType IotCloudDirectiveType = 54388;
+}
+extend .google.protobuf.MessageOptions {
+  .NAlice.NIotCloud.TCapability.EEventType IotCloudEventType = 54389;
+}

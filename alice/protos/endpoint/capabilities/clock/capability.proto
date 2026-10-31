@@ -14,24 +14,34 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClockCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ClockCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.NData.TTimeFormat Format = 1 [json_name = "format"];
-    bool IsShown = 2 [json_name = "is_shown"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.TTimeFormat Format = 1 [json_name = "format", (.NYT.column_name) = "format"];
+    bool IsShown = 2 [json_name = "is_shown", (.NYT.column_name) = "is_shown"];
   }
 
   message TShowClockDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "show_clock";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowClockDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message THideClockDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "hide_clock";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = HideClockDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TClockCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TClockCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TClockCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TClockCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -175,15 +175,15 @@ message TLocalAnalytics {
 }
 
 message TLocalScenarioRunResponse {
-  .NAlice.NAliceApi.TScenarioRunResponse ScenarioRunResponse = 1 [json_name = "scenario_run_response"];
-  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+  .NAlice.NAliceApi.TScenarioRunResponse ScenarioRunResponse = 1 [json_name = "scenario_run_response", (.NYT.column_name) = "scenario_run_response"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives", (.NYT.column_name) = "directives"];
   .NAlice.NAliceApi.TLocalError Error = 3 [json_name = "error"];
   .NAlice.NAliceApi.TLocalAnalytics Analytics = 4 [json_name = "analytics"];
 }
 
 message TLocalScenarioApplyResponse {
-  .NAlice.NAliceApi.TScenarioApplyResponse ScenarioApplyResponse = 1 [json_name = "scenario_apply_response"];
-  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+  .NAlice.NAliceApi.TScenarioApplyResponse ScenarioApplyResponse = 1 [json_name = "scenario_apply_response", (.NYT.column_name) = "scenario_apply_response"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives", (.NYT.column_name) = "directives"];
   .NAlice.NAliceApi.TLocalError Error = 3 [json_name = "error"];
   .NAlice.NAliceApi.TLocalAnalytics Analytics = 4 [json_name = "analytics"];
 }

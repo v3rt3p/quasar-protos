@@ -11,35 +11,49 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBluetoothCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BluetoothCapabilityType;
   message TConnectedDevice {
-    .NAlice.TBluetoothCapability.ERole Role = 1 [json_name = "role"];
-    string Name = 2 [json_name = "name"];
-    string Address = 3 [json_name = "address"];
-    uint64 ConnectionTime = 4 [json_name = "connection_time"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TBluetoothCapability.ERole Role = 1 [json_name = "role", (.NYT.column_name) = "role"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    string Address = 3 [json_name = "address", (.NYT.column_name) = "address"];
+    uint64 ConnectionTime = 4 [json_name = "connection_time", (.NYT.column_name) = "connection_time"];
   }
 
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "ConnectedDevice";
     reserved 1;
-    repeated .NAlice.TBluetoothCapability.TConnectedDevice ConnectedDevices = 2 [json_name = "connected_devices"];
-    bool Playing = 3 [json_name = "playing"];
-    bool Discoverable = 4 [json_name = "discoverable"];
-    optional uint32 Volume = 5 [json_name = "volume"];
+    repeated .NAlice.TBluetoothCapability.TConnectedDevice ConnectedDevices = 2 [json_name = "connected_devices", (.NYT.column_name) = "connected_devices"];
+    bool Playing = 3 [json_name = "playing", (.NYT.column_name) = "playing"];
+    bool Discoverable = 4 [json_name = "discoverable", (.NYT.column_name) = "discoverable"];
+    optional uint32 Volume = 5 [json_name = "volume", (.NYT.column_name) = "volume"];
   }
 
   message TConnectBluetoothDirective {
-    string Name = 1000 [json_name = "name"];
-    string Address = 1 [json_name = "address"];
+    option (.NAlice.SpeechKitName) = "connect_bluetooth_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ConnectBluetoothDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string Address = 1 [json_name = "address", (.NYT.column_name) = "address"];
   }
 
   message TDisconnectBluetoothDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "disconnect_bluetooth_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DisconnectBluetoothDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TForgetPairedDevicesDirective {
+    option (.NAlice.SpeechKitName) = "forget_paired_devices_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForgetPairedDevicesDirectiveType;
   }
 
   enum ERole {
@@ -48,8 +62,8 @@ message TBluetoothCapability {
     ROLE_SOURCE = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBluetoothCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBluetoothCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBluetoothCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBluetoothCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

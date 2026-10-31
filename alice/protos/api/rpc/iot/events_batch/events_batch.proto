@@ -11,10 +11,12 @@ import "alice/protos/endpoint/events/events.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIoTEventsBatchRequest {
-  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
-  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2 [json_name = "environment_state"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch", (.NYT.column_name) = "batch"];
+  .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 2 [json_name = "environment_state", (.NYT.column_name) = "environment_state"];
 }
 
 message TIoTEventsBatchResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 

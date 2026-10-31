@@ -11,6 +11,7 @@ import "alice/megamind/protos/common/experiments/experiments.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTranslateInput {
-  .NAlice.TExperimentsProto Experiments = 1;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TExperimentsProto Experiments = 1 [(.NYT.column_name) = "experiments"];
 }
 

@@ -10,14 +10,16 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/data_prox
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDataProxyRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TGetRequest {
-    optional string Namespace = 1 [json_name = "namespace"];
-    optional string Key = 2 [json_name = "key"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string Namespace = 1 [json_name = "namespace", (.NYT.column_name) = "namespace"];
+    optional string Key = 2 [json_name = "key", (.NYT.column_name) = "key"];
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TDataProxyRequest.TGetRequest RequestGet = 2 [json_name = "request_get"];
+    .NAlice.NAliceApi.TDataProxyRequest.TGetRequest RequestGet = 2 [json_name = "request_get", (.NYT.column_name) = "request_get"];
   }
-  optional string InteractionId = 1 [json_name = "interaction_id"];
+  optional string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
 }
 

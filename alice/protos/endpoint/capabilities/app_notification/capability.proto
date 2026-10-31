@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AppNotificationCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/app_notification;app_notification";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAppNotificationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AppNotificationCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "SupportedDeeplinks";
+    reserved 1;
+    repeated .NAlice.TAppNotificationCapability.ENotificationType SupportedNotificationTypes = 2 [json_name = "supported_notification_types", (.NYT.column_name) = "supported_notification_types"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TScheduleLocalNotificationDirective {
+    option (.NAlice.SpeechKitName) = "schedule_local_notification_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ScheduleLocalNotificationDirectiveType;
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    string Body = 2 [json_name = "body", (.NYT.column_name) = "body"];
+    string Name = 5 [json_name = "name", (.NYT.column_name) = "name"];
+    optional .NAlice.TAppNotificationCapability.ENotificationType NotificationType = 3 [json_name = "notification_type", (.NYT.column_name) = "notification_type"];
+    optional string DeeplinkUrl = 4 [json_name = "deeplink_url", (.NYT.column_name) = "deeplink_url"];
+  }
+
+  enum ENotificationType {
+    Satellite = 0;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAppNotificationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAppNotificationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

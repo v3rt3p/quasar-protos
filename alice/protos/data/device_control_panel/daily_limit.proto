@@ -11,7 +11,8 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/duration.proto";
 
 message TDailyLimit {
-  .google.protobuf.Duration Limit = 1 [json_name = "limit"];
-  .NAlice.TDayOfWeek DayOfWeek = 2 [json_name = "day_of_week"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .google.protobuf.Duration Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
+  .NAlice.TDayOfWeek DayOfWeek = 2 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
 }
 

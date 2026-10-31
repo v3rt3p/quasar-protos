@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceAppsWidget";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_apps_widget;aliceappswidgetpb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceAppsWidgetCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceAppsWidgetCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TWidgetState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string CardId = 1 [json_name = "card_id", (.NYT.column_name) = "card_id"];
+      string StateJson = 2 [json_name = "state_json", (.NYT.column_name) = "state_json"];
+    }
+
+    message TModelContextContent {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string CardId = 1 [json_name = "card_id", (.NYT.column_name) = "card_id"];
+      string Content = 2 [json_name = "content", (.NYT.column_name) = "content"];
+    }
+
+    repeated .NAlice.TAliceAppsWidgetCapability.TState.TWidgetState WidgetStates = 1 [json_name = "widget_states", (.NYT.column_name) = "widget_states"];
+    repeated .NAlice.TAliceAppsWidgetCapability.TState.TModelContextContent ModelContextContents = 2 [json_name = "model_context_contents", (.NYT.column_name) = "model_context_contents"];
+  }
+
+  message TAliceAppsWidgetSetDataDirective {
+    option (.NAlice.SpeechKitName) = "alice_apps_widget_set_data_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceAppsWidgetSetDataDirectiveType;
+    message TResult {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .google.protobuf.Struct Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+      .google.protobuf.Struct StructuredContent = 2 [json_name = "structured_content", (.NYT.column_name) = "structured_content"];
+    }
+
+    message TError {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int64 Code = 1 [json_name = "code", (.NYT.column_name) = "code"];
+      string Message = 2 [json_name = "message", (.NYT.column_name) = "message"];
+      .google.protobuf.Struct Data = 3 [json_name = "data", (.NYT.column_name) = "data"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string CardId = 1 [json_name = "card_id", (.NYT.column_name) = "card_id"];
+    string WidgetRequestId = 2 [json_name = "widget_request_id", (.NYT.column_name) = "widget_request_id"];
+    string ToolName = 3 [json_name = "tool_name", (.NYT.column_name) = "tool_name"];
+    oneof ToolResponse {
+      .NAlice.TAliceAppsWidgetCapability.TAliceAppsWidgetSetDataDirective.TResult Result = 4 [json_name = "result", (.NYT.column_name) = "result"];
+      .NAlice.TAliceAppsWidgetCapability.TAliceAppsWidgetSetDataDirective.TError Error = 5 [json_name = "error", (.NYT.column_name) = "error"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceAppsWidgetCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceAppsWidgetCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

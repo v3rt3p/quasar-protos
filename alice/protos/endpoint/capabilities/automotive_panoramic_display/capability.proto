@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotivePanoramicDisplayCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_panoramic_display;automotive_panoramic_displaypb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotivePanoramicDisplayCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotivePanoramicDisplayCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool PanoramicDisplayOn = 1 [json_name = "panoramic_display_on", (.NYT.column_name) = "panoramic_display_on"];
+    optional float ExitSpeedKmh = 2 [json_name = "exit_speed_kmh", (.NYT.column_name) = "exit_speed_kmh"];
+  }
+
+  message TSetPanoramicDisplayStateDirective {
+    option (.NAlice.SpeechKitName) = "set_panoramic_display_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetPanoramicDisplayStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotivePanoramicDisplayCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotivePanoramicDisplayCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

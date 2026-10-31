@@ -9,12 +9,13 @@ option go_package = "a.yandex-team.ru/alice/megamind/protos/common/subscription_
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSubscriptionState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ESubscriptionType {
     unknown = 0;
     none = 1;
     yandex_subscription = 2;
   }
 
-  .NAlice.TSubscriptionState.ESubscriptionType Subscription = 1 [json_name = "subscription"];
+  .NAlice.TSubscriptionState.ESubscriptionType Subscription = 1 [json_name = "subscription", (.NYT.column_name) = "subscription"];
 }
 

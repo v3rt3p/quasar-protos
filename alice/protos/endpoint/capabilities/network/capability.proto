@@ -11,28 +11,35 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TNetworkCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = NetworkCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool IsInternetReachable = 1 [json_name = "is_internet_reachable"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsInternetReachable = 1 [json_name = "is_internet_reachable", (.NYT.column_name) = "is_internet_reachable"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TNetworkCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = NetworkUpdateStateEventType;
+    .NAlice.TNetworkCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TInternetConnectionCondition {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EState {
       ConnectedCondition = 0;
       NotConnectedCondition = 1;
     }
 
-    .NAlice.TNetworkCapability.TInternetConnectionCondition.EState State = 1 [json_name = "state"];
+    .NAlice.TNetworkCapability.TInternetConnectionCondition.EState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TNetworkCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TNetworkCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TNetworkCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TNetworkCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AttachmentRenderProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/attachment_render;attachment_rendergpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAttachmentRenderCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AttachmentRenderCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TImageAttachmentDirective {
+    option (.NAlice.SpeechKitName) = "image_attachment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TImageAttachmentDirectiveType;
+    message TImageAttachment {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAttachmentRenderCapability.TImageAttachmentDirective.TImageAttachment ImageAttachments = 1 [json_name = "image_attachment", (.NYT.column_name) = "image_attachment"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAttachmentRenderCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAttachmentRenderCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

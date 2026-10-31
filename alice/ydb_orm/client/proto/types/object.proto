@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package NYdbOrm.NClient.NProto;
+
+option java_package = "ru.yandex.alice.ydb_orm.client.proto.types";
+option go_package = "a.yandex-team.ru/alice/ydb_orm/client/proto/types";
+
+import "google/protobuf/descriptor.proto";
+
+message TYdbTimestamp {
+  uint64 Microseconds = 1;
+}
+
+message TYdbInterval {
+  int64 Microseconds = 1;
+}
+
+message TYdbJson {
+  string Json = 1;
+}
+
+message TYdbJsonDocument {
+  string Json = 1;
+}
+
+message TYdbYson {
+  bytes Yson = 1;
+}
+
+message TYdbUtf8 {
+  string Utf8String = 1;
+}
+

@@ -10,7 +10,8 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TAppMetrikaEvent {
-  string Name = 1 [json_name = "name"];
-  .google.protobuf.Struct Payload = 2 [json_name = "payload"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  .google.protobuf.Struct Payload = 2 [json_name = "payload", (.NYT.column_name) = "payload"];
 }
 

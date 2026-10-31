@@ -10,12 +10,17 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/descriptor.proto";
 
 message TDivExternalVariable {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  extend .google.protobuf.FieldOptions {
+    .NAlice.TDivExternalVariable.ESourceType sourceType = 300000;
+  }
   message TStartValue {
     oneof Value {
-      int64 Integer = 1 [json_name = "integer"];
-      string String = 2 [json_name = "string"];
-      double Double = 3 [json_name = "double"];
-      bool Boolean = 4 [json_name = "boolean"];
+      option (.NYT.variant_field_name) = "value";
+      int64 Integer = 1 [json_name = "integer", (.NYT.column_name) = "integer"];
+      string String = 2 [json_name = "string", (.NYT.column_name) = "string"];
+      double Double = 3 [json_name = "double", (.NYT.column_name) = "double"];
+      bool Boolean = 4 [json_name = "boolean", (.NYT.column_name) = "boolean"];
     }
   }
 
@@ -41,106 +46,127 @@ message TDivExternalVariable {
     IotMotionEventTime = 18;
   }
 
-  string Name = 1 [json_name = "name"];
-  .NAlice.TDivExternalVariable.TStartValue StartValue = 2 [json_name = "start_value"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  .NAlice.TDivExternalVariable.TStartValue StartValue = 2 [json_name = "start_value", (.NYT.column_name) = "start_value"];
   oneof Source {
-    .NAlice.TClockTimeDivExternalSource ClockTimeSource = 3 [json_name = "clock_time"];
-    .NAlice.TTimerStateDivExternalSource TimerStateSource = 4 [json_name = "timer_state"];
-    .NAlice.TTimerRemainingFormattedDivExternalSource TimerRemainingFormattedSource = 5 [json_name = "timer_remaining_formatted"];
-    .NAlice.TIotOnOffDivExternalSource IotOnOffSource = 6 [json_name = "iot_on_off"];
-    .NAlice.TIotLevelDivExternalSource IotLevelSource = 7 [json_name = "iot_level"];
-    .NAlice.TIotBatteryPercentageDivExternalSource IotBatteryPercentageSource = 8 [json_name = "iot_battery_percentage"];
-    .NAlice.TIotBatteryVoltageDivExternalSource IotBatteryVoltageSource = 9 [json_name = "iot_battery_voltage"];
-    .NAlice.TIotMotionExternalSource IotMotionSource = 10 [json_name = "iot_motion"];
-    .NAlice.TIotButtonEventExternalSource IotButtonEventSource = 11 [json_name = "iot_button_event"];
-    .NAlice.TIotButtonEventTimeExternalSource IotButtonEventTimeSource = 12 [json_name = "iot_button_event_time"];
-    .NAlice.TIotWaterLeakSensorEventExternalSource IotWaterLeakSensorEventSource = 13 [json_name = "iot_water_leak_sensor_event"];
-    .NAlice.TIotWaterLeakSensorEventTimeExternalSource IotWaterLeakSensorEventTimeSource = 14 [json_name = "iot_water_leak_sensor_event_time"];
-    .NAlice.TIotOpenSensorEventExternalSource IotOpenSensorEventSource = 15 [json_name = "iot_open_sensor_event"];
-    .NAlice.TIotOpenSensorEventTimeExternalSource IotOpenSensorEventTimeSource = 16 [json_name = "iot_open_sensor_event_time"];
-    .NAlice.TIotOpeningSensorEventExternalSource IotOpeningSensorEventSource = 17 [json_name = "iot_opening_sensor_event"];
-    .NAlice.TIotOpeningSensorEventTimeExternalSource IotOpeningSensorEventTimeSource = 18 [json_name = "iot_opening_sensor_event_time"];
-    .NAlice.TIotMotionEventExternalSource IotMotionEventSource = 19 [json_name = "iot_motion_event"];
-    .NAlice.TIotMotionEventTimeExternalSource IotMotionEventTimeSource = 20 [json_name = "iot_motion_event_time"];
+    option (.NYT.variant_field_name) = "source";
+    .NAlice.TClockTimeDivExternalSource ClockTimeSource = 3 [json_name = "clock_time", (.NYT.column_name) = "clock_time", (.NAlice.TDivExternalVariable.sourceType) = ClockTime];
+    .NAlice.TTimerStateDivExternalSource TimerStateSource = 4 [json_name = "timer_state", (.NYT.column_name) = "timer_state", (.NAlice.TDivExternalVariable.sourceType) = TimerState];
+    .NAlice.TTimerRemainingFormattedDivExternalSource TimerRemainingFormattedSource = 5 [json_name = "timer_remaining_formatted", (.NYT.column_name) = "timer_remaining_formatted", (.NAlice.TDivExternalVariable.sourceType) = TimerRemainingFormatted];
+    .NAlice.TIotOnOffDivExternalSource IotOnOffSource = 6 [json_name = "iot_on_off", (.NYT.column_name) = "iot_on_off", (.NAlice.TDivExternalVariable.sourceType) = IotOnOff];
+    .NAlice.TIotLevelDivExternalSource IotLevelSource = 7 [json_name = "iot_level", (.NYT.column_name) = "iot_level", (.NAlice.TDivExternalVariable.sourceType) = IotLevel];
+    .NAlice.TIotBatteryPercentageDivExternalSource IotBatteryPercentageSource = 8 [json_name = "iot_battery_percentage", (.NYT.column_name) = "iot_battery_percentage", (.NAlice.TDivExternalVariable.sourceType) = IotBatteryPercentage];
+    .NAlice.TIotBatteryVoltageDivExternalSource IotBatteryVoltageSource = 9 [json_name = "iot_battery_voltage", (.NYT.column_name) = "iot_battery_voltage", (.NAlice.TDivExternalVariable.sourceType) = IotBatteryVoltage];
+    .NAlice.TIotMotionExternalSource IotMotionSource = 10 [json_name = "iot_motion", (.NYT.column_name) = "iot_motion", (.NAlice.TDivExternalVariable.sourceType) = IotMotion];
+    .NAlice.TIotButtonEventExternalSource IotButtonEventSource = 11 [json_name = "iot_button_event", (.NYT.column_name) = "iot_button_event", (.NAlice.TDivExternalVariable.sourceType) = IotButtonEvent];
+    .NAlice.TIotButtonEventTimeExternalSource IotButtonEventTimeSource = 12 [json_name = "iot_button_event_time", (.NYT.column_name) = "iot_button_event_time", (.NAlice.TDivExternalVariable.sourceType) = IotButtonEventTime];
+    .NAlice.TIotWaterLeakSensorEventExternalSource IotWaterLeakSensorEventSource = 13 [json_name = "iot_water_leak_sensor_event", (.NYT.column_name) = "iot_water_leak_sensor_event", (.NAlice.TDivExternalVariable.sourceType) = IotWaterLeakSensorEvent];
+    .NAlice.TIotWaterLeakSensorEventTimeExternalSource IotWaterLeakSensorEventTimeSource = 14 [json_name = "iot_water_leak_sensor_event_time", (.NYT.column_name) = "iot_water_leak_sensor_event_time", (.NAlice.TDivExternalVariable.sourceType) = IotWaterLeakSensorEventTime];
+    .NAlice.TIotOpenSensorEventExternalSource IotOpenSensorEventSource = 15 [json_name = "iot_open_sensor_event", (.NYT.column_name) = "iot_open_sensor_event", (.NAlice.TDivExternalVariable.sourceType) = IotOpenSensorEvent];
+    .NAlice.TIotOpenSensorEventTimeExternalSource IotOpenSensorEventTimeSource = 16 [json_name = "iot_open_sensor_event_time", (.NYT.column_name) = "iot_open_sensor_event_time", (.NAlice.TDivExternalVariable.sourceType) = IotOpenSensorEventTime];
+    .NAlice.TIotOpeningSensorEventExternalSource IotOpeningSensorEventSource = 17 [json_name = "iot_opening_sensor_event", (.NYT.column_name) = "iot_opening_sensor_event", (.NAlice.TDivExternalVariable.sourceType) = IotOpeningSensorEvent];
+    .NAlice.TIotOpeningSensorEventTimeExternalSource IotOpeningSensorEventTimeSource = 18 [json_name = "iot_opening_sensor_event_time", (.NYT.column_name) = "iot_opening_sensor_event_time", (.NAlice.TDivExternalVariable.sourceType) = IotOpeningSensorEventTime];
+    .NAlice.TIotMotionEventExternalSource IotMotionEventSource = 19 [json_name = "iot_motion_event", (.NYT.column_name) = "iot_motion_event", (.NAlice.TDivExternalVariable.sourceType) = IotMotionEvent];
+    .NAlice.TIotMotionEventTimeExternalSource IotMotionEventTimeSource = 20 [json_name = "iot_motion_event_time", (.NYT.column_name) = "iot_motion_event_time", (.NAlice.TDivExternalVariable.sourceType) = IotMotionEventTime];
   }
 }
 
 message TClockTimeDivExternalSource {
-  string Pattern = 2 [json_name = "pattern"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Pattern = 2 [json_name = "pattern", (.NYT.column_name) = "pattern"];
 }
 
 message TTimerStateDivExternalSource {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EState {
     Idle = 0;
     Active = 1;
     Paused = 2;
   }
 
-  string TimerId = 2 [json_name = "timer_id"];
+  string TimerId = 2 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
 }
 
 message TTimerRemainingFormattedDivExternalSource {
-  string TimerId = 2 [json_name = "timer_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string TimerId = 2 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
 }
 
 message TIotOnOffDivExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotLevelDivExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
-  .NAlice.TLevelCapability.EInstance Instance = 2 [json_name = "instance"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  .NAlice.TLevelCapability.EInstance Instance = 2 [json_name = "instance", (.NYT.column_name) = "instance"];
 }
 
 message TIotBatteryPercentageDivExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotBatteryVoltageDivExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotMotionExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotMotionEventExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotMotionEventTimeExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotButtonEventExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotButtonEventTimeExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotWaterLeakSensorEventExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotWaterLeakSensorEventTimeExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotOpenSensorEventExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option deprecated = true;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotOpenSensorEventTimeExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option deprecated = true;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotOpeningSensorEventExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 
 message TIotOpeningSensorEventTimeExternalSource {
-  string EndpointId = 1 [json_name = "endpoint_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
 }
 

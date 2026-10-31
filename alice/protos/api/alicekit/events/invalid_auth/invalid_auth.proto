@@ -11,14 +11,16 @@ import "alice/protos/api/alicekit/events/invalid_auth/credential_status/credenti
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TInvalidAuth {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TCredentialInfo {
-    string CredentialValue = 1 [json_name = "credentialValue"];
-    .NAlice.NAliceApi.ECredentialStatus CredentialStatus = 2 [json_name = "credentialStatus"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string CredentialValue = 1 [json_name = "credentialValue", (.NYT.column_name) = "credential_value"];
+    .NAlice.NAliceApi.ECredentialStatus CredentialStatus = 2 [json_name = "credentialStatus", (.NYT.column_name) = "credential_status"];
   }
 
   oneof CredentialInfo {
-    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo TokenInfo = 1 [json_name = "tokenInfo"];
-    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo CookieInfo = 2 [json_name = "cookieInfo"];
+    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo TokenInfo = 1 [json_name = "tokenInfo", (.NYT.column_name) = "token_info"];
+    .NAlice.NAliceApi.TInvalidAuth.TCredentialInfo CookieInfo = 2 [json_name = "cookieInfo", (.NYT.column_name) = "cookie_info"];
   }
 }
 

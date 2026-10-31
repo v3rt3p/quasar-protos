@@ -10,33 +10,35 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/request_s
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRequestStat {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTimestamps {
-    optional string OnSoundPlayerEndTime = 1 [json_name = "onSoundPlayerEndTime"];
-    optional string OnVinsResponseTime = 2 [json_name = "onVinsResponseTime"];
-    optional string OnInterruptionPhraseSpottedTime = 3 [json_name = "onInterruptionPhraseSpottedTime"];
-    optional string OnFirstSynthesisChunkTime = 4 [json_name = "onFirstSynthesisChunkTime"];
-    optional string OnRecognitionBeginTime = 5 [json_name = "onRecognitionBeginTime"];
-    optional string OnRecognitionEndTime = 6 [json_name = "onRecognitionEndTime"];
-    optional string RequestDurationTime = 7 [json_name = "requestDurationTime"];
-    optional string SpotterConfirmationTime = 8 [json_name = "spotterConfirmationTime"];
-    optional string OnPhraseSpottedTime = 9 [json_name = "onPhraseSpottedTime"];
-    optional string PrevSoundPlayerEndTime = 10 [json_name = "prevSoundPlayerEndTime"];
-    optional string OnStartVoiceInputTime = 11 [json_name = "onStartVoiceInputTime"];
-    optional string OnStartVinsRequestTime = 12 [json_name = "onStartVinsRequestTime"];
-    optional string OnFirstSocketActivityTime = 13 [json_name = "onFirstSocketActivityTime"];
-    optional string OnLastSynthesisChunkTime = 14 [json_name = "onLastSynthesisChunkTime"];
-    optional string StartPlayer = 15 [json_name = "StartPlayer"];
-    optional string OnPlayerBegin = 16 [json_name = "OnPlayerBegin"];
-    optional string OnPlayerEnd = 17 [json_name = "OnPlayerEnd"];
-    optional string OnSoundPlayerBeginTime = 18 [json_name = "onSoundPlayerBeginTime"];
-    optional string OnFirstMessageMergedTime = 19 [json_name = "onFirstMessageMergedTime"];
-    optional string OnFirstNonEmptyPartialTime = 20 [json_name = "onFirstNonEmptyPartialTime"];
-    optional string OnLastCompletedPartialTime = 21 [json_name = "onLastCompletedPartialTime"];
-    optional string SubRequestOffsetTime = 22 [json_name = "subRequestOffsetTime"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string OnSoundPlayerEndTime = 1 [json_name = "onSoundPlayerEndTime", (.NYT.column_name) = "onSoundPlayerEndTime"];
+    optional string OnVinsResponseTime = 2 [json_name = "onVinsResponseTime", (.NYT.column_name) = "onVinsResponseTime"];
+    optional string OnInterruptionPhraseSpottedTime = 3 [json_name = "onInterruptionPhraseSpottedTime", (.NYT.column_name) = "onInterruptionPhraseSpottedTime"];
+    optional string OnFirstSynthesisChunkTime = 4 [json_name = "onFirstSynthesisChunkTime", (.NYT.column_name) = "onFirstSynthesisChunkTime"];
+    optional string OnRecognitionBeginTime = 5 [json_name = "onRecognitionBeginTime", (.NYT.column_name) = "onRecognitionBeginTime"];
+    optional string OnRecognitionEndTime = 6 [json_name = "onRecognitionEndTime", (.NYT.column_name) = "onRecognitionEndTime"];
+    optional string RequestDurationTime = 7 [json_name = "requestDurationTime", (.NYT.column_name) = "requestDurationTime"];
+    optional string SpotterConfirmationTime = 8 [json_name = "spotterConfirmationTime", (.NYT.column_name) = "spotterConfirmationTime"];
+    optional string OnPhraseSpottedTime = 9 [json_name = "onPhraseSpottedTime", (.NYT.column_name) = "onPhraseSpottedTime"];
+    optional string PrevSoundPlayerEndTime = 10 [json_name = "prevSoundPlayerEndTime", (.NYT.column_name) = "prevSoundPlayerEndTime"];
+    optional string OnStartVoiceInputTime = 11 [json_name = "onStartVoiceInputTime", (.NYT.column_name) = "onStartVoiceInputTime"];
+    optional string OnStartVinsRequestTime = 12 [json_name = "onStartVinsRequestTime", (.NYT.column_name) = "onStartVinsRequestTime"];
+    optional string OnFirstSocketActivityTime = 13 [json_name = "onFirstSocketActivityTime", (.NYT.column_name) = "onFirstSocketActivityTime"];
+    optional string OnLastSynthesisChunkTime = 14 [json_name = "onLastSynthesisChunkTime", (.NYT.column_name) = "onLastSynthesisChunkTime"];
+    optional string StartPlayer = 15 [json_name = "StartPlayer", (.NYT.column_name) = "StartPlayer"];
+    optional string OnPlayerBegin = 16 [json_name = "OnPlayerBegin", (.NYT.column_name) = "OnPlayerBegin"];
+    optional string OnPlayerEnd = 17 [json_name = "OnPlayerEnd", (.NYT.column_name) = "OnPlayerEnd"];
+    optional string OnSoundPlayerBeginTime = 18 [json_name = "onSoundPlayerBeginTime", (.NYT.column_name) = "onSoundPlayerBeginTime"];
+    optional string OnFirstMessageMergedTime = 19 [json_name = "onFirstMessageMergedTime", (.NYT.column_name) = "onFirstMessageMergedTime"];
+    optional string OnFirstNonEmptyPartialTime = 20 [json_name = "onFirstNonEmptyPartialTime", (.NYT.column_name) = "onFirstNonEmptyPartialTime"];
+    optional string OnLastCompletedPartialTime = 21 [json_name = "onLastCompletedPartialTime", (.NYT.column_name) = "onLastCompletedPartialTime"];
+    optional string SubRequestOffsetTime = 22 [json_name = "subRequestOffsetTime", (.NYT.column_name) = "subRequestOffsetTime"];
   }
 
-  .NAlice.NAliceApi.TRequestStat.TTimestamps Timestamps = 1 [json_name = "timestamps"];
-  string RequestMessageId = 2 [json_name = "refMessageId"];
-  optional string Error = 3 [json_name = "error"];
+  .NAlice.NAliceApi.TRequestStat.TTimestamps Timestamps = 1 [json_name = "timestamps", (.NYT.column_name) = "timestamps"];
+  string RequestMessageId = 2 [json_name = "refMessageId", (.NYT.column_name) = "refMessageId"];
+  optional string Error = 3 [json_name = "error", (.NYT.column_name) = "error"];
 }
 

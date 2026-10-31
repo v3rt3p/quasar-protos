@@ -10,41 +10,50 @@ option go_package = "a.yandex-team.ru/alice/protos/data/iot;iotpb";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPoint {
-  sint32 XMm = 1 [json_name = "xmm"];
-  sint32 YMm = 2 [json_name = "ymm"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  sint32 XMm = 1 [json_name = "xmm", (.NYT.column_name) = "xmm"];
+  sint32 YMm = 2 [json_name = "ymm", (.NYT.column_name) = "ymm"];
 }
 
 message TCell {
-  uint32 X = 1 [json_name = "x"];
-  uint32 Y = 2 [json_name = "y"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 X = 1 [json_name = "x", (.NYT.column_name) = "x"];
+  uint32 Y = 2 [json_name = "y", (.NYT.column_name) = "y"];
 }
 
 message TBounds {
-  .NAlice.NIot.TPoint Lower = 1 [json_name = "lower"];
-  .NAlice.NIot.TPoint Upper = 2 [json_name = "upper"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NIot.TPoint Lower = 1 [json_name = "lower", (.NYT.column_name) = "lower"];
+  .NAlice.NIot.TPoint Upper = 2 [json_name = "upper", (.NYT.column_name) = "upper"];
 }
 
 message TBasis {
-  .NAlice.NIot.TPoint Origin = 1 [json_name = "origin"];
-  float AngleDeg = 2 [json_name = "angle_deg"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NIot.TPoint Origin = 1 [json_name = "origin", (.NYT.column_name) = "origin"];
+  float AngleDeg = 2 [json_name = "angle_deg", (.NYT.column_name) = "angle_deg"];
 }
 
 message TGrid {
-  uint32 CellSizeMm = 1 [json_name = "cell_size_mm"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 CellSizeMm = 1 [json_name = "cell_size_mm", (.NYT.column_name) = "cell_size_mm"];
 }
 
 message TPolygonZoneShape {
-  repeated .NAlice.NIot.TPoint Vertices = 1 [json_name = "vertices"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NIot.TPoint Vertices = 1 [json_name = "vertices", (.NYT.column_name) = "vertices"];
 }
 
 message TGridZoneShape {
-  repeated .NAlice.NIot.TCell Cells = 1 [json_name = "cells"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NIot.TCell Cells = 1 [json_name = "cells", (.NYT.column_name) = "cells"];
 }
 
 message TZoneShape {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof ZoneShape {
-    .NAlice.NIot.TPolygonZoneShape PolygonZoneShape = 1 [json_name = "polygon_zone_shape"];
-    .NAlice.NIot.TGridZoneShape GridZoneShape = 2 [json_name = "grid_zone_shape"];
+    option (.NYT.variant_field_name) = "zone_shape";
+    .NAlice.NIot.TPolygonZoneShape PolygonZoneShape = 1 [json_name = "polygon_zone_shape", (.NYT.column_name) = "polygon_zone_shape"];
+    .NAlice.NIot.TGridZoneShape GridZoneShape = 2 [json_name = "grid_zone_shape", (.NYT.column_name) = "grid_zone_shape"];
   }
 }
 

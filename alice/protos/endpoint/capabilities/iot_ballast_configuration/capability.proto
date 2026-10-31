@@ -13,37 +13,52 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotBallastConfigurationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotBallastConfigurationCapabilityType;
   message TParameters {
-    .NAlice.TRange PhysicalRange = 1 [json_name = "physical_range"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TRange PhysicalRange = 1 [json_name = "physical_range", (.NYT.column_name) = "physical_range"];
   }
 
   message TState {
-    double Min = 1 [json_name = "min"];
-    double Max = 2 [json_name = "max"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    double Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+    double Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
   }
 
   message TSetIotBallastMinDirective {
-    string Name = 1000 [json_name = "name"];
-    double Min = 1 [json_name = "min"];
+    option (.NAlice.SpeechKitName) = "set_iot_ballast_min_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotBallastMinDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
   }
 
   message TSetIotBallastMaxDirective {
-    string Name = 1000 [json_name = "name"];
-    double Max = 1 [json_name = "max"];
+    option (.NAlice.SpeechKitName) = "set_iot_ballast_max_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotBallastMaxDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Max = 1 [json_name = "max", (.NYT.column_name) = "max"];
   }
 
   message TSetIotBallastMinMaxDirective {
-    string Name = 1000 [json_name = "name"];
-    double Min = 1 [json_name = "min"];
-    double Max = 2 [json_name = "max"];
+    option (.NAlice.SpeechKitName) = "set_iot_ballast_min_max_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotBallastMinMaxDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+    double Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotBallastConfigurationCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotBallastConfigurationUpdateStateEventType;
+    .NAlice.TIotBallastConfigurationCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotBallastConfigurationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotBallastConfigurationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotBallastConfigurationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotBallastConfigurationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

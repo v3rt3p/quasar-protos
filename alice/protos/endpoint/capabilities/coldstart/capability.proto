@@ -12,19 +12,26 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TColdstartCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ColdstartCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool SupportColdstartRecommendations = 1 [json_name = "support_coldstart_recommendations"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportColdstartRecommendations = 1 [json_name = "support_coldstart_recommendations", (.NYT.column_name) = "support_coldstart_recommendations"];
   }
 
   message TOpenColdstartRecommendationsDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_coldstart_recommendations_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenColdstartRecommendationsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TColdstartCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TColdstartCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TColdstartCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TColdstartCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

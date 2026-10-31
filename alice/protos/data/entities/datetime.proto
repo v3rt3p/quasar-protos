@@ -10,66 +10,86 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/descriptor.proto";
 
 message TSysDatetimeValue {
-  .NAlice.TSysDateValue DateValue = 1 [json_name = "date_value"];
-  .NAlice.TSysTimeValue TimeValue = 2 [json_name = "time_value"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TSysDateValue DateValue = 1 [json_name = "date_value", (.NYT.column_name) = "date_value"];
+  .NAlice.TSysTimeValue TimeValue = 2 [json_name = "time_value", (.NYT.column_name) = "time_value"];
 }
 
 message TSysDateValue {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof ValueYears {
-    int32 Years = 1 [json_name = "years"];
+    option (.NYT.variant_field_name) = "optional_years";
+    int32 Years = 1 [json_name = "years", (.NYT.column_name) = "years"];
   }
   oneof ValueMonths {
-    int32 Months = 2 [json_name = "months"];
+    option (.NYT.variant_field_name) = "optional_months";
+    int32 Months = 2 [json_name = "months", (.NYT.column_name) = "months"];
   }
   oneof ValueDays {
-    int32 Days = 3 [json_name = "days"];
+    option (.NYT.variant_field_name) = "optional_days";
+    int32 Days = 3 [json_name = "days", (.NYT.column_name) = "days"];
   }
   oneof ValueDayOfWeek {
-    int32 DayOfWeek = 4 [json_name = "day_of_week"];
+    option (.NYT.variant_field_name) = "optional_day_of_week";
+    int32 DayOfWeek = 4 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
   }
   oneof ValueWeeksCount {
-    int32 WeeksCount = 5 [json_name = "weeks_count"];
+    option (.NYT.variant_field_name) = "optional_weeks_count";
+    int32 WeeksCount = 5 [json_name = "weeks_count", (.NYT.column_name) = "weeks_count"];
   }
   oneof ValueYearsRelative {
-    bool YearsRelative = 6 [json_name = "years_relative"];
+    option (.NYT.variant_field_name) = "optional_years_relative";
+    bool YearsRelative = 6 [json_name = "years_relative", (.NYT.column_name) = "years_relative"];
   }
   oneof ValueMonthsRelative {
-    bool MonthsRelative = 7 [json_name = "months_relative"];
+    option (.NYT.variant_field_name) = "optional_months_relative";
+    bool MonthsRelative = 7 [json_name = "months_relative", (.NYT.column_name) = "months_relative"];
   }
   oneof ValueDaysRelative {
-    bool DaysRelative = 8 [json_name = "days_relative"];
+    option (.NYT.variant_field_name) = "optional_days_relative";
+    bool DaysRelative = 8 [json_name = "days_relative", (.NYT.column_name) = "days_relative"];
   }
   oneof ValueWeeksRelative {
-    bool WeeksRelative = 9 [json_name = "weeks_relative"];
+    option (.NYT.variant_field_name) = "optional_weeks_relative";
+    bool WeeksRelative = 9 [json_name = "weeks_relative", (.NYT.column_name) = "weeks_relative"];
   }
 }
 
 message TSysTimeValue {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof ValueHours {
-    int32 Hours = 1 [json_name = "hours"];
+    option (.NYT.variant_field_name) = "optional_hours";
+    int32 Hours = 1 [json_name = "hours", (.NYT.column_name) = "hours"];
   }
   oneof ValueMinutes {
-    int32 Minutes = 2 [json_name = "minutes"];
+    option (.NYT.variant_field_name) = "optional_minutes";
+    int32 Minutes = 2 [json_name = "minutes", (.NYT.column_name) = "minutes"];
   }
   oneof ValueSeconds {
-    int32 Seconds = 3 [json_name = "seconds"];
+    option (.NYT.variant_field_name) = "optional_seconds";
+    int32 Seconds = 3 [json_name = "seconds", (.NYT.column_name) = "seconds"];
   }
   oneof ValuePeriod {
-    string Period = 4 [json_name = "period"];
+    option (.NYT.variant_field_name) = "optional_period";
+    string Period = 4 [json_name = "period", (.NYT.column_name) = "period"];
   }
   oneof ValueHoursRelative {
-    bool HoursRelative = 5 [json_name = "hours_relative"];
+    option (.NYT.variant_field_name) = "optional_hours_relative";
+    bool HoursRelative = 5 [json_name = "hours_relative", (.NYT.column_name) = "hours_relative"];
   }
   oneof ValueMinutesRelative {
-    bool MinutesRelative = 6 [json_name = "minutes_relative"];
+    option (.NYT.variant_field_name) = "optional_minutes_relative";
+    bool MinutesRelative = 6 [json_name = "minutes_relative", (.NYT.column_name) = "minutes_relative"];
   }
   oneof ValueSecondsRelative {
-    bool SecondsRelative = 7 [json_name = "seconds_relative"];
+    option (.NYT.variant_field_name) = "optional_seconds_relative";
+    bool SecondsRelative = 7 [json_name = "seconds_relative", (.NYT.column_name) = "seconds_relative"];
   }
 }
 
 message TSysWeekdaysValue {
-  repeated uint32 Weekdays = 1 [json_name = "weekdays"];
-  optional bool Repeat = 2 [json_name = "repeat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated uint32 Weekdays = 1 [json_name = "weekdays", (.NYT.column_name) = "weekdays"];
+  optional bool Repeat = 2 [json_name = "repeat", (.NYT.column_name) = "repeat"];
 }
 

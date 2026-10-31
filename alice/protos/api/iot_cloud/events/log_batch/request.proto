@@ -11,14 +11,16 @@ import "google/protobuf/timestamp.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotCloudLogBatchRequest {
-  .NAlice.NIotCloud.TIotCloudLogBatch LogBatch = 1 [json_name = "log_batch"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NIotCloud.TIotCloudLogBatch LogBatch = 1 [json_name = "log_batch", (.NYT.column_name) = "log_batch"];
 }
 
 message TIotCloudLogMessage {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TField {
-    string Key = 1 [json_name = "key"];
+    string Key = 1 [json_name = "key", (.NYT.column_name) = "key"];
     oneof Value {
-      string StringValue = 2 [json_name = "string_value"];
+      string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value"];
     }
   }
 
@@ -31,13 +33,13 @@ message TIotCloudLogMessage {
     FATAL = 5;
   }
 
-  .NAlice.NIotCloud.TIotCloudLogMessage.ELogLevel Level = 1 [json_name = "level"];
-  string Message = 2 [json_name = "message"];
-  repeated .NAlice.NIotCloud.TIotCloudLogMessage.TField Fields = 3 [json_name = "fields"];
-  optional .google.protobuf.Timestamp Timestamp = 4 [json_name = "timestamp"];
+  .NAlice.NIotCloud.TIotCloudLogMessage.ELogLevel Level = 1 [json_name = "level", (.NYT.column_name) = "level"];
+  string Message = 2 [json_name = "message", (.NYT.column_name) = "message"];
+  repeated .NAlice.NIotCloud.TIotCloudLogMessage.TField Fields = 3 [json_name = "fields", (.NYT.column_name) = "fields"];
+  optional .google.protobuf.Timestamp Timestamp = 4 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
 }
 
 message TIotCloudLogBatch {
-  repeated .NAlice.NIotCloud.TIotCloudLogMessage Messages = 1 [json_name = "messages"];
+  repeated .NAlice.NIotCloud.TIotCloudLogMessage Messages = 1 [json_name = "messages", (.NYT.column_name) = "messages"];
 }
 

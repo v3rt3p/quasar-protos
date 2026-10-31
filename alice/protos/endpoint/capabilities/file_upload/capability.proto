@@ -13,100 +13,126 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFileUploadCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FileUploadCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TPollingOptions {
-    uint64 TimeoutMs = 1 [json_name = "timeout_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint64 TimeoutMs = 1 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
   }
 
   message TFileDescription {
-    string InputSourceId = 1 [json_name = "input_source_id"];
-    string Title = 2 [json_name = "title"];
-    string MimeType = 3 [json_name = "mime_type"];
-    uint64 Size = 4 [json_name = "size"];
-    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 5 [json_name = "origin"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string InputSourceId = 1 [json_name = "input_source_id", (.NYT.column_name) = "input_source_id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    string MimeType = 3 [json_name = "mime_type", (.NYT.column_name) = "mime_type"];
+    uint64 Size = 4 [json_name = "size", (.NYT.column_name) = "size"];
+    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 5 [json_name = "origin", (.NYT.column_name) = "origin"];
   }
 
   message TStartFileUploadDirective {
-    string Name = 1000 [json_name = "name"];
-    string InteractionId = 1 [json_name = "interaction_id"];
-    .NAlice.TFileUploadCapability.TFileDescription FileDescription = 2 [json_name = "file_description"];
-    .NAlice.TFileUploadCapability.TPollingOptions AutoPolling = 3 [json_name = "auto_polling"];
+    option (.NAlice.SpeechKitName) = "start_file_upload";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartFileUploadDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    .NAlice.TFileUploadCapability.TFileDescription FileDescription = 2 [json_name = "file_description", (.NYT.column_name) = "file_description"];
+    .NAlice.TFileUploadCapability.TPollingOptions AutoPolling = 3 [json_name = "auto_polling", (.NYT.column_name) = "auto_polling"];
   }
 
   message TStartFilePollingDirective {
-    string Name = 1000 [json_name = "name"];
-    string InteractionId = 1 [json_name = "interaction_id"];
-    repeated string FileGuids = 2 [json_name = "file_guids"];
-    .NAlice.TFileUploadCapability.TPollingOptions PollingOptions = 3 [json_name = "polling_options"];
+    option (.NAlice.SpeechKitName) = "start_file_polling";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartFilePollingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    repeated string FileGuids = 2 [json_name = "file_guids", (.NYT.column_name) = "file_guids"];
+    .NAlice.TFileUploadCapability.TPollingOptions PollingOptions = 3 [json_name = "polling_options", (.NYT.column_name) = "polling_options"];
   }
 
   message TFileUploadStatusEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = FileUploadStatusEventType;
     message TUploadStart {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TUploadFinish {
-      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish ProtocolResponse = 1 [json_name = "protocol_response"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NAliceApi.TFileUploadResponse.TFileUploadFinish ProtocolResponse = 1 [json_name = "protocol_response", (.NYT.column_name) = "protocol_response"];
     }
 
     message TUploadError {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TClientError {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof Error {
-        .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError ProtocolError = 1 [json_name = "protocol_error"];
-        .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError.TClientError ClientError = 2 [json_name = "client_error"];
+        .NAlice.NAliceApi.TFileUploadResponse.TFileUploadError ProtocolError = 1 [json_name = "protocol_error", (.NYT.column_name) = "protocol_error"];
+        .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError.TClientError ClientError = 2 [json_name = "client_error", (.NYT.column_name) = "client_error"];
       }
     }
 
-    string InteractionId = 1 [json_name = "interaction_id"];
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
     oneof Status {
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadStart UploadStart = 2 [json_name = "upload_start"];
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadFinish UploadFinish = 3 [json_name = "upload_finish"];
-      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError UploadError = 4 [json_name = "upload_error"];
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadStart UploadStart = 2 [json_name = "upload_start", (.NYT.column_name) = "upload_start"];
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadFinish UploadFinish = 3 [json_name = "upload_finish", (.NYT.column_name) = "upload_finish"];
+      .NAlice.TFileUploadCapability.TFileUploadStatusEvent.TUploadError UploadError = 4 [json_name = "upload_error", (.NYT.column_name) = "upload_error"];
     }
   }
 
   message TFilePollingStatusEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = FilePollingStatusEventType;
     message TPollingStart {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TPollingFinish {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TPollingError {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TPollingTimeout {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       message TPollingServerError {
-        .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 1 [json_name = "status"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
       }
 
       message TPollingClientError {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof Error {
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingTimeout PollingTimeout = 1 [json_name = "polling_timeout"];
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingServerError ServerError = 2 [json_name = "server_error"];
-        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingClientError ClientError = 3 [json_name = "client_error"];
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingTimeout PollingTimeout = 1 [json_name = "polling_timeout", (.NYT.column_name) = "polling_timeout"];
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingServerError ServerError = 2 [json_name = "server_error", (.NYT.column_name) = "server_error"];
+        .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError.TPollingClientError ClientError = 3 [json_name = "client_error", (.NYT.column_name) = "client_error"];
       }
     }
 
-    string InteractionId = 1 [json_name = "interaction_id"];
-    string Guid = 5 [json_name = "guid"];
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    string Guid = 5 [json_name = "guid", (.NYT.column_name) = "guid"];
     oneof Status {
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingStart PollingStart = 2 [json_name = "polling_start"];
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingFinish PollingFinish = 3 [json_name = "polling_finish"];
-      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError PollingError = 4 [json_name = "polling_error"];
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingStart PollingStart = 2 [json_name = "polling_start", (.NYT.column_name) = "polling_start"];
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingFinish PollingFinish = 3 [json_name = "polling_finish", (.NYT.column_name) = "polling_finish"];
+      .NAlice.TFileUploadCapability.TFilePollingStatusEvent.TPollingError PollingError = 4 [json_name = "polling_error", (.NYT.column_name) = "polling_error"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TFileUploadCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TFileUploadCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFileUploadCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFileUploadCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

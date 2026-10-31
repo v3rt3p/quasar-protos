@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceSatelliteOtaProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_satellite_ota;alicesatelliteotapb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceSatelliteOtaCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceSatelliteOtaCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TOtaUploadingProgress {
+    int64 Progress = 1 [json_name = "progress", (.NYT.column_name) = "progress"];
+    int64 Total = 2 [json_name = "total", (.NYT.column_name) = "total"];
+  }
+
+  message TDeviceData {
+    reserved 5 to 9;
+    .NAlice.TAliceSatelliteOtaCapability.EDeviceType DeviceType = 1 [json_name = "device_type", (.NYT.column_name) = "device_type"];
+    string DeviceId = 2 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+    .NAlice.TAliceSatelliteOtaCapability.EOtaType OtaType = 10 [json_name = "ota_type", (.NYT.column_name) = "ota_type"];
+    .NAlice.TAliceSatelliteOtaCapability.EOtaStatusType Status = 11 [json_name = "status", (.NYT.column_name) = "status"];
+    optional string PerId = 3 [json_name = "per_id", (.NYT.column_name) = "per_id"];
+    optional string MacAddress = 4 [json_name = "mac_address", (.NYT.column_name) = "mac_address"];
+    optional .NAlice.TAliceSatelliteOtaCapability.EOtaErrorType ErrorType = 12 [json_name = "error_type", (.NYT.column_name) = "error_type"];
+    optional .NAlice.TAliceSatelliteOtaCapability.TOtaUploadingProgress UploadingProgress = 13 [json_name = "uploading_progress", (.NYT.column_name) = "uploading_progress"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAliceSatelliteOtaCapability.TDeviceData Devices = 1 [json_name = "devices", (.NYT.column_name) = "devices"];
+  }
+
+  enum EDeviceType {
+    UNKNOWN_DEVICE_TYPE = 0;
+    CHERRY = 1;
+    NOTA = 2;
+    BLUEBERRY = 3;
+  }
+
+  enum EOtaType {
+    SILENT_OTA = 0;
+    PUBLIC_OTA = 1;
+  }
+
+  enum EOtaStatusType {
+    INITIALIZING = 0;
+    MAIN_OTA_DOWNLOADING = 1;
+    MAIN_OTA_UPLOADING = 2;
+    MAIN_OTA_APPLYING = 3;
+    MAIN_OTA_DONE = 4;
+    SPOTTER_OTA_DOWNLOADING = 5;
+    SPOTTER_OTA_UPLOADING = 6;
+    SPOTTER_OTA_APPLYING = 7;
+    SPOTTER_OTA_DONE = 8;
+    DONE = 9;
+    CANCELLED = 10;
+    ERROR = 11;
+    NONE = 12;
+  }
+
+  enum EOtaErrorType {
+    GENERIC_BACKEND_ERROR = 0;
+    VERIFICATION_ERROR = 1;
+    DEVICE_TIMEOUT_ERROR = 2;
+    DEVICE_NOT_CONNECTED_ERROR = 3;
+    UPLOADING_ERROR = 4;
+    BACKEND_ERROR = 5;
+    UNKNOWN_ERROR = 6;
+    NO_OTA = 7;
+    OFFLINE = 8;
+    UPDATE_IN_PROGRESS = 9;
+    PARSE_ERROR = 10;
+    LOW_BATTERY_ERROR = 11;
+    DOWNLOADING_ERROR = 12;
+    DEVICE_NOT_FOUND_ERROR = 13;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceSatelliteOtaCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceSatelliteOtaCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

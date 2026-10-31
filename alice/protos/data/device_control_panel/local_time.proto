@@ -9,12 +9,14 @@ option go_package = "a.yandex-team.ru/alice/protos/data/device_control_panel";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalTime {
-  uint32 Hour = 1 [json_name = "hour"];
-  uint32 Minute = 2 [json_name = "minute"];
-  uint32 Second = 3 [json_name = "second"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 Hour = 1 [json_name = "hour", (.NYT.column_name) = "hour"];
+  uint32 Minute = 2 [json_name = "minute", (.NYT.column_name) = "minute"];
+  uint32 Second = 3 [json_name = "second", (.NYT.column_name) = "second"];
 }
 
 message TDayOfWeek {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EDayOfWeek {
     sunday = 0;
     monday = 1;
@@ -25,6 +27,6 @@ message TDayOfWeek {
     saturday = 6;
   }
 
-  .NAlice.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week"];
+  .NAlice.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
 }
 

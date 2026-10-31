@@ -6,6 +6,12 @@ option go_package = "a.yandex-team.ru/alice/library/censor/protos";
 
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.FieldOptions {
+  repeated .NAlice.EAccess FieldAccess = 80085;
+}
+extend .google.protobuf.MessageOptions {
+  repeated .NAlice.EAccess MessageAccess = 80085;
+}
 enum EAccess {
   A_PUBLIC = 0;
   A_PRIVATE_REQUEST = 1;

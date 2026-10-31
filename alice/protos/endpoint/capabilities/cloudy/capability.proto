@@ -12,17 +12,25 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCloudyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CloudyCapabilityType;
+  option (.NAlice.DirectiveType) = ShowOnboardingDirectiveType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TShowOnboardingDirective {
+    option (.NAlice.SpeechKitName) = "show_onboarding_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowOnboardingDirectiveType;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TCloudyCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TCloudyCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCloudyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCloudyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

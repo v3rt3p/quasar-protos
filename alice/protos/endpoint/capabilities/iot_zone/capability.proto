@@ -14,45 +14,64 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/data/iot/geometry.proto";
 
 message TIotZoneCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotZoneCapabilityType;
   message TZone {
-    uint32 ID = 1 [json_name = "id"];
-    bool Enabled = 2 [json_name = "enabled"];
-    bool Mutable = 5 [json_name = "mutable"];
-    .NAlice.TIotZoneCapability.EZoneType Type = 3 [json_name = "type"];
-    .NAlice.NIot.TZoneShape Shape = 4 [json_name = "shape"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    bool Mutable = 5 [json_name = "mutable", (.NYT.column_name) = "mutable"];
+    .NAlice.TIotZoneCapability.EZoneType Type = 3 [json_name = "type", (.NYT.column_name) = "type"];
+    .NAlice.NIot.TZoneShape Shape = 4 [json_name = "shape", (.NYT.column_name) = "shape"];
   }
 
   message TParameters {
-    optional uint32 MaxPresenceOccupancyZonesCount = 1 [json_name = "max_presence_occupancy_zones_count"];
-    optional uint32 MaxPresenceNoiseZonesCount = 2 [json_name = "max_presence_noise_zones_count"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional uint32 MaxPresenceOccupancyZonesCount = 1 [json_name = "max_presence_occupancy_zones_count", (.NYT.column_name) = "max_presence_occupancy_zones_count"];
+    optional uint32 MaxPresenceNoiseZonesCount = 2 [json_name = "max_presence_noise_zones_count", (.NYT.column_name) = "max_presence_noise_zones_count"];
   }
 
   message TState {
-    repeated .NAlice.TIotZoneCapability.TZone Zones = 1 [json_name = "zones"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotZoneCapability.TZone Zones = 1 [json_name = "zones", (.NYT.column_name) = "zones"];
   }
 
   message TIotCreateZoneDirective {
-    .NAlice.TIotZoneCapability.EZoneType Type = 1 [json_name = "type"];
-    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape"];
-    bool Enabled = 3 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "iot_create_zone_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotCreateZoneDirectiveType;
+    .NAlice.TIotZoneCapability.EZoneType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape", (.NYT.column_name) = "shape"];
+    bool Enabled = 3 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TIotUpdateZoneDirective {
-    uint32 ID = 1 [json_name = "id"];
-    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape"];
+    option (.NAlice.SpeechKitName) = "iot_update_zone_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotUpdateZoneDirectiveType;
+    uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.NIot.TZoneShape Shape = 2 [json_name = "shape", (.NYT.column_name) = "shape"];
   }
 
   message TIotDeleteZoneDirective {
-    uint32 ID = 1 [json_name = "id"];
+    option (.NAlice.SpeechKitName) = "iot_delete_zone_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotDeleteZoneDirectiveType;
+    uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TIotToggleZoneDirective {
-    uint32 ID = 1 [json_name = "id"];
-    bool Enabled = 2 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "iot_toggle_zone_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotToggleZoneDirectiveType;
+    uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZoneCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotZoneUpdateStateEventType;
+    .NAlice.TIotZoneCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EZoneType {
@@ -61,8 +80,8 @@ message TIotZoneCapability {
     PresenceNoiseZoneType = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotZoneCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotZoneCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotZoneCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotZoneCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

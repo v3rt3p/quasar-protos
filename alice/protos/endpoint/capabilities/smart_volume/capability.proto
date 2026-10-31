@@ -12,18 +12,25 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSmartVolumeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SmartVolumeCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TProcessSmartVolumeDirective {
+    option (.NAlice.SpeechKitName) = "process_smart_volume_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ProcessSmartVolumeDirectiveType;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSmartVolumeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSmartVolumeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSmartVolumeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSmartVolumeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

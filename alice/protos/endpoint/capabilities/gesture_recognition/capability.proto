@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "GestureRecognitionCapability";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/gesture_recognition;gesture_recognitionpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TGestureRecognitionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = GestureRecognitionCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Active = 1 [json_name = "active", (.NYT.column_name) = "active"];
+    bool PauseResumeEnabled = 2 [json_name = "pause_resume_enabled", (.NYT.column_name) = "pause_resume_enabled"];
+    bool PreviousNextEnabled = 3 [json_name = "previous_next_enabled", (.NYT.column_name) = "previous_next_enabled"];
+    optional .NAlice.TGestureRecognitionCapability.TReaction LastReaction = 4 [json_name = "last_reaction", (.NYT.column_name) = "last_reaction"];
+    optional string LastReactionEventSourceID = 5 [json_name = "last_reaction_event_source_id", (.NYT.column_name) = "last_reaction_event_source_id"];
+  }
+
+  message TSetGestureRecognitionDirective {
+    option (.NAlice.SpeechKitName) = "set_gesture_recognition_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetGestureRecognitionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool PauseResumeEnabled = 1 [json_name = "pause_resume_enabled", (.NYT.column_name) = "pause_resume_enabled"];
+    bool PreviousNextEnabled = 2 [json_name = "previous_next_enabled", (.NYT.column_name) = "previous_next_enabled"];
+  }
+
+  enum TReaction {
+    Stop = 0;
+    Resume = 1;
+    Previous = 2;
+    Next = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TGestureRecognitionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TGestureRecognitionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

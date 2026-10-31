@@ -12,50 +12,70 @@ import "google/protobuf/descriptor.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TStereoPairCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = StereoPairCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TStereoPairCapability.ERole Role = 1 [json_name = "role"];
-    .NAlice.TStereoPairCapability.EChannel Channel = 2 [json_name = "channel"];
-    .NAlice.TStereoPairCapability.EConnectivity Connectivity = 3 [json_name = "connectivity"];
-    .NAlice.TStereoPairCapability.EStatus Status = 4 [json_name = "status"];
-    string PartnerEndpointId = 5 [json_name = "partner_endpoint_id"];
+    .NAlice.TStereoPairCapability.ERole Role = 1 [json_name = "role", (.NYT.column_name) = "role"];
+    .NAlice.TStereoPairCapability.EChannel Channel = 2 [json_name = "channel", (.NYT.column_name) = "channel"];
+    .NAlice.TStereoPairCapability.EConnectivity Connectivity = 3 [json_name = "connectivity", (.NYT.column_name) = "connectivity"];
+    .NAlice.TStereoPairCapability.EStatus Status = 4 [json_name = "status", (.NYT.column_name) = "status"];
+    string PartnerEndpointId = 5 [json_name = "partner_endpoint_id", (.NYT.column_name) = "partner_endpoint_id"];
   }
 
   message TStereoPairNoConnectionNotificationDirective {
+    option (.NAlice.SpeechKitName) = "stereo_pair_no_connection_notification";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StereoPairNoConnectionNotificationDirectiveType;
   }
 
   message TStereoPairPlayerNotReadyNotificationDirective {
+    option (.NAlice.SpeechKitName) = "stereo_pair_player_not_ready_notification";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StereoPairPlayerNotReadyNotificationDirectiveType;
   }
 
   message TExecuteActionOnLeaderDirective {
+    option (.NAlice.SpeechKitName) = "execute_action_on_leader_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ExecuteActionOnLeaderDirectiveType;
     message TStartConversationOnLeader {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TStopConversationOnLeader {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TToggleConversationOnLeader {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TFinishConversationOnLeader {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TCustomEventOnLeader {
-      string Name = 1 [json_name = "name"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
     }
 
     oneof Action {
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStartConversationOnLeader StartConversationOnLeader = 1 [json_name = "start_conversation_on_leader"];
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStopConversationOnLeader StopConversationOnLeader = 2 [json_name = "stop_conversation_on_leader"];
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TToggleConversationOnLeader ToggleConversationOnLeader = 3 [json_name = "toggle_conversation_on_leader"];
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TFinishConversationOnLeader FinishConversationOnLeader = 4 [json_name = "finish_conversation_on_leader"];
-      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TCustomEventOnLeader CustomEventOnLeader = 5 [json_name = "custom_event_on_leader"];
+      option (.NYT.variant_field_name) = "action";
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStartConversationOnLeader StartConversationOnLeader = 1 [json_name = "start_conversation_on_leader", (.NYT.column_name) = "start_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TStopConversationOnLeader StopConversationOnLeader = 2 [json_name = "stop_conversation_on_leader", (.NYT.column_name) = "stop_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TToggleConversationOnLeader ToggleConversationOnLeader = 3 [json_name = "toggle_conversation_on_leader", (.NYT.column_name) = "toggle_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TFinishConversationOnLeader FinishConversationOnLeader = 4 [json_name = "finish_conversation_on_leader", (.NYT.column_name) = "finish_conversation_on_leader"];
+      .NAlice.TStereoPairCapability.TExecuteActionOnLeaderDirective.TCustomEventOnLeader CustomEventOnLeader = 5 [json_name = "custom_event_on_leader", (.NYT.column_name) = "custom_event_on_leader"];
     }
   }
 
   message TStereoPairUserEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = StereoPairUserEventType;
     enum EEvent {
       EVENT_UNDEFINED = 0;
       EVENT_CLICK = 1;
@@ -65,8 +85,8 @@ message TStereoPairCapability {
       EVENT_TRIPLE_CLICK = 5;
     }
 
-    .NAlice.TStereoPairCapability.TStereoPairUserEvent.EEvent Event = 1 [json_name = "event"];
-    string Payload = 2 [json_name = "payload"];
+    .NAlice.TStereoPairCapability.TStereoPairUserEvent.EEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    string Payload = 2 [json_name = "payload", (.NYT.column_name) = "payload"];
   }
 
   enum ERole {
@@ -96,8 +116,8 @@ message TStereoPairCapability {
     STATUS_READY = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TStereoPairCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TStereoPairCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TStereoPairCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TStereoPairCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

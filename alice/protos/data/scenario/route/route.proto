@@ -10,67 +10,67 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGeo {
   message TCases {
-    string Dative = 1 [json_name = "dative"];
-    string Genitive = 2 [json_name = "genitive"];
-    string Nominative = 3 [json_name = "nominative"];
-    string Preposition = 4 [json_name = "preposition"];
-    string Prepositional = 5 [json_name = "prepositional"];
+    string Dative = 1 [json_name = "dative", (.NYT.column_name) = "dative"];
+    string Genitive = 2 [json_name = "genitive", (.NYT.column_name) = "genitive"];
+    string Nominative = 3 [json_name = "nominative", (.NYT.column_name) = "nominative"];
+    string Preposition = 4 [json_name = "preposition", (.NYT.column_name) = "preposition"];
+    string Prepositional = 5 [json_name = "prepositional", (.NYT.column_name) = "prepositional"];
   }
 
-  string AddressLine = 1 [json_name = "address_line"];
-  string City = 2 [json_name = "city"];
-  .NAlice.NData.TGeo.TCases CityCases = 3 [json_name = "city_cases"];
-  string CityPrepcase = 4 [json_name = "city_prepcase"];
-  string Country = 5 [json_name = "country"];
-  uint64 GeoId = 7 [json_name = "geoid"];
-  string House = 8 [json_name = "house"];
-  bool InUserCity = 9 [json_name = "in_user_city"];
-  string Level = 10 [json_name = "level"];
-  string Street = 11 [json_name = "street"];
+  string AddressLine = 1 [json_name = "address_line", (.NYT.column_name) = "address_line"];
+  string City = 2 [json_name = "city", (.NYT.column_name) = "city"];
+  .NAlice.NData.TGeo.TCases CityCases = 3 [json_name = "city_cases", (.NYT.column_name) = "city_cases"];
+  string CityPrepcase = 4 [json_name = "city_prepcase", (.NYT.column_name) = "city_prepcase"];
+  string Country = 5 [json_name = "country", (.NYT.column_name) = "country"];
+  uint64 GeoId = 7 [json_name = "geoid", (.NYT.column_name) = "geoid"];
+  string House = 8 [json_name = "house", (.NYT.column_name) = "house"];
+  bool InUserCity = 9 [json_name = "in_user_city", (.NYT.column_name) = "in_user_city"];
+  string Level = 10 [json_name = "level", (.NYT.column_name) = "level"];
+  string Street = 11 [json_name = "street", (.NYT.column_name) = "street"];
 }
 
 message TResolvedLocation {
   message TLocation {
-    double Lat = 1 [json_name = "lat"];
-    double Lon = 2 [json_name = "lon"];
+    double Lat = 1 [json_name = "lat", (.NYT.column_name) = "lat", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    double Lon = 2 [json_name = "lon", (.NYT.column_name) = "lon", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message THours {
     message TWorking {
-      string From = 1 [json_name = "from"];
-      string To = 2 [json_name = "to"];
+      string From = 1 [json_name = "from", (.NYT.column_name) = "from"];
+      string To = 2 [json_name = "to", (.NYT.column_name) = "to"];
     }
 
-    string CurrentStatus = 1 [json_name = "current_status"];
-    string Timezone = 2 [json_name = "tz"];
-    repeated .NAlice.NData.TResolvedLocation.THours.TWorking Working = 3 [json_name = "working"];
+    string CurrentStatus = 1 [json_name = "current_status", (.NYT.column_name) = "current_status"];
+    string Timezone = 2 [json_name = "tz", (.NYT.column_name) = "tz"];
+    repeated .NAlice.NData.TResolvedLocation.THours.TWorking Working = 3 [json_name = "working", (.NYT.column_name) = "working"];
   }
 
-  string CompanyName = 1 [json_name = "company_name"];
-  .NAlice.NData.TGeo Geo = 2 [json_name = "geo"];
-  string GeoUri = 3 [json_name = "geo_uri"];
-  .NAlice.NData.TResolvedLocation.THours Hours = 4 [json_name = "hours"];
-  .NAlice.NData.TResolvedLocation.TLocation Location = 5 [json_name = "location"];
-  string Name = 6 [json_name = "name"];
-  string ObjectCatalogPhotosUri = 7 [json_name = "object_catalog_photos_uri"];
-  string ObjectCatalogReviewsUri = 8 [json_name = "object_catalog_reviews_uri"];
-  string ObjectCatalogUri = 9 [json_name = "object_catalog_uri"];
-  string ObjectId = 10 [json_name = "object_id"];
-  string ObjectUri = 11 [json_name = "object_uri"];
-  string Phone = 12 [json_name = "phone"];
-  string PhoneUri = 13 [json_name = "phone_uri"];
-  string Url = 14 [json_name = "url"];
+  string CompanyName = 1 [json_name = "company_name", (.NYT.column_name) = "company_name"];
+  .NAlice.NData.TGeo Geo = 2 [json_name = "geo", (.NYT.column_name) = "geo"];
+  string GeoUri = 3 [json_name = "geo_uri", (.NYT.column_name) = "geo_uri"];
+  .NAlice.NData.TResolvedLocation.THours Hours = 4 [json_name = "hours", (.NYT.column_name) = "hours"];
+  .NAlice.NData.TResolvedLocation.TLocation Location = 5 [json_name = "location", (.NYT.column_name) = "location"];
+  string Name = 6 [json_name = "name", (.NYT.column_name) = "name"];
+  string ObjectCatalogPhotosUri = 7 [json_name = "object_catalog_photos_uri", (.NYT.column_name) = "object_catalog_photos_uri"];
+  string ObjectCatalogReviewsUri = 8 [json_name = "object_catalog_reviews_uri", (.NYT.column_name) = "object_catalog_reviews_uri"];
+  string ObjectCatalogUri = 9 [json_name = "object_catalog_uri", (.NYT.column_name) = "object_catalog_uri"];
+  string ObjectId = 10 [json_name = "object_id", (.NYT.column_name) = "object_id"];
+  string ObjectUri = 11 [json_name = "object_uri", (.NYT.column_name) = "object_uri"];
+  string Phone = 12 [json_name = "phone", (.NYT.column_name) = "phone", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  string PhoneUri = 13 [json_name = "phone_uri", (.NYT.column_name) = "phone_uri"];
+  string Url = 14 [json_name = "url", (.NYT.column_name) = "url"];
 }
 
 message TRouteLocation {
-  .NAlice.NData.TResolvedLocation ResolvedLocation = 1 [json_name = "resolved_location"];
-  string NamedLocation = 2 [json_name = "named_location"];
+  .NAlice.NData.TResolvedLocation ResolvedLocation = 1 [json_name = "resolved_location", (.NYT.column_name) = "resolved_location"];
+  string NamedLocation = 2 [json_name = "named_location", (.NYT.column_name) = "named_location"];
 }
 
 message TRoute {
   message TSlot {
-    string Text = 1 [json_name = "text"];
-    double Value = 2 [json_name = "value"];
+    string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+    double Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
   }
 
   enum EType {
@@ -80,19 +80,19 @@ message TRoute {
     PUBLIC_TRANSPORT = 3;
   }
 
-  .NAlice.NData.TRoute.EType Type = 1 [json_name = "type"];
-  .NAlice.NData.TRoute.TSlot JamsTime = 2 [json_name = "jams_time"];
-  .NAlice.NData.TRoute.TSlot Length = 3 [json_name = "length"];
-  .NAlice.NData.TRoute.TSlot Time = 4 [json_name = "time"];
-  string MapsUri = 5 [json_name = "maps_uri"];
-  uint64 Transfers = 6 [json_name = "transfers"];
-  string ImageUri = 7 [json_name = "image_uri"];
+  .NAlice.NData.TRoute.EType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  .NAlice.NData.TRoute.TSlot JamsTime = 2 [json_name = "jams_time", (.NYT.column_name) = "jams_time"];
+  .NAlice.NData.TRoute.TSlot Length = 3 [json_name = "length", (.NYT.column_name) = "length"];
+  .NAlice.NData.TRoute.TSlot Time = 4 [json_name = "time", (.NYT.column_name) = "time"];
+  string MapsUri = 5 [json_name = "maps_uri", (.NYT.column_name) = "maps_uri"];
+  uint64 Transfers = 6 [json_name = "transfers", (.NYT.column_name) = "transfers"];
+  string ImageUri = 7 [json_name = "image_uri", (.NYT.column_name) = "image_uri"];
 }
 
 message TShowRouteData {
-  .NAlice.NData.TRouteLocation From = 1 [json_name = "from"];
-  .NAlice.NData.TRouteLocation Via = 2 [json_name = "via"];
-  .NAlice.NData.TRouteLocation To = 3 [json_name = "to"];
-  repeated .NAlice.NData.TRoute Routes = 4 [json_name = "routes"];
+  .NAlice.NData.TRouteLocation From = 1 [json_name = "from", (.NYT.column_name) = "from"];
+  .NAlice.NData.TRouteLocation Via = 2 [json_name = "via", (.NYT.column_name) = "via"];
+  .NAlice.NData.TRouteLocation To = 3 [json_name = "to", (.NYT.column_name) = "to"];
+  repeated .NAlice.NData.TRoute Routes = 4 [json_name = "routes", (.NYT.column_name) = "routes"];
 }
 

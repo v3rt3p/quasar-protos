@@ -8,7 +8,8 @@ option go_package = "a.yandex-team.ru/alice/protos/data/memory";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserSettings {
-  optional bool UseBirthDateFromId = 1 [json_name = "use_birth_date_from_id"];
-  optional bool OnboardingCompleted = 2 [json_name = "onboarding_completed"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional bool UseBirthDateFromId = 1 [json_name = "use_birth_date_from_id", (.NYT.column_name) = "use_birth_date_from_id"];
+  optional bool OnboardingCompleted = 2 [json_name = "onboarding_completed", (.NYT.column_name) = "onboarding_completed"];
 }
 

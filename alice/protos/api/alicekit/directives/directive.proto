@@ -16,50 +16,57 @@ import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
 
 message TDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "UniproxyDirectiveMeta";
   reserved "TypedPayload";
   reserved 56788;
   reserved 10;
   reserved 19;
   message TOnFinishEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Event {
-      .google.protobuf.Struct TypedCallbackRequest = 1 [json_name = "typed_callback_request"];
+      option (.NYT.variant_field_name) = "event";
+      .google.protobuf.Struct TypedCallbackRequest = 1 [json_name = "typed_callback_request", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "typed_callback_request"];
     }
   }
 
   message TChannel {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EType {
       Unknown = 0;
       Dialog = 1;
     }
 
-    .NAlice.NAliceApi.TDirective.TChannel.EType Type = 1 [json_name = "type"];
+    .NAlice.NAliceApi.TDirective.TChannel.EType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
-  string Type = 1 [json_name = "type"];
-  string Name = 2 [json_name = "name"];
-  string AnalyticsType = 3 [json_name = "sub_name"];
-  bool IgnoreAnswer = 4 [json_name = "ignore_answer"];
-  repeated string RoomDeviceIds = 7 [json_name = "room_device_ids"];
-  bool IsLedSilent = 8 [json_name = "is_led_silent"];
-  .google.protobuf.StringValue EndpointId = 9 [json_name = "endpoint_id"];
-  bool IsParallel = 11 [json_name = "is_parallel"];
-  uint32 TimeBeforeDropMs = 12 [json_name = "time_before_drop_ms"];
-  .NAlice.NAliceApi.TDirective.TOnFinishEvent OnFinish = 14 [json_name = "on_finish_event"];
-  .NAlice.NAliceApi.TSourceInfo SourceInfo = 17 [json_name = "source_info"];
-  bool AttachToMultiroom = 18 [json_name = "attach_to_multiroom"];
-  .NAlice.TCapability.EDirectiveType DirectiveType = 20 [json_name = "directive_type"];
-  .NAlice.NAliceApi.TDirective.TChannel Channel = 21 [json_name = "channel"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string AnalyticsType = 3 [json_name = "sub_name", (.NYT.column_name) = "sub_name"];
+  bool IgnoreAnswer = 4 [json_name = "ignore_answer", (.NYT.column_name) = "ignore_answer"];
+  repeated string RoomDeviceIds = 7 [json_name = "room_device_ids", (.NYT.column_name) = "room_device_ids", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  bool IsLedSilent = 8 [json_name = "is_led_silent", (.NYT.column_name) = "is_led_silent"];
+  .google.protobuf.StringValue EndpointId = 9 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  bool IsParallel = 11 [json_name = "is_parallel", (.NYT.column_name) = "is_parallel"];
+  uint32 TimeBeforeDropMs = 12 [json_name = "time_before_drop_ms", (.NYT.column_name) = "time_before_drop_ms"];
+  .NAlice.NAliceApi.TDirective.TOnFinishEvent OnFinish = 14 [json_name = "on_finish_event", (.NYT.column_name) = "on_finish_event"];
+  .NAlice.NAliceApi.TSourceInfo SourceInfo = 17 [json_name = "source_info", (.NYT.column_name) = "source_info"];
+  bool AttachToMultiroom = 18 [json_name = "attach_to_multiroom", (.NYT.column_name) = "attach_to_multiroom"];
+  .NAlice.TCapability.EDirectiveType DirectiveType = 20 [json_name = "directive_type", (.NYT.column_name) = "directive_type"];
+  .NAlice.NAliceApi.TDirective.TChannel Channel = 21 [json_name = "channel", (.NYT.column_name) = "channel"];
   oneof PayloadType {
-    .google.protobuf.Struct Payload = 5 [json_name = "payload"];
-    bytes PayloadRaw = 15 [json_name = "payload_raw"];
+    option (.NYT.oneof_flags) = SEPARATE_FIELDS;
+    .google.protobuf.Struct Payload = 5 [json_name = "payload", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+    bytes PayloadRaw = 15 [json_name = "payload_raw", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload_raw", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
   }
   oneof OptionalMultiroomSessionId {
-    string MultiroomSessionId = 6 [json_name = "multiroom_session_id"];
+    option (.NYT.variant_field_name) = "optional_multiroom_session_id";
+    string MultiroomSessionId = 6 [json_name = "multiroom_session_id", (.NYT.column_name) = "multiroom_session_id"];
   }
   oneof OptionalPersId {
-    string PersId = 13 [json_name = "pers_id"];
+    option (.NYT.variant_field_name) = "optional_pers_id";
+    string PersId = 13 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
   }
-  optional string Id = 16 [json_name = "id"];
+  optional string Id = 16 [json_name = "id", (.NYT.column_name) = "id"];
 }
 

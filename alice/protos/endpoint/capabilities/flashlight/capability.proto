@@ -12,23 +12,32 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFlashlightCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FlashlightCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
-    .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness", (.NYT.column_name) = "brightness"];
   }
 
   message TSetFlashlightStateDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Enabled = 1 [json_name = "enabled"];
-    optional .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness"];
-    optional uint64 DurationSeconds = 3 [json_name = "duration_seconds"];
+    option (.NAlice.SpeechKitName) = "set_flashlight_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFlashlightStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    optional .NAlice.TFlashlightCapability.EBrightness Brightness = 2 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+    optional uint64 DurationSeconds = 3 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TFlashlightCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = FlashlightUpdateStateEventType;
+    .NAlice.TFlashlightCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EBrightness {
@@ -38,8 +47,8 @@ message TFlashlightCapability {
     BRIGHTNESS_HIGH = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TFlashlightCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TFlashlightCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFlashlightCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFlashlightCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

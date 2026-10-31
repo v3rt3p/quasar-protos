@@ -10,6 +10,7 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/input_sta
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TInputStartAck {
-  uint64 RequestStartTime = 1 [json_name = "request_start_time"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint64 RequestStartTime = 1 [json_name = "request_start_time", (.NYT.column_name) = "request_start_time"];
 }
 

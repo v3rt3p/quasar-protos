@@ -15,63 +15,88 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLevelCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LevelCapabilityType;
   message TParameters {
-    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
-    .NAlice.TRange Range = 2 [json_name = "range"];
-    .NAlice.EUnit Unit = 3 [json_name = "unit"];
-    bool SupportsCalibration = 4 [json_name = "supports_calibration"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance", (.NYT.column_name) = "instance"];
+    .NAlice.TRange Range = 2 [json_name = "range", (.NYT.column_name) = "range"];
+    .NAlice.EUnit Unit = 3 [json_name = "unit", (.NYT.column_name) = "unit"];
+    bool SupportsCalibration = 4 [json_name = "supports_calibration", (.NYT.column_name) = "supports_calibration"];
   }
 
   message TState {
-    double Level = 1 [json_name = "level"];
-    bool Calibrating = 2 [json_name = "calibrating"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    double Level = 1 [json_name = "level", (.NYT.column_name) = "level"];
+    bool Calibrating = 2 [json_name = "calibrating", (.NYT.column_name) = "calibrating"];
   }
 
   message TSetAbsoluteLevelDirective {
-    string Name = 1000 [json_name = "name"];
-    double TargetLevel = 1 [json_name = "target_level"];
-    uint32 TransitionTime = 2 [json_name = "transition_time"];
-    bool WithOnOff = 3 [json_name = "with_on_off"];
+    option (.NAlice.SpeechKitName) = "set_absolute_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAbsoluteLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double TargetLevel = 1 [json_name = "target_level", (.NYT.column_name) = "target_level"];
+    uint32 TransitionTime = 2 [json_name = "transition_time", (.NYT.column_name) = "transition_time"];
+    bool WithOnOff = 3 [json_name = "with_on_off", (.NYT.column_name) = "with_on_off"];
   }
 
   message TSetRelativeLevelDirective {
-    string Name = 1000 [json_name = "name"];
-    double RelativeLevel = 1 [json_name = "relative_level"];
-    uint32 TransitionTime = 2 [json_name = "transition_time"];
-    bool WithOnOff = 3 [json_name = "with_on_off"];
+    option (.NAlice.SpeechKitName) = "set_relative_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetRelativeLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double RelativeLevel = 1 [json_name = "relative_level", (.NYT.column_name) = "relative_level"];
+    uint32 TransitionTime = 2 [json_name = "transition_time", (.NYT.column_name) = "transition_time"];
+    bool WithOnOff = 3 [json_name = "with_on_off", (.NYT.column_name) = "with_on_off"];
   }
 
   message TTransitionLevelDirective {
-    string Name = 1000 [json_name = "name"];
-    double StartLevel = 1 [json_name = "start_level"];
-    double EndLevel = 2 [json_name = "end_level"];
-    uint32 TransitionTime = 3 [json_name = "transition_time"];
-    bool WithOnOff = 4 [json_name = "with_on_off"];
+    option (.NAlice.SpeechKitName) = "transition_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TransitionLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double StartLevel = 1 [json_name = "start_level", (.NYT.column_name) = "start_level"];
+    double EndLevel = 2 [json_name = "end_level", (.NYT.column_name) = "end_level"];
+    uint32 TransitionTime = 3 [json_name = "transition_time", (.NYT.column_name) = "transition_time"];
+    bool WithOnOff = 4 [json_name = "with_on_off", (.NYT.column_name) = "with_on_off"];
   }
 
   message TStopTransitionLevelDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "stop_transition_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopTransitionLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TStartCalibrationDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "start_calibration_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartCalibrationLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLevelCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = LevelUpdateStateEventType;
+    .NAlice.TLevelCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TCondition {
-    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
-    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound"];
-    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound"];
-    double Hysteresis = 4 [json_name = "hysteresis"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = LevelUpdateStateEventType;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance", (.NYT.column_name) = "instance"];
+    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound", (.NYT.column_name) = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound", (.NYT.column_name) = "upper_bound"];
+    double Hysteresis = 4 [json_name = "hysteresis", (.NYT.column_name) = "hysteresis"];
   }
 
   message TLevelFilter {
-    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance"];
-    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound"];
-    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = LevelUpdateStateEventType;
+    .NAlice.TLevelCapability.EInstance Instance = 1 [json_name = "instance", (.NYT.column_name) = "instance"];
+    .google.protobuf.DoubleValue LowerBound = 2 [json_name = "lower_bound", (.NYT.column_name) = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 3 [json_name = "upper_bound", (.NYT.column_name) = "upper_bound"];
   }
 
   enum EInstance {
@@ -99,8 +124,8 @@ message TLevelCapability {
     Down = 1;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLevelCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLevelCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLevelCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLevelCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

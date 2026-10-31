@@ -13,35 +13,37 @@ import "google/protobuf/struct.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLogSpotter {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TExtraPayload {
-    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state"];
-    .NAlice.TExperimentsProto Experiments = 2 [json_name = "experiments"];
-    optional string QuasmodromGroup = 3 [json_name = "quasmodrom_group"];
-    optional string QuasmodromSubgroup = 4 [json_name = "quasmodrom_subgroup"];
-    optional string TestBuckets = 5 [json_name = "test_buckets"];
-    optional string Testids = 6 [json_name = "testids"];
-    optional string Context = 7 [json_name = "context"];
-    optional string CallId = 8 [json_name = "callId"];
-    optional string DurationMs = 9 [json_name = "durationMs"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state", (.NYT.column_name) = "device_state"];
+    .NAlice.TExperimentsProto Experiments = 2 [json_name = "experiments", (.NYT.column_name) = "experiments"];
+    optional string QuasmodromGroup = 3 [json_name = "quasmodrom_group", (.NYT.column_name) = "quasmodrom_group"];
+    optional string QuasmodromSubgroup = 4 [json_name = "quasmodrom_subgroup", (.NYT.column_name) = "quasmodrom_subgroup"];
+    optional string TestBuckets = 5 [json_name = "test_buckets", (.NYT.column_name) = "test_buckets"];
+    optional string Testids = 6 [json_name = "testids", (.NYT.column_name) = "testids"];
+    optional string Context = 7 [json_name = "context", (.NYT.column_name) = "context"];
+    optional string CallId = 8 [json_name = "callId", (.NYT.column_name) = "callId"];
+    optional string DurationMs = 9 [json_name = "durationMs", (.NYT.column_name) = "durationMs"];
   }
 
   message TExtra {
-    .google.protobuf.Struct RawPayload = 1 [json_name = "raw_payload"];
-    .NAlice.NAliceApi.TLogSpotter.TExtraPayload Payload = 2 [json_name = "payload"];
+    .google.protobuf.Struct RawPayload = 1 [json_name = "raw_payload", (.NYT.column_name) = "raw_payload"];
+    .NAlice.NAliceApi.TLogSpotter.TExtraPayload Payload = 2 [json_name = "payload", (.NYT.column_name) = "payload"];
   }
 
-  .NAlice.NAliceApi.TLogSpotter.TExtra Extra = 1 [json_name = "extra"];
-  optional string Format = 2 [json_name = "format"];
-  optional string Transcript = 3 [json_name = "transcript"];
-  optional string Source = 4 [json_name = "source"];
-  optional string Firmware = 5 [json_name = "firmware"];
-  optional string Lang = 6 [json_name = "lang"];
-  optional string VinsMessageId = 7 [json_name = "vinsMessageId"];
-  optional int32 Priority = 8 [json_name = "priority"];
-  optional string BtDeviceName = 9 [json_name = "btDeviceName"];
-  optional string BtDeviceClass = 10 [json_name = "btDeviceClass"];
-  optional bool ExternalSoundAccess = 11 [json_name = "externalSoundAccess"];
-  optional string EndpointId = 12 [json_name = "endpoint_id"];
-  optional bool IsServiceRawData = 13 [json_name = "isServiceRawData"];
+  .NAlice.NAliceApi.TLogSpotter.TExtra Extra = 1 [json_name = "extra", (.NYT.column_name) = "extra"];
+  optional string Format = 2 [json_name = "format", (.NYT.column_name) = "format"];
+  optional string Transcript = 3 [json_name = "transcript", (.NYT.column_name) = "transcript"];
+  optional string Source = 4 [json_name = "source", (.NYT.column_name) = "source"];
+  optional string Firmware = 5 [json_name = "firmware", (.NYT.column_name) = "firmware"];
+  optional string Lang = 6 [json_name = "lang", (.NYT.column_name) = "lang"];
+  optional string VinsMessageId = 7 [json_name = "vinsMessageId", (.NYT.column_name) = "vinsMessageId"];
+  optional int32 Priority = 8 [json_name = "priority", (.NYT.column_name) = "priority"];
+  optional string BtDeviceName = 9 [json_name = "btDeviceName", (.NYT.column_name) = "btDeviceName"];
+  optional string BtDeviceClass = 10 [json_name = "btDeviceClass", (.NYT.column_name) = "btDeviceClass"];
+  optional bool ExternalSoundAccess = 11 [json_name = "externalSoundAccess", (.NYT.column_name) = "externalSoundAccess"];
+  optional string EndpointId = 12 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  optional bool IsServiceRawData = 13 [json_name = "isServiceRawData", (.NYT.column_name) = "isServiceRawData"];
 }
 

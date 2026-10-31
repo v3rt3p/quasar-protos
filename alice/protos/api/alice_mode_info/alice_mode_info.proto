@@ -8,24 +8,26 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alice_mode_info";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAlice2ModeInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EMode {
     Undefined = 0;
     Base = 1;
     Pro = 2;
     External = 3;
-    Search = 4;
+    Search = 4 [deprecated = true];
     DeepResearch = 5;
   }
 
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo.EMode Mode = 1 [json_name = "mode"];
-  string Preset = 2 [json_name = "preset"];
-  optional string HackMode = 3 [json_name = "hack_mode"];
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  string Preset = 2 [json_name = "preset", (.NYT.column_name) = "preset"];
+  optional string HackMode = 3 [json_name = "hack_mode", (.NYT.column_name) = "hack_mode"];
 }
 
 message TAlice2TrialState {
-  uint32 LeftCount = 1 [json_name = "left_count"];
-  uint32 Limit = 2 [json_name = "limit"];
-  uint32 TimeLimitSec = 3 [json_name = "time_limit_sec"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 LeftCount = 1 [json_name = "left_count", (.NYT.column_name) = "left_count"];
+  uint32 Limit = 2 [json_name = "limit", (.NYT.column_name) = "limit"];
+  uint32 TimeLimitSec = 3 [json_name = "time_limit_sec", (.NYT.column_name) = "time_limit_sec"];
 }
 
 enum EUserPriorityType {

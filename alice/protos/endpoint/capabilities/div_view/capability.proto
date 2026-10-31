@@ -14,7 +14,10 @@ import "alice/protos/div/div2id.proto";
 import "alice/protos/div/div_external_variable_sources.proto";
 
 message TDivViewCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DivViewCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EUIFamily {
       Unknown = 0;
       SmartScreen = 1;
@@ -33,50 +36,62 @@ message TDivViewCapability {
       TextCenteringDivKit39Fix = 0;
     }
 
-    bool SupportsStringDiv2Card = 1 [json_name = "supports_string_div2_card"];
-    bool SupportsCardStashing = 2 [json_name = "supports_card_stashing"];
-    .NAlice.TDivViewCapability.TParameters.EUIFamily UIFamily = 3 [json_name = "ui_family"];
-    repeated .NAlice.TDivViewCapability.TParameters.EDivKitFeature DivKitFeatures = 4 [json_name = "div_kit_features"];
-    repeated .NAlice.TDivExternalVariable.ESourceType availableExternalSources = 5 [json_name = "available_external_sources"];
+    bool SupportsStringDiv2Card = 1 [json_name = "supports_string_div2_card", (.NYT.column_name) = "supports_string_div2_card"];
+    bool SupportsCardStashing = 2 [json_name = "supports_card_stashing", deprecated = true, (.NYT.column_name) = "supports_card_stashing"];
+    .NAlice.TDivViewCapability.TParameters.EUIFamily UIFamily = 3 [json_name = "ui_family", (.NYT.column_name) = "ui_family"];
+    repeated .NAlice.TDivViewCapability.TParameters.EDivKitFeature DivKitFeatures = 4 [json_name = "div_kit_features", (.NYT.column_name) = "div_kit_features"];
+    repeated .NAlice.TDivExternalVariable.ESourceType availableExternalSources = 5 [json_name = "available_external_sources", (.NYT.column_name) = "available_external_sources"];
   }
 
   message TState {
-    repeated string GlobalTemplatesCache = 1 [json_name = "global_templates_cache"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string GlobalTemplatesCache = 1 [json_name = "global_templates_cache", (.NYT.column_name) = "global_templates_cache"];
   }
 
   message TStashViewDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
+    option (.NAlice.SpeechKitName) = "stash_view";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StashViewDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria", (.NYT.column_name) = "card_search_criteria"];
   }
 
   message TUnstashViewDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria"];
+    option (.NAlice.SpeechKitName) = "unstash_view";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = UnstashViewDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TDiv2Id CardSearchCriteria = 2 [json_name = "card_search_criteria", (.NYT.column_name) = "card_search_criteria"];
   }
 
   message TSetDivVariablesDirective {
+    option (.NAlice.SpeechKitName) = "set_div_variables";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetDivVariablesDirectiveType;
     message TSetVariable {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       enum EVariableType {
         Global = 0;
         Local = 1;
         Mixed = 2;
       }
 
-      string VariableName = 4 [json_name = "variable_name"];
-      .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable.EVariableType VariableType = 5 [json_name = "variable_type"];
+      string VariableName = 4 [json_name = "variable_name", (.NYT.column_name) = "variable_name"];
+      .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable.EVariableType VariableType = 5 [json_name = "variable_type", (.NYT.column_name) = "variable_type"];
       oneof SetVariable {
-        bool BoolValue = 1 [json_name = "bool_value"];
-        string StringValue = 2 [json_name = "string_value"];
-        int64 LongValue = 3 [json_name = "long_value"];
+        option (.NYT.variant_field_name) = "set_variable";
+        bool BoolValue = 1 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+        string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value"];
+        int64 LongValue = 3 [json_name = "long_value", (.NYT.column_name) = "long_value"];
       }
     }
 
-    string Name = 1 [json_name = "name"];
-    repeated .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable SetVariable = 2 [json_name = "set_variable"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TDivViewCapability.TSetDivVariablesDirective.TSetVariable SetVariable = 2 [json_name = "set_variable", (.NYT.column_name) = "set_variable"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TDivViewCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TDivViewCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDivViewCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDivViewCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

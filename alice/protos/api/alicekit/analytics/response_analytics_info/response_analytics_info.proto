@@ -88,12 +88,13 @@ message TResponseAnalyticsInfo {
   reserved 41;
   reserved 42;
   message TWinnerScenario {
-    string Name = 1 [json_name = "name"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  map<string, .NAlice.NAliceApi.TAliceAnalyticsInfo> AnalyticsInfo = 1 [json_name = "analytics_info"];
-  .NAlice.NAliceApi.TResponseAnalyticsInfo.TWinnerScenario WinnerScenario = 10 [json_name = "winner_scenario"];
-  .NAlice.NAliceApi.TIoTUserInfo IoTUserInfo = 15 [json_name = "iot_user_info"];
-  string ChosenUtterance = 20 [json_name = "chosen_utterance"];
+  map<string, .NAlice.NAliceApi.TAliceAnalyticsInfo> AnalyticsInfo = 1 [json_name = "analytics_info", (.NYT.column_name) = "analytics_info"];
+  .NAlice.NAliceApi.TResponseAnalyticsInfo.TWinnerScenario WinnerScenario = 10 [json_name = "winner_scenario", (.NYT.column_name) = "winner_scenario"];
+  .NAlice.NAliceApi.TIoTUserInfo IoTUserInfo = 15 [json_name = "iot_user_info", (.NYT.column_name) = "iot_user_info"];
+  string ChosenUtterance = 20 [json_name = "chosen_utterance", (.NYT.column_name) = "chosen_utterance"];
 }
 

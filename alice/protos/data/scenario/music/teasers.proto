@@ -8,10 +8,11 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/music";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMusicTeaserData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TColors {
-    string BackgroundColor = 1 [json_name = "background_color"];
-    string ButtonColor = 2 [json_name = "button_color"];
-    string TextColor = 3 [json_name = "text_color"];
+    string BackgroundColor = 1 [json_name = "background_color", (.NYT.column_name) = "background_color"];
+    string ButtonColor = 2 [json_name = "button_color", (.NYT.column_name) = "button_color"];
+    string TextColor = 3 [json_name = "text_color", (.NYT.column_name) = "text_color"];
   }
 
   enum EMusicTeaserType {
@@ -20,12 +21,12 @@ message TMusicTeaserData {
     Album = 2;
   }
 
-  string Type = 1 [json_name = "type"];
-  string Title = 2 [json_name = "title"];
-  string PosterUrl = 3 [json_name = "poster_url"];
-  string CoverUrl = 4 [json_name = "cover_url"];
-  string Url = 5 [json_name = "url"];
-  .NAlice.NData.NMusic.TMusicTeaserData.TColors Colors = 6 [json_name = "colors"];
-  .NAlice.NData.NMusic.TMusicTeaserData.EMusicTeaserType MusicTeaserType = 7 [json_name = "music_teaser_type"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string PosterUrl = 3 [json_name = "poster_url", (.NYT.column_name) = "poster_url"];
+  string CoverUrl = 4 [json_name = "cover_url", (.NYT.column_name) = "cover_url"];
+  string Url = 5 [json_name = "url", (.NYT.column_name) = "url"];
+  .NAlice.NData.NMusic.TMusicTeaserData.TColors Colors = 6 [json_name = "colors", (.NYT.column_name) = "colors"];
+  .NAlice.NData.NMusic.TMusicTeaserData.EMusicTeaserType MusicTeaserType = 7 [json_name = "music_teaser_type", (.NYT.column_name) = "music_teaser_type"];
 }
 

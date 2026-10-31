@@ -12,20 +12,29 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotMotorDirectionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotMotorDirectionCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction", (.NYT.column_name) = "direction"];
   }
 
   message TSetMotorDirectionDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction"];
+    option (.NAlice.SpeechKitName) = "set_motor_direction_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMotorDirectionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotMotorDirectionCapability.EDirection Direction = 1 [json_name = "direction", (.NYT.column_name) = "direction"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMotorDirectionCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotMotorDirectionUpdateStateEventType;
+    .NAlice.TIotMotorDirectionCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EDirection {
@@ -34,8 +43,8 @@ message TIotMotorDirectionCapability {
     REVERSED = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotMotorDirectionCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotMotorDirectionCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotMotorDirectionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotMotorDirectionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

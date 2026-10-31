@@ -12,10 +12,11 @@ import "alice/protos/api/alicekit/events/asr_result/common/response_code.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAsrResult {
-  repeated .NAlice.NAliceApi.TAsrRecognition Recognition = 4 [json_name = "recognition"];
-  optional .NAlice.NAliceApi.EAsrResponseCode ResponseCode = 1 [json_name = "responseCode"];
-  optional uint32 MessagesCount = 2 [json_name = "messagesCount"];
-  optional bool EndOfUtt = 3 [json_name = "endOfUtt"];
-  optional .NAlice.NAliceApi.TAggregatedRecognition AggregatedRecognition = 15 [json_name = "aggregatedRecognition"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NAliceApi.TAsrRecognition Recognition = 4 [json_name = "recognition", (.NYT.column_name) = "recognition"];
+  optional .NAlice.NAliceApi.EAsrResponseCode ResponseCode = 1 [json_name = "responseCode", (.NYT.column_name) = "response_code"];
+  optional uint32 MessagesCount = 2 [json_name = "messagesCount", (.NYT.column_name) = "messages_count"];
+  optional bool EndOfUtt = 3 [json_name = "endOfUtt", (.NYT.column_name) = "end_of_utt"];
+  optional .NAlice.NAliceApi.TAggregatedRecognition AggregatedRecognition = 15 [json_name = "aggregatedRecognition", (.NYT.column_name) = "aggregated_recognition"];
 }
 

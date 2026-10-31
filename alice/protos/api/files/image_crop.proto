@@ -9,9 +9,10 @@ option go_package = "a.yandex-team.ru/alice/protos/api/files";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TImageCrop {
-  optional double X1 = 1 [json_name = "x1"];
-  optional double Y1 = 2 [json_name = "y1"];
-  optional double X2 = 3 [json_name = "x2"];
-  optional double Y2 = 4 [json_name = "y2"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional double X1 = 1 [json_name = "x1", (.NYT.column_name) = "x1"];
+  optional double Y1 = 2 [json_name = "y1", (.NYT.column_name) = "y1"];
+  optional double X2 = 3 [json_name = "x2", (.NYT.column_name) = "x2"];
+  optional double Y2 = 4 [json_name = "y2", (.NYT.column_name) = "y2"];
 }
 

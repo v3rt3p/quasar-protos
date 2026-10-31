@@ -12,20 +12,29 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotWorkSpeedCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotWorkSpeedCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TIotWorkSpeedCapability.ESpeed Speed = 1 [json_name = "speed"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotWorkSpeedCapability.ESpeed Speed = 1 [json_name = "speed", (.NYT.column_name) = "speed"];
   }
 
   message TSetWorkSpeedDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotWorkSpeedCapability.ESpeed Speed = 1 [json_name = "speed"];
+    option (.NAlice.SpeechKitName) = "set_work_speed_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetWorkSpeedDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotWorkSpeedCapability.ESpeed Speed = 1 [json_name = "speed", (.NYT.column_name) = "speed"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotWorkSpeedCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotWorkSpeedUpdateStateEventType;
+    .NAlice.TIotWorkSpeedCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum ESpeed {
@@ -35,8 +44,8 @@ message TIotWorkSpeedCapability {
     HIGH = 3;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotWorkSpeedCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotWorkSpeedCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotWorkSpeedCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotWorkSpeedCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

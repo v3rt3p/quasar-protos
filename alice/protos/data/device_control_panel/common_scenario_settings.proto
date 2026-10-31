@@ -12,10 +12,10 @@ import "alice/protos/data/device_control_panel/time_interval.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCommonScenarioSettings {
-  bool Disabled = 1 [json_name = "disabled"];
-  .google.protobuf.Duration DailyLimit = 2 [json_name = "daily_limit"];
-  repeated .NAlice.TDailyLimit DailyLimits = 5 [json_name = "daily_limits"];
-  repeated .NAlice.TTimeInterval DisabledPeriods = 3 [json_name = "disabled_periods"];
-  bool ShouldKeepSilence = 4 [json_name = "should_keep_silence"];
+  bool Disabled = 1 [json_name = "disabled", (.NYT.column_name) = "disabled"];
+  .google.protobuf.Duration DailyLimit = 2 [json_name = "daily_limit", deprecated = true, (.NYT.column_name) = "daily_limit"];
+  repeated .NAlice.TDailyLimit DailyLimits = 5 [json_name = "daily_limits", (.NYT.column_name) = "daily_limits"];
+  repeated .NAlice.TTimeInterval DisabledPeriods = 3 [json_name = "disabled_periods", (.NYT.column_name) = "disabled_periods"];
+  bool ShouldKeepSilence = 4 [json_name = "should_keep_silence", (.NYT.column_name) = "should_keep_silence"];
 }
 

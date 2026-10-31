@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveAmbientLightingCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_ambient_lighting;automotive_ambient_lightingpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveAmbientLightingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveAmbientLightingCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveAmbientLightingCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      .NAlice.TAutomotiveAmbientLightingCapability.TVehiclePropertyValueBounds PropertyValueBounds = 2 [json_name = "property_value_bounds", (.NYT.column_name) = "property_value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveAmbientLightingCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 1 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+  }
+
+  message TVehiclePropertyValueBounds {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TColorValueBounds {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.TAutomotiveAmbientLightingCapability.EAmbientLightingColor AllowedValues = 1 [json_name = "allowed_values", (.NYT.column_name) = "allowed_values"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveAmbientLightingCapability.TVehiclePropertyValueBounds.TColorValueBounds ColorValueBounds = 1 [json_name = "color_value_bounds", (.NYT.column_name) = "color_value_bounds"];
+    }
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveAmbientLightingCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveAmbientLightingCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveAmbientLightingCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValue {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveAmbientLightingCapability.EAmbientLightingColor ColorValue = 1 [json_name = "color_value", (.NYT.column_name) = "color_value"];
+      int32 BrightnessValue = 2 [json_name = "brightness_value", (.NYT.column_name) = "brightness_value"];
+      bool EnabledValue = 3 [json_name = "enabled_value", (.NYT.column_name) = "enabled_value"];
+      .NAlice.TAutomotiveAmbientLightingCapability.EAmbientLightingMode ModeValue = 4 [json_name = "mode_value", (.NYT.column_name) = "mode_value"];
+    }
+  }
+
+  message TSetAmbientLightingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_ambient_lighting_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAmbientLightingStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetAmbientLightingBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_ambient_lighting_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAmbientLightingBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Brightness = 1 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+  }
+
+  message TChangeAmbientLightingColorDirective {
+    option (.NAlice.SpeechKitName) = "change_ambient_lighting_color_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ChangeAmbientLightingColorDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveAmbientLightingCapability.EAmbientLightingColor Color = 1 [json_name = "color", (.NYT.column_name) = "color"];
+  }
+
+  message TChangeAmbientLightingModeDirective {
+    option (.NAlice.SpeechKitName) = "change_ambient_lighting_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ChangeAmbientLightingModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveAmbientLightingCapability.EAmbientLightingMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  enum EPropertyId {
+    Unknown = 0;
+    AmbientLightingColor = 1;
+    AmbientLightingBrightness = 2;
+    AmbientLightingOn = 3;
+    AmbientLightingMode = 4;
+  }
+
+  enum EAmbientLightingColor {
+    AmbientLightColorUnknown = 0;
+    White = 1;
+    Blue = 2;
+    Green = 3;
+    Yellow = 4;
+    Red = 5;
+    Pink = 6;
+    Purple = 7;
+    Orange = 8;
+    LightBlue = 9;
+  }
+
+  enum EAmbientLightingMode {
+    ModeUnknown = 0;
+    ModeStatic = 1;
+    ModeBreathe = 2;
+    ModeFlowing = 3;
+    ModeMulticolor = 4;
+    ModeMusicRhythm = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveAmbientLightingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveAmbientLightingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

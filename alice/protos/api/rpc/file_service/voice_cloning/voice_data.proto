@@ -11,18 +11,20 @@ import "alice/library/censor/protos/extension.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVoiceMetadata {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EGender {
     Unknown = 0;
     Female = 1;
     Male = 2;
   }
 
-  string Title = 1 [json_name = "title"];
-  .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata.EGender Gender = 2 [json_name = "gender"];
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+  .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata.EGender Gender = 2 [json_name = "gender", (.NYT.column_name) = "gender", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
 }
 
 message TVoiceEmbedding {
-  string ModelVersion = 1 [json_name = "model_version"];
-  repeated float BioEmbedding = 2 [json_name = "bio_embedding"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ModelVersion = 1 [json_name = "model_version", (.NYT.column_name) = "model_version"];
+  repeated float BioEmbedding = 2 [json_name = "bio_embedding", packed = true, (.NYT.column_name) = "bio_embedding"];
 }
 

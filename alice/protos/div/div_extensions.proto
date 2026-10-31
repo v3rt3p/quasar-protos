@@ -10,25 +10,31 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScrollableGalleryExtension {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TFocusExtension {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TClockTimeExtension {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TExpiringViewExtension {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TTextWithShadowExtension {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TDivExtensions {
-  .NAlice.TScrollableGalleryExtension ScrollableGalleryExtension = 1 [json_name = "scrollable_gallery_extension"];
-  .NAlice.TFocusExtension FocusExtension = 2 [json_name = "focus_extension"];
-  .NAlice.TClockTimeExtension ClockTimeExtension = 3 [json_name = "clock_time_extension"];
-  .NAlice.TExpiringViewExtension ExpiringViewExtension = 4 [json_name = "expiring_view_extension"];
-  .NAlice.TTextWithShadowExtension TextWithShadowExtension = 5 [json_name = "text_shadow_extension"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TScrollableGalleryExtension ScrollableGalleryExtension = 1 [json_name = "scrollable_gallery_extension", (.NYT.column_name) = "scrollable_gallery_extension", (.NAlice.DivName) = "scrollable_gallery"];
+  .NAlice.TFocusExtension FocusExtension = 2 [json_name = "focus_extension", (.NYT.column_name) = "focus_extension", (.NAlice.DivName) = "request_focus"];
+  .NAlice.TClockTimeExtension ClockTimeExtension = 3 [json_name = "clock_time_extension", (.NYT.column_name) = "clock_time_extension", (.NAlice.DivName) = "clock_time"];
+  .NAlice.TExpiringViewExtension ExpiringViewExtension = 4 [json_name = "expiring_view_extension", (.NYT.column_name) = "expiring_view_extension", (.NAlice.DivName) = "expiring_view"];
+  .NAlice.TTextWithShadowExtension TextWithShadowExtension = 5 [json_name = "text_shadow_extension", (.NYT.column_name) = "text_shadow_extension", (.NAlice.DivName) = "text_shadow"];
 }
 

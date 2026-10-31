@@ -9,6 +9,7 @@ import "alice/protos/data/music_provider/provider_meta.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TContentId {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EContentType {
     Track = 0;
     Album = 1;
@@ -21,13 +22,14 @@ message TContentId {
     GeneratedRecs = 8;
   }
 
-  .NAlice.NData.NMusic.TContentId.EContentType Type = 1 [json_name = "type"];
-  string Id = 2 [json_name = "id"];
-  repeated string Ids = 3 [json_name = "ids"];
+  .NAlice.NData.NMusic.TContentId.EContentType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+  repeated string Ids = 3 [json_name = "ids", (.NYT.column_name) = "ds"];
 }
 
 message TContentIdWithProvider {
-  .Alice.Music.ContentId ContentId = 1 [json_name = "content_id"];
-  .Alice.Music.MusicProvider MusicProvider = 2 [json_name = "music_provider"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .Alice.Music.ContentId ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  .Alice.Music.MusicProvider MusicProvider = 2 [json_name = "music_provider", (.NYT.column_name) = "music_provider"];
 }
 

@@ -10,21 +10,26 @@ option go_package = "a.yandex-team.ru/alice/protos/endpoint;endpointpb";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAggregate {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TCompositeMeta {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message THubMeta {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TTandemMeta {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
-  string MainEndpointId = 1 [json_name = "main_endpoint_id"];
-  repeated string EndpointIDs = 2 [json_name = "endpoint_ids"];
+  string MainEndpointId = 1 [json_name = "main_endpoint_id", (.NYT.column_name) = "main_endpoint_id"];
+  repeated string EndpointIDs = 2 [json_name = "endpoint_ids", (.NYT.column_name) = "endpoint_ids"];
   oneof Meta {
-    .NAlice.TAggregate.TCompositeMeta CompositeMeta = 3 [json_name = "composite_meta"];
-    .NAlice.TAggregate.THubMeta HubMeta = 4 [json_name = "hub_meta"];
-    .NAlice.TAggregate.TTandemMeta TandemMeta = 5 [json_name = "tandem_meta"];
+    option (.NYT.variant_field_name) = "meta";
+    .NAlice.TAggregate.TCompositeMeta CompositeMeta = 3 [json_name = "composite_meta", (.NYT.column_name) = "composite_meta"];
+    .NAlice.TAggregate.THubMeta HubMeta = 4 [json_name = "hub_meta", (.NYT.column_name) = "hub_meta"];
+    .NAlice.TAggregate.TTandemMeta TandemMeta = 5 [json_name = "tandem_meta", (.NYT.column_name) = "tandem_meta"];
   }
 }
 

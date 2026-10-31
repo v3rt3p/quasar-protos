@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatShareCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_share;alicechatsharepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatShareCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatShareCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TShareDirective {
+    option (.NAlice.SpeechKitName) = "alice_chat_share_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceChatShareDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    oneof Content {
+      option (.NYT.variant_field_name) = "content";
+      .NAlice.TAliceChatShareCapability.TLinkContent Link = 3 [json_name = "link", (.NYT.column_name) = "link"];
+      .NAlice.TAliceChatShareCapability.TTextContent Text = 4 [json_name = "text", (.NYT.column_name) = "text"];
+    }
+  }
+
+  message TTextContent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  }
+
+  message TLinkContent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatShareCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatShareCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

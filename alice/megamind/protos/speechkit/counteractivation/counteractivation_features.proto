@@ -11,13 +11,14 @@ import "alice/protos/endpoint/capabilities/source_input/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCounteractivationFeatures {
-  bool HasDirective = 1 [json_name = "has_directive"];
-  bool HasClientDirective = 2 [json_name = "has_client_directive"];
-  .NAlice.NData.TScenarioCounteractivationFeatures ScenarioFeatures = 3 [json_name = "scenario_features"];
-  bool DeferredApply = 4 [json_name = "deferred_apply"];
-  bool HasModalWinReason = 5 [json_name = "has_modal_win_reason"];
-  string CurrentTvScreen = 7 [json_name = "current_tv_screen"];
-  .NAlice.TSourceInputCapability.TSourceInput.EDeviceType VideoInputDeviceType = 8 [json_name = "video_input_device_type"];
-  optional bool IsDeviceOn = 6 [json_name = "is_device_on"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool HasDirective = 1 [json_name = "has_directive", (.NYT.column_name) = "has_directive"];
+  bool HasClientDirective = 2 [json_name = "has_client_directive", (.NYT.column_name) = "has_client_directive"];
+  .NAlice.NData.TScenarioCounteractivationFeatures ScenarioFeatures = 3 [json_name = "scenario_features", (.NYT.column_name) = "scenario_features"];
+  bool DeferredApply = 4 [json_name = "deferred_apply", (.NYT.column_name) = "deferred_apply"];
+  bool HasModalWinReason = 5 [json_name = "has_modal_win_reason", (.NYT.column_name) = "has_modal_win_reason"];
+  string CurrentTvScreen = 7 [json_name = "current_tv_screen", (.NYT.column_name) = "current_tv_screen"];
+  .NAlice.TSourceInputCapability.TSourceInput.EDeviceType VideoInputDeviceType = 8 [json_name = "video_input_device_type", (.NYT.column_name) = "video_input_device_type"];
+  optional bool IsDeviceOn = 6 [json_name = "is_device_on", (.NYT.column_name) = "is_device_on"];
 }
 

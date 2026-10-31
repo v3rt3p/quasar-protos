@@ -13,43 +13,58 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotOccupancyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotOccupancyCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TSonarDetection {
-    double DistanceMeters = 1 [json_name = "distance_meters"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    double DistanceMeters = 1 [json_name = "distance_meters", (.NYT.column_name) = "distance_meters"];
   }
 
   message TRadarDetection {
-    uint32 ID = 1 [json_name = "id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TDetection {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Detection {
-      .NAlice.TIotOccupancyCapability.TSonarDetection SonarDetection = 1 [json_name = "sonar_detection"];
-      .NAlice.TIotOccupancyCapability.TRadarDetection RadarDetection = 2 [json_name = "radar_detection"];
+      .NAlice.TIotOccupancyCapability.TSonarDetection SonarDetection = 1 [json_name = "sonar_detection", (.NYT.column_name) = "sonar_detection"];
+      .NAlice.TIotOccupancyCapability.TRadarDetection RadarDetection = 2 [json_name = "radar_detection", (.NYT.column_name) = "radar_detection"];
     }
   }
 
   message TObject {
-    .NAlice.TIotOccupancyCapability.TDetection Detection = 1 [json_name = "detection"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotOccupancyCapability.TDetection Detection = 1 [json_name = "detection", (.NYT.column_name) = "detection"];
   }
 
   message TState {
-    repeated .NAlice.TIotOccupancyCapability.TObject Objects = 1 [json_name = "objects"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotOccupancyCapability.TObject Objects = 1 [json_name = "objects", (.NYT.column_name) = "objects"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotOccupancyCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotOccupancyUpdateStateEventType;
+    .NAlice.TIotOccupancyCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TIotOccupancyEnterEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotOccupancyEnterEventType;
   }
 
   message TIotOccupancyLeaveEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotOccupancyLeaveEventType;
   }
 
   message TCondition {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Events";
     reserved 1;
     oneof Condition {
@@ -59,8 +74,8 @@ message TIotOccupancyCapability {
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotOccupancyCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotOccupancyCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotOccupancyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotOccupancyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

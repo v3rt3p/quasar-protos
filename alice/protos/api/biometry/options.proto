@@ -9,16 +9,19 @@ option go_package = "a.yandex-team.ru/alice/protos/api/biometry";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TOndeviceBiometryOptions {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TScoring {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TClassification {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
-  .NAlice.TOndeviceBiometryOptions.TScoring Scoring = 1 [json_name = "scoring"];
-  bool IgnoreVoiceprintUpdate = 2 [json_name = "ignore_voiceprint_update"];
-  .NAlice.TOndeviceBiometryOptions.TClassification Classification = 3 [json_name = "classification"];
+  .NAlice.TOndeviceBiometryOptions.TScoring Scoring = 1 [json_name = "scoring", (.NYT.column_name) = "scoring"];
+  bool IgnoreVoiceprintUpdate = 2 [json_name = "ignore_voiceprint_update", (.NYT.column_name) = "ignore_voiceprint_update"];
+  .NAlice.TOndeviceBiometryOptions.TClassification Classification = 3 [json_name = "classification", (.NYT.column_name) = "classification"];
 }
 

@@ -10,10 +10,12 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/event_exc
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEventException {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TError {
-    string ErrorMessage = 1 [json_name = "message"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ErrorMessage = 1 [json_name = "message", (.NYT.column_name) = "message"];
   }
 
-  .NAlice.NAliceApi.TEventException.TError Error = 1 [json_name = "error"];
+  .NAlice.NAliceApi.TEventException.TError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 

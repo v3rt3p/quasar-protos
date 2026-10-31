@@ -13,24 +13,34 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMusicSearchCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MusicSearchCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TOpenMusicSearchDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_music_search_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenMusicSearchDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TMusicSearchRequestDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
-    repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 3 [json_name = "search_elements"];
+    option (.NAlice.SpeechKitName) = "music_search_request_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = MusicSearchRequestDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+    repeated .NAlice.NMusic.TMusicSearchResponse.TMusicSearchElement SearchElements = 3 [json_name = "search_elements", (.NYT.column_name) = "search_elements"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMusicSearchCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMusicSearchCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMusicSearchCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMusicSearchCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

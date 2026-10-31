@@ -11,22 +11,27 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBestPriceCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BestPriceCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Price";
     reserved "FeatureState";
     reserved 2;
     reserved 3;
-    string PageUrl = 1 [json_name = "page_url"];
-    .NAlice.TBestPriceCapability.TEcomState EcomState = 4 [json_name = "ecom_state"];
+    string PageUrl = 1 [json_name = "page_url", (.NYT.column_name) = "page_url"];
+    .NAlice.TBestPriceCapability.TEcomState EcomState = 4 [json_name = "ecom_state", (.NYT.column_name) = "ecom_state"];
   }
 
   message TEcomState {
-    .NAlice.TBestPriceCapability.EBestPriceState FeatureState = 1 [json_name = "feature_state"];
-    .NAlice.TBestPriceCapability.EPageType PageType = 2 [json_name = "page_type"];
-    optional string Price = 3 [json_name = "price"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TBestPriceCapability.EBestPriceState FeatureState = 1 [json_name = "feature_state", (.NYT.column_name) = "feature_state"];
+    .NAlice.TBestPriceCapability.EPageType PageType = 2 [json_name = "page_type", (.NYT.column_name) = "page_type"];
+    optional string Price = 3 [json_name = "price", (.NYT.column_name) = "price"];
   }
 
   enum EBestPriceState {
@@ -42,8 +47,8 @@ message TBestPriceCapability {
     Other = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBestPriceCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBestPriceCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBestPriceCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBestPriceCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

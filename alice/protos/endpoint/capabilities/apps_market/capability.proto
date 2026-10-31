@@ -12,38 +12,51 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAppsMarketCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AppsMarketCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EStoreType {
       UnknownStoreType = 0;
       DialogsSmartScreen = 1;
       DialogsTV = 2;
     }
 
-    .NAlice.TAppsMarketCapability.TState.EStoreType StoreType = 1 [json_name = "store_type"];
+    .NAlice.TAppsMarketCapability.TState.EStoreType StoreType = 1 [json_name = "store_type", (.NYT.column_name) = "store_type"];
   }
 
   message TOpenAppDetailsDirective {
-    string Name = 1 [json_name = "name"];
-    string PackageToOpen = 2 [json_name = "package_to_open"];
-    string AppId = 3 [json_name = "app_id"];
+    option (.NAlice.SpeechKitName) = "open_app_details";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenAppDetailsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string PackageToOpen = 2 [json_name = "package_to_open", (.NYT.column_name) = "package_to_open"];
+    string AppId = 3 [json_name = "app_id", (.NYT.column_name) = "app_id"];
   }
 
   message TOpenAppsMarketDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_apps_market";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenAppsMarketDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TInstallMarketAppDirective {
-    string Name = 1 [json_name = "name"];
-    string VersionName = 2 [json_name = "version_name"];
-    string DownloadUrl = 3 [json_name = "download_url"];
-    string PackageName = 4 [json_name = "package_name"];
+    option (.NAlice.SpeechKitName) = "install_market_app";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = InstallMarketAppDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string VersionName = 2 [json_name = "version_name", (.NYT.column_name) = "version_name"];
+    string DownloadUrl = 3 [json_name = "download_url", (.NYT.column_name) = "download_url"];
+    string PackageName = 4 [json_name = "package_name", (.NYT.column_name) = "package_name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAppsMarketCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAppsMarketCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAppsMarketCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAppsMarketCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

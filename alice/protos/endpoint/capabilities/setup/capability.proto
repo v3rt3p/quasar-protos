@@ -12,13 +12,20 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSetupCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SetupCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TStartSetupDirective {
+    option (.NAlice.SpeechKitName) = "start_setup_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartSetupDirectiveType;
     enum EMode {
       Unknown = 0;
       FirstSetup = 1;
@@ -26,11 +33,11 @@ message TSetupCapability {
       AddNetwork = 3;
     }
 
-    .NAlice.TSetupCapability.TStartSetupDirective.EMode SetupMode = 1 [json_name = "setup_mode"];
+    .NAlice.TSetupCapability.TStartSetupDirective.EMode SetupMode = 1 [json_name = "setup_mode", (.NYT.column_name) = "setup_mode"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSetupCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSetupCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSetupCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSetupCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

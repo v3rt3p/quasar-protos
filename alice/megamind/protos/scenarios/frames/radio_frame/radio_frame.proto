@@ -13,47 +13,59 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFmRadioStationSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string FmRadioValue = 1 [json_name = "fm_radio_value"];
-    string FmRadioCustomValue = 2 [json_name = "fm_radio_custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    string FmRadioValue = 1 [json_name = "fm_radio_value", (.NYT.column_name) = "fm_radio_value", (.NAlice.SlotType) = "fm_radio_station"];
+    string FmRadioCustomValue = 2 [json_name = "fm_radio_custom_value", (.NYT.column_name) = "fm_radio_custom_value", (.NAlice.SlotType) = "custom.fm_radio_station"];
   }
 }
 
 message TFmRadioFreqSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string FmRadioFreqValue = 1 [json_name = "fm_radio_freq_value"];
-    string FmRadioFreqCustomValue = 2 [json_name = "fm_radio_freq_custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    string FmRadioFreqValue = 1 [json_name = "fm_radio_freq_value", (.NYT.column_name) = "fm_radio_freq_value", (.NAlice.SlotType) = "fm_radio_freq"];
+    string FmRadioFreqCustomValue = 2 [json_name = "fm_radio_freq_custom_value", (.NYT.column_name) = "fm_radio_freq_custom_value", (.NAlice.SlotType) = "custom.fm_radio_freq"];
   }
 }
 
 message TFmRadioInfoSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    .NAlice.NData.TFmRadioInfo FmRadioInfoValue = 1 [json_name = "fm_radio_info_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.TFmRadioInfo FmRadioInfoValue = 1 [json_name = "fm_radio_info_value", (.NYT.column_name) = "fm_radio_info_value", (.NAlice.SlotType) = "fm_radio_info"];
   }
 }
 
 message TFmRadioPlaybackSourceSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     AliceShow = 1;
   }
 
   oneof Value {
-    .NAlice.TFmRadioPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TFmRadioPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "enum_value"];
   }
 }
 
 message TRadioPlaySemanticFrame {
-  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio"];
-  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq"];
-  .NAlice.TFmRadioInfoSlot FmRadioInfo = 3 [json_name = "fm_radio_info"];
-  .NAlice.TBoolSlot DisableNlg = 4 [json_name = "disable_nlg"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.radio_play";
+  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio", (.NYT.column_name) = "fm_radio", (.NAlice.SlotName) = "fm_radio"];
+  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq", (.NYT.column_name) = "fm_radio_freq", (.NAlice.SlotName) = "fm_radio_freq"];
+  .NAlice.TFmRadioInfoSlot FmRadioInfo = 3 [json_name = "fm_radio_info", (.NYT.column_name) = "fm_radio_info", (.NAlice.SlotName) = "fm_radio_info"];
+  .NAlice.TBoolSlot DisableNlg = 4 [json_name = "disable_nlg", (.NYT.column_name) = "disable_nlg", (.NAlice.SlotName) = "disable_nlg"];
 }
 
 message TFmRadioPlaySemanticFrame {
-  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio"];
-  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq"];
-  .NAlice.TBoolSlot DisableNlg = 3 [json_name = "disable_nlg"];
-  .NAlice.TFmRadioPlaybackSourceSlot PlaybackSource = 4 [json_name = "playback_source"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.music.fm_radio_play";
+  .NAlice.TFmRadioStationSlot FmRadioStation = 1 [json_name = "fm_radio", (.NYT.column_name) = "fm_radio", (.NAlice.SlotName) = "fm_radio"];
+  .NAlice.TFmRadioFreqSlot FmRadioFreq = 2 [json_name = "fm_radio_freq", (.NYT.column_name) = "fm_radio_freq", (.NAlice.SlotName) = "fm_radio_freq"];
+  .NAlice.TBoolSlot DisableNlg = 3 [json_name = "disable_nlg", (.NYT.column_name) = "disable_nlg", (.NAlice.SlotName) = "disable_nlg"];
+  .NAlice.TFmRadioPlaybackSourceSlot PlaybackSource = 4 [json_name = "playback_source", (.NYT.column_name) = "playback_source", (.NAlice.SlotName) = "playback_source"];
 }
 

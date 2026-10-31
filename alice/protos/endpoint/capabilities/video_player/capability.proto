@@ -12,48 +12,62 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVideoPlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VideoPlayerCapabilityType;
   message TParameters {
-    bool UseNativeScreen = 1 [json_name = "use_native_screen"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool UseNativeScreen = 1 [json_name = "use_native_screen", (.NYT.column_name) = "use_native_screen"];
   }
 
   message TState {
-    bool IsTvStreamSupported = 1 [json_name = "is_tv_stream_supported"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsTvStreamSupported = 1 [json_name = "is_tv_stream_supported", (.NYT.column_name) = "is_tv_stream_supported"];
   }
 
   message TAdConfig {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TEmptyConfig {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TMapConfig {
-      map<string, string> Values = 1 [json_name = "values"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      map<string, string> Values = 1 [json_name = "values", (.NYT.flags) = MAP_AS_OPTIONAL_DICT, (.NYT.column_name) = "values"];
     }
 
     oneof Config {
-      .NAlice.TVideoPlayerCapability.TAdConfig.TEmptyConfig EmptyConfig = 1 [json_name = "empty_config"];
-      .NAlice.TVideoPlayerCapability.TAdConfig.TMapConfig MapConfig = 2 [json_name = "map_config"];
+      option (.NYT.variant_field_name) = "config";
+      .NAlice.TVideoPlayerCapability.TAdConfig.TEmptyConfig EmptyConfig = 1 [json_name = "empty_config", (.NYT.column_name) = "empty_config"];
+      .NAlice.TVideoPlayerCapability.TAdConfig.TMapConfig MapConfig = 2 [json_name = "map_config", (.NYT.column_name) = "map_config"];
     }
   }
 
   message TPlayVideoDirective {
-    string ContentId = 1 [json_name = "content_id"];
-    string OntoId = 2 [json_name = "onto_id"];
-    .NAlice.TVideoPlayerCapability.TAdConfig AdConfig = 3 [json_name = "ad_config"];
-    bool isOtt = 4 [json_name = "is_ott"];
-    string AgeLimit = 8 [json_name = "age_limit"];
-    optional int64 StartAt = 5 [json_name = "start_at"];
-    optional string AudioLanguage = 6 [json_name = "audio_language"];
-    optional string SubtitlesLanguage = 7 [json_name = "subtitles_language"];
+    option (.NAlice.SpeechKitName) = "play_video_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayVideoDirectiveType;
+    string ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    string OntoId = 2 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    .NAlice.TVideoPlayerCapability.TAdConfig AdConfig = 3 [json_name = "ad_config", (.NYT.column_name) = "ad_config"];
+    bool isOtt = 4 [json_name = "is_ott", (.NYT.column_name) = "is_ott"];
+    string AgeLimit = 8 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+    optional int64 StartAt = 5 [json_name = "start_at", (.NYT.column_name) = "start_at"];
+    optional string AudioLanguage = 6 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+    optional string SubtitlesLanguage = 7 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
   }
 
   message TPlaySportVideoDirective {
-    string ContentId = 1 [json_name = "content_id"];
-    string OntoId = 2 [json_name = "onto_id"];
-    string AgeLimit = 4 [json_name = "age_limit"];
-    optional int64 StartAt = 3 [json_name = "start_at"];
+    option (.NAlice.SpeechKitName) = "play_sport_video_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlaySportVideoDirectiveType;
+    string ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    string OntoId = 2 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    string AgeLimit = 4 [json_name = "age_limit", (.NYT.column_name) = "age_limit"];
+    optional int64 StartAt = 3 [json_name = "start_at", (.NYT.column_name) = "start_at"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TVideoPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TVideoPlayerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVideoPlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVideoPlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

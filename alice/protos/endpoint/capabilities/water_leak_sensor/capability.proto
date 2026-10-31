@@ -13,34 +13,49 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWaterLeakSensorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WaterLeakSensorCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TTypedCapabilityEvent LastEvent = 1 [json_name = "last_event", (.NYT.column_name) = "last_event"];
   }
 
   message TResetLeakDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "reset_leak_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ResetLeakDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TTriggerLeakDirective {
-    string Name = 1000 [json_name = "name"];
-    optional string SourceName = 1 [json_name = "source_name"];
+    option (.NAlice.SpeechKitName) = "trigger_leak_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TriggerLeakDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string SourceName = 1 [json_name = "source_name", (.NYT.column_name) = "source_name"];
   }
 
   message TWaterLeakSensorLeakEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = WaterLeakSensorLeakEventType;
   }
 
   message TWaterLeakSensorDryEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = WaterLeakSensorDryEventType;
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events", (.NYT.column_name) = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWaterLeakSensorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWaterLeakSensorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWaterLeakSensorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWaterLeakSensorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

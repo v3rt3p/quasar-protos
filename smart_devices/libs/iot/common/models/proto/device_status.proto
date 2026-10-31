@@ -13,7 +13,7 @@ message DeviceStatus {
   }
 
   .google.protobuf.Timestamp Timestamp = 1;
-  bool IsOnline = 2;
+  bool IsOnline = 2 [deprecated = true];
   .proto.DeviceStatus.EStatus Status = 3;
 }
 

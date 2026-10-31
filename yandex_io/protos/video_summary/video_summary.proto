@@ -2,6 +2,30 @@ syntax = "proto3";
 
 package NAlice;
 
+option java_package = "ru.yandex.arcadia.yandex_io.protos.video_summary";
+option java_outer_classname = "VideoSummaryProto";
+
 message TVideoSummary {
-  // stub
+  message TCurrentlyPlaying {
+    optional bool Paused = 1 [json_name = "paused"];
+  }
+
+  message TPlayer {
+    optional bool Pause = 1 [json_name = "pause"];
+  }
+
+  optional string CurrentScreen = 1 [json_name = "current_screen"];
+  optional .NAlice.TVideoSummary.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
+  optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp"];
+  optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp"];
+  optional .NAlice.TVideoSummary.TPlayer Player = 11 [json_name = "player"];
 }
+
+message TLegacyVideoStateSummary {
+  optional .NAlice.TVideoSummary Video = 1 [json_name = "video"];
+}
+
+message TLegacyDeviceStateVideoCapabilitySummary {
+  .NAlice.TLegacyVideoStateSummary State = 3 [json_name = "state"];
+}
+

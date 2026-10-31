@@ -21,7 +21,7 @@ message AliceStateCompact {
   }
 
   optional .quark.core.proto.AliceStateCompact.State state = 1;
-  optional string recognized_phrase = 2;
+  optional string recognized_phrase = 2 [deprecated = true];
   optional .quark.core.proto.VinsResponseCompact vins_response = 3;
   optional bool has_startup_requirements = 5 [default = false];
   optional string request_id = 7;

@@ -9,18 +9,19 @@ option go_package = "a.yandex-team.ru/alice/protos/api/request_parts";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TContextLoadOptions {
-  optional bool UseBlackbox = 1 [json_name = "use_blackbox"];
-  optional bool UseCachalotMMSession = 2 [json_name = "use_cachalot_mm_session"];
-  optional bool UseContacts = 3 [json_name = "use_contacts"];
-  optional bool UseDatasync = 4 [json_name = "use_datasync"];
-  optional bool UseFlagsJson = 5 [json_name = "use_flags_json"];
-  optional bool UseIotUserInfo = 6 [json_name = "use_iot_user_info"];
-  optional bool UseLaas = 7 [json_name = "use_laas"];
-  optional bool UseMemento = 8 [json_name = "use_memento"];
-  optional bool UseNotifications = 9 [json_name = "use_notifications"];
-  optional bool UseMatrixOnlineDevices = 10 [json_name = "use_matrix_online_devices"];
-  optional bool UseDatumAddresses = 11 [json_name = "use_datum_addresses"];
-  optional bool DisableRecentDialogs = 12 [json_name = "disable_recent_dialogs"];
-  optional bool DisableUserFacts = 13 [json_name = "disable_user_facts"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional bool UseBlackbox = 1 [json_name = "use_blackbox", (.NYT.column_name) = "use_blackbox"];
+  optional bool UseCachalotMMSession = 2 [json_name = "use_cachalot_mm_session", (.NYT.column_name) = "use_cachalot_mm_session"];
+  optional bool UseContacts = 3 [json_name = "use_contacts", (.NYT.column_name) = "use_contacts"];
+  optional bool UseDatasync = 4 [json_name = "use_datasync", (.NYT.column_name) = "use_datasync"];
+  optional bool UseFlagsJson = 5 [json_name = "use_flags_json", (.NYT.column_name) = "use_flags_json"];
+  optional bool UseIotUserInfo = 6 [json_name = "use_iot_user_info", (.NYT.column_name) = "use_iot_user_info"];
+  optional bool UseLaas = 7 [json_name = "use_laas", (.NYT.column_name) = "use_laas"];
+  optional bool UseMemento = 8 [json_name = "use_memento", (.NYT.column_name) = "use_memento"];
+  optional bool UseNotifications = 9 [json_name = "use_notifications", (.NYT.column_name) = "use_notifications"];
+  optional bool UseMatrixOnlineDevices = 10 [json_name = "use_matrix_online_devices", (.NYT.column_name) = "use_matrix_online_devices"];
+  optional bool UseDatumAddresses = 11 [json_name = "use_datum_addresses", (.NYT.column_name) = "use_datum_addresses"];
+  optional bool DisableRecentDialogs = 12 [json_name = "disable_recent_dialogs", (.NYT.column_name) = "disable_recent_dialogs"];
+  optional bool DisableUserFacts = 13 [json_name = "disable_user_facts", (.NYT.column_name) = "disable_user_facts"];
 }
 

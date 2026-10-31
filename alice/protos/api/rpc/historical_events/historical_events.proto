@@ -10,9 +10,11 @@ import "alice/protos/endpoint/events/events.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THistoricalEventsRequest {
-  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TEndpointEvents Batch = 1 [json_name = "batch", (.NYT.column_name) = "batch"];
 }
 
 message THistoricalEventsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 

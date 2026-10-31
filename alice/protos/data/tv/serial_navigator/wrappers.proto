@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv.serialnavigator";
+option java_outer_classname = "SerialNavigatorInfoWrapperProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/serial_navigator";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/api/voice_control/voice_control.proto";
+import "alice/protos/data/serial_navigator/season_info.proto";
+import "alice/protos/data/serial_navigator/serial_info.proto";
+
+message TSeasonInfoWrapper {
+  .NAlice.TSeasonInfo Info = 1 [json_name = "info", (.NYT.column_name) = "info"];
+  repeated .NAlice.TVoiceControl VoiceControl = 2 [json_name = "voice_control", (.NYT.column_name) = "voice_control"];
+}
+
+message TSerialInfoWrapper {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TSerialInfo Info = 1 [json_name = "info", (.NYT.column_name) = "info"];
+  repeated .NAlice.NTv.TSeasonInfoWrapper Seasons = 2 [json_name = "seasons", (.NYT.column_name) = "seasons"];
+  repeated .NAlice.TVoiceControl VoiceControl = 3 [json_name = "voice_control", (.NYT.column_name) = "voice_control"];
+}
+

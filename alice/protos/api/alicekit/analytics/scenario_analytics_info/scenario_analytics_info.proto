@@ -10,23 +10,28 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/analytics/scenar
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimePoint {
-  string Time = 1 [json_name = "time"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Time = 1 [json_name = "time", (.NYT.column_name) = "time"];
 }
 
 message TTimeInterval {
-  string StartTime = 1 [json_name = "start_time"];
-  string EndTime = 2 [json_name = "end_time"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string StartTime = 1 [json_name = "start_time", (.NYT.column_name) = "start_time"];
+  string EndTime = 2 [json_name = "end_time", (.NYT.column_name) = "end_time"];
 }
 
 message TTimeInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    .NAlice.NAliceApi.TTimePoint TimePoint = 1 [json_name = "time_point"];
-    .NAlice.NAliceApi.TTimeInterval TimeInterval = 2 [json_name = "time_interval"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NAliceApi.TTimePoint TimePoint = 1 [json_name = "time_point", (.NYT.column_name) = "time_point"];
+    .NAlice.NAliceApi.TTimeInterval TimeInterval = 2 [json_name = "time_interval", (.NYT.column_name) = "time_interval"];
   }
 }
 
 message TReaction {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "QueryParameters";
   reserved "ScenarioParameters";
   reserved "PushParameters";
@@ -34,26 +39,30 @@ message TReaction {
   reserved 4;
   reserved 5;
   message TActionParameters {
-    string CapabilityType = 1 [json_name = "capability_type"];
-    string CapabilityInstance = 2 [json_name = "capability_instance"];
-    string CapabilityUnit = 3 [json_name = "capability_unit"];
-    string RelativityType = 4 [json_name = "relativity_type"];
-    string CapabilityValue = 5 [json_name = "capability_value"];
-    repeated string Devices = 6 [json_name = "devices"];
-    .NAlice.NAliceApi.TTimeInfo TimeInfo = 7 [json_name = "time_info"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string CapabilityType = 1 [json_name = "capability_type", (.NYT.column_name) = "capability_type"];
+    string CapabilityInstance = 2 [json_name = "capability_instance", (.NYT.column_name) = "capability_instance"];
+    string CapabilityUnit = 3 [json_name = "capability_unit", (.NYT.column_name) = "capability_unit"];
+    string RelativityType = 4 [json_name = "relativity_type", (.NYT.column_name) = "relativity_type"];
+    string CapabilityValue = 5 [json_name = "capability_value", (.NYT.column_name) = "capability_value"];
+    repeated string Devices = 6 [json_name = "devices", (.NYT.column_name) = "devices"];
+    .NAlice.NAliceApi.TTimeInfo TimeInfo = 7 [json_name = "time_info", (.NYT.column_name) = "time_info"];
   }
 
-  string Type = 1 [json_name = "type"];
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
   oneof Parameters {
-    .NAlice.NAliceApi.TReaction.TActionParameters ActionParameters = 2 [json_name = "action_parameters"];
+    option (.NYT.variant_field_name) = "parameters";
+    .NAlice.NAliceApi.TReaction.TActionParameters ActionParameters = 2 [json_name = "action_parameters", (.NYT.column_name) = "action_parameters"];
   }
 }
 
 message TReactions {
-  repeated .NAlice.NAliceApi.TReaction Reactions = 1 [json_name = "reactions"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NAliceApi.TReaction Reactions = 1 [json_name = "reactions", (.NYT.column_name) = "reactions"];
 }
 
 message TScenarioAnalyticsInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Actions";
   reserved "Events";
   reserved "TunnellerRawResponses";
@@ -76,6 +85,7 @@ message TScenarioAnalyticsInfo {
   reserved 22;
   reserved 23;
   message TObject {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "ReduceTitleInfo";
     reserved "ProviderSearchChoosedItems";
     reserved "Name";
@@ -206,14 +216,15 @@ message TScenarioAnalyticsInfo {
     reserved 65;
     reserved 66;
     reserved 67;
-    string Id = 1 [json_name = "id"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
     oneof Payload {
-      .NAlice.NAliceApi.TReactions IotReactions = 32 [json_name = "iot_reactions"];
+      option (.NYT.variant_field_name) = "payload";
+      .NAlice.NAliceApi.TReactions IotReactions = 32 [json_name = "iot_reactions", (.NYT.column_name) = "iot_reactions"];
     }
   }
 
-  string Intent = 2 [json_name = "intent"];
-  repeated .NAlice.NAliceApi.TScenarioAnalyticsInfo.TObject Objects = 5 [json_name = "objects"];
-  string ProductScenarioName = 9 [json_name = "product_scenario_name"];
+  string Intent = 2 [json_name = "intent", (.NYT.column_name) = "intent"];
+  repeated .NAlice.NAliceApi.TScenarioAnalyticsInfo.TObject Objects = 5 [json_name = "objects", (.NYT.column_name) = "objects"];
+  string ProductScenarioName = 9 [json_name = "product_scenario_name", (.NYT.column_name) = "product_scenario_name"];
 }
 

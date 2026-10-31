@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.device_notifications";
+option java_outer_classname = "ScenariosProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/device_notifications";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDeviceNotification {
+  enum ENotificationCategory {
+    Undefined = 0;
+    Message = 1;
+    Email = 2;
+    Call = 3;
+  }
+
+  string AppId = 1 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+  string NotificationId = 2 [json_name = "notification_id", (.NYT.column_name) = "notification_id"];
+  string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TDeviceNotification.ENotificationCategory Category = 4 [json_name = "category", (.NYT.column_name) = "category"];
+  uint64 CreatedTimestamp = 5 [json_name = "created_timestamp", (.NYT.column_name) = "created_timestamp"];
+  optional string Text = 6 [json_name = "text", (.NYT.column_name) = "text"];
+  optional string BigText = 7 [json_name = "big_text", (.NYT.column_name) = "big_text"];
+}
+

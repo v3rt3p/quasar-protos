@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SmartHomeClientViewProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/smart_home_client_view;smart_home_client_viewpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSmartHomeClientViewCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SmartHomeClientViewCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool HasApplication = 1 [json_name = "has_application", (.NYT.column_name) = "has_application"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TOpenSmartHomeDirective {
+    option (.NAlice.SpeechKitName) = "open_smart_home_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSmartHomeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenSmartHomePageDirective {
+    option (.NAlice.SpeechKitName) = "open_smart_home_page_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSmartHomePageDirectiveType;
+    reserved "Path";
+    reserved 2;
+    message TMoveOptions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TSmartHomeClientViewCapability.TOpenSmartHomePageDirective.EMoveTo MoveTo = 1 [json_name = "move_to", (.NYT.column_name) = "move_to"];
+      string OntoId = 2 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    }
+
+    enum EMoveTo {
+      Unknown = 0;
+      Remote = 1;
+      Scenario = 2;
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    oneof Params {
+      option (.NYT.variant_field_name) = "params";
+      string UrlPath = 3 [json_name = "url_path", (.NYT.column_name) = "url_path"];
+      .NAlice.TSmartHomeClientViewCapability.TOpenSmartHomePageDirective.TMoveOptions MoveOptions = 4 [json_name = "move_options", (.NYT.column_name) = "move_options"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSmartHomeClientViewCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSmartHomeClientViewCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

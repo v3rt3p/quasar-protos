@@ -9,7 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/div";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDiv2Id {
-  string CardName = 1 [json_name = "card_name"];
-  string CardId = 2 [json_name = "card_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string CardName = 1 [json_name = "card_name", (.NYT.column_name) = "card_name"];
+  string CardId = 2 [json_name = "card_id", (.NYT.column_name) = "card_id"];
 }
 

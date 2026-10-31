@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TabContentHistoryCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tab_content_history;tab_content_historypb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTabContentHistoryCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TabContentHistoryCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TQueryVisitedPageContextsDirective {
+    option (.NAlice.SpeechKitName) = "query_visited_page_contexts";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = QueryVisitedPageContextsDirectiveType;
+    string QueryGuid = 1 [json_name = "query_guid"];
+    string RetrieveQL = 2 [json_name = "retrieve_ql"];
+  }
+
+  message TVisitedPageContextsQueriedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VisitedPageContextsQueriedEventType;
+    string QueryGuid = 1 [json_name = "query_guid"];
+    string QueryStatus = 2 [json_name = "query_status"];
+    string QueryResult = 3 [json_name = "query_result"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTabContentHistoryCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTabContentHistoryCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

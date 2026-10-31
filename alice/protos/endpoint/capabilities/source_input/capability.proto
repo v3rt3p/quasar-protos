@@ -12,7 +12,10 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSourceInputCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SourceInputCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TSourceInput {
@@ -42,32 +45,38 @@ message TSourceInputCapability {
       Console = 9;
     }
 
-    bool IsConnected = 2 [json_name = "is_connected"];
-    .NAlice.TSourceInputCapability.TSourceInput.ESourceType SourceType = 3 [json_name = "source_type"];
-    string DeviceName = 4 [json_name = "device_name"];
-    .NAlice.TSourceInputCapability.TSourceInput.EDeviceType DeviceType = 5 [json_name = "device_type"];
-    string SourceInputId = 6 [json_name = "source_input_id"];
-    string InputName = 7 [json_name = "input_name"];
-    bool IsActive = 8 [json_name = "is_active"];
-    bool IsGamerCopilotModeEnabledByUserSettings = 10 [json_name = "is_gamer_copilot_mode_enabled_by_user_settings"];
-    optional bool IsVideoAvailable = 9 [json_name = "is_video_available"];
+    bool IsConnected = 2 [json_name = "is_connected", (.NYT.column_name) = "is_connected"];
+    .NAlice.TSourceInputCapability.TSourceInput.ESourceType SourceType = 3 [json_name = "source_type", (.NYT.column_name) = "source_type"];
+    string DeviceName = 4 [json_name = "device_name", (.NYT.column_name) = "device_name"];
+    .NAlice.TSourceInputCapability.TSourceInput.EDeviceType DeviceType = 5 [json_name = "device_type", (.NYT.column_name) = "device_type"];
+    string SourceInputId = 6 [json_name = "source_input_id", (.NYT.column_name) = "source_input_id"];
+    string InputName = 7 [json_name = "input_name", (.NYT.column_name) = "input_name"];
+    bool IsActive = 8 [json_name = "is_active", (.NYT.column_name) = "is_active"];
+    bool IsGamerCopilotModeEnabledByUserSettings = 10 [json_name = "is_gamer_copilot_mode_enabled_by_user_settings", (.NYT.column_name) = "is_gamer_copilot_mode_enabled_by_user_settings"];
+    optional bool IsVideoAvailable = 9 [json_name = "is_video_available", (.NYT.column_name) = "is_video_available"];
   }
 
   message TState {
-    repeated .NAlice.TSourceInputCapability.TSourceInput SourceInputs = 1 [json_name = "source_inputs"];
+    repeated .NAlice.TSourceInputCapability.TSourceInput SourceInputs = 1 [json_name = "source_inputs", (.NYT.column_name) = "source_inputs"];
   }
 
   message TOpenSourceInputDirective {
-    .NAlice.TSourceInputCapability.TSourceInput SourceInput = 1 [json_name = "input"];
-    string Name = 2 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_source_input";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSourceInputDirectiveType;
+    .NAlice.TSourceInputCapability.TSourceInput SourceInput = 1 [json_name = "input", (.NYT.column_name) = "input"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TOpenSourceInputsListDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "open_source_list";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSourceInputsListDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TSourceInputCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TSourceInputCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSourceInputCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSourceInputCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

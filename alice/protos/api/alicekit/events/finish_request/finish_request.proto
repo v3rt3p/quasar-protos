@@ -11,33 +11,41 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/api/alicekit/events/alice_request/alice_request.proto";
 
 message TFinishRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TFinishOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSendPolicy {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TWaitFinalization {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       message TSkipFinalization {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof Policy {
-        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TWaitFinalization WaitFinalization = 1 [json_name = "wait_finalization"];
-        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TSkipFinalization SkipFinalization = 2 [json_name = "skip_finalization"];
+        option (.NYT.variant_field_name) = "policy";
+        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TWaitFinalization WaitFinalization = 1 [json_name = "wait_finalization", (.NYT.column_name) = "wait_finalization"];
+        .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy.TSkipFinalization SkipFinalization = 2 [json_name = "skip_finalization", (.NYT.column_name) = "skip_finalization"];
       }
     }
 
     message TUpdatePayloadOptions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TUpdateText {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
-      .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions.TUpdateText UpdateText = 1 [json_name = "update_text"];
+      .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions.TUpdateText UpdateText = 1 [json_name = "update_text", (.NYT.column_name) = "update_text"];
     }
 
-    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy SendPolicy = 1 [json_name = "send_policy"];
-    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions UpdatePayloadOptions = 2 [json_name = "update_payload_options"];
+    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TSendPolicy SendPolicy = 1 [json_name = "send_policy", (.NYT.column_name) = "send_policy"];
+    .NAlice.NAliceApi.TFinishRequest.TFinishOptions.TUpdatePayloadOptions UpdatePayloadOptions = 2 [json_name = "update_payload_options", (.NYT.column_name) = "update_payload_options"];
   }
 
-  string RequestMessageId = 1 [json_name = "requestMessageId"];
-  .NAlice.TAliceRequestProto AliceRequest = 2 [json_name = "alice_request"];
-  .NAlice.NAliceApi.TFinishRequest.TFinishOptions FinishOptions = 3 [json_name = "finish_options"];
+  string RequestMessageId = 1 [json_name = "requestMessageId", (.NYT.column_name) = "requestMessageId"];
+  .NAlice.TAliceRequestProto AliceRequest = 2 [json_name = "alice_request", (.NYT.column_name) = "alice_request"];
+  .NAlice.NAliceApi.TFinishRequest.TFinishOptions FinishOptions = 3 [json_name = "finish_options", (.NYT.column_name) = "finish_options"];
 }
 

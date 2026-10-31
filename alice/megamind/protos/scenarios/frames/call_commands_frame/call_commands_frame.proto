@@ -13,8 +13,10 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGetCallerNameSemanticFrame {
-  .NAlice.TStringSlot CallerDeviceID = 1 [json_name = "caller_device_id"];
-  .NAlice.TStringSlot CallerPayload = 2 [json_name = "caller_payload"];
-  .NAlice.TStringSlot ChatId = 3 [json_name = "chat_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.messenger_call.get_caller_name";
+  .NAlice.TStringSlot CallerDeviceID = 1 [json_name = "caller_device_id", (.NYT.column_name) = "caller_device_id", (.NAlice.SlotName) = "caller_device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  .NAlice.TStringSlot CallerPayload = 2 [json_name = "caller_payload", (.NYT.column_name) = "caller_payload", (.NAlice.SlotName) = "caller_payload"];
+  .NAlice.TStringSlot ChatId = 3 [json_name = "chat_id", (.NYT.column_name) = "chat_id", (.NAlice.SlotName) = "chat_id"];
 }
 

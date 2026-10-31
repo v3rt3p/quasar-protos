@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ContextSwitchCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/context_switch;context_switchpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TContextSwitchCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ContextSwitchCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SwitcherContextWasAttached = 2 [json_name = "switcher_context_was_attached", (.NYT.column_name) = "switcher_context_was_attached"];
+    bool HasOtherContextOnSwitcherAttach = 3 [json_name = "has_other_context_on_switcher_attach", (.NYT.column_name) = "has_other_context_on_switcher_attach"];
+    bool ShowContentSession = 4 [json_name = "show_content_session", (.NYT.column_name) = "show_content_session"];
+    optional .NAlice.TContextSwitchCapability.TTabInfo PendingContext = 1 [json_name = "pending_context", (.NYT.column_name) = "pending_context"];
+  }
+
+  message TTabInfo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string PageUrl = 1 [json_name = "page_url", (.NYT.column_name) = "page_url"];
+    string PageTitle = 2 [json_name = "page_title", (.NYT.column_name) = "page_title"];
+    .NAlice.TContextSwitchCapability.EPendingScenario PendingScenario = 4 [json_name = "pending_scenario", (.NYT.column_name) = "pending_scenario"];
+    optional string PageFaviconDataUrl = 3 [json_name = "page_favicon_data_url", (.NYT.column_name) = "page_favicon_data_url"];
+  }
+
+  message TResolvePendingDirective {
+    option (.NAlice.SpeechKitName) = "resolve_pending";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ResolvePendingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Accepted = 2 [json_name = "accepted", (.NYT.column_name) = "accepted"];
+    bool OpenNewTab = 3 [json_name = "open_new_tab", (.NYT.column_name) = "open_new_tab"];
+  }
+
+  message TClearContextDirective {
+    option (.NAlice.SpeechKitName) = "clear_context";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ClearContextDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TSetShouldApplyPendingContentInstantlyDirective {
+    option (.NAlice.SpeechKitName) = "set_should_apply_pending_content_instantly";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetShouldApplyPendingContentInstantlyDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool ShouldApplyPendingContentInstantly = 2 [json_name = "should_apply_pending_content_instantly", (.NYT.column_name) = "should_apply_pending_content_instantly"];
+  }
+
+  enum EPendingScenario {
+    PendingScenarioUndefined = 0;
+    PendingScenarioFindCheaper = 1;
+    PendingScenarioSummarizeVideo = 2;
+    PendingScenarioSummarizeDocument = 3;
+    PendingScenarioSummarizePage = 4;
+    PendingScenarioPageQuestions = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TContextSwitchCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TContextSwitchCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

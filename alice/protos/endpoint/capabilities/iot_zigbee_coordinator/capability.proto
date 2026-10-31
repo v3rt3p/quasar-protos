@@ -12,47 +12,63 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotZigbeeCoordinatorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotZigbeeCoordinatorCapabilityType;
   message TParameters {
-    .NAlice.TIotZigbeeCoordinatorCapability.ERadioInterface RadioInterface = 1 [json_name = "radio_interface"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotZigbeeCoordinatorCapability.ERadioInterface RadioInterface = 1 [json_name = "radio_interface", (.NYT.column_name) = "radio_interface"];
   }
 
   message TChannelInterferenceLevel {
-    .NAlice.TIotZigbeeCoordinatorCapability.EChannelInterferenceLevel Level = 1 [json_name = "level"];
-    int32 CcaRssi = 2 [json_name = "cca_rssi"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotZigbeeCoordinatorCapability.EChannelInterferenceLevel Level = 1 [json_name = "level", (.NYT.column_name) = "level"];
+    int32 CcaRssi = 2 [json_name = "cca_rssi", (.NYT.column_name) = "cca_rssi"];
   }
 
   message TState {
-    uint32 Channel = 1 [json_name = "channel"];
-    .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 2 [json_name = "interference"];
-    bool ChannelMigrationInProgress = 3 [json_name = "channel_migration_in_progress"];
-    int32 CcaRssi = 4 [json_name = "cca_rssi"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
+    .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 2 [json_name = "interference", deprecated = true, (.NYT.column_name) = "interference"];
+    bool ChannelMigrationInProgress = 3 [json_name = "channel_migration_in_progress", (.NYT.column_name) = "channel_migration_in_progress"];
+    int32 CcaRssi = 4 [json_name = "cca_rssi", (.NYT.column_name) = "cca_rssi"];
   }
 
   message TSetChannelDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 Channel = 1 [json_name = "channel"];
+    option (.NAlice.SpeechKitName) = "set_channel_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetChannelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
   }
 
   message TStartEnergyScanDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 TimeScanPerChannelMs = 1 [json_name = "time_scan_per_channel_ms"];
-    uint32 ChannelMask = 2 [json_name = "channel_mask"];
+    option (.NAlice.SpeechKitName) = "start_energy_scan";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartEnergyScanDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 TimeScanPerChannelMs = 1 [json_name = "time_scan_per_channel_ms", (.NYT.column_name) = "time_scan_per_channel_ms"];
+    uint32 ChannelMask = 2 [json_name = "channel_mask", (.NYT.column_name) = "channel_mask"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZigbeeCoordinatorCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotZigbeeCoordinatorUpdateStateEventType;
+    .NAlice.TIotZigbeeCoordinatorCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TEnergyScanResultEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = EnergyScanResultEventType;
     message TChannelScanResult {
-      uint32 Channel = 1 [json_name = "channel"];
-      int32 Rssi = 2 [json_name = "rssi"];
-      .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 3 [json_name = "interference"];
-      int32 CcaRssi = 4 [json_name = "cca_rssi"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
+      int32 Rssi = 2 [json_name = "rssi", deprecated = true, (.NYT.column_name) = "rssi"];
+      .NAlice.TIotZigbeeCoordinatorCapability.TChannelInterferenceLevel Interference = 3 [json_name = "interference", deprecated = true, (.NYT.column_name) = "interference"];
+      int32 CcaRssi = 4 [json_name = "cca_rssi", (.NYT.column_name) = "cca_rssi"];
     }
 
-    repeated int32 Rssis = 1 [json_name = "rssis"];
-    repeated .NAlice.TIotZigbeeCoordinatorCapability.TEnergyScanResultEvent.TChannelScanResult ChannelScanResults = 2 [json_name = "channel_scan_results"];
+    repeated int32 Rssis = 1 [json_name = "rssis", deprecated = true, (.NYT.column_name) = "rssis"];
+    repeated .NAlice.TIotZigbeeCoordinatorCapability.TEnergyScanResultEvent.TChannelScanResult ChannelScanResults = 2 [json_name = "channel_scan_results", (.NYT.column_name) = "channel_scan_results"];
   }
 
   enum ERadioInterface {
@@ -70,8 +86,8 @@ message TIotZigbeeCoordinatorCapability {
     ChannelInterferenceLevelCongested = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotZigbeeCoordinatorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotZigbeeCoordinatorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotZigbeeCoordinatorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotZigbeeCoordinatorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

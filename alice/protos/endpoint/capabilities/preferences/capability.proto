@@ -13,36 +13,48 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPreferencesCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PreferencesCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TPreferenceItem {
-    .google.protobuf.Value Value = 1 [json_name = "value"];
-    bool IsLocked = 2 [json_name = "isLocked"];
-    bool IsDefault = 3 [json_name = "isDefault"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .google.protobuf.Value Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    bool IsLocked = 2 [json_name = "isLocked", (.NYT.column_name) = "is_locked"];
+    bool IsDefault = 3 [json_name = "isDefault", (.NYT.column_name) = "is_default"];
   }
 
   message TState {
-    map<string, .NAlice.TPreferencesCapability.TPreferenceItem> Items = 1 [json_name = "items"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    map<string, .NAlice.TPreferencesCapability.TPreferenceItem> Items = 1 [json_name = "items", (.NYT.column_name) = "items"];
   }
 
   message TSetPreferenceDirective {
-    string Key = 1 [json_name = "key"];
-    .google.protobuf.Value Value = 2 [json_name = "value"];
-    optional string RequestId = 3 [json_name = "request_id"];
+    option (.NAlice.SpeechKitName) = "set_preference";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetPreferenceDirectiveType;
+    string Key = 1 [json_name = "key", (.NYT.column_name) = "key"];
+    .google.protobuf.Value Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+    optional string RequestId = 3 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TPreferenceChangedEvent {
-    string Key = 1 [json_name = "key"];
-    .NAlice.TPreferencesCapability.TPreferenceItem Item = 2 [json_name = "item"];
-    optional string RequestId = 3 [json_name = "request_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PreferenceChangedEventType;
+    string Key = 1 [json_name = "key", (.NYT.column_name) = "key"];
+    .NAlice.TPreferencesCapability.TPreferenceItem Item = 2 [json_name = "item", (.NYT.column_name) = "item"];
+    optional string RequestId = 3 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TPreferenceWriteErrorEvent {
-    string Key = 1 [json_name = "key"];
-    .NAlice.TPreferencesCapability.EWriteErrorCode Code = 2 [json_name = "code"];
-    string Message = 3 [json_name = "message"];
-    optional string RequestId = 4 [json_name = "request_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PreferenceWriteErrorEventType;
+    string Key = 1 [json_name = "key", (.NYT.column_name) = "key"];
+    .NAlice.TPreferencesCapability.EWriteErrorCode Code = 2 [json_name = "code", (.NYT.column_name) = "code"];
+    string Message = 3 [json_name = "message", (.NYT.column_name) = "message"];
+    optional string RequestId = 4 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   enum EWriteErrorCode {
@@ -55,8 +67,8 @@ message TPreferencesCapability {
     WE_PAYLOAD_TOO_LARGE = 6;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TPreferencesCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TPreferencesCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPreferencesCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPreferencesCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

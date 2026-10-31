@@ -13,10 +13,11 @@ import "google/protobuf/any.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCapabilityUpdateState {
-  string RequestMessageId = 1 [json_name = "requestMessageId"];
-  string EndpointId = 2 [json_name = "endpoint_id"];
-  .google.protobuf.Any Capability = 3 [json_name = "capability"];
-  .NAlice.TAnyCapabilityHolder AnyCapability = 5 [json_name = "any_capability"];
-  .NAlice.TCapability.ECapabilityType CapabilityType = 4 [json_name = "capability_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string RequestMessageId = 1 [json_name = "requestMessageId", (.NYT.column_name) = "requestMessageId"];
+  string EndpointId = 2 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  .google.protobuf.Any Capability = 3 [json_name = "capability", (.NYT.column_name) = "capability"];
+  .NAlice.TAnyCapabilityHolder AnyCapability = 5 [json_name = "any_capability", (.NYT.column_name) = "any_capability"];
+  .NAlice.TCapability.ECapabilityType CapabilityType = 4 [json_name = "capability_type", (.NYT.column_name) = "capability_type"];
 }
 

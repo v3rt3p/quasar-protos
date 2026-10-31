@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AndroidSettingsCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/android_settings;androidsettingspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAndroidSettingsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AndroidSettingsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool ExtendedSettingsDuringPlayback = 1 [json_name = "extended_settings_during_playback", (.NYT.column_name) = "extended_settings_during_playback"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "AvailableCategories";
+    reserved "PlaybackActive";
+    reserved 1;
+    reserved 2;
+    repeated .NAlice.TAndroidSettingsCapability.ECategory EnabledCategories = 3 [json_name = "enabled_categories", (.NYT.column_name) = "enabled_categories"];
+  }
+
+  message TOpenAndroidSettingsDirective {
+    option (.NAlice.SpeechKitName) = "open_android_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenAndroidSettingsDirectiveType;
+    .NAlice.TAndroidSettingsCapability.ECategory Category = 1 [json_name = "category", (.NYT.column_name) = "category"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  enum ECategory {
+    UNKNOWN = 0;
+    MAIN = 1;
+    WIFI = 2;
+    DISPLAY = 3;
+    FAST_WAKEUP = 4;
+    ACCOUNT = 5;
+    MANAGEMENT = 6;
+    BLUETOOTH = 7;
+    SOUND = 8;
+    SUPPORT = 9;
+    PARENT_CONTROL = 10;
+    APPLICATION = 11;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAndroidSettingsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAndroidSettingsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

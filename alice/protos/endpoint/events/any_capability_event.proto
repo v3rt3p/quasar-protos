@@ -10,7 +10,8 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnyCapabilityEventHolder {
-  bytes RawEvent = 1 [json_name = "raw_event"];
-  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bytes RawEvent = 1 [json_name = "raw_event", (.NYT.column_name) = "raw_event"];
+  .NAlice.TCapability.EEventType EventType = 2 [json_name = "event_type", (.NYT.column_name) = "event_type"];
 }
 

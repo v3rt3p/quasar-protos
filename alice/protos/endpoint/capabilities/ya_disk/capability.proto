@@ -13,33 +13,40 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TYaDiskCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = YaDiskCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TYaDiskAlbumItemsDataDirective {
+    option (.NAlice.SpeechKitName) = "ya_disk_album_items_data_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = YaDiskAlbumItemsDataDirectiveType;
     message TItem {
-      string ItemId = 1 [json_name = "item_id"];
-      string Url = 2 [json_name = "url"];
-      string MediaType = 3 [json_name = "media_type"];
-      .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TImageMetadata ImageMetadata = 4 [json_name = "image_metadata"];
+      string ItemId = 1 [json_name = "item_id", (.NYT.column_name) = "item_id"];
+      string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+      string MediaType = 3 [json_name = "media_type", (.NYT.column_name) = "media_type"];
+      .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TImageMetadata ImageMetadata = 4 [json_name = "image_metadata", (.NYT.column_name) = "image_metadata"];
     }
 
     message TImageMetadata {
-      int32 Width = 1 [json_name = "width"];
-      int32 Height = 2 [json_name = "height"];
+      int32 Width = 1 [json_name = "width", (.NYT.column_name) = "width"];
+      int32 Height = 2 [json_name = "height", (.NYT.column_name) = "height"];
     }
 
-    string Name = 1 [json_name = "name"];
-    int32 Limit = 2 [json_name = "limit"];
-    string LastItemId = 3 [json_name = "last_item_id"];
-    repeated .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TItem Items = 4 [json_name = "items"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Limit = 2 [json_name = "limit", (.NYT.column_name) = "limit"];
+    string LastItemId = 3 [json_name = "last_item_id", (.NYT.column_name) = "last_item_id"];
+    repeated .NAlice.TYaDiskCapability.TYaDiskAlbumItemsDataDirective.TItem Items = 4 [json_name = "items", (.NYT.column_name) = "items"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TYaDiskCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TYaDiskCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TYaDiskCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TYaDiskCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

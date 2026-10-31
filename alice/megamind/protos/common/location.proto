@@ -10,17 +10,19 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TLocation {
-  optional double Lat = 1 [json_name = "lat"];
-  optional double Lon = 2 [json_name = "lon"];
-  optional double Accuracy = 3 [json_name = "accuracy"];
-  optional double Recency = 4 [json_name = "recency"];
-  optional double Speed = 5 [json_name = "speed"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional double Lat = 1 [json_name = "lat", (.NYT.column_name) = "lat", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional double Lon = 2 [json_name = "lon", (.NYT.column_name) = "lon", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional double Accuracy = 3 [json_name = "accuracy", (.NYT.column_name) = "accuracy"];
+  optional double Recency = 4 [json_name = "recency", (.NYT.column_name) = "recency"];
+  optional double Speed = 5 [json_name = "speed", (.NYT.column_name) = "speed"];
 }
 
 message TFavouriteLocation {
-  optional double Lat = 1 [json_name = "lat"];
-  optional double Lon = 2 [json_name = "lon"];
-  optional string Title = 3 [json_name = "title"];
-  optional string SubTitle = 4 [json_name = "subtitle"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional double Lat = 1 [json_name = "lat", (.NYT.column_name) = "lat", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional double Lon = 2 [json_name = "lon", (.NYT.column_name) = "lon", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string SubTitle = 4 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
 }
 

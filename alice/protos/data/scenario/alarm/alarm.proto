@@ -10,6 +10,7 @@ import "google/protobuf/struct.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDefaultSound {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ESoundType {
     DEFAULT = 0;
     EXPERIMENTAL = 1;
@@ -18,73 +19,85 @@ message TDefaultSound {
     ALARM_FROM_ALICE = 4;
   }
 
-  .NAlice.NData.TDefaultSound.ESoundType SoundType = 1 [json_name = "sound_type"];
+  .NAlice.NData.TDefaultSound.ESoundType SoundType = 1 [json_name = "sound_type", (.NYT.column_name) = "sound_type"];
 }
 
 message TAlarmSoundSettings {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TMediaSettings {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "MediaType";
     reserved 3;
     message TServerAction {
-      string Name = 1 [json_name = "name"];
-      .google.protobuf.Struct Payload = 2 [json_name = "payload"];
-      bool NotPrefetchable = 3 [json_name = "not_prefetchable"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      .google.protobuf.Struct Payload = 2 [json_name = "payload", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload"];
+      bool NotPrefetchable = 3 [json_name = "not_prefetchable", (.NYT.column_name) = "not_prefetchable"];
     }
 
-    .google.protobuf.Struct RawInfo = 1 [json_name = "raw_info"];
+    .google.protobuf.Struct RawInfo = 1 [json_name = "raw_info", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "raw_info"];
     oneof Media {
-      .NAlice.NData.TAlarmSoundSettings.TMediaSettings.TServerAction ServerAction = 2 [json_name = "server_action"];
-      .NAlice.NData.TDefaultSound DefaultSound = 4 [json_name = "default_sound"];
+      option (.NYT.oneof_flags) = SEPARATE_FIELDS;
+      .NAlice.NData.TAlarmSoundSettings.TMediaSettings.TServerAction ServerAction = 2 [json_name = "server_action", (.NYT.column_name) = "server_action"];
+      .NAlice.NData.TDefaultSound DefaultSound = 4 [json_name = "default_sound", (.NYT.column_name) = "default_sound"];
     }
   }
 
   message TSoundLevelInfo {
-    uint32 MinSoundLevel = 1 [json_name = "min_sound_level"];
-    uint32 MaxSoundLevel = 2 [json_name = "max_sound_level"];
-    uint32 VolumeStepMs = 3 [json_name = "volume_step_ms"];
-    float MinPercentSoundLevel = 4 [json_name = "min_percent_sound_level"];
-    float MaxPercentSoundLevel = 5 [json_name = "max_percent_sound_level"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MinSoundLevel = 1 [json_name = "min_sound_level", (.NYT.column_name) = "min_sound_level"];
+    uint32 MaxSoundLevel = 2 [json_name = "max_sound_level", (.NYT.column_name) = "max_sound_level"];
+    uint32 VolumeStepMs = 3 [json_name = "volume_step_ms", (.NYT.column_name) = "volume_step_ms"];
+    float MinPercentSoundLevel = 4 [json_name = "min_percent_sound_level", (.NYT.column_name) = "min_percent_sound_level"];
+    float MaxPercentSoundLevel = 5 [json_name = "max_percent_sound_level", (.NYT.column_name) = "max_percent_sound_level"];
   }
 
-  .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 1 [json_name = "sound_level_info"];
-  .NAlice.NData.TAlarmSoundSettings.TMediaSettings MediaSettings = 2 [json_name = "media_settings"];
+  .NAlice.NData.TAlarmSoundSettings.TSoundLevelInfo SoundLevelInfo = 1 [json_name = "sound_level_info", (.NYT.column_name) = "sound_level_info"];
+  .NAlice.NData.TAlarmSoundSettings.TMediaSettings MediaSettings = 2 [json_name = "media_settings", (.NYT.column_name) = "media_settings"];
 }
 
 message TAlarm {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Enabled";
   reserved 4;
   message TDate {
-    uint32 Year = 1 [json_name = "year"];
-    uint32 Month = 2 [json_name = "month"];
-    uint32 Day = 3 [json_name = "day"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Year = 1 [json_name = "year", (.NYT.column_name) = "year"];
+    uint32 Month = 2 [json_name = "month", (.NYT.column_name) = "month"];
+    uint32 Day = 3 [json_name = "day", (.NYT.column_name) = "day"];
   }
 
   message TTime {
-    uint32 Hours = 1 [json_name = "hours"];
-    uint32 Minutes = 2 [json_name = "minutes"];
-    uint32 Seconds = 3 [json_name = "seconds"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Hours = 1 [json_name = "hours", (.NYT.column_name) = "hours"];
+    uint32 Minutes = 2 [json_name = "minutes", (.NYT.column_name) = "minutes"];
+    uint32 Seconds = 3 [json_name = "seconds", (.NYT.column_name) = "seconds"];
   }
 
   message TActivationDay {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof ActivationDay {
-      .NAlice.NData.TAlarm.EWeekday Weekday = 1 [json_name = "weekday"];
-      .NAlice.NData.TAlarm.TDate Date = 2 [json_name = "date"];
+      option (.NYT.variant_field_name) = "activation_day";
+      .NAlice.NData.TAlarm.EWeekday Weekday = 1 [json_name = "weekday", (.NYT.column_name) = "weekday"];
+      .NAlice.NData.TAlarm.TDate Date = 2 [json_name = "date", (.NYT.column_name) = "date"];
     }
   }
 
   message TAlarmAction {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EExecutionMode {
       ALWAYS = 0;
       NON_MEDIA = 1;
     }
 
-    string SerializedAction = 1 [json_name = "serialized_action"];
-    .NAlice.NData.TAlarm.TAlarmAction.EExecutionMode ExecutionMode = 2 [json_name = "execution_mode"];
-    optional uint32 OffsetSeconds = 3 [json_name = "offset_seconds"];
+    string SerializedAction = 1 [json_name = "serialized_action", (.NYT.column_name) = "serialized_action"];
+    .NAlice.NData.TAlarm.TAlarmAction.EExecutionMode ExecutionMode = 2 [json_name = "execution_mode", (.NYT.column_name) = "execution_mode"];
+    optional uint32 OffsetSeconds = 3 [json_name = "offset_seconds", (.NYT.column_name) = "offset_seconds"];
   }
 
   message TSnoozeMetaInfo {
-    string SnoozedAlarmId = 1 [json_name = "snoozed_alarm_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string SnoozedAlarmId = 1 [json_name = "snoozed_alarm_id", (.NYT.column_name) = "snoozed_alarm_id"];
   }
 
   enum EWeekday {
@@ -98,18 +111,18 @@ message TAlarm {
     SUNDAY = 7;
   }
 
-  string AlarmId = 1 [json_name = "alarm_id"];
-  .NAlice.NData.TAlarm.TTime LocalTime = 2 [json_name = "local_time"];
-  .NAlice.NData.TTimezone Timezone = 7 [json_name = "timezone"];
-  bool CurrentlyPlaying = 3 [json_name = "currently_playing"];
-  repeated .NAlice.NData.TAlarm.TActivationDay ActivationDays = 5 [json_name = "activation_days"];
-  repeated .NAlice.NData.TAlarm.TAlarmAction AlarmActions = 6 [json_name = "alarm_actions"];
-  .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 8 [json_name = "alarm_sound_settings"];
-  bool Disabled = 9 [json_name = "disabled"];
-  string Title = 10 [json_name = "title"];
-  uint64 EditTimestamp = 11 [json_name = "edit_timestamp"];
-  .NAlice.NData.TAlarm.TSnoozeMetaInfo SnoozeMetaInfo = 13 [json_name = "snooze_meta_info"];
-  optional uint32 SnoozeTime = 12 [json_name = "snooze_time"];
-  optional uint32 ApproachingOffset = 14 [json_name = "approaching_offset"];
+  string AlarmId = 1 [json_name = "alarm_id", (.NYT.column_name) = "alarm_id"];
+  .NAlice.NData.TAlarm.TTime LocalTime = 2 [json_name = "local_time", (.NYT.column_name) = "local_time"];
+  .NAlice.NData.TTimezone Timezone = 7 [json_name = "timezone", (.NYT.column_name) = "timezone"];
+  bool CurrentlyPlaying = 3 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+  repeated .NAlice.NData.TAlarm.TActivationDay ActivationDays = 5 [json_name = "activation_days", (.NYT.column_name) = "activation_days"];
+  repeated .NAlice.NData.TAlarm.TAlarmAction AlarmActions = 6 [json_name = "alarm_actions", (.NYT.column_name) = "alarm_actions"];
+  .NAlice.NData.TAlarmSoundSettings AlarmSoundSettings = 8 [json_name = "alarm_sound_settings", (.NYT.column_name) = "alarm_sound_settings"];
+  bool Disabled = 9 [json_name = "disabled", (.NYT.column_name) = "disabled"];
+  string Title = 10 [json_name = "title", (.NYT.column_name) = "title"];
+  uint64 EditTimestamp = 11 [json_name = "edit_timestamp", (.NYT.column_name) = "edit_timestamp"];
+  .NAlice.NData.TAlarm.TSnoozeMetaInfo SnoozeMetaInfo = 13 [json_name = "snooze_meta_info", (.NYT.column_name) = "snooze_meta_info"];
+  optional uint32 SnoozeTime = 12 [json_name = "snooze_time", (.NYT.column_name) = "snooze_time"];
+  optional uint32 ApproachingOffset = 14 [json_name = "approaching_offset", (.NYT.column_name) = "approaching_offset"];
 }
 

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "DeviceNotificationsProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/device_notifications;device_notificationspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/device_notifications/notification.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDeviceNotificationsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DeviceNotificationsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool AnnounceCalls = 1 [json_name = "announce_calls", (.NYT.column_name) = "announce_calls"];
+    bool AnnounceNotifications = 2 [json_name = "announce_notifications", (.NYT.column_name) = "announce_notifications"];
+    bool ReadOutNotifications = 3 [json_name = "read_out_notifications", (.NYT.column_name) = "read_out_notifications"];
+  }
+
+  message TGetNotificationsDirective {
+    option (.NAlice.SpeechKitName) = "get_notifications_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = GetNotificationsDirectiveType;
+    message TFilterByUserInput {
+      enum EReadDirection {
+        Unknown = 0;
+        First = 1;
+        Last = 2;
+      }
+
+      repeated string AppIds = 1 [json_name = "app_ids", (.NYT.column_name) = "app_ids"];
+      optional uint32 Count = 2 [json_name = "count", (.NYT.column_name) = "count"];
+      optional .NAlice.TDeviceNotificationsCapability.TGetNotificationsDirective.TFilterByUserInput.EReadDirection Direction = 3;
+      optional .NAlice.TDeviceNotification.ENotificationCategory Category = 4 [json_name = "category", (.NYT.column_name) = "category"];
+    }
+
+    string Name = 1000;
+    oneof Filter {
+      option (.NYT.variant_field_name) = "filter";
+      .NAlice.TDeviceNotificationsCapability.TGetNotificationsDirective.TFilterByUserInput FilterByUserInput = 1 [json_name = "filter_by_user_input", (.NYT.column_name) = "filter_by_user_input"];
+    }
+  }
+
+  message TReadNotificationsDirective {
+    option (.NAlice.SpeechKitName) = "read_notifications_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ReadNotificationsDirectiveType;
+    string NotificationID = 1 [json_name = "notification_id", (.NYT.column_name) = "notification_id"];
+    string Name = 1000;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDeviceNotificationsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDeviceNotificationsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

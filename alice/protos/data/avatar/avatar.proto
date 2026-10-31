@@ -9,7 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/data/avatar";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAvatarMdsImage {
-  string BaseUrl = 1 [json_name = "base_url"];
-  repeated string Sizes = 2 [json_name = "sizes"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string BaseUrl = 1 [json_name = "base_url", (.NYT.column_name) = "base_url"];
+  repeated string Sizes = 2 [json_name = "sizes", (.NYT.column_name) = "sizes"];
 }
 

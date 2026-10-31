@@ -11,13 +11,15 @@ import "alice/protos/data/scenario/music/content_id.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMusicItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TArtistInfo {
-    string Id = 1 [json_name = "id"];
-    string Name = 2 [json_name = "name"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", deprecated = true, (.NYT.column_name) = "id"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TTrackInfo {
-    string Id = 1 [json_name = "id"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   enum EMusicCategory {
@@ -34,18 +36,18 @@ message TMusicItem {
     Wave = 4;
   }
 
-  string Id = 1 [json_name = "id"];
-  string Title = 2 [json_name = "title"];
-  .NAlice.TAvatarMdsImage Thumbnails = 3 [json_name = "thumbnails"];
-  .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id"];
-  repeated .NAlice.NTv.TMusicItem.TArtistInfo Artists = 6 [json_name = "artists"];
-  .NAlice.NTv.TMusicItem.EMusicCategory MusicCategory = 9 [json_name = "music_category"];
-  .NAlice.NTv.TMusicItem.TTrackInfo TrackInfo = 10 [json_name = "track_info"];
-  .NAlice.NTv.TMusicItem.EContentType ContentType = 11 [json_name = "content_type"];
-  repeated string Genres = 13 [json_name = "genres"];
-  optional string Subtitle = 5 [json_name = "subtitle"];
-  optional float Progress = 7 [json_name = "progress"];
-  optional uint64 LastInteractionTime = 8 [json_name = "last_interaction_time"];
-  optional uint64 LikesCount = 12 [json_name = "likes_count"];
+  string Id = 1 [json_name = "id", deprecated = true, (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.TAvatarMdsImage Thumbnails = 3 [json_name = "thumbnails", (.NYT.column_name) = "thumbnails"];
+  .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  repeated .NAlice.NTv.TMusicItem.TArtistInfo Artists = 6 [json_name = "artists", (.NYT.column_name) = "artists"];
+  .NAlice.NTv.TMusicItem.EMusicCategory MusicCategory = 9 [json_name = "music_category", (.NYT.column_name) = "music_category"];
+  .NAlice.NTv.TMusicItem.TTrackInfo TrackInfo = 10 [json_name = "track_info", (.NYT.column_name) = "track_info"];
+  .NAlice.NTv.TMusicItem.EContentType ContentType = 11 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+  repeated string Genres = 13 [json_name = "genres", (.NYT.column_name) = "genres"];
+  optional string Subtitle = 5 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+  optional float Progress = 7 [json_name = "progress", (.NYT.column_name) = "progress"];
+  optional uint64 LastInteractionTime = 8 [json_name = "last_interaction_time", (.NYT.column_name) = "last_interaction_time"];
+  optional uint64 LikesCount = 12 [json_name = "likes_count", (.NYT.column_name) = "likes_count"];
 }
 

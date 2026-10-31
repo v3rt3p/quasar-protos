@@ -10,11 +10,14 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/record_in
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecordInputRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TStartRequest {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TRecordInputRequest.TStartRequest StartRequest = 1 [json_name = "start_request"];
+    option (.NYT.variant_field_name) = "request";
+    .NAlice.NAliceApi.TRecordInputRequest.TStartRequest StartRequest = 1 [json_name = "start_request", (.NYT.column_name) = "start_request"];
   }
 }
 

@@ -13,23 +13,30 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTvPlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TvPlayerCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TPlayChannelDirective {
-    string Name = 1000 [json_name = "name"];
-    bool IsMultiplex = 3 [json_name = "is_multiplex"];
+    option (.NAlice.SpeechKitName) = "play_channel_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayChannelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsMultiplex = 3 [json_name = "is_multiplex", (.NYT.column_name) = "is_multiplex"];
     oneof Id {
-      string Uri = 1 [json_name = "uri"];
-      string ContentId = 2 [json_name = "content_id"];
+      string Uri = 1 [json_name = "uri", (.NYT.column_name) = "uri"];
+      string ContentId = 2 [json_name = "content_id", (.NYT.column_name) = "content_id"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTvPlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTvPlayerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTvPlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTvPlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

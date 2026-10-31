@@ -6,6 +6,42 @@ option go_package = "a.yandex-team.ru/yt/yt_proto/yt/formats";
 
 import "google/protobuf/descriptor.proto";
 
+extend .google.protobuf.FileOptions {
+  repeated .NYT.EWrapperOneofFlag.Enum file_default_oneof_flags = 56788;
+}
+extend .google.protobuf.FileOptions {
+  repeated .NYT.EWrapperFieldFlag.Enum file_default_field_flags = 56789;
+}
+extend .google.protobuf.FileOptions {
+  repeated .NYT.EWrapperMessageFlag.Enum file_default_message_flags = 56790;
+}
+extend .google.protobuf.FieldOptions {
+  repeated .NYT.EWrapperFieldFlag.Enum flags = 56788;
+}
+extend .google.protobuf.FieldOptions {
+  optional string column_name = 56789;
+}
+extend .google.protobuf.FieldOptions {
+  optional string key_column_name = 56790;
+}
+extend .google.protobuf.FieldOptions {
+  optional uint64 max_inline_hunk_size = 60130;
+}
+extend .google.protobuf.MessageOptions {
+  repeated .NYT.EWrapperOneofFlag.Enum default_oneof_flags = 56788;
+}
+extend .google.protobuf.MessageOptions {
+  repeated .NYT.EWrapperFieldFlag.Enum default_field_flags = 56789;
+}
+extend .google.protobuf.MessageOptions {
+  repeated .NYT.EWrapperMessageFlag.Enum message_flags = 56790;
+}
+extend .google.protobuf.OneofOptions {
+  repeated .NYT.EWrapperOneofFlag.Enum oneof_flags = 56788;
+}
+extend .google.protobuf.OneofOptions {
+  optional string variant_field_name = 56789;
+}
 message EWrapperFieldFlag {
   enum Enum {
     ANY = 0;

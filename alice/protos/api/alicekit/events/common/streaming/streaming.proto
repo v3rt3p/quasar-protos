@@ -10,12 +10,14 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/common/st
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TStreaming {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TRouting {
-    string DialogId = 1 [json_name = "dialog_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string DialogId = 1 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
   }
 
-  .NAlice.NAliceApi.TStreaming.TRouting Routing = 1 [json_name = "routing"];
-  .NAlice.NAliceApi.EStreamingSource Source = 2 [json_name = "source"];
+  .NAlice.NAliceApi.TStreaming.TRouting Routing = 1 [json_name = "routing", (.NYT.column_name) = "routing"];
+  .NAlice.NAliceApi.EStreamingSource Source = 2 [json_name = "source", (.NYT.column_name) = "source"];
 }
 
 enum EStreamingSource {

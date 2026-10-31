@@ -2,6 +2,13 @@ syntax = "proto3";
 
 package NAlice.NData.NTron.NNotes;
 
+option java_package = "ru.yandex.alice.protos.data.tron";
+option go_package = "a.yandex-team.ru/alice/protos/data/tron";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
 message TTronTechnicalInfo {
-  // stub
+  string OriginalUuid = 1 [json_name = "original_uuid", (.NYT.column_name) = "original_uuid"];
+  string OriginalDeviceId = 2 [json_name = "original_device_id", (.NYT.column_name) = "original_device_id"];
 }
+

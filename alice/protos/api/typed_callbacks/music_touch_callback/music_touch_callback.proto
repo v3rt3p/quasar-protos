@@ -15,26 +15,28 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMusicTouchTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "MusicTouchTypedCallback";
   reserved "CallbackFrame";
   reserved 1;
   message TLikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 
   message TRemoveLikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 
   message TDislikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 
   message TRemoveDislikeCommand {
-    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
   }
 
   message TRepeatCommand {
-    .NAlice.NData.ERepeatMode RepeatMode = 1 [json_name = "repeat_mode"];
+    .NAlice.NData.ERepeatMode RepeatMode = 1 [json_name = "repeat_mode", (.NYT.column_name) = "repeat_mode"];
   }
 
   message TShuffleCommand {
@@ -44,15 +46,15 @@ message TMusicTouchTypedCallback {
   }
 
   message TNextTrackCommand {
-    bool SetPause = 1 [json_name = "set_pause"];
+    bool SetPause = 1 [json_name = "set_pause", (.NYT.column_name) = "set_pause"];
   }
 
   message TPrevTrackCommand {
-    bool SetPause = 1 [json_name = "set_pause"];
+    bool SetPause = 1 [json_name = "set_pause", (.NYT.column_name) = "set_pause"];
   }
 
   message TContinueCommand {
-    bool SkipPlayerStateCheck = 1 [json_name = "skip_player_state_check"];
+    bool SkipPlayerStateCheck = 1 [json_name = "skip_player_state_check", (.NYT.column_name) = "skip_player_state_check"];
   }
 
   message TGetLyricsCommand {
@@ -65,8 +67,8 @@ message TMusicTouchTypedCallback {
   }
 
   message TFmRadioPlayCommand {
-    string FmRadioStation = 1 [json_name = "fm_radio_station"];
-    string FmRadioFreq = 2 [json_name = "fm_radio_freq"];
+    string FmRadioStation = 1 [json_name = "fm_radio_station", (.NYT.column_name) = "fm_radio_station"];
+    string FmRadioFreq = 2 [json_name = "fm_radio_freq", (.NYT.column_name) = "fm_radio_freq"];
   }
 
   message TMusicPlayCommand {
@@ -74,35 +76,35 @@ message TMusicTouchTypedCallback {
     reserved "ObjectId";
     reserved 1;
     reserved 2;
-    string StartFromTrackId = 3 [json_name = "start_from_track_id"];
-    .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id"];
-    bool UseIchwillRecommendations = 5 [json_name = "use_ichwill_recommendations"];
-    bool DisableAutoflow = 6 [json_name = "disable_autoflow"];
-    bool PlaySingleTrack = 7 [json_name = "play_single_track"];
-    .NAlice.NData.NMusic.TDurationRestrictions DurationRestrictions = 8 [json_name = "duration_restrictions"];
-    bool KeepInStack = 9 [json_name = "keep_in_stack"];
-    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 10 [json_name = "karaoke_mode"];
-    bool DisableAutoflowSoft = 11 [json_name = "disable_autoflow_soft"];
-    bool IsStashUpdate = 12 [json_name = "is_stash_update"];
-    string Offset = 13 [json_name = "offset"];
-    uint32 TrackOffsetIndex = 14 [json_name = "track_offset_index"];
+    string StartFromTrackId = 3 [json_name = "start_from_track_id", (.NYT.column_name) = "start_from_track_id"];
+    .NAlice.NData.NMusic.TContentId ContentId = 4 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    bool UseIchwillRecommendations = 5 [json_name = "use_ichwill_recommendations", (.NYT.column_name) = "use_ichwill_recommendations"];
+    bool DisableAutoflow = 6 [json_name = "disable_autoflow", (.NYT.column_name) = "disable_autoflow"];
+    bool PlaySingleTrack = 7 [json_name = "play_single_track", (.NYT.column_name) = "play_single_track"];
+    .NAlice.NData.NMusic.TDurationRestrictions DurationRestrictions = 8 [json_name = "duration_restrictions", (.NYT.column_name) = "duration_restrictions"];
+    bool KeepInStack = 9 [json_name = "keep_in_stack", (.NYT.column_name) = "keep_in_stack"];
+    .NAlice.NData.NMusic.EKaraokeMode KaraokeMode = 10 [json_name = "karaoke_mode", (.NYT.column_name) = "karaoke_mode"];
+    bool DisableAutoflowSoft = 11 [json_name = "disable_autoflow_soft", (.NYT.column_name) = "disable_autoflow_soft"];
+    bool IsStashUpdate = 12 [json_name = "is_stash_update", (.NYT.column_name) = "is_stash_update"];
+    string Offset = 13 [json_name = "offset", (.NYT.column_name) = "offset"];
+    uint32 TrackOffsetIndex = 14 [json_name = "track_offset_index", (.NYT.column_name) = "track_offset_index"];
   }
 
   message TMoveToTrackIdCommand {
-    string StartFromTrackId = 1 [json_name = "start_from_track_id"];
-    optional string StartFromTrackUuid = 2 [json_name = "start_from_track_uuid"];
+    string StartFromTrackId = 1 [json_name = "start_from_track_id", (.NYT.column_name) = "start_from_track_id"];
+    optional string StartFromTrackUuid = 2 [json_name = "start_from_track_uuid", (.NYT.column_name) = "start_from_track_uuid"];
   }
 
   message TShowArtistCommand {
-    string Id = 1 [json_name = "id"];
-    bool DisableShowView = 2 [json_name = "disable_show_view"];
-    uint32 PopularTracksLimit = 3 [json_name = "popular_tracks_limit"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    bool DisableShowView = 2 [json_name = "disable_show_view", (.NYT.column_name) = "disable_show_view"];
+    uint32 PopularTracksLimit = 3 [json_name = "popular_tracks_limit", (.NYT.column_name) = "popular_tracks_limit"];
   }
 
   message TShowAlbumCommand {
-    string Id = 1 [json_name = "id"];
-    uint32 Offset = 2 [json_name = "offset"];
-    uint32 Limit = 3 [json_name = "limit"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+    uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
   }
 
   message TShowAllArtistContent {
@@ -113,67 +115,73 @@ message TMusicTouchTypedCallback {
       Playlists = 3;
     }
 
-    string ArtistId = 1 [json_name = "artist_id"];
-    .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent.EContentType ContentType = 2 [json_name = "content_type"];
-    uint32 Offset = 3 [json_name = "offset"];
-    uint32 Limit = 4 [json_name = "limit"];
+    string ArtistId = 1 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+    .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent.EContentType ContentType = 2 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+    uint32 Offset = 3 [json_name = "offset", (.NYT.column_name) = "offset"];
+    uint32 Limit = 4 [json_name = "limit", (.NYT.column_name) = "limit"];
   }
 
   message TShowPlaylistCommand {
-    string Id = 1 [json_name = "id"];
-    uint32 Offset = 2 [json_name = "offset"];
-    uint32 Limit = 3 [json_name = "limit"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    uint32 Offset = 2 [json_name = "offset", (.NYT.column_name) = "offset"];
+    uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
   }
 
   message TCommand {
     oneof Value {
-      .NAlice.TMusicTouchTypedCallback.TLikeCommand Like = 1 [json_name = "like"];
-      .NAlice.TMusicTouchTypedCallback.TRemoveLikeCommand RemoveLike = 2 [json_name = "remove_like"];
-      .NAlice.TMusicTouchTypedCallback.TDislikeCommand Dislike = 3 [json_name = "dislike"];
-      .NAlice.TMusicTouchTypedCallback.TRemoveDislikeCommand RemoveDislike = 4 [json_name = "remove_dislike"];
-      .NAlice.TMusicTouchTypedCallback.TRepeatCommand Repeat = 5 [json_name = "repeat"];
-      .NAlice.TMusicTouchTypedCallback.TShuffleCommand Shuffle = 6 [json_name = "shuffle"];
-      .NAlice.TMusicTouchTypedCallback.TUnshuffleCommand Unshuffle = 7 [json_name = "unshuffle"];
-      .NAlice.TMusicTouchTypedCallback.TNextTrackCommand NextTrack = 8 [json_name = "next_track"];
-      .NAlice.TMusicTouchTypedCallback.TPrevTrackCommand PrevTrack = 9 [json_name = "prev_track"];
-      .NAlice.TMusicTouchTypedCallback.TFmRadioPlayCommand FmRadioPlay = 10 [json_name = "fm_radio_play"];
-      .NAlice.TMusicTouchTypedCallback.TMusicPlayCommand MusicPlay = 11 [json_name = "music_play"];
-      .NAlice.TMusicTouchTypedCallback.TGetLyricsCommand GetLyrics = 12 [json_name = "get_lyrics"];
-      .NAlice.TMusicTouchTypedCallback.TMoveToTrackIdCommand MoveToTrackId = 13 [json_name = "change_track_number"];
-      .NAlice.TMusicTouchTypedCallback.TContinueCommand Continue = 14 [json_name = "continue"];
-      .NAlice.TMusicTouchTypedCallback.TShowAlbumCommand ShowAlbum = 15 [json_name = "show_album"];
-      .NAlice.TMusicTouchTypedCallback.TShowArtistCommand ShowArtist = 16 [json_name = "show_artist"];
-      .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent ShowAllArtistContent = 17 [json_name = "show_all_artist_content"];
-      .NAlice.TMusicTouchTypedCallback.TShowPlaylistCommand ShowPlaylist = 18 [json_name = "show_playlist"];
-      .NAlice.TMusicTouchTypedCallback.TEnableKaraokeModeCommand EnableKaraokeMode = 19 [json_name = "enable_karaoke_mode"];
-      .NAlice.TMusicTouchTypedCallback.TDisableKaraokeModeCommand DisableKaraokeMode = 20 [json_name = "disable_karaoke_mode"];
+      .NAlice.TMusicTouchTypedCallback.TLikeCommand Like = 1 [json_name = "like", (.NYT.column_name) = "like"];
+      .NAlice.TMusicTouchTypedCallback.TRemoveLikeCommand RemoveLike = 2 [json_name = "remove_like", (.NYT.column_name) = "remove_like"];
+      .NAlice.TMusicTouchTypedCallback.TDislikeCommand Dislike = 3 [json_name = "dislike", (.NYT.column_name) = "dislike"];
+      .NAlice.TMusicTouchTypedCallback.TRemoveDislikeCommand RemoveDislike = 4 [json_name = "remove_dislike", (.NYT.column_name) = "remove_dislike"];
+      .NAlice.TMusicTouchTypedCallback.TRepeatCommand Repeat = 5 [json_name = "repeat", (.NYT.column_name) = "repeat"];
+      .NAlice.TMusicTouchTypedCallback.TShuffleCommand Shuffle = 6 [json_name = "shuffle", (.NYT.column_name) = "shuffle"];
+      .NAlice.TMusicTouchTypedCallback.TUnshuffleCommand Unshuffle = 7 [json_name = "unshuffle", (.NYT.column_name) = "unshuffle"];
+      .NAlice.TMusicTouchTypedCallback.TNextTrackCommand NextTrack = 8 [json_name = "next_track", (.NYT.column_name) = "next_track"];
+      .NAlice.TMusicTouchTypedCallback.TPrevTrackCommand PrevTrack = 9 [json_name = "prev_track", (.NYT.column_name) = "prev_track"];
+      .NAlice.TMusicTouchTypedCallback.TFmRadioPlayCommand FmRadioPlay = 10 [json_name = "fm_radio_play", (.NYT.column_name) = "fm_radio_play"];
+      .NAlice.TMusicTouchTypedCallback.TMusicPlayCommand MusicPlay = 11 [json_name = "music_play", (.NYT.column_name) = "music_play"];
+      .NAlice.TMusicTouchTypedCallback.TGetLyricsCommand GetLyrics = 12 [json_name = "get_lyrics", (.NYT.column_name) = "get_lyrics"];
+      .NAlice.TMusicTouchTypedCallback.TMoveToTrackIdCommand MoveToTrackId = 13 [json_name = "change_track_number", (.NYT.column_name) = "change_track_number"];
+      .NAlice.TMusicTouchTypedCallback.TContinueCommand Continue = 14 [json_name = "continue", (.NYT.column_name) = "continue"];
+      .NAlice.TMusicTouchTypedCallback.TShowAlbumCommand ShowAlbum = 15 [json_name = "show_album", (.NYT.column_name) = "show_album"];
+      .NAlice.TMusicTouchTypedCallback.TShowArtistCommand ShowArtist = 16 [json_name = "show_artist", (.NYT.column_name) = "show_artist"];
+      .NAlice.TMusicTouchTypedCallback.TShowAllArtistContent ShowAllArtistContent = 17 [json_name = "show_all_artist_content", (.NYT.column_name) = "show_all_artist_content"];
+      .NAlice.TMusicTouchTypedCallback.TShowPlaylistCommand ShowPlaylist = 18 [json_name = "show_playlist", (.NYT.column_name) = "show_playlist"];
+      .NAlice.TMusicTouchTypedCallback.TEnableKaraokeModeCommand EnableKaraokeMode = 19 [json_name = "enable_karaoke_mode", (.NYT.column_name) = "enable_karaoke_mode"];
+      .NAlice.TMusicTouchTypedCallback.TDisableKaraokeModeCommand DisableKaraokeMode = 20 [json_name = "disable_karaoke_mode", (.NYT.column_name) = "disable_karaoke_mode"];
     }
   }
 
-  .NAlice.TMusicTouchTypedCallback.TCommand Command = 2 [json_name = "command"];
+  .NAlice.TMusicTouchTypedCallback.TCommand Command = 2 [json_name = "command", (.NYT.column_name) = "command"];
 }
 
 message TCollectMusicVerticalTypedCallback {
-  bool IsStashUpdate = 1 [json_name = "is_stash_update"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "CollectMusicVerticalTypedCallback";
+  bool IsStashUpdate = 1 [json_name = "is_stash_update", (.NYT.column_name) = "is_stash_update"];
 }
 
 message TCentaurMusicEnrichTracksTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "CentaurMusicEnrichTracksTypedCallback";
   message TDiv2Id {
-    string CardId = 1 [json_name = "card_id"];
-    string CardName = 2 [json_name = "card_name"];
+    string CardId = 1 [json_name = "card_id", (.NYT.column_name) = "card_id"];
+    string CardName = 2 [json_name = "card_name", (.NYT.column_name) = "card_name"];
   }
 
-  repeated string TracksIds = 1 [json_name = "tracks_ids"];
-  string CurrentTrackId = 2 [json_name = "current_track_id"];
-  uint32 Limit = 3 [json_name = "limit"];
-  .NAlice.NData.NMusic.TContentId ParentContentId = 4 [json_name = "parent_content_id"];
-  .NAlice.TCentaurMusicEnrichTracksTypedCallback.TDiv2Id Div2Id = 5 [json_name = "div2_id"];
+  repeated string TracksIds = 1 [json_name = "tracks_ids", (.NYT.column_name) = "tracks_ids"];
+  string CurrentTrackId = 2 [json_name = "current_track_id", (.NYT.column_name) = "current_track_id"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+  .NAlice.NData.NMusic.TContentId ParentContentId = 4 [json_name = "parent_content_id", (.NYT.column_name) = "parent_content_id"];
+  .NAlice.TCentaurMusicEnrichTracksTypedCallback.TDiv2Id Div2Id = 5 [json_name = "div2_id", (.NYT.column_name) = "div2_id"];
 }
 
 message TMusicSearchTypedCallback {
-  string Query = 1 [json_name = "query"];
-  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type"];
-  uint32 Offset = 3 [json_name = "offset"];
-  uint32 Limit = 4 [json_name = "limit"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "MusicSearchTypedCallback";
+  string Query = 1 [json_name = "query", (.NYT.column_name) = "query"];
+  .NAlice.NMusic.TMusicSearchRequest.EMusicSearchType Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+  uint32 Offset = 3 [json_name = "offset", (.NYT.column_name) = "offset"];
+  uint32 Limit = 4 [json_name = "limit", (.NYT.column_name) = "limit"];
 }
 

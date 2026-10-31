@@ -8,6 +8,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/date";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDayOfWeek {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EDayOfWeek {
     None = 0;
     Monday = 1;
@@ -19,6 +20,6 @@ message TDayOfWeek {
     Sunday = 7;
   }
 
-  .NAlice.NData.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week"];
+  .NAlice.NData.TDayOfWeek.EDayOfWeek DayOfWeek = 1 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
 }
 

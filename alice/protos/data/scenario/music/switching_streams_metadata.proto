@@ -9,9 +9,10 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/data/music_provider/provider_meta.proto";
 
 message TSwitchingStreamsMetadata {
-  bool CrossfadeAllowed = 1 [json_name = "crossfade_allowed"];
-  .Alice.Music.Fade Fade = 2 [json_name = "fade"];
-  .Alice.Music.Fade NextFade = 3 [json_name = "next_fade"];
-  optional bool CrossfadeForced = 4 [json_name = "crossfade_forced"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool CrossfadeAllowed = 1 [json_name = "crossfade_allowed", (.NYT.column_name) = "crossfade_allowed"];
+  .Alice.Music.Fade Fade = 2 [json_name = "fade", (.NYT.column_name) = "fade"];
+  .Alice.Music.Fade NextFade = 3 [json_name = "next_fade", (.NYT.column_name) = "next_fade"];
+  optional bool CrossfadeForced = 4 [json_name = "crossfade_forced", (.NYT.column_name) = "crossfade_forced"];
 }
 

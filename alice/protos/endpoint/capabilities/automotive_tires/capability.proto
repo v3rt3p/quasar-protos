@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveTiresCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_tires;automotive_tirespb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveTiresCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveTiresCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TVehicleArea {
+    oneof VehicleArea {
+      option (.NYT.variant_field_name) = "vehicle_area";
+      .NAlice.TAutomotiveTiresCapability.EVehicleAreaWheel Wheel = 1 [json_name = "wheel", (.NYT.column_name) = "wheel"];
+    }
+  }
+
+  message TVehiclePropertyValue {
+    message TFloatValue {
+      float Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveTiresCapability.TVehiclePropertyValue.TFloatValue FloatValue = 1 [json_name = "float_value", (.NYT.column_name) = "float_value"];
+      .NAlice.TAutomotiveTiresCapability.TVehiclePropertyValue.TBoolValue BoolValue = 2 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveTiresCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TStateByArea {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveTiresCapability.TVehicleArea Area = 1 [json_name = "area", (.NYT.column_name) = "area"];
+      .NAlice.TAutomotiveTiresCapability.TVehiclePropertyValue Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    .NAlice.TAutomotiveTiresCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    repeated .NAlice.TAutomotiveTiresCapability.TVehiclePropertyState.TStateByArea StateByAreas = 2 [json_name = "state_by_areas", (.NYT.column_name) = "state_by_areas"];
+  }
+
+  message TShowTiresDirective {
+    option (.NAlice.SpeechKitName) = "show_tires_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowTiresDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    TIRE_PRESSURE = 1;
+    TIRE_TEMPERATURE = 2;
+    TIRE_IS_HEALTHY = 3;
+    TIRE_PRESSURE_IS_HEALTHY = 4;
+    TIRE_TEMPERATURE_IS_HEALTHY = 5;
+  }
+
+  enum EVehicleAreaWheel {
+    WHEEL_UNKNOWN = 0;
+    WHEEL_LEFT_FRONT = 1;
+    WHEEL_RIGHT_FRONT = 2;
+    WHEEL_LEFT_REAR = 3;
+    WHEEL_RIGHT_REAR = 4;
+    WHEEL_MIDDLE_LEFT = 5;
+    WHEEL_MIDDLE_RIGHT = 6;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveTiresCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveTiresCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

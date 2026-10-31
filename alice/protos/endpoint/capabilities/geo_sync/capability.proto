@@ -15,46 +15,59 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TGeoSyncCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = GeoSyncCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.NData.TLatLon Location = 1 [json_name = "location"];
-    .NAlice.NData.TLatLon LaasRealLocation = 5 [json_name = "laas_real_location"];
-    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
-    bool TimezoneIsLocked = 3 [json_name = "timezone_is_locked"];
-    .NAlice.TGeoSyncCapability.TNextTimezone NextTimezone = 4 [json_name = "next_timezone"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.TLatLon Location = 1 [json_name = "location", (.NYT.column_name) = "location"];
+    .NAlice.NData.TLatLon LaasRealLocation = 5 [json_name = "laas_real_location", (.NYT.column_name) = "laas_real_location"];
+    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone", (.NYT.column_name) = "timezone"];
+    bool TimezoneIsLocked = 3 [json_name = "timezone_is_locked", (.NYT.column_name) = "timezone_is_locked"];
+    .NAlice.TGeoSyncCapability.TNextTimezone NextTimezone = 4 [json_name = "next_timezone", (.NYT.column_name) = "next_timezone"];
   }
 
   message TSetLocationDirective {
-    .NAlice.NData.TLatLon Location = 1 [json_name = "location"];
-    .NAlice.NData.TLatLon LaasRealLocation = 3 [json_name = "laas_real_location"];
-    string Name = 2 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "set_location";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetLocationDirectiveType;
+    .NAlice.NData.TLatLon Location = 1 [json_name = "location", (.NYT.column_name) = "location"];
+    .NAlice.NData.TLatLon LaasRealLocation = 3 [json_name = "laas_real_location", (.NYT.column_name) = "laas_real_location"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TSetTimezoneDirective {
+    option (.NAlice.SpeechKitName) = "set_timezone";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetTimezoneDirectiveType;
     message TNextTimezone {
-      .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch"];
-      .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
+      .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch", (.NYT.column_name) = "epoch"];
+      .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone", (.NYT.column_name) = "timezone"];
     }
 
-    .NAlice.NData.TTimezone Timezone = 1 [json_name = "timezone"];
-    string Name = 2 [json_name = "name"];
-    .NAlice.TGeoSyncCapability.TSetTimezoneDirective.TNextTimezone NextTimezone = 4 [json_name = "next_timezone"];
+    .NAlice.NData.TTimezone Timezone = 1 [json_name = "timezone", (.NYT.column_name) = "timezone"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TGeoSyncCapability.TSetTimezoneDirective.TNextTimezone NextTimezone = 4 [json_name = "next_timezone", (.NYT.column_name) = "next_timezone"];
   }
 
   message TNextTimezone {
-    .google.protobuf.Timestamp SwitchTimestamp = 1 [json_name = "switch_timestamp"];
-    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone"];
+    .google.protobuf.Timestamp SwitchTimestamp = 1 [json_name = "switch_timestamp", (.NYT.column_name) = "switch_timestamp"];
+    .NAlice.NData.TTimezone Timezone = 2 [json_name = "timezone", (.NYT.column_name) = "timezone"];
   }
 
   message TSetGmtDirective {
-    .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch"];
-    string Name = 2 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "set_gmt";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetGmtDirectiveType;
+    .google.protobuf.Timestamp Epoch = 1 [json_name = "epoch", (.NYT.column_name) = "epoch"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TGeoSyncCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TGeoSyncCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TGeoSyncCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TGeoSyncCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

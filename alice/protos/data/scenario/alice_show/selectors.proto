@@ -16,7 +16,7 @@ message TDayPart {
     Ambiguous = 100;
   }
 
-  .NAlice.NData.NAliceShow.TDayPart.EValue Value = 1 [json_name = "value"];
+  .NAlice.NData.NAliceShow.TDayPart.EValue Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
 }
 
 message TAge {
@@ -27,6 +27,6 @@ message TAge {
     Ambiguous = 100;
   }
 
-  .NAlice.NData.NAliceShow.TAge.EValue Value = 1 [json_name = "value"];
+  .NAlice.NData.NAliceShow.TAge.EValue Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
 }
 

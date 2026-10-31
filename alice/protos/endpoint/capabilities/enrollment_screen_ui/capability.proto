@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "EnrollmentScreenUiCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/enrollment_screen_ui;enrollmentscreenuipb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "alice/protos/api/voice_control/voice_control.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TEnrollmentScreenUiCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = EnrollmentScreenUiCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool ShouldLaunchOnboarding = 1 [json_name = "should_launch_onboarding", (.NYT.column_name) = "should_launch_onboarding"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TIdle {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TShowEnrollmentPhrase {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      reserved "PersId";
+      reserved 8;
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+      string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+      string BackgroundVideoUrl = 4 [json_name = "background_video_url", (.NYT.column_name) = "background_video_url"];
+      string TransitionInVideoUrl = 5 [json_name = "transition_in_video_url", (.NYT.column_name) = "transition_in_video_url"];
+      uint32 TotalSteps = 6 [json_name = "total_steps", (.NYT.column_name) = "total_steps"];
+      uint32 CurrentStep = 7 [json_name = "current_step", (.NYT.column_name) = "current_step"];
+    }
+
+    oneof State {
+      option (.NYT.variant_field_name) = "state";
+      .NAlice.TEnrollmentScreenUiCapability.TState.TIdle Idle = 1 [json_name = "idle", (.NYT.column_name) = "idle"];
+      .NAlice.TEnrollmentScreenUiCapability.TState.TShowEnrollmentPhrase ShowEnrollmentPhrase = 2 [json_name = "show_enrollment_phrase", (.NYT.column_name) = "show_enrollment_phrase"];
+    }
+  }
+
+  message TStartEnrollmentOnboardingDirective {
+    option (.NAlice.SpeechKitName) = "start_enrollment_onboarding_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartEnrollmentOnboardingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Puid = 4 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    string BackgroundVideoUrl = 5 [json_name = "background_video_url", (.NYT.column_name) = "background_video_url"];
+    .NAlice.TTypedCallbackRequest OnSuccess = 2 [json_name = "on_success", (.NYT.column_name) = "on_success"];
+    .NAlice.TTypedCallbackRequest OnFail = 3 [json_name = "on_fail", (.NYT.column_name) = "on_fail"];
+    repeated .NAlice.TVoiceControl SuccessButtonVoiceControls = 6 [json_name = "success_button_voice_controls", (.NYT.column_name) = "success_button_voice_controls"];
+  }
+
+  message TShowEnrollmentUserAvatarDirective {
+    option (.NAlice.SpeechKitName) = "show_enrollment_user_avatar_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowEnrollmentUserAvatarDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+    string BackgroundVideoUrl = 4 [json_name = "background_video_url", (.NYT.column_name) = "background_video_url"];
+  }
+
+  message TShowEnrollmentPhraseDirective {
+    option (.NAlice.SpeechKitName) = "show_enrollment_phrase_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowEnrollmentPhraseDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+    string BackgroundVideoUrl = 3 [json_name = "background_video_url", (.NYT.column_name) = "background_video_url"];
+    string TransitionInVideoUrl = 4 [json_name = "transition_in_video_url", (.NYT.column_name) = "transition_in_video_url"];
+    uint32 TotalSteps = 5 [json_name = "total_steps", (.NYT.column_name) = "total_steps"];
+    uint32 CurrentStep = 6 [json_name = "current_step", (.NYT.column_name) = "current_step"];
+  }
+
+  message TFinishEnrollmentUiDirective {
+    option (.NAlice.SpeechKitName) = "finish_enrollment_ui_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = FinishEnrollmentUiDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string FinishVideoUrl = 2 [json_name = "finish_video_url", (.NYT.column_name) = "finish_video_url"];
+  }
+
+  message TShowVoiceprintRemoveSuccessDirective {
+    option (.NAlice.SpeechKitName) = "show_voiceprint_remove_success_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowVoiceprintRemoveSuccessDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TEnrollmentScreenUiCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TEnrollmentScreenUiCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

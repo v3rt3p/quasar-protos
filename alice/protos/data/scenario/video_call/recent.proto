@@ -10,10 +10,10 @@ import "alice/protos/data/video_call/video_call.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentCall {
-  .NAlice.NData.TProviderContactData Contact = 1 [json_name = "contact"];
-  .NAlice.NData.ECallType CallType = 2 [json_name = "call_type"];
-  .NAlice.NData.ERecentType RecentType = 3 [json_name = "recent_type"];
-  uint64 TimeContacted = 4 [json_name = "time_contacted"];
+  .NAlice.NData.TProviderContactData Contact = 1 [json_name = "contact", (.NYT.column_name) = "contact"];
+  .NAlice.NData.ECallType CallType = 2 [json_name = "call_type", (.NYT.column_name) = "call_type"];
+  .NAlice.NData.ERecentType RecentType = 3 [json_name = "recent_type", (.NYT.column_name) = "recent_type"];
+  uint64 TimeContacted = 4 [json_name = "time_contacted", (.NYT.column_name) = "time_contacted"];
 }
 
 enum ECallType {

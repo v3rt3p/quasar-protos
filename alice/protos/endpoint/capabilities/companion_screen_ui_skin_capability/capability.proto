@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CompanionScreenUISkinCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/companion_screen_ui_skin_capability;companionscreenuiskinpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCompanionScreenUISkinCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CompanionScreenUISkinCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TSkinTarget {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      message TSkin {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      }
+
+      .NAlice.TCompanionScreenUISkinCapability.ESkinTarget Target = 1 [json_name = "target", (.NYT.column_name) = "target"];
+      repeated .NAlice.TCompanionScreenUISkinCapability.TParameters.TSkinTarget.TSkin Skins = 2 [json_name = "skins", (.NYT.column_name) = "skins"];
+    }
+
+    repeated .NAlice.TCompanionScreenUISkinCapability.TParameters.TSkinTarget SupportedTargets = 1 [json_name = "supported_targets", (.NYT.column_name) = "supported_targets"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TCompanionScreenUISkinCapability.TSkinSpec SelectedSkins = 1 [json_name = "selected_skins", (.NYT.column_name) = "selected_skins"];
+    .NAlice.TCompanionScreenUISkinCapability.TVisualizationSettings Settings = 2 [json_name = "settings", (.NYT.column_name) = "settings"];
+  }
+
+  message TSkinSpec {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TCompanionScreenUISkinCapability.ESkinTarget Target = 1 [json_name = "target", (.NYT.column_name) = "target"];
+    string SkinID = 2 [json_name = "skin_id", (.NYT.column_name) = "skin_id"];
+  }
+
+  message TVisualizationSettings {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool ShowClock = 1 [json_name = "show_clock", (.NYT.column_name) = "show_clock"];
+    bool AutoSwitch = 2 [json_name = "auto_switch", (.NYT.column_name) = "auto_switch"];
+  }
+
+  message TSetCompanionScreenUISkinDirective {
+    option (.NAlice.SpeechKitName) = "set_companion_screen_ui_skin_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetCompanionScreenUISkinDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCompanionScreenUISkinCapability.TSkinSpec Skin = 1 [json_name = "skin", (.NYT.column_name) = "skin"];
+  }
+
+  message TSetVisualizationSettingsDirective {
+    option (.NAlice.SpeechKitName) = "set_visualization_settings_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetVisualizationSettingsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCompanionScreenUISkinCapability.TVisualizationSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CompanionScreenUISkinUpdateStateEventType;
+    .NAlice.TCompanionScreenUISkinCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  enum ESkinTarget {
+    Unknown = 0;
+    Clock = 1;
+    MusicPlayer = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCompanionScreenUISkinCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCompanionScreenUISkinCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

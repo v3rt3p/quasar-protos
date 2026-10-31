@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatStateCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_state;alicechatstatepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatStateCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatStateCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string DialogId = 1 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+  }
+
+  message TUpdateChatStateDirective {
+    option (.NAlice.SpeechKitName) = "update_chat_state";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = UpdateChatStateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string DialogId = 2 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatStateCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatStateCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

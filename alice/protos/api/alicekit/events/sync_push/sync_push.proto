@@ -12,15 +12,16 @@ import "alice/protos/api/matrix/common/analytics_meta_info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSyncPush {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ESyncPushClientType {
     sync = 0;
     sync_iot = 1;
   }
 
-  string PushId = 1 [json_name = "push_id"];
-  .NAlice.NAliceApi.TSyncRequest SyncRequest = 3 [json_name = "sync_request"];
-  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4 [json_name = "analytics_meta_info"];
-  optional string DeduplicationPushId = 2 [json_name = "deduplication_push_id"];
-  optional .NAlice.NAliceApi.TSyncPush.ESyncPushClientType SyncPushClientType = 5 [json_name = "sync_push_client_type"];
+  string PushId = 1 [json_name = "push_id", (.NYT.column_name) = "push_id"];
+  .NAlice.NAliceApi.TSyncRequest SyncRequest = 3 [json_name = "sync_request", (.NYT.column_name) = "sync_request"];
+  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4 [json_name = "analytics_meta_info", (.NYT.column_name) = "analytics_meta_info"];
+  optional string DeduplicationPushId = 2 [json_name = "deduplication_push_id", (.NYT.column_name) = "deduplication_push_id"];
+  optional .NAlice.NAliceApi.TSyncPush.ESyncPushClientType SyncPushClientType = 5 [json_name = "sync_push_client_type", (.NYT.column_name) = "sync_push_client_type"];
 }
 

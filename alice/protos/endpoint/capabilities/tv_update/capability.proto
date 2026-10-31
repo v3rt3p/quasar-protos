@@ -12,30 +12,46 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTvUpdateCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TvUpdateCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TInstallTvUpdateDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "install_tv_update_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = InstallTvUpdateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TDownloadTvUpdateDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "download_tv_update_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DownloadTvUpdateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message THideTvUpdateDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "hide_tv_update_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = HideTvUpdateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TRetryTvUpdateDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "retry_tv_update_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RetryTvUpdateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTvUpdateCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTvUpdateCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTvUpdateCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTvUpdateCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

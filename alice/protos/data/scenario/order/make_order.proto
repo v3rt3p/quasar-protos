@@ -2,10 +2,158 @@ syntax = "proto3";
 
 package NAlice.NOrder;
 
+option java_package = "ru.yandex.alice.protos.data.scenario.order";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/order";
+
+import "alice/protos/data/lat_lon.proto";
+import "alice/protos/data/price.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/timestamp.proto";
+
 message TItem {
-  // stub
+  message TImage {
+    enum EImageSize {
+      UnknownSize = 0;
+      SizeOriginal = 1;
+      Size128_128 = 2;
+      Size300_300 = 3;
+    }
+
+    .NAlice.NOrder.TItem.TImage.EImageSize Size = 1 [json_name = "size", (.NYT.column_name) = "size"];
+    string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+  }
+
+  message TSubcategory {
+    option deprecated = true;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  }
+
+  message TCategory {
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    optional string DeepLink = 3 [json_name = "deep_link", (.NYT.column_name) = "deep_link"];
+  }
+
+  message TCatalogPath {
+    repeated .NAlice.NOrder.TItem.TCategory Categories = 1 [json_name = "categories", (.NYT.column_name) = "categories"];
+  }
+
+  message TAmount {
+    .NAlice.NData.TDecimal Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    string Units = 2 [json_name = "units", (.NYT.column_name) = "units"];
+  }
+
+  enum ERestriction {
+    UnknownRestiction = 0;
+    AdultOnly = 1;
+    DoNotReduceTitle = 2;
+    DoNotShowTitle = 3;
+  }
+
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.NData.TDecimal Quantity = 3 [json_name = "quantity", (.NYT.column_name) = "quantity"];
+  .NAlice.NData.TPrice ActualPrice = 4 [json_name = "actual_price", (.NYT.column_name) = "actual_price"];
+  .NAlice.NData.TPrice FullPrice = 5 [json_name = "full_price", (.NYT.column_name) = "full_price"];
+  repeated string Categories = 6 [json_name = "categories", (.NYT.column_name) = "categories"];
+  repeated .NAlice.NOrder.EItemSource Sources = 7 [json_name = "sources", (.NYT.column_name) = "sources"];
+  repeated .NAlice.NOrder.TItem.TImage Images = 8 [json_name = "images", (.NYT.column_name) = "images"];
+  repeated .NAlice.NOrder.TItem.ERestriction Restrictions = 9 [json_name = "restrictions", (.NYT.column_name) = "restrictions"];
+  repeated .NAlice.NOrder.TItem.TSubcategory Subcategories = 10 [json_name = "subcategories", deprecated = true, (.NYT.column_name) = "subcategories"];
+  repeated .NAlice.NOrder.TItem.TCatalogPath CatalogPaths = 11 [json_name = "catalog_paths", (.NYT.column_name) = "catalog_paths"];
+  .NAlice.NOrder.TItem.TAmount Amount = 12 [json_name = "amount", (.NYT.column_name) = "amount"];
+  string InCartId = 13 [json_name = "in_cart_id", (.NYT.column_name) = "in_cart_id"];
+}
+
+message TSearchRequest {
+  string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  .NAlice.NData.TLatLon Geo = 2 [json_name = "geo", (.NYT.column_name) = "geo"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+  bool BoostFavourite = 4 [json_name = "boost_favourite", deprecated = true, (.NYT.column_name) = "boost_favourite"];
+  bool BoostRecent = 5 [json_name = "boost_recent", deprecated = true, (.NYT.column_name) = "boost_recent"];
+  string ProviderName = 6 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  repeated string DebugExpNames = 7 [json_name = "debug_exp_names", (.NYT.column_name) = "debug_exp_names"];
 }
 
 message TSearchResponse {
-  // stub
+  enum EStatus {
+    UnknownStatus = 0;
+    Ok = 1;
+    NotInRegion = 2;
+  }
+
+  repeated .NAlice.NOrder.TItem Items = 1 [json_name = "items", (.NYT.column_name) = "items"];
+  .NAlice.NOrder.TSearchResponse.EStatus Status = 2 [json_name = "status", (.NYT.column_name) = "status"];
 }
+
+message TUserListRequest {
+  .NAlice.NOrder.EItemSource ListType = 1 [json_name = "list_type", (.NYT.column_name) = "list_type"];
+  .NAlice.NData.TLatLon Geo = 2 [json_name = "geo", (.NYT.column_name) = "geo"];
+  uint32 Limit = 3 [json_name = "limit", (.NYT.column_name) = "limit"];
+  string ProviderName = 4 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+}
+
+message TUserListResponse {
+  repeated .NAlice.NOrder.TItem Items = 1 [json_name = "items", (.NYT.column_name) = "items"];
+}
+
+message TCart {
+  repeated .NAlice.NOrder.TItem Items = 1 [json_name = "items", (.NYT.column_name) = "items"];
+  .NAlice.NData.TLatLon Geo = 2 [json_name = "geo", (.NYT.column_name) = "geo"];
+  string CartId = 3 [json_name = "cart_id", (.NYT.column_name) = "cart_id"];
+}
+
+message TUpdateCartRequest {
+  message TItemRequest {
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.NData.TDecimal Quantity = 2 [json_name = "quantity", (.NYT.column_name) = "quantity"];
+    optional .NAlice.NData.TPrice Price = 3 [json_name = "price", (.NYT.column_name) = "price"];
+  }
+
+  repeated .NAlice.NOrder.TUpdateCartRequest.TItemRequest DiffItems = 2 [json_name = "diff_items", (.NYT.column_name) = "diff_items"];
+  string ProviderName = 3 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  optional .NAlice.NData.TLatLon Geo = 1 [json_name = "geo", (.NYT.column_name) = "geo"];
+}
+
+message TUpdateCartResponse {
+  .NAlice.NOrder.TCart Cart = 1 [json_name = "cart", (.NYT.column_name) = "cart"];
+}
+
+message TCurrentCartRequest {
+  string ProviderName = 2 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  optional .NAlice.NData.TLatLon Geo = 1 [json_name = "geo", (.NYT.column_name) = "geo"];
+}
+
+message TCurrentCartResponse {
+  .NAlice.NOrder.TCart Cart = 1 [json_name = "cart", (.NYT.column_name) = "cart"];
+}
+
+message TCheckoutPushRequest {
+  string ProviderName = 1 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  string CartId = 2 [json_name = "cart_id", (.NYT.column_name) = "cart_id"];
+}
+
+message TRecentGeoRequest {
+  string ProviderName = 1 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  uint32 Limit = 2 [json_name = "limit", (.NYT.column_name) = "limit"];
+}
+
+message TRecentGeoResponse {
+  message TRecentGeo {
+    .google.protobuf.Timestamp Time = 1 [json_name = "time", (.NYT.column_name) = "time"];
+    .NAlice.NData.TLatLon LocationLatLon = 2 [json_name = "location_lat_lon", (.NYT.column_name) = "location_lat_lon"];
+    string LocationTextAddress = 3 [json_name = "location_text_address", (.NYT.column_name) = "location_text_address"];
+  }
+
+  repeated .NAlice.NOrder.TRecentGeoResponse.TRecentGeo Locations = 1 [json_name = "locations", (.NYT.column_name) = "locations"];
+}
+
+enum EItemSource {
+  reserved "IS_FAVOURITES";
+  reserved 1;
+  IS_UNKNOWN = 0;
+  IS_RECENT = 2;
+  IS_FAVOURITE = 3;
+}
+

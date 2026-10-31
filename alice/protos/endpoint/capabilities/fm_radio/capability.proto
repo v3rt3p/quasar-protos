@@ -11,22 +11,26 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TFmRadioCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FmRadioCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.TFmRadioCapability.TFmRadioStation AvailableFmRadioStations = 1 [json_name = "available_fm_radio_stations"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TFmRadioCapability.TFmRadioStation AvailableFmRadioStations = 1 [json_name = "available_fm_radio_stations", (.NYT.column_name) = "available_fm_radio_stations"];
   }
 
   message TFmRadioStation {
-    int32 FrequencyMhzX100 = 1 [json_name = "frequency_mhz_x100"];
-    string Name = 2 [json_name = "name"];
-    bool IsFavorite = 3 [json_name = "is_favorite"];
-    string Id = 4 [json_name = "id"];
+    int32 FrequencyMhzX100 = 1 [json_name = "frequency_mhz_x100", (.NYT.column_name) = "frequency_mhz_x100"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsFavorite = 3 [json_name = "is_favorite", (.NYT.column_name) = "is_favorite"];
+    string Id = 4 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TFmRadioCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TFmRadioCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFmRadioCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFmRadioCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

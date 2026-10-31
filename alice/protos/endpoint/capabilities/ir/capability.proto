@@ -13,113 +13,159 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIrCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IrCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "RemoteEndpointIDs";
     reserved 1;
   }
 
   message TTryIrCommandDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
-    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data"];
-    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms"];
+    option (.NAlice.SpeechKitName) = "try_ir_command_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TryIrCommandDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids", (.NYT.column_name) = "key_ids"];
+    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data", (.NYT.column_name) = "data"];
+    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms", (.NYT.column_name) = "command_interval_ms"];
   }
 
   message TTryIrAcCommandDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key"];
-    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state"];
-    .NAlice.NIr.TRemoteData Data = 3 [json_name = "data"];
+    option (.NAlice.SpeechKitName) = "try_ir_ac_command_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TryIrAcCommandDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key", (.NYT.column_name) = "ac_key"];
+    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state", (.NYT.column_name) = "ac_state"];
+    .NAlice.NIr.TRemoteData Data = 3 [json_name = "data", (.NYT.column_name) = "data"];
   }
 
   message TRecordIrPulseDirective {
-    string Name = 1000 [json_name = "name"];
-    string RequestId = 1 [json_name = "request_id"];
-    uint32 TimeoutSeconds = 2 [json_name = "timeout_seconds"];
+    option (.NAlice.SpeechKitName) = "record_ir_pulse_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RecordIrPulseDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    uint32 TimeoutSeconds = 2 [json_name = "timeout_seconds", (.NYT.column_name) = "timeout_seconds"];
   }
 
   message TCancelRecordIrPulseDirective {
-    string Name = 1000 [json_name = "name"];
-    string RequestId = 1 [json_name = "request_id"];
+    option (.NAlice.SpeechKitName) = "cancel_record_ir_pulse_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CancelRecordIrPulseDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TAddIrRemoteDirective {
-    string Name = 1000 [json_name = "name"];
-    string EndpointId = 1 [json_name = "endpoint_id"];
-    .NAlice.NIr.TRemote Remote = 2 [json_name = "remote"];
-    string RequestId = 3 [json_name = "request_id"];
+    option (.NAlice.SpeechKitName) = "add_ir_remote_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddIrRemoteDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+    .NAlice.NIr.TRemote Remote = 2 [json_name = "remote", (.NYT.column_name) = "remote"];
+    string RequestId = 3 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TForgetIrRemoteDirective {
-    string Name = 1000 [json_name = "name"];
-    string EndpointId = 1 [json_name = "endpoint_id"];
+    option (.NAlice.SpeechKitName) = "forget_ir_remote_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForgetIrRemoteDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
   }
 
   message TRestoreIrRemotesDirective {
-    string Name = 1000 [json_name = "name"];
-    map<string, .NAlice.NIr.TRemote> Remotes = 1 [json_name = "remotes"];
+    option (.NAlice.SpeechKitName) = "restore_ir_remotes_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RestoreIrRemotesDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    map<string, .NAlice.NIr.TRemote> Remotes = 1 [json_name = "remotes", (.NYT.column_name) = "remotes"];
   }
 
   message TIrPulseEvent {
-    string RequestId = 1 [json_name = "request_id"];
-    repeated uint32 Pulse = 2 [json_name = "pulse"];
-    uint32 Frequency = 3 [json_name = "frequency"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IrPulseEventType;
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    repeated uint32 Pulse = 2 [json_name = "pulse", (.NYT.column_name) = "pulse"];
+    uint32 Frequency = 3 [json_name = "frequency", (.NYT.column_name) = "frequency"];
   }
 
   message TRestoreIrRemotesEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = RestoreIrRemotesEventType;
   }
 
   message TAddIrRemoteEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = AddIrRemoteEventType;
     reserved "EndpointId";
     reserved "Capabilities";
     reserved 1;
     reserved 2;
-    .NAlice.TEndpoint Endpoint = 4 [json_name = "endpoint"];
-    string RequestId = 3 [json_name = "request_id"];
+    .NAlice.TEndpoint Endpoint = 4 [json_name = "endpoint", (.NYT.column_name) = "endpoint"];
+    string RequestId = 3 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIrCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIrCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIrCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIrCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TIrRemoteCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IrRemoteCapabilityType;
   message TParameters {
-    .NAlice.NIr.TRemote Remote = 1 [json_name = "remote"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NIr.TRemote Remote = 1 [json_name = "remote", (.NYT.column_name) = "remote"];
   }
 
   message TState {
-    .NAlice.NIr.TAcState AcState = 1 [json_name = "ac_state"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NIr.TAcState AcState = 1 [json_name = "ac_state", (.NYT.column_name) = "ac_state"];
   }
 
   message TSendIrCommandDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
-    uint32 CommandIntervalMs = 2 [json_name = "command_interval_ms"];
+    option (.NAlice.SpeechKitName) = "send_ir_command_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendIrCommandDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids", (.NYT.column_name) = "key_ids"];
+    uint32 CommandIntervalMs = 2 [json_name = "command_interval_ms", (.NYT.column_name) = "command_interval_ms"];
   }
 
   message TSendIrCustomCommandDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated uint32 KeyIds = 1 [json_name = "key_ids"];
-    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data"];
-    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms"];
+    option (.NAlice.SpeechKitName) = "send_ir_custom_command_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendIrCustomCommandDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated uint32 KeyIds = 1 [json_name = "key_ids", (.NYT.column_name) = "key_ids"];
+    .NAlice.NIr.TRemoteData Data = 2 [json_name = "data", (.NYT.column_name) = "data"];
+    uint32 CommandIntervalMs = 3 [json_name = "command_interval_ms", (.NYT.column_name) = "command_interval_ms"];
   }
 
   message TSendIrAcCommandDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key"];
-    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state"];
+    option (.NAlice.SpeechKitName) = "send_ir_ac_command_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SendIrAcCommandDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NIr.EAcKey AcKey = 1 [json_name = "ac_key", (.NYT.column_name) = "ac_key"];
+    .NAlice.NIr.TAcState AcState = 2 [json_name = "ac_state", (.NYT.column_name) = "ac_state"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIrRemoteCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IrRemoteUpdateStateEventType;
+    .NAlice.TIrRemoteCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIrRemoteCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIrRemoteCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIrRemoteCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIrRemoteCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

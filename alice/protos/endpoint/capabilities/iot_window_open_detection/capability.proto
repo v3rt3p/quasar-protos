@@ -12,34 +12,44 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotWindowOpenDetectionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotWindowOpenDetectionCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enable = 1 [json_name = "enable"];
-    bool IsOpen = 2 [json_name = "is_open"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enable = 1 [json_name = "enable", (.NYT.column_name) = "enable"];
+    bool IsOpen = 2 [json_name = "is_open", (.NYT.column_name) = "is_open"];
   }
 
   message TSetIotWindowOpenDetectionDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Enable = 1 [json_name = "enable"];
+    option (.NAlice.SpeechKitName) = "set_iot_window_open_detection_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotWindowOpenDetectionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enable = 1 [json_name = "enable", (.NYT.column_name) = "enable"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotWindowOpenDetectionCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotWindowOpenDetectionUpdateStateEventType;
+    .NAlice.TIotWindowOpenDetectionCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TCondition {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EState {
       OpenCondition = 0;
       CloseCondition = 1;
     }
 
-    .NAlice.TIotWindowOpenDetectionCapability.TCondition.EState State = 1 [json_name = "state"];
+    .NAlice.TIotWindowOpenDetectionCapability.TCondition.EState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotWindowOpenDetectionCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotWindowOpenDetectionCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotWindowOpenDetectionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotWindowOpenDetectionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

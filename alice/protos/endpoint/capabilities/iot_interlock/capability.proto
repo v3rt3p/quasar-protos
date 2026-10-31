@@ -12,24 +12,33 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotInterlockCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotInterlockCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Value = 1 [json_name = "value"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
   }
 
   message TSetIotInterlockDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Value = 1 [json_name = "value"];
+    option (.NAlice.SpeechKitName) = "set_iot_interlock_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetIotInterlockDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotInterlockCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotInterlockUpdateStateEventType;
+    .NAlice.TIotInterlockCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotInterlockCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotInterlockCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotInterlockCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotInterlockCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

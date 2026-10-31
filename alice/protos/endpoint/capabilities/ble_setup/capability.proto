@@ -13,45 +13,60 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBleSetupCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BleSetupCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TDeviceInfo {
-    string DeviceId = 1 [json_name = "device_id"];
-    string Platform = 2 [json_name = "platform"];
+    string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Platform = 2 [json_name = "platform", (.NYT.column_name) = "platform"];
   }
 
   message TStartBleAdvertisingDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 TimeoutMs = 1 [json_name = "timeout_ms"];
+    option (.NAlice.SpeechKitName) = "start_ble_advertising_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartBleAdvertisingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 TimeoutMs = 1 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
   }
 
   message TStartBleDiscoveryDirective {
-    string Name = 1000 [json_name = "name"];
-    string DiscoveryId = 1 [json_name = "discovery_id"];
-    string Platform = 2 [json_name = "platform"];
-    uint32 TimeoutMs = 3 [json_name = "timeout_ms"];
+    option (.NAlice.SpeechKitName) = "start_ble_discovery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartBleDiscoveryDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DiscoveryId = 1 [json_name = "discovery_id", (.NYT.column_name) = "discovery_id"];
+    string Platform = 2 [json_name = "platform", (.NYT.column_name) = "platform"];
+    uint32 TimeoutMs = 3 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
   }
 
   message TStartBleSetupDirective {
-    string Name = 1000 [json_name = "name"];
-    string DeviceId = 1 [json_name = "device_id"];
-    string CipherText = 2 [json_name = "ciphertext"];
-    string C = 3 [json_name = "c"];
-    string M = 4 [json_name = "m"];
-    uint32 TimeoutMs = 5 [json_name = "timeout_ms"];
+    option (.NAlice.SpeechKitName) = "start_ble_setup_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartBleSetupDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string CipherText = 2 [json_name = "ciphertext", (.NYT.column_name) = "ciphertext"];
+    string C = 3 [json_name = "c", (.NYT.column_name) = "c"];
+    string M = 4 [json_name = "m", (.NYT.column_name) = "m"];
+    uint32 TimeoutMs = 5 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
   }
 
   message TBleDiscoveryFinishedEvent {
-    string DiscoveryId = 1 [json_name = "discovery_id"];
-    repeated .NAlice.TBleSetupCapability.TDeviceInfo Devices = 2 [json_name = "device_info"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BleDiscoveryFinishedEventType;
+    string DiscoveryId = 1 [json_name = "discovery_id", (.NYT.column_name) = "discovery_id"];
+    repeated .NAlice.TBleSetupCapability.TDeviceInfo Devices = 2 [json_name = "device_info", (.NYT.column_name) = "device_info"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBleSetupCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBleSetupCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBleSetupCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBleSetupCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

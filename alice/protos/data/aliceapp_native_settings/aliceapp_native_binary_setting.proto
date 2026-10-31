@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package NAlice.NData.NAliceAppNativeSettings;
+
+option java_package = "ru.yandex.alice.protos.data.aliceapp_native_settings";
+option go_package = "a.yandex-team.ru/alice/protos/data/aliceapp_native_settings";
+
+enum EAliceNativeBinarySettingStatus {
+  DISABLED = 0;
+  ENABLED = 1;
+}
+

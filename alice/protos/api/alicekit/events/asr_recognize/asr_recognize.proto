@@ -11,26 +11,28 @@ import "alice/megamind/protos/common/experiments/experiments.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAsrRecognize {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TAdvancedAsrOptions {
-    optional bool PartialResults = 1 [json_name = "partial_results"];
-    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation"];
-    optional bool Capitalize = 3 [json_name = "capitalize"];
-    optional bool EnableE2eEou = 4 [json_name = "enable_e2e_eou"];
-    optional bool AllowMultiUtt = 5 [json_name = "allow_multi_utt"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool PartialResults = 1 [json_name = "partial_results", (.NYT.column_name) = "partial_results"];
+    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation", (.NYT.column_name) = "manual_punctuation"];
+    optional bool Capitalize = 3 [json_name = "capitalize", (.NYT.column_name) = "capitalize"];
+    optional bool EnableE2eEou = 4 [json_name = "enable_e2e_eou", (.NYT.column_name) = "enable_e2e_eou"];
+    optional bool AllowMultiUtt = 5 [json_name = "allow_multi_utt", (.NYT.column_name) = "allow_multi_utt"];
   }
 
   message TMusicRequest {
-    map<string, string> Headers = 1 [json_name = "headers"];
+    map<string, string> Headers = 1 [json_name = "headers", (.NYT.column_name) = "headers"];
   }
 
-  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments"];
-  .NAlice.NAliceApi.TAsrRecognize.TAdvancedAsrOptions AdvancedAsrOptions = 7 [json_name = "advancedASROptions"];
-  .NAlice.NAliceApi.TAsrRecognize.TMusicRequest MusicRequest = 8 [json_name = "music_request2"];
-  optional string Lang = 1 [json_name = "lang"];
-  optional string Topic = 2 [json_name = "topic"];
-  optional string Format = 3 [json_name = "format"];
-  optional bool DisableAntimat = 4 [json_name = "disableAntimatNormalizer"];
-  optional bool Punctuation = 5 [json_name = "punctuation"];
-  optional bool RecognizeMusicOnly = 9 [json_name = "recognize_music_only"];
+  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments", (.NYT.column_name) = "experiments"];
+  .NAlice.NAliceApi.TAsrRecognize.TAdvancedAsrOptions AdvancedAsrOptions = 7 [json_name = "advancedASROptions", (.NYT.column_name) = "advanced_asr_options"];
+  .NAlice.NAliceApi.TAsrRecognize.TMusicRequest MusicRequest = 8 [json_name = "music_request2", (.NYT.column_name) = "music_request2"];
+  optional string Lang = 1 [json_name = "lang", (.NYT.column_name) = "lang"];
+  optional string Topic = 2 [json_name = "topic", (.NYT.column_name) = "topic"];
+  optional string Format = 3 [json_name = "format", (.NYT.column_name) = "format"];
+  optional bool DisableAntimat = 4 [json_name = "disableAntimatNormalizer", (.NYT.column_name) = "disable_antimat_normalizer"];
+  optional bool Punctuation = 5 [json_name = "punctuation", (.NYT.column_name) = "punctuation"];
+  optional bool RecognizeMusicOnly = 9 [json_name = "recognize_music_only", (.NYT.column_name) = "recognize_music_only"];
 }
 

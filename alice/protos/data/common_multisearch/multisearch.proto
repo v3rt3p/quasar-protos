@@ -2,8 +2,11 @@ syntax = "proto3";
 
 package NAlice;
 
+option java_package = "ru.yandex.alice.protos.data.common_multisearch";
+option go_package = "a.yandex-team.ru/alice/protos/data/common_multisearch";
+
 enum EMultiSearchContent {
-  EMULTISEARCHCONTENT_UNKNOWN = 0;
-  // stub
+  Default = 0;
+  TvChannels = 1;
 }
 

@@ -10,7 +10,8 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnyCapabilityHolder {
-  bytes RawCapability = 1 [json_name = "raw_capability"];
-  .NAlice.TCapability.ECapabilityType CapabilityType = 2 [json_name = "capability_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bytes RawCapability = 1 [json_name = "raw_capability", (.NYT.column_name) = "raw_capability"];
+  .NAlice.TCapability.ECapabilityType CapabilityType = 2 [json_name = "capability_type", (.NYT.column_name) = "capability_type"];
 }
 

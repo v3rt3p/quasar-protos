@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MusicVerticalCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/music_vertical;musicverticalpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/api/rpc/music/music_content.proto";
+import "alice/protos/data/music/music_vertical.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMusicVerticalCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MusicVerticalCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TCollectMusicVerticalDirective {
+    option (.NAlice.SpeechKitName) = "collect_music_vertical_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CollectMusicVerticalDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.NMusic.NNative.TCentaurMusicVerticalData CentaurMusicVerticalData = 2 [json_name = "centaur_music_vertical_data", (.NYT.column_name) = "centaur_music_vertical_data"];
+  }
+
+  message TShowMusicAlbumScreenDirective {
+    option (.NAlice.SpeechKitName) = "show_music_album_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicAlbumScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicAlbumInfoResponse MusicAlbumInfo = 2 [json_name = "music_album_info", (.NYT.column_name) = "music_album_info"];
+  }
+
+  message TShowMusicArtistScreenDirective {
+    option (.NAlice.SpeechKitName) = "show_music_artist_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicArtistScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicArtistInfoResponse MusicArtistInfo = 2 [json_name = "music_artist_info", (.NYT.column_name) = "music_artist_info"];
+  }
+
+  message TShowMusicPlaylistScreenDirective {
+    option (.NAlice.SpeechKitName) = "show_music_playlist_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicPlaylistScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicPlaylistInfoResponse MusicPlaylistInfo = 2 [json_name = "music_playlist_info", (.NYT.column_name) = "music_playlist_info"];
+  }
+
+  message TShowMusicArtistPopularTracksDirective {
+    option (.NAlice.SpeechKitName) = "show_music_artist_popular_tracks_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicArtistPopularTracksDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicArtistPopularTracksResponse MusicArtistPopularTracks = 2 [json_name = "music_artist_popular_tracks", (.NYT.column_name) = "music_artist_popular_tracks"];
+  }
+
+  message TShowMusicArtistPopularAlbumsDirective {
+    option (.NAlice.SpeechKitName) = "show_music_artist_popular_albums_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicArtistPopularAlbumsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicArtistPopularAlbumsResponse MusicArtistPopularAlbums = 2 [json_name = "music_artist_popular_albums", (.NYT.column_name) = "music_artist_popular_albums"];
+  }
+
+  message TShowMusicArtistPlaylistsDirective {
+    option (.NAlice.SpeechKitName) = "show_music_artist_playlists_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicArtistPlaylistsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicArtistPlaylistsResponse MusicArtistPlaylists = 2 [json_name = "music_artist_playlists", (.NYT.column_name) = "music_artist_playlists"];
+  }
+
+  message TShowMusicArtistSimilarArtistsDirective {
+    option (.NAlice.SpeechKitName) = "show_music_artist_similar_artists_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowMusicArtistSimilarArtistsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NMusic.NArpc.TGetMusicArtistSimilarArtistsResponse MusicArtistSimilarArtists = 2 [json_name = "music_artist_similar_artists", (.NYT.column_name) = "music_artist_similar_artists"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMusicVerticalCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMusicVerticalCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

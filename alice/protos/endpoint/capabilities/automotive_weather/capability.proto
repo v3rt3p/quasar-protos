@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveWeatherCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_weather;automotive_weatherpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveWeatherCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveWeatherCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TIcon {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Code = 1 [json_name = "code", (.NYT.column_name) = "code"];
+    optional string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+  }
+
+  message TTemperature {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+  }
+
+  message TMainSection {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    optional string Subtitle = 2 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+    optional .NAlice.TAutomotiveWeatherCapability.TIcon Icon = 3 [json_name = "icon", (.NYT.column_name) = "icon"];
+    optional .NAlice.TAutomotiveWeatherCapability.TTemperature Temperature = 4 [json_name = "temperature", (.NYT.column_name) = "temperature"];
+  }
+
+  message TFeelsLike {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  }
+
+  message TForecastItem {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    .NAlice.TAutomotiveWeatherCapability.TIcon Icon = 3 [json_name = "icon", (.NYT.column_name) = "icon"];
+    .NAlice.TAutomotiveWeatherCapability.TTemperature Temperature = 4 [json_name = "temperature", (.NYT.column_name) = "temperature"];
+    optional string Date = 2 [json_name = "date", (.NYT.column_name) = "date"];
+  }
+
+  message TWeatherCard {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveWeatherCapability.TMainSection MainSection = 1 [json_name = "main_section", (.NYT.column_name) = "main_section"];
+    repeated .NAlice.TAutomotiveWeatherCapability.TForecastItem DayTimeForecast = 3 [json_name = "day_time_forecast", (.NYT.column_name) = "day_time_forecast"];
+    repeated .NAlice.TAutomotiveWeatherCapability.TForecastItem WeeklyForecast = 4 [json_name = "weekly_forecast", (.NYT.column_name) = "weekly_forecast"];
+    optional .NAlice.TAutomotiveWeatherCapability.TFeelsLike FeelsLike = 2 [json_name = "feels_like", (.NYT.column_name) = "feels_like"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TShowWeatherDirective {
+    option (.NAlice.SpeechKitName) = "show_automotive_weather_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAutomotiveWeatherDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveWeatherCapability.TWeatherCard Card = 1 [json_name = "card", (.NYT.column_name) = "card"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveWeatherCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveWeatherCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -9,6 +9,6 @@ option go_package = "a.yandex-team.ru/alice/protos/api/ats/user_registration_inf
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserRegistrationInfo {
-  string AtsLogin = 1 [json_name = "ats_login"];
+  string AtsLogin = 1 [json_name = "ats_login", (.NYT.column_name) = "ats_login"];
 }
 

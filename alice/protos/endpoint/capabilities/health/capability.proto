@@ -12,17 +12,21 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THealthCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = HealthCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    optional .NAlice.NData.NHealthData.TVitals Vitals = 1 [json_name = "vitals"];
-    optional .NAlice.NData.NHealthData.TSleep Sleep = 2 [json_name = "sleep"];
-    optional .NAlice.NData.NHealthData.TActivity Activity = 3 [json_name = "activity"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.NData.NHealthData.TVitals Vitals = 1 [json_name = "vitals", (.NYT.column_name) = "vitals"];
+    optional .NAlice.NData.NHealthData.TSleep Sleep = 2 [json_name = "sleep", (.NYT.column_name) = "sleep"];
+    optional .NAlice.NData.NHealthData.TActivity Activity = 3 [json_name = "activity", (.NYT.column_name) = "activity"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.THealthCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.THealthCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.THealthCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.THealthCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

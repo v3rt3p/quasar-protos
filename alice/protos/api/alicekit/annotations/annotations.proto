@@ -15,16 +15,17 @@ message TBaseAnnotation {
     Undefined = 0;
   }
 
-  repeated .NAlice.NAliceApi.TCard Cards = 1 [json_name = "cards"];
-  .NAlice.NAliceApi.TBaseAnnotation.EBoundType BoundType = 2 [json_name = "bound_type"];
+  repeated .NAlice.NAliceApi.TCard Cards = 1 [json_name = "cards", (.NYT.column_name) = "cards"];
+  .NAlice.NAliceApi.TBaseAnnotation.EBoundType BoundType = 2 [json_name = "bound_type", (.NYT.column_name) = "bound_type"];
 }
 
 message TRequestAnnotation {
   message TAnnotationsList {
-    repeated .NAlice.NAliceApi.TBaseAnnotation Annotations = 1 [json_name = "annotations"];
+    option (.NYT.default_field_flags) = SERIALIZATION_PROTOBUF;
+    repeated .NAlice.NAliceApi.TBaseAnnotation Annotations = 1 [json_name = "annotations", (.NYT.column_name) = "annotations"];
   }
 
-  .NAlice.NAliceApi.TBaseAnnotation Base = 1 [json_name = "base"];
-  .NAlice.NAliceApi.TRequestAnnotation.TAnnotationsList AnnotationsList = 2 [json_name = "annotations_list"];
+  .NAlice.NAliceApi.TBaseAnnotation Base = 1 [json_name = "base", deprecated = true, (.NYT.column_name) = "base"];
+  .NAlice.NAliceApi.TRequestAnnotation.TAnnotationsList AnnotationsList = 2 [json_name = "annotations_list", (.NYT.column_name) = "annotations_list"];
 }
 

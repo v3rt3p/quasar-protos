@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "IotZigbeeNeighborCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_zigbee_neighbor;iotzigbeeneighborpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotZigbeeNeighborCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotZigbeeNeighborCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TNeighbor {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string EndpointId = 1 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+    uint32 Lqi = 2 [json_name = "lqi", (.NYT.column_name) = "lqi"];
+    .NAlice.TIotZigbeeNeighborCapability.EAffinity Affinity = 3 [json_name = "affinity", (.NYT.column_name) = "affinity"];
+    uint32 Depth = 4 [json_name = "depth", (.NYT.column_name) = "depth"];
+  }
+
+  message TZigbeeNeighborsRequestDirective {
+    option (.NAlice.SpeechKitName) = "zigbee_neighbors_request_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ZigbeeNeighborsRequestDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TZigbeeNeighborsResponseEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ZigbeeNeighborsResponseEventType;
+    repeated .NAlice.TIotZigbeeNeighborCapability.TNeighbor Neighbors = 1 [json_name = "neighbors", (.NYT.column_name) = "neighbors"];
+  }
+
+  enum EAffinity {
+    Unknown = 0;
+    Parent = 1;
+    Child = 2;
+    Sibling = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotZigbeeNeighborCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotZigbeeNeighborCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

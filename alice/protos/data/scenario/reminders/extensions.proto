@@ -10,9 +10,9 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TOriginInfo {
-  repeated string SupportedFeatures = 3 [json_name = "supported_features"];
-  optional string DeviceId = 1 [json_name = "device_id"];
-  optional string UUID = 2 [json_name = "uuid"];
+  repeated string SupportedFeatures = 3 [json_name = "supported_features", (.NYT.column_name) = "supported_features"];
+  optional string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional string UUID = 2 [json_name = "uuid", (.NYT.column_name) = "uuid", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
 }
 
 message TPlaySettings {
@@ -23,34 +23,34 @@ message TPlaySettings {
       Disabled = 2;
     }
 
-    .NAlice.NData.NReminders.TPlaySettings.TSendPush.EState State = 1 [json_name = "state"];
+    .NAlice.NData.NReminders.TPlaySettings.TSendPush.EState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
   }
 
   message TPlayLocation {
     message TSelectedDevices {
-      repeated string SelectedDeviceIds = 1 [json_name = "selected_device_ids"];
+      repeated string SelectedDeviceIds = 1 [json_name = "selected_device_ids", (.NYT.column_name) = "selected_device_ids", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
     }
 
-    .NAlice.NData.NReminders.TPlaySettings.TPlayLocation.TSelectedDevices SelectedDevices = 1 [json_name = "selected_devices"];
+    .NAlice.NData.NReminders.TPlaySettings.TPlayLocation.TSelectedDevices SelectedDevices = 1 [json_name = "selected_devices", (.NYT.column_name) = "selected_devices"];
   }
 
-  .NAlice.NData.NReminders.TPlaySettings.TSendPush SendPush = 1 [json_name = "send_push"];
-  .NAlice.NData.NReminders.TPlaySettings.TPlayLocation PlayLocation = 2 [json_name = "play_location"];
+  .NAlice.NData.NReminders.TPlaySettings.TSendPush SendPush = 1 [json_name = "send_push", (.NYT.column_name) = "send_push"];
+  .NAlice.NData.NReminders.TPlaySettings.TPlayLocation PlayLocation = 2 [json_name = "play_location", (.NYT.column_name) = "play_location"];
 }
 
 message TProperties {
   message TArchivedProperty {
-    .google.protobuf.Timestamp ManualArchivedTime = 1 [json_name = "manual_archived_time"];
+    .google.protobuf.Timestamp ManualArchivedTime = 1 [json_name = "manual_archived_time", (.NYT.column_name) = "manual_archived_time"];
   }
 
-  .NAlice.NData.NReminders.TProperties.TArchivedProperty ArchivedProperty = 1 [json_name = "archived_property"];
+  .NAlice.NData.NReminders.TProperties.TArchivedProperty ArchivedProperty = 1 [json_name = "archived_property", (.NYT.column_name) = "archived_property"];
 }
 
 message TReminderExtensions {
-  int64 ClientTimeDeltaSeconds = 1 [json_name = "client_time_delta_seconds"];
-  .NAlice.NData.NReminders.TOriginInfo OriginInfo = 2 [json_name = "origin_info"];
-  .NAlice.NData.NReminders.TPlaySettings PlaySettings = 3 [json_name = "play_settings"];
-  .NAlice.NData.NReminders.TProperties Properties = 4 [json_name = "properties"];
+  int64 ClientTimeDeltaSeconds = 1 [json_name = "client_time_delta_seconds", (.NYT.column_name) = "client_time_delta_seconds"];
+  .NAlice.NData.NReminders.TOriginInfo OriginInfo = 2 [json_name = "origin_info", (.NYT.column_name) = "origin_info"];
+  .NAlice.NData.NReminders.TPlaySettings PlaySettings = 3 [json_name = "play_settings", (.NYT.column_name) = "play_settings"];
+  .NAlice.NData.NReminders.TProperties Properties = 4 [json_name = "properties", (.NYT.column_name) = "properties"];
 }
 
 enum ERemindersSyncState {

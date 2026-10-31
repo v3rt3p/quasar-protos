@@ -13,38 +13,47 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClockAppCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ClockAppCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof ScreenState {
-      .NAlice.TClockAppCapability.TAlarmListScreenState AlarmListScreenState = 1 [json_name = "alarm_list_screen_state"];
-      .NAlice.TClockAppCapability.TAlarmEditScreenState AlarmEditScreenState = 2 [json_name = "alarm_edit_screen_state"];
-      .NAlice.TClockAppCapability.TAlarmActiveScreenState AlarmActiveScreenState = 3 [json_name = "alarm_active_screen_state"];
-      .NAlice.TClockAppCapability.TTimerListScreenState TimerListScreenState = 4 [json_name = "timer_list_screen_state"];
-      .NAlice.TClockAppCapability.TTimerInfoScreenState TimerInfoScreenState = 5 [json_name = "timer_info_screen_state"];
-      .NAlice.TClockAppCapability.TTimerActiveScreenState TimerActiveScreenState = 6 [json_name = "timer_active_screen_state"];
-      .NAlice.TClockAppCapability.TTimerCreateScreenState TimerCreateScreenState = 7 [json_name = "timer_create_screen_state"];
+      option (.NYT.variant_field_name) = "screen_state";
+      .NAlice.TClockAppCapability.TAlarmListScreenState AlarmListScreenState = 1 [json_name = "alarm_list_screen_state", (.NYT.column_name) = "alarm_list_screen_state"];
+      .NAlice.TClockAppCapability.TAlarmEditScreenState AlarmEditScreenState = 2 [json_name = "alarm_edit_screen_state", (.NYT.column_name) = "alarm_edit_screen_state"];
+      .NAlice.TClockAppCapability.TAlarmActiveScreenState AlarmActiveScreenState = 3 [json_name = "alarm_active_screen_state", (.NYT.column_name) = "alarm_active_screen_state"];
+      .NAlice.TClockAppCapability.TTimerListScreenState TimerListScreenState = 4 [json_name = "timer_list_screen_state", (.NYT.column_name) = "timer_list_screen_state"];
+      .NAlice.TClockAppCapability.TTimerInfoScreenState TimerInfoScreenState = 5 [json_name = "timer_info_screen_state", (.NYT.column_name) = "timer_info_screen_state"];
+      .NAlice.TClockAppCapability.TTimerActiveScreenState TimerActiveScreenState = 6 [json_name = "timer_active_screen_state", (.NYT.column_name) = "timer_active_screen_state"];
+      .NAlice.TClockAppCapability.TTimerCreateScreenState TimerCreateScreenState = 7 [json_name = "timer_create_screen_state", (.NYT.column_name) = "timer_create_screen_state"];
     }
   }
 
   message TAlarmListScreenState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "AlarmIds";
     reserved "OtherAlarmIds";
     reserved 1;
     reserved 2;
-    .NAlice.TClockAppCapability.TAlarmList AlarmList = 3 [json_name = "alarm_list"];
+    .NAlice.TClockAppCapability.TAlarmList AlarmList = 3 [json_name = "alarm_list", (.NYT.column_name) = "alarm_list"];
   }
 
   message TAlarmEditScreenState {
-    .NAlice.NData.TAlarm Alarm = 1 [json_name = "alarm"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.TAlarm Alarm = 1 [json_name = "alarm", (.NYT.column_name) = "alarm"];
   }
 
   message TAlarmActiveScreenState {
-    string AlarmId = 1 [json_name = "alarm_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string AlarmId = 1 [json_name = "alarm_id", (.NYT.column_name) = "alarm_id"];
   }
 
   message TTimerListScreenState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "TargetTimers";
     reserved 2;
     enum ESectionOfListScreen {
@@ -53,68 +62,92 @@ message TClockAppCapability {
       History = 2;
     }
 
-    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 1 [json_name = "target_section"];
+    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 1 [json_name = "target_section", (.NYT.column_name) = "target_section"];
     oneof ScreenInfo {
-      uint32 TimerDuration = 3 [json_name = "timer_duration"];
-      .NAlice.TClockAppCapability.TTimerList TimerList = 4 [json_name = "timer_list"];
+      option (.NYT.variant_field_name) = "screen_info";
+      uint32 TimerDuration = 3 [json_name = "timer_duration", (.NYT.column_name) = "timer_duration"];
+      .NAlice.TClockAppCapability.TTimerList TimerList = 4 [json_name = "timer_list", (.NYT.column_name) = "timer_list"];
     }
   }
 
   message TTimerInfoScreenState {
-    string TimerId = 1 [json_name = "timer_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string TimerId = 1 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
   }
 
   message TTimerActiveScreenState {
-    string TimerId = 1 [json_name = "timer_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string TimerId = 1 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
   }
 
   message TTimerCreateScreenState {
-    uint32 TimerDuration = 1 [json_name = "timer_duration"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 TimerDuration = 1 [json_name = "timer_duration", (.NYT.column_name) = "timer_duration"];
   }
 
   message TOpenScreenAlarmListDirective {
-    string Name = 1 [json_name = "name"];
-    repeated string TargetAlarmIds = 2 [json_name = "target_alarm_ids"];
-    bool ForceAutoClose = 3 [json_name = "force_auto_close"];
+    option (.NAlice.SpeechKitName) = "open_screen_alarm_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenScreenAlarmListDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string TargetAlarmIds = 2 [json_name = "target_alarm_ids", (.NYT.column_name) = "target_alarm_ids"];
+    bool ForceAutoClose = 3 [json_name = "force_auto_close", (.NYT.column_name) = "force_auto_close"];
   }
 
   message TOpenScreenAlarmEditDirective {
-    string Name = 1 [json_name = "name"];
-    string AlarmId = 2 [json_name = "alarm_id"];
+    option (.NAlice.SpeechKitName) = "open_screen_alarm_edit_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenScreenAlarmEditDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string AlarmId = 2 [json_name = "alarm_id", (.NYT.column_name) = "alarm_id"];
   }
 
   message TCloseScreenAlarmActiveDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "close_screen_alarm_active_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CloseScreenAlarmActiveDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TOpenScreenTimerListDirective {
-    string Name = 1 [json_name = "name"];
-    repeated string TargetTimerIds = 2 [json_name = "target_timer_ids"];
-    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 3 [json_name = "target_section"];
-    bool ForceAutoClose = 4 [json_name = "force_auto_close"];
+    option (.NAlice.SpeechKitName) = "open_screen_timer_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenScreenTimerListDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string TargetTimerIds = 2 [json_name = "target_timer_ids", (.NYT.column_name) = "target_timer_ids"];
+    .NAlice.TClockAppCapability.TTimerListScreenState.ESectionOfListScreen TargetSection = 3 [json_name = "target_section", (.NYT.column_name) = "target_section"];
+    bool ForceAutoClose = 4 [json_name = "force_auto_close", (.NYT.column_name) = "force_auto_close"];
   }
 
   message TOpenScreenTimerInfoDirective {
-    string Name = 1 [json_name = "name"];
-    string TimerId = 2 [json_name = "timer_id"];
+    option (.NAlice.SpeechKitName) = "open_screen_timer_info_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenScreenTimerInfoDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string TimerId = 2 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
   }
 
   message TCloseScreenTimerActiveDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "close_screen_timer_active_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CloseScreenTimerActiveDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TAlarmList {
-    repeated string TargetAlarmIds = 1 [json_name = "target_alarm_ids"];
-    repeated string OtherAlarmIds = 2 [json_name = "other_alarm_ids"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string TargetAlarmIds = 1 [json_name = "target_alarm_ids", (.NYT.column_name) = "target_alarm_ids"];
+    repeated string OtherAlarmIds = 2 [json_name = "other_alarm_ids", (.NYT.column_name) = "other_alarm_ids"];
   }
 
   message TTimerList {
-    repeated string TargetTimerIds = 1 [json_name = "target_timer_ids"];
-    repeated string OtherTimerIds = 2 [json_name = "other_timer_ids"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string TargetTimerIds = 1 [json_name = "target_timer_ids", (.NYT.column_name) = "target_timer_ids"];
+    repeated string OtherTimerIds = 2 [json_name = "other_timer_ids", (.NYT.column_name) = "other_timer_ids"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TClockAppCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TClockAppCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TClockAppCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TClockAppCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

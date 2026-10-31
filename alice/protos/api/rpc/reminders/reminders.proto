@@ -1,0 +1,146 @@
+syntax = "proto3";
+
+package NAlice.NReminders.NRpcApi;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.reminders";
+option java_outer_classname = "RemindersRpcApi";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/reminders";
+
+import "alice/protos/data/date/day_of_week.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTriggerPolicy {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TSingleTriggerPolicy {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Datetime = 1 [json_name = "datetime", (.NYT.column_name) = "datetime"];
+  }
+
+  message TWeekdaysTriggerPolicy {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.NData.TDayOfWeek.EDayOfWeek DaysOfWeek = 1 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
+    string Time = 2 [json_name = "time", (.NYT.column_name) = "time"];
+  }
+
+  oneof Type {
+    .NAlice.NReminders.NRpcApi.TTriggerPolicy.TSingleTriggerPolicy SingleTriggerPolicy = 1 [json_name = "single_trigger_policy", (.NYT.column_name) = "single_trigger_policy"];
+    .NAlice.NReminders.NRpcApi.TTriggerPolicy.TWeekdaysTriggerPolicy WeekdaysTriggerPolicy = 2 [json_name = "weekdays_trigger_policy", (.NYT.column_name) = "weekdays_trigger_policy"];
+  }
+}
+
+message TPlaySettings {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TSendPush {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EState {
+      Undefined = 0;
+      Enabled = 1;
+      Disabled = 2;
+    }
+
+    optional .NAlice.NReminders.NRpcApi.TPlaySettings.TSendPush.EState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
+  }
+
+  message TPlayLocation {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TSelectedDevices {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated string SelectedDeviceIds = 1 [json_name = "selected_device_ids", (.NYT.column_name) = "selected_device_ids"];
+    }
+
+    optional .NAlice.NReminders.NRpcApi.TPlaySettings.TPlayLocation.TSelectedDevices SelectedDevices = 1 [json_name = "selected_devices", (.NYT.column_name) = "selected_devices"];
+  }
+
+  optional .NAlice.NReminders.NRpcApi.TPlaySettings.TSendPush SendPush = 1 [json_name = "send_push", (.NYT.column_name) = "send_push"];
+  optional .NAlice.NReminders.NRpcApi.TPlaySettings.TPlayLocation PlayLocation = 2 [json_name = "play_location", (.NYT.column_name) = "play_location"];
+}
+
+message TProperties {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TArchivedProperty {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string ManualArchivedDatetime = 1 [json_name = "manual_archived_datetime", (.NYT.column_name) = "manual_archived_datetime"];
+  }
+
+  optional .NAlice.NReminders.NRpcApi.TProperties.TArchivedProperty ArchivedProperty = 1 [json_name = "archived_property", (.NYT.column_name) = "archived_property"];
+}
+
+message TCreateReminderRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  .NAlice.NReminders.NRpcApi.TTriggerPolicy TriggerPolicy = 2 [json_name = "trigger_policy", (.NYT.column_name) = "trigger_policy"];
+  .NAlice.NReminders.NRpcApi.TPlaySettings PlaySettings = 3 [json_name = "play_settings", (.NYT.column_name) = "play_settings"];
+}
+
+message TCreateReminderResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+
+message TReminder {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+  .NAlice.NReminders.NRpcApi.TTriggerPolicy TriggerPolicy = 3 [json_name = "trigger_policy", (.NYT.column_name) = "trigger_policy"];
+  .NAlice.NReminders.NRpcApi.TPlaySettings PlaySettings = 4 [json_name = "play_settings", (.NYT.column_name) = "play_settings"];
+  optional .NAlice.NReminders.NRpcApi.TProperties Properties = 5 [json_name = "properties", (.NYT.column_name) = "properties"];
+}
+
+message TGetRemindersRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+
+message TGetRemindersResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NReminders.NRpcApi.TReminder Reminders = 1 [json_name = "reminders", (.NYT.column_name) = "reminders"];
+}
+
+message TCancelAll {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  enum EType {
+    Undefined = 0;
+    All = 1;
+    Active = 2;
+    Archived = 3;
+  }
+
+  .NAlice.NReminders.NRpcApi.TCancelAll.EType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+}
+
+message TCancelSelected {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string ReminderIds = 1 [json_name = "reminder_ids", (.NYT.column_name) = "reminder_ids"];
+}
+
+message TCancelRemindersRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  oneof Value {
+    .NAlice.NReminders.NRpcApi.TCancelAll CancelAll = 1 [json_name = "cancel_all", (.NYT.column_name) = "cancel_all"];
+    .NAlice.NReminders.NRpcApi.TCancelSelected CancelSelected = 2 [json_name = "cancel_selected", (.NYT.column_name) = "cancel_selected"];
+  }
+}
+
+message TCancelRemindersResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+
+message TArchiveRemindersRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string ReminderIds = 1 [json_name = "reminder_ids", (.NYT.column_name) = "reminder_ids"];
+}
+
+message TArchiveRemindersResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+
+message TUpdateReminderRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+  .NAlice.NReminders.NRpcApi.TTriggerPolicy TriggerPolicy = 3 [json_name = "trigger_policy", (.NYT.column_name) = "trigger_policy"];
+  .NAlice.NReminders.NRpcApi.TPlaySettings PlaySettings = 4 [json_name = "play_settings", (.NYT.column_name) = "play_settings"];
+}
+
+message TUpdateReminderResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+

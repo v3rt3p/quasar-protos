@@ -8,10 +8,10 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/universal_scena
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUniversalScenarioTeaserCardData {
-  string ScenarioName = 1 [json_name = "scenario_name"];
-  string ImageUrl = 2 [json_name = "image_url"];
-  string Text = 3 [json_name = "text"];
-  string Title = 4 [json_name = "title"];
-  string Action = 5 [json_name = "action"];
+  string ScenarioName = 1 [json_name = "scenario_name", (.NYT.column_name) = "scenario_name"];
+  string ImageUrl = 2 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+  string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+  string Action = 5 [json_name = "action", (.NYT.column_name) = "action"];
 }
 

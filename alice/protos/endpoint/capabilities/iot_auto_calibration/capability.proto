@@ -12,30 +12,45 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotAutoCalibrationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotAutoCalibrationCapabilityType;
   message TParameters {
-    bool BlocksInterface = 1 [json_name = "blocks_interface"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool BlocksInterface = 1 [json_name = "blocks_interface", (.NYT.column_name) = "blocks_interface"];
   }
 
   message TState {
-    .NAlice.TIotAutoCalibrationCapability.EState State = 1 [json_name = "state"];
-    bool RecalibrationEnabled = 2 [json_name = "recalibration_enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotAutoCalibrationCapability.EState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
+    bool RecalibrationEnabled = 2 [json_name = "recalibration_enabled", (.NYT.column_name) = "recalibration_enabled"];
   }
 
   message TStartIotAutoCalibrationDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "start_iot_auto_calibration_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartIotAutoCalibrationDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TSetRecalibrationEnabledDirective {
-    string Name = 1000 [json_name = "name"];
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "set_recalibration_enabled_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetRecalibrationEnabledDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TResetCalibrationDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "reset_calibration_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ResetCalibrationDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotAutoCalibrationCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotAutoCalibrationUpdateStateEventType;
+    .NAlice.TIotAutoCalibrationCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EState {
@@ -44,8 +59,8 @@ message TIotAutoCalibrationCapability {
     CALIBRATED = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotAutoCalibrationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotAutoCalibrationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotAutoCalibrationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotAutoCalibrationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

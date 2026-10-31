@@ -12,39 +12,49 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceLimitsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceLimitsCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TLimitUpdatedDirective {
-    string Name = 1 [json_name = "name"];
-    string Feature = 2 [json_name = "feature"];
-    uint64 RequestsUsed = 3 [json_name = "requests_used"];
-    string Title = 4 [json_name = "title"];
-    string Subtitle = 5 [json_name = "subtitle"];
-    string CtaText = 6 [json_name = "cta_text"];
-    string Variant = 7 [json_name = "variant"];
-    string PaywallType = 8 [json_name = "paywall_type"];
+    option (.NAlice.SpeechKitName) = "limit_updated_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LimitUpdatedDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Feature = 2 [json_name = "feature", (.NYT.column_name) = "feature"];
+    uint64 RequestsUsed = 3 [json_name = "requests_used", (.NYT.column_name) = "requests_used"];
+    string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+    string Subtitle = 5 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+    string CtaText = 6 [json_name = "cta_text", (.NYT.column_name) = "cta_text"];
+    string Variant = 7 [json_name = "variant", (.NYT.column_name) = "variant"];
+    string PaywallType = 8 [json_name = "paywall_type", (.NYT.column_name) = "paywall_type"];
   }
 
   message TExpertLimitNoticeDirective {
+    option (.NAlice.SpeechKitName) = "expert_limit_notice_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ExpertLimitNoticeDirectiveType;
     enum EKind {
       EK_UNKNOWN = 0;
       EK_RUNNING_OUT = 1;
       EK_EXHAUSTED = 2;
     }
 
-    string Name = 1 [json_name = "name"];
-    .NAlice.TAliceLimitsCapability.TExpertLimitNoticeDirective.EKind Kind = 2 [json_name = "kind"];
-    uint64 RequestsLeft = 3 [json_name = "requests_left"];
-    string DialogId = 4 [json_name = "dialog_id"];
-    string PaywallType = 5 [json_name = "paywall_type"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceLimitsCapability.TExpertLimitNoticeDirective.EKind Kind = 2 [json_name = "kind", (.NYT.column_name) = "kind"];
+    uint64 RequestsLeft = 3 [json_name = "requests_left", (.NYT.column_name) = "requests_left"];
+    string DialogId = 4 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+    string PaywallType = 5 [json_name = "paywall_type", (.NYT.column_name) = "paywall_type"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAliceLimitsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAliceLimitsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceLimitsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceLimitsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

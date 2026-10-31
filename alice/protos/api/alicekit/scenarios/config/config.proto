@@ -12,16 +12,16 @@ import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScenarioConfig {
   message TCapabilityInfo {
-    .NAlice.TCapability.ECapabilityType Type = 1 [json_name = "type"];
+    .NAlice.TCapability.ECapabilityType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
   message TFrameInfo {
-    string Name = 1 [json_name = "name"];
-    string ProtoTypeName = 2 [json_name = "proto_type_name"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string ProtoTypeName = 2 [json_name = "proto_type_name", (.NYT.column_name) = "proto_type_name"];
   }
 
-  string ScenarioName = 1 [json_name = "scenario_name"];
-  repeated .NAlice.NAliceApi.TScenarioConfig.TCapabilityInfo Capabilities = 2 [json_name = "capabilities"];
-  repeated .NAlice.NAliceApi.TScenarioConfig.TFrameInfo AcceptedFrames = 3 [json_name = "accepted_frames"];
+  string ScenarioName = 1 [json_name = "scenario_name", (.NYT.column_name) = "scenario_name"];
+  repeated .NAlice.NAliceApi.TScenarioConfig.TCapabilityInfo Capabilities = 2 [json_name = "capabilities", (.NYT.column_name) = "capabilities"];
+  repeated .NAlice.NAliceApi.TScenarioConfig.TFrameInfo AcceptedFrames = 3 [json_name = "accepted_frames", (.NYT.column_name) = "accepted_frames"];
 }
 

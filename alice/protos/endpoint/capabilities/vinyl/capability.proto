@@ -12,37 +12,55 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVinylCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VinylCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool IsVinylPlayer = 1 [json_name = "is_vinyl_player"];
-    bool IsJogWheelActive = 2 [json_name = "is_jog_wheel_active"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsVinylPlayer = 1 [json_name = "is_vinyl_player", (.NYT.column_name) = "vinyl_player"];
+    bool IsJogWheelActive = 2 [json_name = "is_jog_wheel_active", (.NYT.column_name) = "jog_wheel_active"];
   }
 
   message TTurnOnVinylDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "turn_on_vinyl";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TurnOnVinylDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TTurnOffVinylDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "turn_off_vinyl";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TurnOffVinylDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TVinylJogWheelForwardDirective {
+    option (.NAlice.SpeechKitName) = "vinyl_jog_wheel_forward";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VinylJogWheelForwardDirectiveType;
   }
 
   message TVinylJogWheelReverseDirective {
+    option (.NAlice.SpeechKitName) = "vinyl_jog_wheel_reverse";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VinylJogWheelReverseDirectiveType;
   }
 
   message VinylJogWheelEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VinylJogWheelEventType;
     int32 Direction = 1;
     int64 PositionMs = 2;
     double PlaybackRate = 3;
     bool IsMoving = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TVinylCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TVinylCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVinylCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVinylCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

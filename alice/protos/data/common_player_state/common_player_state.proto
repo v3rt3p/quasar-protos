@@ -9,12 +9,13 @@ option go_package = "a.yandex-team.ru/alice/protos/data/common_player_state";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCommonPlayerState {
-  bool IsPlaying = 1 [json_name = "is_playing"];
-  uint64 LastPlayTimestamp = 2 [json_name = "last_play_timestamp"];
-  uint64 LastStopTimestamp = 3 [json_name = "last_stop_timestamp"];
-  map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta"];
-  uint32 DurationMs = 5 [json_name = "duration_ms"];
-  uint32 PlayedMs = 6 [json_name = "played_ms"];
-  int32 OffsetMs = 7 [json_name = "offset_ms"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool IsPlaying = 1 [json_name = "is_playing", (.NYT.column_name) = "is_playing"];
+  uint64 LastPlayTimestamp = 2 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+  uint64 LastStopTimestamp = 3 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
+  map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta", (.NYT.flags) = MAP_AS_DICT, (.NYT.column_name) = "scenario_meta"];
+  uint32 DurationMs = 5 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+  uint32 PlayedMs = 6 [json_name = "played_ms", (.NYT.column_name) = "played_ms"];
+  int32 OffsetMs = 7 [json_name = "offset_ms", (.NYT.column_name) = "offset_ms"];
 }
 

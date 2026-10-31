@@ -10,7 +10,9 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TKidsAwakeningTypedCallback {
-  .NAlice.EKidsAwakeningCallbackReason Reason = 1 [json_name = "reason"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "KidsAwakeningTypedCallback";
+  .NAlice.EKidsAwakeningCallbackReason Reason = 1 [json_name = "reason", (.NYT.column_name) = "reason"];
 }
 
 enum EKidsAwakeningCallbackReason {

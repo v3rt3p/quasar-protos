@@ -8,6 +8,7 @@ option java_multiple_files = true;
 option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/client/alice_request;alicerequestpb";
 
 import "alice/protos/api/alice_mode_info/alice_mode_info.proto";
+import "alice/protos/api/alicekit/common/tts_options/client_tts_options.proto";
 import "alice/protos/api/alicekit/common/uniproxy_options/uniproxy_options.proto";
 import "alice/protos/api/incognito_mode/incognito_options.proto";
 import "alice/protos/api/speech_mode/mode/speech_mode.proto";
@@ -21,6 +22,7 @@ import "alice/megamind/protos/guest/guest_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientAliceRequestProto {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Application";
   reserved "Session";
   reserved "MementoData";
@@ -80,6 +82,7 @@ message TClientAliceRequestProto {
   reserved 32;
   reserved 33;
   message THeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "SequenceNumber";
     reserved "RefMessageId";
     reserved "SessionId";
@@ -88,15 +91,16 @@ message TClientAliceRequestProto {
     reserved 5;
     reserved 6;
     reserved 7;
-    optional string RequestId = 1 [json_name = "request_id"];
-    optional string PrevReqId = 2 [json_name = "prev_req_id"];
-    optional string DialogId = 4 [json_name = "dialog_id"];
-    optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type"];
-    optional string DialogShareId = 9 [json_name = "dialog_share_id"];
-    optional string FolderId = 10 [json_name = "folder_id"];
+    optional string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    optional string PrevReqId = 2 [json_name = "prev_req_id", (.NYT.column_name) = "prev_req_id"];
+    optional string DialogId = 4 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+    optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type", (.NYT.column_name) = "dialog_type"];
+    optional string DialogShareId = 9 [json_name = "dialog_share_id", (.NYT.column_name) = "dialog_share_id"];
+    optional string FolderId = 10 [json_name = "folder_id", (.NYT.column_name) = "folder_id"];
   }
 
   message TRequest {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Location";
     reserved "DeviceState";
     reserved "ResetSession";
@@ -132,93 +136,110 @@ message TClientAliceRequestProto {
     reserved 22;
     reserved 23;
     message TAdditionalOptions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TBassOptions {
-        optional string UserAgent = 1 [json_name = "user_agent"];
-        optional double ScreenScaleFactor = 5 [json_name = "screen_scale_factor"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        optional string UserAgent = 1 [json_name = "user_agent", (.NYT.column_name) = "user_agent"];
+        optional double ScreenScaleFactor = 5 [json_name = "screen_scale_factor", (.NYT.column_name) = "screen_scale_factor"];
       }
 
-      .NAlice.NAliceApi.TClientAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3 [json_name = "bass_options"];
-      .NAlice.TGuestOptions GuestUserOptions = 19 [json_name = "guest_user_options"];
-      optional string OriginDomain = 26 [json_name = "origin_domain"];
-      optional .NAlice.TIncognitoOptions IncognitoOptions = 33 [json_name = "incognito_options"];
+      .NAlice.NAliceApi.TClientAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3 [json_name = "bass_options", (.NYT.column_name) = "bass_options"];
+      .NAlice.TGuestOptions GuestUserOptions = 19 [json_name = "guest_user_options", (.NYT.column_name) = "guest_user_options"];
+      optional string OriginDomain = 26 [json_name = "origin_domain", (.NYT.column_name) = "origin_domain"];
+      optional .NAlice.TIncognitoOptions IncognitoOptions = 33 [json_name = "incognito_options", (.NYT.column_name) = "incognito_options"];
     }
 
-    .NAlice.TEvent Event = 1 [json_name = "event"];
-    .NAlice.TExperimentsProto Experiments = 3;
-    .NAlice.NAliceApi.TClientAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5 [json_name = "additional_options"];
-    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options"];
-    optional bool VoiceSession = 6 [json_name = "voice_session"];
+    .NAlice.TEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    .NAlice.TExperimentsProto Experiments = 3 [(.NYT.column_name) = "experiments"];
+    .NAlice.NAliceApi.TClientAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5 [json_name = "additional_options", (.NYT.column_name) = "additional_options"];
+    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options", (.NYT.column_name) = "uniproxy_options"];
+    optional bool VoiceSession = 6 [json_name = "voice_session", (.NYT.column_name) = "voice_session"];
   }
 
-  .NAlice.NAliceApi.TClientAliceRequestProto.THeader Header = 1 [json_name = "header"];
-  .NAlice.NAliceApi.TClientAliceRequestProto.TRequest Request = 3 [json_name = "request"];
-  .NAlice.TEventSource EventSource = 11 [json_name = "event_source"];
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34 [json_name = "alice_2_settings"];
-  optional string Topic = 19 [json_name = "topic"];
+  .NAlice.NAliceApi.TClientAliceRequestProto.THeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
+  .NAlice.NAliceApi.TClientAliceRequestProto.TRequest Request = 3 [json_name = "request", (.NYT.column_name) = "request"];
+  .NAlice.TEventSource EventSource = 11 [json_name = "event_source", (.NYT.column_name) = "event_source"];
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34 [json_name = "alice_2_settings", (.NYT.column_name) = "alice_2_settings"];
+  optional string Topic = 19 [json_name = "topic", (.NYT.column_name) = "topic"];
+  optional .NAlice.NAliceApi.TClientTtsOptions TtsOptions = 44 [json_name = "tts_options", (.NYT.column_name) = "tts_options"];
 }
 
 message TVoiceInput {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TClientOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TOpenStreamPolicy {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TVadGate {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof Gate {
-        .NAlice.NAliceApi.TVoiceInput.TClientOptions.TOpenStreamPolicy.TVadGate VadGate = 1 [json_name = "vad_gate"];
+        option (.NYT.variant_field_name) = "gate";
+        .NAlice.NAliceApi.TVoiceInput.TClientOptions.TOpenStreamPolicy.TVadGate VadGate = 1 [json_name = "vad_gate", (.NYT.column_name) = "vad_gate"];
       }
     }
 
-    bool DisableJingle = 1 [json_name = "disable_jingle"];
-    bool IsMusic = 2 [json_name = "is_music"];
-    .NAlice.NAliceApi.TVoiceInput.TClientOptions.TOpenStreamPolicy OpenStreamPolicy = 3 [json_name = "open_stream_policy"];
+    bool DisableJingle = 1 [json_name = "disable_jingle", (.NYT.column_name) = "disable_jingle"];
+    bool IsMusic = 2 [json_name = "is_music", (.NYT.column_name) = "is_music"];
+    .NAlice.NAliceApi.TVoiceInput.TClientOptions.TOpenStreamPolicy OpenStreamPolicy = 3 [json_name = "open_stream_policy", (.NYT.column_name) = "open_stream_policy"];
   }
 
-  .NAlice.NAliceApi.TClientAliceRequestProto RequestPayload = 1 [json_name = "request_payload"];
-  .NAlice.NAliceApi.TVoiceInput.TClientOptions ClientOptions = 2 [json_name = "client_options"];
+  .NAlice.NAliceApi.TClientAliceRequestProto RequestPayload = 1 [json_name = "request_payload", (.NYT.column_name) = "request_payload"];
+  .NAlice.NAliceApi.TVoiceInput.TClientOptions ClientOptions = 2 [json_name = "client_options", (.NYT.column_name) = "client_options"];
 }
 
 message TTextInput {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TClientOptions {
-    bool Silent = 1 [json_name = "silent"];
-    bool Parallel = 2 [json_name = "parallel"];
-    bool IgnoreAnswer = 3 [json_name = "ignore_answer"];
-    string PersId = 4 [json_name = "pers_id"];
-    bool IgnoreCriticalUpdate = 5 [json_name = "ignore_critical_update"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Silent = 1 [json_name = "silent", (.NYT.column_name) = "silent"];
+    bool Parallel = 2 [json_name = "parallel", (.NYT.column_name) = "parallel"];
+    bool IgnoreAnswer = 3 [json_name = "ignore_answer", (.NYT.column_name) = "ignore_answer"];
+    string PersId = 4 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    bool IgnoreCriticalUpdate = 5 [json_name = "ignore_critical_update", (.NYT.column_name) = "ignore_critical_update"];
   }
 
-  .NAlice.NAliceApi.TClientAliceRequestProto RequestPayload = 1 [json_name = "request_payload"];
-  .NAlice.NAliceApi.TTextInput.TClientOptions ClientOptions = 2 [json_name = "client_options"];
+  .NAlice.NAliceApi.TClientAliceRequestProto RequestPayload = 1 [json_name = "request_payload", (.NYT.column_name) = "request_payload"];
+  .NAlice.NAliceApi.TTextInput.TClientOptions ClientOptions = 2 [json_name = "client_options", (.NYT.column_name) = "client_options"];
 }
 
 message TAliceRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Request {
-    .NAlice.NAliceApi.TVoiceInput VoiceInput = 1 [json_name = "voice_input"];
+    option (.NYT.variant_field_name) = "request";
+    .NAlice.NAliceApi.TVoiceInput VoiceInput = 1 [json_name = "voice_input", (.NYT.column_name) = "voice_input"];
   }
 }
 
 message TSpeechInput {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "SpeechModeClientOptions";
   reserved 2;
   message TRequestPayload {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message THeader {
-      optional string RequestId = 1 [json_name = "request_id"];
-      optional string DialogId = 4 [json_name = "dialog_id"];
-      optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+      optional string DialogId = 4 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+      optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type", (.NYT.column_name) = "dialog_type"];
     }
 
     message TRequest {
-      .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options", (.NYT.column_name) = "uniproxy_options"];
     }
 
-    .NAlice.NAliceApi.TSpeechInput.TRequestPayload.THeader Header = 1 [json_name = "header"];
-    .NAlice.NAliceApi.TSpeechInput.TRequestPayload.TRequest Request = 3 [json_name = "request"];
-    optional string Topic = 19 [json_name = "topic"];
+    .NAlice.NAliceApi.TSpeechInput.TRequestPayload.THeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
+    .NAlice.NAliceApi.TSpeechInput.TRequestPayload.TRequest Request = 3 [json_name = "request", (.NYT.column_name) = "request"];
+    optional string Topic = 19 [json_name = "topic", (.NYT.column_name) = "topic"];
+    optional .NAlice.NAliceApi.TClientTtsOptions TtsOptions = 44 [json_name = "tts_options", (.NYT.column_name) = "tts_options"];
   }
 
-  .NAlice.TSpeechSession SpeechSession = 1 [json_name = "speech_session"];
-  .NAlice.TSpeechModeOptions SpeechModeOptions = 4 [json_name = "speech_mode_options"];
-  .NAlice.NAliceApi.TSpeechInput.TRequestPayload RequestPayload = 3 [json_name = "request_payload"];
-  .NAlice.TTypedCallbackRequest FinishRequestCallback = 5 [json_name = "finish_request_callback"];
-  .NAlice.TTypedCallbackRequest StartRequestCallback = 6 [json_name = "start_request_callback"];
+  .NAlice.TSpeechSession SpeechSession = 1 [json_name = "speech_session", (.NYT.column_name) = "speech_session"];
+  .NAlice.TSpeechModeOptions SpeechModeOptions = 4 [json_name = "speech_mode_options", (.NYT.column_name) = "speech_mode_options"];
+  .NAlice.NAliceApi.TSpeechInput.TRequestPayload RequestPayload = 3 [json_name = "request_payload", (.NYT.column_name) = "request_payload"];
+  .NAlice.TTypedCallbackRequest FinishRequestCallback = 5 [json_name = "finish_request_callback", (.NYT.column_name) = "finish_request_callback"];
+  .NAlice.TTypedCallbackRequest StartRequestCallback = 6 [json_name = "start_request_callback", (.NYT.column_name) = "start_request_callback"];
 }
 

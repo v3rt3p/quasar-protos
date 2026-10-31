@@ -8,25 +8,26 @@ option go_package = "a.yandex-team.ru/alice/protos/api/request_parts";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAnalyticsTrackingModule {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EOrigin {
     Undefined = 0;
     Web = 1;
     Scenario = 2;
-    SmartSpeaker = 3;
+    SmartSpeaker = 3 [deprecated = true];
     RemoteControl = 4;
     Proactivity = 5;
     Cast = 6;
     Timetable = 7;
     Push = 8;
-    SearchApp = 9;
+    SearchApp = 9 [deprecated = true];
     ThisClient = 10;
-    SmartTv = 11;
+    SmartTv = 11 [deprecated = true];
     VAD = 12;
   }
 
-  string ProductScenario = 1 [json_name = "product_scenario"];
-  .NAlice.TAnalyticsTrackingModule.EOrigin Origin = 2 [json_name = "origin"];
-  string Purpose = 3 [json_name = "purpose"];
-  string OriginInfo = 4 [json_name = "origin_info"];
+  string ProductScenario = 1 [json_name = "product_scenario", deprecated = true, (.NYT.column_name) = "product_scenario"];
+  .NAlice.TAnalyticsTrackingModule.EOrigin Origin = 2 [json_name = "origin", (.NYT.column_name) = "origin"];
+  string Purpose = 3 [json_name = "purpose", (.NYT.column_name) = "purpose"];
+  string OriginInfo = 4 [json_name = "origin_info", (.NYT.column_name) = "origin_info"];
 }
 

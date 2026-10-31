@@ -11,7 +11,9 @@ import "alice/protos/api/alicekit/directives/directive.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TExecuteDirectiveChain {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TResponsePolicy {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TOnChainReceivedPolicy {
     }
 
@@ -19,12 +21,12 @@ message TExecuteDirectiveChain {
     }
 
     oneof Policy {
-      .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy.TOnChainReceivedPolicy OnChainReceivedPolicy = 1 [json_name = "on_chain_received_policy"];
-      .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy.TOnChainCompletedPolicy OnChainCompletedPolicy = 2 [json_name = "on_chain_completed_policy"];
+      .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy.TOnChainReceivedPolicy OnChainReceivedPolicy = 1 [json_name = "on_chain_received_policy", (.NYT.column_name) = "on_started_policy"];
+      .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy.TOnChainCompletedPolicy OnChainCompletedPolicy = 2 [json_name = "on_chain_completed_policy", (.NYT.column_name) = "on_completed_policy"];
     }
   }
 
-  repeated .NAlice.NAliceApi.TDirective Directives = 1 [json_name = "directives"];
-  .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy ResponsePolicy = 2 [json_name = "response_policy"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 1 [json_name = "directives", (.NYT.column_name) = "directives"];
+  .NAlice.NAliceApi.TExecuteDirectiveChain.TResponsePolicy ResponsePolicy = 2 [json_name = "response_policy", (.NYT.column_name) = "response_policy"];
 }
 

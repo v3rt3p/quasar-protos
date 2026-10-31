@@ -12,29 +12,35 @@ import "alice/protos/extensions/extensions.proto";
 import "alice/protos/data/tv/channels/common.proto";
 
 message TProgramWrapper {
-  .NAlice.NTv.TProgramItem Program = 1 [json_name = "program"];
-  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+  .NAlice.NTv.TProgramItem Program = 1 [json_name = "program", (.NYT.column_name) = "program"];
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
 }
 
 message TChannelWrapper {
-  .NAlice.NTv.TChannel Channel = 1 [json_name = "channel"];
-  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
-  repeated .NAlice.NData.NTvChannels.TProgramWrapper Programs = 3 [json_name = "programs"];
+  .NAlice.NTv.TChannel Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
+  repeated .NAlice.NData.NTvChannels.TProgramWrapper Programs = 3 [json_name = "programs", (.NYT.column_name) = "programs"];
 }
 
 message TTvGetChannelsResponse {
-  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories", (.NYT.column_name) = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers", (.NYT.column_name) = "channel_wrappers"];
 }
 
 message TTvChannelsListData {
-  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
-  .NAlice.NTv.TChannel CurrentlyPlaying = 3 [json_name = "currently_playing"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories", (.NYT.column_name) = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers", (.NYT.column_name) = "channel_wrappers"];
+  .NAlice.NTv.TChannel CurrentlyPlaying = 3 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
 }
 
 message TCentaurChannelsListData {
-  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories"];
-  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  repeated .NAlice.NTv.TCategory Categories = 1 [json_name = "categories", (.NYT.column_name) = "categories"];
+  repeated .NAlice.NData.NTvChannels.TChannelWrapper ChannelWrappers = 2 [json_name = "channel_wrappers", (.NYT.column_name) = "channel_wrappers"];
 }
 

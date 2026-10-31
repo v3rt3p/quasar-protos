@@ -13,41 +13,53 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMobileAgentCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MobileAgentCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TMobileAgentCapability.TAgentState AgentState = 1 [json_name = "agent_state"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TMobileAgentCapability.TAgentState AgentState = 1 [json_name = "agent_state", (.NYT.column_name) = "agent_state"];
   }
 
   message TAgentState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TIdle {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TRunning {
-      string Description = 1 [json_name = "description"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Description = 1 [json_name = "description", (.NYT.column_name) = "description"];
     }
 
     message TCompleted {
-      bool IsFailed = 1 [json_name = "is_failed"];
-      string Description = 2 [json_name = "description"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool IsFailed = 1 [json_name = "is_failed", (.NYT.column_name) = "is_failed"];
+      string Description = 2 [json_name = "description", (.NYT.column_name) = "description"];
     }
 
     oneof State {
-      .NAlice.TMobileAgentCapability.TAgentState.TIdle Idle = 1 [json_name = "idle"];
-      .NAlice.TMobileAgentCapability.TAgentState.TRunning Running = 2 [json_name = "running"];
-      .NAlice.TMobileAgentCapability.TAgentState.TCompleted Completed = 3 [json_name = "completed"];
+      option (.NYT.variant_field_name) = "state";
+      .NAlice.TMobileAgentCapability.TAgentState.TIdle Idle = 1 [json_name = "idle", (.NYT.column_name) = "idle"];
+      .NAlice.TMobileAgentCapability.TAgentState.TRunning Running = 2 [json_name = "running", (.NYT.column_name) = "running"];
+      .NAlice.TMobileAgentCapability.TAgentState.TCompleted Completed = 3 [json_name = "completed", (.NYT.column_name) = "completed"];
     }
   }
 
   message TStartMobileAgentDirective {
-    string Name = 1 [json_name = "name"];
-    string Command = 2 [json_name = "command"];
-    optional bool DoNotUseUserLogs = 3 [json_name = "do_not_use_user_logs"];
+    option (.NAlice.SpeechKitName) = "start_mobile_agent_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartMobileAgentDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Command = 2 [json_name = "command", (.NYT.column_name) = "command"];
+    optional bool DoNotUseUserLogs = 3 [json_name = "do_not_use_user_logs", (.NYT.column_name) = "do_not_use_user_logs"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMobileAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMobileAgentCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMobileAgentCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMobileAgentCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

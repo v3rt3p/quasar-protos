@@ -14,30 +14,43 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLyricsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LyricsCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.NData.TLyrics Lyrics = 1 [json_name = "lyrics"];
-    bool Enabled = 2 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.TLyrics Lyrics = 1 [json_name = "lyrics", (.NYT.column_name) = "lyrics"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TSetLyricsDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.NData.TLyrics Lyrics = 2 [json_name = "lyrics"];
-    .google.protobuf.Struct ShowLyricsCallback = 3 [json_name = "show_lyrics_callback"];
+    option (.NAlice.SpeechKitName) = "set_lyrics_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetLyricsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.TLyrics Lyrics = 2 [json_name = "lyrics", (.NYT.column_name) = "lyrics"];
+    .google.protobuf.Struct ShowLyricsCallback = 3 [json_name = "show_lyrics_callback", (.NYT.column_name) = "show_lyrics_callback"];
   }
 
   message TEnableLyricsDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "enable_lyrics_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnableLyricsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TDisableLyricsDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "disable_lyrics_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DisableLyricsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLyricsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLyricsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLyricsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLyricsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

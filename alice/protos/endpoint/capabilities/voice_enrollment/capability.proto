@@ -15,38 +15,54 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVoiceEnrollmentCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VoiceEnrollmentCapabilityType;
   message TParameters {
-    bool SupportsShareDirective = 1 [json_name = "supports_share_directive"];
-    bool SuppressFinishResponse = 2 [json_name = "suppress_finish_response"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsShareDirective = 1 [json_name = "supports_share_directive", (.NYT.column_name) = "supports_share_directive"];
+    bool SuppressFinishResponse = 2 [json_name = "suppress_finish_response", (.NYT.column_name) = "suppress_finish_response"];
   }
 
   message TState {
-    bool EnrollmentInProgress = 1 [json_name = "enrollment_in_progress"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool EnrollmentInProgress = 1 [json_name = "enrollment_in_progress", (.NYT.column_name) = "enrollment_in_progress"];
   }
 
   message TEnrollmentStartDirective {
-    uint32 TimeoutMs = 1 [json_name = "timeout_ms"];
-    uint64 Puid = 2 [json_name = "puid"];
+    option (.NAlice.SpeechKitName) = "enrollment_start_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnrollmentStartDirectiveType;
+    uint32 TimeoutMs = 1 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
+    uint64 Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TEnrollmentFinishDirective {
-    string PersId = 1 [json_name = "pers_id"];
-    bool SendGuestEnrollmentFinishFrame = 2 [json_name = "send_guest_enrollment_finish_frame"];
+    option (.NAlice.SpeechKitName) = "enrollment_finish_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnrollmentFinishDirectiveType;
+    string PersId = 1 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+    bool SendGuestEnrollmentFinishFrame = 2 [json_name = "send_guest_enrollment_finish_frame", (.NYT.column_name) = "send_guest_enrollment_finish_frame"];
   }
 
   message TEnrollmentCancelDirective {
+    option (.NAlice.SpeechKitName) = "enrollment_cancel_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnrollmentCancelDirectiveType;
   }
 
   message TEnrollmentShareDirective {
-    string Name = 1000 [json_name = "name"];
-    uint64 Puid = 1 [json_name = "puid"];
-    string UserName = 2 [json_name = "user_name"];
-    .NAlice.NData.NVoiceprint.EGender Gender = 3 [json_name = "gender"];
-    repeated string DeviceIds = 4 [json_name = "device_ids"];
+    option (.NAlice.SpeechKitName) = "enrollment_share_enrollment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnrollmentShareDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint64 Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    string UserName = 2 [json_name = "user_name", (.NYT.column_name) = "user_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    .NAlice.NData.NVoiceprint.EGender Gender = 3 [json_name = "gender", (.NYT.column_name) = "gender", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    repeated string DeviceIds = 4 [json_name = "device_ids", (.NYT.column_name) = "device_ids", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TVoiceEnrollmentCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TVoiceEnrollmentCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVoiceEnrollmentCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVoiceEnrollmentCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

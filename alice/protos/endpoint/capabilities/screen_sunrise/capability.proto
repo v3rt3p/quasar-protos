@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ScreenSunriseCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/screen_sunrise;screen_sunrisepb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScreenSunriseCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ScreenSunriseCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TScreenSunriseCapability.TMelody AvailableMelodies = 1 [json_name = "available_melodies", (.NYT.column_name) = "available_melodies"];
+    repeated .NAlice.TScreenSunriseCapability.TAnimation SupportedAnimations = 2 [json_name = "supported_animations", (.NYT.column_name) = "supported_animations"];
+    .NAlice.TScreenSunriseCapability.TDurationParameters Duration = 3 [json_name = "duration", (.NYT.column_name) = "duration"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 DurationSeconds = 1 [json_name = "duration_seconds", (.NYT.column_name) = "duration_seconds"];
+    .NAlice.TScreenSunriseCapability.TMelody CurrentMelody = 2 [json_name = "current_melody", (.NYT.column_name) = "current_melody"];
+    .NAlice.TScreenSunriseCapability.TAnimation CurrentAnimation = 3 [json_name = "current_animation", (.NYT.column_name) = "current_animation"];
+  }
+
+  message TDurationParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MinDurationSeconds = 3 [json_name = "min_duration_seconds", (.NYT.column_name) = "min_duration_seconds"];
+    uint32 MaxDurationSeconds = 4 [json_name = "max_duration_seconds", (.NYT.column_name) = "max_duration_seconds"];
+  }
+
+  message TAnimation {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EAnimation {
+      Unknown = 0;
+      NatureAwakening = 1;
+      MagicMorning = 2;
+      ChildhoodSunrise = 3;
+    }
+
+    .NAlice.TScreenSunriseCapability.TAnimation.EAnimation Animation = 2 [json_name = "animation", (.NYT.column_name) = "animation"];
+  }
+
+  message TMelody {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EMelody {
+      Unknown = 0;
+    }
+
+    .NAlice.TScreenSunriseCapability.TMelody.EMelody Melody = 1 [json_name = "melody", (.NYT.column_name) = "melody"];
+  }
+
+  message TSetScreenSunriseDirective {
+    option (.NAlice.SpeechKitName) = "set_screen_sunrise_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetScreenSunriseDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 DurationSec = 1 [json_name = "duration_sec", (.NYT.column_name) = "duration_sec"];
+    .NAlice.TScreenSunriseCapability.TMelody Melody = 2 [json_name = "melody", (.NYT.column_name) = "melody"];
+    .NAlice.TScreenSunriseCapability.TAnimation Animation = 3 [json_name = "animation", (.NYT.column_name) = "animation"];
+    optional string AlarmID = 4 [json_name = "alarm_id", (.NYT.column_name) = "alarm_id"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ScreenSunriseUpdateStateEventType;
+    .NAlice.TScreenSunriseCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TScreenSunriseCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TScreenSunriseCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

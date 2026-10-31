@@ -10,7 +10,9 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/sync_push
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TExecuteDirectiveResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TExecutionStatus {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TExecutionStarted {
     }
 
@@ -21,12 +23,12 @@ message TExecuteDirectiveResponse {
     }
 
     oneof Status {
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionStarted ExecutionStarted = 1 [json_name = "execution_started"];
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionCompleted ExecutionCompleted = 2 [json_name = "execution_completed"];
-      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionFailed ExecutionFailed = 3 [json_name = "execution_failed"];
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionStarted ExecutionStarted = 1 [json_name = "execution_started", (.NYT.column_name) = "execution_started"];
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionCompleted ExecutionCompleted = 2 [json_name = "execution_completed", (.NYT.column_name) = "execution_completed"];
+      .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus.TExecutionFailed ExecutionFailed = 3 [json_name = "execution_failed", (.NYT.column_name) = "execution_failed"];
     }
   }
 
-  .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus ExecutionStatus = 1 [json_name = "execution_status"];
+  .NAlice.NAliceApi.TExecuteDirectiveResponse.TExecutionStatus ExecutionStatus = 1 [json_name = "execution_status", (.NYT.column_name) = "execution_status"];
 }
 

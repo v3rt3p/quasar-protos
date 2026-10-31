@@ -14,11 +14,11 @@ message TSourceTag {
     S_NOTA = 1;
   }
 
-  .NAlice.NData.NTron.TSourceTag.ESource Source = 1 [json_name = "source"];
+  .NAlice.NData.NTron.TSourceTag.ESource Source = 1 [json_name = "source", (.NYT.column_name) = "source"];
 }
 
 message TConversationIdTag {
-  string ConversationId = 1 [json_name = "conversation_id"];
+  string ConversationId = 1 [json_name = "conversation_id", (.NYT.column_name) = "conversation_id"];
 }
 
 message TCategoryTag {
@@ -29,22 +29,23 @@ message TCategoryTag {
     C_PEOPLE = 3;
   }
 
-  .NAlice.NData.NTron.TCategoryTag.ECategory Category = 1 [json_name = "category"];
+  .NAlice.NData.NTron.TCategoryTag.ECategory Category = 1 [json_name = "category", (.NYT.column_name) = "category"];
 }
 
 message TTronTagValue {
   oneof Value {
-    .NAlice.NData.NTron.TSourceTag SourceTag = 1 [json_name = "source_tag"];
-    .NAlice.NData.NTron.TConversationIdTag ConversationIdTag = 2 [json_name = "conversation_id_tag"];
-    .NAlice.NData.NTron.TCategoryTag CategoryTag = 3 [json_name = "category_tag"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.NTron.TSourceTag SourceTag = 1 [json_name = "source_tag", (.NYT.column_name) = "source_tag"];
+    .NAlice.NData.NTron.TConversationIdTag ConversationIdTag = 2 [json_name = "conversation_id_tag", (.NYT.column_name) = "conversation_id_tag"];
+    .NAlice.NData.NTron.TCategoryTag CategoryTag = 3 [json_name = "category_tag", (.NYT.column_name) = "category_tag"];
   }
 }
 
 message TTronTag {
-  string TagId = 1 [json_name = "tag_id"];
-  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value"];
-  string NoteId = 3 [json_name = "note_id"];
-  string HashPuid = 4 [json_name = "hash_puid"];
-  optional .google.protobuf.Timestamp ExpireAt = 5 [json_name = "expire_at"];
+  string TagId = 1 [json_name = "tag_id", (.NYT.column_name) = "tag_id"];
+  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value", (.NYT.column_name) = "tag_value"];
+  string NoteId = 3 [json_name = "note_id", (.NYT.column_name) = "note_id"];
+  string HashPuid = 4 [json_name = "hash_puid", (.NYT.column_name) = "hash_puid"];
+  optional .google.protobuf.Timestamp ExpireAt = 5 [json_name = "expire_at", (.NYT.column_name) = "expire_at"];
 }
 

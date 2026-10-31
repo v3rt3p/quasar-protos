@@ -10,24 +10,29 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/server_su
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TServerSubscriptionState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSubscription {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TActive {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       message TReady {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof State {
-        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TActive Active = 1 [json_name = "active"];
-        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TReady Ready = 2 [json_name = "ready"];
+        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TActive Active = 1 [json_name = "active", (.NYT.column_name) = "active"];
+        .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState.TReady Ready = 2 [json_name = "ready", (.NYT.column_name) = "ready"];
       }
     }
 
-    string Id = 1 [json_name = "id"];
-    .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState State = 2 [json_name = "state"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.NAliceApi.TServerSubscriptionState.TSubscription.TState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
   }
 
-  repeated .NAlice.NAliceApi.TServerSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions"];
+  repeated .NAlice.NAliceApi.TServerSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions", (.NYT.column_name) = "subscriptions"];
 }
 

@@ -12,24 +12,33 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBuiltInButtonsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BuiltInButtonsCapabilityType;
   message TParameters {
-    bool SupportsBlockingByUser = 1 [json_name = "supports_blocking_by_user"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsBlockingByUser = 1 [json_name = "supports_blocking_by_user", (.NYT.column_name) = "supports_blocking_by_user"];
   }
 
   message TState {
-    bool Blocked = 1 [json_name = "blocked"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Blocked = 1 [json_name = "blocked", (.NYT.column_name) = "blocked"];
   }
 
   message TSetBlockedDirective {
-    bool Blocked = 1 [json_name = "blocked"];
+    option (.NAlice.SpeechKitName) = "set_blocked_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetBlockedDirectiveType;
+    bool Blocked = 1 [json_name = "blocked", (.NYT.column_name) = "blocked"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TBuiltInButtonsCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BuiltInButtonsUpdateStateEventType;
+    .NAlice.TBuiltInButtonsCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBuiltInButtonsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBuiltInButtonsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBuiltInButtonsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBuiltInButtonsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

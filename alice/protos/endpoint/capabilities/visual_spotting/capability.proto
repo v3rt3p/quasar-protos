@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VisualSpottingCapability";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/visual_spotting;visual_spottingpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVisualSpottingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VisualSpottingCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    bool Active = 2 [json_name = "active", (.NYT.column_name) = "active"];
+    bool IntentDetected = 3 [json_name = "intent_detected", (.NYT.column_name) = "intent_detected"];
+  }
+
+  message TSetVisualSpottingDirective {
+    option (.NAlice.SpeechKitName) = "set_visual_spotting_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetVisualSpottingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Active = 1 [json_name = "active", (.NYT.column_name) = "active"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVisualSpottingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVisualSpottingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

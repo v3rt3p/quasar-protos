@@ -11,29 +11,35 @@ import "alice/protos/api/incognito_mode/incognito_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientSubscriptionState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSubscription {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TPing {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       message TFullContent {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
       }
 
       oneof State {
-        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TPing Ping = 1 [json_name = "ping"];
-        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TFullContent FullContent = 2 [json_name = "full_content"];
+        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TPing Ping = 1 [json_name = "ping", (.NYT.column_name) = "ping"];
+        .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState.TFullContent FullContent = 2 [json_name = "full_content", (.NYT.column_name) = "full_content"];
       }
     }
 
-    string Id = 1 [json_name = "id"];
-    .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState State = 2 [json_name = "state"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.NAliceApi.TClientSubscriptionState.TSubscription.TState State = 2 [json_name = "state", (.NYT.column_name) = "state"];
   }
 
   message TAdditionalOptions {
-    .NAlice.TIncognitoOptions IncognitoOptions = 1 [json_name = "incognito_options"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIncognitoOptions IncognitoOptions = 1 [json_name = "incognito_options", (.NYT.column_name) = "incognito_options"];
   }
 
-  repeated .NAlice.NAliceApi.TClientSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions"];
-  .NAlice.NAliceApi.TClientSubscriptionState.TAdditionalOptions AdditionalOptions = 2 [json_name = "additional_options"];
+  repeated .NAlice.NAliceApi.TClientSubscriptionState.TSubscription Subscriptions = 1 [json_name = "subscriptions", (.NYT.column_name) = "subscriptions"];
+  .NAlice.NAliceApi.TClientSubscriptionState.TAdditionalOptions AdditionalOptions = 2 [json_name = "additional_options", (.NYT.column_name) = "additional_options"];
 }
 

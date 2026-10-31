@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AppFunctionsCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/app_functions;appfunctionspb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAppFunctionsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AppFunctionsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAppFunctionsCapability.TApplicationState ApplicationStates = 1 [json_name = "application_states", (.NYT.column_name) = "application_states"];
+  }
+
+  message TApplicationState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string PackageName = 1 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+    repeated .NAlice.TAppFunctionsCapability.TAppFunctionSpecification AppFunctionSpecifications = 2 [json_name = "app_function_specifications", (.NYT.column_name) = "app_function_specifications"];
+  }
+
+  message TAppFunctionSpecification {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Description = 2 [json_name = "description", (.NYT.column_name) = "description"];
+    string ArgumentSchema = 3 [json_name = "argument_schema", (.NYT.column_name) = "argument_schema"];
+  }
+
+  message TInvokeAppFunctionDirective {
+    option (.NAlice.SpeechKitName) = "invoke_app_function_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = InvokeAppFunctionDirectiveType;
+    string Name = 4 [json_name = "name", (.NYT.column_name) = "name"];
+    string PackageName = 1 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+    string FunctionName = 2 [json_name = "function_name", (.NYT.column_name) = "function_name"];
+    .google.protobuf.Struct Argument = 3 [json_name = "argument", (.NYT.column_name) = "argument"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAppFunctionsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAppFunctionsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

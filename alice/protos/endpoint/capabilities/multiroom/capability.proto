@@ -11,19 +11,23 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMultiroomCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MultiroomCapabilityType;
   message TParameters {
-    bool SupportsDirectivesAttachment = 1 [json_name = "supports_directives_attachment"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsDirectivesAttachment = 1 [json_name = "supports_directives_attachment", (.NYT.column_name) = "supports_directives_attachment"];
   }
 
   message TSessionDescriptor {
-    optional string MasterDeviceId = 1 [json_name = "master_device_id"];
-    optional string MultiroomToken = 2 [json_name = "multiroom_token"];
-    optional int64 StartTimestampMs = 3 [json_name = "start_timestamp_ms"];
+    optional string MasterDeviceId = 1 [json_name = "master_device_id", (.NYT.column_name) = "master_device_id"];
+    optional string MultiroomToken = 2 [json_name = "multiroom_token", (.NYT.column_name) = "multiroom_token"];
+    optional int64 StartTimestampMs = 3 [json_name = "start_timestamp_ms", (.NYT.column_name) = "start_timestamp_ms"];
   }
 
   message TState {
-    optional .NAlice.TMultiroomCapability.ERole Role = 1 [json_name = "role"];
-    optional .NAlice.TMultiroomCapability.TSessionDescriptor CurrentSession = 2 [json_name = "current_session"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.TMultiroomCapability.ERole Role = 1 [json_name = "role", (.NYT.column_name) = "role"];
+    optional .NAlice.TMultiroomCapability.TSessionDescriptor CurrentSession = 2 [json_name = "current_session", (.NYT.column_name) = "current_session"];
   }
 
   enum ERole {
@@ -32,8 +36,8 @@ message TMultiroomCapability {
     ROLE_SLAVE = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TMultiroomCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TMultiroomCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMultiroomCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMultiroomCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "RetrieveSourcesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/retrieve_sources;retrievesourcespb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRetrieveSourcesCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = RetrieveSourcesCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TRetrieveSourcesCapability.ESourceType Sources = 1 [json_name = "sources", (.NYT.column_name) = "sources"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  enum ESourceType {
+    SourceTypeUndefined = 0;
+    SourceTypeMail = 1;
+    SourceTypeKnowledgeBase = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TRetrieveSourcesCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TRetrieveSourcesCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

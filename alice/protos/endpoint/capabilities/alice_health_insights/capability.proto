@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceHealthInsightsCapability";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_health_insights;alicehealthinsightspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceHealthInsightsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceHealthInsightsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum ERating {
+      Unknown = 0;
+      Bad = 1;
+      Medium = 2;
+      Good = 3;
+      Excellent = 4;
+    }
+
+    .NAlice.TAliceHealthInsightsCapability.TState.ERating rating = 1 [json_name = "rating", (.NYT.column_name) = "rating"];
+    string title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    string subtitle = 3 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+    string description = 4 [json_name = "description", (.NYT.column_name) = "description"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceHealthInsightsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceHealthInsightsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

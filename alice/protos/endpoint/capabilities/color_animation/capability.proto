@@ -13,64 +13,78 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TColorAnimationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ColorAnimationCapabilityType;
   message AnimationSetting {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRgbColorSetting {
-      uint32 Red = 1 [json_name = "red"];
-      uint32 Green = 2 [json_name = "green"];
-      uint32 Blue = 3 [json_name = "blue"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 Red = 1 [json_name = "red", (.NYT.column_name) = "red"];
+      uint32 Green = 2 [json_name = "green", (.NYT.column_name) = "green"];
+      uint32 Blue = 3 [json_name = "blue", (.NYT.column_name) = "blue"];
     }
 
     message TTemperatureKColorSetting {
-      uint64 TemperatureK = 1 [json_name = "temperature_k"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint64 TemperatureK = 1 [json_name = "temperature_k", (.NYT.column_name) = "temperature_k"];
     }
 
     message TBackgroundSoundSetting {
-      bool Enabled = 1 [json_name = "enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
     }
 
     message TAutoPlaySetting {
-      bool Enabled = 1 [json_name = "enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
     }
 
     message TAutoRunSetting {
-      bool Enabled = 1 [json_name = "enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
     }
 
     message TSpeedSetting {
-      float Value = 1 [json_name = "value"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      float Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
     }
 
     message TVisualEffectSetting {
-      .NAlice.TColorAnimationCapability.EVisualEffect Effect = 1 [json_name = "effect"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TColorAnimationCapability.EVisualEffect Effect = 1 [json_name = "effect", (.NYT.column_name) = "effect"];
     }
 
     oneof TSetting {
-      .NAlice.TColorAnimationCapability.AnimationSetting.TRgbColorSetting RgbColor = 1 [json_name = "rgb_color"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TTemperatureKColorSetting TemperatureKColor = 2 [json_name = "temperature_k_color"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TBackgroundSoundSetting BackgroundSound = 3 [json_name = "background_sound"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TAutoPlaySetting AutoPlay = 4 [json_name = "auto_play"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TAutoRunSetting AutoRun = 5 [json_name = "auto_run"];
-      .NAlice.THueAndSaturation HsvColor = 6 [json_name = "hsv_color"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TSpeedSetting Speed = 7 [json_name = "speed"];
-      .NAlice.TColorAnimationCapability.AnimationSetting.TVisualEffectSetting VisualEffect = 8 [json_name = "visual_effect"];
+      option (.NYT.variant_field_name) = "setting";
+      .NAlice.TColorAnimationCapability.AnimationSetting.TRgbColorSetting RgbColor = 1 [json_name = "rgb_color", (.NYT.column_name) = "rgb_color"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TTemperatureKColorSetting TemperatureKColor = 2 [json_name = "temperature_k_color", (.NYT.column_name) = "temperature_k_color"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TBackgroundSoundSetting BackgroundSound = 3 [json_name = "background_sound", (.NYT.column_name) = "background_sound"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TAutoPlaySetting AutoPlay = 4 [json_name = "auto_play", (.NYT.column_name) = "auto_play"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TAutoRunSetting AutoRun = 5 [json_name = "auto_run", (.NYT.column_name) = "auto_run"];
+      .NAlice.THueAndSaturation HsvColor = 6 [json_name = "hsv_color", (.NYT.column_name) = "hsv_color"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TSpeedSetting Speed = 7 [json_name = "speed", (.NYT.column_name) = "speed"];
+      .NAlice.TColorAnimationCapability.AnimationSetting.TVisualEffectSetting VisualEffect = 8 [json_name = "visual_effect", (.NYT.column_name) = "visual_effect"];
     }
   }
 
   message TAnimationState {
-    .NAlice.TColorAnimationCapability.EAnimationType Type = 1 [json_name = "type"];
-    string LastAnimationId = 2 [json_name = "last_animation_id"];
-    repeated .NAlice.TColorAnimationCapability.AnimationSetting CommonSettings = 3 [json_name = "common_settings"];
-    repeated .NAlice.TColorAnimationCapability.TAnimation Animations = 4 [json_name = "animations"];
-    uint32 LastAnimationIndex = 5 [json_name = "last_animation_index"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TColorAnimationCapability.EAnimationType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string LastAnimationId = 2 [json_name = "last_animation_id", (.NYT.column_name) = "last_animation_id"];
+    repeated .NAlice.TColorAnimationCapability.AnimationSetting CommonSettings = 3 [json_name = "common_settings", (.NYT.column_name) = "common_settings"];
+    repeated .NAlice.TColorAnimationCapability.TAnimation Animations = 4 [json_name = "animations", (.NYT.column_name) = "animations"];
+    uint32 LastAnimationIndex = 5 [json_name = "last_animation_index", (.NYT.column_name) = "last_animation_index"];
   }
 
   message TAnimation {
-    string AnimationId = 1 [json_name = "animation_id"];
-    repeated .NAlice.TColorAnimationCapability.AnimationSetting Settings = 2 [json_name = "settings"];
-    uint32 AnimationIndex = 3 [json_name = "animation_index"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string AnimationId = 1 [json_name = "animation_id", (.NYT.column_name) = "animation_id"];
+    repeated .NAlice.TColorAnimationCapability.AnimationSetting Settings = 2 [json_name = "settings", (.NYT.column_name) = "settings"];
+    uint32 AnimationIndex = 3 [json_name = "animation_index", (.NYT.column_name) = "animation_index"];
   }
 
   message TAnimationParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TParameter {
       reserved "SupportedAnimationsParameter";
       reserved 1;
@@ -92,65 +106,79 @@ message TColorAnimationCapability {
       }
 
       message TColorModelTemperatureKParameter {
-        uint64 Min = 1 [json_name = "min"];
-        uint64 Max = 2 [json_name = "max"];
+        uint64 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+        uint64 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
       }
 
       message TCustomSceneSpeedParameter {
-        float Min = 1 [json_name = "min"];
-        float Max = 2 [json_name = "max"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        float Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+        float Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
       }
 
       message TCustomSceneVisualEffectParameter {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
         message TVisualEffect {
-          .NAlice.TColorAnimationCapability.EVisualEffect Effect = 1 [json_name = "effect"];
+          option (.NYT.default_field_flags) = SERIALIZATION_YT;
+          .NAlice.TColorAnimationCapability.EVisualEffect Effect = 1 [json_name = "effect", (.NYT.column_name) = "effect"];
         }
 
-        repeated .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneVisualEffectParameter.TVisualEffect SupportedEffects = 1 [json_name = "supported_effects"];
+        repeated .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneVisualEffectParameter.TVisualEffect SupportedEffects = 1 [json_name = "supported_effects", (.NYT.column_name) = "supported_effects"];
       }
 
       oneof Parameter {
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorMusicAutoplayParameter ColorMusicAutoplayParameter = 2 [json_name = "color_music_autoplay"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelHSVParameter ColorModelHSVParameter = 3 [json_name = "color_model_hsv"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelRGBParameter ColorModelRGBParameter = 4 [json_name = "color_model_rgb"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelTemperatureKParameter ColorModelTemperatureKParameter = 5 [json_name = "color_model_temperature_k"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorMusicAutorunParameter ColorMusicAutorunParameter = 6 [json_name = "color_music_autorun"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneSpeedParameter CustomSceneSpeedParameter = 7 [json_name = "custom_scene_speed"];
-        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneVisualEffectParameter CustomSceneVisualEffectParameter = 8 [json_name = "custom_scene_visual_effect"];
+        option (.NYT.variant_field_name) = "parameter";
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorMusicAutoplayParameter ColorMusicAutoplayParameter = 2 [json_name = "color_music_autoplay", (.NYT.column_name) = "color_music_autoplay"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelHSVParameter ColorModelHSVParameter = 3 [json_name = "color_model_hsv", (.NYT.column_name) = "color_model_hsv"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelRGBParameter ColorModelRGBParameter = 4 [json_name = "color_model_rgb", (.NYT.column_name) = "color_model_rgb"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorModelTemperatureKParameter ColorModelTemperatureKParameter = 5 [json_name = "color_model_temperature_k", (.NYT.column_name) = "color_model_temperature_k"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TColorMusicAutorunParameter ColorMusicAutorunParameter = 6 [json_name = "color_music_autorun", (.NYT.column_name) = "color_music_autorun"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneSpeedParameter CustomSceneSpeedParameter = 7 [json_name = "custom_scene_speed", (.NYT.column_name) = "custom_scene_speed"];
+        .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter.TCustomSceneVisualEffectParameter CustomSceneVisualEffectParameter = 8 [json_name = "custom_scene_visual_effect", (.NYT.column_name) = "custom_scene_visual_effect"];
       }
     }
 
-    .NAlice.TColorAnimationCapability.EAnimationType Type = 1 [json_name = "type"];
-    repeated .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter Parameters = 2 [json_name = "parameters"];
-    repeated .NAlice.TColorAnimationCapability.TAnimation SupportedAnimations = 3 [json_name = "supported_animations"];
+    .NAlice.TColorAnimationCapability.EAnimationType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    repeated .NAlice.TColorAnimationCapability.TAnimationParameters.TParameter Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+    repeated .NAlice.TColorAnimationCapability.TAnimation SupportedAnimations = 3 [json_name = "supported_animations", (.NYT.column_name) = "supported_animations"];
   }
 
   message TParameters {
-    repeated .NAlice.TColorAnimationCapability.TAnimationParameters AnimationParameters = 1 [json_name = "animation_parameters"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TColorAnimationCapability.TAnimationParameters AnimationParameters = 1 [json_name = "animation_parameters", (.NYT.column_name) = "animation_parameters"];
   }
 
   message TState {
-    .NAlice.TColorAnimationCapability.EAnimationType CurrentAnimationType = 1 [json_name = "current_animation_type"];
-    repeated .NAlice.TColorAnimationCapability.TAnimationState AnimationStates = 2 [json_name = "animation_states"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TColorAnimationCapability.EAnimationType CurrentAnimationType = 1 [json_name = "current_animation_type", (.NYT.column_name) = "current_animation_type"];
+    repeated .NAlice.TColorAnimationCapability.TAnimationState AnimationStates = 2 [json_name = "animation_states", (.NYT.column_name) = "animation_states"];
   }
 
   message TSetAnimationTypeCommonSettingDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TColorAnimationCapability.EAnimationType AnimationType = 1 [json_name = "animation_type"];
-    .NAlice.TColorAnimationCapability.AnimationSetting Setting = 2 [json_name = "setting"];
+    option (.NAlice.SpeechKitName) = "set_animation_type_common_setting_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAnimationTypeCommonSettingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TColorAnimationCapability.EAnimationType AnimationType = 1 [json_name = "animation_type", (.NYT.column_name) = "animation_type"];
+    .NAlice.TColorAnimationCapability.AnimationSetting Setting = 2 [json_name = "setting", (.NYT.column_name) = "setting"];
   }
 
   message TSetAnimationColorAnimationDirective {
-    string Name = 1000 [json_name = "name"];
-    string AnimationId = 1 [json_name = "animation_id"];
-    bool AutoEnable = 2 [json_name = "autoenable"];
-    repeated .NAlice.TColorAnimationCapability.AnimationSetting Settings = 3 [json_name = "settings"];
-    .NAlice.TColorAnimationCapability.EAnimationType AnimationType = 5 [json_name = "animation_type"];
-    optional uint32 AnimationIndex = 4 [json_name = "animation_index"];
+    option (.NAlice.SpeechKitName) = "set_animation_color_animation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAnimationColorAnimationDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string AnimationId = 1 [json_name = "animation_id", (.NYT.column_name) = "animation_id"];
+    bool AutoEnable = 2 [json_name = "autoenable", (.NYT.column_name) = "autoenable"];
+    repeated .NAlice.TColorAnimationCapability.AnimationSetting Settings = 3 [json_name = "settings", (.NYT.column_name) = "settings"];
+    .NAlice.TColorAnimationCapability.EAnimationType AnimationType = 5 [json_name = "animation_type", (.NYT.column_name) = "animation_type"];
+    optional uint32 AnimationIndex = 4 [json_name = "animation_index", (.NYT.column_name) = "animation_index"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TColorAnimationCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ColorAnimationUpdateStateEventType;
+    .NAlice.TColorAnimationCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EVisualEffect {
@@ -170,8 +198,8 @@ message TColorAnimationCapability {
     CustomScene = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TColorAnimationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TColorAnimationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TColorAnimationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TColorAnimationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

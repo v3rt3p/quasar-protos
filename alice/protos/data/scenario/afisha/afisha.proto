@@ -9,29 +9,35 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAfishaTeaserData {
-  string Title = 1 [json_name = "title"];
-  string ImageUrl = 2 [json_name = "image_url"];
-  string Date = 3 [json_name = "date"];
-  string Place = 4 [json_name = "place"];
-  string ContentRating = 5 [json_name = "content_rating"];
-  string EventId = 6 [json_name = "event_id"];
-  string Type = 7 [json_name = "type"];
-  string QRUrl = 8 [json_name = "qr_url"];
-  string AfishaUrl = 9 [json_name = "afisha_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  string ImageUrl = 2 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  string Date = 3 [json_name = "date", (.NYT.column_name) = "date"];
+  string Place = 4 [json_name = "place", (.NYT.column_name) = "place"];
+  string ContentRating = 5 [json_name = "content_rating", (.NYT.column_name) = "content_rating"];
+  string EventId = 6 [json_name = "event_id", (.NYT.column_name) = "event_id"];
+  string Type = 7 [json_name = "type", (.NYT.column_name) = "type"];
+  string QRUrl = 8 [json_name = "qr_url", (.NYT.column_name) = "qr_url"];
+  string AfishaUrl = 9 [json_name = "afisha_url", (.NYT.column_name) = "afisha_url"];
 }
 
 message TAfishaSelectionSettingData {
-  string SelectionCode = 1 [json_name = "selection_code"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string SelectionCode = 1 [json_name = "selection_code", (.NYT.column_name) = "selection_code"];
 }
 
 message TAfishaSelectionData {
-  .NAlice.NData.TAfishaSelectionSettingData SelecSettingData = 1 [json_name = "selection_setting_data"];
-  bool IsChosen = 2 [json_name = "is_chosen"];
-  string SelectionName = 3 [json_name = "selection_name"];
-  string ImageUrl = 4 [json_name = "image_url"];
+  .NAlice.NData.TAfishaSelectionSettingData SelecSettingData = 1 [json_name = "selection_setting_data", (.NYT.column_name) = "selection_setting_data"];
+  bool IsChosen = 2 [json_name = "is_chosen", (.NYT.column_name) = "is_chosen"];
+  string SelectionName = 3 [json_name = "selection_name", (.NYT.column_name) = "selection_name"];
+  string ImageUrl = 4 [json_name = "image_url", (.NYT.column_name) = "image_url"];
 }
 
 message TAfishaSettingScreenData {
-  repeated .NAlice.NData.TAfishaSelectionData AfishaSelections = 1 [json_name = "afisha_selections"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  repeated .NAlice.NData.TAfishaSelectionData AfishaSelections = 1 [json_name = "afisha_selections", (.NYT.column_name) = "afisha_selections"];
 }
 

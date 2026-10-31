@@ -13,41 +13,51 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEqualizerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = EqualizerCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TBandsLimits {
-      uint32 MinBandsCount = 1 [json_name = "min_bands_count"];
-      uint32 MaxBandsCount = 2 [json_name = "max_bands_count"];
-      double MinBandGain = 3 [json_name = "min_band_gain"];
-      double MaxBandGain = 4 [json_name = "max_band_gain"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 MinBandsCount = 1 [json_name = "min_bands_count", (.NYT.column_name) = "min_bands_count"];
+      uint32 MaxBandsCount = 2 [json_name = "max_bands_count", (.NYT.column_name) = "max_bands_count"];
+      double MinBandGain = 3 [json_name = "min_band_gain", (.NYT.column_name) = "min_band_gain"];
+      double MaxBandGain = 4 [json_name = "max_band_gain", (.NYT.column_name) = "max_band_gain"];
     }
 
     message TAdjustableBandsConfiguration {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TFixedBandsConfiguration {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TFixedBand {
-        double Frequency = 1 [json_name = "frequency"];
-        double Width = 2 [json_name = "width"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        double Frequency = 1 [json_name = "frequency", (.NYT.column_name) = "frequency"];
+        double Width = 2 [json_name = "width", (.NYT.column_name) = "width"];
       }
 
-      repeated .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration.TFixedBand FixedBands = 1 [json_name = "fixed_bands"];
+      repeated .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration.TFixedBand FixedBands = 1 [json_name = "fixed_bands", (.NYT.column_name) = "fixed_bands"];
     }
 
-    .NAlice.TEqualizerCapability.TParameters.TBandsLimits BandsLimits = 1 [json_name = "bands_limits"];
-    repeated .NAlice.TEqualizerCapability.EPresetMode SupportedPresetModes = 2 [json_name = "supported_preset_modes"];
+    .NAlice.TEqualizerCapability.TParameters.TBandsLimits BandsLimits = 1 [json_name = "bands_limits", (.NYT.column_name) = "bands_limits"];
+    repeated .NAlice.TEqualizerCapability.EPresetMode SupportedPresetModes = 2 [json_name = "supported_preset_modes", (.NYT.column_name) = "supported_preset_modes"];
     oneof BandsConfiguration {
-      .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration Fixed = 3 [json_name = "fixed"];
-      .NAlice.TEqualizerCapability.TParameters.TAdjustableBandsConfiguration Adjustable = 4 [json_name = "adjustable"];
+      option (.NYT.variant_field_name) = "bands_configuration";
+      .NAlice.TEqualizerCapability.TParameters.TFixedBandsConfiguration Fixed = 3 [json_name = "fixed", (.NYT.column_name) = "fixed"];
+      .NAlice.TEqualizerCapability.TParameters.TAdjustableBandsConfiguration Adjustable = 4 [json_name = "adjustable", (.NYT.column_name) = "adjustable"];
     }
   }
 
   message TState {
-    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands"];
-    .NAlice.TEqualizerCapability.EPresetMode PresetMode = 2 [json_name = "preset_mode"];
-    bool PreventClipping = 3 [json_name = "prevent_clipping"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands", (.NYT.column_name) = "bands"];
+    .NAlice.TEqualizerCapability.EPresetMode PresetMode = 2 [json_name = "preset_mode", (.NYT.column_name) = "preset_mode"];
+    bool PreventClipping = 3 [json_name = "prevent_clipping", (.NYT.column_name) = "prevent_clipping"];
   }
 
   message TBandState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EType {
       Undefined = 0;
       Peak = 1;
@@ -55,20 +65,26 @@ message TEqualizerCapability {
       HighShelf = 3;
     }
 
-    double Frequency = 1 [json_name = "frequency"];
-    double Gain = 2 [json_name = "gain"];
-    double Width = 3 [json_name = "width"];
-    .NAlice.TEqualizerCapability.TBandState.EType Type = 4 [json_name = "type"];
+    double Frequency = 1 [json_name = "frequency", (.NYT.column_name) = "frequency"];
+    double Gain = 2 [json_name = "gain", (.NYT.column_name) = "gain"];
+    double Width = 3 [json_name = "width", (.NYT.column_name) = "width"];
+    .NAlice.TEqualizerCapability.TBandState.EType Type = 4 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
   message TSetAdjustableEqualizerBandsDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands"];
+    option (.NAlice.SpeechKitName) = "set_adjustable_equalizer_bands_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAdjustableEqualizerBandsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TEqualizerCapability.TBandState Bands = 1 [json_name = "bands", (.NYT.column_name) = "bands"];
   }
 
   message TSetFixedEqualizerBandsDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated double Gains = 1 [json_name = "gains"];
+    option (.NAlice.SpeechKitName) = "set_fixed_equalizer_bands_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFixedEqualizerBandsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated double Gains = 1 [json_name = "gains", (.NYT.column_name) = "gains"];
   }
 
   enum EPresetMode {
@@ -77,8 +93,8 @@ message TEqualizerCapability {
     MediaCorrection = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TEqualizerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TEqualizerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TEqualizerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TEqualizerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

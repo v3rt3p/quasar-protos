@@ -12,34 +12,46 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioFilePlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AudioFilePlayerCapabilityType;
   message TParameters {
-    repeated .NAlice.TAudioFilePlayerCapability.EStoredSound StoredSounds = 1 [json_name = "stored_sounds"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAudioFilePlayerCapability.EStoredSound StoredSounds = 1 [json_name = "stored_sounds", (.NYT.column_name) = "stored_sounds"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TLocalAudioFilePlayDirective {
+    option (.NAlice.SpeechKitName) = "local_audio_file_play";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LocalAudioFilePlayDirectiveType;
     reserved "StoredSound";
     reserved 1;
-    string Name = 4 [json_name = "name"];
-    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel"];
-    bool Looped = 3 [json_name = "looped"];
-    uint32 PlayTimes = 5 [json_name = "play_times"];
+    string Name = 4 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel", (.NYT.column_name) = "channel"];
+    bool Looped = 3 [json_name = "looped", (.NYT.column_name) = "looped"];
+    uint32 PlayTimes = 5 [json_name = "play_times", (.NYT.column_name) = "play_times"];
     oneof Sound {
-      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play"];
-      string FileName = 6 [json_name = "file_name"];
+      option (.NYT.variant_field_name) = "sound";
+      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play", (.NYT.column_name) = "sound_to_play"];
+      string FileName = 6 [json_name = "file_name", (.NYT.column_name) = "file_name"];
     }
   }
 
   message TLocalAudioFileStopDirective {
+    option (.NAlice.SpeechKitName) = "local_audio_file_stop";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LocalAudioFileStopDirectiveType;
     reserved "StoredSound";
     reserved 1;
-    string Name = 3 [json_name = "name"];
-    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel"];
+    string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.EDirectiveChannel Channel = 2 [json_name = "channel", (.NYT.column_name) = "channel"];
     oneof Sound {
-      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play"];
-      string FileName = 6 [json_name = "file_name"];
+      option (.NYT.variant_field_name) = "sound";
+      .NAlice.TAudioFilePlayerCapability.EStoredSound SoundToPlay = 7 [json_name = "sound_to_play", (.NYT.column_name) = "sound_to_play"];
+      string FileName = 6 [json_name = "file_name", (.NYT.column_name) = "file_name"];
     }
   }
 
@@ -150,10 +162,17 @@ message TAudioFilePlayerCapability {
     HotChargingPort = 103;
     Stolen = 104;
     FlickerNoise = 105;
+    NoInternetReboot = 106;
+    NoInternetReconfigure = 107;
+    StroboscopeWarning = 108;
+    PowerSafeMode = 109;
+    PowerVolumeReduced = 110;
+    FirstEnterConfigureBadPower = 111;
+    BackendUnavailable = 112;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAudioFilePlayerCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAudioFilePlayerCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAudioFilePlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAudioFilePlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

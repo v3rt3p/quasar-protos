@@ -10,7 +10,8 @@ import "alice/protos/endpoint/capabilities/local_iot/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScheduledActionData {
-  .NAlice.TLocalIoTCapability.TScheduledAction ScheduledAction = 1 [json_name = "scheduled_action"];
-  .NAlice.NAliceApi.TDirective OnScheduledActionCallback = 2 [json_name = "on_scheduled_action_callback"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TLocalIoTCapability.TScheduledAction ScheduledAction = 1 [json_name = "scheduled_action", (.NYT.column_name) = "scheduled_action"];
+  .NAlice.NAliceApi.TDirective OnScheduledActionCallback = 2 [json_name = "on_scheduled_action_callback", (.NYT.column_name) = "on_scheduled_action_callback"];
 }
 

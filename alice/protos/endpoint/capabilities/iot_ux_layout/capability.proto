@@ -12,26 +12,35 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotUxLayoutCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotUxLayoutCapabilityType;
   message TParameters {
-    uint32 MinIndex = 1 [json_name = "min_index"];
-    uint32 MaxIndex = 2 [json_name = "max_index"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MinIndex = 1 [json_name = "min_index", (.NYT.column_name) = "min_index"];
+    uint32 MaxIndex = 2 [json_name = "max_index", (.NYT.column_name) = "max_index"];
   }
 
   message TState {
-    uint32 Index = 1 [json_name = "index"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Index = 1 [json_name = "index", (.NYT.column_name) = "index"];
   }
 
   message TSetUxLayoutDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 Index = 1 [json_name = "index"];
+    option (.NAlice.SpeechKitName) = "iot_set_ux_layout_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetUxLayoutDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 Index = 1 [json_name = "index", (.NYT.column_name) = "index"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotUxLayoutCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotUxLayoutUpdateStateEventType;
+    .NAlice.TIotUxLayoutCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotUxLayoutCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotUxLayoutCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotUxLayoutCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotUxLayoutCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

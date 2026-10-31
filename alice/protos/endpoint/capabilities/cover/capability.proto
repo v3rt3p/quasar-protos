@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CoverProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/cover;coverpb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/wrappers.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCoverCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CoverCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TCoverCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+    .google.protobuf.DoubleValue Position = 2 [json_name = "position", (.NYT.column_name) = "position"];
+    .NAlice.TCoverCapability.EDirection Direction = 3 [json_name = "direction", (.NYT.column_name) = "direction"];
+    .NAlice.TCoverCapability.ESpeed Speed = 4 [json_name = "speed", (.NYT.column_name) = "speed"];
+  }
+
+  message TOpenDirective {
+    option (.NAlice.SpeechKitName) = "cover_open_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverOpenDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  message TCloseDirective {
+    option (.NAlice.SpeechKitName) = "cover_close_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverCloseDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  message TStopDirective {
+    option (.NAlice.SpeechKitName) = "cover_stop_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverStopDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  message TSetPositionDirective {
+    option (.NAlice.SpeechKitName) = "cover_set_position_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverSetPositionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Position = 1 [json_name = "position", (.NYT.column_name) = "position"];
+  }
+
+  message TSetDirectionDirective {
+    option (.NAlice.SpeechKitName) = "cover_set_direction_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverSetDirectionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.EDirection Direction = 1 [json_name = "direction", (.NYT.column_name) = "direction"];
+  }
+
+  message TSetSpeedDirective {
+    option (.NAlice.SpeechKitName) = "cover_set_speed_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverSetSpeedDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.ESpeed Speed = 1 [json_name = "speed", (.NYT.column_name) = "speed"];
+  }
+
+  message TResetLimitsDirective {
+    option (.NAlice.SpeechKitName) = "cover_reset_limits_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverResetLimitsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TSetLimitDirectiveType {
+    option (.NAlice.SpeechKitName) = "cover_set_limit_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CoverSetLimitDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCoverCapability.ELimit Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CoverUpdateStateEventType;
+    .NAlice.TCoverCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  enum EMode {
+    Normal = 0;
+    Calibration = 1;
+  }
+
+  enum EDirection {
+    Direct = 0;
+    Reversed = 1;
+  }
+
+  enum ESpeed {
+    Low = 0;
+    Medium = 1;
+    High = 2;
+  }
+
+  enum ELimit {
+    None = 0;
+    Opened = 1;
+    Closed = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCoverCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCoverCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

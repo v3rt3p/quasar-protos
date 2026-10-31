@@ -16,34 +16,41 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLegacyDeviceStateVideoCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LegacyDeviceStateVideoCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo Video = 1 [json_name = "video"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo Video = 1 [json_name = "video", (.NYT.column_name) = "video"];
   }
 
   message TVideo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "TvScreenState";
     reserved 4;
     reserved 6;
     reserved 7;
     reserved 12;
     message TScreenState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved 1;
       reserved 3;
       reserved 4;
-      repeated uint32 VisibleItems = 2 [json_name = "visible_items"];
-      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items"];
-      optional uint32 Season = 5 [json_name = "season"];
-      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item"];
-      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item"];
-      optional string Scenario = 9 [json_name = "scenario"];
-      optional string ViewKey = 10 [json_name = "view_key"];
-      optional string ScenarioName = 11 [json_name = "scenario_name"];
+      repeated uint32 VisibleItems = 2 [json_name = "visible_items", (.NYT.column_name) = "visible_items"];
+      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items", (.NYT.column_name) = "items", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional uint32 Season = 5 [json_name = "season", (.NYT.column_name) = "season"];
+      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item", (.NYT.column_name) = "item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional string Scenario = 9 [json_name = "scenario", deprecated = true, (.NYT.column_name) = "scenario"];
+      optional string ViewKey = 10 [json_name = "view_key", (.NYT.column_name) = "view_key"];
+      optional string ScenarioName = 11 [json_name = "scenario_name", (.NYT.column_name) = "scenario_name"];
     }
 
     message TCurrentlyPlaying {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved "RawItemDeprecated";
       reserved "RawNextItemDeprecated";
       reserved 5;
@@ -52,35 +59,38 @@ message TLegacyDeviceStateVideoCapability {
       reserved 3;
       reserved 4;
       message TProgress {
-        optional double Played = 1 [json_name = "played"];
-        optional double Duration = 2 [json_name = "duration"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        optional double Played = 1 [json_name = "played", (.NYT.column_name) = "played"];
+        optional double Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
       }
 
-      optional bool Paused = 1 [json_name = "paused"];
-      optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress"];
-      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item"];
-      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item"];
-      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item"];
-      optional string AudioLanguage = 11 [json_name = "audio_language"];
-      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language"];
-      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp"];
+      optional bool Paused = 1 [json_name = "paused", deprecated = true, (.NYT.column_name) = "paused"];
+      optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress", (.NYT.column_name) = "progress"];
+      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item", (.NYT.column_name) = "item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item", (.NYT.column_name) = "next_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional string AudioLanguage = 11 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
+      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1 [json_name = "pause"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional bool Pause = 1 [json_name = "pause", (.NYT.column_name) = "pause"];
     }
 
     message TTvInterfaceState {
       message TSearchResultsScreen {
-        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
-        repeated string Suggests = 3 [json_name = "suggests"];
-        optional string SearchQuery = 2 [json_name = "search_query"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries", (.NYT.column_name) = "galleries"];
+        repeated string Suggests = 3 [json_name = "suggests", (.NYT.column_name) = "suggests"];
+        optional string SearchQuery = 2 [json_name = "search_query", (.NYT.column_name) = "search_query"];
       }
 
       oneof Screen {
-        .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen"];
+        .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen", (.NYT.column_name) = "search_results_screen"];
       }
-      optional string InitialReqId = 1 [json_name = "initial_reqid"];
+      optional string InitialReqId = 1 [json_name = "initial_reqid", (.NYT.column_name) = "initial_reqid"];
     }
 
     enum EPlayerCapability {
@@ -96,21 +106,21 @@ message TLegacyDeviceStateVideoCapability {
       play_pause = 9;
     }
 
-    repeated .NAlice.TLegacyDeviceStateVideoCapability.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities"];
-    optional string CurrentScreen = 1 [json_name = "current_screen"];
-    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state"];
-    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
-    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state"];
-    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state"];
-    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp"];
-    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp"];
-    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TPlayer Player = 11 [json_name = "player"];
-    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state"];
-    optional string PlayerName = 15 [json_name = "player_name"];
+    repeated .NAlice.TLegacyDeviceStateVideoCapability.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities", (.NYT.column_name) = "player_capabilities"];
+    optional string CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state", (.NYT.column_name) = "screen_state"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "view_state"];
+    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "page_state", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TPlayer Player = 11 [json_name = "player", (.NYT.column_name) = "player"];
+    optional .NAlice.TLegacyDeviceStateVideoCapability.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state", (.NYT.column_name) = "tv_interface_state"];
+    optional string PlayerName = 15 [json_name = "player_name", (.NYT.column_name) = "player_name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLegacyDeviceStateVideoCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLegacyDeviceStateVideoCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLegacyDeviceStateVideoCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLegacyDeviceStateVideoCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

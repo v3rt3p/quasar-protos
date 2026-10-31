@@ -10,15 +10,19 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLifelogCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LifelogCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    optional string MeetingId = 1 [json_name = "meeting_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string MeetingId = 1 [json_name = "meeting_id", (.NYT.column_name) = "meeting_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLifelogCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLifelogCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLifelogCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLifelogCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

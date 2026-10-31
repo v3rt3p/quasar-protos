@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VideoMainScreenCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/video_main_screen;videomainscreenpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/tv/home/result.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVideoMainScreenCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VideoMainScreenCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TOpenVideoMainScreenDirective {
+    option (.NAlice.SpeechKitName) = "open_video_main_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenVideoMainScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NTv.TCentaurFeedResultData CentaurFeedResultData = 2 [json_name = "feed_result_data", (.NYT.column_name) = "feed_result_data"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVideoMainScreenCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVideoMainScreenCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

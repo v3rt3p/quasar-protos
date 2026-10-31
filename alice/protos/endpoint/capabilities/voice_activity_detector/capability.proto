@@ -13,38 +13,53 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TVoiceActivityDetectorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VoiceActivityDetectorCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TSetVadActionDirective {
-    string Name = 1000 [json_name = "name"];
-    string Id = 1 [json_name = "id"];
-    .NAlice.TCapability.EEventType EventToDetect = 2 [json_name = "event_to_detect"];
+    option (.NAlice.SpeechKitName) = "set_vad_action_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetVadActionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.TCapability.EEventType EventToDetect = 2 [json_name = "event_to_detect", (.NYT.column_name) = "event_to_detect"];
     oneof Action {
-      .NAlice.TTypedCallbackRequest TypedCallbackOnDetection = 4 [json_name = "typed_callback_on_detection"];
+      option (.NYT.variant_field_name) = "action";
+      .NAlice.TTypedCallbackRequest TypedCallbackOnDetection = 4 [json_name = "typed_callback_on_detection", (.NYT.column_name) = "typed_callback_on_detection"];
     }
-    optional uint64 TtlSeconds = 3 [json_name = "ttl_seconds"];
+    optional uint64 TtlSeconds = 3 [json_name = "ttl_seconds", (.NYT.column_name) = "ttl_seconds"];
   }
 
   message TSpeechFinishedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SpeechFinishedEventType;
   }
 
   message TSpeechStartedRawEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SpeechStartedRawEventType;
   }
 
   message TSpeechFinishedRawEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SpeechFinishedRawEventType;
   }
 
   message TCondition {
-    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TCapability.EEventType Events = 1 [json_name = "events", (.NYT.column_name) = "events"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TVoiceActivityDetectorCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TVoiceActivityDetectorCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVoiceActivityDetectorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVoiceActivityDetectorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

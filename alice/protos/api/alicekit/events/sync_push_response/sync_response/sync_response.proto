@@ -14,11 +14,12 @@ import "alice/protos/api/alicekit/events/sync_push_response/sync_response/get_de
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSyncResponse {
-  .NAlice.TClientInfoProto ClientInfo = 4 [json_name = "client_info"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TClientInfoProto ClientInfo = 4 [json_name = "client_info", (.NYT.column_name) = "client_info"];
   oneof Response {
-    .NAlice.NAliceApi.TGetDeviceStateResponse GetDeviceStateResponse = 1 [json_name = "get_device_state_response"];
-    .NAlice.NAliceApi.TExecuteDirectiveResponse ExecuteDirectiveResponse = 2 [json_name = "execute_directive_response"];
-    .NAlice.NAliceApi.TExecuteDirectiveChainResponse ExecuteDirectiveChainResponse = 3 [json_name = "execute_directive_chain_response"];
+    .NAlice.NAliceApi.TGetDeviceStateResponse GetDeviceStateResponse = 1 [json_name = "get_device_state_response", (.NYT.column_name) = "get_device_state_response"];
+    .NAlice.NAliceApi.TExecuteDirectiveResponse ExecuteDirectiveResponse = 2 [json_name = "execute_directive_response", (.NYT.column_name) = "execute_directive_response"];
+    .NAlice.NAliceApi.TExecuteDirectiveChainResponse ExecuteDirectiveChainResponse = 3 [json_name = "execute_directive_chain_response", (.NYT.column_name) = "execute_directive_chain_response"];
   }
 }
 

@@ -10,22 +10,27 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTaximeterCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TaximeterCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TZeroInfoItem {
-      string Text = 1 [json_name = "text"];
-      bool IsNew = 2 [json_name = "is_new"];
-      string Deeplink = 3 [json_name = "deeplink"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+      bool IsNew = 2 [json_name = "is_new", (.NYT.column_name) = "is_new"];
+      string Deeplink = 3 [json_name = "deeplink", (.NYT.column_name) = "deeplink"];
     }
 
-    map<string, string> Meta = 1 [json_name = "meta"];
-    repeated .NAlice.TTaximeterCapability.TState.TZeroInfoItem ZeroInfo = 2 [json_name = "zero_info"];
+    map<string, string> Meta = 1 [json_name = "meta", (.NYT.flags) = MAP_AS_OPTIONAL_DICT, (.NYT.column_name) = "meta"];
+    repeated .NAlice.TTaximeterCapability.TState.TZeroInfoItem ZeroInfo = 2 [json_name = "zero_info", (.NYT.column_name) = "zero_info"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTaximeterCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTaximeterCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTaximeterCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTaximeterCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -8,6 +8,9 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/centaur/my_scre
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCentaurWidgetData {
+  option deprecated = true;
+  option (.NYT.default_oneof_flags) = VARIANT;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TVacantWidgetData {
   }
 
@@ -30,37 +33,45 @@ message TCentaurWidgetData {
   }
 
   message TOpenWebviewWidgetData {
+    option (.NYT.default_oneof_flags) = VARIANT;
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Source {
-      string Application = 1 [json_name = "application"];
-      string Url = 2 [json_name = "url"];
+      option (.NYT.oneof_flags) = VARIANT;
+      option (.NYT.variant_field_name) = "source";
+      string Application = 1 [json_name = "application", (.NYT.column_name) = "application"];
+      string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
     }
   }
 
-  bool Fixed = 1 [json_name = "fixed"];
+  bool Fixed = 1 [json_name = "fixed", (.NYT.column_name) = "fixed"];
   oneof WidgetTypeData {
-    .NAlice.NData.TCentaurWidgetData.TVacantWidgetData VacantWidgetData = 2 [json_name = "vacant_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TMusicWidgetData MusicWidgetData = 3 [json_name = "music_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TNotificationWidgetData NotificationWidgetData = 4 [json_name = "notification_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TWeatherWidgetData WeatherWidgetData = 5 [json_name = "weather_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TNewsWidgetData NewsWidgetData = 6 [json_name = "news_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TOpenWebviewWidgetData OpenWebviewWidgetData = 7 [json_name = "open_webview_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TTrafficWidgetData TrafficWidgetData = 8 [json_name = "traffic_widget_data"];
-    .NAlice.NData.TCentaurWidgetData.TVideoCallWidgetData VideoCallWidgetData = 9 [json_name = "video_call_widget_data"];
+    option (.NYT.oneof_flags) = VARIANT;
+    option (.NYT.variant_field_name) = "widget_type_data";
+    .NAlice.NData.TCentaurWidgetData.TVacantWidgetData VacantWidgetData = 2 [json_name = "vacant_widget_data", (.NYT.column_name) = "vacant_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TMusicWidgetData MusicWidgetData = 3 [json_name = "music_widget_data", (.NYT.column_name) = "music_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TNotificationWidgetData NotificationWidgetData = 4 [json_name = "notification_widget_data", (.NYT.column_name) = "notification_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TWeatherWidgetData WeatherWidgetData = 5 [json_name = "weather_widget_data", (.NYT.column_name) = "weather_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TNewsWidgetData NewsWidgetData = 6 [json_name = "news_widget_data", (.NYT.column_name) = "news_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TOpenWebviewWidgetData OpenWebviewWidgetData = 7 [json_name = "open_webview_widget_data", (.NYT.column_name) = "open_webview_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TTrafficWidgetData TrafficWidgetData = 8 [json_name = "traffic_widget_data", (.NYT.column_name) = "traffic_widget_data"];
+    .NAlice.NData.TCentaurWidgetData.TVideoCallWidgetData VideoCallWidgetData = 9 [json_name = "video_call_widget_data", (.NYT.column_name) = "video_call_widget_data"];
   }
 }
 
 message TCentaurWidgetConfigData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TCustomWidgetTypeData {
   }
 
-  string Id = 1 [json_name = "id"];
-  string WidgetType = 2 [json_name = "widget_type"];
-  .NAlice.NData.TCentaurWidgetConfigData.TCustomWidgetTypeData CustomWidgetTypeData = 3 [json_name = "custom_widget_type_data"];
-  bool Fixed = 4 [json_name = "fixed"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string WidgetType = 2 [json_name = "widget_type", (.NYT.column_name) = "widget_type"];
+  .NAlice.NData.TCentaurWidgetConfigData.TCustomWidgetTypeData CustomWidgetTypeData = 3 [json_name = "custom_widget_type_data", (.NYT.column_name) = "custom_widget_type_data"];
+  bool Fixed = 4 [json_name = "fixed", (.NYT.column_name) = "fixed"];
 }
 
 message TWidgetPosition {
-  int32 Column = 1 [json_name = "column"];
-  int32 Row = 2 [json_name = "row"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  int32 Column = 1 [json_name = "column", (.NYT.column_name) = "column"];
+  int32 Row = 2 [json_name = "row", (.NYT.column_name) = "row"];
 }
 

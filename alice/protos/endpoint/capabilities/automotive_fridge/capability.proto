@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveFridgeCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_fridge;automotive_fridgepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveFridgeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveFridgeCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveFridgeCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveFridgeCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveFridgeCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValue {
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveFridgeCapability.TVehiclePropertyValue.TBoolValue BoolValue = 1 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TSetFridgeStateDirective {
+    option (.NAlice.SpeechKitName) = "set_fridge_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFridgeStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    FRIDGE_POWER_ON = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveFridgeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveFridgeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

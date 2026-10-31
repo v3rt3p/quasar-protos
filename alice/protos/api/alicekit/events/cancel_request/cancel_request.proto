@@ -11,6 +11,7 @@ import "alice/protos/api/local_scenario/response_data.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCancelRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TReasonUserStop {
   }
 
@@ -18,14 +19,15 @@ message TCancelRequest {
   }
 
   message TReasonLocalExecution {
-    .NAlice.NApi.TLocalScenarioResponseData ScenarioResponse = 1 [json_name = "scenario_response"];
+    .NAlice.NApi.TLocalScenarioResponseData ScenarioResponse = 1 [json_name = "scenario_response", (.NYT.column_name) = "scenario_response"];
   }
 
-  string RequestMessageId = 1 [json_name = "requestMessageId"];
+  string RequestMessageId = 1 [json_name = "requestMessageId", (.NYT.column_name) = "requestMessageId"];
   oneof Reason {
-    .NAlice.NAliceApi.TCancelRequest.TReasonUserStop UserStop = 2 [json_name = "user_stop"];
-    .NAlice.NAliceApi.TCancelRequest.TReasonInterruption Interruption = 3 [json_name = "interruption"];
-    .NAlice.NAliceApi.TCancelRequest.TReasonLocalExecution LocalExecution = 4 [json_name = "local_execution"];
+    option (.NYT.variant_field_name) = "reason";
+    .NAlice.NAliceApi.TCancelRequest.TReasonUserStop UserStop = 2 [json_name = "user_stop", (.NYT.column_name) = "user_stop"];
+    .NAlice.NAliceApi.TCancelRequest.TReasonInterruption Interruption = 3 [json_name = "interruption", (.NYT.column_name) = "interruption"];
+    .NAlice.NAliceApi.TCancelRequest.TReasonLocalExecution LocalExecution = 4 [json_name = "local_execution", (.NYT.column_name) = "local_execution"];
   }
 }
 

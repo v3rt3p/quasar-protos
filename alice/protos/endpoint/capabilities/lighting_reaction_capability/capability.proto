@@ -12,54 +12,76 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLightingReactionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LightingReactionCapabilityType;
   message TSetting {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TDndRespectSetting {
-      bool Enabled = 1 [json_name = "enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
     }
 
     oneof Setting {
-      .NAlice.TLightingReactionCapability.TSetting.TDndRespectSetting DndRespect = 1 [json_name = "dnd_respect"];
+      option (.NYT.variant_field_name) = "setting";
+      .NAlice.TLightingReactionCapability.TSetting.TDndRespectSetting DndRespect = 1 [json_name = "dnd_respect", (.NYT.column_name) = "dnd_respect"];
     }
   }
 
   message TParameters {
-    repeated .NAlice.TLightingReactionCapability.EWeather SupportedWeather = 1 [json_name = "supported_weather"];
-    repeated .NAlice.TLightingReactionCapability.TSetting SupportedSettings = 2 [json_name = "supported_settings"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TLightingReactionCapability.EWeather SupportedWeather = 1 [json_name = "supported_weather", (.NYT.column_name) = "supported_weather"];
+    repeated .NAlice.TLightingReactionCapability.TSetting SupportedSettings = 2 [json_name = "supported_settings", (.NYT.column_name) = "supported_settings"];
   }
 
   message TReactionEvent {
-    .NAlice.TLightingReactionCapability.EEvent Event = 1 [json_name = "event"];
-    bool Enabled = 2 [json_name = "enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TLightingReactionCapability.EEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TState {
-    repeated .NAlice.TLightingReactionCapability.EEvent EnabledEvents = 1 [json_name = "enabled_events"];
-    repeated .NAlice.TLightingReactionCapability.TReactionEvent Events = 2 [json_name = "events"];
-    repeated .NAlice.TLightingReactionCapability.TSetting Settings = 3 [json_name = "settings"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TLightingReactionCapability.EEvent EnabledEvents = 1 [json_name = "enabled_events", (.NYT.column_name) = "enabled_events"];
+    repeated .NAlice.TLightingReactionCapability.TReactionEvent Events = 2 [json_name = "events", (.NYT.column_name) = "events"];
+    repeated .NAlice.TLightingReactionCapability.TSetting Settings = 3 [json_name = "settings", (.NYT.column_name) = "settings"];
   }
 
   message TSetEventsDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TLightingReactionCapability.EEvent Events = 1 [json_name = "events"];
+    option (.NAlice.SpeechKitName) = "set_events_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetEventsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TLightingReactionCapability.EEvent Events = 1 [json_name = "events", (.NYT.column_name) = "events"];
   }
 
   message TSetReactionEventsDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TLightingReactionCapability.TReactionEvent ReactionEvents = 1 [json_name = "reaction_events"];
+    option (.NAlice.SpeechKitName) = "set_reaction_events_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetReactionEventsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TLightingReactionCapability.TReactionEvent ReactionEvents = 1 [json_name = "reaction_events", (.NYT.column_name) = "reaction_events"];
   }
 
   message TPlayWeatherDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TLightingReactionCapability.EWeather Weather = 1 [json_name = "weather"];
+    option (.NAlice.SpeechKitName) = "play_weather_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayWeatherDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TLightingReactionCapability.EWeather Weather = 1 [json_name = "weather", (.NYT.column_name) = "weather"];
   }
 
   message TSetReactionSettingDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TLightingReactionCapability.TSetting Setting = 1 [json_name = "setting"];
+    option (.NAlice.SpeechKitName) = "set_reaction_setting_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetReactionSettingDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TLightingReactionCapability.TSetting Setting = 1 [json_name = "setting", (.NYT.column_name) = "setting"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLightingReactionCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = LightingReactionUpdateStateEventType;
+    .NAlice.TLightingReactionCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EWeather {
@@ -80,8 +102,8 @@ message TLightingReactionCapability {
     EVENT_WEATHER = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLightingReactionCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLightingReactionCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLightingReactionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLightingReactionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

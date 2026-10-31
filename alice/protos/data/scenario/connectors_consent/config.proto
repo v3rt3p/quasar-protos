@@ -8,15 +8,16 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/connectors_cons
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TConnectorsConsentConfig {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TConnectorConsent {
-    .NAlice.NData.NConnectorsConsent.EConnectorType ConnectorType = 1 [json_name = "connector_type"];
-    bool ConsentGranted = 2 [json_name = "consent_granted"];
-    uint64 ConnectedAt = 3 [json_name = "connected_at"];
-    uint64 UpdatedAt = 4 [json_name = "updated_at"];
-    bool TrainAllowed = 5 [json_name = "train_allowed"];
+    .NAlice.NData.NConnectorsConsent.EConnectorType ConnectorType = 1 [json_name = "connector_type", (.NYT.column_name) = "connector_type"];
+    bool ConsentGranted = 2 [json_name = "consent_granted", (.NYT.column_name) = "consent_granted"];
+    uint64 ConnectedAt = 3 [json_name = "connected_at", (.NYT.column_name) = "connected_at"];
+    uint64 UpdatedAt = 4 [json_name = "updated_at", (.NYT.column_name) = "updated_at"];
+    bool TrainAllowed = 5 [json_name = "train_allowed", (.NYT.column_name) = "train_allowed"];
   }
 
-  repeated .NAlice.NData.NConnectorsConsent.TConnectorsConsentConfig.TConnectorConsent ConnectorConsents = 1 [json_name = "connector_consents"];
+  repeated .NAlice.NData.NConnectorsConsent.TConnectorsConsentConfig.TConnectorConsent ConnectorConsents = 1 [json_name = "connector_consents", (.NYT.column_name) = "connector_consents"];
 }
 
 enum EConnectorType {

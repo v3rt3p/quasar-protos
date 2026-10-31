@@ -18,15 +18,15 @@ message TSuggest {
       NewLine = 1;
     }
 
-    string ImageUrl = 1 [json_name = "image_url"];
-    .NAlice.NAliceApi.TSuggest.TTheme.EPlacement Placement = 2 [json_name = "placement"];
+    string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+    .NAlice.NAliceApi.TSuggest.TTheme.EPlacement Placement = 2 [json_name = "placement", (.NYT.column_name) = "placement"];
   }
 
-  string SuggestId = 1 [json_name = "suggest_id"];
-  string Type = 2 [json_name = "type"];
-  string Title = 3 [json_name = "title"];
-  repeated .NAlice.NAliceApi.TDirective Directives = 4 [json_name = "directives"];
-  string Text = 5 [json_name = "text"];
-  .NAlice.NAliceApi.TSuggest.TTheme Theme = 6 [json_name = "theme"];
+  string SuggestId = 1 [json_name = "suggest_id", (.NYT.column_name) = "suggest_id"];
+  string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+  string Title = 3 [json_name = "title", (.NYT.column_name) = "title", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  repeated .NAlice.NAliceApi.TDirective Directives = 4 [json_name = "directives", (.NYT.column_name) = "directives"];
+  string Text = 5 [json_name = "text", (.NYT.column_name) = "text", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  .NAlice.NAliceApi.TSuggest.TTheme Theme = 6 [json_name = "theme", (.NYT.column_name) = "theme"];
 }
 

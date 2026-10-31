@@ -12,26 +12,38 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPrivacyModeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PrivacyModeCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TPrivacyModeCapability.EMode Mode = 1 [json_name = "mode"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TPrivacyModeCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
   message TSetPrivacyModeDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TPrivacyModeCapability.ESource Source = 1 [json_name = "source"];
-    bool Enabled = 2 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "set_privacy_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetPrivacyModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPrivacyModeCapability.ESource Source = 1 [json_name = "source", (.NYT.column_name) = "source"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TTogglePrivacyModeDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TPrivacyModeCapability.ESource Source = 1 [json_name = "source"];
+    option (.NAlice.SpeechKitName) = "toggle_privacy_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TogglePrivacyModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPrivacyModeCapability.ESource Source = 1 [json_name = "source", (.NYT.column_name) = "source"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TPrivacyModeCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PrivacyModeUpdateStateEventType;
+    .NAlice.TPrivacyModeCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EMode {
@@ -48,8 +60,8 @@ message TPrivacyModeCapability {
     HardwareSource = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TPrivacyModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TPrivacyModeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPrivacyModeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPrivacyModeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

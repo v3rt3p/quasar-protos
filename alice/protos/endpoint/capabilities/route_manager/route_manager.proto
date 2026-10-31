@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "RouteManagerCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/route_manager;routemanagercapabilitiespb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TRouteManagerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = RouteManagerCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum TRoute {
+      UnknownRoute = 0;
+      Stopped = 1;
+      Stopping = 2;
+      Moving = 3;
+      WaitingPassenger = 4;
+      Finished = 5;
+    }
+
+    enum TLayout {
+      UnknownLayout = 0;
+      Map = 1;
+      Ride = 2;
+    }
+
+    .NAlice.TRouteManagerCapability.TState.TRoute Route = 1 [json_name = "route", (.NYT.column_name) = "route"];
+    .NAlice.TRouteManagerCapability.TState.TLayout Layout = 2 [json_name = "layout", (.NYT.column_name) = "layout"];
+  }
+
+  message TStartDirective {
+    option (.NAlice.SpeechKitName) = "route_manager_start_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartRouteManagerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TStopDirective {
+    option (.NAlice.SpeechKitName) = "route_manager_stop_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopRouteManagerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TShowDirective {
+    option (.NAlice.SpeechKitName) = "route_manager_show_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowRouteManagerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TContinueDirective {
+    option (.NAlice.SpeechKitName) = "route_manager_continue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ContinueRouteManagerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TRouteManagerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TRouteManagerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

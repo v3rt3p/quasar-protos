@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package NAlice.NYoutube;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "YoutubePlayerCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/youtube_player;youtubeplayerpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TYoutubePlayerCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = YoutubePlayerCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool PlayerHasNext = 1 [json_name = "player_has_next", (.NYT.column_name) = "player_has_next"];
+    bool PlayerHasPrev = 2 [json_name = "player_has_prev", (.NYT.column_name) = "player_has_prev"];
+    bool IsOnForeground = 3 [json_name = "is_on_foreground", (.NYT.column_name) = "is_on_foreground"];
+  }
+
+  message TPlayerSkipToNextDirective {
+    option (.NAlice.SpeechKitName) = "youtube_player_skip_to_next_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerSkipToNextDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerSkipToPreviousDirective {
+    option (.NAlice.SpeechKitName) = "youtube_player_skip_to_previous_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerSkipToPreviousDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TLikeDirective {
+    option (.NAlice.SpeechKitName) = "youtube_like_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = YoutubeLikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TDislikeDirective {
+    option (.NAlice.SpeechKitName) = "youtube_dislike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = YoutubeDislikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenAccountsDirective {
+    option (.NAlice.SpeechKitName) = "youtube_open_accounts_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = YoutubeOpenAccountsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenYoutubeUriDirective {
+    option (.NAlice.SpeechKitName) = "open_youtube_uri";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenYoutubeUriDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Uri = 2 [json_name = "uri", (.NYT.column_name) = "uri"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.NYoutube.TYoutubePlayerCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.NYoutube.TYoutubePlayerCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

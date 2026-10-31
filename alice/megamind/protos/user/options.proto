@@ -15,12 +15,13 @@ import "alice/protos/api/request_parts/context_load_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserOptions {
-  string OAuthToken = 1 [json_name = "oauth_token"];
-  string Puid = 2 [json_name = "puid"];
-  string PersId = 3 [json_name = "pers_id"];
-  .NAlice.THashPuids HashPuids = 4 [json_name = "hash_puids"];
-  .NAlice.TUserData Data = 5 [json_name = "data"];
-  .NAlice.TUserTags Tags = 6 [json_name = "tags"];
-  .NAlice.TContextLoadOptions ContextLoadOptions = 7 [json_name = "context_load_options"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string OAuthToken = 1 [json_name = "oauth_token", (.NYT.column_name) = "oauth_token", (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  string Puid = 2 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  string PersId = 3 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+  .NAlice.THashPuids HashPuids = 4 [json_name = "hash_puids", (.NYT.column_name) = "hash_puids"];
+  .NAlice.TUserData Data = 5 [json_name = "data", (.NYT.column_name) = "data", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  .NAlice.TUserTags Tags = 6 [json_name = "tags", (.NYT.column_name) = "tags"];
+  .NAlice.TContextLoadOptions ContextLoadOptions = 7 [json_name = "context_load_options", (.NYT.column_name) = "context_load_options"];
 }
 

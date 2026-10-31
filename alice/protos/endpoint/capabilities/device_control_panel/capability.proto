@@ -13,56 +13,73 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDeviceControlPanelCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DeviceControlPanelCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.TTotalScenario Total = 1 [json_name = "total"];
-    .NAlice.TVideoScenario Video = 2 [json_name = "video"];
-    .NAlice.TTvChannelsScenario TvChannels = 3 [json_name = "tv_channels"];
-    .NAlice.TInputControlScenario InputControl = 4 [json_name = "input_control"];
-    .NAlice.TExternalAppScenario ExternalApp = 5 [json_name = "external_app"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TTotalScenario Total = 1 [json_name = "total", (.NYT.column_name) = "total"];
+    .NAlice.TVideoScenario Video = 2 [json_name = "video", (.NYT.column_name) = "video"];
+    .NAlice.TTvChannelsScenario TvChannels = 3 [json_name = "tv_channels", (.NYT.column_name) = "tv_channels"];
+    .NAlice.TInputControlScenario InputControl = 4 [json_name = "input_control", (.NYT.column_name) = "input_control"];
+    .NAlice.TExternalAppScenario ExternalApp = 5 [json_name = "external_app", (.NYT.column_name) = "external_app"];
   }
 
   message TChildModeUnblockDirective {
+    option (.NAlice.SpeechKitName) = "child_mode_unblock_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ChildModeUnblockDirectiveType;
     message TSwitchAccount {
-      string TargetPersonId = 1 [json_name = "target_person_id"];
+      string TargetPersonId = 1 [json_name = "target_person_id", (.NYT.column_name) = "target_person_id"];
     }
 
     message TLaunchApp {
-      string PackageName = 2 [json_name = "package_name"];
+      string PackageName = 2 [json_name = "package_name", (.NYT.column_name) = "package_name"];
     }
 
     message TProlongation {
-      uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
+      uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds", (.NYT.column_name) = "prolongation_seconds"];
     }
 
-    string ChildPersonId = 1 [json_name = "child_person_id"];
-    bool RequestDeclined = 2 [json_name = "request_declined"];
-    string Name = 6 [json_name = "name"];
+    string ChildPersonId = 1 [json_name = "child_person_id", (.NYT.column_name) = "child_person_id"];
+    bool RequestDeclined = 2 [json_name = "request_declined", (.NYT.column_name) = "request_declined"];
+    string Name = 6 [json_name = "name", (.NYT.column_name) = "name"];
     oneof Action {
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TSwitchAccount SwitchAccount = 3 [json_name = "switch_account"];
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TLaunchApp LaunchApp = 4 [json_name = "launch_app"];
-      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TProlongation Prolongation = 5 [json_name = "prolongation"];
+      option (.NYT.variant_field_name) = "action";
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TSwitchAccount SwitchAccount = 3 [json_name = "switch_account", (.NYT.column_name) = "switch_account"];
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TLaunchApp LaunchApp = 4 [json_name = "launch_app", (.NYT.column_name) = "launch_app"];
+      .NAlice.TDeviceControlPanelCapability.TChildModeUnblockDirective.TProlongation Prolongation = 5 [json_name = "prolongation", (.NYT.column_name) = "prolongation"];
     }
   }
 
   message TOpenProlongationScreenDirective {
-    string Name = 1 [json_name = "name"];
-    bool IsAdultRequest = 2 [json_name = "is_adult_request"];
+    option (.NAlice.SpeechKitName) = "open_prolongation_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TOpenProlongationScreenDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsAdultRequest = 2 [json_name = "is_adult_request", (.NYT.column_name) = "is_adult_request"];
   }
 
   message TSendUnblockRequestDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "send_unblock_request_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TSendUnblockRequestDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TProlongTimeLimitDirective {
-    uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds"];
-    string Name = 2 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "prolong_time_limit_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TProlongTimeLimitDirectiveType;
+    uint32 ProlongationSeconds = 1 [json_name = "prolongation_seconds", (.NYT.column_name) = "prolongation_seconds"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TDeviceControlPanelCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TDeviceControlPanelCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDeviceControlPanelCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDeviceControlPanelCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

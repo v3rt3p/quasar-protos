@@ -13,28 +13,40 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THdmiOutputCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = HdmiOutputCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool IsHdmiConnected = 1 [json_name = "is_hdmi_connected"];
-    bool IsHdmiAudioOn = 2 [json_name = "is_hdmi_audio_on"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsHdmiConnected = 1 [json_name = "is_hdmi_connected", (.NYT.column_name) = "hdmi_connected"];
+    bool IsHdmiAudioOn = 2 [json_name = "is_hdmi_audio_on", (.NYT.column_name) = "hdmi_audio_on"];
   }
 
   message TCecVolumeUpDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "cec_volume_up_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CecVolumeUpDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TCecVolumeDownDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "cec_volume_down_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CecVolumeDownDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.THdmiOutputCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = HdmiOutputUpdateStateEventType;
+    .NAlice.THdmiOutputCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.THdmiOutputCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.THdmiOutputCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.THdmiOutputCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.THdmiOutputCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -12,36 +12,51 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotMotorLimitsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotMotorLimitsCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    double OpenLimit = 1 [json_name = "open_limit"];
-    double CloseLimit = 2 [json_name = "close_limit"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    double OpenLimit = 1 [json_name = "open_limit", (.NYT.column_name) = "open_limit"];
+    double CloseLimit = 2 [json_name = "close_limit", (.NYT.column_name) = "close_limit"];
   }
 
   message TSetMotorLimitsDirective {
-    string Name = 1000 [json_name = "name"];
-    double OpenLimit = 1 [json_name = "open_limit"];
-    double CloseLimit = 2 [json_name = "close_limit"];
+    option (.NAlice.SpeechKitName) = "set_motor_limits_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMotorLimitsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double OpenLimit = 1 [json_name = "open_limit", (.NYT.column_name) = "open_limit"];
+    double CloseLimit = 2 [json_name = "close_limit", (.NYT.column_name) = "close_limit"];
   }
 
   message TSetMotorOpenLimitDirective {
-    string Name = 1000 [json_name = "name"];
-    double Limit = 1 [json_name = "limit"];
+    option (.NAlice.SpeechKitName) = "set_motor_open_limit_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMotorOpenLimitDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
   }
 
   message TSetMotorCloseLimitDirective {
-    string Name = 1000 [json_name = "name"];
-    double Limit = 1 [json_name = "limit"];
+    option (.NAlice.SpeechKitName) = "set_motor_close_limit_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMotorCloseLimitDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    double Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotMotorLimitsCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotMotorLimitsUpdateStateEventType;
+    .NAlice.TIotMotorLimitsCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotMotorLimitsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotMotorLimitsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotMotorLimitsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotMotorLimitsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

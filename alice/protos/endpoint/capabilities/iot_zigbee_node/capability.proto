@@ -11,24 +11,31 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotZigbeeNodeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotZigbeeNodeCapabilityType;
   message TParameters {
-    .NAlice.TIotZigbeeNodeCapability.TType Type = 1 [json_name = "type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotZigbeeNodeCapability.TType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
   message TSignalQuality {
-    .NAlice.TIotZigbeeNodeCapability.ESignalQualityStatus SignalQualityStatus = 1 [json_name = "signal_quality_status"];
-    uint32 Lqi = 2 [json_name = "lqi"];
-    int32 Rssi = 3 [json_name = "rssi"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotZigbeeNodeCapability.ESignalQualityStatus SignalQualityStatus = 1 [json_name = "signal_quality_status", (.NYT.column_name) = "signal_quality_status"];
+    uint32 Lqi = 2 [json_name = "lqi", (.NYT.column_name) = "lqi"];
+    int32 Rssi = 3 [json_name = "rssi", (.NYT.column_name) = "rssi"];
   }
 
   message TState {
-    .NAlice.TIotZigbeeNodeCapability.TSignalQuality SignalQuality = 1 [json_name = "signal_quality"];
-    uint32 Channel = 2 [json_name = "channel"];
-    bool IsActive = 3 [json_name = "is_active"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotZigbeeNodeCapability.TSignalQuality SignalQuality = 1 [json_name = "signal_quality", (.NYT.column_name) = "signal_quality"];
+    uint32 Channel = 2 [json_name = "channel", (.NYT.column_name) = "channel"];
+    bool IsActive = 3 [json_name = "is_active", (.NYT.column_name) = "is_active"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotZigbeeNodeCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotZigbeeNodeUpdateStateEventType;
+    .NAlice.TIotZigbeeNodeCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum TType {
@@ -46,8 +53,8 @@ message TIotZigbeeNodeCapability {
     Excellent = 5;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotZigbeeNodeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotZigbeeNodeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotZigbeeNodeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotZigbeeNodeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

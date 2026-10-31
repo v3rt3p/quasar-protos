@@ -12,28 +12,33 @@ import "alice/protos/div/div2id.proto";
 import "alice/protos/div/div_external_variable_sources.proto";
 
 message TDiv2Card {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message Template {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof TemplateBody {
-      .google.protobuf.Struct Body = 1 [json_name = "body"];
-      string StringBody = 2 [json_name = "string_body"];
+      option (.NYT.variant_field_name) = "template_body";
+      .google.protobuf.Struct Body = 1 [json_name = "body", deprecated = true, (.NYT.column_name) = "body"];
+      string StringBody = 2 [json_name = "string_body", (.NYT.column_name) = "string_body"];
     }
   }
 
   message TDivPalette {
-    map<string, string> Dark = 1 [json_name = "dark"];
-    map<string, string> Light = 2 [json_name = "light"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    map<string, string> Dark = 1 [json_name = "dark", (.NYT.column_name) = "dark"];
+    map<string, string> Light = 2 [json_name = "light", (.NYT.column_name) = "light"];
   }
 
   bool HideBorders = 2 [json_name = "hide_borders"];
-  string Text = 3 [json_name = "text"];
-  map<string, .NAlice.TDiv2Card.Template> GlobalTemplates = 4 [json_name = "global_templates"];
-  string CardName = 5 [json_name = "card_name"];
-  .NAlice.TDiv2Id Id = 7 [json_name = "id"];
-  .NAlice.TDiv2Card.TDivPalette Palette = 8 [json_name = "palette"];
-  repeated .NAlice.TDivExternalVariable ExternalVariables = 9 [json_name = "external_variables"];
+  string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+  map<string, .NAlice.TDiv2Card.Template> GlobalTemplates = 4 [json_name = "global_templates", (.NYT.column_name) = "global_templates"];
+  string CardName = 5 [json_name = "card_name", deprecated = true, (.NYT.column_name) = "card_name"];
+  .NAlice.TDiv2Id Id = 7 [json_name = "id", (.NYT.column_name) = "id"];
+  .NAlice.TDiv2Card.TDivPalette Palette = 8 [json_name = "palette", (.NYT.column_name) = "palette"];
+  repeated .NAlice.TDivExternalVariable ExternalVariables = 9 [json_name = "external_variables", (.NYT.column_name) = "external_variables"];
   oneof Div2Body {
-    .google.protobuf.Struct Body = 1 [json_name = "body"];
-    string StringBody = 6 [json_name = "string_body"];
+    option (.NYT.variant_field_name) = "div2_body";
+    .google.protobuf.Struct Body = 1 [json_name = "body", deprecated = true, (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "body"];
+    string StringBody = 6 [json_name = "string_body", (.NYT.column_name) = "string_body"];
   }
 }
 

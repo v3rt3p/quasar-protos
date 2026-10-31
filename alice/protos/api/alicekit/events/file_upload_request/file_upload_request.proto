@@ -12,24 +12,27 @@ import "alice/library/censor/protos/extension.proto";
 import "alice/protos/api/files/file_info.proto";
 
 message TFileUploadRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TFileUploadStart {
-    bool SpecialEventOnInvalidFileMimeTypeOrSize = 10000 [json_name = "special_event_on_invalid_file_mime_type_or_size"];
-    optional string Title = 1 [json_name = "title"];
-    optional string MimeType = 2 [json_name = "mime_type"];
-    optional uint64 Size = 3 [json_name = "size"];
-    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 4 [json_name = "origin"];
-    optional string AppId = 5 [json_name = "app_id"];
-    optional string DialogAppId = 6 [json_name = "dialog_app_id"];
-    optional string OAuthToken = 100 [json_name = "oauth_token"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SpecialEventOnInvalidFileMimeTypeOrSize = 10000 [json_name = "special_event_on_invalid_file_mime_type_or_size", (.NYT.column_name) = "special_event_on_invalid_file_mime_type_or_size"];
+    optional string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    optional string MimeType = 2 [json_name = "mime_type", (.NYT.column_name) = "mime_type"];
+    optional uint64 Size = 3 [json_name = "size", (.NYT.column_name) = "size"];
+    optional .NAlice.NApi.NFiles.TFileInfo.EOrigin Origin = 4 [json_name = "origin", (.NYT.column_name) = "origin"];
+    optional string AppId = 5 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+    optional string DialogAppId = 6 [json_name = "dialog_app_id", (.NYT.column_name) = "dialog_app_id"];
+    optional string OAuthToken = 100 [json_name = "oauth_token", (.NYT.column_name) = "oauth_token", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
   }
 
   message TChunkUploadFinish {
-    optional bool IsLast = 1 [json_name = "is_last"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool IsLast = 1 [json_name = "is_last", (.NYT.column_name) = "is_last"];
   }
 
   oneof Request {
-    .NAlice.NAliceApi.TFileUploadRequest.TFileUploadStart FileUploadStart = 1 [json_name = "file_upload_start"];
-    .NAlice.NAliceApi.TFileUploadRequest.TChunkUploadFinish ChunkUploadFinish = 2 [json_name = "chunk_upload_finish"];
+    .NAlice.NAliceApi.TFileUploadRequest.TFileUploadStart FileUploadStart = 1 [json_name = "file_upload_start", (.NYT.column_name) = "file_upload_start"];
+    .NAlice.NAliceApi.TFileUploadRequest.TChunkUploadFinish ChunkUploadFinish = 2 [json_name = "chunk_upload_finish", (.NYT.column_name) = "chunk_upload_finish"];
   }
 }
 

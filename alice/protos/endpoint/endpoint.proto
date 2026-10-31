@@ -15,8 +15,11 @@ import "alice/protos/endpoint/common.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEndpoint {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TMeta {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TTag {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       enum ELayoutTag {
         UnknownLayout = 0;
         Center = 1;
@@ -29,31 +32,34 @@ message TEndpoint {
       }
 
       oneof Tag {
-        .NAlice.TEndpoint.TMeta.TTag.ELayoutTag Layout = 1 [json_name = "layout"];
+        option (.NYT.variant_field_name) = "tag";
+        .NAlice.TEndpoint.TMeta.TTag.ELayoutTag Layout = 1 [json_name = "layout", (.NYT.column_name) = "layout"];
       }
     }
 
-    .NAlice.TEndpoint.EEndpointType Type = 1 [json_name = "type"];
-    .NAlice.TEndpoint.TDeviceInfo DeviceInfo = 2 [json_name = "device_info"];
-    .NAlice.TEndpoint.EAccessType AccessType = 3 [json_name = "access_type"];
-    repeated .NAlice.TEndpoint.TMeta.TTag Tags = 4 [json_name = "tags"];
-    .NAlice.TClientInfoProto ClientInfo = 5 [json_name = "client_info"];
+    .NAlice.TEndpoint.EEndpointType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    .NAlice.TEndpoint.TDeviceInfo DeviceInfo = 2 [json_name = "device_info", (.NYT.column_name) = "device_info"];
+    .NAlice.TEndpoint.EAccessType AccessType = 3 [json_name = "access_type", (.NYT.column_name) = "access_type"];
+    repeated .NAlice.TEndpoint.TMeta.TTag Tags = 4 [json_name = "tags", (.NYT.column_name) = "tags"];
+    .NAlice.TClientInfoProto ClientInfo = 5 [json_name = "client_info", (.NYT.column_name) = "client_info"];
   }
 
   message TStatus {
-    .NAlice.TEndpoint.EEndpointStatus Status = 1 [json_name = "status"];
-    .google.protobuf.Timestamp UpdatedAt = 2 [json_name = "updated_at"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TEndpoint.EEndpointStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    .google.protobuf.Timestamp UpdatedAt = 2 [json_name = "updated_at", (.NYT.column_name) = "updated_at"];
   }
 
   message TDeviceInfo {
-    string Manufacturer = 1 [json_name = "manufacturer"];
-    string Model = 2 [json_name = "model"];
-    string HwVersion = 3 [json_name = "hw_version"];
-    string SwVersion = 4 [json_name = "sw_version"];
-    .NAlice.EProtocol Protocol = 5 [json_name = "protocol"];
-    string SerialNumber = 6 [json_name = "serial_number"];
-    .NAlice.NData.EColor Color = 7 [json_name = "color"];
-    string SetupCodePayload = 8 [json_name = "setup_code_payload"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Manufacturer = 1 [json_name = "manufacturer", (.NYT.column_name) = "manufacturer"];
+    string Model = 2 [json_name = "model", (.NYT.column_name) = "model"];
+    string HwVersion = 3 [json_name = "hw_version", (.NYT.column_name) = "hw_version"];
+    string SwVersion = 4 [json_name = "sw_version", (.NYT.column_name) = "sw_version"];
+    .NAlice.EProtocol Protocol = 5 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    string SerialNumber = 6 [json_name = "serial_number", (.NYT.column_name) = "serial_number"];
+    .NAlice.NData.EColor Color = 7 [json_name = "color", (.NYT.column_name) = "color"];
+    string SetupCodePayload = 8 [json_name = "setup_code_payload", (.NYT.column_name) = "setup_code_payload"];
   }
 
   enum EEndpointStatus {
@@ -111,10 +117,10 @@ message TEndpoint {
     Virtual = 4;
   }
 
-  string Id = 1 [json_name = "id"];
-  .NAlice.TEndpoint.TMeta Meta = 2 [json_name = "meta"];
-  repeated .google.protobuf.Any Capabilities = 3 [json_name = "capabilities"];
-  repeated .NAlice.TAnyCapabilityHolder AnyCapabilities = 5 [json_name = "any_capabilities"];
-  .NAlice.TEndpoint.TStatus Status = 4 [json_name = "status"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  .NAlice.TEndpoint.TMeta Meta = 2 [json_name = "meta", (.NYT.column_name) = "meta"];
+  repeated .google.protobuf.Any Capabilities = 3 [json_name = "capabilities", (.NYT.column_name) = "capabilities"];
+  repeated .NAlice.TAnyCapabilityHolder AnyCapabilities = 5 [json_name = "any_capabilities", (.NYT.column_name) = "any_capabilities"];
+  .NAlice.TEndpoint.TStatus Status = 4 [json_name = "status", (.NYT.column_name) = "status"];
 }
 

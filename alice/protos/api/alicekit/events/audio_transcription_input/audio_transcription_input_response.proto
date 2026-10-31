@@ -10,16 +10,20 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/audio_tra
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioTranscriptionInputResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TStartStream {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TAck {
-    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms", (.NYT.column_name) = "audio_end_timestamp_ms"];
   }
 
   oneof Response {
-    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TStartStream StartStream = 1 [json_name = "start_stream"];
-    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TAck Ack = 2 [json_name = "ack"];
+    option (.NYT.variant_field_name) = "response";
+    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TStartStream StartStream = 1 [json_name = "start_stream", (.NYT.column_name) = "start_stream"];
+    .NAlice.NAliceApi.TAudioTranscriptionInputResponse.TAck Ack = 2 [json_name = "ack", (.NYT.column_name) = "ack"];
   }
 }
 

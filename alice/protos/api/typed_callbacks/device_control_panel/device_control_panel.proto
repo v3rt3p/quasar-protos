@@ -34,22 +34,32 @@ message TDeviceControlPanelBlockData {
 }
 
 message TDeviceControlPanelBlockActivatedTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "DeviceControlPanelBlockActivatedTypedCallback";
   .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
 }
 
 message TDeviceControlPanelBlockDeactivatedTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "DeviceControlPanelBlockDeactivatedTypedCallback";
   .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
 }
 
 message TDeviceControlPanelBlockWarningTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "DeviceControlPanelBlockWarningTypedCallback";
   .NAlice.TDeviceControlPanelBlockData Data = 1 [json_name = "data"];
   .google.protobuf.Duration TimeLeft = 2 [json_name = "time_left"];
 }
 
 message TDeviceControlPanelBlockCommandSpotterTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "DeviceControlPanelBlockCommandSpotterTypedCallback";
 }
 
 message TDeviceControlPanelBlockButtonTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "DeviceControlPanelBlockButtonTypedCallback";
 }
 
 enum EDeviceBlockType {

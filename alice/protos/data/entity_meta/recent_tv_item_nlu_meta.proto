@@ -9,7 +9,8 @@ import "alice/protos/data/tv/recent/recent_usage_info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentTvItemMeta {
-  .NAlice.NTv.TRecentUsageInfo UsageInfo = 1 [json_name = "usage_info"];
-  uint32 Position = 2 [json_name = "position"];
+  option (.NYT.default_field_flags) = SERIALIZATION_PROTOBUF;
+  .NAlice.NTv.TRecentUsageInfo UsageInfo = 1 [json_name = "usage_info", (.NYT.column_name) = "usage_info"];
+  uint32 Position = 2 [json_name = "position", (.NYT.column_name) = "position"];
 }
 

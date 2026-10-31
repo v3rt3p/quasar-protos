@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveBodyCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/body;bodypb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveBodyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveBodyCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveBodyCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValueBounds PropertyValueBounds = 2 [json_name = "value_bounds", (.NYT.column_name) = "value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveBodyCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 1 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+  }
+
+  message TVehicleArea {
+    oneof VehicleArea {
+      option (.NYT.variant_field_name) = "vehicle_area";
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaWindow Window = 1 [json_name = "window", (.NYT.column_name) = "window"];
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaMirror Mirror = 2 [json_name = "mirror", (.NYT.column_name) = "mirror"];
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaDoor Door = 3 [json_name = "door", (.NYT.column_name) = "door"];
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaSunVisorSide SunVisorSide = 4 [json_name = "sun_visor_side", (.NYT.column_name) = "sun_visor_side"];
+    }
+  }
+
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+      int32 DefaultValue = 3 [json_name = "default_value", (.NYT.column_name) = "default_value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TVehiclePropertyValue {
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValue.TIntValue IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+      .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValue.TBoolValue BoolValue = 2 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveBodyCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TStateByArea {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveBodyCapability.TVehicleArea Area = 1 [json_name = "area", (.NYT.column_name) = "area"];
+      .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValue Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    .NAlice.TAutomotiveBodyCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    repeated .NAlice.TAutomotiveBodyCapability.TVehiclePropertyState.TStateByArea StateByAreas = 2 [json_name = "state_by_areas", (.NYT.column_name) = "state_by_areas"];
+    .NAlice.TAutomotiveBodyCapability.TVehiclePropertyValue GlobalStateValue = 3 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TOpenBodySideMirrorsDirective {
+    option (.NAlice.SpeechKitName) = "open_body_side_mirrors_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodySideMirrorsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Opened = 1 [json_name = "opened", (.NYT.column_name) = "opened"];
+  }
+
+  message TOpenBodyTrunkDirective {
+    option (.NAlice.SpeechKitName) = "open_body_trunk_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodyTrunkDirectiveType;
+    message TTrunkState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Opened = 1 [json_name = "opened", (.NYT.column_name) = "opened"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveBodyCapability.TOpenBodyTrunkDirective.TTrunkState TrunkState = 1 [json_name = "trunk_state", (.NYT.column_name) = "trunk_state"];
+  }
+
+  message TOpenBodySunVisorDirective {
+    option (.NAlice.SpeechKitName) = "open_body_sun_visor_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodySunVisorDirectiveType;
+    message TSunVisorState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 VisorLevel = 1 [json_name = "visor_level", (.NYT.column_name) = "visor_level"];
+      repeated .NAlice.TAutomotiveBodyCapability.EVehicleAreaSunVisorSide VisorSides = 2 [json_name = "visor_sides", (.NYT.column_name) = "visor_sides"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveBodyCapability.TOpenBodySunVisorDirective.TSunVisorState SunVisorState = 1 [json_name = "visor_state", (.NYT.column_name) = "visor_state"];
+  }
+
+  message TOpenBodyTrapdoorDirective {
+    option (.NAlice.SpeechKitName) = "open_body_trapdoor_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodyTrapdoorDirectiveType;
+    message TTrapdoorState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 TrapdoorLevel = 1 [json_name = "trapdoor_level", (.NYT.column_name) = "trapdoor_level"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveBodyCapability.TOpenBodyTrapdoorDirective.TTrapdoorState TrapdoorState = 1 [json_name = "trapdoor_state", (.NYT.column_name) = "trapdoor_state"];
+  }
+
+  message TOpenBodyWindowDirective {
+    option (.NAlice.SpeechKitName) = "open_body_window_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodyWindowDirectiveType;
+    message TWindowState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 Level = 1 [json_name = "level", (.NYT.column_name) = "level"];
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaWindow Window = 2 [json_name = "window", (.NYT.column_name) = "window"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAutomotiveBodyCapability.TOpenBodyWindowDirective.TWindowState WindowState = 1 [json_name = "window_state", (.NYT.column_name) = "window_state"];
+  }
+
+  message TOpenBodyDoorDirective {
+    option (.NAlice.SpeechKitName) = "open_body_door_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenBodyDoorDirectiveType;
+    message TDoorState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool Opened = 1 [json_name = "opened", (.NYT.column_name) = "opened"];
+      .NAlice.TAutomotiveBodyCapability.EVehicleAreaDoor Door = 2 [json_name = "door", (.NYT.column_name) = "door"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAutomotiveBodyCapability.TOpenBodyDoorDirective.TDoorState DoorState = 1 [json_name = "door_state", (.NYT.column_name) = "door_state"];
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    MIRROR_POS = 1;
+    DOOR_POS = 2;
+    SUN_VISOR_POS = 3;
+    WINDOW_POS = 4;
+    VENDOR_WINDOW_THERMAL_PROTECTION = 5;
+    WINDOW_LOCK = 6;
+    WINDOW_CALIBRATED = 7;
+    SUN_VISOR_CALIBRATED = 8;
+    DOOR_LOCK = 9;
+    DOOR_ELECTRIC_MODE_ENABLED = 10;
+    DOOR_CHILD_LOCK_ENABLED = 11;
+    MIRROR_FOLD = 12;
+  }
+
+  enum EVehicleAreaWindow {
+    WINDOW_UNKNOWN = 0;
+    WINDOW_FRONT_WINDSHIELD = 1;
+    WINDOW_REAR_WINDSHIELD = 2;
+    WINDOW_ROW_1_LEFT = 3;
+    WINDOW_ROW_1_RIGHT = 4;
+    WINDOW_ROW_2_LEFT = 5;
+    WINDOW_ROW_2_RIGHT = 6;
+    WINDOW_ROW_3_LEFT = 7;
+    WINDOW_ROW_3_RIGHT = 8;
+    WINDOW_ROOF_TOP_1 = 9;
+    WINDOW_ROOF_TOP_2 = 10;
+  }
+
+  enum EVehicleAreaMirror {
+    MIRROR_UNKNOWN = 0;
+    MIRROR_DRIVER_LEFT = 1;
+    MIRROR_DRIVER_RIGHT = 2;
+  }
+
+  enum EVehicleAreaDoor {
+    DOOR_UNKNOWN = 0;
+    DOOR_REAR = 1;
+    DOOR_ROW_1_LEFT = 2;
+    DOOR_ROW_1_RIGHT = 3;
+    DOOR_ROW_2_LEFT = 4;
+    DOOR_ROW_2_RIGHT = 5;
+    DOOR_ROW_3_LEFT = 6;
+    DOOR_ROW_3_RIGHT = 7;
+    DOOR_HOOD = 8;
+  }
+
+  enum EVehicleAreaSunVisorSide {
+    SUN_VISOR_UNKNOWN = 0;
+    SUN_VISOR_ROOF_FRONT = 1;
+    SUN_VISOR_ROOF_BACK = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveBodyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveBodyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

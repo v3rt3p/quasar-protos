@@ -10,8 +10,9 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/ping";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPing {
-  uint32 Timestamp = 1 [json_name = "timestamp"];
-  uint32 PingTimeoutMilliSeconds = 2 [json_name = "ping_timeout_milliseconds"];
-  uint32 PongTimeoutMilliSeconds = 3 [json_name = "pong_timeout_milliseconds"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 Timestamp = 1 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
+  uint32 PingTimeoutMilliSeconds = 2 [json_name = "ping_timeout_milliseconds", (.NYT.column_name) = "ping_timeout_milliseconds"];
+  uint32 PongTimeoutMilliSeconds = 3 [json_name = "pong_timeout_milliseconds", (.NYT.column_name) = "pong_timeout_milliseconds"];
 }
 

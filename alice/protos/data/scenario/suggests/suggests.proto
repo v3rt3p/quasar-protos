@@ -8,6 +8,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/suggests";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSuggest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TActionButton {
     message TTheme {
       enum EPlacement {
@@ -15,23 +16,24 @@ message TSuggest {
         NewLine = 1;
       }
 
-      string ImageUrl = 1 [json_name = "image_url"];
-      .NAlice.NData.TSuggest.TActionButton.TTheme.EPlacement Placement = 2 [json_name = "placement"];
+      string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+      .NAlice.NData.TSuggest.TActionButton.TTheme.EPlacement Placement = 2 [json_name = "placement", (.NYT.column_name) = "placement"];
     }
 
-    string Title = 1 [json_name = "title"];
-    string ActionId = 2 [json_name = "action_id"];
-    .NAlice.NData.TSuggest.TActionButton.TTheme Theme = 3 [json_name = "theme"];
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    string ActionId = 2 [json_name = "action_id", (.NYT.column_name) = "action_id"];
+    .NAlice.NData.TSuggest.TActionButton.TTheme Theme = 3 [json_name = "theme", (.NYT.column_name) = "theme"];
   }
 
   message TSearchButton {
-    string Title = 1 [json_name = "title"];
-    string Query = 2 [json_name = "query"];
+    string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+    string Query = 2 [json_name = "query", (.NYT.column_name) = "query"];
   }
 
   oneof Action {
-    .NAlice.NData.TSuggest.TActionButton ActionButton = 1 [json_name = "action_button"];
-    .NAlice.NData.TSuggest.TSearchButton SearchButton = 2 [json_name = "search_button"];
+    option (.NYT.variant_field_name) = "action";
+    .NAlice.NData.TSuggest.TActionButton ActionButton = 1 [json_name = "action_button", (.NYT.column_name) = "action_button"];
+    .NAlice.NData.TSuggest.TSearchButton SearchButton = 2 [json_name = "search_button", (.NYT.column_name) = "search_button"];
   }
 }
 

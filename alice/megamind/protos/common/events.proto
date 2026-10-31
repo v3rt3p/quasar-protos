@@ -13,79 +13,93 @@ import "alice/protos/api/files/image_crop.proto";
 import "google/protobuf/struct.proto";
 
 message TFileDescription {
-  optional string Guid = 1 [json_name = "guid"];
-  optional .NAlice.TImageCrop ImageCrop = 2 [json_name = "image_crop"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string Guid = 1 [json_name = "guid", (.NYT.column_name) = "guid"];
+  optional .NAlice.TImageCrop ImageCrop = 2 [json_name = "image_crop", (.NYT.column_name) = "image_crop"];
 }
 
 message TAsrResult {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TWord {
-    optional string Value = 1 [json_name = "value"];
-    optional double Confidence = 2 [json_name = "confidence"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string Value = 1 [json_name = "value", (.NYT.column_name) = "value", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+    optional double Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
   }
 
   message TAccentInfo {
-    repeated string Words = 1 [json_name = "words"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string Words = 1 [json_name = "words", (.NYT.column_name) = "words", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
   }
 
-  optional string Utterance = 1 [json_name = "utterance"];
-  optional double Confidence = 2 [json_name = "confidence"];
-  repeated .NAlice.TAsrResult.TWord Words = 3 [json_name = "words"];
-  optional string Normalized = 4 [json_name = "normalized"];
-  optional .NAlice.TAsrResult.TAccentInfo AccentInfo = 5 [json_name = "accent_info"];
+  optional string Utterance = 1 [json_name = "utterance", deprecated = true, (.NYT.column_name) = "utterance", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional double Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
+  repeated .NAlice.TAsrResult.TWord Words = 3 [json_name = "words", (.NYT.column_name) = "words"];
+  optional string Normalized = 4 [json_name = "normalized", (.NYT.column_name) = "normalized", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  optional .NAlice.TAsrResult.TAccentInfo AccentInfo = 5 [json_name = "accent_info", (.NYT.column_name) = "accent_info"];
 }
 
 message TPreEouInfo {
-  optional float Confidence = 1 [json_name = "confidence"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional float Confidence = 1 [json_name = "confidence", (.NYT.column_name) = "confidence"];
 }
 
 message TImageInputData {
-  optional string ImgUrl = 1 [json_name = "img_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string ImgUrl = 1 [json_name = "img_url", (.NYT.column_name) = "img_url", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
 }
 
 message TMusicResult {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TData {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved 2;
-    optional .google.protobuf.Struct Match = 1 [json_name = "match"];
-    optional string RecognitionId = 3 [json_name = "recognitionId"];
-    optional string Engine = 4 [json_name = "engine"];
-    optional string Url = 5 [json_name = "url"];
+    optional .google.protobuf.Struct Match = 1 [json_name = "match", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "match"];
+    optional string RecognitionId = 3 [json_name = "recognitionId", (.NYT.column_name) = "recognition_id"];
+    optional string Engine = 4 [json_name = "engine", (.NYT.column_name) = "engine"];
+    optional string Url = 5 [json_name = "url", (.NYT.column_name) = "url"];
   }
 
-  optional .NAlice.TMusicResult.TData Data = 1 [json_name = "data"];
-  optional string Result = 2 [json_name = "result"];
-  optional string ErrorText = 3 [json_name = "error_text"];
+  optional .NAlice.TMusicResult.TData Data = 1 [json_name = "data", (.NYT.column_name) = "data"];
+  optional string Result = 2 [json_name = "result", (.NYT.column_name) = "result"];
+  optional string ErrorText = 3 [json_name = "error_text", (.NYT.column_name) = "error_text"];
 }
 
 message TBiometryScoring {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TScore {
-    optional string UserId = 1 [json_name = "user_id"];
-    optional double Score = 2 [json_name = "score"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string UserId = 1 [json_name = "user_id", (.NYT.column_name) = "user_id"];
+    optional double Score = 2 [json_name = "score", (.NYT.column_name) = "score"];
   }
 
   message TScoreWithMode {
-    optional string Mode = 1 [json_name = "mode"];
-    repeated .NAlice.TBiometryScoring.TScore Scores = 2 [json_name = "scores"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+    repeated .NAlice.TBiometryScoring.TScore Scores = 2 [json_name = "scores", (.NYT.column_name) = "scores"];
   }
 
-  repeated .NAlice.TBiometryScoring.TScore Scores = 1 [json_name = "scores"];
-  repeated .NAlice.TBiometryScoring.TScoreWithMode ScoresWithMode = 2 [json_name = "scores_with_mode"];
-  optional string Status = 3 [json_name = "status"];
-  optional string RequestId = 4 [json_name = "request_id"];
-  optional string GroupId = 5 [json_name = "group_id"];
-  optional int64 PartialNumber = 6 [json_name = "partial_number"];
+  repeated .NAlice.TBiometryScoring.TScore Scores = 1 [json_name = "scores", (.NYT.column_name) = "scores"];
+  repeated .NAlice.TBiometryScoring.TScoreWithMode ScoresWithMode = 2 [json_name = "scores_with_mode", (.NYT.column_name) = "scores_with_mode"];
+  optional string Status = 3 [json_name = "status", (.NYT.column_name) = "status"];
+  optional string RequestId = 4 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+  optional string GroupId = 5 [json_name = "group_id", (.NYT.column_name) = "group_id"];
+  optional int64 PartialNumber = 6 [json_name = "partial_number", (.NYT.column_name) = "partial_number"];
 }
 
 message TBiometryClassification {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TClassificationResult {
-    optional string ClassName = 1 [json_name = "classname"];
-    optional double Confidence = 2 [json_name = "confidence"];
-    optional string Tag = 3 [json_name = "tag"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string ClassName = 1 [json_name = "classname", (.NYT.column_name) = "classname"];
+    optional double Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
+    optional string Tag = 3 [json_name = "tag", (.NYT.column_name) = "tag"];
   }
 
   message TClassificationSimple {
-    optional string ClassName = 1 [json_name = "classname"];
-    optional string Tag = 2 [json_name = "tag"];
-    optional .NAlice.TBiometryClassification.EConfidence Confidence = 3 [json_name = "confidence"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string ClassName = 1 [json_name = "classname", (.NYT.column_name) = "classname"];
+    optional string Tag = 2 [json_name = "tag", (.NYT.column_name) = "tag"];
+    optional .NAlice.TBiometryClassification.EConfidence Confidence = 3 [json_name = "confidence", (.NYT.column_name) = "confidence"];
   }
 
   enum EConfidence {
@@ -93,41 +107,44 @@ message TBiometryClassification {
     high = 1;
   }
 
-  optional string Status = 1 [json_name = "status"];
-  repeated .NAlice.TBiometryClassification.TClassificationResult Scores = 2 [json_name = "scores"];
-  repeated .NAlice.TBiometryClassification.TClassificationSimple Simple = 3 [json_name = "simple"];
-  optional int64 PartialNumber = 4 [json_name = "partial_number"];
+  optional string Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+  repeated .NAlice.TBiometryClassification.TClassificationResult Scores = 2 [json_name = "scores", (.NYT.column_name) = "scores"];
+  repeated .NAlice.TBiometryClassification.TClassificationSimple Simple = 3 [json_name = "simple", (.NYT.column_name) = "simple"];
+  optional int64 PartialNumber = 4 [json_name = "partial_number", (.NYT.column_name) = "partial_number"];
 }
 
 message TFilesInput {
-  repeated .NAlice.TFileDescription Files = 1 [json_name = "files"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TFileDescription Files = 1 [json_name = "files", (.NYT.column_name) = "files"];
 }
 
 message TEvent {
-  optional .NAlice.EEventType Type = 1 [json_name = "type"];
-  optional uint32 HypothesisNumber = 2 [json_name = "hypothesis_number"];
-  optional bool EndOfUtterance = 3 [json_name = "end_of_utterance"];
-  repeated .NAlice.TAsrResult AsrResult = 4 [json_name = "asr_result"];
-  optional uint32 OriginalZeroAsrHypothesisIndex = 15 [json_name = "original_zero_asr_hypothesis_index"];
-  optional string Text = 5 [json_name = "text"];
-  optional .NAlice.TImageInputData Data = 6 [json_name = "data"];
-  optional .NAlice.TMusicResult MusicResult = 7 [json_name = "music_result"];
-  optional string Name = 9 [json_name = "name"];
-  optional bool IgnoreAnswer = 10 [json_name = "ignore_answer"];
-  optional .NAlice.TBiometryScoring BiometryScoring = 11 [json_name = "biometry_scoring"];
-  optional .NAlice.TBiometryClassification BiometryClassification = 12 [json_name = "biometry_classification"];
-  optional bool IsWarmUp = 13 [json_name = "is_warmup"];
-  optional string AsrCoreDebug = 14 [json_name = "asr_core_debug"];
-  optional bool AsrWhisper = 16 [json_name = "asr_whisper"];
-  optional uint64 AsrDurationProcessedAudio = 17 [json_name = "asr_duration_processed_audio"];
-  optional string HybridAsrPartial = 18 [json_name = "hybrid_asr_partial"];
-  optional bool SaveToHistory = 20 [default = true, json_name = "save_to_history"];
-  repeated .NAlice.TFileDescription AttachedFiles = 21 [json_name = "attached_files"];
-  optional .NAlice.TFilesInput FilesInput = 22 [json_name = "files_input"];
-  optional .NAlice.TPreEouInfo PreEouInfo = 23 [json_name = "pre_eou_info"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.EEventType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  optional uint32 HypothesisNumber = 2 [json_name = "hypothesis_number", (.NYT.column_name) = "hypothesis_number"];
+  optional bool EndOfUtterance = 3 [json_name = "end_of_utterance", (.NYT.column_name) = "end_of_utterance"];
+  repeated .NAlice.TAsrResult AsrResult = 4 [json_name = "asr_result", (.NYT.column_name) = "asr_result"];
+  optional uint32 OriginalZeroAsrHypothesisIndex = 15 [json_name = "original_zero_asr_hypothesis_index", (.NYT.column_name) = "original_zero_asr_hypothesis_index"];
+  optional string Text = 5 [json_name = "text", (.NYT.column_name) = "text", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  optional .NAlice.TImageInputData Data = 6 [json_name = "data", (.NYT.column_name) = "data"];
+  optional .NAlice.TMusicResult MusicResult = 7 [json_name = "music_result", (.NYT.column_name) = "music_result"];
+  optional string Name = 9 [json_name = "name", (.NYT.column_name) = "name"];
+  optional bool IgnoreAnswer = 10 [json_name = "ignore_answer", (.NYT.column_name) = "ignore_answer"];
+  optional .NAlice.TBiometryScoring BiometryScoring = 11 [json_name = "biometry_scoring", (.NYT.column_name) = "biometry_scoring"];
+  optional .NAlice.TBiometryClassification BiometryClassification = 12 [json_name = "biometry_classification", (.NYT.column_name) = "biometry_classification"];
+  optional bool IsWarmUp = 13 [json_name = "is_warmup", (.NYT.column_name) = "is_warmup"];
+  optional string AsrCoreDebug = 14 [json_name = "asr_core_debug", (.NYT.column_name) = "asr_core_debug", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional bool AsrWhisper = 16 [json_name = "asr_whisper", (.NYT.column_name) = "asr_whisper"];
+  optional uint64 AsrDurationProcessedAudio = 17 [json_name = "asr_duration_processed_audio", (.NYT.column_name) = "asr_duration_processed_audio"];
+  optional string HybridAsrPartial = 18 [json_name = "hybrid_asr_partial", (.NYT.column_name) = "hybrid_asr_partial"];
+  optional bool SaveToHistory = 20 [default = true, json_name = "save_to_history", (.NYT.column_name) = "save_to_history"];
+  repeated .NAlice.TFileDescription AttachedFiles = 21 [json_name = "attached_files", (.NYT.column_name) = "attached_files"];
+  optional .NAlice.TFilesInput FilesInput = 22 [json_name = "files_input", (.NYT.column_name) = "files_input"];
+  optional .NAlice.TPreEouInfo PreEouInfo = 23 [json_name = "pre_eou_info", (.NYT.column_name) = "pre_eou_info"];
   oneof PayloadType {
-    .google.protobuf.Struct Payload = 8 [json_name = "payload"];
-    bytes PayloadRaw = 24 [json_name = "payload_raw"];
+    option (.NYT.oneof_flags) = SEPARATE_FIELDS;
+    .google.protobuf.Struct Payload = 8 [json_name = "payload", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload"];
+    bytes PayloadRaw = 24 [json_name = "payload_raw", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload_raw"];
   }
 }
 

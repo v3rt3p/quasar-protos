@@ -1,0 +1,150 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VideoDetailsScreenCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/video_details_screen;videodetailsscreenpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/analytics/client_analytics/tv_client_carousel_analytics.proto";
+import "alice/protos/data/common_search/feature.proto";
+import "alice/protos/data/video/video.proto";
+import "alice/protos/data/video/centaur/film_details.proto";
+import "alice/protos/data/video/centaur/film_purchase_details.proto";
+import "alice/protos/data/video/centaur/season_series_details.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVideoDetailsScreenCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VideoDetailsScreenCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsShowExternalCinemasDirective = 1 [json_name = "supports_show_external_cinemas_directive", (.NYT.column_name) = "supports_show_external_cinemas_directive"];
+    bool ContainsState = 2 [json_name = "contains_state", (.NYT.column_name) = "contains_state"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TOttVideoItem CurrentItem = 1 [json_name = "current_item", (.NYT.column_name) = "current_item"];
+  }
+
+  message TOpenVideoDetailsScreenDirective {
+    option (.NAlice.SpeechKitName) = "open_video_details_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenVideoDetailsScreenDirectiveType;
+    message TActors {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.TPersonItem Actor = 1 [json_name = "actors", (.NYT.column_name) = "actors"];
+    }
+
+    message TDoc2Doc {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.TOttVideoItem SeeAlso = 1 [json_name = "see_also", (.NYT.column_name) = "see_also"];
+    }
+
+    message TPlayerContinuation {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      message TPlayerContinuationItem {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+        string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+      }
+
+      repeated .NAlice.TVideoDetailsScreenCapability.TOpenVideoDetailsScreenDirective.TPlayerContinuation.TPlayerContinuationItem Continuation = 1 [json_name = "continuation", (.NYT.column_name) = "continuation"];
+    }
+
+    enum EMoveTo {
+      UNKNOWN = 0;
+      MAIN = 1;
+      TRAILER = 2;
+      ACTORS = 3;
+      WATCH_ALSO = 4;
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string OntoId = 2 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    string ProviderItemId = 3 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+    .NAlice.TVideoDetailsScreenCapability.TOpenVideoDetailsScreenDirective.TActors Actors = 5 [json_name = "actors", (.NYT.column_name) = "actors"];
+    .NAlice.TVideoDetailsScreenCapability.TOpenVideoDetailsScreenDirective.TDoc2Doc Doc2Doc = 6 [json_name = "doc_2_doc", (.NYT.column_name) = "doc_2_doc"];
+    .NAlice.TVideoDetailsScreenCapability.TOpenVideoDetailsScreenDirective.TPlayerContinuation PlayerContinuation = 7 [json_name = "player_continuation", (.NYT.column_name) = "player_continuation"];
+    bool SkipPolicyCheck = 8 [json_name = "skip_policy_check", (.NYT.column_name) = "skip_policy_check"];
+    .NAlice.TVideoDetailsScreenCapability.TOpenVideoDetailsScreenDirective.EMoveTo MoveTo = 9 [json_name = "move_to", (.NYT.column_name) = "move_to"];
+    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 10 [json_name = "client_analytics", (.NYT.column_name) = "client_analytics"];
+    .NAlice.TMetaInfoVideo MetaInfoVideo = 11 [json_name = "meta_info_video", (.NYT.column_name) = "meta_info_video"];
+    oneof ItemToOpen {
+      option (.NYT.variant_field_name) = "item_to_open";
+      .NAlice.TThinOttVideoItem ThinItem = 100 [json_name = "thin_item", (.NYT.column_name) = "thin_item"];
+      .NAlice.TOttVideoItem FullItem = 101 [json_name = "full_item", (.NYT.column_name) = "full_item"];
+    }
+  }
+
+  message TCentaurOpenVideoDetailsScreenDirective {
+    option (.NAlice.SpeechKitName) = "centaur_open_video_details_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CentaurOpenVideoDetailsScreenDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TFilmDetails FilmDetails = 1 [json_name = "film_details", (.NYT.column_name) = "film_details"];
+  }
+
+  message TShowExternalCinemasDirective {
+    option (.NAlice.SpeechKitName) = "show_external_cinemas_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowExternalCinemasDirectiveType;
+    string Name = 100 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TThinOttVideoItem Item = 1 [json_name = "item", (.NYT.column_name) = "item"];
+    repeated .NAlice.TOttVideoItem.TCinema ExternalCinemas = 2 [json_name = "external_cinemas", (.NYT.column_name) = "external_cinemas"];
+  }
+
+  message TBuyCurrentDirective {
+    option (.NAlice.SpeechKitName) = "buy_current_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = BuyCurrentDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenQRPaymentDirective {
+    option (.NAlice.SpeechKitName) = "open_qr_payment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenQRPaymentDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string QRBillingUrl = 2 [json_name = "qr_billing_url", (.NYT.column_name) = "qr_billing_url"];
+  }
+
+  message TCentaurOpenVideoPurchaseScreenDirective {
+    option (.NAlice.SpeechKitName) = "centaur_open_video_purchase_screen";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CentaurOpenVideoPurchaseScreenDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TFilmPurchaseDetails FilmPurchaseDetails = 1 [json_name = "film_purchase_details", (.NYT.column_name) = "film_purchase_details"];
+  }
+
+  message TOpenSerialNavigatorDirective {
+    option (.NAlice.SpeechKitName) = "open_serial_navigator_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenSerialNavigatorDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TOpenCurrentContentTrailerDirective {
+    option (.NAlice.SpeechKitName) = "open_current_content_trailer_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenCurrentContentTrailerDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TCentaurOpenSeriesScreenDirective {
+    option (.NAlice.SpeechKitName) = "centaur_open_series_screen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CentaurOpenSeriesScreenDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TSeasonSeriesDetails SeasonSeriesDetails = 1 [json_name = "season_series_details", (.NYT.column_name) = "season_series_details"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVideoDetailsScreenCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVideoDetailsScreenCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

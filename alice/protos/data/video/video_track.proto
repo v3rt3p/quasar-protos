@@ -9,12 +9,14 @@ option go_package = "a.yandex-team.ru/alice/protos/data/video";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTrackVariant {
-  string Id = 1 [json_name = "id"];
-  string Title = 2 [json_name = "title"];
-  bool Selected = 3 [json_name = "selected"];
-  bool DisabledForSelection = 5 [json_name = "disabled_for_selection"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  bool Selected = 3 [json_name = "selected", (.NYT.column_name) = "selected"];
+  bool DisabledForSelection = 5 [json_name = "disabled_for_selection", (.NYT.column_name) = "disabled_for_selection"];
   oneof OptionalLanguage {
-    string Language = 4 [json_name = "language"];
+    option (.NYT.variant_field_name) = "optional_language";
+    string Language = 4 [json_name = "language", (.NYT.column_name) = "language"];
   }
 }
 

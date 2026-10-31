@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LifeLogAudioSyncProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/life_log_audio_sync;lifelogaudiosyncpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLifeLogAudioSyncCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LifeLogAudioSyncCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int64 LastSentChunkTimestamp = 1 [json_name = "last_sent_chunk_timestamp", (.NYT.column_name) = "last_sent_chunk_timestamp"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLifeLogAudioSyncCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLifeLogAudioSyncCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

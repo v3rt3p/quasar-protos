@@ -21,7 +21,7 @@ message TAliceShowType {
     Children = 2;
   }
 
-  .NAlice.NData.NMusic.TAliceShowType.EDayPart DayPart = 1;
-  .NAlice.NData.NMusic.TAliceShowType.EAge Age = 2;
+  .NAlice.NData.NMusic.TAliceShowType.EDayPart DayPart = 1 [(.NYT.column_name) = "day_part"];
+  .NAlice.NData.NMusic.TAliceShowType.EAge Age = 2 [(.NYT.column_name) = "age"];
 }
 

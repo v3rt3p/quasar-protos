@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package NAlice;
+
+option go_package = "a.yandex-team.ru/alice/protos/data/video/centaur";
+
+import "alice/protos/data/video/video.proto";
+import "alice/protos/api/voice_control/voice_control.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFilmDetails {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved "RelatedItems";
+  reserved 3;
+  .NAlice.TOttVideoItem VideoItem = 1 [json_name = "video_item", (.NYT.column_name) = "video_item"];
+  repeated .NAlice.TPersonItem Actors = 2 [json_name = "actors", (.NYT.column_name) = "actors"];
+  repeated .NAlice.TOttVideoItem RelatedFilms = 5 [json_name = "related_films", (.NYT.column_name) = "related_films"];
+  string ThumbnailLogo = 6 [json_name = "thumbnail_logo", (.NYT.column_name) = "thumbnail_logo"];
+  string ShortDescription = 7 [json_name = "short_description", (.NYT.column_name) = "short_description"];
+  repeated .NAlice.TVoiceControl VoiceControls = 4 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
+}
+

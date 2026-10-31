@@ -13,14 +13,17 @@ import "alice/protos/data/tv/recent/recent_external_app_video.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentUsageInfo {
-  int64 LastUsageTimestamp = 1 [json_name = "last_usage_timestamp"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  int64 LastUsageTimestamp = 1 [json_name = "last_usage_timestamp", (.NYT.column_name) = "last_usage_timestamp"];
   oneof Item {
-    .NAlice.NTv.TRecentApplicationItem RecentApplicationItem = 101 [json_name = "recent_application_item"];
-    .NAlice.NTv.TRecentChannelItem RecentChannelItem = 102 [json_name = "recent_channel_item"];
-    .NAlice.NTv.TRecentSourceItem RecentSourceItem = 103 [json_name = "recent_source_item"];
-    .NAlice.NTv.TRecentExternalAppVideoItem RecentExternalAppVideoItem = 104 [json_name = "recent_external_app_video_item"];
+    option (.NYT.oneof_flags) = VARIANT;
+    option (.NYT.variant_field_name) = "item";
+    .NAlice.NTv.TRecentApplicationItem RecentApplicationItem = 101 [json_name = "recent_application_item", (.NYT.column_name) = "recent_application_item"];
+    .NAlice.NTv.TRecentChannelItem RecentChannelItem = 102 [json_name = "recent_channel_item", (.NYT.column_name) = "recent_channel_item"];
+    .NAlice.NTv.TRecentSourceItem RecentSourceItem = 103 [json_name = "recent_source_item", (.NYT.column_name) = "recent_source_item"];
+    .NAlice.NTv.TRecentExternalAppVideoItem RecentExternalAppVideoItem = 104 [json_name = "recent_external_app_video_item", (.NYT.column_name) = "recent_external_app_video_item"];
   }
-  optional int32 PinnedPosition = 2 [json_name = "pinned_position"];
-  optional int32 ColdPinnedPosition = 3 [json_name = "cold_pinned_position"];
+  optional int32 PinnedPosition = 2 [json_name = "pinned_position", (.NYT.column_name) = "pinned_position"];
+  optional int32 ColdPinnedPosition = 3 [json_name = "cold_pinned_position", (.NYT.column_name) = "cold_pinned_position"];
 }
 

@@ -12,13 +12,20 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TStandbyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = StandbyCapabilityType;
   message TPowerOffDirective {
+    option (.NAlice.SpeechKitName) = "power_off_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PowerOffDirectiveType;
   }
 
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EMode {
       Default = 0;
       Standby = 1;
@@ -26,11 +33,11 @@ message TStandbyCapability {
       PowerOff = 3;
     }
 
-    .NAlice.TStandbyCapability.TState.EMode Mode = 1 [json_name = "mode"];
+    .NAlice.TStandbyCapability.TState.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TStandbyCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TStandbyCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TStandbyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TStandbyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

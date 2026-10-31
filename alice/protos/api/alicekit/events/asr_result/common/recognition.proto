@@ -10,20 +10,23 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/asr_resul
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAggregatedRecognition {
-  optional uint64 Index = 1 [json_name = "index"];
-  optional string RecognizedText = 2 [json_name = "recognizedText"];
-  optional bool IsFinal = 3 [json_name = "isFinal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint64 Index = 1 [json_name = "index", (.NYT.column_name) = "index"];
+  optional string RecognizedText = 2 [json_name = "recognizedText", (.NYT.column_name) = "recognized_text"];
+  optional bool IsFinal = 3 [json_name = "isFinal", (.NYT.column_name) = "is_final"];
 }
 
 message TAsrRecognition {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TWord {
-    optional string Value = 1 [json_name = "value"];
-    optional float Confidence = 2 [json_name = "confidence"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    optional float Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
   }
 
-  repeated .NAlice.NAliceApi.TAsrRecognition.TWord Words = 2 [json_name = "words"];
-  optional float Confidence = 1 [json_name = "confidence"];
-  optional string Normalized = 3 [json_name = "normalized"];
-  optional string ParentModel = 4 [json_name = "parentModel"];
+  repeated .NAlice.NAliceApi.TAsrRecognition.TWord Words = 2 [json_name = "words", (.NYT.column_name) = "words"];
+  optional float Confidence = 1 [json_name = "confidence", (.NYT.column_name) = "confidence"];
+  optional string Normalized = 3 [json_name = "normalized", (.NYT.column_name) = "normalized"];
+  optional string ParentModel = 4 [json_name = "parentModel", (.NYT.column_name) = "parent_model"];
 }
 

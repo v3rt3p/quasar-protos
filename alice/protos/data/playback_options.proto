@@ -8,11 +8,13 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPlaybackOptions {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSpeedOptions {
-    bool ChangeSupport = 1 [json_name = "change_support"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool ChangeSupport = 1 [json_name = "change_support", (.NYT.column_name) = "change_support"];
   }
 
-  string PlaybackStarterUserId = 1 [json_name = "playback_starter_user_id"];
-  .NAlice.NData.TPlaybackOptions.TSpeedOptions SpeedOptions = 2 [json_name = "speed_options"];
+  string PlaybackStarterUserId = 1 [json_name = "playback_starter_user_id", (.NYT.column_name) = "playback_starter_user_id"];
+  .NAlice.NData.TPlaybackOptions.TSpeedOptions SpeedOptions = 2 [json_name = "speed_options", (.NYT.column_name) = "speed_options"];
 }
 

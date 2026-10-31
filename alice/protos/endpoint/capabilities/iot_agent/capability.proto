@@ -11,19 +11,26 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotAgentCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotAgentCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    string InAppContext = 1 [json_name = "in_app_context"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string InAppContext = 1 [json_name = "in_app_context", (.NYT.column_name) = "in_app_context"];
   }
 
   message TClearIotAgentContextDirective {
-    string Name = 1 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "clear_iot_agent_context";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ClearIotAgentContextDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotAgentCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotAgentCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotAgentCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotAgentCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

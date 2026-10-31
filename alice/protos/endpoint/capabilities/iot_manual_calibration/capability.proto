@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ManualCalibrationCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_manual_calibration;manualcalibration_fwpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TManualCalibrationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ManualCalibrationCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsCalibrated = 1 [json_name = "is_calibrated", (.NYT.column_name) = "is_calibrated"];
+  }
+
+  message TRunStageDirective {
+    option (.NAlice.SpeechKitName) = "iot_manual_calibration_run_stage_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ManualCalibrationRunStageDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 TimeoutMs = 1 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
+    string SessionId = 2 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TManualCalibrationCapability.EStage Stage = 3 [json_name = "stage", (.NYT.column_name) = "stage"];
+  }
+
+  message TAbortSessionDirective {
+    option (.NAlice.SpeechKitName) = "iot_manual_calibration_abort_session_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ManualCalibrationAbortSessionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+  }
+
+  message TManualCalibrationStageResultEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ManualCalibrationStageResultEventType;
+    reserved "TofDetails";
+    reserved "MotorDetails";
+    reserved "GenericDetails";
+    reserved 4;
+    reserved 5;
+    reserved 6;
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TManualCalibrationCapability.EStage Stage = 2 [json_name = "stage", (.NYT.column_name) = "stage"];
+    .NAlice.TManualCalibrationCapability.EStageStatus Status = 3 [json_name = "status", (.NYT.column_name) = "status"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ManualCalibrationUpdateStateEventType;
+    .NAlice.TManualCalibrationCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  enum EStage {
+    reserved "StageTofCalibration";
+    reserved "StageMotorLockArm";
+    reserved "StageMotorLockCommit";
+    reserved "StageMotorLockReject";
+    reserved "StageMotorUnlockArm";
+    reserved "StageMotorUnlockCommit";
+    reserved "StageMotorUnlockReject";
+    reserved 1;
+    reserved 2;
+    reserved 3;
+    reserved 4;
+    reserved 5;
+    reserved 6;
+    reserved 7;
+    StageUnknown = 0;
+    StageInDoor = 8;
+    StageOutDoor = 9;
+  }
+
+  enum EStageStatus {
+    reserved "StageStatusMeasured";
+    reserved 3;
+    StageStatusUnknown = 0;
+    StageStatusSuccess = 1;
+    StageStatusFailed = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TManualCalibrationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TManualCalibrationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatAssistantSettingsProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_assistant_settings;alicechatassistantsettingspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/aliceapp_native_settings/aliceapp_native_binary_setting.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatAssistantSettingsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatAssistantSettingsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsLegacyHuawei = 1 [json_name = "is_legacy_huawei", (.NYT.column_name) = "is_legacy_huawei"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TDefaultAssistantState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message THuaweiAssistantState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus PowerButtonAssistantActivationSettingState = 1 [json_name = "power_button_assistant_activation_setting_state", (.NYT.column_name) = "power_button_assistant_activation_setting_state"];
+      bool IsLiveModePowerButtonDoubleTapAvailable = 2 [json_name = "is_live_mode_power_button_double_tap_available", (.NYT.column_name) = "is_live_mode_power_button_double_tap_available"];
+    }
+
+    .NAlice.TAliceChatAssistantSettingsCapability.EAssistantResponseMode ResponseMode = 1 [json_name = "response_mode", (.NYT.column_name) = "response_mode"];
+    oneof AssistantImplementation {
+      option (.NYT.variant_field_name) = "assistant_implementation";
+      .NAlice.TAliceChatAssistantSettingsCapability.TState.TDefaultAssistantState DefaultAssistant = 2 [json_name = "default_assistant", (.NYT.column_name) = "default_assistant"];
+      .NAlice.TAliceChatAssistantSettingsCapability.TState.THuaweiAssistantState HuaweiAssistant = 3 [json_name = "huawei_assistant", (.NYT.column_name) = "huawei_assistant"];
+    }
+  }
+
+  message TAssistantResponseModeToggleSettingDirective {
+    option (.NAlice.SpeechKitName) = "assistant_response_mode_toggle_setting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AssistantResponseModeToggleSettingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceChatAssistantSettingsCapability.EAssistantResponseMode SettingState = 2 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  message TPowerButtonAssistantActivationToggleSettingDirective {
+    option (.NAlice.SpeechKitName) = "power_button_assistant_activation_toggle_setting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PowerButtonAssistantActivationToggleSettingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus SettingState = 2 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  message TOpenPowerButtonDoubleTapSystemSettingsDirective {
+    option (.NAlice.SpeechKitName) = "open_power_button_double_tap_system_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenPowerButtonDoubleTapSystemSettingsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  enum EAssistantResponseMode {
+    AUTO = 0;
+    NEVER_VOICE = 1;
+    ALWAYS_VOICE = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatAssistantSettingsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatAssistantSettingsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -13,57 +13,81 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAdhanCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AdhanCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.NData.TAdhan Adhans = 1 [json_name = "adhans"];
-    uint32 SoundLevel = 2 [json_name = "sound_level"];
-    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 3 [json_name = "adhan_muezzin_settings"];
-    bool CurrentlyPlaying = 4 [json_name = "currently_playing"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.NData.TAdhan Adhans = 1 [json_name = "adhans", (.NYT.column_name) = "adhans"];
+    uint32 SoundLevel = 2 [json_name = "sound_level", (.NYT.column_name) = "sound_level"];
+    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 3 [json_name = "adhan_muezzin_settings", (.NYT.column_name) = "adhan_muezzin_settings"];
+    bool CurrentlyPlaying = 4 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
   }
 
   message TAdhanSetSoundLevelDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 SoundLevel = 1 [json_name = "sound_level"];
+    option (.NAlice.SpeechKitName) = "adhan_set_sound_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanSetSoundLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 SoundLevel = 1 [json_name = "sound_level", (.NYT.column_name) = "sound_level"];
   }
 
   message TAdhanSetMuezzinSettingsDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 1 [json_name = "adhan_muezzin_settings"];
+    option (.NAlice.SpeechKitName) = "adhan_set_muezzin_settings_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanSetMuezzinSettingsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.TAdhanMuezzinSettings AdhanMuezzinSettings = 1 [json_name = "adhan_muezzin_settings", (.NYT.column_name) = "adhan_muezzin_settings"];
   }
 
   message TAdhanAddOrUpdateDirective {
+    option (.NAlice.SpeechKitName) = "adhan_add_or_update_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanAddOrUpdateDirectiveType;
     message TAdhanWithActivationTimes {
-      .NAlice.NData.TAdhan Adhan = 1 [json_name = "adhan"];
-      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.NData.TAdhan Adhan = 1 [json_name = "adhan", (.NYT.column_name) = "adhan"];
+      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps", (.NYT.column_name) = "activation_timestamps"];
     }
 
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TAdhanCapability.TAdhanAddOrUpdateDirective.TAdhanWithActivationTimes AdhansWithActivationTimes = 1 [json_name = "adhans_with_activation_times"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAdhanCapability.TAdhanAddOrUpdateDirective.TAdhanWithActivationTimes AdhansWithActivationTimes = 1 [json_name = "adhans_with_activation_times", (.NYT.column_name) = "adhans_with_activation_times"];
   }
 
   message TAdhanRemoveDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated string AdhanIds = 1 [json_name = "adhan_ids"];
+    option (.NAlice.SpeechKitName) = "adhan_remove_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanRemoveDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string AdhanIds = 1 [json_name = "adhan_ids", (.NYT.column_name) = "adhan_ids"];
   }
 
   message TAdhanUpdateActivationTimesDirective {
+    option (.NAlice.SpeechKitName) = "adhan_update_activation_times_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanUpdateActivationTimesDirectiveType;
     message TAdhanActivationTimes {
-      string AdhanId = 1 [json_name = "adhan_id"];
-      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string AdhanId = 1 [json_name = "adhan_id", (.NYT.column_name) = "adhan_id"];
+      repeated uint64 ActivationTimestamps = 2 [json_name = "activation_timestamps", (.NYT.column_name) = "activation_timestamps"];
     }
 
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TAdhanCapability.TAdhanUpdateActivationTimesDirective.TAdhanActivationTimes AdhansActivationTimes = 1 [json_name = "adhans_activation_times"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAdhanCapability.TAdhanUpdateActivationTimesDirective.TAdhanActivationTimes AdhansActivationTimes = 1 [json_name = "adhans_activation_times", (.NYT.column_name) = "adhans_activation_times"];
   }
 
   message TAdhanStopDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "adhan_stop_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AdhanStopDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAdhanCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAdhanCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAdhanCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAdhanCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

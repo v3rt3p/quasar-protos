@@ -10,15 +10,16 @@ import "alice/protos/data/device_control_panel/local_time.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimeInterval {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TBoundary {
-    .NAlice.TLocalTime Time = 1 [json_name = "time"];
-    .NAlice.TDayOfWeek DayOfWeek = 2 [json_name = "day_of_week"];
+    .NAlice.TLocalTime Time = 1 [json_name = "time", (.NYT.column_name) = "time"];
+    .NAlice.TDayOfWeek DayOfWeek = 2 [json_name = "day_of_week", (.NYT.column_name) = "day_of_week"];
   }
 
-  .NAlice.TLocalTime StartTime = 1 [json_name = "start_time"];
-  .NAlice.TLocalTime EndTime = 2 [json_name = "end_time"];
-  .NAlice.TDayOfWeek DayOfWeek = 3 [json_name = "day_of_week"];
-  .NAlice.TTimeInterval.TBoundary Start = 4 [json_name = "start"];
-  .NAlice.TTimeInterval.TBoundary End = 5 [json_name = "end"];
+  .NAlice.TLocalTime StartTime = 1 [json_name = "start_time", deprecated = true, (.NYT.column_name) = "start_time"];
+  .NAlice.TLocalTime EndTime = 2 [json_name = "end_time", deprecated = true, (.NYT.column_name) = "end_time"];
+  .NAlice.TDayOfWeek DayOfWeek = 3 [json_name = "day_of_week", deprecated = true, (.NYT.column_name) = "day_of_week"];
+  .NAlice.TTimeInterval.TBoundary Start = 4 [json_name = "start", (.NYT.column_name) = "start"];
+  .NAlice.TTimeInterval.TBoundary End = 5 [json_name = "end", (.NYT.column_name) = "end"];
 }
 

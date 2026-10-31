@@ -14,6 +14,7 @@ enum ECountry {
   COUNTRY_EG = 5;
   COUNTRY_UZ = 6;
   COUNTRY_AE = 7;
+  COUNTRY_KG = 8;
 }
 
 enum ELocale {
@@ -26,5 +27,6 @@ enum ELocale {
   LOCALE_AR_EG = 6;
   LOCALE_UZ_UZ = 7;
   LOCALE_AR_AE = 8;
+  LOCALE_KY_KG = 9;
 }
 

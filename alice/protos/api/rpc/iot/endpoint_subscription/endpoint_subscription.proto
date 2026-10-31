@@ -10,33 +10,37 @@ import "alice/protos/api/alicekit/iot/endpoint_protocol/endpoint_protocol.proto"
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSubscribeIoTEndpointsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "UseBackendEndpointId";
   reserved 3;
-  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions"];
-  bool RefreshTtl = 2 [json_name = "refresh_ttl"];
+  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions", (.NYT.column_name) = "subscriptions"];
+  bool RefreshTtl = 2 [json_name = "refresh_ttl", (.NYT.column_name) = "refresh_ttl"];
 }
 
 message TSubscribeIoTEndpointsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TEndpointResponse {
-    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status"];
-    .NAlice.NAliceApi.TEndpointState EndpointState = 2 [json_name = "endpoint_state"];
+    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    .NAlice.NAliceApi.TEndpointState EndpointState = 2 [json_name = "endpoint_state", (.NYT.column_name) = "endpoint_state"];
   }
 
-  repeated .NAlice.TSubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses"];
-  uint64 TtlSeconds = 2 [json_name = "ttl_seconds"];
+  repeated .NAlice.TSubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses", (.NYT.column_name) = "responses"];
+  uint64 TtlSeconds = 2 [json_name = "ttl_seconds", (.NYT.column_name) = "ttl_seconds"];
 }
 
 message TUnsubscribeIoTEndpointsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "UseBackendEndpointId";
   reserved 2;
-  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions"];
+  repeated .NAlice.NAliceApi.TEndpointSubscription Subscriptions = 1 [json_name = "subscriptions", (.NYT.column_name) = "subscriptions"];
 }
 
 message TUnsubscribeIoTEndpointsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TEndpointResponse {
-    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status"];
+    .NAlice.NAliceApi.TSubscriptionStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
   }
 
-  repeated .NAlice.TUnsubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses"];
+  repeated .NAlice.TUnsubscribeIoTEndpointsResponse.TEndpointResponse Responses = 1 [json_name = "responses", (.NYT.column_name) = "responses"];
 }
 

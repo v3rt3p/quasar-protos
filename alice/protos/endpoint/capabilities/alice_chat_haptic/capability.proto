@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChathapticProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_haptic;alicechathapticspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/protos/data/aliceapp_native_settings/aliceapp_native_binary_setting.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatHapticCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatHapticCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus SettingState = 1 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  message TAliceChatHapticDirective {
+    option (.NAlice.SpeechKitName) = "alice_chat_haptic";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceChatHapticDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceChatHapticCapability.EHapticType Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+  }
+
+  message TAliceChatHapticToggleSettingDirective {
+    option (.NAlice.SpeechKitName) = "alice_chat_haptic_toggle_setting";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceChatHapticToggleSettingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.NAliceAppNativeSettings.EAliceNativeBinarySettingStatus SettingState = 2 [json_name = "setting_state", (.NYT.column_name) = "setting_state"];
+  }
+
+  enum EHapticType {
+    EFFECT_CLICK = 0;
+    EFFECT_HEAVY_CLICK = 2;
+    EFFECT_LIGHT_CLICK = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatHapticCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatHapticCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

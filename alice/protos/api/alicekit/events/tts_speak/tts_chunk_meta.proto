@@ -10,6 +10,7 @@ option go_package = "a.yandex-team.ru/alice/protos/api/alicekit/events/tts_speak
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTtsChunkMeta {
-  optional uint32 SubStreamId = 1 [json_name = "sub_stream_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint32 SubStreamId = 1 [json_name = "sub_stream_id", (.NYT.column_name) = "sub_stream_id"];
 }
 

@@ -4,6 +4,7 @@ package quark.core.proto;
 
 message TAlice2ModeInfo {
   enum EMode {
+    reserved 4;
     Undefined = 0;
     Base = 1;
     Pro = 2;

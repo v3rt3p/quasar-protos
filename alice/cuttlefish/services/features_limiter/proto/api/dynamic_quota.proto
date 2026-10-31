@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package NAlice.NFeaturesLimiter.NProto.NApi;
+
+option java_package = "ru.yandex.alice.cuttlefish.services.features_limiter.proto.api";
+option go_package = "a.yandex-team.ru/alice/cuttlefish/services/features_limiter/proto/api";
+
+message TPidConfig {
+  double P = 1;
+  double I = 2;
+  double D = 3;
+  bool IgnoreTargetMetricValueOverride = 4;
+}
+
+message TAlgorithmConfig {
+  oneof Config {
+    .NAlice.NFeaturesLimiter.NProto.NApi.TPidConfig PidConfig = 1;
+  }
+}
+
+message TStaticArguments {
+}
+
+message TPidArguments {
+  uint64 MetricValue = 1;
+  uint64 TargetMetricValue = 2;
+  uint64 ObservedAtTimestampMilliseconds = 3;
+}
+
+message TPlainArguments {
+  uint64 RequestsQuota = 1;
+  string Location = 2;
+}
+
+enum EDynamicQuotaAlgorithm {
+  DQA_UNKNOWN = 0;
+  DQA_STATIC = 1;
+  DQA_PID = 2;
+  DQA_PLAIN = 3;
+}
+

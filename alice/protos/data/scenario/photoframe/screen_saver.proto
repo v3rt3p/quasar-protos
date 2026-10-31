@@ -9,20 +9,26 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScreenSaverData {
-  string ImageUrl = 1 [json_name = "image_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
 }
 
 message TAsset {
-  string ImageUrl = 1 [json_name = "image_url"];
-  string VideoUrl = 2 [json_name = "video_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  string VideoUrl = 2 [json_name = "video_url", (.NYT.column_name) = "video_url"];
 }
 
 message TLiveBackgroundAsset {
-  .NAlice.NData.TAsset Bottom = 1 [json_name = "bottom_asset"];
-  .NAlice.NData.TAsset Top = 2 [json_name = "top_asset"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NData.TAsset Bottom = 1 [json_name = "bottom_asset", (.NYT.column_name) = "bottom_asset"];
+  .NAlice.NData.TAsset Top = 2 [json_name = "top_asset", (.NYT.column_name) = "top_asset"];
 }
 
 message TLiveBackgroundData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
   enum EDayPart {
     Day = 0;
     Evening = 1;
@@ -35,44 +41,52 @@ message TLiveBackgroundData {
     PortraitOnly = 2;
   }
 
-  string BackgroundId = 1 [json_name = "background_id"];
-  .NAlice.NData.TLiveBackgroundData.EDayPart DayPart = 2 [json_name = "day_part"];
-  .NAlice.NData.TLiveBackgroundData.EOrientationType OrientationType = 3 [json_name = "orientation_type"];
-  .NAlice.NData.TLiveBackgroundAsset LandscapeAsset = 4 [json_name = "landscape_asset"];
-  .NAlice.NData.TLiveBackgroundAsset PortraitAsset = 5 [json_name = "portrait_asset"];
-  bool UseS3SourceUri = 6 [json_name = "use_s3_source_uri"];
+  string BackgroundId = 1 [json_name = "background_id", (.NYT.column_name) = "background_id"];
+  .NAlice.NData.TLiveBackgroundData.EDayPart DayPart = 2 [json_name = "day_part", (.NYT.column_name) = "day_part"];
+  .NAlice.NData.TLiveBackgroundData.EOrientationType OrientationType = 3 [json_name = "orientation_type", (.NYT.column_name) = "orientation_type"];
+  .NAlice.NData.TLiveBackgroundAsset LandscapeAsset = 4 [json_name = "landscape_asset", (.NYT.column_name) = "landscape_asset"];
+  .NAlice.NData.TLiveBackgroundAsset PortraitAsset = 5 [json_name = "portrait_asset", (.NYT.column_name) = "portrait_asset"];
+  bool UseS3SourceUri = 6 [json_name = "use_s3_source_uri", (.NYT.column_name) = "use_s3_source_uri"];
 }
 
 message TDeepBackgroundData {
-  string BackgroundId = 1 [json_name = "background_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string BackgroundId = 1 [json_name = "background_id", (.NYT.column_name) = "background_id"];
 }
 
 message TYaBroBackgroundCategorySettingData {
-  string CategoryId = 1 [json_name = "category_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  string CategoryId = 1 [json_name = "category_id", (.NYT.column_name) = "category_id"];
 }
 
 message TYaBroBackgroundPreviewData {
-  .NAlice.NData.TYaBroBackgroundCategorySettingData CategorySettingData = 1 [json_name = "category_setting_data"];
-  bool IsChosen = 2 [json_name = "is_chosen"];
-  string CategoryName = 3 [json_name = "category_name"];
-  string CategoryPreview = 4 [json_name = "category_preview"];
+  .NAlice.NData.TYaBroBackgroundCategorySettingData CategorySettingData = 1 [json_name = "category_setting_data", (.NYT.column_name) = "category_setting_data"];
+  bool IsChosen = 2 [json_name = "is_chosen", (.NYT.column_name) = "is_chosen"];
+  string CategoryName = 3 [json_name = "category_name", (.NYT.column_name) = "category_name"];
+  string CategoryPreview = 4 [json_name = "category_preview", (.NYT.column_name) = "category_preview"];
 }
 
 message TYaBroBackgroundsSettingScreenData {
-  repeated .NAlice.NData.TYaBroBackgroundPreviewData YaBroBackgroundsPreviews = 1 [json_name = "yabro_background_previews"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  repeated .NAlice.NData.TYaBroBackgroundPreviewData YaBroBackgroundsPreviews = 1 [json_name = "yabro_background_previews", (.NYT.column_name) = "yabro_background_previews"];
 }
 
 message TVideoBackgroundData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
   enum EOrientationType {
     Any = 0;
     LandscapeOnly = 1;
     PortraitOnly = 2;
   }
 
-  string BackgroundId = 1 [json_name = "background_id"];
-  .NAlice.NData.TVideoBackgroundData.EOrientationType OrientationType = 2 [json_name = "orientation_type"];
-  .NAlice.NData.TAsset LandscapeAsset = 3 [json_name = "landscape_asset"];
-  .NAlice.NData.TAsset PortraitAsset = 4 [json_name = "portrait_asset"];
-  bool UseS3SourceUri = 5 [json_name = "use_s3_source_uri"];
+  string BackgroundId = 1 [json_name = "background_id", (.NYT.column_name) = "background_id"];
+  .NAlice.NData.TVideoBackgroundData.EOrientationType OrientationType = 2 [json_name = "orientation_type", (.NYT.column_name) = "orientation_type"];
+  .NAlice.NData.TAsset LandscapeAsset = 3 [json_name = "landscape_asset", (.NYT.column_name) = "landscape_asset"];
+  .NAlice.NData.TAsset PortraitAsset = 4 [json_name = "portrait_asset", (.NYT.column_name) = "portrait_asset"];
+  bool UseS3SourceUri = 5 [json_name = "use_s3_source_uri", (.NYT.column_name) = "use_s3_source_uri"];
 }
 

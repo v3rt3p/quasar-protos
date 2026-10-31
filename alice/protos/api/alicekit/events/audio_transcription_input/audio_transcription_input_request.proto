@@ -11,16 +11,20 @@ import "alice/megamind/protos/common/experiments/experiments.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioTranscriptionInputRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TEncodingParams {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TOpusParams {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     oneof Params {
-      .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams.TOpusParams Opus = 1 [json_name = "opus"];
+      .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams.TOpusParams Opus = 1 [json_name = "opus", (.NYT.column_name) = "opus"];
     }
   }
 
   message TStartStream {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "SessionId";
     reserved 2;
     enum EStreamType {
@@ -29,21 +33,23 @@ message TAudioTranscriptionInputRequest {
       STREAM_TYPE_HISTORICAL = 2;
     }
 
-    map<string, string> PersonIdToPuidMapping = 3 [json_name = "person_id_to_puid_mapping"];
-    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams EncodingParams = 1 [json_name = "encoding_params"];
-    optional string DeviceId = 4 [json_name = "device_id"];
-    optional string SourceId = 5 [json_name = "source_id"];
-    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream.EStreamType StreamType = 6 [json_name = "stream_type"];
+    map<string, string> PersonIdToPuidMapping = 3 [json_name = "person_id_to_puid_mapping", (.NYT.column_name) = "person_id_to_puid_mapping"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TEncodingParams EncodingParams = 1 [json_name = "encoding_params", (.NYT.column_name) = "encoding_params"];
+    optional string DeviceId = 4 [json_name = "device_id", deprecated = true, (.NYT.column_name) = "device_id"];
+    optional string SourceId = 5 [json_name = "source_id", (.NYT.column_name) = "source_id"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream.EStreamType StreamType = 6 [json_name = "stream_type", (.NYT.column_name) = "stream_type"];
   }
 
   message TGracefulStop {
-    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional uint64 AudioEndTimestampMs = 1 [json_name = "audio_end_timestamp_ms", (.NYT.column_name) = "audio_end_timestamp_ms"];
   }
 
-  .NAlice.TExperimentsProto Experiments = 3 [json_name = "experiments"];
+  .NAlice.TExperimentsProto Experiments = 3 [json_name = "experiments", (.NYT.column_name) = "experiments"];
   oneof Request {
-    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream StartStream = 1 [json_name = "start_stream"];
-    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TGracefulStop GracefulStop = 2 [json_name = "graceful_stop"];
+    option (.NYT.variant_field_name) = "request";
+    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TStartStream StartStream = 1 [json_name = "start_stream", (.NYT.column_name) = "start_stream"];
+    .NAlice.NAliceApi.TAudioTranscriptionInputRequest.TGracefulStop GracefulStop = 2 [json_name = "graceful_stop", (.NYT.column_name) = "graceful_stop"];
   }
 }
 

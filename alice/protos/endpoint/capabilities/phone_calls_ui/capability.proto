@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PhoneCallsUICapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/phone_calls_ui;phonecallsuipb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/protos/data/calls/callable_devices.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPhoneCallsUICapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PhoneCallsUICapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TOpenDeviceCallUIDirective {
+    option (.NAlice.SpeechKitName) = "open_device_call_ui";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenDeviceCallUIDirectiveType;
+    message TCallableDeviceInfo {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+      string DeviceName = 2 [json_name = "device_name", (.NYT.column_name) = "device_name"];
+      string DevicePlatform = 3 [json_name = "device_platform", (.NYT.column_name) = "device_platform"];
+      string RoomName = 4 [json_name = "room_name", (.NYT.column_name) = "room_name"];
+      string HouseholdName = 5 [json_name = "household_name", (.NYT.column_name) = "household_name"];
+      string DeviceIconUrl = 6 [json_name = "device_icon_url", (.NYT.column_name) = "device_icon_url"];
+      bool RadioNannyEnabled = 7 [json_name = "radio_nanny_enabled", (.NYT.column_name) = "radio_nanny_enabled"];
+      bool DropInEnabled = 8 [json_name = "drop_in_enabled", (.NYT.column_name) = "drop_in_enabled"];
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPhoneCallsUICapability.TOpenDeviceCallUIDirective.TCallableDeviceInfo DeviceInfo = 2 [json_name = "device_info", (.NYT.column_name) = "device_info"];
+  }
+
+  message TGetCallableDevicesDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_ui_get_callable_devices";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = GetCallableDevicesDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCallableDevicesData CallableDevicesData = 2 [json_name = "callable_devices_data", (.NYT.column_name) = "callable_devices_data"];
+  }
+
+  message TShowCallErrorDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_ui_show_call_error";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowCallErrorDirectiveType;
+    enum EErrorReason {
+      ERROR_REASON_UNKNOWN = 0;
+      ERROR_REASON_INCOMING_DEVICE_DO_NOT_DISTURB = 1;
+    }
+
+    .NAlice.TPhoneCallsUICapability.TShowCallErrorDirective.EErrorReason Reason = 1 [json_name = "reason", (.NYT.column_name) = "reason"];
+    optional string Message = 2 [json_name = "message", (.NYT.column_name) = "message"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPhoneCallsUICapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPhoneCallsUICapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

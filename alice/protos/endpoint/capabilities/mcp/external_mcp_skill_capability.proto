@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ExternalMcpSkillCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/mcp;mcppb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+
+message TExternalMcpSkillCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ExternalMcpSkillCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TExternalMcpSkillCapability.TMcpServerConfiguration PersonalMcpServers = 1 [json_name = "personal_mcp_servers", (.NYT.column_name) = "personal_mcp_servers"];
+  }
+
+  message TMcpServerConfiguration {
+    message THttpHeader {
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      string Value = 2 [json_name = "value", (.NYT.column_name) = "value", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+    }
+
+    enum EServerType {
+      UNDEFINED = 0;
+      SSE = 1;
+      STREAMABLE_HTTP = 2;
+    }
+
+    string Id = 5 [json_name = "id", (.NYT.column_name) = "id"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Url = 2 [json_name = "url", (.NYT.column_name) = "url", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+    .NAlice.TExternalMcpSkillCapability.TMcpServerConfiguration.EServerType ServerType = 3 [json_name = "server_type", (.NYT.column_name) = "server_type"];
+    string AccessToken = 4 [json_name = "access_token", deprecated = true, (.NYT.column_name) = "access_token", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+    bool IsInternal = 6 [json_name = "is_internal", (.NYT.column_name) = "is_internal"];
+    repeated .NAlice.TExternalMcpSkillCapability.TMcpServerConfiguration.THttpHeader HttpHeaders = 7 [json_name = "http_headers", (.NYT.column_name) = "http_headers"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TExternalMcpSkillCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TExternalMcpSkillCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -10,8 +10,8 @@ import "alice/protos/data/entities/datetime.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDecimal {
-  uint32 Integer = 1 [json_name = "integer"];
-  uint32 Fractional = 2 [json_name = "fractional"];
+  uint32 Integer = 1 [json_name = "integer", (.NYT.column_name) = "integer"];
+  uint32 Fractional = 2 [json_name = "fractional", (.NYT.column_name) = "fractional"];
 }
 
 message TOrder {
@@ -26,32 +26,32 @@ message TOrder {
   reserved 10;
   reserved 9;
   message TContacts {
-    string Phone = 1 [json_name = "phone"];
-    string Auto = 2 [json_name = "auto"];
+    string Phone = 1 [json_name = "phone", (.NYT.column_name) = "phone"];
+    string Auto = 2 [json_name = "auto", (.NYT.column_name) = "auto"];
   }
 
   message TAddress {
-    .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon"];
-    string Country = 2 [json_name = "country"];
-    string City = 3 [json_name = "city"];
-    string Street = 4 [json_name = "street"];
-    string House = 5 [json_name = "house"];
-    string Entrance = 6 [json_name = "entrance"];
+    .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon", (.NYT.column_name) = "lat_lon"];
+    string Country = 2 [json_name = "country", (.NYT.column_name) = "country"];
+    string City = 3 [json_name = "city", (.NYT.column_name) = "city"];
+    string Street = 4 [json_name = "street", (.NYT.column_name) = "street"];
+    string House = 5 [json_name = "house", (.NYT.column_name) = "house"];
+    string Entrance = 6 [json_name = "entrance", (.NYT.column_name) = "entrance"];
   }
 
   message TDelivery {
-    .NAlice.NOrder.TOrder.EDeliveryType DeliveryType = 1 [json_name = "delivery_type"];
-    .NAlice.NOrder.TOrder.TContacts CurierContacts = 2 [json_name = "curier_contacts"];
-    .NAlice.NData.TLatLon CurierLatLon = 3 [json_name = "curier_lat_lon"];
-    string SubProviderName = 4 [json_name = "sub_provider_name"];
-    .NAlice.NOrder.TOrder.ESubProviderType SubProviderType = 5 [json_name = "sub_provider_type"];
+    .NAlice.NOrder.TOrder.EDeliveryType DeliveryType = 1 [json_name = "delivery_type", (.NYT.column_name) = "delivery_type"];
+    .NAlice.NOrder.TOrder.TContacts CurierContacts = 2 [json_name = "curier_contacts", (.NYT.column_name) = "curier_contacts"];
+    .NAlice.NData.TLatLon CurierLatLon = 3 [json_name = "curier_lat_lon", (.NYT.column_name) = "curier_lat_lon"];
+    string SubProviderName = 4 [json_name = "sub_provider_name", (.NYT.column_name) = "sub_provider_name"];
+    .NAlice.NOrder.TOrder.ESubProviderType SubProviderType = 5 [json_name = "sub_provider_type", (.NYT.column_name) = "sub_provider_type"];
   }
 
   message TPrice {
     reserved "Value";
     reserved 1;
-    .NAlice.NOrder.TOrder.ECurrency Currency = 2 [json_name = "currency"];
-    .NAlice.NOrder.TDecimal DecimalValue = 3 [json_name = "decimal_value"];
+    .NAlice.NOrder.TOrder.ECurrency Currency = 2 [json_name = "currency", (.NYT.column_name) = "currency"];
+    .NAlice.NOrder.TDecimal DecimalValue = 3 [json_name = "decimal_value", (.NYT.column_name) = "decimal_value"];
   }
 
   message TItem {
@@ -62,18 +62,18 @@ message TOrder {
     reserved 7;
     reserved 8;
     message TPartnerOrderReference {
-      string ProviderName = 1 [json_name = "provider_name"];
-      string OrderId = 2 [json_name = "order_id"];
+      string ProviderName = 1 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+      string OrderId = 2 [json_name = "order_id", (.NYT.column_name) = "order_id"];
     }
 
-    string Id = 1 [json_name = "id"];
-    string Title = 2 [json_name = "title"];
-    double Quantity = 4 [json_name = "quantity"];
-    .NAlice.NOrder.TOrder.TPrice ActualPrice = 5 [json_name = "actual_price"];
-    .NAlice.NOrder.TOrder.TPrice FullPrice = 6 [json_name = "full_price"];
-    .NAlice.NOrder.TOrder.TItem.TPartnerOrderReference PartnerOrderReference = 9 [json_name = "partner_order_reference"];
-    bool DoNotReduceTitle = 10 [json_name = "do_not_reduce_title"];
-    bool DoNotShowTitle = 11 [json_name = "do_not_show_title"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    double Quantity = 4 [json_name = "quantity", (.NYT.column_name) = "quantity"];
+    .NAlice.NOrder.TOrder.TPrice ActualPrice = 5 [json_name = "actual_price", (.NYT.column_name) = "actual_price"];
+    .NAlice.NOrder.TOrder.TPrice FullPrice = 6 [json_name = "full_price", (.NYT.column_name) = "full_price"];
+    .NAlice.NOrder.TOrder.TItem.TPartnerOrderReference PartnerOrderReference = 9 [json_name = "partner_order_reference", (.NYT.column_name) = "partner_order_reference"];
+    bool DoNotReduceTitle = 10 [json_name = "do_not_reduce_title", (.NYT.column_name) = "do_not_reduce_title"];
+    bool DoNotShowTitle = 11 [json_name = "do_not_show_title", (.NYT.column_name) = "do_not_show_title"];
   }
 
   message TDateTimeRange {
@@ -81,8 +81,8 @@ message TOrder {
     reserved "ToDate";
     reserved 2;
     reserved 3;
-    .NAlice.TSysDatetimeValue FromDateTime = 4 [json_name = "from_date_time"];
-    .NAlice.TSysDatetimeValue ToDateTime = 5 [json_name = "to_date_time"];
+    .NAlice.TSysDatetimeValue FromDateTime = 4 [json_name = "from_date_time", (.NYT.column_name) = "from_date_time"];
+    .NAlice.TSysDatetimeValue ToDateTime = 5 [json_name = "to_date_time", (.NYT.column_name) = "to_date_time"];
   }
 
   enum EStatus {
@@ -110,6 +110,8 @@ message TOrder {
   }
 
   enum EDeliveryType {
+    reserved "OnDemand";
+    reserved 8;
     UnknownDeliveryType = 0;
     FootCurier = 1;
     AutoCurier = 2;
@@ -129,54 +131,57 @@ message TOrder {
     Retail = 2;
   }
 
-  string Id = 1 [json_name = "id"];
-  .NAlice.TSysDatetimeValue CreatedDateTime = 12 [json_name = "created_date_time"];
-  .NAlice.TSysDatetimeValue StatusUpdateDateTime = 15 [json_name = "status_update_date_time"];
-  .NAlice.NOrder.TOrder.EStatus Status = 5 [json_name = "status"];
-  .NAlice.NOrder.TOrder.TPrice Price = 6 [json_name = "price"];
-  .NAlice.NOrder.TOrder.TAddress TargetAddress = 7 [json_name = "target_address"];
-  repeated .NAlice.NOrder.TOrder.TItem Items = 8 [json_name = "items"];
-  .NAlice.NOrder.TOrder.TDelivery Delivery = 11 [json_name = "delivery"];
-  .NAlice.TSysDatetimeValue PickupLimitDateTime = 16 [json_name = "pickup_limit_date_time"];
-  bool IsLocalTimeUsed = 17 [json_name = "is_local_time_used"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  .NAlice.TSysDatetimeValue CreatedDateTime = 12 [json_name = "created_date_time", (.NYT.column_name) = "created_date_time"];
+  .NAlice.TSysDatetimeValue StatusUpdateDateTime = 15 [json_name = "status_update_date_time", (.NYT.column_name) = "status_update_date_time"];
+  .NAlice.NOrder.TOrder.EStatus Status = 5 [json_name = "status", (.NYT.column_name) = "status"];
+  .NAlice.NOrder.TOrder.TPrice Price = 6 [json_name = "price", (.NYT.column_name) = "price"];
+  .NAlice.NOrder.TOrder.TAddress TargetAddress = 7 [json_name = "target_address", (.NYT.column_name) = "target_address"];
+  repeated .NAlice.NOrder.TOrder.TItem Items = 8 [json_name = "items", (.NYT.column_name) = "items"];
+  .NAlice.NOrder.TOrder.TDelivery Delivery = 11 [json_name = "delivery", (.NYT.column_name) = "delivery"];
+  .NAlice.TSysDatetimeValue PickupLimitDateTime = 16 [json_name = "pickup_limit_date_time", (.NYT.column_name) = "pickup_limit_date_time"];
+  bool IsLocalTimeUsed = 17 [json_name = "is_local_time_used", (.NYT.column_name) = "is_local_time_used"];
   oneof Eta {
-    int32 EtaSeconds = 3 [json_name = "eta_seconds"];
-    .NAlice.NOrder.TOrder.TDateTimeRange EtaDateTimeRange = 13 [json_name = "eta_date_time_range"];
+    option (.NYT.variant_field_name) = "eta";
+    int32 EtaSeconds = 3 [json_name = "eta_seconds", (.NYT.column_name) = "eta_seconds"];
+    .NAlice.NOrder.TOrder.TDateTimeRange EtaDateTimeRange = 13 [json_name = "eta_date_time_range", (.NYT.column_name) = "eta_date_time_range"];
   }
 }
 
 message TProviderOrderResponse {
-  string ProviderName = 1 [json_name = "provider_name"];
-  repeated .NAlice.NOrder.TOrder Orders = 2 [json_name = "orders"];
+  string ProviderName = 1 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+  repeated .NAlice.NOrder.TOrder Orders = 2 [json_name = "orders", (.NYT.column_name) = "orders"];
 }
 
 message TSearchProduct {
+  option deprecated = true;
   message TSubcategory {
-    string Id = 1 [json_name = "id"];
-    string Title = 2 [json_name = "title"];
-    optional string DeepLink = 3 [json_name = "deep_link"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    optional string DeepLink = 3 [json_name = "deep_link", (.NYT.column_name) = "deep_link"];
   }
 
   message TCatalogPath {
-    .NAlice.NOrder.TSearchProduct.TSubcategory Category = 1 [json_name = "category"];
-    .NAlice.NOrder.TSearchProduct.TSubcategory Subcategory = 2 [json_name = "subcategory"];
+    .NAlice.NOrder.TSearchProduct.TSubcategory Category = 1 [json_name = "category", (.NYT.column_name) = "category"];
+    .NAlice.NOrder.TSearchProduct.TSubcategory Subcategory = 2 [json_name = "subcategory", (.NYT.column_name) = "subcategory"];
   }
 
-  string Id = 1 [json_name = "id"];
-  string Type = 2 [json_name = "type"];
-  string Image = 3 [json_name = "image"];
-  string Title = 4 [json_name = "title"];
-  string Description = 5 [json_name = "description"];
-  string Source = 6 [json_name = "source"];
-  bool DoNotShowTitle = 7 [json_name = "do_not_show_title"];
-  repeated .NAlice.NOrder.TSearchProduct.TSubcategory Subcategories = 8 [json_name = "subcategories"];
-  string Price = 9 [json_name = "price"];
-  double QuantityLimit = 10 [json_name = "quantity_limit"];
-  repeated .NAlice.NOrder.TSearchProduct.TCatalogPath CatalogPaths = 11 [json_name = "catalog_paths"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+  string Image = 3 [json_name = "image", (.NYT.column_name) = "image"];
+  string Title = 4 [json_name = "title", (.NYT.column_name) = "title"];
+  string Description = 5 [json_name = "description", (.NYT.column_name) = "description"];
+  string Source = 6 [json_name = "source", (.NYT.column_name) = "source"];
+  bool DoNotShowTitle = 7 [json_name = "do_not_show_title", (.NYT.column_name) = "do_not_show_title"];
+  repeated .NAlice.NOrder.TSearchProduct.TSubcategory Subcategories = 8 [json_name = "subcategories", (.NYT.column_name) = "subcategories"];
+  string Price = 9 [json_name = "price", (.NYT.column_name) = "price"];
+  double QuantityLimit = 10 [json_name = "quantity_limit", (.NYT.column_name) = "quantity_limit"];
+  repeated .NAlice.NOrder.TSearchProduct.TCatalogPath CatalogPaths = 11 [json_name = "catalog_paths", (.NYT.column_name) = "catalog_paths"];
 }
 
 message TProviderSearchResponse {
-  repeated .NAlice.NOrder.TSearchProduct Items = 1 [json_name = "items"];
+  option deprecated = true;
+  repeated .NAlice.NOrder.TSearchProduct Items = 1 [json_name = "items", (.NYT.column_name) = "items"];
 }
 
 enum ENotificationType {

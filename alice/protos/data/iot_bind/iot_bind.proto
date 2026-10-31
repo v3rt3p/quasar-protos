@@ -9,8 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/data/iot_bind;iotbindpb";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotBindKey {
-  .NAlice.NIotBind.ERole Role = 1 [json_name = "role"];
-  uint32 ClusterId = 2 [json_name = "cluster_id"];
+  .NAlice.NIotBind.ERole Role = 1 [json_name = "role", (.NYT.column_name) = "role"];
+  uint32 ClusterId = 2 [json_name = "cluster_id", (.NYT.column_name) = "cluster_id"];
 }
 
 enum ERole {

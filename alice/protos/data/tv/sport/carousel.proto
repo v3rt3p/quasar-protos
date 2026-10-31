@@ -9,17 +9,18 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/data/avatar/avatar.proto";
 
 message TSportEventItem {
-  string ContentId = 1 [json_name = "content_id"];
-  string Title = 2 [json_name = "title"];
-  string Subtitle = 3 [json_name = "subtitle"];
-  .NAlice.NTv.ESportEventState EventState = 4 [json_name = "event_state"];
-  .NAlice.TAvatarMdsImage CoverUrl = 5 [json_name = "cover_url"];
-  string AnnounceDate = 6 [json_name = "announce_date"];
-  string SubscriptionBadgeUrl = 7 [json_name = "subscription_badge_url"];
-  bytes RemindCallback = 8 [json_name = "remind_callback"];
-  string EndDate = 9 [json_name = "end_date"];
-  string PaymentTargetId = 10 [json_name = "payment_target_id"];
-  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 11 [json_name = "subscription_badge_mds"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContentId = 1 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string Subtitle = 3 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+  .NAlice.NTv.ESportEventState EventState = 4 [json_name = "event_state", (.NYT.column_name) = "event_state"];
+  .NAlice.TAvatarMdsImage CoverUrl = 5 [json_name = "cover_url", (.NYT.column_name) = "cover_url"];
+  string AnnounceDate = 6 [json_name = "announce_date", (.NYT.column_name) = "announce_date"];
+  string SubscriptionBadgeUrl = 7 [json_name = "subscription_badge_url", (.NYT.column_name) = "subscription_badge_url"];
+  bytes RemindCallback = 8 [json_name = "remind_callback", (.NYT.column_name) = "remind_callback"];
+  string EndDate = 9 [json_name = "end_date", (.NYT.column_name) = "end_date"];
+  string PaymentTargetId = 10 [json_name = "payment_target_id", (.NYT.column_name) = "payment_target_id"];
+  optional .NAlice.TAvatarMdsImage SubscriptionBadgeMds = 11 [json_name = "subscription_badge_mds", (.NYT.column_name) = "subscription_badge_mds"];
 }
 
 enum ESportEventState {

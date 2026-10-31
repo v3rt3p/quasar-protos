@@ -8,8 +8,10 @@ option go_package = "a.yandex-team.ru/alice/protos/data/scenario/timer";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimerDescription {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTimerAction {
-    string SerializedAction = 1 [json_name = "serialized_action"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string SerializedAction = 1 [json_name = "serialized_action", (.NYT.column_name) = "serialized_action"];
   }
 
   enum ETimerType {
@@ -17,16 +19,16 @@ message TTimerDescription {
     COMMAND = 1;
   }
 
-  string TimerId = 1 [json_name = "timer_id"];
-  uint64 UpdateTimestamp = 9 [json_name = "update_timestamp"];
-  uint64 StartTimestamp = 2 [json_name = "start_timestamp"];
-  uint32 Duration = 3 [json_name = "duration"];
-  uint32 Remaining = 4 [json_name = "remaining"];
-  bool CurrentlyPlaying = 5 [json_name = "currently_playing"];
-  bool Paused = 6 [json_name = "paused"];
-  .NAlice.NData.TTimerDescription.ETimerType TimerType = 7 [json_name = "timer_type"];
-  repeated .NAlice.NData.TTimerDescription.TTimerAction TimerActions = 8 [json_name = "timer_actions"];
-  string Title = 10 [json_name = "title"];
-  bool Disabled = 11 [json_name = "disabled"];
+  string TimerId = 1 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
+  uint64 UpdateTimestamp = 9 [json_name = "update_timestamp", (.NYT.column_name) = "update_timestamp"];
+  uint64 StartTimestamp = 2 [json_name = "start_timestamp", (.NYT.column_name) = "start_timestamp"];
+  uint32 Duration = 3 [json_name = "duration", (.NYT.column_name) = "duration"];
+  uint32 Remaining = 4 [json_name = "remaining", (.NYT.column_name) = "remaining"];
+  bool CurrentlyPlaying = 5 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+  bool Paused = 6 [json_name = "paused", (.NYT.column_name) = "paused"];
+  .NAlice.NData.TTimerDescription.ETimerType TimerType = 7 [json_name = "timer_type", (.NYT.column_name) = "timer_type"];
+  repeated .NAlice.NData.TTimerDescription.TTimerAction TimerActions = 8 [json_name = "timer_actions", (.NYT.column_name) = "timer_actions"];
+  string Title = 10 [json_name = "title", (.NYT.column_name) = "title"];
+  bool Disabled = 11 [json_name = "disabled", (.NYT.column_name) = "disabled"];
 }
 

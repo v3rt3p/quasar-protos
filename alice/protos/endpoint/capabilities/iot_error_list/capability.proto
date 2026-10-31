@@ -11,15 +11,21 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotErrorListCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotErrorListCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.TIotErrorListCapability.EError Errors = 1 [json_name = "errors"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotErrorListCapability.EError Errors = 1 [json_name = "errors", (.NYT.column_name) = "errors"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotErrorListCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotErrorListUpdateStateEventType;
+    .NAlice.TIotErrorListCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EError {
@@ -39,8 +45,8 @@ message TIotErrorListCapability {
     OPEN_CIRCUIT_GND = 13;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotErrorListCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotErrorListCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotErrorListCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotErrorListCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

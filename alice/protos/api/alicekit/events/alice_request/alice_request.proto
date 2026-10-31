@@ -19,6 +19,7 @@ import "alice/library/client/protos/client_info.proto";
 import "alice/protos/api/alice_mode_info/alice_mode_info.proto";
 import "alice/protos/api/alicekit/common/device_state/device_state.proto";
 import "alice/protos/api/alicekit/common/environment_state/environment_state.proto";
+import "alice/protos/api/alicekit/common/tts_options/client_tts_options.proto";
 import "alice/protos/api/alicekit/common/uniproxy_options/uniproxy_options.proto";
 import "alice/protos/api/biometry/options.proto";
 import "alice/protos/api/files/file_info.proto";
@@ -29,6 +30,7 @@ import "alice/protos/data/event_source/event_source.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceRequestProto {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Session";
   reserved "MementoData";
   reserved "IoTUserInfoData";
@@ -70,22 +72,24 @@ message TAliceRequestProto {
   reserved 39;
   reserved 40;
   message THeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "RefMessageId";
     reserved "SessionId";
     reserved "RandomSeed";
     reserved 5;
     reserved 6;
     reserved 7;
-    optional string RequestId = 1 [json_name = "request_id"];
-    optional string PrevReqId = 2 [json_name = "prev_req_id"];
-    optional uint32 SequenceNumber = 3 [json_name = "sequence_number"];
-    optional string DialogId = 4 [json_name = "dialog_id"];
-    optional string FolderId = 10 [json_name = "folder_id"];
-    optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type"];
-    optional string DialogShareId = 9 [json_name = "dialog_share_id"];
+    optional string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    optional string PrevReqId = 2 [json_name = "prev_req_id", (.NYT.column_name) = "prev_req_id"];
+    optional uint32 SequenceNumber = 3 [json_name = "sequence_number", (.NYT.column_name) = "sequence_number"];
+    optional string DialogId = 4 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+    optional string FolderId = 10 [json_name = "folder_id", (.NYT.column_name) = "folder_id"];
+    optional .NAlice.NData.EDialogType DialogType = 8 [json_name = "dialog_type", (.NYT.column_name) = "dialog_type"];
+    optional string DialogShareId = 9 [json_name = "dialog_share_id", (.NYT.column_name) = "dialog_share_id"];
   }
 
   message TRequest {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "StickinessOptions";
     reserved "TestIDs";
     reserved "LaasRegion";
@@ -101,6 +105,7 @@ message TAliceRequestProto {
     reserved 12;
     reserved 20;
     message TAdditionalOptions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved "YandexUID";
       reserved "ServerTimeMs";
       reserved "RadioStations";
@@ -137,6 +142,7 @@ message TAliceRequestProto {
       reserved 31;
       reserved 32;
       message TBassOptions {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
         reserved "ClientIP";
         reserved "MegamindCgi";
         reserved "ProcessId";
@@ -149,67 +155,69 @@ message TAliceRequestProto {
         reserved 8;
         reserved 10;
         reserved 11;
-        repeated string Cookies = 4 [json_name = "cookies"];
-        optional string UserAgent = 1 [json_name = "user_agent"];
-        optional uint32 FiltrationLevel = 2 [json_name = "filtration_level"];
-        optional double ScreenScaleFactor = 5 [json_name = "screen_scale_factor"];
-        optional int32 RegionId = 9 [json_name = "region_id"];
-        optional string SearchRegion = 12 [json_name = "search_region"];
+        repeated string Cookies = 4 [json_name = "cookies", (.NYT.column_name) = "cookies", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+        optional string UserAgent = 1 [json_name = "user_agent", (.NYT.column_name) = "user_agent"];
+        optional uint32 FiltrationLevel = 2 [json_name = "filtration_level", (.NYT.column_name) = "filtration_level"];
+        optional double ScreenScaleFactor = 5 [json_name = "screen_scale_factor", (.NYT.column_name) = "screen_scale_factor"];
+        optional int32 RegionId = 9 [json_name = "region_id", (.NYT.column_name) = "region_id"];
+        optional string SearchRegion = 12 [json_name = "search_region", (.NYT.column_name) = "search_region"];
       }
 
       message TPermission {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
         reserved 56788;
         oneof PermissionStatus {
-          bool Granted = 1 [json_name = "granted"];
-          bool Status = 3 [json_name = "status"];
+          bool Granted = 1 [json_name = "granted", (.NYT.column_name) = "granted"];
+          bool Status = 3 [json_name = "status", (.NYT.column_name) = "status"];
         }
-        optional string Name = 2 [json_name = "name"];
+        optional string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
       }
 
-      .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3 [json_name = "bass_options"];
-      repeated string SupportedFeatures = 4 [json_name = "supported_features"];
-      repeated string UnsupportedFeatures = 5 [json_name = "unsupported_features"];
-      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig QuasarAuxiliaryConfig = 11 [json_name = "quasar_auxiliary_config"];
-      repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 14 [json_name = "permissions"];
-      .NAlice.TGuestOptions GuestUserOptions = 19 [json_name = "guest_user_options"];
-      repeated .NAlice.TUserOptions UsersOptions = 28 [json_name = "users_options"];
-      optional string OAuthToken = 1 [json_name = "oauth_token"];
-      optional string DivKitVersion = 6 [json_name = "divkit_version"];
-      optional string ICookie = 15 [json_name = "icookie"];
-      optional int32 SpeakersCount = 23 [json_name = "speakers_count"];
-      optional string OriginDomain = 26 [json_name = "origin_domain"];
-      optional .NAlice.TIncognitoOptions IncognitoOptions = 33 [json_name = "incognito_options"];
+      .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 3 [json_name = "bass_options", (.NYT.column_name) = "bass_options"];
+      repeated string SupportedFeatures = 4 [json_name = "supported_features", (.NYT.column_name) = "supported_features"];
+      repeated string UnsupportedFeatures = 5 [json_name = "unsupported_features", (.NYT.column_name) = "unsupported_features"];
+      .NAlice.NQuasarAuxiliaryConfig.TAuxiliaryConfig QuasarAuxiliaryConfig = 11 [json_name = "quasar_auxiliary_config", (.NYT.column_name) = "quasar_auxiliary_config"];
+      repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 14 [json_name = "permissions", (.NYT.column_name) = "permissions"];
+      .NAlice.TGuestOptions GuestUserOptions = 19 [json_name = "guest_user_options", (.NYT.column_name) = "guest_user_options", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      repeated .NAlice.TUserOptions UsersOptions = 28 [json_name = "users_options", (.NYT.column_name) = "users_options"];
+      optional string OAuthToken = 1 [json_name = "oauth_token", (.NYT.column_name) = "oauth_token", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+      optional string DivKitVersion = 6 [json_name = "divkit_version", (.NYT.column_name) = "divkit_version"];
+      optional string ICookie = 15 [json_name = "icookie", (.NYT.column_name) = "icookie"];
+      optional int32 SpeakersCount = 23 [json_name = "speakers_count", (.NYT.column_name) = "speakers_count"];
+      optional string OriginDomain = 26 [json_name = "origin_domain", (.NYT.column_name) = "origin_domain"];
+      optional .NAlice.TIncognitoOptions IncognitoOptions = 33 [json_name = "incognito_options", (.NYT.column_name) = "incognito_options"];
     }
 
-    .NAlice.TEvent Event = 1 [json_name = "event"];
-    .NAlice.TLocation Location = 2 [json_name = "location"];
-    .NAlice.TExperimentsProto Experiments = 3;
-    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5 [json_name = "additional_options"];
-    bool ResetSession = 7 [json_name = "reset_session"];
-    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options"];
-    .NAlice.TOndeviceBiometryOptions BiometryOptions = 21 [json_name = "biometry_options"];
+    .NAlice.TEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    .NAlice.TLocation Location = 2 [json_name = "location", (.NYT.column_name) = "location"];
+    .NAlice.TExperimentsProto Experiments = 3 [(.NYT.column_name) = "experiments"];
+    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions AdditionalOptions = 5 [json_name = "additional_options", (.NYT.column_name) = "additional_options"];
+    bool ResetSession = 7 [json_name = "reset_session", (.NYT.column_name) = "reset_session"];
+    .NAlice.NAliceApi.TUniproxyOptions UniproxyOptions = 17 [json_name = "uniproxy_options", (.NYT.column_name) = "uniproxy_options"];
+    .NAlice.TOndeviceBiometryOptions BiometryOptions = 21 [json_name = "biometry_options", (.NYT.column_name) = "biometry_options"];
     oneof DeviceStateType {
-      .NAlice.NAliceApi.TDeviceState DeviceState = 4 [json_name = "device_state"];
-      bytes DeviceStateRaw = 18 [json_name = "device_state_raw"];
+      .NAlice.NAliceApi.TDeviceState DeviceState = 4 [json_name = "device_state", (.NYT.column_name) = "device_state"];
+      bytes DeviceStateRaw = 18 [json_name = "device_state_raw", (.NYT.column_name) = "device_state_raw"];
     }
     oneof EnvironmentStateType {
-      .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 16 [json_name = "environment_state"];
-      bytes EnvironmentStateRaw = 19 [json_name = "environment_state_raw"];
+      .NAlice.NAliceApi.TEnvironmentState EnvironmentState = 16 [json_name = "environment_state", (.NYT.column_name) = "environment_state"];
+      bytes EnvironmentStateRaw = 19 [json_name = "environment_state_raw", (.NYT.column_name) = "environment_state_raw"];
     }
-    optional bool VoiceSession = 6 [json_name = "voice_session"];
-    optional string ActivationType = 14 [json_name = "activation_type"];
-    optional string MegamindCookies = 15 [json_name = "megamind_cookies"];
+    optional bool VoiceSession = 6 [json_name = "voice_session", (.NYT.column_name) = "voice_session"];
+    optional string ActivationType = 14 [json_name = "activation_type", (.NYT.column_name) = "activation_type"];
+    optional string MegamindCookies = 15 [json_name = "megamind_cookies", (.NYT.column_name) = "megamind_cookies"];
   }
 
   message TAdvancedAsrOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "BiometryGroup";
     reserved 7;
-    repeated string Grammar = 4 [json_name = "grammar"];
-    optional bool PartialResults = 1 [json_name = "partial_results"];
-    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation"];
-    optional bool Capitalize = 3 [json_name = "capitalize"];
-    optional uint64 UtteranceSilence = 5 [json_name = "utterance_silence"];
-    optional string Biometry = 6 [json_name = "biometry"];
+    repeated string Grammar = 4 [json_name = "grammar", (.NYT.column_name) = "grammar"];
+    optional bool PartialResults = 1 [json_name = "partial_results", (.NYT.column_name) = "partial_results"];
+    optional bool ManualPunctuation = 2 [json_name = "manual_punctuation", (.NYT.column_name) = "manual_punctuation"];
+    optional bool Capitalize = 3 [json_name = "capitalize", (.NYT.column_name) = "capitalize"];
+    optional uint64 UtteranceSilence = 5 [json_name = "utterance_silence", (.NYT.column_name) = "utterance_silence"];
+    optional string Biometry = 6 [json_name = "biometry", (.NYT.column_name) = "biometry"];
   }
 
   message TDialogHistoryBlock {
@@ -218,44 +226,45 @@ message TAliceRequestProto {
     message TFileDescription {
       reserved "Extension";
       reserved 2;
-      optional string Title = 1 [json_name = "title"];
-      optional string Guid = 3 [json_name = "guid"];
-      optional .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 4 [json_name = "status"];
-      optional uint64 UploadTimestamp = 5 [json_name = "upload_timestamp"];
-      optional string ProcessedContent = 6 [json_name = "processed_content"];
-      optional string PreviewUrl = 7 [json_name = "preview_url"];
-      optional uint64 SizeBytes = 8 [json_name = "size_bytes"];
-      optional string MimeType = 9 [json_name = "mime_type"];
-      optional .NAlice.NApi.NFiles.TFileInfo.EFileType FileType = 10 [json_name = "file_type"];
-      optional .NAlice.NApi.NFiles.TFileInfo.TSource Source = 12 [json_name = "source"];
-      optional .NAlice.NApi.NFiles.TFileInfo.TSource Result = 13 [json_name = "result"];
-      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures Features = 14 [json_name = "features"];
-      optional string ShareId = 16 [json_name = "share_id"];
+      optional string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+      optional string Guid = 3 [json_name = "guid", (.NYT.column_name) = "guid"];
+      optional .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 4 [json_name = "status", (.NYT.column_name) = "status"];
+      optional uint64 UploadTimestamp = 5 [json_name = "upload_timestamp", (.NYT.column_name) = "upload_timestamp"];
+      optional string ProcessedContent = 6 [json_name = "processed_content", (.NYT.column_name) = "processed_content", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+      optional string PreviewUrl = 7 [json_name = "preview_url", (.NYT.column_name) = "preview_url"];
+      optional uint64 SizeBytes = 8 [json_name = "size_bytes", (.NYT.column_name) = "size_bytes"];
+      optional string MimeType = 9 [json_name = "mime_type", (.NYT.column_name) = "mime_type"];
+      optional .NAlice.NApi.NFiles.TFileInfo.EFileType FileType = 10 [json_name = "file_type", (.NYT.column_name) = "file_type"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TSource Source = 12 [json_name = "source", (.NYT.column_name) = "source"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TSource Result = 13 [json_name = "result", (.NYT.column_name) = "result"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures Features = 14 [json_name = "features", (.NYT.column_name) = "features"];
+      optional string ShareId = 16 [json_name = "share_id", (.NYT.column_name) = "share_id"];
     }
 
-    repeated .NAlice.TAliceRequestProto.TDialogHistoryBlock.TFileDescription ChatFiles = 2 [json_name = "chat_files"];
+    repeated .NAlice.TAliceRequestProto.TDialogHistoryBlock.TFileDescription ChatFiles = 2 [json_name = "chat_files", (.NYT.column_name) = "chat_files"];
   }
 
-  .NAlice.TAliceRequestProto.THeader Header = 1 [json_name = "header"];
-  .NAlice.TClientInfoProto Application = 2 [json_name = "application"];
-  .NAlice.TAliceRequestProto.TRequest Request = 3 [json_name = "request"];
-  .NAlice.TEventSource EventSource = 11 [json_name = "event_source"];
-  .NAlice.TEnrollmentHeaders EnrollmentHeaders = 12 [json_name = "enrollment_headers"];
-  bool EnableSpotterValidation = 15 [json_name = "enable_spotter_validation"];
-  .NAlice.TAliceRequestProto.TAdvancedAsrOptions AdvancedAsrOptions = 25 [json_name = "advancedASROptions"];
-  .NAlice.TAliceRequestProto.TDialogHistoryBlock DialogHistoryBlock = 30 [json_name = "dialog_history_block"];
-  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34 [json_name = "alice_2_settings"];
-  optional string Firmware = 13 [json_name = "firmware"];
-  optional string VoiceInputMessageId = 14 [json_name = "voiceInputMessageId"];
-  optional string SpotterPhrase = 16 [json_name = "spotter_phrase"];
-  optional string EmbeddedSpotterInfo = 17 [json_name = "embedded_spotter_info"];
-  optional string Lang = 18 [json_name = "lang"];
-  optional string Topic = 19 [json_name = "topic"];
-  optional bool DisableAntimat = 20 [json_name = "disableAntimatNormalizer"];
-  optional bool Punctuation = 21 [json_name = "punctuation"];
-  optional string Format = 22 [json_name = "format"];
-  optional bool RecognizeMusicOnly = 23 [json_name = "recognize_music_only"];
-  optional string Tags = 24 [json_name = "tags"];
-  optional .NAlice.TSpeechSession SpeechSession = 41 [json_name = "speech_session"];
+  .NAlice.TAliceRequestProto.THeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
+  .NAlice.TClientInfoProto Application = 2 [json_name = "application", (.NYT.column_name) = "application"];
+  .NAlice.TAliceRequestProto.TRequest Request = 3 [json_name = "request", (.NYT.column_name) = "request"];
+  .NAlice.TEventSource EventSource = 11 [json_name = "event_source", (.NYT.column_name) = "event_source"];
+  .NAlice.TEnrollmentHeaders EnrollmentHeaders = 12 [json_name = "enrollment_headers", (.NYT.column_name) = "enrollment_headers"];
+  bool EnableSpotterValidation = 15 [json_name = "enable_spotter_validation", (.NYT.column_name) = "enable_spotter_validation"];
+  .NAlice.TAliceRequestProto.TAdvancedAsrOptions AdvancedAsrOptions = 25 [json_name = "advancedASROptions", (.NYT.column_name) = "advanced_asr_options"];
+  .NAlice.TAliceRequestProto.TDialogHistoryBlock DialogHistoryBlock = 30 [json_name = "dialog_history_block", (.NYT.column_name) = "dialog_history_block"];
+  .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2Settings = 34 [json_name = "alice_2_settings", (.NYT.column_name) = "alice_2_settings"];
+  optional string Firmware = 13 [json_name = "firmware", (.NYT.column_name) = "firmware"];
+  optional string VoiceInputMessageId = 14 [json_name = "voiceInputMessageId", (.NYT.column_name) = "voice_input_message_id"];
+  optional string SpotterPhrase = 16 [json_name = "spotter_phrase", (.NYT.column_name) = "spotter_phrase"];
+  optional string EmbeddedSpotterInfo = 17 [json_name = "embedded_spotter_info", (.NYT.column_name) = "embedded_spotter_info"];
+  optional string Lang = 18 [json_name = "lang", (.NYT.column_name) = "lang"];
+  optional string Topic = 19 [json_name = "topic", (.NYT.column_name) = "topic"];
+  optional bool DisableAntimat = 20 [json_name = "disableAntimatNormalizer", (.NYT.column_name) = "disable_antimat_normalizer"];
+  optional bool Punctuation = 21 [json_name = "punctuation", (.NYT.column_name) = "punctuation"];
+  optional string Format = 22 [json_name = "format", (.NYT.column_name) = "format"];
+  optional bool RecognizeMusicOnly = 23 [json_name = "recognize_music_only", (.NYT.column_name) = "recognize_music_only"];
+  optional string Tags = 24 [json_name = "tags", (.NYT.column_name) = "tags"];
+  optional .NAlice.TSpeechSession SpeechSession = 41 [json_name = "speech_session", (.NYT.column_name) = "speech_session"];
+  optional .NAlice.NAliceApi.TClientTtsOptions TtsOptions = 44 [json_name = "tts_options", (.NYT.column_name) = "tts_options", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
 }
 

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveWirelessChargingCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_wireless_charging;automotive_wireless_chargingpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveWirelessChargingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveWirelessChargingCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TWirelessChargerState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveWirelessChargingCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      optional bool Charging = 2 [json_name = "charging", (.NYT.column_name) = "charging"];
+      optional bool Enabled = 3 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    }
+
+    repeated .NAlice.TAutomotiveWirelessChargingCapability.TState.TWirelessChargerState WirelessChargerStates = 1 [json_name = "wireless_charger_states", (.NYT.column_name) = "wireless_charger_states"];
+  }
+
+  message TSetWirelessChargingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_wireless_charging_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetWirelessChargingStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAutomotiveWirelessChargingCapability.EVehicleAreaSeat Seats = 1 [json_name = "seats", (.NYT.column_name) = "seats"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EVehicleAreaSeat {
+    SEAT_UNKNOWN = 0;
+    SEAT_ROW_1_LEFT = 1;
+    SEAT_ROW_1_CENTER = 2;
+    SEAT_ROW_1_RIGHT = 3;
+    SEAT_ROW_2_LEFT = 4;
+    SEAT_ROW_2_CENTER = 5;
+    SEAT_ROW_2_RIGHT = 6;
+    SEAT_ROW_3_LEFT = 7;
+    SEAT_ROW_3_CENTER = 8;
+    SEAT_ROW_3_RIGHT = 9;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveWirelessChargingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveWirelessChargingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

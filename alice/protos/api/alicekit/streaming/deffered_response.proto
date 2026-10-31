@@ -17,8 +17,8 @@ message TDeferedAliceResponseProto {
   reserved "Sessions";
   reserved 5;
   message TChatHistoryResponseKey {
-    optional string HistoryMessageId = 1 [json_name = "history_message_id"];
-    optional uint64 Timestamp = 2 [json_name = "timestamp"];
+    optional string HistoryMessageId = 1 [json_name = "history_message_id", (.NYT.column_name) = "history_message_id"];
+    optional uint64 Timestamp = 2 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
   }
 
   message TBaseResponse {
@@ -30,27 +30,28 @@ message TDeferedAliceResponseProto {
     reserved 6;
     reserved 9;
     reserved 10;
-    repeated .NAlice.NAliceApi.TCard Cards = 3 [json_name = "cards"];
-    bool ShouldListen = 5 [json_name = "should_listen"];
-    repeated .NAlice.NAliceApi.TSuggest Suggests = 7 [json_name = "suggests"];
-    repeated .NAlice.NAliceApi.TDirective Directives = 8 [json_name = "directives"];
-    optional string Text = 1 [json_name = "text"];
-    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 11 [json_name = "request_annotation"];
+    repeated .NAlice.NAliceApi.TCard Cards = 3 [json_name = "cards", (.NYT.column_name) = "cards"];
+    bool ShouldListen = 5 [json_name = "should_listen", (.NYT.column_name) = "should_listen"];
+    repeated .NAlice.NAliceApi.TSuggest Suggests = 7 [json_name = "suggests", (.NYT.column_name) = "suggests"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 8 [json_name = "directives", (.NYT.column_name) = "directives"];
+    optional string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+    optional .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 11 [json_name = "request_annotation", (.NYT.column_name) = "request_annotation"];
   }
 
   message TCancelResponse {
-    bool Cancel = 1 [json_name = "cancel"];
-    repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives"];
+    bool Cancel = 1 [json_name = "cancel", (.NYT.column_name) = "cancel"];
+    repeated .NAlice.NAliceApi.TDirective Directives = 2 [json_name = "directives", (.NYT.column_name) = "directives"];
   }
 
-  uint32 ResponsePartialNum = 3 [json_name = "response_partial_num"];
-  bool IsLast = 4 [json_name = "is_last"];
-  string RequestId = 6 [json_name = "request_id"];
-  repeated .NAlice.NAliceApi.TDeferedAliceResponseProto.TChatHistoryResponseKey ChatHistoryResponseKeys = 15 [json_name = "chat_history_response_keys"];
-  bool ContainsSensitiveDataInResponse = 18 [json_name = "contains_sensitive_data_in_response"];
+  uint32 ResponsePartialNum = 3 [json_name = "response_partial_num", (.NYT.column_name) = "response_partial_num"];
+  bool IsLast = 4 [json_name = "is_last", (.NYT.column_name) = "is_last"];
+  string RequestId = 6 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+  repeated .NAlice.NAliceApi.TDeferedAliceResponseProto.TChatHistoryResponseKey ChatHistoryResponseKeys = 15 [json_name = "chat_history_response_keys", (.NYT.column_name) = "chat_history_response_keys"];
+  bool ContainsSensitiveDataInResponse = 18 [json_name = "contains_sensitive_data_in_response", (.NYT.column_name) = "contains_sensitive_data_in_response"];
   oneof TDeferredResponse {
-    .NAlice.NAliceApi.TDeferedAliceResponseProto.TBaseResponse BaseResponse = 1 [json_name = "base_response"];
-    .NAlice.NAliceApi.TDeferedAliceResponseProto.TCancelResponse CancelResponse = 2 [json_name = "cancel_response"];
+    option (.NYT.variant_field_name) = "deferred_response";
+    .NAlice.NAliceApi.TDeferedAliceResponseProto.TBaseResponse BaseResponse = 1 [json_name = "base_response", (.NYT.column_name) = "base_response"];
+    .NAlice.NAliceApi.TDeferedAliceResponseProto.TCancelResponse CancelResponse = 2 [json_name = "cancel_response", (.NYT.column_name) = "cancel_response"];
   }
 }
 

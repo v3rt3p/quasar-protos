@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "IotCustomLocalityCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_custom_locality;iotcustomlocalitypb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotCustomLocalityCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotCustomLocalityCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TSecurity {
+    string PSKID = 1 [json_name = "psk_id", (.NYT.column_name) = "psk_id"];
+    string PSK = 2 [json_name = "psk", (.NYT.column_name) = "psk"];
+  }
+
+  message TCustomLocalitySaveKeyDirective {
+    option (.NAlice.SpeechKitName) = "iot_custom_locality_save_key_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotCustomLocalitySaveKeyDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string PeerDeviceID = 1 [json_name = "peer_device_id", (.NYT.column_name) = "peer_device_id"];
+    .NAlice.TIotCustomLocalityCapability.TSecurity Security = 2 [json_name = "security", (.NYT.column_name) = "security"];
+  }
+
+  message TCustomLocalityStartDirective {
+    option (.NAlice.SpeechKitName) = "iot_custom_locality_start_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotCustomLocalityStartDirective;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DeviceID = 1 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotCustomLocalityUpdateStateEventType;
+    .NAlice.TIotCustomLocalityCapability.TState State = 1 [json_name = "state", (.NYT.column_name) = "state"];
+  }
+
+  message TCustomLocalityStatusEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotCustomLocalityStatusEventType;
+    .NAlice.TIotCustomLocalityCapability.EBindingStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    optional string Reason = 2 [json_name = "reason", (.NYT.column_name) = "reason"];
+  }
+
+  enum EBindingStatus {
+    BINDING_STATUS_UNKNOWN = 0;
+    BINDING_STATUS_SUCCESS = 1;
+    BINDING_STATUS_FAIL = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotCustomLocalityCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotCustomLocalityCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

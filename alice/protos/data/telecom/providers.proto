@@ -11,50 +11,56 @@ import "alice/protos/data/color/color.proto";
 import "alice/library/yt/extensions/alice_options.proto";
 
 message TProviderContact {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TTelephoneId {
-    string Phone = 1 [json_name = "phone"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Phone = 1 [json_name = "phone", (.NYT.column_name) = "phone"];
   }
 
   message TMessengerId {
-    string DeviceId = 1 [json_name = "device_id"];
-    string Guid = 2 [json_name = "guid"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Guid = 2 [json_name = "guid", (.NYT.column_name) = "guid"];
   }
 
   message TAtsId {
-    string Login = 1 [json_name = "login"];
-    string CallId = 2 [json_name = "call_id"];
-    string Domain = 3 [json_name = "domain"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Login = 1 [json_name = "login", (.NYT.column_name) = "login"];
+    string CallId = 2 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    string Domain = 3 [json_name = "domain", (.NYT.column_name) = "domain"];
   }
 
-  string Name = 1 [json_name = "name"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
   oneof ProviderId {
-    .NAlice.NTelecom.TProviderContact.TTelephoneId TelephoneId = 2 [json_name = "telephone_id"];
-    .NAlice.NTelecom.TProviderContact.TMessengerId MessengerId = 3 [json_name = "messenger_id"];
-    .NAlice.NTelecom.TProviderContact.TAtsId AtsId = 4 [json_name = "ats_id"];
+    option (.NYT.variant_field_name) = "provider_id";
+    .NAlice.NTelecom.TProviderContact.TTelephoneId TelephoneId = 2 [json_name = "telephone_id", (.NYT.column_name) = "telephone_id"];
+    .NAlice.NTelecom.TProviderContact.TMessengerId MessengerId = 3 [json_name = "messenger_id", (.NYT.column_name) = "messenger_id"];
+    .NAlice.NTelecom.TProviderContact.TAtsId AtsId = 4 [json_name = "ats_id", (.NYT.column_name) = "ats_id"];
   }
 }
 
 message TProviderContactInfo {
-  .NAlice.NTelecom.TProviderContact ProviderContact = 1 [json_name = "provider_contact"];
-  bool CanBeTexted = 2 [json_name = "can_be_texted"];
-  bool CanBeCalled = 3 [json_name = "can_be_called"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTelecom.TProviderContact ProviderContact = 1 [json_name = "provider_contact", (.NYT.column_name) = "provider_contact"];
+  bool CanBeTexted = 2 [json_name = "can_be_texted", (.NYT.column_name) = "can_be_texted"];
+  bool CanBeCalled = 3 [json_name = "can_be_called", (.NYT.column_name) = "can_be_called"];
 }
 
 message TCallInfo {
   message TDevice {
-    string DeviceName = 1 [json_name = "device_name"];
-    string DevicePlatform = 2 [json_name = "device_platform"];
-    .NAlice.NData.EColor Color = 6 [json_name = "color"];
-    string DeviceIconUrl = 7 [json_name = "device_icon_url"];
-    string IotPlatform = 8 [json_name = "iot_platform"];
-    string DeviceId = 9 [json_name = "device_id"];
-    optional string DeviceColor = 3 [json_name = "device_color"];
-    optional string RoomName = 4 [json_name = "room_name"];
-    optional string HouseholdName = 5 [json_name = "household_name"];
+    string DeviceName = 1 [json_name = "device_name", (.NYT.column_name) = "device_name"];
+    string DevicePlatform = 2 [json_name = "device_platform", (.NYT.column_name) = "device_platform"];
+    .NAlice.NData.EColor Color = 6 [json_name = "color", (.NYT.column_name) = "color"];
+    string DeviceIconUrl = 7 [json_name = "device_icon_url", (.NYT.column_name) = "device_icon_url"];
+    string IotPlatform = 8 [json_name = "iot_platform", (.NYT.column_name) = "iot_platform"];
+    string DeviceId = 9 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+    optional string DeviceColor = 3 [json_name = "device_color", deprecated = true, (.NYT.column_name) = "device_color"];
+    optional string RoomName = 4 [json_name = "room_name", (.NYT.column_name) = "room_name"];
+    optional string HouseholdName = 5 [json_name = "household_name", (.NYT.column_name) = "household_name"];
   }
 
   message TUser {
-    string UserName = 1 [json_name = "user_name"];
+    string UserName = 1 [json_name = "user_name", (.NYT.column_name) = "user_name"];
   }
 
   enum ECallType {
@@ -70,19 +76,22 @@ message TCallInfo {
     CDT_Intercom = 3;
   }
 
-  .NAlice.NTelecom.TCallInfo.ECallType CallType = 1 [json_name = "call_type"];
-  .NAlice.NTelecom.TCallInfo.ECallerDeviceType CallerDeviceType = 107 [json_name = "caller_device_type"];
+  .NAlice.NTelecom.TCallInfo.ECallType CallType = 1 [json_name = "call_type", (.NYT.column_name) = "call_type"];
+  .NAlice.NTelecom.TCallInfo.ECallerDeviceType CallerDeviceType = 107 [json_name = "caller_device_type", (.NYT.column_name) = "caller_device_type"];
   oneof Call {
-    .NAlice.NTelecom.TCallInfo.TDevice Device = 101 [json_name = "device"];
-    .NAlice.NTelecom.TCallInfo.TUser User = 102 [json_name = "user"];
+    option (.NYT.variant_field_name) = "call";
+    .NAlice.NTelecom.TCallInfo.TDevice Device = 101 [json_name = "device", deprecated = true, (.NYT.column_name) = "device"];
+    .NAlice.NTelecom.TCallInfo.TUser User = 102 [json_name = "user", deprecated = true, (.NYT.column_name) = "user"];
   }
   oneof Caller {
-    .NAlice.NTelecom.TCallInfo.TDevice CallerDevice = 103 [json_name = "caller_device"];
-    .NAlice.NTelecom.TCallInfo.TUser CallerUser = 104 [json_name = "caller_user"];
+    option (.NYT.variant_field_name) = "caller";
+    .NAlice.NTelecom.TCallInfo.TDevice CallerDevice = 103 [json_name = "caller_device", (.NYT.column_name) = "caller_device"];
+    .NAlice.NTelecom.TCallInfo.TUser CallerUser = 104 [json_name = "caller_user", (.NYT.column_name) = "caller_user"];
   }
   oneof Callee {
-    .NAlice.NTelecom.TCallInfo.TDevice CalleeDevice = 105 [json_name = "callee_device"];
-    .NAlice.NTelecom.TCallInfo.TUser CalleeUser = 106 [json_name = "callee_user"];
+    option (.NYT.variant_field_name) = "callee";
+    .NAlice.NTelecom.TCallInfo.TDevice CalleeDevice = 105 [json_name = "callee_device", (.NYT.column_name) = "callee_device"];
+    .NAlice.NTelecom.TCallInfo.TUser CalleeUser = 106 [json_name = "callee_user", (.NYT.column_name) = "callee_user"];
   }
 }
 

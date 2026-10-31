@@ -11,69 +11,82 @@ import "alice/protos/data/scenario/draw_picture/generation_mode.proto";
 import "alice/protos/api/rpc/file_service/voice_cloning/voice_data.proto";
 
 message TFileInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSource {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TS3Source {
-      string S3Bucket = 1 [json_name = "s3_bucket"];
-      string S3Key = 2 [json_name = "s3_key"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string S3Bucket = 1 [json_name = "s3_bucket", (.NYT.column_name) = "s3_bucket"];
+      string S3Key = 2 [json_name = "s3_key", (.NYT.column_name) = "s3_key"];
     }
 
     message TAvatarSource {
-      string AvatarId = 1 [json_name = "avatar_id"];
-      string AvatarNamespace = 2 [json_name = "avatar_namespace"];
-      optional uint64 GroupId = 3 [json_name = "group_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string AvatarId = 1 [json_name = "avatar_id", (.NYT.column_name) = "avatar_id"];
+      string AvatarNamespace = 2 [json_name = "avatar_namespace", (.NYT.column_name) = "avatar_namespace"];
+      optional uint64 GroupId = 3 [json_name = "group_id", (.NYT.column_name) = "group_id"];
     }
 
     message TExternalUrlSource {
-      string Url = 1 [json_name = "url"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
     }
 
     oneof Source {
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TS3Source S3Source = 1 [json_name = "s3_source"];
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TAvatarSource AvatarSource = 2 [json_name = "avatar_source"];
-      .NAlice.NApi.NFiles.TFileInfo.TSource.TExternalUrlSource ExternalUrlSource = 3 [json_name = "external_url_source"];
+      option (.NYT.variant_field_name) = "source";
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TS3Source S3Source = 1 [json_name = "s3_source", (.NYT.column_name) = "s3_source"];
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TAvatarSource AvatarSource = 2 [json_name = "avatar_source", (.NYT.column_name) = "avatar_source"];
+      .NAlice.NApi.NFiles.TFileInfo.TSource.TExternalUrlSource ExternalUrlSource = 3 [json_name = "external_url_source", (.NYT.column_name) = "external_url_source"];
     }
   }
 
   message TFeatures {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TBinaryClassifierResult {
-      string Id = 1 [json_name = "id"];
-      bool Result = 2 [json_name = "result"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      bool Result = 2 [json_name = "result", (.NYT.column_name) = "result"];
     }
 
     message TImageClassifiersResult {
-      repeated .NAlice.NApi.NFiles.TFileInfo.TFeatures.TBinaryClassifierResult BinaryClassifiersResults = 1 [json_name = "binary_classifiers_results"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.NApi.NFiles.TFileInfo.TFeatures.TBinaryClassifierResult BinaryClassifiersResults = 1 [json_name = "binary_classifiers_results", (.NYT.column_name) = "binary_classifiers_results"];
     }
 
     message TDrawPictureFeatures {
-      .NAlice.TDrawPicture.EGenerationMode GenerationMode = 1 [json_name = "generation_mode"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TDrawPicture.EGenerationMode GenerationMode = 1 [json_name = "generation_mode", (.NYT.column_name) = "generation_mode"];
     }
 
     message TDialogAppFeatures {
-      string DialogAppId = 1 [json_name = "dialog_app_id"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string DialogAppId = 1 [json_name = "dialog_app_id", (.NYT.column_name) = "dialog_app_id"];
     }
 
     message TProductFeatures {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TProductId {
-        optional string HatterId = 1 [json_name = "hatter_id"];
-        optional string SkuId = 2 [json_name = "sku_id"];
-        optional string WareMd5 = 3 [json_name = "ware_md5"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        optional string HatterId = 1 [json_name = "hatter_id", (.NYT.column_name) = "hatter_id"];
+        optional string SkuId = 2 [json_name = "sku_id", (.NYT.column_name) = "sku_id"];
+        optional string WareMd5 = 3 [json_name = "ware_md5", (.NYT.column_name) = "ware_md5"];
       }
 
-      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures.TProductId ProductId = 1 [json_name = "product_id"];
+      optional .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures.TProductId ProductId = 1 [json_name = "product_id", (.NYT.column_name) = "product_id"];
     }
 
-    bool IsEcomUrl = 1 [json_name = "is_ecom_url"];
-    .NAlice.NApi.NFiles.TFileInfo.EParsedResultFormat ParsedResultFormat = 2 [json_name = "parsed_result_format"];
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TImageClassifiersResult ImageClassifiersResult = 3 [json_name = "image_classifiers_result"];
-    bool IsParsedByClient = 5 [json_name = "is_parsed_by_client"];
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDrawPictureFeatures DrawPictureFeatures = 6 [json_name = "draw_picture_features"];
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDialogAppFeatures DialogAppFeatures = 8 [json_name = "dialog_app_features"];
-    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures ProductFeatures = 9 [json_name = "product_features"];
-    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceEmbedding VoiceEmbeddings = 11 [json_name = "voice_embeddings"];
-    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata VoiceMetadata = 12 [json_name = "voice_metadata"];
-    optional string OriginalUrl = 4 [json_name = "original_url"];
-    optional bool IndexCreated = 7 [json_name = "index_created"];
-    optional string TextPreview = 10 [json_name = "text_preview"];
+    bool IsEcomUrl = 1 [json_name = "is_ecom_url", (.NYT.column_name) = "is_ecom_url"];
+    .NAlice.NApi.NFiles.TFileInfo.EParsedResultFormat ParsedResultFormat = 2 [json_name = "parsed_result_format", (.NYT.column_name) = "parsed_result_format"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TImageClassifiersResult ImageClassifiersResult = 3 [json_name = "image_classifiers_result", (.NYT.column_name) = "image_classifiers_result"];
+    bool IsParsedByClient = 5 [json_name = "is_parsed_by_client", (.NYT.column_name) = "is_parsed_by_client"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDrawPictureFeatures DrawPictureFeatures = 6 [json_name = "draw_picture_features", (.NYT.column_name) = "draw_picture_features"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TDialogAppFeatures DialogAppFeatures = 8 [json_name = "dialog_app_features", (.NYT.column_name) = "dialog_app_features"];
+    .NAlice.NApi.NFiles.TFileInfo.TFeatures.TProductFeatures ProductFeatures = 9 [json_name = "product_features", (.NYT.column_name) = "product_features"];
+    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceEmbedding VoiceEmbeddings = 11 [json_name = "voice_embeddings", (.NYT.column_name) = "voice_embeddings", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+    .NAlice.NApi.NFileService.NVoiceCloning.TVoiceMetadata VoiceMetadata = 12 [json_name = "voice_metadata", (.NYT.column_name) = "voice_metadata", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+    optional string OriginalUrl = 4 [json_name = "original_url", (.NYT.column_name) = "original_url"];
+    optional bool IndexCreated = 7 [json_name = "index_created", (.NYT.column_name) = "index_created"];
+    optional string TextPreview = 10 [json_name = "text_preview", (.NYT.column_name) = "text_preview", (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
   }
 
   enum EFileType {

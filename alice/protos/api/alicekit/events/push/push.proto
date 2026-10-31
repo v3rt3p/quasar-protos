@@ -12,9 +12,10 @@ import "alice/protos/api/matrix/common/analytics_meta_info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPush {
-  repeated string PushIds = 1 [json_name = "push_ids"];
-  repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives"];
-  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4 [json_name = "analytics_meta_info"];
-  optional string DeduplicationPushId = 2 [json_name = "deduplication_push_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string PushIds = 1 [json_name = "push_ids", (.NYT.column_name) = "push_ids"];
+  repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives", (.NYT.column_name) = "directives"];
+  .NMatrix.NApi.TAnalyticsMetaInfo AnalyticsMetaInfo = 4 [json_name = "analytics_meta_info", (.NYT.column_name) = "analytics_meta_info"];
+  optional string DeduplicationPushId = 2 [json_name = "deduplication_push_id", (.NYT.column_name) = "deduplication_push_id"];
 }
 

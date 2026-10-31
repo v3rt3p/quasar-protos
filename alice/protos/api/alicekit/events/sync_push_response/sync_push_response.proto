@@ -11,6 +11,7 @@ import "alice/protos/api/alicekit/events/sync_push_response/sync_response/sync_r
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSyncPushResponse {
-  .NAlice.NAliceApi.TSyncResponse SyncResponse = 1 [json_name = "sync_response"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NAliceApi.TSyncResponse SyncResponse = 1 [json_name = "sync_response", (.NYT.column_name) = "sync_response"];
 }
 

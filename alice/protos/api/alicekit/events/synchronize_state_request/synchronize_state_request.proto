@@ -16,19 +16,20 @@ import "alice/protos/api/alicekit/events/common/event_type/event_type.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSynchronizeStateRequest {
-  string OAuthToken = 1 [json_name = "oauth_token"];
-  string ApiKey = 2 [json_name = "api_key"];
-  .NAlice.TClientInfoProto Application = 3 [json_name = "application"];
-  repeated string SupportedFeatures = 4 [json_name = "supported_features"];
-  bool SoundLogging = 5 [json_name = "sound_logging"];
-  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments"];
-  repeated .NAlice.NAliceApi.EEventType SupportedServerEvents = 7 [json_name = "supported_server_events"];
-  repeated .NAlice.TUserOptions UsersOptions = 8 [json_name = "users_options"];
-  .NAlice.TClientAnalyticsInfoProto ClientAnalyticsInfo = 12 [json_name = "client_analytics_info"];
-  optional string ICookie = 9 [json_name = "icookie"];
-  optional string YexpCookie = 10 [json_name = "yexp_cookie"];
-  optional string SaeCookie = 11 [json_name = "sae_cookie"];
-  optional string YBrowserExperiments = 13 [json_name = "y_browser_experiments"];
-  optional string XYBrowserExperiments = 14 [json_name = "x_y_browser_experiments"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string OAuthToken = 1 [json_name = "oauth_token", (.NYT.column_name) = "oauth_token", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG];
+  string ApiKey = 2 [json_name = "api_key", (.NYT.column_name) = "api_key"];
+  .NAlice.TClientInfoProto Application = 3 [json_name = "application", (.NYT.column_name) = "application"];
+  repeated string SupportedFeatures = 4 [json_name = "supported_features", (.NYT.column_name) = "supported_features"];
+  bool SoundLogging = 5 [json_name = "sound_logging", (.NYT.column_name) = "sound_logging"];
+  .NAlice.TExperimentsProto Experiments = 6 [json_name = "experiments", (.NYT.column_name) = "experiments"];
+  repeated .NAlice.NAliceApi.EEventType SupportedServerEvents = 7 [json_name = "supported_server_events", (.NYT.column_name) = "supported_server_events"];
+  repeated .NAlice.TUserOptions UsersOptions = 8 [json_name = "users_options", (.NYT.column_name) = "users_options"];
+  .NAlice.TClientAnalyticsInfoProto ClientAnalyticsInfo = 12 [json_name = "client_analytics_info", (.NYT.column_name) = "client_analytics_info"];
+  optional string ICookie = 9 [json_name = "icookie", (.NYT.column_name) = "icookie"];
+  optional string YexpCookie = 10 [json_name = "yexp_cookie", (.NYT.column_name) = "yexp_cookie"];
+  optional string SaeCookie = 11 [json_name = "sae_cookie", (.NYT.column_name) = "sae_cookie"];
+  optional string YBrowserExperiments = 13 [json_name = "y_browser_experiments", (.NYT.column_name) = "y_browser_experiments"];
+  optional string XYBrowserExperiments = 14 [json_name = "x_y_browser_experiments", (.NYT.column_name) = "x_y_browser_experiments"];
 }
 

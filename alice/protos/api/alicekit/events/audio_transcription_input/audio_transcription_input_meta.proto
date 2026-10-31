@@ -11,10 +11,14 @@ import "alice/protos/data/timezone.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAudioTranscriptionInputMeta {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TMetaMarkup {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TBioMeta {
-      string PersonId = 1 [json_name = "person_id"];
-      float Confidence = 2 [json_name = "confidence"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string PersonId = 1 [json_name = "person_id", (.NYT.column_name) = "person_id"];
+      float Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
+      optional uint32 ConfidenceLevel10 = 3 [json_name = "confidence_level_10", (.NYT.column_name) = "confidence_level_10"];
     }
 
     enum EAudioSegmentState {
@@ -23,15 +27,15 @@ message TAudioTranscriptionInputMeta {
       AUDIO_SEGMENT_STATE_RECALCULATED = 2;
     }
 
-    optional uint64 BeginTimestampMs = 1 [json_name = "begin_timestamp_ms"];
-    optional uint64 EndTimestampMs = 2 [json_name = "end_timestamp_ms"];
-    optional .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup.TBioMeta BioMeta = 3 [json_name = "bio_meta"];
-    optional .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup.EAudioSegmentState SegmentState = 4 [json_name = "segment_state"];
-    optional .NAlice.NData.TTimezone Timezone = 5 [json_name = "timezone"];
+    optional uint64 BeginTimestampMs = 1 [json_name = "begin_timestamp_ms", (.NYT.column_name) = "begin_timestamp_ms"];
+    optional uint64 EndTimestampMs = 2 [json_name = "end_timestamp_ms", (.NYT.column_name) = "end_timestamp_ms"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup.TBioMeta BioMeta = 3 [json_name = "bio_meta", (.NYT.column_name) = "bio_meta"];
+    optional .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup.EAudioSegmentState SegmentState = 4 [json_name = "segment_state", (.NYT.column_name) = "segment_state"];
+    optional .NAlice.NData.TTimezone Timezone = 5 [json_name = "timezone", (.NYT.column_name) = "timezone"];
   }
 
-  repeated .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup MetaMarkup = 3 [json_name = "meta_markup"];
-  optional uint64 BeginTimestampMs = 1 [json_name = "begin_timestamp_ms"];
-  optional uint64 EndTimestampMs = 2 [json_name = "end_timestamp_ms"];
+  repeated .NAlice.NAliceApi.TAudioTranscriptionInputMeta.TMetaMarkup MetaMarkup = 3 [json_name = "meta_markup", (.NYT.column_name) = "meta_markup"];
+  optional uint64 BeginTimestampMs = 1 [json_name = "begin_timestamp_ms", (.NYT.column_name) = "begin_timestamp_ms"];
+  optional uint64 EndTimestampMs = 2 [json_name = "end_timestamp_ms", (.NYT.column_name) = "end_timestamp_ms"];
 }
 

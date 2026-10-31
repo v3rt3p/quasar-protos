@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveInfoCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_info;automotive_infopb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveInfoCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveInfoCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveInfoCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValueBounds PropertyValueBounds = 2 [json_name = "value_bounds", (.NYT.column_name) = "value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveInfoCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 1 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveInfoCapability.TVehiclePropertyState VehiclePropertyStates = 2 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveInfoCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+      int32 DefaultValue = 3 [json_name = "default_value", (.NYT.column_name) = "default_value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TVehiclePropertyValue {
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TFloatValue {
+      float Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValue.TIntValue IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+      .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValue.TFloatValue FloatValue = 2 [json_name = "float_value", (.NYT.column_name) = "float_value"];
+      .NAlice.TAutomotiveInfoCapability.EVehicleIgnitionState IgnitionState = 3 [json_name = "ignition_state", (.NYT.column_name) = "ignition_state"];
+      .NAlice.TAutomotiveInfoCapability.TVehiclePropertyValue.TBoolValue BoolValue = 4 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+      .NAlice.TAutomotiveInfoCapability.EVehicleEngineState EngineState = 5 [json_name = "engine_state", (.NYT.column_name) = "engine_state"];
+      .NAlice.TAutomotiveInfoCapability.EVehicleGear Gear = 6 [json_name = "gear", (.NYT.column_name) = "gear"];
+      .NAlice.TAutomotiveInfoCapability.EBatteryHeatRunawayState BatteryHeatRunawayState = 7 [json_name = "battery_heat_runaway_state", (.NYT.column_name) = "battery_heat_runaway_state"];
+    }
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    RANGE_REMAINING = 1;
+    FUEL_LEVEL = 2;
+    EV_BATTERY_LEVEL = 3;
+    EV_CURRENT_BATTERY_CAPACITY = 4;
+    PERF_ODOMETER = 5;
+    IGNITION_STATE = 6;
+    FUEL_LEVEL_PERCENT = 7;
+    FUEL_LEVEL_PERCENT_MAIN_TANK = 8;
+    FUEL_LEVEL_PERCENT_AUXILIARY_TANK = 9;
+    POWERTRAIN_HIGH_VOLTAGE_ON = 10;
+    POWER_SAVING_MODE = 11;
+    POWER_DYNAMIC_SAVING_MODE = 12;
+    ENGINE_STATE = 13;
+    PERF_VEHICLE_SPEED = 14;
+    VENDOR_TRAILER_MODE_ON = 15;
+    VENDOR_TRANSPORT_MODE_ON = 16;
+    GEAR_SELECTION = 17;
+    VENDOR_BATTERY_HEAT_RUNAWAY_STATE = 18;
+    VENDOR_MEMORY_PARK_CRUISE_ON = 19;
+    PARKING_BRAKE_ON = 20;
+    POWER_STATIC_SAVING_MODE = 21;
+    VENDOR_BODY_TWISTED = 22;
+  }
+
+  enum EVehicleIgnitionState {
+    IGNITION_UNDEFINED = 0;
+    IGNITION_LOCK = 1;
+    IGNITION_OFF = 2;
+    IGNITION_ACC = 3;
+    IGNITION_ON = 4;
+    IGNITION_START = 5;
+  }
+
+  enum EVehicleEngineState {
+    ENGINE_STOPPED = 0;
+    ENGINE_CRANKING = 1;
+    ENGINE_RUNNING = 2;
+    ENGINE_STALLING = 3;
+    ENGINE_STAND_BY = 4;
+    ENGINE_STOPPING = 5;
+    ENGINE_FINISH = 6;
+    ENGINE_AUTO_STOPPING = 7;
+  }
+
+  enum EVehicleGear {
+    GEAR_UNKNOWN = 0;
+    GEAR_NEUTRAL = 1;
+    GEAR_REVERSE = 2;
+    GEAR_PARK = 3;
+    GEAR_DRIVE = 4;
+    GEAR_FIRST = 5;
+    GEAR_SECOND = 6;
+    GEAR_THIRD = 7;
+    GEAR_FOURTH = 8;
+    GEAR_FIFTH = 9;
+    GEAR_SIXTH = 10;
+    GEAR_SEVENTH = 11;
+    GEAR_EIGHTH = 12;
+    GEAR_NINTH = 13;
+  }
+
+  enum EBatteryHeatRunawayState {
+    BATTERY_HEAT_RUNAWAY_NORMAL = 0;
+    BATTERY_HEAT_RUNAWAY_WHILE_DRIVING = 1;
+    BATTERY_HEAT_RUNAWAY_WHILE_PARKED = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveInfoCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveInfoCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

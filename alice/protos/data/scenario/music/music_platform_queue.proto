@@ -27,7 +27,7 @@ message TOperatingFeatures {
   optional bool IsAliceShow = 2;
   optional bool IsFairytale = 3;
   optional bool IsTrackRemovedOnDislike = 4;
-  optional bool IsAudiobook = 5 [json_name = "is_audiobook"];
+  optional bool IsAudiobook = 5 [json_name = "is_audiobook", (.NYT.column_name) = "is_audiobook"];
 }
 
 message TPlaybackEntity {
@@ -44,7 +44,7 @@ message TPlaybackEntity {
 }
 
 message TPlatformTrack {
-  string Uuid = 3;
+  string Uuid = 3 [(.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   optional string Id = 1;
   optional uint32 PositionInsideEntity = 2;
 }
@@ -52,7 +52,7 @@ message TPlatformTrack {
 message TTrackEntity {
   .NAlice.NData.NMusic.TPlatformTrack Track = 1;
   .Alice.Music.RepeatType RepeatType = 2;
-  string Uuid = 3;
+  string Uuid = 3 [(.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
 }
 
 message TAlbumEntity {
@@ -72,7 +72,7 @@ message TFmRadioEntity {
 }
 
 message TFmRadioStationsContainer {
-  string Uuid = 1;
+  string Uuid = 1 [(.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   .NAlice.NData.NMusic.TFmRadioStationsPlayback RadioStationsPlayback = 4;
   optional uint32 HistoryStartPosition = 2;
   optional uint32 QueueFinishPosition = 3;
@@ -85,7 +85,7 @@ message TFmRadioStationsPlayback {
 }
 
 message TFmRadioStation {
-  string Uuid = 1;
+  string Uuid = 1 [(.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   optional string Id = 2;
   optional uint32 PositionInsideEntity = 3;
 }
@@ -93,7 +93,7 @@ message TFmRadioStation {
 message TMusicContainerInfo {
   .NAlice.NData.NMusic.TTracksPlayback TracksPlayback = 4;
   .Alice.Music.RepeatType RepeatType = 6;
-  string Uuid = 7;
+  string Uuid = 7 [(.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   optional string Id = 1;
   optional uint32 HistoryStartPosition = 2;
   optional uint32 QueueFinishPosition = 3;

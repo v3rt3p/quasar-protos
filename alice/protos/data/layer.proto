@@ -8,19 +8,25 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLayer {
+  option deprecated = true;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TContentLayer {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TAlarmLayer {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TDialogLayer {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   oneof Layer {
-    .NAlice.NData.TLayer.TContentLayer Content = 1 [json_name = "content"];
-    .NAlice.NData.TLayer.TDialogLayer Dialog = 2 [json_name = "dialog"];
-    .NAlice.NData.TLayer.TAlarmLayer Alarm = 3 [json_name = "alarm"];
+    option (.NYT.variant_field_name) = "layer";
+    .NAlice.NData.TLayer.TContentLayer Content = 1 [json_name = "content", (.NYT.column_name) = "content"];
+    .NAlice.NData.TLayer.TDialogLayer Dialog = 2 [json_name = "dialog", (.NYT.column_name) = "dialog"];
+    .NAlice.NData.TLayer.TAlarmLayer Alarm = 3 [json_name = "alarm", (.NYT.column_name) = "alarm"];
   }
 }
 

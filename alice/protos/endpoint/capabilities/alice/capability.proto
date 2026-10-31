@@ -22,166 +22,206 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceCapabilityType;
   message TBlocker {
-    string Id = 1 [json_name = "id"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TSpeechState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRequestState {
-      bool IsFinal = 3 [json_name = "is_final"];
-      optional string Text = 1 [json_name = "text"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool IsFinal = 3 [json_name = "is_final", (.NYT.column_name) = "is_final"];
+      optional string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TResponseState {
-      bool IsFinal = 1 [json_name = "is_final"];
-      repeated .NAlice.NAliceApi.TCard Cards = 3 [json_name = "cards"];
-      optional string Text = 2 [json_name = "text"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool IsFinal = 1 [json_name = "is_final", (.NYT.column_name) = "is_final"];
+      repeated .NAlice.NAliceApi.TCard Cards = 3 [json_name = "cards", (.NYT.column_name) = "cards"];
+      .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2ModeInfo = 4 [json_name = "alice2_mode_info", (.NYT.column_name) = "alice2_mode_info"];
+      optional string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TActiveRequest {
-      string RequestId = 3 [json_name = "request_id"];
-      .NAlice.TAliceCapability.TSpeechState.TRequestState RequestState = 1 [json_name = "request_state"];
-      .NAlice.TAliceCapability.TSpeechState.TResponseState ResponseState = 2 [json_name = "response_state"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string RequestId = 3 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+      .NAlice.TAliceCapability.TSpeechState.TRequestState RequestState = 1 [json_name = "request_state", (.NYT.column_name) = "request_state"];
+      .NAlice.TAliceCapability.TSpeechState.TResponseState ResponseState = 2 [json_name = "response_state", (.NYT.column_name) = "response_state"];
     }
 
     message TListening {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved "Text";
       reserved 2;
-      float VoicePower = 1 [json_name = "voice_power"];
+      float VoicePower = 1 [json_name = "voice_power", (.NYT.column_name) = "voice_power"];
     }
 
     message TThinking {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TSpeaking {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TIdle {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
-    .NAlice.TSpeechMode SpeechMode = 4 [json_name = "speech_mode"];
-    .NAlice.TAliceCapability.TSpeechState.TActiveRequest ActiveRequest = 6 [json_name = "active_request"];
+    .NAlice.TSpeechMode SpeechMode = 4 [json_name = "speech_mode", (.NYT.column_name) = "speech_mode"];
+    .NAlice.TAliceCapability.TSpeechState.TActiveRequest ActiveRequest = 6 [json_name = "active_request", (.NYT.column_name) = "active_request"];
     oneof State {
-      .NAlice.TAliceCapability.TSpeechState.TListening Listening = 1 [json_name = "listening"];
-      .NAlice.TAliceCapability.TSpeechState.TThinking Thinking = 2 [json_name = "thinking"];
-      .NAlice.TAliceCapability.TSpeechState.TSpeaking Speaking = 3 [json_name = "speaking"];
-      .NAlice.TAliceCapability.TSpeechState.TIdle Idle = 5 [json_name = "idle"];
+      option (.NYT.variant_field_name) = "state";
+      .NAlice.TAliceCapability.TSpeechState.TListening Listening = 1 [json_name = "listening", (.NYT.column_name) = "listening"];
+      .NAlice.TAliceCapability.TSpeechState.TThinking Thinking = 2 [json_name = "thinking", (.NYT.column_name) = "thinking"];
+      .NAlice.TAliceCapability.TSpeechState.TSpeaking Speaking = 3 [json_name = "speaking", (.NYT.column_name) = "speaking"];
+      .NAlice.TAliceCapability.TSpeechState.TIdle Idle = 5 [json_name = "idle", (.NYT.column_name) = "idle"];
     }
   }
 
   message TAliceState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRequestState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TFileDescription {
-        optional string Guid = 1 [json_name = "guid"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        optional string Guid = 1 [json_name = "guid", (.NYT.column_name) = "guid"];
       }
 
-      bool IsRecognitionStarted = 2 [json_name = "is_recognition_started"];
-      bool IsFinal = 3 [json_name = "is_final"];
-      repeated .NAlice.TAliceCapability.TAliceState.TRequestState.TFileDescription Files = 4 [json_name = "files"];
-      optional string Text = 1 [json_name = "text"];
+      bool IsRecognitionStarted = 2 [json_name = "is_recognition_started", (.NYT.column_name) = "is_recognition_started"];
+      bool IsFinal = 3 [json_name = "is_final", (.NYT.column_name) = "is_final"];
+      repeated .NAlice.TAliceCapability.TAliceState.TRequestState.TFileDescription Files = 4 [json_name = "files", (.NYT.column_name) = "files"];
+      optional string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TResponseState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TRequestRef {
-        string RequestId = 1 [json_name = "request_id"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
       }
 
-      bool IsFinal = 1 [json_name = "is_final"];
-      bool IsCanceled = 2 [json_name = "is_canceled"];
-      repeated .NAlice.NAliceApi.TCard Cards = 4 [json_name = "cards"];
-      repeated .NAlice.NAliceApi.TSuggest Suggests = 5 [json_name = "suggests"];
-      .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 6 [json_name = "request_annotation"];
-      .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2ModeInfo = 7 [json_name = "alice2_mode_info"];
-      .NAlice.NApi.NAlice2Mode.TAlice2TrialState Alice2TrialState = 8 [json_name = "alice2_trial_state"];
-      .NAlice.TAliceCapability.TAliceState.TResponseState.TRequestRef RequestRef = 9 [json_name = "request_ref"];
-      optional string Text = 3 [json_name = "text"];
+      bool IsFinal = 1 [json_name = "is_final", (.NYT.column_name) = "is_final"];
+      bool IsCanceled = 2 [json_name = "is_canceled", (.NYT.column_name) = "is_canceled"];
+      repeated .NAlice.NAliceApi.TCard Cards = 4 [json_name = "cards", (.NYT.column_name) = "cards"];
+      repeated .NAlice.NAliceApi.TSuggest Suggests = 5 [json_name = "suggests", (.NYT.column_name) = "suggests"];
+      .NAlice.NAliceApi.TRequestAnnotation RequestAnnotation = 6 [json_name = "request_annotation", (.NYT.column_name) = "request_annotation"];
+      .NAlice.NApi.NAlice2Mode.TAlice2ModeInfo Alice2ModeInfo = 7 [json_name = "alice2_mode_info", (.NYT.column_name) = "alice2_mode_info"];
+      .NAlice.NApi.NAlice2Mode.TAlice2TrialState Alice2TrialState = 8 [json_name = "alice2_trial_state", (.NYT.column_name) = "alice2_trial_state"];
+      .NAlice.TAliceCapability.TAliceState.TResponseState.TRequestRef RequestRef = 9 [json_name = "request_ref", (.NYT.column_name) = "request_ref"];
+      optional string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
     }
 
     message TActiveRequest {
-      string RequestId = 1 [json_name = "request_id"];
-      .NAlice.TAliceCapability.TAliceState.TRequestState RequestState = 3 [json_name = "request_state"];
-      .NAlice.TAliceCapability.TAliceState.TResponseState ResponseState = 4 [json_name = "response_state"];
-      optional string DialogId = 2 [json_name = "dialog_id"];
+      string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+      .NAlice.TAliceCapability.TAliceState.TRequestState RequestState = 3 [json_name = "request_state", (.NYT.column_name) = "request_state"];
+      .NAlice.TAliceCapability.TAliceState.TResponseState ResponseState = 4 [json_name = "response_state", (.NYT.column_name) = "response_state"];
+      optional string DialogId = 2 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
     }
 
     message TListening {
-      float VoicePower = 1 [json_name = "voice_power"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      float VoicePower = 1 [json_name = "voice_power", (.NYT.column_name) = "voice_power"];
     }
 
     message TThinking {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TSpeaking {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TIdle {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TResponding {
-      .NAlice.TAliceCapability.TAliceState.TSpeaking Speaking = 1 [json_name = "speaking"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAliceCapability.TAliceState.TSpeaking Speaking = 1 [json_name = "speaking", (.NYT.column_name) = "speaking"];
     }
 
-    .NAlice.TAliceCapability.TAliceState.TActiveRequest ActiveRequest = 5 [json_name = "active_request"];
-    .NAlice.TDialogState ActiveDialog = 6 [json_name = "active_dialog"];
+    .NAlice.TAliceCapability.TAliceState.TActiveRequest ActiveRequest = 5 [json_name = "active_request", (.NYT.column_name) = "active_request"];
+    .NAlice.TDialogState ActiveDialog = 6 [json_name = "active_dialog", (.NYT.column_name) = "active_dialog"];
     oneof State {
-      .NAlice.TAliceCapability.TAliceState.TListening Listening = 1 [json_name = "listening"];
-      .NAlice.TAliceCapability.TAliceState.TThinking Thinking = 2 [json_name = "thinking"];
-      .NAlice.TAliceCapability.TAliceState.TSpeaking Speaking = 3 [json_name = "speaking"];
-      .NAlice.TAliceCapability.TAliceState.TIdle Idle = 4 [json_name = "idle"];
-      .NAlice.TAliceCapability.TAliceState.TResponding Responding = 7 [json_name = "responding"];
+      option (.NYT.variant_field_name) = "state";
+      .NAlice.TAliceCapability.TAliceState.TListening Listening = 1 [json_name = "listening", (.NYT.column_name) = "listening"];
+      .NAlice.TAliceCapability.TAliceState.TThinking Thinking = 2 [json_name = "thinking", (.NYT.column_name) = "thinking"];
+      .NAlice.TAliceCapability.TAliceState.TSpeaking Speaking = 3 [json_name = "speaking", deprecated = true, (.NYT.column_name) = "speaking"];
+      .NAlice.TAliceCapability.TAliceState.TIdle Idle = 4 [json_name = "idle", (.NYT.column_name) = "idle"];
+      .NAlice.TAliceCapability.TAliceState.TResponding Responding = 7 [json_name = "responding", (.NYT.column_name) = "responding"];
     }
   }
 
   message TJingleState {
-    bool JingleEnabled = 1 [json_name = "jingle_enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool JingleEnabled = 1 [json_name = "jingle_enabled", (.NYT.column_name) = "jingle_enabled"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum ETtsState {
       UnknownTtsState = 0;
       NoActiveTts = 1;
       ActiveTts = 2;
     }
 
-    .NAlice.TTtsInterruptionTimings TtsInterruptionTimings = 1 [json_name = "tts_interruption_timings"];
-    repeated .NAlice.TAliceCapability.TBlocker Blockers = 3 [json_name = "blockers"];
-    .NAlice.TConnectionStatus ConnectionStatus = 5 [json_name = "connection_status"];
-    .NAlice.TAliceCapability.TSpeechState SpeechState = 6 [json_name = "speech_state"];
-    .NAlice.TAliceCapability.TAliceState AliceState = 7 [json_name = "alice_state"];
-    optional string Uuid = 2 [json_name = "uuid"];
-    optional .NAlice.TAliceCapability.TState.ETtsState TtsState = 4 [json_name = "tts_state"];
+    .NAlice.TTtsInterruptionTimings TtsInterruptionTimings = 1 [json_name = "tts_interruption_timings", (.NYT.column_name) = "tts_interruption_timings"];
+    repeated .NAlice.TAliceCapability.TBlocker Blockers = 3 [json_name = "blockers", (.NYT.column_name) = "blockers"];
+    .NAlice.TConnectionStatus ConnectionStatus = 5 [json_name = "connection_status", (.NYT.column_name) = "connection_status"];
+    .NAlice.TAliceCapability.TSpeechState SpeechState = 6 [json_name = "speech_state", (.NYT.column_name) = "speech_state"];
+    .NAlice.TAliceCapability.TAliceState AliceState = 7 [json_name = "alice_state", (.NYT.column_name) = "alice_state"];
+    optional string Uuid = 2 [json_name = "uuid", (.NYT.column_name) = "uuid"];
+    optional .NAlice.TAliceCapability.TState.ETtsState TtsState = 4 [json_name = "tts_state", (.NYT.column_name) = "tts_state"];
   }
 
   message TGetEnvironmentStateOptions {
-    bool IncludeLocalEndpoints = 1 [json_name = "include_local_endpoints"];
-    bool IncludeEmbeddedEndpoints = 2 [json_name = "include_embedded_endpoints"];
-    bool IncludeRemoteEndpoints = 3 [json_name = "include_remote_endpoints"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IncludeLocalEndpoints = 1 [json_name = "include_local_endpoints", (.NYT.column_name) = "include_local_endpoints"];
+    bool IncludeEmbeddedEndpoints = 2 [json_name = "include_embedded_endpoints", (.NYT.column_name) = "include_embedded_endpoints"];
+    bool IncludeRemoteEndpoints = 3 [json_name = "include_remote_endpoints", (.NYT.column_name) = "include_remote_endpoints"];
   }
 
   message TBlockDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TAliceCapability.TBlocker Blocker = 1 [json_name = "Blocker"];
+    option (.NAlice.SpeechKitName) = "alice_block_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceBlockDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceCapability.TBlocker Blocker = 1 [json_name = "Blocker", (.NYT.column_name) = "blocker"];
   }
 
   message TUnblockDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TAliceCapability.TBlocker Blocker = 1 [json_name = "Blocker"];
+    option (.NAlice.SpeechKitName) = "alice_unblock_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceUnblockDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceCapability.TBlocker Blocker = 1 [json_name = "Blocker", (.NYT.column_name) = "blocker"];
   }
 
   message TUpdateTtsPlaceholderDirective {
+    option (.NAlice.SpeechKitName) = "update_tts_placeholder";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = UpdateTtsPlaceholderDirectiveType;
     message TaggedDirective {
-      string Tag = 1 [json_name = "tag"];
-      .NAlice.NAliceApi.TDirective Directive = 2 [json_name = "directive"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Tag = 1 [json_name = "tag", (.NYT.column_name) = "tag"];
+      .NAlice.NAliceApi.TDirective Directive = 2 [json_name = "directive", (.NYT.column_name) = "directive"];
     }
 
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TAliceCapability.TUpdateTtsPlaceholderDirective.TaggedDirective TaggedDirectives = 1 [json_name = "tagged_directives"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAliceCapability.TUpdateTtsPlaceholderDirective.TaggedDirective TaggedDirectives = 1 [json_name = "tagged_directives", (.NYT.column_name) = "tagged_directives"];
   }
 
   message TVocalizeDirective {
+    option (.NAlice.SpeechKitName) = "vocalize_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = VocalizeDirectiveType;
     enum ESynthesisMode {
       Unknown = 0;
       Append = 1;
@@ -194,113 +234,173 @@ message TAliceCapability {
       Hybrid = 2;
     }
 
-    .NAlice.TAliceCapability.TVocalizeDirective.ETtsSource TtsSource = 4 [json_name = "tts_source"];
-    optional string Text = 1 [json_name = "text"];
-    optional .NAlice.TAliceCapability.TVocalizeDirective.ESynthesisMode SynthesisMode = 2 [json_name = "synthesis_mode"];
-    optional string Voice = 3 [json_name = "voice"];
+    .NAlice.TAliceCapability.TVocalizeDirective.ETtsSource TtsSource = 4 [json_name = "tts_source", (.NYT.column_name) = "tts_source"];
+    optional string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+    optional .NAlice.TAliceCapability.TVocalizeDirective.ESynthesisMode SynthesisMode = 2 [json_name = "synthesis_mode", (.NYT.column_name) = "synthesis_mode"];
+    optional string Voice = 3 [json_name = "voice", (.NYT.column_name) = "voice"];
   }
 
   message TStartRecognizeDirective {
-    optional string Lang = 1 [json_name = "lang"];
+    option (.NAlice.SpeechKitName) = "start_recognize_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartRecognizeDirectiveType;
+    optional string Lang = 1 [json_name = "lang", (.NYT.column_name) = "lang"];
   }
 
   message TStartVoiceInputDirective {
-    .NAlice.NAliceApi.TVoiceInput VoiceInput = 1 [json_name = "voice_input"];
+    option (.NAlice.SpeechKitName) = "start_voice_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartVoiceInputDirectiveType;
+    .NAlice.NAliceApi.TVoiceInput VoiceInput = 1 [json_name = "voice_input", (.NYT.column_name) = "voice_input"];
   }
 
   message TStopConversationDirective {
+    option (.NAlice.SpeechKitName) = "stop_conversation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopConversationDirectiveType;
     message TClientOptions {
-      bool DisableJingle = 1 [json_name = "disable_jingle"];
-      bool DisableSendCancel = 2 [json_name = "disable_send_cancel"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool DisableJingle = 1 [json_name = "disable_jingle", (.NYT.column_name) = "disable_jingle"];
+      bool DisableSendCancel = 2 [json_name = "disable_send_cancel", (.NYT.column_name) = "disable_send_cancel"];
     }
 
-    .NAlice.TAliceCapability.TStopConversationDirective.TClientOptions ClientOptions = 1 [json_name = "client_options"];
+    .NAlice.TAliceCapability.TStopConversationDirective.TClientOptions ClientOptions = 1 [json_name = "client_options", (.NYT.column_name) = "client_options"];
   }
 
   message TStartTextInputDirective {
-    .NAlice.NAliceApi.TTextInput TextInput = 1 [json_name = "text_input"];
+    option (.NAlice.SpeechKitName) = "start_text_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartTextInputDirectiveType;
+    .NAlice.NAliceApi.TTextInput TextInput = 1 [json_name = "text_input", (.NYT.column_name) = "text_input"];
   }
 
   message TSetActiveDialogDirective {
-    .NAlice.TDialogState DialogState = 1 [json_name = "dialog_state"];
+    option (.NAlice.SpeechKitName) = "set_active_dialog_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetActiveDialogDirectiveType;
+    .NAlice.TDialogState DialogState = 1 [json_name = "dialog_state", (.NYT.column_name) = "dialog_state"];
   }
 
   message TCompleteStreamingResponseDirective {
-    string RequestId = 1 [json_name = "request_id"];
+    option (.NAlice.SpeechKitName) = "complete_streaming_response_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CompleteStreamingResponseDirectiveType;
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TDialogChannelPlaceholderDirective {
-    optional bytes WrappedDirective = 1 [json_name = "wrapped_directive"];
+    option (.NAlice.SpeechKitName) = "dialog_channel_placeholder_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DialogChannelPlaceholderDirectiveType;
+    optional bytes WrappedDirective = 1 [json_name = "wrapped_directive", (.NYT.column_name) = "wrapped_directive"];
   }
 
   message TCompleteTtsResponseDirective {
-    bool InvalidateAutoListen = 1 [json_name = "invalidate_auto_listen"];
+    option (.NAlice.SpeechKitName) = "complete_tts_response_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CompleteTtsResponseDirectiveType;
+    bool InvalidateAutoListen = 1 [json_name = "invalidate_auto_listen", (.NYT.column_name) = "invalidate_auto_listen"];
   }
 
   message TInvalidateAutoListenDirective {
+    option (.NAlice.SpeechKitName) = "invalidate_auto_listen_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = InvalidateAutoListenDirectiveType;
   }
 
   message TStartSpeechInputDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input"];
+    option (.NAlice.SpeechKitName) = "start_speech_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartSpeechInputDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input", (.NYT.column_name) = "speech_input"];
   }
 
   message TSetSpeechModeOptionsDirective {
+    option (.NAlice.SpeechKitName) = "set_speech_mode_options_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSpeechModeOptionsDirectiveType;
     reserved "VoiceModeOptions";
     reserved 1;
-    .NAlice.TSpeechModeOptions SpeechModeOptions = 2 [json_name = "speech_mode_options"];
+    .NAlice.TSpeechModeOptions SpeechModeOptions = 2 [json_name = "speech_mode_options", (.NYT.column_name) = "speech_mode_options"];
   }
 
   message TStartNoteInputDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input"];
+    option (.NAlice.SpeechKitName) = "start_note_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartNoteInputDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input", (.NYT.column_name) = "speech_input"];
   }
 
   message TFinishSpeechInputDirective {
+    option (.NAlice.SpeechKitName) = "finish_speech_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = FinishSpeechInputDirectiveType;
     message TFinishOptions {
-      bool SendRequest = 1 [json_name = "send_request"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool SendRequest = 1 [json_name = "send_request", (.NYT.column_name) = "send_request"];
     }
 
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TAliceCapability.TFinishSpeechInputDirective.TFinishOptions FinishOptions = 1 [json_name = "finish_options"];
-    .NAlice.NAliceApi.TClientAliceRequestProto FinishRequestPayload = 2 [json_name = "finish_request_payload"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceCapability.TFinishSpeechInputDirective.TFinishOptions FinishOptions = 1 [json_name = "finish_options", (.NYT.column_name) = "finish_options"];
+    .NAlice.NAliceApi.TClientAliceRequestProto FinishRequestPayload = 2 [json_name = "finish_request_payload", (.NYT.column_name) = "finish_request_payload"];
   }
 
   message TStartTranslateInputDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input"];
+    option (.NAlice.SpeechKitName) = "start_translate_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartTranslateInputDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NAliceApi.TSpeechInput SpeechInput = 1 [json_name = "speech_input", (.NYT.column_name) = "speech_input"];
   }
 
   message TStartRecordInputDirective {
+    option (.NAlice.SpeechKitName) = "start_record_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartRecordInputDirectiveType;
   }
 
   message TSetJingleStateDirective {
-    .NAlice.TAliceCapability.TJingleState JingleState = 1 [json_name = "jingle_state"];
+    option (.NAlice.SpeechKitName) = "set_jingle_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetJingleStateDirectiveType;
+    .NAlice.TAliceCapability.TJingleState JingleState = 1 [json_name = "jingle_state", (.NYT.column_name) = "jingle_state"];
   }
 
   message TSetUniProxySettingsDirective {
+    option (.NAlice.SpeechKitName) = "set_uniproxy_settings_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetUniProxySettingsDirectiveType;
     reserved "Cookie";
     reserved 1;
     message TCookie {
-      string Name = 1 [json_name = "name"];
-      string Value = 2 [json_name = "value"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      string Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
     }
 
-    repeated .NAlice.TAliceCapability.TSetUniProxySettingsDirective.TCookie Cookies = 3 [json_name = "cookies"];
-    .NAlice.TClientAnalyticsInfoProto UniProxyClientAnalyticsInfo = 6 [json_name = "uniproxy_client_analytics_info"];
-    optional string YexpCookie = 2 [json_name = "yexp_cookie"];
-    optional string UniProxyUrl = 4 [json_name = "uniproxy_url"];
-    optional string VinsUrl = 5 [json_name = "vins_url"];
+    repeated .NAlice.TAliceCapability.TSetUniProxySettingsDirective.TCookie Cookies = 3 [json_name = "cookies", (.NYT.column_name) = "cookies"];
+    .NAlice.TClientAnalyticsInfoProto UniProxyClientAnalyticsInfo = 6 [json_name = "uniproxy_client_analytics_info", (.NYT.column_name) = "uniproxy_client_analytics_info"];
+    optional string YexpCookie = 2 [json_name = "yexp_cookie", (.NYT.column_name) = "yexp_cookie"];
+    optional string UniProxyUrl = 4 [json_name = "uniproxy_url", (.NYT.column_name) = "uniproxy_url"];
+    optional string VinsUrl = 5 [json_name = "vins_url", (.NYT.column_name) = "vins_url"];
   }
 
   message TStartDataInputDirective {
-    .NAlice.TAliceCapability.TGetEnvironmentStateOptions GetEnvironmentStateOptions = 2 [json_name = "get_environment_state_options"];
-    optional string InteractionId = 1 [json_name = "interaction_id"];
+    option (.NAlice.SpeechKitName) = "alice_start_data_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AliceStartDataInputDirective;
+    .NAlice.TAliceCapability.TGetEnvironmentStateOptions GetEnvironmentStateOptions = 2 [json_name = "get_environment_state_options", (.NYT.column_name) = "get_environment_state_options"];
+    optional string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
   }
 
   message TRequestErrorEvent {
+    option (.NAlice.SpeechKitName) = "alice_request_error_event";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = AliceRequestErrorEventType;
     message TBlockError {
-      repeated .NAlice.TAliceCapability.TBlocker Blockers = 1 [json_name = "blockers"];
+      repeated .NAlice.TAliceCapability.TBlocker Blockers = 1 [json_name = "blockers", (.NYT.column_name) = "blockers"];
     }
 
     message TServerError {
@@ -327,23 +427,24 @@ message TAliceCapability {
     message TNoSpeechDetectedError {
     }
 
-    string RequestId = 10 [json_name = "request_id"];
+    string RequestId = 10 [json_name = "request_id", (.NYT.column_name) = "request_id"];
     oneof Error {
-      .NAlice.TAliceCapability.TRequestErrorEvent.TBlockError BlockError = 1 [json_name = "block_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TServerError ServerError = 2 [json_name = "server_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TNetworkError NetworkError = 3 [json_name = "network_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TDeviceNotReadyError DeviceNotReadyError = 4 [json_name = "device_not_ready_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TTimeoutError TimeoutError = 5 [json_name = "timeout_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TAudioError AudioError = 6 [json_name = "audio_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TInterruptedError InterruptedError = 7 [json_name = "interrupted_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TSpottingRejectedError SpottingRejectedError = 8 [json_name = "spotting_rejected_error"];
-      .NAlice.TAliceCapability.TRequestErrorEvent.TNoSpeechDetectedError NoSpeechDetectedError = 9 [json_name = "no_speech_detected_error"];
+      option (.NYT.variant_field_name) = "error";
+      .NAlice.TAliceCapability.TRequestErrorEvent.TBlockError BlockError = 1 [json_name = "block_error", (.NYT.column_name) = "block_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TServerError ServerError = 2 [json_name = "server_error", (.NYT.column_name) = "server_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TNetworkError NetworkError = 3 [json_name = "network_error", (.NYT.column_name) = "network_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TDeviceNotReadyError DeviceNotReadyError = 4 [json_name = "device_not_ready_error", (.NYT.column_name) = "device_not_ready_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TTimeoutError TimeoutError = 5 [json_name = "timeout_error", (.NYT.column_name) = "timeout_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TAudioError AudioError = 6 [json_name = "audio_error", (.NYT.column_name) = "audio_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TInterruptedError InterruptedError = 7 [json_name = "interrupted_error", (.NYT.column_name) = "interrupted_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TSpottingRejectedError SpottingRejectedError = 8 [json_name = "spotting_rejected_error", (.NYT.column_name) = "spotting_rejected_error"];
+      .NAlice.TAliceCapability.TRequestErrorEvent.TNoSpeechDetectedError NoSpeechDetectedError = 9 [json_name = "no_speech_detected_error", (.NYT.column_name) = "no_speech_detected_error"];
     }
-    optional string Text = 11 [json_name = "text"];
+    optional string Text = 11 [json_name = "text", (.NYT.column_name) = "text"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TAliceCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TAliceCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

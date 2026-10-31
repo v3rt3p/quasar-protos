@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NData.NMusic;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.music";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/music";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TUserConfig {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool AnnounceTracks = 1 [json_name = "announce_tracks", (.NYT.column_name) = "announce_tracks"];
+  optional bool ShuffleArtist = 2 [json_name = "shuffle_artist", (.NYT.column_name) = "shuffle_artist"];
+}
+

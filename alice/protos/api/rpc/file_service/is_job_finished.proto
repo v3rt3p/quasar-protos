@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package NAlice.NApi.NFileService.NProto;
+
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/file_service";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/api/files/file_info.proto";
+
+message TIsJobFinishedRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string Guids = 1 [json_name = "guids", (.NYT.column_name) = "guids"];
+}
+
+message TIsJobFinishedResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TJobProcessStatus {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TBinaryClassifierResult {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      bool Result = 2 [json_name = "result", (.NYT.column_name) = "result"];
+    }
+
+    message TImageClassifiersResult {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.NApi.NFileService.NProto.TIsJobFinishedResponse.TJobProcessStatus.TBinaryClassifierResult BinaryClassifiersResults = 1 [json_name = "binary_classifiers_results", (.NYT.column_name) = "binary_classifiers_results"];
+    }
+
+    string Guid = 1 [json_name = "guid", (.NYT.column_name) = "guid"];
+    .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Status = 2 [json_name = "status", (.NYT.column_name) = "status"];
+    uint32 ProcessedContentSizeBytes = 3 [json_name = "process_content_size_bytes", (.NYT.column_name) = "process_content_size_bytes"];
+    .NAlice.NApi.NFileService.NProto.TIsJobFinishedResponse.TJobProcessStatus.TImageClassifiersResult ImageClassifiersResult = 4 [json_name = "image_classifiers_result", (.NYT.column_name) = "image_classifiers_result"];
+    optional string VideoCacheUploadId = 5 [json_name = "video_cache_upload_id", (.NYT.column_name) = "video_cache_upload_id"];
+    optional string Title = 6 [json_name = "title", (.NYT.column_name) = "title"];
+    optional string PreviewUrl = 7 [json_name = "preview_url", (.NYT.column_name) = "preview_url"];
+  }
+
+  bool IsFinished = 1 [json_name = "is_finished", (.NYT.column_name) = "is_finished"];
+  repeated .NAlice.NApi.NFiles.TFileInfo.EFileServiceStatus Statuses = 3 [json_name = "statuses", deprecated = true, (.NYT.column_name) = "statuses"];
+  repeated .NAlice.NApi.NFileService.NProto.TIsJobFinishedResponse.TJobProcessStatus JobProcessStatuses = 4 [json_name = "job_process_statuses", (.NYT.column_name) = "job_process_statuses"];
+  optional uint32 NextRetryMillisecondsDelay = 2 [json_name = "next_retry_milliseconds_delay", (.NYT.column_name) = "next_retry_milliseconds_delay"];
+}
+

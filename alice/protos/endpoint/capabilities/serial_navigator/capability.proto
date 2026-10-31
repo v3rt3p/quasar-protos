@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SerialNavigatorCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/serial_navigator;serialnavigatorpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/tv/serial_navigator/serial_navigator_position.proto";
+import "alice/protos/data/tv/serial_navigator/wrappers.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSerialNavigatorCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SerialNavigatorCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ProviderItemId = 1 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+    string OntoId = 2 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    int32 SelectedSeasonNumber = 3 [json_name = "selected_season_number", (.NYT.column_name) = "selected_season_number"];
+    string KinopoiskId = 4 [json_name = "kinopoisk_id", (.NYT.column_name) = "kinopoisk_id"];
+  }
+
+  message TShowEpisodeDirective {
+    option (.NAlice.SpeechKitName) = "show_episode";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowEpisodeDirectiveType;
+    .NAlice.NTv.TSerialInfoWrapper SerialInfo = 1 [json_name = "serial_info", (.NYT.column_name) = "serial_info"];
+    repeated .NAlice.NTv.TCarouselItemWrapper Episodes = 2 [json_name = "episodes", (.NYT.column_name) = "episodes"];
+    .NAlice.NTv.TSerialNavigatorPosition Position = 3 [json_name = "position", (.NYT.column_name) = "position"];
+    string Name = 4 [json_name = "name", (.NYT.column_name) = "name"];
+    string KinopoiskId = 5 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
+  }
+
+  message TOpenPurchaseDirective {
+    option (.NAlice.SpeechKitName) = "serial_navigator_open_purchase";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SerialNavigatorOpenPurchaseDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string ProviderItemId = 2 [json_name = "provider_item_id", (.NYT.column_name) = "provider_item_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSerialNavigatorCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSerialNavigatorCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

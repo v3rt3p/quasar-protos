@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveHudCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_hud;automotive_hudpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveHudCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveHudCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveHudCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      .NAlice.TAutomotiveHudCapability.TVehiclePropertyValueBounds PropertyValueBounds = 2 [json_name = "property_value_bounds", (.NYT.column_name) = "property_value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveHudCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 1 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveHudCapability.TVehiclePropertyState VehiclePropertyStates = 2 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveHudCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveHudCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValue {
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveHudCapability.TVehiclePropertyValue.TIntValue IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+      .NAlice.TAutomotiveHudCapability.TVehiclePropertyValue.TBoolValue BoolValue = 2 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveHudCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TSetHudStateDirective {
+    option (.NAlice.SpeechKitName) = "set_hud_state_directive_type";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHudStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetHudBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_hud_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHudBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Brightness = 1 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+  }
+
+  message TSetHudHeightDirective {
+    option (.NAlice.SpeechKitName) = "set_hud_height_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHudHeightDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Height = 1 [json_name = "height", (.NYT.column_name) = "height"];
+  }
+
+  message TSetHudModeDirective {
+    option (.NAlice.SpeechKitName) = "set_hud_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHudModeDirectiveType;
+    enum EHudMode {
+      Unknown = 0;
+      Normal = 1;
+      Snow = 2;
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAutomotiveHudCapability.TSetHudModeDirective.EHudMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  enum EPropertyId {
+    Unknown = 0;
+    HudDisplayBrightness = 1;
+    HudDisplayHeight = 2;
+    HudDisplayMode = 3;
+    HudState = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveHudCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveHudCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

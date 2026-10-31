@@ -9,20 +9,22 @@ import "alice/protos/data/scenario/reminders/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDeviceRemindersState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Cancelled";
   reserved 2;
   message TItem {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Opaque";
     reserved 6;
-    string Id = 1 [json_name = "id"];
-    string Text = 2 [json_name = "text"];
-    string Epoch = 3 [json_name = "epoch"];
-    string TimeZone = 4 [json_name = "timezone"];
-    string Origin = 5 [json_name = "origin"];
-    .NAlice.NData.NReminders.TReminderExtensions Extensions = 7 [json_name = "opaque"];
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+    string Epoch = 3 [json_name = "epoch", (.NYT.column_name) = "epoch"];
+    string TimeZone = 4 [json_name = "timezone", (.NYT.column_name) = "timezone"];
+    string Origin = 5 [json_name = "origin", (.NYT.column_name) = "origin"];
+    .NAlice.NData.NReminders.TReminderExtensions Extensions = 7 [json_name = "opaque", (.NYT.column_name) = "extensions"];
   }
 
-  repeated .NAlice.NData.NReminders.TDeviceRemindersState.TItem List = 1 [json_name = "list"];
-  .NAlice.NData.NReminders.ERemindersSyncState SyncState = 3 [json_name = "sync_state"];
+  repeated .NAlice.NData.NReminders.TDeviceRemindersState.TItem List = 1 [json_name = "list", (.NYT.column_name) = "list"];
+  .NAlice.NData.NReminders.ERemindersSyncState SyncState = 3 [json_name = "sync_state", (.NYT.column_name) = "sync_state"];
 }
 

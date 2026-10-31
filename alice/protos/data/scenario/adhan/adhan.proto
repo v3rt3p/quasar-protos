@@ -10,10 +10,13 @@ import "alice/protos/data/date/gregorian_date.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAdhan {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TActivationDay {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof ActivationDay {
-      .NAlice.NData.TDayOfWeek Weekday = 1 [json_name = "weekday"];
-      .NAlice.NData.TGregorianDate Date = 2 [json_name = "date"];
+      option (.NYT.variant_field_name) = "activation_day";
+      .NAlice.NData.TDayOfWeek Weekday = 1 [json_name = "weekday", (.NYT.column_name) = "weekday"];
+      .NAlice.NData.TGregorianDate Date = 2 [json_name = "date", (.NYT.column_name) = "date"];
     }
   }
 
@@ -26,13 +29,14 @@ message TAdhan {
     IshaAdhanType = 5;
   }
 
-  string AdhanId = 1 [json_name = "adhan_id"];
-  .NAlice.NData.TAdhan.EAdhanType AdhanType = 2 [json_name = "adhan_type"];
-  repeated .NAlice.NData.TAdhan.TActivationDay ActivationDays = 3 [json_name = "activation_days"];
+  string AdhanId = 1 [json_name = "adhan_id", (.NYT.column_name) = "adhan_id"];
+  .NAlice.NData.TAdhan.EAdhanType AdhanType = 2 [json_name = "adhan_type", (.NYT.column_name) = "adhan_type"];
+  repeated .NAlice.NData.TAdhan.TActivationDay ActivationDays = 3 [json_name = "activation_days", (.NYT.column_name) = "activation_days"];
 }
 
 message TAdhanMuezzinSettings {
-  string FajrAdhanMelodyS3Url = 1 [json_name = "fajr_adhan_melody_s3_url"];
-  string OtherAdhansMelodyS3Url = 2 [json_name = "other_adhans_melody_s3_url"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string FajrAdhanMelodyS3Url = 1 [json_name = "fajr_adhan_melody_s3_url", (.NYT.column_name) = "fajr_adhan_melody_s3_url"];
+  string OtherAdhansMelodyS3Url = 2 [json_name = "other_adhans_melody_s3_url", (.NYT.column_name) = "other_adhans_melody_s3_url"];
 }
 

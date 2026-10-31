@@ -12,56 +12,78 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWifiCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WifiCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TNetwork {
-      string Ssid = 1 [json_name = "ssid"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
     }
 
-    .NAlice.TWifiCapability.TState.TNetwork CurrentNetwork = 1 [json_name = "current_network"];
+    .NAlice.TWifiCapability.TState.TNetwork CurrentNetwork = 1 [json_name = "current_network", (.NYT.column_name) = "current_network"];
   }
 
   message TNetworkInfo {
-    string Ssid = 1 [json_name = "ssid"];
-    string Psk = 2 [json_name = "psk"];
-    bool AllowAutoConnect = 3 [json_name = "allow_auto_connect"];
-    bool Hidden = 4 [json_name = "hidden"];
-    optional .NAlice.TWifiCapability.EWifiType SecurityProtocol = 5 [json_name = "security_protocol"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+    string Psk = 2 [json_name = "psk", (.NYT.column_name) = "psk"];
+    bool AllowAutoConnect = 3 [json_name = "allow_auto_connect", (.NYT.column_name) = "allow_auto_connect"];
+    bool Hidden = 4 [json_name = "hidden", (.NYT.column_name) = "hidden"];
+    optional .NAlice.TWifiCapability.EWifiType SecurityProtocol = 5 [json_name = "security_protocol", (.NYT.column_name) = "security_protocol"];
   }
 
   message TConnectToNetworkDirective {
-    string Ssid = 1 [json_name = "ssid"];
+    option (.NAlice.SpeechKitName) = "connect_to_network_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ConnectToNetworkDirectiveType;
+    string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
   }
 
   message TSetWifiConfigurationDirective {
-    repeated .NAlice.TWifiCapability.TNetworkInfo Networks = 1 [json_name = "networks"];
-    string WifiHash = 2 [json_name = "wifi_hash"];
+    option (.NAlice.SpeechKitName) = "set_wifi_configuration_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetWifiConfigurationDirectiveType;
+    repeated .NAlice.TWifiCapability.TNetworkInfo Networks = 1 [json_name = "networks", (.NYT.column_name) = "networks"];
+    string WifiHash = 2 [json_name = "wifi_hash", (.NYT.column_name) = "wifi_hash"];
   }
 
   message TForceSyncWifiConfigurationDirective {
+    option (.NAlice.SpeechKitName) = "force_sync_wifi_configuration_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ForceSyncWifiConfigurationDirectiveType;
   }
 
   message TUpdateStateEvent {
-    .NAlice.TWifiCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = WifiUpdateStateEventType;
+    .NAlice.TWifiCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TSyncWifiConfigurationEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SyncWifiConfigurationEventType;
     message TFirstSyncInfo {
       message TNetwork {
-        string Ssid = 1 [json_name = "ssid"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
       }
 
-      .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo.TNetwork CurrentNetwork = 1 [json_name = "current_network"];
+      .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo.TNetwork CurrentNetwork = 1 [json_name = "current_network", (.NYT.column_name) = "current_network"];
     }
 
-    .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo FirstSyncInfo = 1 [json_name = "first_sync_info"];
+    .NAlice.TWifiCapability.TSyncWifiConfigurationEvent.TFirstSyncInfo FirstSyncInfo = 1 [json_name = "first_sync_info", (.NYT.column_name) = "first_sync_info"];
   }
 
   message TConnectionFailureEvent {
-    string Ssid = 1 [json_name = "ssid"];
-    .NAlice.TWifiCapability.EConnectionFailureCause Cause = 2 [json_name = "cause"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ConnectionFailureEventType;
+    string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+    .NAlice.TWifiCapability.EConnectionFailureCause Cause = 2 [json_name = "cause", (.NYT.column_name) = "cause"];
   }
 
   enum EConnectionFailureCause {
@@ -77,8 +99,8 @@ message TWifiCapability {
     OPEN = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWifiCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWifiCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWifiCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWifiCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

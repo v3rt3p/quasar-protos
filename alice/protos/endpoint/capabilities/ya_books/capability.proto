@@ -10,30 +10,36 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TYaBooksCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = YaBooksCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TextBook {
-    string BookUuid = 1 [json_name = "book_uuid"];
-    string DocumentUuid = 2 [json_name = "document_uuid"];
-    string Cfi = 3 [json_name = "cfi"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string BookUuid = 1 [json_name = "book_uuid", (.NYT.column_name) = "book_uuid"];
+    string DocumentUuid = 2 [json_name = "document_uuid", (.NYT.column_name) = "document_uuid"];
+    string Cfi = 3 [json_name = "cfi", (.NYT.column_name) = "cfi"];
   }
 
   message AudioBook {
-    string BookUuid = 1 [json_name = "book_uuid"];
-    string DocumentUuid = 2 [json_name = "document_uuid"];
-    uint32 Seconds = 3 [json_name = "seconds"];
-    uint32 TrackNumber = 4 [json_name = "track_number"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string BookUuid = 1 [json_name = "book_uuid", (.NYT.column_name) = "book_uuid"];
+    string DocumentUuid = 2 [json_name = "document_uuid", (.NYT.column_name) = "document_uuid"];
+    uint32 Seconds = 3 [json_name = "seconds", (.NYT.column_name) = "seconds"];
+    uint32 TrackNumber = 4 [json_name = "track_number", (.NYT.column_name) = "track_number"];
   }
 
   message TState {
-    string Scenario = 1 [json_name = "scenario"];
-    .NAlice.TYaBooksCapability.TextBook TextBook = 2 [json_name = "text_book"];
-    .NAlice.TYaBooksCapability.AudioBook AudioBook = 3 [json_name = "audio_book"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Scenario = 1 [json_name = "scenario", (.NYT.column_name) = "scenario"];
+    .NAlice.TYaBooksCapability.TextBook TextBook = 2 [json_name = "text_book", (.NYT.column_name) = "text_book"];
+    .NAlice.TYaBooksCapability.AudioBook AudioBook = 3 [json_name = "audio_book", (.NYT.column_name) = "audio_book"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TYaBooksCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TYaBooksCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TYaBooksCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TYaBooksCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

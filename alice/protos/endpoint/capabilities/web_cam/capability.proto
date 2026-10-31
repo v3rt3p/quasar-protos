@@ -13,29 +13,39 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWebCamCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WebCamCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TPlayHlsStreamDirective {
-    string Name = 1000 [json_name = "name"];
-    string CameraName = 1 [json_name = "camera_name"];
-    string Description = 2 [json_name = "description"];
-    string PlayUri = 3 [json_name = "play_uri"];
-    string CameraDeviceId = 4 [json_name = "camera_device_id"];
+    option (.NAlice.SpeechKitName) = "play_hls_stream_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayHlsStreamDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string CameraName = 1 [json_name = "camera_name", (.NYT.column_name) = "camera_name"];
+    string Description = 2 [json_name = "description", (.NYT.column_name) = "description"];
+    string PlayUri = 3 [json_name = "play_uri", (.NYT.column_name) = "play_uri"];
+    string CameraDeviceId = 4 [json_name = "camera_device_id", (.NYT.column_name) = "camera_device_id"];
   }
 
   message TPlayWebRTCStreamDirective {
-    string Name = 1000 [json_name = "name"];
-    string CameraName = 1 [json_name = "camera_name"];
-    string Description = 2 [json_name = "description"];
-    string CameraID = 3 [json_name = "camera_id"];
+    option (.NAlice.SpeechKitName) = "play_web_rtc_stream_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayWebRTCStreamDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string CameraName = 1 [json_name = "camera_name", (.NYT.column_name) = "camera_name"];
+    string Description = 2 [json_name = "description", (.NYT.column_name) = "description"];
+    string CameraID = 3 [json_name = "camera_id", (.NYT.column_name) = "camera_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWebCamCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWebCamCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWebCamCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWebCamCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

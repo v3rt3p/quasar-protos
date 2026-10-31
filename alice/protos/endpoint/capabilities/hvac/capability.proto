@@ -1,0 +1,427 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "HeatingVentilationAirConditioningCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/hvac;hvacpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message THeatingVentilationAirConditioningCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = HeatingVentilationAirConditioningCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "SeatHeating";
+    reserved 1;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      repeated .NAlice.THeatingVentilationAirConditioningCapability.TVehicleArea SupportedAreas = 2 [json_name = "supported_areas", (.NYT.column_name) = "supported_areas"];
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValueBounds PropertyValueBounds = 3 [json_name = "value_bounds", (.NYT.column_name) = "value_bounds"];
+    }
+
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 2 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TInfoProperty InfoProperties = 3 [json_name = "info_properties", (.NYT.column_name) = "info_properties"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "SeatHeating";
+    reserved 1;
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyState VehiclePropertyStates = 2 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TInfoPropertyValue {
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+    }
+  }
+
+  message TInfoProperty {
+    .NAlice.THeatingVentilationAirConditioningCapability.EInfoPropertyId InfoPropertyId = 1 [json_name = "info_property_id", (.NYT.column_name) = "info_property_id"];
+    .NAlice.THeatingVentilationAirConditioningCapability.TInfoPropertyValue InfoPropertyValue = 2 [json_name = "info_property_value", (.NYT.column_name) = "info_property_value"];
+  }
+
+  message TVehicleArea {
+    oneof VehicleArea {
+      option (.NYT.variant_field_name) = "vehicle_area";
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaWindow Window = 2 [json_name = "window", (.NYT.column_name) = "window"];
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaVent Vent = 3 [json_name = "vent", (.NYT.column_name) = "vent"];
+    }
+  }
+
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+      int32 DefaultValue = 3 [json_name = "default_value", (.NYT.column_name) = "default_value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TVehiclePropertyValue {
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValue.TIntValue IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValue.TBoolValue BoolValue = 2 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TStateByArea {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehicleArea Area = 1 [json_name = "area", (.NYT.column_name) = "area"];
+      .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValue Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    .NAlice.THeatingVentilationAirConditioningCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyState.TStateByArea StateByAreas = 2 [json_name = "state_by_areas", (.NYT.column_name) = "state_by_areas"];
+    .NAlice.THeatingVentilationAirConditioningCapability.TVehiclePropertyValue GlobalStateValue = 3 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TSetHvacSeatTemperatureDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_seat_temperature_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacSeatTemperatureDirectiveType;
+    message TSeatTemperatureState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      int32 TemperatureValue = 2 [json_name = "temperature_value", (.NYT.column_name) = "temperature_value"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetHvacSeatTemperatureDirective.TSeatTemperatureState SeatTemperatureState = 1 [json_name = "seat_temperature_state", (.NYT.column_name) = "seat_temperature_state"];
+  }
+
+  message TSetHvacRecirculationStateDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_recirculation_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacRecirculationStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message THvacTemperatureSetDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_temperature_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacTemperatureDirectiveType;
+    message TTemperatureState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      int32 TemperatureValue = 2 [json_name = "temperature_value", (.NYT.column_name) = "temperature_value"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.THvacTemperatureSetDirective.TTemperatureState TemperatureState = 1 [json_name = "temperature_state", (.NYT.column_name) = "temperature_state"];
+  }
+
+  message TSetConditioningSystemStateDirective {
+    option (.NAlice.SpeechKitName) = "set_conditioning_system_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetConditioningSystemStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seats = 2 [json_name = "seats", (.NYT.column_name) = "seats"];
+  }
+
+  message TSetCoolingSystemStateDirective {
+    option (.NAlice.SpeechKitName) = "set_cooling_system_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetCoolingSystemStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seats = 2 [json_name = "seats", (.NYT.column_name) = "seats"];
+  }
+
+  message TSetAutoConditioningSystemStateDirective {
+    option (.NAlice.SpeechKitName) = "set_auto_conditioning_system_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAutoConditioningSystemStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seats = 2 [json_name = "seats", (.NYT.column_name) = "seats"];
+  }
+
+  message TSetHvacDefrosterStateDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_defroster_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacDefrosterStateDirectiveType;
+    message TDefrosterState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaWindow Window = 1 [json_name = "window", (.NYT.column_name) = "window"];
+      bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetHvacDefrosterStateDirective.TDefrosterState DefrosterState = 1 [json_name = "defroster_state", (.NYT.column_name) = "defroster_state"];
+  }
+
+  message TSetSteeringWheelHeatingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_steering_wheel_heating_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSteeringWheelHeatingStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetFanDirectionDirective {
+    option (.NAlice.SpeechKitName) = "set_fan_direction_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFanDirectionDirectiveType;
+    message TFanDirection {
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      .NAlice.THeatingVentilationAirConditioningCapability.ECarHvacFanDirection FanDirection = 2 [json_name = "fan_direction", (.NYT.column_name) = "fan_direction"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetFanDirectionDirective.TFanDirection FanDirections = 1 [json_name = "fan_directions", (.NYT.column_name) = "fan_directions"];
+  }
+
+  message TSetHvacFanSpeedDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_fan_speed_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacFanSpeedDirectiveType;
+    message TFanSpeedState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      int32 FanSpeedValue = 2 [json_name = "fan_speed_value", (.NYT.column_name) = "fan_speed_value"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetHvacFanSpeedDirective.TFanSpeedState FanSpeed = 1 [json_name = "fan_speed", (.NYT.column_name) = "fan_speed"];
+  }
+
+  message TSetHvacSeatVentilationDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_seat_ventilation_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacSeatVentilationDirectiveType;
+    message TSeatVentilationState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      bool Enabled = 2 [json_name = "enabled", deprecated = true, (.NYT.column_name) = "enabled"];
+      int32 LevelValue = 3 [json_name = "level_value", (.NYT.column_name) = "level_value"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetHvacSeatVentilationDirective.TSeatVentilationState SeatVentilations = 1 [json_name = "seat_ventilations", (.NYT.column_name) = "seat_ventilations"];
+  }
+
+  message TSetAutoSeatHeatingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_auto_seat_heating_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAutoSeatHeatingStateDirectiveType;
+    message TAutoSeatHeatingState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetAutoSeatHeatingStateDirective.TAutoSeatHeatingState AutoSeatHeatings = 1 [json_name = "auto_seat_heatings", (.NYT.column_name) = "auto_seat_heatings"];
+  }
+
+  message TSetAutoSeatVentilationStateDirective {
+    option (.NAlice.SpeechKitName) = "set_auto_seat_ventilation_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAutoSeatVentilationStateDirectiveType;
+    message TAutoSeatVentilationState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.TSetAutoSeatVentilationStateDirective.TAutoSeatVentilationState AutoSeatVentilations = 1 [json_name = "auto_seat_ventilations", (.NYT.column_name) = "auto_seat_ventilations"];
+  }
+
+  message TSetAutoDefrosterStateDirective {
+    option (.NAlice.SpeechKitName) = "set_auto_defroster_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAutoDefrosterStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.THeatingVentilationAirConditioningCapability.EAutoDefrosterMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  message TSetHvacTemperatureSyncStateDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_temperature_sync_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacTemperatureSyncStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetHvacEcoStateDirective {
+    option (.NAlice.SpeechKitName) = "set_hvac_eco_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHvacEcoStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetElectricVentModeDirective {
+    option (.NAlice.SpeechKitName) = "set_electric_vent_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetElectricVentModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.THeatingVentilationAirConditioningCapability.EVehicleAreaVent Vents = 1 [json_name = "vents", (.NYT.column_name) = "vents"];
+    .NAlice.THeatingVentilationAirConditioningCapability.EElectricVentMode Mode = 2 [json_name = "mode", (.NYT.column_name) = "mode"];
+  }
+
+  message TSetOneTouchHeatingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_one_touch_heating_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetOneTouchHeatingStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetAqsStateDirective {
+    option (.NAlice.SpeechKitName) = "set_aqs_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAqsStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetMaxAcStateDirective {
+    option (.NAlice.SpeechKitName) = "set_max_ac_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMaxAcStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TSetMirrorHeatingStateDirective {
+    option (.NAlice.SpeechKitName) = "set_mirror_heating_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMirrorHeatingStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Level = 1 [json_name = "level", (.NYT.column_name) = "level"];
+  }
+
+  message TSetHeatingSystemStateDirective {
+    option (.NAlice.SpeechKitName) = "set_heating_system_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetHeatingSystemStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  enum EInfoPropertyId {
+    INFO_PROPERTY_UNKNOWN = 0;
+    INFO_DRIVER_SEAT = 1;
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    HVAC_SEAT_TEMPERATURE = 1;
+    HVAC_RECIRC_ON = 2;
+    HVAC_TEMPERATURE_SET = 3;
+    HVAC_DEFROSTER = 4;
+    HVAC_FAN_DIRECTION = 5;
+    HVAC_FAN_SPEED = 6;
+    HVAC_SEAT_VENTILATION = 7;
+    HVAC_TEMPERATURE_CURRENT = 8;
+    HVAC_POWER_ON = 9;
+    HVAC_AUTO_SEAT_VENTILATION = 10;
+    HVAC_AUTO_SEAT_HEATING = 11;
+    HVAC_AUTO_DEFROSTER = 12;
+    HVAC_DUAL_ON = 13;
+    HVAC_ECO_ON = 14;
+    HVAC_ELECTRIC_VENT_MODE = 15;
+    HVAC_ELECTRIC_VENT_OPEN = 16;
+    HVAC_ONE_TOUCH_HEATING_ON = 17;
+    HVAC_AQS_ON = 18;
+    HVAC_MAX_AC_ON = 19;
+    HVAC_SIDE_MIRROR_HEAT = 20;
+    HVAC_HEATING_ON = 21;
+    HVAC_TEMPERATURE_DISPLAY_UNITS = 22;
+    HVAC_AUTO_ON = 23;
+    HVAC_STEERING_WHEEL_HEAT = 24;
+    HVAC_AC_ON = 25;
+  }
+
+  enum EVehicleAreaSeat {
+    SEAT_UNKNOWN = 0;
+    SEAT_ROW_1_LEFT = 1;
+    SEAT_ROW_1_CENTER = 2;
+    SEAT_ROW_1_RIGHT = 3;
+    SEAT_ROW_2_LEFT = 4;
+    SEAT_ROW_2_CENTER = 5;
+    SEAT_ROW_2_RIGHT = 6;
+    SEAT_ROW_3_LEFT = 7;
+    SEAT_ROW_3_CENTER = 8;
+    SEAT_ROW_3_RIGHT = 9;
+  }
+
+  enum EVehicleAreaWindow {
+    WINDOW_UNKNOWN = 0;
+    WINDOW_FRONT_WINDSHIELD = 1;
+    WINDOW_REAR_WINDSHIELD = 2;
+    WINDOW_ROW_1_LEFT = 3;
+    WINDOW_ROW_1_RIGHT = 4;
+    WINDOW_ROW_2_LEFT = 5;
+    WINDOW_ROW_2_RIGHT = 6;
+    WINDOW_ROW_3_LEFT = 7;
+    WINDOW_ROW_3_RIGHT = 8;
+    WINDOW_ROOF_TOP_1 = 9;
+    WINDOW_ROOF_TOP_2 = 10;
+  }
+
+  enum EVehicleAreaVent {
+    VENT_UNKNOWN = 0;
+    VENT_ROW_1_LEFT = 1;
+    VENT_ROW_1_CENTER_LEFT = 2;
+    VENT_ROW_1_CENTER_RIGHT = 3;
+    VENT_ROW_1_RIGHT = 4;
+  }
+
+  enum EAutoDefrosterMode {
+    AUTO_DEFROSTER_UNKNOWN = 0;
+    AUTO_DEFROSTER_OFF = 1;
+    AUTO_DEFROSTER_ON = 2;
+    AUTO_DEFROSTER_ALWAYS_ON = 3;
+  }
+
+  enum EElectricVentMode {
+    VENT_MODE_UNKNOWN = 0;
+    VENT_MODE_FREE_FLOW = 1;
+    VENT_MODE_TOWARD_PERSON = 2;
+    VENT_MODE_AWAY_FROM_PERSON = 3;
+    VENT_MODE_SIDE_SWING = 4;
+  }
+
+  enum ECarHvacFanDirection {
+    FAN_DIRECTION_UNKNOWN = 0;
+    FAN_DIRECTION_FACE = 1;
+    FAN_DIRECTION_FLOOR = 2;
+    FAN_DIRECTION_FACE_AND_FLOOR = 3;
+    FAN_DIRECTION_DEFROST = 4;
+    FAN_DIRECTION_FACE_AND_DEFROST = 5;
+    FAN_DIRECTION_DEFROST_AND_FLOOR = 6;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.THeatingVentilationAirConditioningCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.THeatingVentilationAirConditioningCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

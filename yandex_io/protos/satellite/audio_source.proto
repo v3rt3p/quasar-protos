@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package quasar.proto;
+
+import "yandex_io/protos/yandex_io.proto";
+
+message RemoteAudioSourceMessage {
+  message RegisterAudioSourceEvent {
+    string endpoint_id = 1;
+  }
+
+  message ErrorEvent {
+  }
+
+  message AudioDataEvent {
+    .quasar.proto.IOAudioChannelsData data = 1;
+  }
+
+  oneof event {
+    .quasar.proto.RemoteAudioSourceMessage.RegisterAudioSourceEvent register = 1;
+    .quasar.proto.RemoteAudioSourceMessage.ErrorEvent error = 2;
+    .quasar.proto.RemoteAudioSourceMessage.AudioDataEvent audio_data = 3;
+  }
+}
+

@@ -12,15 +12,23 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TScreenshotCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ScreenshotCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TTakeScreenshotDirective {
+    option (.NAlice.SpeechKitName) = "take_screenshot_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TakeScreenshotDirectiveType;
     message TAliceVisionPurpose {
-      bool NeedNeuroInfoContext = 1 [json_name = "need_neuro_info_context"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool NeedNeuroInfoContext = 1 [json_name = "need_neuro_info_context", (.NYT.column_name) = "need_neuro_info_context"];
     }
 
     enum EPurpose {
@@ -29,16 +37,17 @@ message TScreenshotCapability {
       AliceVision = 2;
     }
 
-    string Name = 1 [json_name = "name"];
-    .NAlice.TScreenshotCapability.TTakeScreenshotDirective.EPurpose Purpose = 2 [json_name = "purpose"];
-    string Query = 3 [json_name = "query"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TScreenshotCapability.TTakeScreenshotDirective.EPurpose Purpose = 2 [json_name = "purpose", deprecated = true, (.NYT.column_name) = "purpose"];
+    string Query = 3 [json_name = "query", (.NYT.column_name) = "query"];
     oneof PurposePayload {
-      .NAlice.TScreenshotCapability.TTakeScreenshotDirective.TAliceVisionPurpose AliceVisionPurpose = 4 [json_name = "alice_vision_purpose"];
+      option (.NYT.variant_field_name) = "purpose_payload";
+      .NAlice.TScreenshotCapability.TTakeScreenshotDirective.TAliceVisionPurpose AliceVisionPurpose = 4 [json_name = "alice_vision_purpose", (.NYT.column_name) = "alice_vision_purpose"];
     }
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TScreenshotCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TScreenshotCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TScreenshotCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TScreenshotCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

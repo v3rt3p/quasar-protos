@@ -13,44 +13,59 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLightSequenceCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LightSequenceCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TStep {
-    double Brightness = 3 [json_name = "brightness"];
-    uint32 TransitionTimeMs = 4 [json_name = "transition_time_ms"];
-    uint32 DurationMs = 5 [json_name = "duration_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    double Brightness = 3 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+    uint32 TransitionTimeMs = 4 [json_name = "transition_time_ms", (.NYT.column_name) = "transition_time_ms"];
+    uint32 DurationMs = 5 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
     oneof Color {
-      .NAlice.THueAndSaturation HueSaturation = 1 [json_name = "hue_saturation"];
-      uint64 TemperatureK = 2 [json_name = "temperature_k"];
+      option (.NYT.variant_field_name) = "color";
+      .NAlice.THueAndSaturation HueSaturation = 1 [json_name = "hue_saturation", (.NYT.column_name) = "hue_saturation"];
+      uint64 TemperatureK = 2 [json_name = "temperature_k", (.NYT.column_name) = "temperature_k"];
     }
   }
 
   message TSequence {
-    string Id = 1 [json_name = "id"];
-    repeated .NAlice.TLightSequenceCapability.TStep Steps = 2 [json_name = "steps"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    repeated .NAlice.TLightSequenceCapability.TStep Steps = 2 [json_name = "steps", (.NYT.column_name) = "steps"];
   }
 
   message TState {
-    .NAlice.TLightSequenceCapability.TSequence ActiveSequence = 1 [json_name = "active_sequence"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TLightSequenceCapability.TSequence ActiveSequence = 1 [json_name = "active_sequence", (.NYT.column_name) = "active_sequence"];
   }
 
   message TStartLightSequenceDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TLightSequenceCapability.TSequence Sequence = 1 [json_name = "sequence"];
+    option (.NAlice.SpeechKitName) = "start_light_sequence_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartLightSequenceDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TLightSequenceCapability.TSequence Sequence = 1 [json_name = "sequence", (.NYT.column_name) = "sequence"];
   }
 
   message TStopLightSequenceDirective {
-    string Name = 1000 [json_name = "name"];
-    string SequenceID = 1 [json_name = "sequence_id"];
+    option (.NAlice.SpeechKitName) = "stop_light_sequence_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StopLightSequenceDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string SequenceID = 1 [json_name = "sequence_id", (.NYT.column_name) = "sequence_id"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLightSequenceCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = LightSequenceUpdateStateEventType;
+    .NAlice.TLightSequenceCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLightSequenceCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLightSequenceCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLightSequenceCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLightSequenceCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

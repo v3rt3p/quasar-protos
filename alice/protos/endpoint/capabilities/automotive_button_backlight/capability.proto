@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveButtonBacklightCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_button_backlight;automotive_button_backlightpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveButtonBacklightCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveButtonBacklightCapabilityType;
+  message TBrightnessBounds {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+    int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveButtonBacklightCapability.TBrightnessBounds BrightnessBounds = 1 [json_name = "brightness_bounds", (.NYT.column_name) = "brightness_bounds"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional int32 Brightness = 1 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+  }
+
+  message TSetButtonBacklightBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_button_backlight_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetButtonBacklightBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Brightness = 1 [json_name = "brightness", (.NYT.column_name) = "brightness"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveButtonBacklightCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveButtonBacklightCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

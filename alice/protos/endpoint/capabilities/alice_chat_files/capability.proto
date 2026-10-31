@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatFilesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_files;alicechatfilespb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatFilesCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatFilesCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TShowAliceChatFilesPickerDirectiveType {
+    option (.NAlice.SpeechKitName) = "alice_chat_files";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowAliceChatFilesPickerDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TAliceChatFilesCapability.EPickerType Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+    bool Multiple = 3 [json_name = "multiple", (.NYT.column_name) = "multiple"];
+  }
+
+  enum EPickerType {
+    CAMERA = 0;
+    GALLERY = 2;
+    FILES = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatFilesCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatFilesCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

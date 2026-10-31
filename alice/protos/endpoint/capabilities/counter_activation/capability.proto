@@ -11,37 +11,46 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCounterActivationCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CounterActivationCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    bool Enabled = 1 [json_name = "enabled"];
-    repeated string AvailableModels = 2 [json_name = "available_models"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+    repeated string AvailableModels = 2 [json_name = "available_models", (.NYT.column_name) = "available_models"];
   }
 
   message TCounterActivationStartedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CounterActivationStartedEventType;
     message ModelResult {
-      string ModelName = 1 [json_name = "model_name"];
-      float Confidence = 2 [json_name = "confidence"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string ModelName = 1 [json_name = "model_name", (.NYT.column_name) = "model_name"];
+      float Confidence = 2 [json_name = "confidence", (.NYT.column_name) = "confidence"];
     }
 
-    string Phrase = 1 [json_name = "phrase"];
-    repeated .NAlice.TCounterActivationCapability.TCounterActivationStartedEvent.ModelResult ModelResults = 2 [json_name = "model_results"];
-    string SessionId = 3 [json_name = "session_id"];
+    string Phrase = 1 [json_name = "phrase", (.NYT.column_name) = "phrase"];
+    repeated .NAlice.TCounterActivationCapability.TCounterActivationStartedEvent.ModelResult ModelResults = 2 [json_name = "model_results", (.NYT.column_name) = "model_results"];
+    string SessionId = 3 [json_name = "session_id", (.NYT.column_name) = "session_id"];
   }
 
   message TCounterActivationPriorityEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CounterActivationPriorityEventType;
     enum EType {
       PhraseSpotted = 0;
       IrrelevantRequest = 1;
     }
 
-    .NAlice.TCounterActivationCapability.TCounterActivationPriorityEvent.EType Event = 1 [json_name = "event"];
-    string SessionId = 2 [json_name = "session_id"];
+    .NAlice.TCounterActivationCapability.TCounterActivationPriorityEvent.EType Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    string SessionId = 2 [json_name = "session_id", (.NYT.column_name) = "session_id"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TCounterActivationCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TCounterActivationCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCounterActivationCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCounterActivationCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

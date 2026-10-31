@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "IotCameraPositioningCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/iot_camera_positioning;camerapositioningpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TIotCameraPositioningCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotCameraPositioningCapabilityType;
+  message TPosition {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Horizontal = 1 [json_name = "horizontal", (.NYT.column_name) = "horizontal"];
+    uint32 Vertical = 2 [json_name = "vertical", (.NYT.column_name) = "vertical"];
+  }
+
+  message TMovement {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    uint32 Speed = 2 [json_name = "speed", (.NYT.column_name) = "speed"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotCameraPositioningCapability.TMovement HorizontalLimit = 1 [json_name = "horizontal_limit", (.NYT.column_name) = "horizontal_limit"];
+    .NAlice.TIotCameraPositioningCapability.TMovement VerticalLimit = 2 [json_name = "vertical_limit", (.NYT.column_name) = "vertical_limit"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotCameraPositioningCapability.EMovementState MovementState = 1 [json_name = "movement_state", (.NYT.column_name) = "movement_state"];
+    .NAlice.TIotCameraPositioningCapability.TPosition Position = 2 [json_name = "position", (.NYT.column_name) = "position"];
+    .NAlice.TIotCameraPositioningCapability.ECalibrationState CalibrationState = 3 [json_name = "calibration_state", (.NYT.column_name) = "calibration_state"];
+  }
+
+  message TMoveCameraRelativeDirective {
+    option (.NAlice.SpeechKitName) = "iot_move_camera_relative_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotMoveCameraRelativeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotCameraPositioningCapability.EDirection Direction = 1 [json_name = "direction", (.NYT.column_name) = "direction"];
+  }
+
+  message TCalibrateCameraDirective {
+    option (.NAlice.SpeechKitName) = "iot_calibrate_camera_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotCalibrateCameraDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TMoveCameraToPositionDirective {
+    option (.NAlice.SpeechKitName) = "iot_move_camera_to_position_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotMoveCameraToPositionDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotCameraPositioningCapability.TMovement Movement = 1 [json_name = "movement", (.NYT.column_name) = "movement"];
+    .NAlice.TIotCameraPositioningCapability.EAxis Axis = 2 [json_name = "axis", (.NYT.column_name) = "axis"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotCameraPositioningUpdateStateEventType;
+    .NAlice.TIotCameraPositioningCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  enum EAxis {
+    UnknownAxis = 0;
+    HorizontalAxis = 1;
+    VerticalAxis = 2;
+  }
+
+  enum EDirection {
+    UnknownDirection = 0;
+    TopDirection = 1;
+    RightDirection = 2;
+    BottomDirection = 3;
+    LeftDirection = 4;
+  }
+
+  enum EMovementState {
+    MOVEMENT_STATE_UNKNOWN = 0;
+    MOVEMENT_STATE_IDLE = 1;
+    MOVEMENT_STATE_MOVING = 2;
+  }
+
+  enum ECalibrationState {
+    CALIBRATION_STATE_UNKNOWN = 0;
+    CALIBRATION_STATE_UNCALIBRATED = 1;
+    CALIBRATION_STATE_CALIBRATING = 2;
+    CALIBRATION_STATE_CALIBRATED = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotCameraPositioningCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotCameraPositioningCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -16,50 +16,67 @@ import "alice/protos/div/div2card.proto";
 import "google/protobuf/struct.proto";
 
 message TTeaserCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TeaserCapabilityType;
   message TParameters {
-    bool SupportsVoiceControls = 1 [json_name = "supports_voice_controls"];
-    bool SupportsS3VideoTeasers = 2 [json_name = "supports_s3_video_teasers"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsVoiceControls = 1 [json_name = "supports_voice_controls", (.NYT.column_name) = "supports_voice_controls"];
+    bool SupportsS3VideoTeasers = 2 [json_name = "supports_s3_video_teasers", (.NYT.column_name) = "supports_s3_video_teasers"];
   }
 
   message TState {
-    repeated string CurrentStickyTeasers = 1 [json_name = "current_sticky_teasers"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string CurrentStickyTeasers = 1 [json_name = "current_sticky_teasers", (.NYT.column_name) = "current_sticky_teasers"];
   }
 
   message TAddTeaserDirective {
+    option (.NAlice.SpeechKitName) = "add_teaser_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddTeaserDirectiveType;
     enum EOrientationType {
       Any = 0;
       LandscapeOnly = 1;
       PortraitOnly = 2;
     }
 
-    string Name = 1 [json_name = "name"];
-    string TeaserId = 2 [json_name = "teaser_id"];
-    uint32 TeaserShowTimeSec = 3 [json_name = "teaser_show_time_sec"];
-    .NAlice.TDiv2Card Div2Card = 4 [json_name = "div2_card"];
-    .google.protobuf.Struct Div2Templates = 5 [json_name = "div2_templates"];
-    .NAlice.NData.TCentaurTeaserConfigData TeaserConfig = 6 [json_name = "teaser_config"];
-    string TeaserGroupId = 7 [json_name = "teaser_group_id"];
-    .NAlice.TTeaserCapability.TAddTeaserDirective.EOrientationType SupportedOrientations = 8 [json_name = "supported_orientations"];
-    bool IsStickyTeaser = 9 [json_name = "is_sticky_teaser"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string TeaserId = 2 [json_name = "teaser_id", (.NYT.column_name) = "teaser_id"];
+    uint32 TeaserShowTimeSec = 3 [json_name = "teaser_show_time_sec", (.NYT.column_name) = "teaser_show_time_sec"];
+    .NAlice.TDiv2Card Div2Card = 4 [json_name = "div2_card", (.NYT.column_name) = "div2_card"];
+    .google.protobuf.Struct Div2Templates = 5 [json_name = "div2_templates", (.NYT.column_name) = "div2_templates"];
+    .NAlice.NData.TCentaurTeaserConfigData TeaserConfig = 6 [json_name = "teaser_config", (.NYT.column_name) = "teaser_config"];
+    string TeaserGroupId = 7 [json_name = "teaser_group_id", (.NYT.column_name) = "teaser_group_id"];
+    .NAlice.TTeaserCapability.TAddTeaserDirective.EOrientationType SupportedOrientations = 8 [json_name = "supported_orientations", (.NYT.column_name) = "supported_orientations"];
+    bool IsStickyTeaser = 9 [json_name = "is_sticky_teaser", (.NYT.column_name) = "is_sticky_teaser"];
   }
 
   message TYaDiskTeasersInfo {
-    string AlbumUrl = 1 [json_name = "album_url"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string AlbumUrl = 1 [json_name = "album_url", (.NYT.column_name) = "album_url"];
   }
 
   message TRotateTeasersDirective {
-    string Name = 1 [json_name = "name"];
-    bool SettingsChanged = 2 [json_name = "settings_changed"];
-    bool YaDiskAlbumIsEmpty = 3 [json_name = "ya_disk_album_is_empty"];
-    .NAlice.TTeaserCapability.TYaDiskTeasersInfo YaDiskTeasersInfo = 4 [json_name = "ya_disk_teasers_info"];
+    option (.NAlice.SpeechKitName) = "rotate_teasers_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RotateTeasersDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool SettingsChanged = 2 [json_name = "settings_changed", (.NYT.column_name) = "settings_changed"];
+    bool YaDiskAlbumIsEmpty = 3 [json_name = "ya_disk_album_is_empty", (.NYT.column_name) = "ya_disk_album_is_empty"];
+    .NAlice.TTeaserCapability.TYaDiskTeasersInfo YaDiskTeasersInfo = 4 [json_name = "ya_disk_teasers_info", (.NYT.column_name) = "ya_disk_teasers_info"];
   }
 
   message TRemoveTeaserDirective {
-    string Name = 1 [json_name = "name"];
-    string TeaserId = 2 [json_name = "teaser_id"];
+    option (.NAlice.SpeechKitName) = "remove_teaser_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemoveTeaserDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string TeaserId = 2 [json_name = "teaser_id", (.NYT.column_name) = "teaser_id"];
   }
 
   message TOpenTretyakovkaInfoDirective {
+    option (.NAlice.SpeechKitName) = "open_tretyakovka_info_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenTretyakovkaInfoDirectiveType;
     reserved "Title";
     reserved "Description";
     reserved "Author";
@@ -72,11 +89,11 @@ message TTeaserCapability {
     reserved 4;
     reserved 5;
     reserved 6;
-    string Name = 7 [json_name = "name"];
+    string Name = 7 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TTeaserCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TTeaserCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTeaserCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTeaserCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

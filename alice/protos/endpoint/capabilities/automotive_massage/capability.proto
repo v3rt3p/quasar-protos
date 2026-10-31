@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveMassageCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_massage;automotive_massagepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveMassageCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveMassageCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveMassageCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      repeated .NAlice.TAutomotiveMassageCapability.TVehicleArea SupportedAreas = 2 [json_name = "supported_areas", (.NYT.column_name) = "supported_areas"];
+      .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValueBounds PropertyValueBounds = 3 [json_name = "property_value_bounds", (.NYT.column_name) = "property_value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveMassageCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 1 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+    repeated .NAlice.TAutomotiveMassageCapability.TInfoProperty InfoProperties = 2 [json_name = "info_properties", (.NYT.column_name) = "info_properties"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveMassageCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TInfoPropertyValue {
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveMassageCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+    }
+  }
+
+  message TInfoProperty {
+    .NAlice.TAutomotiveMassageCapability.EInfoPropertyId InfoPropertyId = 1 [json_name = "info_property_id", (.NYT.column_name) = "info_property_id"];
+    .NAlice.TAutomotiveMassageCapability.TInfoPropertyValue InfoPropertyValue = 2 [json_name = "info_property_value", (.NYT.column_name) = "info_property_value"];
+  }
+
+  message TVehicleArea {
+    oneof VehicleArea {
+      option (.NYT.variant_field_name) = "vehicle_area";
+      .NAlice.TAutomotiveMassageCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+    }
+  }
+
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+      int32 DefaultValue = 3 [json_name = "default_value", (.NYT.column_name) = "default_value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TVehiclePropertyValue {
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValue.TIntValue IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+      .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValue.TBoolValue BoolValue = 2 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+    }
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TStateByArea {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveMassageCapability.TVehicleArea Area = 1 [json_name = "area", (.NYT.column_name) = "area"];
+      .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValue Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    .NAlice.TAutomotiveMassageCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    repeated .NAlice.TAutomotiveMassageCapability.TVehiclePropertyState.TStateByArea StateByAreas = 2 [json_name = "state_by_areas", (.NYT.column_name) = "state_by_areas"];
+    .NAlice.TAutomotiveMassageCapability.TVehiclePropertyValue GlobalStateValue = 3 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TSetMassageSeatSpeedDirective {
+    option (.NAlice.SpeechKitName) = "set_massage_seat_speed_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMassageSeatSpeedDirectiveType;
+    message TSeatSpeedState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveMassageCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      int32 Speed = 2 [json_name = "speed", (.NYT.column_name) = "speed"];
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAutomotiveMassageCapability.TSetMassageSeatSpeedDirective.TSeatSpeedState SeatSpeedStates = 1 [json_name = "seat_speed_states", (.NYT.column_name) = "seat_speed_states"];
+  }
+
+  message TSetMassageModeDirective {
+    option (.NAlice.SpeechKitName) = "set_massage_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetMassageModeDirectiveType;
+    reserved "Mode";
+    reserved 1;
+    message TSeatMassageModeState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveMassageCapability.EVehicleAreaSeat Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat"];
+      .NAlice.TAutomotiveMassageCapability.TSetMassageModeDirective.EMassageMode Mode = 2 [json_name = "mode", (.NYT.column_name) = "mode"];
+    }
+
+    enum EMassageMode {
+      MassageModeUnknown = 0;
+      MassageModeWave = 1;
+      MassageModePoint = 2;
+      MassageModeNeck = 3;
+      MassageModeWaist = 4;
+      MassageModeShoulders = 5;
+      MassageModeCommon = 6;
+    }
+
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TAutomotiveMassageCapability.TSetMassageModeDirective.TSeatMassageModeState SeatMassageModeStates = 2 [json_name = "seat_massage_mode_states", (.NYT.column_name) = "seat_massage_mode_states"];
+  }
+
+  enum EInfoPropertyId {
+    InfoPropertyUnknown = 0;
+    InfoDriverSeat = 1;
+  }
+
+  enum EVehicleAreaSeat {
+    SeatUnknown = 0;
+    SeatRow1Left = 1;
+    SeatRow1Center = 2;
+    SeatRow1Right = 3;
+    SeatRow2Left = 4;
+    SeatRow2Center = 5;
+    SeatRow2Right = 6;
+    SeatRow3Left = 7;
+    SeatRow3Center = 8;
+    SeatRow3Right = 9;
+  }
+
+  enum EPropertyId {
+    PropertyUnknown = 0;
+    MassageSeatSpeed = 1;
+    MassageSeatMode = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveMassageCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveMassageCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -12,39 +12,49 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBatteryCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BatteryCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EChargingMode {
       Default = 0;
       FastCharging = 1;
       SlowCharging = 2;
     }
 
-    optional double Percentage = 1 [json_name = "percentage"];
-    optional double Voltage = 2 [json_name = "voltage"];
-    optional bool IsCharging = 3 [json_name = "is_charging"];
-    optional .NAlice.TBatteryCapability.TState.EChargingMode ChargingMode = 4 [json_name = "charging_mode"];
+    optional double Percentage = 1 [json_name = "percentage", (.NYT.column_name) = "percentage"];
+    optional double Voltage = 2 [json_name = "voltage", (.NYT.column_name) = "voltage"];
+    optional bool IsCharging = 3 [json_name = "is_charging", (.NYT.column_name) = "is_charging"];
+    optional .NAlice.TBatteryCapability.TState.EChargingMode ChargingMode = 4 [json_name = "charging_mode", (.NYT.column_name) = "charging_mode"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TBatteryCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = BatteryUpdateStateEventType;
+    .NAlice.TBatteryCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   message TCondition {
-    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound"];
-    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound"];
-    double Hysteresis = 3 [json_name = "hysteresis"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = BatteryUpdateStateEventType;
+    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound", (.NYT.column_name) = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound", (.NYT.column_name) = "upper_bound"];
+    double Hysteresis = 3 [json_name = "hysteresis", (.NYT.column_name) = "hysteresis"];
   }
 
   message TPowerLevelFilter {
-    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound"];
-    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.ConditionEvents) = BatteryUpdateStateEventType;
+    .google.protobuf.DoubleValue LowerBound = 1 [json_name = "lower_bound", (.NYT.column_name) = "lower_bound"];
+    .google.protobuf.DoubleValue UpperBound = 2 [json_name = "upper_bound", (.NYT.column_name) = "upper_bound"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TBatteryCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TBatteryCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBatteryCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBatteryCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

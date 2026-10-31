@@ -40,6 +40,7 @@ message Endpoint {
 }
 
 enum AudioChannel {
+  reserved 3;
   CONTENT_CHANNEL = 0;
   DIALOG_CHANNEL = 1;
   MEDIA_ALARM_CHANNEL = 2;

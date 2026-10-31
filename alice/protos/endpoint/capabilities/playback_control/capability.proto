@@ -10,47 +10,53 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPlaybackControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PlaybackControlCapabilityType;
   message TTrackInfo {
-    string Id = 1 [json_name = "id"];
-    string Type = 2 [json_name = "type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
   }
 
   message TEntityInfo {
-    string Id = 1 [json_name = "id"];
-    string Type = 2 [json_name = "type"];
-    string Description = 3 [json_name = "description"];
-    .NAlice.TPlaybackControlCapability.TTrackInfo Prev = 4 [json_name = "prev"];
-    .NAlice.TPlaybackControlCapability.TTrackInfo Next = 5 [json_name = "next"];
-    bool Shuffled = 6 [json_name = "shuffled"];
-    string RepeatMode = 7 [json_name = "repeat_mode"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+    string Description = 3 [json_name = "description", (.NYT.column_name) = "description"];
+    .NAlice.TPlaybackControlCapability.TTrackInfo Prev = 4 [json_name = "prev", (.NYT.column_name) = "prev"];
+    .NAlice.TPlaybackControlCapability.TTrackInfo Next = 5 [json_name = "next", (.NYT.column_name) = "next"];
+    bool Shuffled = 6 [json_name = "shuffled", (.NYT.column_name) = "shuffled"];
+    string RepeatMode = 7 [json_name = "repeat_mode", (.NYT.column_name) = "repeat_mode"];
   }
 
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    string Id = 1 [json_name = "id"];
-    string RawType = 2 [json_name = "raw_type"];
-    string RawPlayerType = 3 [json_name = "raw_player_type"];
-    .NAlice.TPlaybackControlCapability.EPlayerType PlayerType = 4 [json_name = "player_type"];
-    bool HasPause = 5 [json_name = "has_pause"];
-    bool HasPlay = 6 [json_name = "has_play"];
-    bool HasNext = 7 [json_name = "has_next"];
-    bool HasPrev = 8 [json_name = "has_prev"];
-    bool HasLike = 9 [json_name = "has_like"];
-    bool HasDislike = 10 [json_name = "has_dislike"];
-    int64 PositionTimePoint = 11 [json_name = "position_time_point"];
-    uint32 PositionSec = 12 [json_name = "position_sec"];
-    uint32 DurationSec = 13 [json_name = "duration_sec"];
-    string Title = 14 [json_name = "title"];
-    string Subtitle = 15 [json_name = "subtitle"];
-    bool HasProgressBar = 16 [json_name = "has_progress_bar"];
-    bool ShowPlayer = 17 [json_name = "show_player"];
-    string LiveStreamText = 18 [json_name = "live_stream_text"];
-    .NAlice.TPlaybackControlCapability.TEntityInfo EntityInfo = 19 [json_name = "entity_info"];
-    string ProviderName = 20 [json_name = "provider_name"];
-    bool HideProgressBar = 21 [json_name = "hide_progress_bar"];
-    map<string, string> Extra = 22 [json_name = "extra"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string RawType = 2 [json_name = "raw_type", (.NYT.column_name) = "raw_type"];
+    string RawPlayerType = 3 [json_name = "raw_player_type", (.NYT.column_name) = "raw_player_type"];
+    .NAlice.TPlaybackControlCapability.EPlayerType PlayerType = 4 [json_name = "player_type", (.NYT.column_name) = "player_type"];
+    bool HasPause = 5 [json_name = "has_pause", (.NYT.column_name) = "has_pause"];
+    bool HasPlay = 6 [json_name = "has_play", (.NYT.column_name) = "has_play"];
+    bool HasNext = 7 [json_name = "has_next", (.NYT.column_name) = "has_next"];
+    bool HasPrev = 8 [json_name = "has_prev", (.NYT.column_name) = "has_prev"];
+    bool HasLike = 9 [json_name = "has_like", (.NYT.column_name) = "has_like"];
+    bool HasDislike = 10 [json_name = "has_dislike", (.NYT.column_name) = "has_dislike"];
+    int64 PositionTimePoint = 11 [json_name = "position_time_point", (.NYT.column_name) = "position_time_point"];
+    uint32 PositionSec = 12 [json_name = "position_sec", (.NYT.column_name) = "position_sec"];
+    uint32 DurationSec = 13 [json_name = "duration_sec", (.NYT.column_name) = "duration_sec"];
+    string Title = 14 [json_name = "title", (.NYT.column_name) = "title"];
+    string Subtitle = 15 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+    bool HasProgressBar = 16 [json_name = "has_progress_bar", (.NYT.column_name) = "has_progress_bar"];
+    bool ShowPlayer = 17 [json_name = "show_player", (.NYT.column_name) = "show_player"];
+    string LiveStreamText = 18 [json_name = "live_stream_text", (.NYT.column_name) = "live_stream_text"];
+    .NAlice.TPlaybackControlCapability.TEntityInfo EntityInfo = 19 [json_name = "entity_info", (.NYT.column_name) = "entity_info"];
+    string ProviderName = 20 [json_name = "provider_name", (.NYT.column_name) = "provider_name"];
+    bool HideProgressBar = 21 [json_name = "hide_progress_bar", (.NYT.column_name) = "hide_progress_bar"];
+    map<string, string> Extra = 22 [json_name = "extra", (.NYT.column_name) = "extra"];
   }
 
   enum EPlayerType {
@@ -61,8 +67,8 @@ message TPlaybackControlCapability {
     Video = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TPlaybackControlCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TPlaybackControlCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPlaybackControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPlaybackControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

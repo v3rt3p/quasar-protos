@@ -9,6 +9,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/tv/recent";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRecentExternalAppVideoItem {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EAspectRatio {
     HORIZONTAL = 0;
     SQUARE = 1;
@@ -22,19 +23,19 @@ message TRecentExternalAppVideoItem {
     WILL_WATCH = 3;
   }
 
-  string Id = 1 [json_name = "id"];
-  string PackageName = 2 [json_name = "package_name"];
-  string Title = 3 [json_name = "title"];
-  string AppIconUri = 7 [json_name = "app_icon_uri"];
-  string IntentUri = 8 [json_name = "intent_uri"];
-  bool IsLive = 9 [json_name = "is_live"];
-  int64 DurationMs = 10 [json_name = "duration_ms"];
-  int64 PositionMs = 11 [json_name = "position_ms"];
-  .NAlice.NTv.TRecentExternalAppVideoItem.EAspectRatio PosterAspectRatio = 12 [json_name = "poster_aspect_ratio"];
-  .NAlice.NTv.TRecentExternalAppVideoItem.ERecentType ItemRecentType = 13 [json_name = "recent_type"];
-  string AppName = 14 [json_name = "app_name"];
-  optional string PosterUri = 4 [json_name = "poster_uri"];
-  optional string ThumbnailUri = 5 [json_name = "thumbnail_uri"];
-  optional string PreviewVideoUri = 6 [json_name = "preview_video_uri"];
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string PackageName = 2 [json_name = "package_name", (.NYT.column_name) = "package_name"];
+  string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+  string AppIconUri = 7 [json_name = "app_icon_uri", (.NYT.column_name) = "app_icon_uri"];
+  string IntentUri = 8 [json_name = "intent_uri", (.NYT.column_name) = "intent_uri"];
+  bool IsLive = 9 [json_name = "is_live", (.NYT.column_name) = "is_live"];
+  int64 DurationMs = 10 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+  int64 PositionMs = 11 [json_name = "position_ms", (.NYT.column_name) = "position_ms"];
+  .NAlice.NTv.TRecentExternalAppVideoItem.EAspectRatio PosterAspectRatio = 12 [json_name = "poster_aspect_ratio", (.NYT.column_name) = "poster_aspect_ratio"];
+  .NAlice.NTv.TRecentExternalAppVideoItem.ERecentType ItemRecentType = 13 [json_name = "recent_type", (.NYT.column_name) = "recent_type"];
+  string AppName = 14 [json_name = "app_name", (.NYT.column_name) = "app_name"];
+  optional string PosterUri = 4 [json_name = "poster_uri", (.NYT.column_name) = "poster_uri"];
+  optional string ThumbnailUri = 5 [json_name = "thumbnail_uri", (.NYT.column_name) = "thumbnail_uri"];
+  optional string PreviewVideoUri = 6 [json_name = "preview_video_uri", (.NYT.column_name) = "preview_video_uri"];
 }
 

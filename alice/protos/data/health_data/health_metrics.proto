@@ -2,14 +2,37 @@ syntax = "proto3";
 
 package NAlice.NData.NHealthData;
 
+option java_package = "ru.yandex.alice.protos.data.healthdata";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/health_data";
+
+import "google/protobuf/timestamp.proto";
+
+message TVital {
+  .google.protobuf.Timestamp MeasuredAtTimestamp = 1 [json_name = "measured_at_timestamp"];
+  uint32 Value = 2 [json_name = "value"];
+}
+
 message TVitals {
-  // stub
+  optional .NAlice.NData.NHealthData.TVital HeartRate = 1 [json_name = "heart_rate"];
+  optional .NAlice.NData.NHealthData.TVital OxygenSaturation = 2 [json_name = "oxygen_saturation"];
+  optional .NAlice.NData.NHealthData.TVital Stress = 3 [json_name = "stress"];
 }
 
 message TSleep {
-  // stub
+  optional .google.protobuf.Timestamp StartTimestamp = 1 [json_name = "start_timestamp"];
+  optional .google.protobuf.Timestamp EndTimestamp = 2 [json_name = "end_timestamp"];
+  optional uint32 WakeMinutes = 3 [json_name = "wake_minutes"];
+  optional uint32 DozeMinutes = 4 [json_name = "doze_minutes"];
+  optional uint32 RemMinutes = 5 [json_name = "rem_minutes"];
+  optional uint32 DeepMinutes = 6 [json_name = "deep_minutes"];
 }
 
 message TActivity {
-  // stub
+  optional .google.protobuf.Timestamp StartTimestamp = 1 [json_name = "start_timestamp"];
+  optional .google.protobuf.Timestamp EndTimestamp = 2 [json_name = "end_timestamp"];
+  optional uint32 Steps = 3 [json_name = "steps"];
+  optional uint32 Calories = 4 [json_name = "calories"];
+  optional uint32 ActivityTimeMinutes = 5 [json_name = "activity_time_minutes"];
 }
+

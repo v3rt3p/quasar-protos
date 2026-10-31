@@ -13,26 +13,31 @@ import "alice/protos/data/entity_meta/reminders_meta.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TExternalEntityDescription {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TEntityItem {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TEntityItemPhrase {
-      string Phrase = 1 [json_name = "phrase"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string Phrase = 1 [json_name = "phrase", (.NYT.column_name) = "phrase"];
     }
 
     message TEntityValue {
-      string StringValue = 1 [json_name = "string_value"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string StringValue = 1 [json_name = "string_value", (.NYT.column_name) = "string_value"];
     }
 
-    .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityValue Value = 1 [json_name = "value"];
-    repeated .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityItemPhrase Phrases = 2 [json_name = "phrases"];
+    .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityValue Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    repeated .NAlice.NData.TExternalEntityDescription.TEntityItem.TEntityItemPhrase Phrases = 2 [json_name = "phrases", (.NYT.column_name) = "phrases"];
     oneof Meta {
-      .NAlice.TVideoGalleryItemMeta VideoMeta = 3 [json_name = "video_meta"];
-      .NAlice.TTvChannelItemMeta TvChannelMeta = 4 [json_name = "tv_channel_meta"];
-      .NAlice.TRecentTvItemMeta RecentTvItemMeta = 5 [json_name = "recent_tv_item_meta"];
-      .NAlice.TRemindersMeta RemindersMeta = 6 [json_name = "reminders_meta"];
+      option (.NYT.variant_field_name) = "meta";
+      .NAlice.TVideoGalleryItemMeta VideoMeta = 3 [json_name = "video_meta", (.NYT.column_name) = "video_meta"];
+      .NAlice.TTvChannelItemMeta TvChannelMeta = 4 [json_name = "tv_channel_meta", (.NYT.column_name) = "tv_channel_meta"];
+      .NAlice.TRecentTvItemMeta RecentTvItemMeta = 5 [json_name = "recent_tv_item_meta", (.NYT.column_name) = "recent_tv_item_meta"];
+      .NAlice.TRemindersMeta RemindersMeta = 6 [json_name = "reminders_meta", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "reminders_meta"];
     }
   }
 
-  string Name = 1 [json_name = "name"];
-  repeated .NAlice.NData.TExternalEntityDescription.TEntityItem Items = 2 [json_name = "items"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  repeated .NAlice.NData.TExternalEntityDescription.TEntityItem Items = 2 [json_name = "items", (.NYT.column_name) = "items"];
 }
 

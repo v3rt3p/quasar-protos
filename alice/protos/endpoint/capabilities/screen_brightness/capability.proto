@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "ScreenBrightnessCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/screen_brightness;screen_brightnesspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TScreenBrightnessCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = ScreenBrightnessCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 MaxBrightnessLevel = 1 [json_name = "max_brightness_level", (.NYT.column_name) = "max_brightness_level"];
+    uint32 MinBrightnessLevel = 2 [json_name = "min_brightness_level", (.NYT.column_name) = "min_brightness_level"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint32 BrightnessLevel = 1 [json_name = "brightness_level", (.NYT.column_name) = "meta"];
+    bool BrightnessAutoModeEnabled = 2 [json_name = "brightness_auto_mode_enabled", (.NYT.column_name) = "brightness_auto_mode_enabled"];
+    bool NoIndication = 3 [json_name = "no_indication", (.NYT.column_name) = "meta"];
+  }
+
+  message TSetBrightnessLevelDirective {
+    option (.NAlice.SpeechKitName) = "set_brightness_level_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetBrightnessLevelDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 BrightnessLevel = 1 [json_name = "brightness_level", (.NYT.column_name) = "meta"];
+    bool NoIndication = 2 [json_name = "no_indication", (.NYT.column_name) = "meta"];
+  }
+
+  message TSetAutoBrightnessDirective {
+    option (.NAlice.SpeechKitName) = "set_auto_brightness_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetAutoBrightnessDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool AutoBrightnessEnabled = 1 [json_name = "auto_brightness_enabled", (.NYT.column_name) = "meta"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = ScreenBrightnessUpdateStateEventType;
+    .NAlice.TScreenBrightnessCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TScreenBrightnessCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TScreenBrightnessCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

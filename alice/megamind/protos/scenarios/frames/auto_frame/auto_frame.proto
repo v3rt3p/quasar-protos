@@ -12,683 +12,921 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message THvacAirHeatingSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.hvac.air_heating";
   message TAirHeatingActionSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string ActionValue = 1 [json_name = "action_value"];
+      option (.NYT.variant_field_name) = "value";
+      string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
     }
   }
 
   message TAirHeatingSeatSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string SeatTypeValue = 1 [json_name = "seat_type_value"];
+      option (.NYT.variant_field_name) = "value";
+      string SeatTypeValue = 1 [json_name = "seat_type_value", (.NYT.column_name) = "seat_type_value", (.NAlice.SlotType) = "custom.seat_type"];
     }
   }
 
   message TAirHeatingLevelSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value"];
-      uint32 NumValue = 2 [json_name = "num_value"];
+      option (.NYT.variant_field_name) = "value";
+      string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value", (.NYT.column_name) = "heating_level_custom_value", (.NAlice.SlotType) = "custom.heating_level"];
+      uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
     }
   }
 
   message TAirHeatingUnitSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string UnitValue = 1 [json_name = "unit_value"];
+      option (.NYT.variant_field_name) = "value";
+      string UnitValue = 1 [json_name = "unit_value", (.NYT.column_name) = "unit_value", (.NAlice.SlotType) = "custom.unit"];
     }
   }
 
-  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingActionSlot Action = 1 [json_name = "action"];
-  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingSeatSlot Seat = 2 [json_name = "seat"];
-  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level"];
-  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingUnitSlot Unit = 4 [json_name = "unit"];
-  .NAlice.TBoolSlot ConditioningSystem = 5 [json_name = "conditioning_system"];
-  .NAlice.TBoolSlot AutoConditioningSystem = 6 [json_name = "auto_conditioning_system"];
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingSeatSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
+  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.THvacAirHeatingSemanticFrame.TAirHeatingUnitSlot Unit = 4 [json_name = "unit", (.NYT.column_name) = "unit", (.NAlice.SlotName) = "unit"];
+  .NAlice.TBoolSlot ConditioningSystem = 5 [json_name = "conditioning_system", (.NYT.column_name) = "conditioning_system", (.NAlice.SlotName) = "conditioning_system"];
+  .NAlice.TBoolSlot AutoConditioningSystem = 6 [json_name = "auto_conditioning_system", (.NYT.column_name) = "auto_conditioning_system", (.NAlice.SlotName) = "auto_conditioning_system"];
 }
 
 message TSeatHeatingActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TSeatTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string SeatTypeValue = 1 [json_name = "seat_type_value"];
+    option (.NYT.variant_field_name) = "value";
+    string SeatTypeValue = 1 [json_name = "seat_type_value", (.NYT.column_name) = "seat_type_value", (.NAlice.SlotType) = "custom.seat_type"];
   }
 }
 
 message TSeatHeatingLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    string HeatingLevelCustomValue = 1 [json_name = "heating_level_custom_value", (.NYT.column_name) = "heating_level_custom_value", (.NAlice.SlotType) = "custom.heating_level"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TSetSeatHeatingStateSemanticFrame {
-  .NAlice.TSeatHeatingActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
-  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.set_seat_heating_state";
+  .NAlice.TSeatHeatingActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
+  .NAlice.TSeatHeatingLevelSlot Level = 3 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
 }
 
 message TSeatVentilationActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TSeatVentilationAbsoluteChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
-    string CustomValue = 2 [json_name = "custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
+    string CustomValue = 2 [json_name = "custom_value", (.NYT.column_name) = "custom_value", (.NAlice.SlotType) = "custom.ventilation_level"];
   }
 }
 
 message TSetSeatVentilationStateSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_seat_ventilation_state";
   reserved "AbsoluteChange";
   reserved 3;
-  .NAlice.TSeatVentilationActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
-  .NAlice.TSysNumSlot AbsoluteSetChange = 4 [json_name = "absolute_set_change"];
-  .NAlice.TSysNumSlot FactorChange = 5 [json_name = "factor_change"];
-  .NAlice.TSysNumSlot PercentageChange = 6 [json_name = "percentage_change"];
-  .NAlice.TSeatVentilationAbsoluteChangeSlot AbsoluteChangeValue = 7 [json_name = "absolute_change_value"];
+  .NAlice.TSeatVentilationActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
+  .NAlice.TSysNumSlot AbsoluteSetChange = 4 [json_name = "absolute_set_change", (.NYT.column_name) = "absolute_set_change", (.NAlice.SlotName) = "absolute_set_change"];
+  .NAlice.TSysNumSlot FactorChange = 5 [json_name = "factor_change", (.NYT.column_name) = "factor_change", (.NAlice.SlotName) = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 6 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
+  .NAlice.TSeatVentilationAbsoluteChangeSlot AbsoluteChangeValue = 7 [json_name = "absolute_change_value", (.NYT.column_name) = "absolute_change_value", (.NAlice.SlotName) = "absolute_change"];
 }
 
 message THvacSetDefrosterStateSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_defroster_state";
   message TSetDefrosterStateActionSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string ActionValue = 1 [json_name = "action_value"];
+      option (.NYT.variant_field_name) = "value";
+      string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
     }
   }
 
   message TSetDefrosterStateWindowSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string WindowValue = 1 [json_name = "window_value"];
+      option (.NYT.variant_field_name) = "value";
+      string WindowValue = 1 [json_name = "window_value", (.NYT.column_name) = "window_value", (.NAlice.SlotType) = "custom.window"];
     }
   }
 
-  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateActionSlot Action = 1 [json_name = "action"];
-  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateWindowSlot Window = 2 [json_name = "window"];
+  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.THvacSetDefrosterStateSemanticFrame.TSetDefrosterStateWindowSlot Window = 2 [json_name = "window", (.NYT.column_name) = "window", (.NAlice.SlotName) = "window"];
 }
 
 message THvacAirDirectionSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_air_direction_mode";
   message TFanDirectionSlot {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof Value {
-      string FanDirectionValue = 1 [json_name = "fan_direction_value"];
+      option (.NYT.variant_field_name) = "value";
+      string FanDirectionValue = 1 [json_name = "fan_direction_value", (.NYT.column_name) = "fan_direction_value", (.NAlice.SlotType) = "custom.direction"];
     }
   }
 
-  .NAlice.THvacAirDirectionSemanticFrame.TFanDirectionSlot Direction = 1 [json_name = "direction"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  .NAlice.THvacAirDirectionSemanticFrame.TFanDirectionSlot Direction = 1 [json_name = "direction", (.NYT.column_name) = "direction", (.NAlice.SlotName) = "direction"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message THvacAirDirectionSwitchSemanticFrame {
-  .NAlice.TSeatTypeSlot Seat = 1 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.air_direction_mode_switch";
+  .NAlice.TSeatTypeSlot Seat = 1 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAirFanSpeedActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAirFanSpeedLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string FanSpeedCustomValue = 1 [json_name = "fan_speed_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    string FanSpeedCustomValue = 1 [json_name = "fan_speed_custom_value", (.NYT.column_name) = "fan_speed_custom_value", (.NAlice.SlotType) = "custom.fan_speed"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message THvacAirFanSpeedSemanticFrame {
-  .NAlice.TAirFanSpeedActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAirFanSpeedLevelSlot Level = 2 [json_name = "level"];
-  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.air_fan_speed";
+  .NAlice.TAirFanSpeedActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAirFanSpeedLevelSlot Level = 2 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TBodySideMirrorsSemanticFrame {
-  .NAlice.TSideMirrorsActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.side_mirrors";
+  .NAlice.TSideMirrorsActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TSideMirrorsActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TBodySetTrunkPositionSemanticFrame {
-  .NAlice.TSetTrunkPositionActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_trunk_position";
+  .NAlice.TSetTrunkPositionActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TSetTrunkPositionActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TSunVisorRegulationActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TSunVisorRegulationLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 VisorLevelCustomValue = 1 [json_name = "visor_level_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 VisorLevelCustomValue = 1 [json_name = "visor_level_custom_value", (.NYT.column_name) = "visor_level_custom_value", (.NAlice.SlotType) = "custom.visor_level"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TSunVisorRegulationUnitSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string UnitValue = 1 [json_name = "unit_value"];
+    option (.NYT.variant_field_name) = "value";
+    string UnitValue = 1 [json_name = "unit_value", (.NYT.column_name) = "unit_value", (.NAlice.SlotType) = "custom.unit"];
   }
 }
 
 message TSunVisorRegulationSideSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string SideValue = 1 [json_name = "side_value"];
+    option (.NYT.variant_field_name) = "value";
+    string SideValue = 1 [json_name = "side_value", (.NYT.column_name) = "side_value", (.NAlice.SlotType) = "custom.side"];
   }
 }
 
 message TBodySunVisorRegulationSemanticFrame {
-  .NAlice.TSunVisorRegulationActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSunVisorRegulationLevelSlot Level = 2 [json_name = "level"];
-  .NAlice.TSunVisorRegulationUnitSlot Unit = 3 [json_name = "unit"];
-  .NAlice.TSunVisorRegulationSideSlot Side = 4 [json_name = "side"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.sun_visor_regulation";
+  .NAlice.TSunVisorRegulationActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSunVisorRegulationLevelSlot Level = 2 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TSunVisorRegulationUnitSlot Unit = 3 [json_name = "unit", (.NYT.column_name) = "unit", (.NAlice.SlotName) = "unit"];
+  .NAlice.TSunVisorRegulationSideSlot Side = 4 [json_name = "side", (.NYT.column_name) = "side", (.NAlice.SlotName) = "side"];
 }
 
 message TTrapdoorRegulationActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TTrapdoorRegulationLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 TrapdoorLevelCustomValue = 1 [json_name = "trapdoor_level_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 TrapdoorLevelCustomValue = 1 [json_name = "trapdoor_level_custom_value", (.NYT.column_name) = "trapdoor_level_custom_value", (.NAlice.SlotType) = "custom.level"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TTrapdoorRegulationUnitSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string UnitValue = 1 [json_name = "unit_value"];
+    option (.NYT.variant_field_name) = "value";
+    string UnitValue = 1 [json_name = "unit_value", (.NYT.column_name) = "unit_value", (.NAlice.SlotType) = "custom.unit"];
   }
 }
 
 message TBodyTrapdoorRegulationSemanticFrame {
-  .NAlice.TTrapdoorRegulationActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TTrapdoorRegulationLevelSlot Level = 2 [json_name = "level"];
-  .NAlice.TTrapdoorRegulationUnitSlot Unit = 3 [json_name = "unit"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.trapdoor_regulation";
+  .NAlice.TTrapdoorRegulationActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TTrapdoorRegulationLevelSlot Level = 2 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TTrapdoorRegulationUnitSlot Unit = 3 [json_name = "unit", (.NYT.column_name) = "unit", (.NAlice.SlotName) = "unit"];
 }
 
 message TWindowRegulationActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TWindowRegulationLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 WindowLevelCustomValue = 1 [json_name = "window_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 WindowLevelCustomValue = 1 [json_name = "window_custom_value", (.NYT.column_name) = "window_custom_value", (.NAlice.SlotType) = "custom.level"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TWindowRegulationUnitSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string UnitValue = 1 [json_name = "unit_value"];
+    option (.NYT.variant_field_name) = "value";
+    string UnitValue = 1 [json_name = "unit_value", (.NYT.column_name) = "unit_value", (.NAlice.SlotType) = "custom.unit"];
   }
 }
 
 message TWindowRegulationAreaSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string AreaValue = 1 [json_name = "area_value"];
+    option (.NYT.variant_field_name) = "value";
+    string AreaValue = 1 [json_name = "area_value", (.NYT.column_name) = "area_value", (.NAlice.SlotType) = "custom.area"];
   }
 }
 
 message TWindowRegulationCountSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string CountValue = 1 [json_name = "count_value"];
+    option (.NYT.variant_field_name) = "value";
+    string CountValue = 1 [json_name = "count_value", (.NYT.column_name) = "count_value", (.NAlice.SlotType) = "custom.count"];
   }
 }
 
 message TBodyWindowRegulationSemanticFrame {
-  .NAlice.TWindowRegulationActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TWindowRegulationLevelSlot Level = 2 [json_name = "level"];
-  .NAlice.TWindowRegulationUnitSlot Unit = 3 [json_name = "unit"];
-  .NAlice.TWindowRegulationAreaSlot Area = 4 [json_name = "area"];
-  .NAlice.TWindowRegulationCountSlot Count = 5 [json_name = "count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.window_regulation";
+  .NAlice.TWindowRegulationActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TWindowRegulationLevelSlot Level = 2 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TWindowRegulationUnitSlot Unit = 3 [json_name = "unit", (.NYT.column_name) = "unit", (.NAlice.SlotName) = "unit"];
+  .NAlice.TWindowRegulationAreaSlot Area = 4 [json_name = "area", (.NYT.column_name) = "area", (.NAlice.SlotName) = "area"];
+  .NAlice.TWindowRegulationCountSlot Count = 5 [json_name = "count", (.NYT.column_name) = "count", (.NAlice.SlotName) = "count"];
 }
 
 message THvacSteeringWheelHeatingActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message THvacSteeringWheelHeatingSemanticFrame {
-  .NAlice.THvacSteeringWheelHeatingActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.steering_wheel_heating";
+  .NAlice.THvacSteeringWheelHeatingActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoConditoningSystemActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoConditoningSystemSemanticFrame {
-  .NAlice.TAutoConditoningSystemActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.hvac.auto_conditioning";
+  .NAlice.TAutoConditoningSystemActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TConditioningSystemActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TConditioningSystemSemanticFrame {
-  .NAlice.TConditioningSystemActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.hvac.conditioning";
+  .NAlice.TConditioningSystemActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TCoolingSystemActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TCoolingSystemSemanticFrame {
-  .NAlice.TCoolingSystemActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.hvac.cooling";
+  .NAlice.TCoolingSystemActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetRecirculationModeActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ModeValue = 1 [json_name = "mode_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ModeValue = 1 [json_name = "mode_value", (.NYT.column_name) = "mode_value", (.NAlice.SlotType) = "custom.air_ventilation_mode"];
   }
 }
 
 message TAutoSetRecirculationModeSemanticFrame {
-  .NAlice.TAutoSetRecirculationModeActionSlot Mode = 1 [json_name = "mode"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.set_air_ventilation_mode";
+  .NAlice.TAutoSetRecirculationModeActionSlot Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode", (.NAlice.SlotName) = "mode"];
 }
 
 message TAutoSwitchRecirculationModeSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.switch_air_ventilation_mode";
 }
 
 message TBodyTrapdoorVentilationSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.trapdoor_ventilation";
 }
 
 message TAutoGetTemperatureSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.get_temperature";
 }
 
 message TAutoMassageSeatSpeedActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoMassageSeatSpeedLevelSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string MassageLevelCustomValue = 1 [json_name = "massage_level_custom_value"];
-    uint32 NumValue = 2 [json_name = "num_value"];
+    option (.NYT.variant_field_name) = "value";
+    string MassageLevelCustomValue = 1 [json_name = "massage_level_custom_value", (.NYT.column_name) = "massage_level_custom_value", (.NAlice.SlotType) = "custom.massage_level"];
+    uint32 NumValue = 2 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
   }
 }
 
 message TAutoMassageSeatSpeedSemanticFrame {
-  .NAlice.TAutoMassageSeatSpeedActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAutoMassageSeatSpeedLevelSlot Level = 2 [json_name = "level"];
-  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_seat_massage_speed";
+  .NAlice.TAutoMassageSeatSpeedActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAutoMassageSeatSpeedLevelSlot Level = 2 [json_name = "level", (.NYT.column_name) = "level", (.NAlice.SlotName) = "level"];
+  .NAlice.TSeatTypeSlot Seat = 3 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAutoMassageModeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ModeValue = 1 [json_name = "mode_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ModeValue = 1 [json_name = "mode_value", (.NYT.column_name) = "mode_value", (.NAlice.SlotType) = "custom.massage_mode"];
   }
 }
 
 message TAutoMassageModeSemanticFrame {
-  .NAlice.TAutoMassageModeSlot Mode = 1 [json_name = "mode"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_seat_massage_mode";
+  .NAlice.TAutoMassageModeSlot Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode", (.NAlice.SlotName) = "mode"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAutoMassageActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoMassageSeatStateSemanticFrame {
-  .NAlice.TAutoMassageActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_seat_massage_state";
+  .NAlice.TAutoMassageActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAutoHudStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoHudStateSemanticFrame {
-  .NAlice.TAutoHudStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_hud_state";
+  .NAlice.TAutoHudStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoHudBrightnessActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoHudBrightnessAbsoluteChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
-    string CustomValue = 2 [json_name = "custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
+    string CustomValue = 2 [json_name = "custom_value", (.NYT.column_name) = "custom_value", (.NAlice.SlotType) = "custom.brightness_level"];
   }
 }
 
 message TAutoHudBrightnessSemanticFrame {
-  .NAlice.TAutoHudBrightnessActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAutoHudBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
-  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
-  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_hud_brightness";
+  .NAlice.TAutoHudBrightnessActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAutoHudBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change", (.NYT.column_name) = "absolute_change", (.NAlice.SlotName) = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change", (.NYT.column_name) = "factor_change", (.NAlice.SlotName) = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
 }
 
 message TAutoHudModeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ModeValue = 1 [json_name = "mode_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ModeValue = 1 [json_name = "mode_value", (.NYT.column_name) = "mode_value", (.NAlice.SlotType) = "custom.hud_mode"];
   }
 }
 
 message TAutoHudModeSemanticFrame {
-  .NAlice.TAutoHudModeSlot Mode = 1 [json_name = "mode"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_hud_mode";
+  .NAlice.TAutoHudModeSlot Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode", (.NAlice.SlotName) = "mode"];
 }
 
 message TAutoHudHeightActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoHudHeightAbsoluteChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
-    string CustomValue = 2 [json_name = "custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
+    string CustomValue = 2 [json_name = "custom_value", (.NYT.column_name) = "custom_value", (.NAlice.SlotType) = "custom.height_level"];
   }
 }
 
 message TAutoHudHeightSemanticFrame {
-  .NAlice.TAutoHudHeightActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAutoHudHeightAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
-  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
-  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
-  .NAlice.TSysNumSlot AbsoluteSetChange = 5 [json_name = "absolute_set_change"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_hud_height";
+  .NAlice.TAutoHudHeightActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAutoHudHeightAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change", (.NYT.column_name) = "absolute_change", (.NAlice.SlotName) = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change", (.NYT.column_name) = "factor_change", (.NAlice.SlotName) = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
+  .NAlice.TSysNumSlot AbsoluteSetChange = 5 [json_name = "absolute_set_change", (.NYT.column_name) = "absolute_set_change", (.NAlice.SlotName) = "absolute_set_change"];
 }
 
 message TAutoSetAmbientLightingStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoSetAmbientLightingStateSemanticFrame {
-  .NAlice.TAutoSetAmbientLightingStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_ambient_light_state";
+  .NAlice.TAutoSetAmbientLightingStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoChangeAmbientLightingColorSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ColorValue = 1 [json_name = "color_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ColorValue = 1 [json_name = "color_value", (.NYT.column_name) = "color_value", (.NAlice.SlotType) = "custom.color"];
   }
 }
 
 message TAutoChangeAmbientLightingColorSemanticFrame {
-  .NAlice.TAutoChangeAmbientLightingColorSlot Color = 1 [json_name = "color"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.change_ambient_light_color";
+  .NAlice.TAutoChangeAmbientLightingColorSlot Color = 1 [json_name = "color", (.NYT.column_name) = "color", (.NAlice.SlotName) = "color"];
 }
 
 message TAutoSetInstrumentPanelBrightnessActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoSetInstrumentPanelBrightnessAbsoluteChangeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    uint32 NumValue = 1 [json_name = "num_value"];
-    string CustomValue = 2 [json_name = "custom_value"];
+    option (.NYT.variant_field_name) = "value";
+    uint32 NumValue = 1 [json_name = "num_value", (.NYT.column_name) = "num_value", (.NAlice.SlotType) = "sys.num"];
+    string CustomValue = 2 [json_name = "custom_value", (.NYT.column_name) = "custom_value", (.NAlice.SlotType) = "custom.brightness_level"];
   }
 }
 
 message TAutoSetInstrumentPanelBrightnessSemanticFrame {
-  .NAlice.TAutoSetInstrumentPanelBrightnessActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAutoSetInstrumentPanelBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change"];
-  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change"];
-  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.instrument_panel_brightness";
+  .NAlice.TAutoSetInstrumentPanelBrightnessActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAutoSetInstrumentPanelBrightnessAbsoluteChangeSlot AbsoluteChange = 2 [json_name = "absolute_change", (.NYT.column_name) = "absolute_change", (.NAlice.SlotName) = "absolute_change"];
+  .NAlice.TSysNumSlot FactorChange = 3 [json_name = "factor_change", (.NYT.column_name) = "factor_change", (.NAlice.SlotName) = "factor_change"];
+  .NAlice.TSysNumSlot PercentageChange = 4 [json_name = "percentage_change", (.NYT.column_name) = "percentage_change", (.NAlice.SlotName) = "percentage_change"];
 }
 
 message TAutoSetPanoramicDisplayStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message TAutoSetPanoramicDisplayStateSemanticFrame {
-  .NAlice.TAutoSetPanoramicDisplayStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_panoramic_display_state";
+  .NAlice.TAutoSetPanoramicDisplayStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoInfoFuelTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string FuelTypeValue = 1 [json_name = "fuel_type_value"];
+    option (.NYT.variant_field_name) = "value";
+    string FuelTypeValue = 1 [json_name = "fuel_type_value", (.NYT.column_name) = "fuel_type_value", (.NAlice.SlotType) = "custom.fuel_type"];
   }
 }
 
 message TAutoInfoTankSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string TankValue = 1 [json_name = "tank_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string TankValue = 1 [json_name = "tank_value", (.NYT.column_name) = "tank_value", (.NAlice.SlotType) = "custom.tank"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoInfoGetFuelAndChargeLevelSemanticFrame {
-  .NAlice.TAutoInfoFuelTypeSlot FuelType = 1 [json_name = "fuel_type"];
-  .NAlice.TAutoInfoTankSlot Tank = 2 [json_name = "tank"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.get_fuel_and_charge_level";
+  .NAlice.TAutoInfoFuelTypeSlot FuelType = 1 [json_name = "fuel_type", (.NYT.column_name) = "fuel_type", (.NAlice.SlotName) = "fuel_type"];
+  .NAlice.TAutoInfoTankSlot Tank = 2 [json_name = "tank", (.NYT.column_name) = "tank", (.NAlice.SlotName) = "tank"];
 }
 
 message TAutoInfoGetRangeRemainingSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.get_range_remaining";
 }
 
 message TAutoInfoTotalMileageSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.total_mileage";
 }
 
 message THvacHotOrColdConditionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ConditionValue = 1 [json_name = "condition_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ConditionValue = 1 [json_name = "condition_value", (.NYT.column_name) = "condition_value", (.NAlice.SlotType) = "custom.condition"];
   }
 }
 
 message THvacHotOrColdSemanticFrame {
-  .NAlice.THvacHotOrColdConditionSlot Condition = 1 [json_name = "condition"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.hot_or_cold";
+  .NAlice.THvacHotOrColdConditionSlot Condition = 1 [json_name = "condition", (.NYT.column_name) = "condition", (.NAlice.SlotName) = "condition"];
 }
 
 message TAutoSeatHeatingActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message THvacAutoSeatHeatingSemanticFrame {
-  .NAlice.TAutoSeatHeatingActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.auto_seat_heating";
+  .NAlice.TAutoSeatHeatingActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAutoSeatVentilationActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
   }
 }
 
 message THvacAutoSeatVentilationSemanticFrame {
-  .NAlice.TAutoSeatVentilationActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.auto_seat_ventilation";
+  .NAlice.TAutoSeatVentilationActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSeatTypeSlot Seat = 2 [json_name = "seat", (.NYT.column_name) = "seat", (.NAlice.SlotName) = "seat"];
 }
 
 message TAutoSetFridgeStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetFridgeStateSemanticFrame {
-  .NAlice.TAutoSetFridgeStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_fridge_state";
+  .NAlice.TAutoSetFridgeStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetMirrorHeatingStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAirFreshenerStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetMirrorHeatingStateSemanticFrame {
-  .NAlice.TAutoSetMirrorHeatingStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_mirror_heating_state";
+  .NAlice.TAutoSetMirrorHeatingStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetHeatingSystemStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAirQualitySystemStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetHeatingSystemStateSemanticFrame {
-  .NAlice.TAutoSetHeatingSystemStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_heating_system_state";
+  .NAlice.TAutoSetHeatingSystemStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoChangeAromaSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.change_aroma";
 }
 
 message TAutoSetAirQualitySystemStateSemanticFrame {
-  .NAlice.TAutoSetAirQualitySystemStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_air_quality_system_state";
+  .NAlice.TAutoSetAirQualitySystemStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoGetTireStatusMetricSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string MetricValue = 1 [json_name = "metric_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string MetricValue = 1 [json_name = "metric_value", (.NYT.column_name) = "metric_value", (.NAlice.SlotType) = "custom.tire_metric"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoGetTireStatusWheelScopeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string WheelScopeValue = 1 [json_name = "wheel_scope_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string WheelScopeValue = 1 [json_name = "wheel_scope_value", (.NYT.column_name) = "wheel_scope_value", (.NAlice.SlotType) = "custom.wheel_scope"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoGetTireStatusSemanticFrame {
-  .NAlice.TAutoGetTireStatusMetricSlot Metric = 1 [json_name = "metric"];
-  .NAlice.TAutoGetTireStatusWheelScopeSlot WheelScope = 2 [json_name = "wheel_scope"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.get_tire_status";
+  .NAlice.TAutoGetTireStatusMetricSlot Metric = 1 [json_name = "metric", (.NYT.column_name) = "metric", (.NAlice.SlotName) = "metric"];
+  .NAlice.TAutoGetTireStatusWheelScopeSlot WheelScope = 2 [json_name = "wheel_scope", (.NYT.column_name) = "wheel_scope", (.NAlice.SlotName) = "wheel_scope"];
 }
 
 message TAutoSetWirelessChargingStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAirFreshenerIntensityActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetWirelessChargingStatePositionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string SeatTypeValue = 1 [json_name = "seat_type_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string SeatTypeValue = 1 [json_name = "seat_type_value", (.NYT.column_name) = "seat_type_value", (.NAlice.SlotType) = "custom.seat_type"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetWirelessChargingStateSemanticFrame {
-  .NAlice.TAutoSetWirelessChargingStateActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TAutoSetWirelessChargingStatePositionSlot Position = 2 [json_name = "position"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_wireless_charging_state";
+  .NAlice.TAutoSetWirelessChargingStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TAutoSetWirelessChargingStatePositionSlot Position = 2 [json_name = "position", (.NYT.column_name) = "position", (.NAlice.SlotName) = "position"];
 }
 
 message TAutoSetAirPurificationStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAirPurificationStateSemanticFrame {
-  .NAlice.TAutoSetAirPurificationStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_air_purification_state";
+  .NAlice.TAutoSetAirPurificationStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetAirFreshenerStateSemanticFrame {
-  .NAlice.TAutoSetAirFreshenerStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_air_freshener_state";
+  .NAlice.TAutoSetAirFreshenerStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetAirFreshenerIntensitySemanticFrame {
-  .NAlice.TAutoSetAirFreshenerIntensityActionSlot Action = 1 [json_name = "action"];
-  .NAlice.TSysNumSlot Delta = 2 [json_name = "delta"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_air_freshener_intensity";
+  .NAlice.TAutoSetAirFreshenerIntensityActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
+  .NAlice.TSysNumSlot Delta = 2 [json_name = "delta", (.NYT.column_name) = "delta", (.NAlice.SlotName) = "delta"];
 }
 
 message TAutoSetAcMaxStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetHvacTemperatureSyncStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAutomaticDefrostingStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetClimateEcoModeStateActionSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string ActionValue = 1 [json_name = "action_value"];
-    string StringValue = 2 [json_name = "string_value"];
+    option (.NYT.variant_field_name) = "value";
+    string ActionValue = 1 [json_name = "action_value", (.NYT.column_name) = "action_value", (.NAlice.SlotType) = "custom.action"];
+    string StringValue = 2 [json_name = "string_value", (.NYT.column_name) = "string_value", (.NAlice.SlotType) = "string"];
   }
 }
 
 message TAutoSetAcMaxStateSemanticFrame {
-  .NAlice.TAutoSetAcMaxStateActionSlot AcMax = 1 [json_name = "ac_max"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_ac_max_state";
+  .NAlice.TAutoSetAcMaxStateActionSlot AcMax = 1 [json_name = "ac_max", (.NYT.column_name) = "ac_max", (.NAlice.SlotName) = "ac_max"];
 }
 
 message TAutoSetClimateEcoModeStateSemanticFrame {
-  .NAlice.TAutoSetClimateEcoModeStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_climate_eco_mode_state";
+  .NAlice.TAutoSetClimateEcoModeStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetAutomaticDefrostingStateSemanticFrame {
-  .NAlice.TAutoSetAutomaticDefrostingStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_automatic_defrosting_state";
+  .NAlice.TAutoSetAutomaticDefrostingStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 
 message TAutoSetHvacTemperatureSyncStateSemanticFrame {
-  .NAlice.TAutoSetHvacTemperatureSyncStateActionSlot Action = 1 [json_name = "action"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.automotive.set_hvac_temperature_sync_state";
+  .NAlice.TAutoSetHvacTemperatureSyncStateActionSlot Action = 1 [json_name = "action", (.NYT.column_name) = "action", (.NAlice.SlotName) = "action"];
 }
 

@@ -10,20 +10,25 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TKidsProCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = KidsProCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSettings {
-      bool KidsSearchEnabled = 1 [json_name = "kids_search_enabled"];
-      bool KidsContentEnabled = 2 [json_name = "kids_content_enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      bool KidsSearchEnabled = 1 [json_name = "kids_search_enabled", (.NYT.column_name) = "kids_search_enabled"];
+      bool KidsContentEnabled = 2 [json_name = "kids_content_enabled", (.NYT.column_name) = "kids_content_enabled"];
     }
 
-    .NAlice.TKidsProCapability.TState.TSettings Settings = 1 [json_name = "settings"];
+    .NAlice.TKidsProCapability.TState.TSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TKidsProCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TKidsProCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TKidsProCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TKidsProCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

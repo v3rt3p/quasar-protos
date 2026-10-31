@@ -7,19 +7,25 @@ option go_package = "a.yandex-team.ru/alice/protos/api/speech_mode/mode";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSpeechMode {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TNote {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TMic {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TTranslate {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TVoice {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "options";
     reserved 1;
     message TOptions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       enum EVoicePreset {
         Default = 0;
         Shtin = 1;
@@ -27,25 +33,29 @@ message TSpeechMode {
         Shitova = 3;
       }
 
-      optional .NAlice.TSpeechMode.TVoice.TOptions.EVoicePreset VoicePreset = 1 [json_name = "voice_preset"];
-      optional string CharacterId = 2 [json_name = "character_id"];
-      optional string VoiceId = 3 [json_name = "voice_id"];
+      optional .NAlice.TSpeechMode.TVoice.TOptions.EVoicePreset VoicePreset = 1 [json_name = "voice_preset", (.NYT.column_name) = "voice_preset"];
+      optional string CharacterId = 2 [json_name = "character_id", (.NYT.column_name) = "character_id"];
+      optional string VoiceId = 3 [json_name = "voice_id", (.NYT.column_name) = "voice_id"];
+      optional string SharingId = 4 [json_name = "sharing_id", (.NYT.column_name) = "sharing_id"];
     }
 
-    .NAlice.TSpeechMode.TVoice.TOptions Options = 2 [json_name = "options"];
+    .NAlice.TSpeechMode.TVoice.TOptions Options = 2 [json_name = "options", (.NYT.column_name) = "options"];
   }
 
   oneof Mode {
-    .NAlice.TSpeechMode.TNote Note = 1 [json_name = "note"];
-    .NAlice.TSpeechMode.TMic Mic = 2 [json_name = "mic"];
-    .NAlice.TSpeechMode.TTranslate Translate = 3 [json_name = "translate"];
-    .NAlice.TSpeechMode.TVoice Voice = 4 [json_name = "voice"];
+    option (.NYT.variant_field_name) = "mode";
+    .NAlice.TSpeechMode.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+    .NAlice.TSpeechMode.TMic Mic = 2 [json_name = "mic", (.NYT.column_name) = "mic"];
+    .NAlice.TSpeechMode.TTranslate Translate = 3 [json_name = "translate", (.NYT.column_name) = "translate"];
+    .NAlice.TSpeechMode.TVoice Voice = 4 [json_name = "voice", (.NYT.column_name) = "voice"];
   }
 }
 
 message TSpeechModeOptions {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Options {
-    .NAlice.TSpeechMode.TVoice.TOptions VoiceModeOptions = 1 [json_name = "voice_mode_options"];
+    option (.NYT.variant_field_name) = "options";
+    .NAlice.TSpeechMode.TVoice.TOptions VoiceModeOptions = 1 [json_name = "voice_mode_options", (.NYT.column_name) = "voice_mode_options"];
   }
 }
 

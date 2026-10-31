@@ -10,58 +10,74 @@ import "google/protobuf/descriptor.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
+extend .google.protobuf.MessageOptions {
+  string promo_template_name = 57332;
+}
 message TGiftTemplate {
+  option (.NAlice.NSmartTv.promo_template_name) = "tv_gift_promo_template";
 }
 
 message TTandemTemplate {
-  bool IsTandemDevicesAvailable = 1 [json_name = "is_tandem_devices_available"];
-  bool IsTandemConnected = 2 [json_name = "is_tandem_connected"];
+  option (.NAlice.NSmartTv.promo_template_name) = "tandem_promo_template";
+  bool IsTandemDevicesAvailable = 1 [json_name = "is_tandem_devices_available", (.NYT.column_name) = "is_tandem_devices_available"];
+  bool IsTandemConnected = 2 [json_name = "is_tandem_connected", (.NYT.column_name) = "is_tandem_connected"];
 }
 
 message TGamesTemplate {
-  bool IsGamesInstalled = 1 [json_name = "is_games_installed"];
+  option (.NAlice.NSmartTv.promo_template_name) = "games";
+  bool IsGamesInstalled = 1 [json_name = "is_games_installed", (.NYT.column_name) = "is_games_installed"];
 }
 
 message TWillWatchTemplate {
+  option (.NAlice.NSmartTv.promo_template_name) = "will_watch";
 }
 
 message TFakeStandbyTemplate {
+  option (.NAlice.NSmartTv.promo_template_name) = "fake_standby";
 }
 
 message TBrowserTemplate {
-  bool IsBrowserInstalled = 1 [json_name = "is_browser_installed"];
+  option (.NAlice.NSmartTv.promo_template_name) = "browser";
+  bool IsBrowserInstalled = 1 [json_name = "is_browser_installed", (.NYT.column_name) = "is_browser_installed"];
 }
 
 message TTemplateRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TChosenTemplate {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     oneof ChosenTemplate {
-      .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template"];
-      .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template"];
-      .NAlice.NSmartTv.TGamesTemplate GamesTemplate = 3 [json_name = "games_promo_template"];
-      .NAlice.NSmartTv.TWillWatchTemplate WillWatchTemplate = 4 [json_name = "will_watch_promo_template"];
-      .NAlice.NSmartTv.TFakeStandbyTemplate FakeStandbyTemplate = 5 [json_name = "fake_standby_promo_template"];
-      .NAlice.NSmartTv.TBrowserTemplate BrowserTemplate = 6 [json_name = "browser_template"];
+      option (.NYT.variant_field_name) = "chosen_template";
+      .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template", (.NYT.column_name) = "gift_template"];
+      .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template", (.NYT.column_name) = "tandem_promo_template"];
+      .NAlice.NSmartTv.TGamesTemplate GamesTemplate = 3 [json_name = "games_promo_template", (.NYT.column_name) = "games_promo_template"];
+      .NAlice.NSmartTv.TWillWatchTemplate WillWatchTemplate = 4 [json_name = "will_watch_promo_template", (.NYT.column_name) = "will_watch_promo_template"];
+      .NAlice.NSmartTv.TFakeStandbyTemplate FakeStandbyTemplate = 5 [json_name = "fake_standby_promo_template", (.NYT.column_name) = "fake_standby_promo_template"];
+      .NAlice.NSmartTv.TBrowserTemplate BrowserTemplate = 6 [json_name = "browser_template", (.NYT.column_name) = "browser_template"];
     }
   }
 
-  repeated .NAlice.NSmartTv.TTemplateRequest.TChosenTemplate RequestedTemplates = 3 [json_name = "requested_templates"];
+  repeated .NAlice.NSmartTv.TTemplateRequest.TChosenTemplate RequestedTemplates = 3 [json_name = "requested_templates", (.NYT.column_name) = "requested_templates"];
   oneof ChosenTemplate {
-    .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template"];
-    .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template"];
+    option (.NYT.variant_field_name) = "chosen_template";
+    .NAlice.NSmartTv.TGiftTemplate GiftTemplate = 1 [json_name = "gift_template", deprecated = true, (.NYT.column_name) = "gift_template"];
+    .NAlice.NSmartTv.TTandemTemplate TandemTemplate = 2 [json_name = "tandem_promo_template", deprecated = true, (.NYT.column_name) = "tandem_promo_template"];
   }
 }
 
 message TReportShownTemplateRequest {
-  string ShownTemplateName = 1 [json_name = "shown_template_name"];
-  uint64 ShowTemplateTimestamp = 2 [json_name = "show_template_timestamp"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ShownTemplateName = 1 [json_name = "shown_template_name", (.NYT.column_name) = "shown_template_name"];
+  uint64 ShowTemplateTimestamp = 2 [json_name = "show_template_timestamp", (.NYT.column_name) = "show_template_timestamp"];
 }
 
 message TReportShownTemplateResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TTemplateResponse {
-  string TemplateName = 1 [json_name = "template_name"];
-  .google.protobuf.Struct DivJson = 2 [json_name = "div_json"];
-  int32 Ttl = 3 [json_name = "ttl"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string TemplateName = 1 [json_name = "template_name", (.NYT.column_name) = "template_name"];
+  .google.protobuf.Struct DivJson = 2 [json_name = "div_json", (.NYT.column_name) = "div_json"];
+  int32 Ttl = 3 [json_name = "ttl", (.NYT.column_name) = "ttl"];
 }
 

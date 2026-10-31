@@ -10,52 +10,58 @@ import "alice/protos/data/color/color.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDeviceStatusInfo {
-  .NAlice.EDeviceState Status = 1 [json_name = "status"];
-  double Updated = 2 [json_name = "updated"];
-  bool Reportable = 3 [json_name = "reportable"];
-  double Changed = 4 [json_name = "changed"];
-  .NAlice.EDeviceState ParentStatus = 5 [json_name = "parent_status"];
+  .NAlice.EDeviceState Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+  double Updated = 2 [json_name = "updated", (.NYT.column_name) = "updated"];
+  bool Reportable = 3 [json_name = "reportable", (.NYT.column_name) = "reportable"];
+  double Changed = 4 [json_name = "changed", (.NYT.column_name) = "changed"];
+  .NAlice.EDeviceState ParentStatus = 5 [json_name = "parent_status", (.NYT.column_name) = "parent_status"];
 }
 
 message TUserDeviceInfo {
-  string Manufacturer = 1 [json_name = "manufacturer"];
-  string Model = 2 [json_name = "model"];
-  string HwVersion = 3 [json_name = "hw_version"];
-  string SwVersion = 4 [json_name = "sw_version"];
-  uint32 ProductID = 5 [json_name = "product_id"];
-  uint32 VendorID = 6 [json_name = "vendor_id"];
-  string SerialNumber = 7 [json_name = "serial_number"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Manufacturer = 1 [json_name = "manufacturer", (.NYT.column_name) = "manufacturer"];
+  string Model = 2 [json_name = "model", (.NYT.column_name) = "model"];
+  string HwVersion = 3 [json_name = "hw_version", (.NYT.column_name) = "hw_version"];
+  string SwVersion = 4 [json_name = "sw_version", (.NYT.column_name) = "sw_version"];
+  uint32 ProductID = 5 [json_name = "product_id", (.NYT.column_name) = "product_id"];
+  uint32 VendorID = 6 [json_name = "vendor_id", (.NYT.column_name) = "vendor_id"];
+  string SerialNumber = 7 [json_name = "serial_number", (.NYT.column_name) = "serial_number"];
 }
 
 message TDeviceRenderInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TIcon {
-    string ID = 1 [json_name = "id"];
-    string Color = 2 [json_name = "color"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ID = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Color = 2 [json_name = "color", (.NYT.column_name) = "color"];
   }
 
-  .NAlice.TDeviceRenderInfo.TIcon Icon = 1 [json_name = "icon"];
+  .NAlice.TDeviceRenderInfo.TIcon Icon = 1 [json_name = "icon", (.NYT.column_name) = "icon"];
 }
 
 message TUserQuasarInfo {
-  string DeviceId = 1 [json_name = "device_id"];
-  string Platform = 2 [json_name = "platform"];
-  .NAlice.NData.EColor QuasarColor = 4 [json_name = "quasar_color"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+  string Platform = 2 [json_name = "platform", (.NYT.column_name) = "platform"];
+  .NAlice.NData.EColor QuasarColor = 4 [json_name = "quasar_color", (.NYT.column_name) = "quasar_color"];
 }
 
 message TUserSharingInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Roles";
   reserved 4;
-  uint64 OwnerID = 1 [json_name = "owner_id"];
-  uint64 GuestID = 3 [json_name = "guest_id"];
-  string HouseholdID = 2 [json_name = "household_id"];
-  repeated .NAlice.TUserSharingInfoRole SubjectRoles = 5 [json_name = "subject_roles"];
-  string HouseholdName = 6 [json_name = "household_name"];
+  uint64 OwnerID = 1 [json_name = "owner_id", (.NYT.column_name) = "owner_id"];
+  uint64 GuestID = 3 [json_name = "guest_id", (.NYT.column_name) = "guest_id"];
+  string HouseholdID = 2 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+  repeated .NAlice.TUserSharingInfoRole SubjectRoles = 5 [json_name = "subject_roles", (.NYT.column_name) = "subject_roles"];
+  string HouseholdName = 6 [json_name = "household_name", (.NYT.column_name) = "household_name"];
 }
 
 message TUserSharingInfoRole {
-  string Type = 1 [json_name = "type"];
-  optional string SubjectID = 2 [json_name = "subject_id"];
-  optional string Subject = 3 [json_name = "subject"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  optional string SubjectID = 2 [json_name = "subject_id", (.NYT.column_name) = "subject_id"];
+  optional string Subject = 3 [json_name = "subject", (.NYT.column_name) = "subject"];
 }
 
 enum EDeviceState {

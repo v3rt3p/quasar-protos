@@ -11,9 +11,10 @@ import "alice/protos/api/alicekit/events/common/data_proxy/data_proxy_response.p
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDataProxyInput {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Response {
-    .NAlice.NAliceApi.TDataProxyResponse DataProxyResponse = 2 [json_name = "data_proxy_response"];
+    .NAlice.NAliceApi.TDataProxyResponse DataProxyResponse = 2 [json_name = "data_proxy_response", (.NYT.column_name) = "data_proxy_response"];
   }
-  optional string InteractionId = 1 [json_name = "interaction_id"];
+  optional string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
 }
 

@@ -17,253 +17,325 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotDiscoveryCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotDiscoveryCapabilityType;
   message TParameters {
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol SupportedProtocols = 1 [json_name = "supported_protocols"];
-    bool IsMatterBulkSupported = 2 [json_name = "is_matter_bulk_supported"];
-    uint32 MatterParametersVer = 3 [json_name = "matter_parameters_ver"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol SupportedProtocols = 1 [json_name = "supported_protocols", (.NYT.column_name) = "supported_protocols"];
+    bool IsMatterBulkSupported = 2 [json_name = "is_matter_bulk_supported", (.NYT.column_name) = "is_matter_bulk_supported"];
+    uint32 MatterParametersVer = 3 [json_name = "matter_parameters_ver", (.NYT.column_name) = "matter_parameters_ver"];
   }
 
   message TProtocolStatus {
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
-    .NAlice.TIotDiscoveryCapability.EStatus Status = 2 [json_name = "status"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    .NAlice.TIotDiscoveryCapability.EStatus Status = 2 [json_name = "status", (.NYT.column_name) = "status"];
   }
 
   message TState {
-    bool IsDiscoveryInProgress = 1 [json_name = "is_discovery_in_progress"];
-    repeated .NAlice.TIotDiscoveryCapability.TProtocolStatus Statuses = 2 [json_name = "statuses"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsDiscoveryInProgress = 1 [json_name = "is_discovery_in_progress", (.NYT.column_name) = "is_discovery_in_progress"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocolStatus Statuses = 2 [json_name = "statuses", (.NYT.column_name) = "statuses"];
   }
 
   message TProtocolParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TZigbeeParameters {
-      uint32 DeviceLimit = 1 [json_name = "device_limit"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 DeviceLimit = 1 [json_name = "device_limit", (.NYT.column_name) = "device_limit"];
     }
 
     message TMatterParameters {
-      string SetupCodePayload = 1 [json_name = "setup_code_payload"];
-      string SSID = 2 [json_name = "ssid"];
-      string Password = 3 [json_name = "password"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string SetupCodePayload = 1 [json_name = "setup_code_payload", (.NYT.column_name) = "setup_code_payload"];
+      string SSID = 2 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+      string Password = 3 [json_name = "password", (.NYT.column_name) = "password", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
     }
 
     message TMatterBulkParameters {
-      repeated string SetupCodePayloads = 1 [json_name = "setup_code_payloads"];
-      string SSID = 2 [json_name = "ssid"];
-      string Password = 3 [json_name = "password"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated string SetupCodePayloads = 1 [json_name = "setup_code_payloads", (.NYT.column_name) = "setup_code_payloads"];
+      string SSID = 2 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+      string Password = 3 [json_name = "password", (.NYT.column_name) = "password", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
     }
 
     message TDeviceParameters {
-      string SetupCodePayload = 1 [json_name = "setup_code_payload"];
-      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 2 [json_name = "transport"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string SetupCodePayload = 1 [json_name = "setup_code_payload", (.NYT.column_name) = "setup_code_payload"];
+      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 2 [json_name = "transport", (.NYT.column_name) = "transport"];
     }
 
     message TWiFiTransportParameters {
-      string SSID = 1 [json_name = "ssid"];
-      string Password = 2 [json_name = "password"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string SSID = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+      string Password = 2 [json_name = "password", (.NYT.column_name) = "password", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
     }
 
     message TThreadTransportParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
     }
 
     message TTransportParameters {
-      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 1 [json_name = "transport"];
+      .NAlice.TIotDiscoveryCapability.TMatterTransport Transport = 1 [json_name = "transport", (.NYT.column_name) = "transport"];
       oneof Parameters {
-        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TWiFiTransportParameters WiFiParameters = 2 [json_name = "wifi_parameters"];
-        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TThreadTransportParameters ThreadParameters = 3 [json_name = "thread_parameters"];
+        option (.NYT.variant_field_name) = "parameters";
+        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TWiFiTransportParameters WiFiParameters = 2 [json_name = "wifi_parameters", (.NYT.column_name) = "wifi_parameters"];
+        .NAlice.TIotDiscoveryCapability.TProtocolParameters.TThreadTransportParameters ThreadParameters = 3 [json_name = "thread_parameters", (.NYT.column_name) = "thread_parameters"];
       }
     }
 
     message TMatterParametersV3 {
-      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TDeviceParameters DevicesParameters = 1 [json_name = "devices_parameters"];
-      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TTransportParameters TransportsParameters = 2 [json_name = "transports_parameters"];
-      bool SupportsPhoneCommissioning = 3 [json_name = "supports_phone_commissioning"];
-      uint32 ClientApiVersion = 4 [json_name = "client_api_version"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TDeviceParameters DevicesParameters = 1 [json_name = "devices_parameters", (.NYT.column_name) = "devices_parameters"];
+      repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters.TTransportParameters TransportsParameters = 2 [json_name = "transports_parameters", (.NYT.column_name) = "transports_parameters"];
+      bool SupportsPhoneCommissioning = 3 [json_name = "supports_phone_commissioning", (.NYT.column_name) = "supports_phone_commissioning"];
+      uint32 ClientApiVersion = 4 [json_name = "client_api_version", (.NYT.column_name) = "client_api_version"];
     }
 
     message TZenohParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       string PeerDeviceID = 1 [json_name = "peer_device_id"];
       .NAlice.TIotDiscoveryCapability.TProtocolParameters.TSecurity Security = 2 [json_name = "security"];
     }
 
     message TSecurity {
-      string PSKID = 1 [json_name = "psk_id"];
-      string PSK = 2 [json_name = "psk"];
+      string PSKID = 1 [json_name = "psk_id", (.NYT.column_name) = "psk_id"];
+      string PSK = 2 [json_name = "psk", (.NYT.column_name) = "psk", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
     }
 
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
     oneof Parameters {
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZigbeeParameters ZigbeeParameters = 2 [json_name = "zigbee_parameters"];
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParameters MatterParameters = 3 [json_name = "matter_parameters"];
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterBulkParameters MatterBulkParameters = 4 [json_name = "matter_bulk_parameters"];
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParametersV3 MatterParametersV3 = 5 [json_name = "matter_transport_v3"];
-      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZenohParameters ZenohParameters = 6 [json_name = "zenoh_parameters"];
+      option (.NYT.variant_field_name) = "parameters";
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZigbeeParameters ZigbeeParameters = 2 [json_name = "zigbee_parameters", (.NYT.column_name) = "zigbee_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParameters MatterParameters = 3 [json_name = "matter_parameters", (.NYT.column_name) = "matter_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterBulkParameters MatterBulkParameters = 4 [json_name = "matter_bulk_parameters", (.NYT.column_name) = "matter_bulk_parameters"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TMatterParametersV3 MatterParametersV3 = 5 [json_name = "matter_transport_v3", (.NYT.column_name) = "matter_transport_v3"];
+      .NAlice.TIotDiscoveryCapability.TProtocolParameters.TZenohParameters ZenohParameters = 6 [json_name = "zenoh_parameters", (.NYT.column_name) = "zenoh_parameters"];
     }
   }
 
   message TNetwork {
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
-    .google.protobuf.StringValue NetworkBase64 = 2 [json_name = "network_base64"];
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    .google.protobuf.StringValue NetworkBase64 = 2 [json_name = "network_base64", (.NYT.column_name) = "network_base64"];
   }
 
   message TDistributedCommissioningParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TMatterParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved "ReservedNodeIds";
       reserved 1;
       message TDeviceParameters {
-        uint64 NodeId = 1 [json_name = "node_id"];
-        string SetupCodePayload = 2 [json_name = "setup_code_payload"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        uint64 NodeId = 1 [json_name = "node_id", (.NYT.column_name) = "node_id"];
+        string SetupCodePayload = 2 [json_name = "setup_code_payload", (.NYT.column_name) = "setup_code_payload"];
       }
 
-      map<string, bytes> ChipData = 2 [json_name = "chip_data"];
-      repeated .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters.TDeviceParameters DevicesParameters = 3 [json_name = "devices_parameters"];
+      map<string, bytes> ChipData = 2 [json_name = "chip_data", (.NYT.column_name) = "chip_data", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+      repeated .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters.TDeviceParameters DevicesParameters = 3 [json_name = "devices_parameters", (.NYT.column_name) = "devices_parameters"];
     }
 
     oneof Parameters {
-      .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters MatterParameters = 1 [json_name = "matter_parameters"];
+      option (.NYT.variant_field_name) = "parameters";
+      .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters.TMatterParameters MatterParameters = 1 [json_name = "matter_parameters", (.NYT.column_name) = "matter_parameters"];
     }
   }
 
   message TNetworks {
-    .google.protobuf.BytesValue ZigbeeNetwork = 1 [json_name = "zigbee_network"];
-    .google.protobuf.StringValue ZigbeeNetworkBase64 = 2 [json_name = "zigbee_network_base64"];
-    .google.protobuf.StringValue MatterNetworkBase64 = 3 [json_name = "matter_network_base64"];
-    .google.protobuf.StringValue ThreadNetworkBase64 = 4 [json_name = "thread_network_base64"];
-    .google.protobuf.StringValue ZenohNetworkBase64 = 6 [json_name = "zenoh_network_base64"];
-    repeated .NAlice.TIotDiscoveryCapability.TNetwork Networks = 5 [json_name = "networks"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .google.protobuf.BytesValue ZigbeeNetwork = 1 [json_name = "zigbee_network", (.NYT.column_name) = "zigbee_network"];
+    .google.protobuf.StringValue ZigbeeNetworkBase64 = 2 [json_name = "zigbee_network_base64", (.NYT.column_name) = "zigbee_network_base64"];
+    .google.protobuf.StringValue MatterNetworkBase64 = 3 [json_name = "matter_network_base64", (.NYT.column_name) = "matter_network_base64"];
+    .google.protobuf.StringValue ThreadNetworkBase64 = 4 [json_name = "thread_network_base64", (.NYT.column_name) = "thread_network_base64"];
+    .google.protobuf.StringValue ZenohNetworkBase64 = 6 [json_name = "zenoh_network_base64", (.NYT.column_name) = "zenoh_network_base64"];
+    repeated .NAlice.TIotDiscoveryCapability.TNetwork Networks = 5 [json_name = "networks", (.NYT.column_name) = "networks"];
   }
 
   message TEndpointInfo {
-    string Id = 1 [json_name = "id"];
-    .NAlice.EProtocol Protocol = 2 [json_name = "protocol"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    .NAlice.EProtocol Protocol = 2 [json_name = "protocol", (.NYT.column_name) = "protocol"];
   }
 
   message TStartDiscoveryDirective {
+    option (.NAlice.SpeechKitName) = "iot_start_discovery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStartDiscoveryDirectiveType;
     reserved "DiscoveryContext";
     reserved 3;
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
-    uint32 TimeoutMs = 2 [json_name = "timeout_ms"];
-    uint32 DeviceLimit = 4 [json_name = "device_limit"];
-    repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters ProtocolParameters = 5 [json_name = "protocol_parameters"];
-    string SessionId = 6 [json_name = "session_id"];
-    .NAlice.TIotDiscoveryCapability.EMode Mode = 7 [json_name = "mode"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols", (.NYT.column_name) = "protocols"];
+    uint32 TimeoutMs = 2 [json_name = "timeout_ms", (.NYT.column_name) = "timeout_ms"];
+    uint32 DeviceLimit = 4 [json_name = "device_limit", deprecated = true, (.NYT.column_name) = "device_limit"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocolParameters ProtocolParameters = 5 [json_name = "protocol_parameters", (.NYT.column_name) = "protocol_parameters"];
+    string SessionId = 6 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TIotDiscoveryCapability.EMode Mode = 7 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
   message TCancelDiscoveryDirective {
-    string SessionId = 1 [json_name = "session_id"];
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "iot_cancel_discovery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotCancelDiscoveryDirectiveType;
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TDiscoveryContinueDirective {
+    option (.NAlice.SpeechKitName) = "iot_discovery_continue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotDiscoveryContinueDirectiveType;
     message TProtocolParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TMatterParameters {
-        uint64 NodeId = 1 [json_name = "node_id"];
-        int32 ResultCode = 2 [json_name = "result_code"];
-        string Details = 3 [json_name = "details"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        uint64 NodeId = 1 [json_name = "node_id", (.NYT.column_name) = "node_id"];
+        int32 ResultCode = 2 [json_name = "result_code", (.NYT.column_name) = "result_code"];
+        string Details = 3 [json_name = "details", (.NYT.column_name) = "details"];
+        uint32 Stage = 4 [json_name = "stage", (.NYT.column_name) = "stage"];
       }
 
-      .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
+      .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
       oneof Parameters {
-        .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters.TMatterParameters MatterParameters = 2 [json_name = "matter_parameters"];
+        option (.NYT.variant_field_name) = "parameters";
+        .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters.TMatterParameters MatterParameters = 2 [json_name = "matter_parameters", (.NYT.column_name) = "matter_parameters"];
       }
     }
 
-    string SessionId = 1 [json_name = "session_id"];
-    .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters ProtocolParameters = 2 [json_name = "protocol_parameters"];
-    string Name = 1000 [json_name = "name"];
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TIotDiscoveryCapability.TDiscoveryContinueDirective.TProtocolParameters ProtocolParameters = 2 [json_name = "protocol_parameters", (.NYT.column_name) = "protocol_parameters"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TFinishDiscoveryDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated string AcceptedIds = 1 [json_name = "accepted_ids"];
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints"];
-    string SystemInfo = 3 [json_name = "system_info"];
-    uint32 CallbackId = 4 [json_name = "callback_id"];
+    option (.NAlice.SpeechKitName) = "iot_finish_discovery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotFinishDiscoveryDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string AcceptedIds = 1 [json_name = "accepted_ids", deprecated = true, (.NYT.column_name) = "accepted_ids"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints", (.NYT.column_name) = "accepted_endpoints"];
+    string SystemInfo = 3 [json_name = "system_info", (.NYT.column_name) = "system_info"];
+    uint32 CallbackId = 4 [json_name = "callback_id", (.NYT.column_name) = "callback_id"];
   }
 
   message TFinishSystemDiscoveryDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated string AcceptedIds = 1 [json_name = "accepted_ids"];
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints"];
-    string SystemInfo = 3 [json_name = "system_info"];
-    uint32 CallbackId = 4 [json_name = "callback_id"];
+    option (.NAlice.SpeechKitName) = "iot_finish_system_discovery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotFinishSystemDiscoveryDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string AcceptedIds = 1 [json_name = "accepted_ids", deprecated = true, (.NYT.column_name) = "accepted_ids"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo AcceptedEndpoints = 2 [json_name = "accepted_endpoints", (.NYT.column_name) = "accepted_endpoints"];
+    string SystemInfo = 3 [json_name = "system_info", (.NYT.column_name) = "system_info"];
+    uint32 CallbackId = 4 [json_name = "callback_id", (.NYT.column_name) = "callback_id"];
   }
 
   message TStartTuyaBroadcastDirective {
-    string Name = 1000 [json_name = "name"];
-    string SSID = 1 [json_name = "ssid"];
-    string Password = 2 [json_name = "password"];
-    string Token = 3 [json_name = "token"];
-    string Cipher = 4 [json_name = "cipher"];
+    option (.NAlice.SpeechKitName) = "iot_start_tuya_broadcast_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStartTuyaBroadcastDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string SSID = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+    string Password = 2 [json_name = "password", (.NYT.column_name) = "password"];
+    string Token = 3 [json_name = "token", (.NYT.column_name) = "token"];
+    string Cipher = 4 [json_name = "cipher", (.NYT.column_name) = "cipher"];
   }
 
   message TRestoreNetworksDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotDiscoveryCapability.TNetworks Networks = 1 [json_name = "networks"];
+    option (.NAlice.SpeechKitName) = "iot_restore_networks_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotRestoreNetworksDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotDiscoveryCapability.TNetworks Networks = 1 [json_name = "networks", (.NYT.column_name) = "networks"];
   }
 
   message TForgetDevicesDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated string DeviceIds = 1 [json_name = "device_ids"];
+    option (.NAlice.SpeechKitName) = "iot_forget_devices_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotForgetDevicesDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string DeviceIds = 1 [json_name = "device_ids", (.NYT.column_name) = "device_ids", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TDeleteNetworksDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols"];
+    option (.NAlice.SpeechKitName) = "iot_delete_networks_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotDeleteNetworksDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TProtocol Protocols = 1 [json_name = "protocols", (.NYT.column_name) = "protocols"];
   }
 
   message TEnableNetworkDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
-    bool Enabled = 2 [json_name = "enabled"];
+    option (.NAlice.SpeechKitName) = "iot_enable_network_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotEnableNetworkDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    bool Enabled = 2 [json_name = "enabled", (.NYT.column_name) = "enabled"];
   }
 
   message TSyncEndpointsDirective {
-    string Name = 1000 [json_name = "name"];
-    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo Endpoints = 1 [json_name = "endpoints"];
+    option (.NAlice.SpeechKitName) = "iot_sync_endpoints_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSyncEndpointsDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated .NAlice.TIotDiscoveryCapability.TEndpointInfo Endpoints = 1 [json_name = "endpoints", (.NYT.column_name) = "endpoints"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotDiscoveryCapability Capability = 1 [json_name = "capability"];
-    string SessionId = 2 [json_name = "session_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotDiscoveryUpdateStateEventType;
+    .NAlice.TIotDiscoveryCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+    string SessionId = 2 [json_name = "session_id", (.NYT.column_name) = "session_id"];
   }
 
   message TIotDiscoveryCompleteEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotDiscoveryCompleteEventType;
     message TMatterDiscoveryResult {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TMatterError {
-        uint32 Code = 1 [json_name = "code"];
-        string Details = 2 [json_name = "details"];
-        .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 3 [json_name = "matter_discovery_stage"];
-        .NAlice.TIotDiscoveryCapability.EMatterErrorType ErrorType = 4 [json_name = "error_type"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        uint32 Code = 1 [json_name = "code", (.NYT.column_name) = "code"];
+        string Details = 2 [json_name = "details", (.NYT.column_name) = "details"];
+        .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 3 [json_name = "matter_discovery_stage", (.NYT.column_name) = "matter_discovery_stage"];
+        .NAlice.TIotDiscoveryCapability.EMatterErrorType ErrorType = 4 [json_name = "error_type", (.NYT.column_name) = "error_type"];
       }
 
-      string DevicePairingId = 1 [json_name = "device_pairing_id"];
-      optional .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult.TMatterError Error = 2 [json_name = "error"];
+      string DevicePairingId = 1 [json_name = "device_pairing_id", (.NYT.column_name) = "device_pairing_id"];
+      optional .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult.TMatterError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
     }
 
-    uint32 FoundDevicesCount = 1 [json_name = "found_devices_count"];
-    string SessionId = 3 [json_name = "session_id"];
-    .NAlice.TIotDiscoveryCapability.EMode Mode = 4 [json_name = "mode"];
+    uint32 FoundDevicesCount = 1 [json_name = "found_devices_count", (.NYT.column_name) = "found_devices_count"];
+    string SessionId = 3 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TIotDiscoveryCapability.EMode Mode = 4 [json_name = "mode", (.NYT.column_name) = "mode"];
     oneof Result {
-      .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult Matter = 2 [json_name = "matter"];
+      option (.NYT.variant_field_name) = "result";
+      .NAlice.TIotDiscoveryCapability.TIotDiscoveryCompleteEvent.TMatterDiscoveryResult Matter = 2 [json_name = "matter", (.NYT.column_name) = "matter"];
     }
   }
 
   message TIotDiscoveryProgressEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotDiscoveryProgressEventType;
     message TMatterDiscoveryStage {
-      string DevicePairingId = 1 [json_name = "device_pairing_id"];
-      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string DevicePairingId = 1 [json_name = "device_pairing_id", (.NYT.column_name) = "device_pairing_id"];
+      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage", (.NYT.column_name) = "matter_discovery_stage"];
     }
 
-    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol"];
-    string SessionId = 4 [json_name = "session_id"];
+    .NAlice.TIotDiscoveryCapability.TProtocol Protocol = 1 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    string SessionId = 4 [json_name = "session_id", (.NYT.column_name) = "session_id"];
     oneof DiscoveryStage {
-      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage"];
-      .NAlice.TIotDiscoveryCapability.TIotDiscoveryProgressEvent.TMatterDiscoveryStage ExtendedMatterDiscoveryStage = 3 [json_name = "extended_matter_discovery_stage"];
+      option (.NYT.variant_field_name) = "discovery_stage";
+      .NAlice.TIotDiscoveryCapability.EMatterDiscoveryStage MatterDiscoveryStage = 2 [json_name = "matter_discovery_stage", deprecated = true, (.NYT.column_name) = "matter_discovery_stage"];
+      .NAlice.TIotDiscoveryCapability.TIotDiscoveryProgressEvent.TMatterDiscoveryStage ExtendedMatterDiscoveryStage = 3 [json_name = "extended_matter_discovery_stage", (.NYT.column_name) = "extended_matter_discovery_stage"];
     }
   }
 
   message TDistributedCommissioningInitializedEvent {
-    string SessionId = 1 [json_name = "session_id"];
-    .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters Parameters = 2 [json_name = "parameters"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotDiscoveryDistributedCommissioningInitializedEventType;
+    string SessionId = 1 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    .NAlice.TIotDiscoveryCapability.TDistributedCommissioningParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
   }
 
   enum TProtocol {
@@ -332,8 +404,8 @@ message TIotDiscoveryCapability {
     NO_THREAD_OPERATIONAL_DATASET = 7;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotDiscoveryCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotDiscoveryCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotDiscoveryCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotDiscoveryCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

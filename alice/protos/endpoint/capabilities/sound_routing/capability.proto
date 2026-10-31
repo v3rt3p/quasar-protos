@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SoundRoutingCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/sound_routing;sound_routingpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSoundRoutingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SoundRoutingCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TSoundRoutingCapability.TInputRoute SupportedInputSources = 1 [json_name = "supported_input_sources", (.NYT.column_name) = "supported_input_sources"];
+    repeated .NAlice.TSoundRoutingCapability.TOutputRoute SupportedOutputTargets = 2 [json_name = "supported_output_targets", (.NYT.column_name) = "supported_output_targets"];
+  }
+
+  message TInputRoute {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TSoundbarMode {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TAuxIn {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TBluetoothIn {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TOwnSound {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    oneof Source {
+      option (.NYT.variant_field_name) = "source";
+      .NAlice.TSoundRoutingCapability.TInputRoute.TSoundbarMode SoundbarMode = 1 [json_name = "soundbar_mode", (.NYT.column_name) = "soundbar_mode"];
+      .NAlice.TSoundRoutingCapability.TInputRoute.TAuxIn AuxIn = 2 [json_name = "aux_in", (.NYT.column_name) = "aux_in"];
+      .NAlice.TSoundRoutingCapability.TInputRoute.TBluetoothIn BluetoothIn = 3 [json_name = "bluetooth_in", (.NYT.column_name) = "bluetooth_in"];
+      .NAlice.TSoundRoutingCapability.TInputRoute.TOwnSound OwnSound = 4 [json_name = "own_sound", (.NYT.column_name) = "own_sound"];
+    }
+  }
+
+  message TOutputRoute {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message THdmiAudio {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TAuxOut {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TBluetoothOut {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TOwnSound {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    oneof Target {
+      option (.NYT.variant_field_name) = "target";
+      .NAlice.TSoundRoutingCapability.TOutputRoute.THdmiAudio HdmiAudio = 1 [json_name = "hdmi_audio", (.NYT.column_name) = "hdmi_audio"];
+      .NAlice.TSoundRoutingCapability.TOutputRoute.TAuxOut AuxOut = 2 [json_name = "aux_out", (.NYT.column_name) = "aux_out"];
+      .NAlice.TSoundRoutingCapability.TOutputRoute.TBluetoothOut BluetoothOut = 3 [json_name = "bluetooth_out", (.NYT.column_name) = "bluetooth_out"];
+      .NAlice.TSoundRoutingCapability.TOutputRoute.TOwnSound OwnSound = 4 [json_name = "own_sound", (.NYT.column_name) = "own_sound"];
+    }
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TSoundRoutingCapability.TInputRoute Input = 1 [json_name = "input", (.NYT.column_name) = "input"];
+    .NAlice.TSoundRoutingCapability.TOutputRoute Output = 2 [json_name = "output", (.NYT.column_name) = "output"];
+  }
+
+  message TSetSoundInputDirective {
+    option (.NAlice.SpeechKitName) = "set_sound_input_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSoundInputDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TSoundRoutingCapability.TInputRoute Input = 1 [json_name = "input", (.NYT.column_name) = "input"];
+  }
+
+  message TSetSoundOutputDirective {
+    option (.NAlice.SpeechKitName) = "set_sound_output_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetSoundOutputDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TSoundRoutingCapability.TOutputRoute Output = 1 [json_name = "output", (.NYT.column_name) = "output"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = SoundRoutingUpdateStateEventType;
+    .NAlice.TSoundRoutingCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSoundRoutingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSoundRoutingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -9,93 +9,95 @@ import "alice/protos/data/music_provider/provider_meta.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMetaStorage {
-  map<string, .NAlice.NData.NMusic.TProviderAlbumMeta> ProviderAlbumMeta = 1 [json_name = "provider_album_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderArtistMeta> ProviderArtistMeta = 2 [json_name = "provider_artist_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderPlaylistMeta> ProviderPlaylistMeta = 3 [json_name = "provider_playlist_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderTrackMeta> ProviderTrackMeta = 4 [json_name = "provider_track_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderRecommendationsMeta> ProviderRecommendationsMeta = 5 [json_name = "provider_recommendation_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderGenerativeMeta> ProviderGenerativeMeta = 6 [json_name = "provider_generative_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderFmRadioMeta> ProviderFmRadioMeta = 7 [json_name = "provider_fm_radio_meta"];
-  map<string, .NAlice.NData.NMusic.TProviderInfo> ProviderInfo = 8 [json_name = "provider_info"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  map<string, .NAlice.NData.NMusic.TProviderAlbumMeta> ProviderAlbumMeta = 1 [json_name = "provider_album_meta", (.NYT.column_name) = "provider_album_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderArtistMeta> ProviderArtistMeta = 2 [json_name = "provider_artist_meta", (.NYT.column_name) = "provider_artist_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderPlaylistMeta> ProviderPlaylistMeta = 3 [json_name = "provider_playlist_meta", (.NYT.column_name) = "provider_playlist_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderTrackMeta> ProviderTrackMeta = 4 [json_name = "provider_track_meta", (.NYT.column_name) = "provider_track_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderRecommendationsMeta> ProviderRecommendationsMeta = 5 [json_name = "provider_recommendation_meta", (.NYT.column_name) = "provider_recommendation_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderGenerativeMeta> ProviderGenerativeMeta = 6 [json_name = "provider_generative_meta", (.NYT.column_name) = "provider_generative_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderFmRadioMeta> ProviderFmRadioMeta = 7 [json_name = "provider_fm_radio_meta", (.NYT.column_name) = "provider_fm_radio_meta"];
+  map<string, .NAlice.NData.NMusic.TProviderInfo> ProviderInfo = 8 [json_name = "provider_info", (.NYT.column_name) = "provider_info"];
 }
 
 message TProviderInfo {
-  string TvImageUrl = 1 [json_name = "tv_image_url"];
-  string ScreenDevicesImageUrl = 2 [json_name = "screen_devices_image_url"];
-  string ProviderHumanReadable = 3 [json_name = "provider_human_readable"];
+  string TvImageUrl = 1 [json_name = "tv_image_url", (.NYT.column_name) = "tv_image_url"];
+  string ScreenDevicesImageUrl = 2 [json_name = "screen_devices_image_url", (.NYT.column_name) = "screen_devices_image_url"];
+  string ProviderHumanReadable = 3 [json_name = "provider_human_readable", (.NYT.column_name) = "provider_human_readable"];
 }
 
 message TProviderTrackMeta {
-  map<string, .Alice.Music.TrackMeta> TrackMeta = 1 [json_name = "track_meta"];
+  map<string, .Alice.Music.TrackMeta> TrackMeta = 1 [json_name = "track_meta", (.NYT.column_name) = "track_meta"];
 }
 
 message TProviderAlbumMeta {
-  map<string, .Alice.Music.AlbumMeta> AlbumMeta = 1 [json_name = "album_meta"];
+  map<string, .Alice.Music.AlbumMeta> AlbumMeta = 1 [json_name = "album_meta", (.NYT.column_name) = "album_meta"];
 }
 
 message TProviderArtistMeta {
-  map<string, .Alice.Music.ArtistMeta> ArtistMeta = 1 [json_name = "artist_meta"];
+  map<string, .Alice.Music.ArtistMeta> ArtistMeta = 1 [json_name = "artist_meta", (.NYT.column_name) = "artist_meta"];
 }
 
 message TProviderPlaylistMeta {
-  map<string, .Alice.Music.PlaylistMeta> PlaylistMeta = 1 [json_name = "playlist_meta"];
+  map<string, .Alice.Music.PlaylistMeta> PlaylistMeta = 1 [json_name = "playlist_meta", (.NYT.column_name) = "playlist_meta"];
 }
 
 message TProviderRecommendationsMeta {
-  map<string, .Alice.Music.RecommendationsMeta> RecommendationsMeta = 1 [json_name = "recommendations_meta"];
+  map<string, .Alice.Music.RecommendationsMeta> RecommendationsMeta = 1 [json_name = "recommendations_meta", (.NYT.column_name) = "recommendations_meta"];
 }
 
 message TProviderGenerativeMeta {
-  map<string, .Alice.Music.GenerativeMeta> GenerativeMeta = 1 [json_name = "generative_meta"];
+  map<string, .Alice.Music.GenerativeMeta> GenerativeMeta = 1 [json_name = "generative_meta", (.NYT.column_name) = "generative_meta"];
 }
 
 message TProviderFmRadioMeta {
-  map<string, .Alice.Music.FmRadioMeta> FmRadioMeta = 1 [json_name = "fm_radio_meta"];
+  map<string, .Alice.Music.FmRadioMeta> FmRadioMeta = 1 [json_name = "fm_radio_meta", (.NYT.column_name) = "fm_radio_meta"];
 }
 
 message TMusicPlatformMetaStorage {
-  map<string, .NAlice.NData.NMusic.TProviderMeta> ProviderMeta = 1 [json_name = "provider_meta"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  map<string, .NAlice.NData.NMusic.TProviderMeta> ProviderMeta = 1 [json_name = "provider_meta", (.NYT.column_name) = "provider_meta"];
 }
 
 message TProviderMeta {
-  map<string, .NAlice.NData.NMusic.TTrackMetaRecord> TrackMetaRecords = 1 [json_name = "track_meta_records"];
-  map<string, .NAlice.NData.NMusic.TAlbumMetaRecord> AlbumMetaRecords = 2 [json_name = "album_meta_records"];
-  map<string, .NAlice.NData.NMusic.TArtistMetaRecord> ArtistMetaRecords = 3 [json_name = "artist_meta_records"];
-  map<string, .NAlice.NData.NMusic.TPlaylistMetaRecord> PlaylistMetaRecords = 4 [json_name = "playlist_meta_records"];
-  map<string, .NAlice.NData.NMusic.TRecommendationsMetaRecord> RecommendationsMetaRecords = 5 [json_name = "recommendations_meta_records"];
-  map<string, .NAlice.NData.NMusic.TGenerativeMetaRecord> GenerativeMetaRecords = 6 [json_name = "generative_meta_records"];
-  map<string, .NAlice.NData.NMusic.TFmRadioMetaRecord> FmRadioMetaRecords = 7 [json_name = "fm_radio_meta_records"];
+  map<string, .NAlice.NData.NMusic.TTrackMetaRecord> TrackMetaRecords = 1 [json_name = "track_meta_records", (.NYT.column_name) = "track_meta_records"];
+  map<string, .NAlice.NData.NMusic.TAlbumMetaRecord> AlbumMetaRecords = 2 [json_name = "album_meta_records", (.NYT.column_name) = "album_meta_records"];
+  map<string, .NAlice.NData.NMusic.TArtistMetaRecord> ArtistMetaRecords = 3 [json_name = "artist_meta_records", (.NYT.column_name) = "artist_meta_records"];
+  map<string, .NAlice.NData.NMusic.TPlaylistMetaRecord> PlaylistMetaRecords = 4 [json_name = "playlist_meta_records", (.NYT.column_name) = "playlist_meta_records"];
+  map<string, .NAlice.NData.NMusic.TRecommendationsMetaRecord> RecommendationsMetaRecords = 5 [json_name = "recommendations_meta_records", (.NYT.column_name) = "recommendations_meta_records"];
+  map<string, .NAlice.NData.NMusic.TGenerativeMetaRecord> GenerativeMetaRecords = 6 [json_name = "generative_meta_records", (.NYT.column_name) = "generative_meta_records"];
+  map<string, .NAlice.NData.NMusic.TFmRadioMetaRecord> FmRadioMetaRecords = 7 [json_name = "fm_radio_meta_records", (.NYT.column_name) = "fm_radio_meta_records"];
 }
 
 message TTrackMetaRecord {
-  .Alice.Music.TrackMeta TrackMeta = 1 [json_name = "track_meta"];
-  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status"];
+  .Alice.Music.TrackMeta TrackMeta = 1 [json_name = "track_meta", (.NYT.column_name) = "track_meta"];
+  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status", (.NYT.column_name) = "like_status"];
 }
 
 message TAlbumMetaRecord {
-  .Alice.Music.AlbumMeta AlbumMeta = 1 [json_name = "album_meta"];
-  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status"];
+  .Alice.Music.AlbumMeta AlbumMeta = 1 [json_name = "album_meta", (.NYT.column_name) = "album_meta"];
+  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status", (.NYT.column_name) = "like_status"];
 }
 
 message TArtistMetaRecord {
-  .Alice.Music.ArtistMeta ArtistMeta = 1 [json_name = "artist_meta"];
-  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status"];
+  .Alice.Music.ArtistMeta ArtistMeta = 1 [json_name = "artist_meta", (.NYT.column_name) = "artist_meta"];
+  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status", (.NYT.column_name) = "like_status"];
 }
 
 message TPlaylistMetaRecord {
-  .Alice.Music.PlaylistMeta PlaylistMeta = 1 [json_name = "playlist_meta"];
-  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status"];
+  .Alice.Music.PlaylistMeta PlaylistMeta = 1 [json_name = "playlist_meta", (.NYT.column_name) = "playlist_meta"];
+  .Alice.Music.LikeStatus LikeStatus = 2 [json_name = "like_status", (.NYT.column_name) = "like_status"];
 }
 
 message TRecommendationsMetaRecord {
-  .Alice.Music.RecommendationsMeta RecommendationsMeta = 1 [json_name = "recommendations_meta"];
+  .Alice.Music.RecommendationsMeta RecommendationsMeta = 1 [json_name = "recommendations_meta", (.NYT.column_name) = "recommendations_meta"];
 }
 
 message TGenerativeMetaRecord {
-  .Alice.Music.GenerativeMeta GenerativeMeta = 1 [json_name = "generative_meta"];
+  .Alice.Music.GenerativeMeta GenerativeMeta = 1 [json_name = "generative_meta", (.NYT.column_name) = "generative_meta"];
 }
 
 message TFmRadioMetaRecord {
-  .Alice.Music.FmRadioMeta FmRadioMeta = 1 [json_name = "fm_radio_meta"];
+  .Alice.Music.FmRadioMeta FmRadioMeta = 1 [json_name = "fm_radio_meta", (.NYT.column_name) = "fm_radio_meta"];
 }
 

@@ -8,16 +8,17 @@ option go_package = "a.yandex-team.ru/alice/protos/api/request_parts";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TRequestParams {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ERequestType {
     Undefined = 0;
     Dialog = 1;
     NonDialog = 2;
   }
 
-  bool DisableOutputSpeech = 1 [json_name = "disable_output_speech"];
-  bool DisableShouldListen = 2 [json_name = "disable_should_listen"];
-  bool IsParallel = 3 [json_name = "is_parallel"];
-  .NAlice.TRequestParams.ERequestType RequestType = 4 [json_name = "request_type"];
-  bool EnableOutputSpeechScenarioControl = 5 [json_name = "enable_output_speech_scenario_control"];
+  bool DisableOutputSpeech = 1 [json_name = "disable_output_speech", (.NYT.column_name) = "disable_output_speech"];
+  bool DisableShouldListen = 2 [json_name = "disable_should_listen", (.NYT.column_name) = "disable_should_listen"];
+  bool IsParallel = 3 [json_name = "is_parallel", (.NYT.column_name) = "is_parallel"];
+  .NAlice.TRequestParams.ERequestType RequestType = 4 [json_name = "request_type", (.NYT.column_name) = "request_type"];
+  bool EnableOutputSpeechScenarioControl = 5 [json_name = "enable_output_speech_scenario_control", (.NYT.column_name) = "enable_output_speech_scenario_control"];
 }
 

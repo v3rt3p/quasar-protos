@@ -14,26 +14,29 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TMusicSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved 56788;
   oneof Value {
-    string GenreValue = 1 [json_name = "genre_value"];
-    string MoodValue = 2 [json_name = "mood_value"];
-    string ActivityValue = 3 [json_name = "activity_value"];
-    string VocalValue = 4 [json_name = "vocal_value"];
-    string NoveltyValue = 5 [json_name = "novelty_value"];
-    string PersonalityValue = 6 [json_name = "personality_value"];
-    string OrderValue = 7 [json_name = "order_value"];
-    string RepeatValue = 8 [json_name = "repeat_value"];
-    string RoomValue = 9 [json_name = "room_value"];
-    string StreamValue = 10 [json_name = "stream_value"];
-    string GenerativeStationValue = 11 [json_name = "generative_station_value"];
-    string NeedSimilarValue = 12 [json_name = "need_similar_value"];
-    string OffsetValue = 13 [json_name = "offset_value"];
-    string ProviderValue = 14 [json_name = "provider_value"];
+    option (.NYT.variant_field_name) = "value";
+    string GenreValue = 1 [json_name = "genre_value", (.NYT.column_name) = "genre_value", (.NAlice.SlotType) = "genre"];
+    string MoodValue = 2 [json_name = "mood_value", (.NYT.column_name) = "mood_value", (.NAlice.SlotType) = "mood"];
+    string ActivityValue = 3 [json_name = "activity_value", (.NYT.column_name) = "activity_value", (.NAlice.SlotType) = "activity"];
+    string VocalValue = 4 [json_name = "vocal_value", (.NYT.column_name) = "vocal_value", (.NAlice.SlotType) = "vocal"];
+    string NoveltyValue = 5 [json_name = "novelty_value", (.NYT.column_name) = "novelty_value", (.NAlice.SlotType) = "novelty"];
+    string PersonalityValue = 6 [json_name = "personality_value", (.NYT.column_name) = "personality_value", (.NAlice.SlotType) = "personality"];
+    string OrderValue = 7 [json_name = "order_value", deprecated = true, (.NYT.column_name) = "order_value", (.NAlice.SlotType) = "order"];
+    string RepeatValue = 8 [json_name = "repeat_value", deprecated = true, (.NYT.column_name) = "repeat_value", (.NAlice.SlotType) = "repeat"];
+    string RoomValue = 9 [json_name = "room_value", (.NYT.column_name) = "room_value", (.NAlice.SlotType) = "room"];
+    string StreamValue = 10 [json_name = "stream_value", (.NYT.column_name) = "stream_value", (.NAlice.SlotType) = "stream"];
+    string GenerativeStationValue = 11 [json_name = "generative_station_value", (.NYT.column_name) = "generative_station_value", (.NAlice.SlotType) = "custom.music.generative_station"];
+    string NeedSimilarValue = 12 [json_name = "need_similar_value", deprecated = true, (.NYT.column_name) = "need_similar_value", (.NAlice.SlotType) = "need_similar"];
+    string OffsetValue = 13 [json_name = "offset_value", (.NYT.column_name) = "offset_value", (.NAlice.SlotType) = "offset_value"];
+    string ProviderValue = 14 [json_name = "provider_value", (.NYT.column_name) = "provider_value", (.NAlice.SlotType) = "custom.provider"];
   }
 }
 
 message TMusicPlayObjectTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Track = 0;
     Album = 1;
@@ -47,11 +50,13 @@ message TMusicPlayObjectTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicPlayObjectTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TMusicPlayObjectTypeSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "enum_value"];
   }
 }
 
 message TMusicContentTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     Podcast = 1;
@@ -60,29 +65,37 @@ message TMusicContentTypeSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicContentTypeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TMusicContentTypeSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "enum_value"];
   }
 }
 
 message TAmbientSoundSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    string AmbientSoundValue = 1 [json_name = "ambient_sound_value"];
+    option (.NYT.variant_field_name) = "value";
+    string AmbientSoundValue = 1 [json_name = "ambient_sound_value", (.NYT.column_name) = "ambient_sound_value", (.NAlice.SlotType) = "custom.ambient_sound"];
   }
 }
 
 message TAliceShowConfigSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    .NAlice.NData.NMusic.TAliceShowConfig ShowConfigValue = 1 [json_name = "show_config_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.NMusic.TAliceShowConfig ShowConfigValue = 1 [json_name = "show_config_value", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "show_config_value", (.NAlice.SlotType) = "custom.music.show_config_value"];
   }
 }
 
 message TAliceShowTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    .NAlice.NData.NMusic.TAliceShowType ShowTypeValue = 1 [json_name = "show_type_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.NMusic.TAliceShowType ShowTypeValue = 1 [json_name = "show_type_value", (.NYT.column_name) = "show_type_value", (.NAlice.SlotType) = "custom.music.show_type_value"];
   }
 }
 
 message TMusicPlaybackSourceSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     AliceShow = 1;
@@ -91,11 +104,13 @@ message TMusicPlaybackSourceSlot {
   }
 
   oneof Value {
-    .NAlice.TMusicPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TMusicPlaybackSourceSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "enum_value"];
   }
 }
 
 message TFiltrationModeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EValue {
     Unknown = 0;
     NoFilter = 1;
@@ -105,63 +120,70 @@ message TFiltrationModeSlot {
   }
 
   oneof Value {
-    .NAlice.TFiltrationModeSlot.EValue EnumValue = 1 [json_name = "enum_value"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.TFiltrationModeSlot.EValue EnumValue = 1 [json_name = "enum_value", (.NYT.column_name) = "enum_value", (.NAlice.SlotType) = "custom.filtration_mode_value"];
   }
 }
 
 message TMusicPlaySemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.music_play";
   reserved "ShowPodcast";
   reserved 2;
-  .NAlice.TStringSlot SpecialPlaylist = 1 [json_name = "special_playlist"];
-  .NAlice.TStringSlot SpecialAnswerInfo = 3 [json_name = "special_answer_info"];
-  .NAlice.TStringSlot ActionRequest = 4 [json_name = "action_request"];
-  .NAlice.TStringSlot Epoch = 5 [json_name = "epoch"];
-  .NAlice.TStringSlot SearchText = 6 [json_name = "search_text"];
-  .NAlice.TMusicSlot Genre = 7 [json_name = "genre"];
-  .NAlice.TMusicSlot Mood = 8 [json_name = "mood"];
-  .NAlice.TMusicSlot Activity = 9 [json_name = "activity"];
-  .NAlice.TLanguageSlot Language = 10 [json_name = "language"];
-  .NAlice.TMusicSlot Vocal = 11 [json_name = "vocal"];
-  .NAlice.TMusicSlot Novelty = 12 [json_name = "novelty"];
-  .NAlice.TMusicSlot Personality = 13 [json_name = "personality"];
-  .NAlice.TMusicSlot Order = 14 [json_name = "order"];
-  .NAlice.TMusicSlot Repeat = 15 [json_name = "repeat"];
-  .NAlice.TBoolSlot DisableAutoflow = 16 [json_name = "disable_autoflow"];
-  .NAlice.TBoolSlot DisableNlg = 17 [json_name = "disable_nlg"];
-  .NAlice.TBoolSlot PlaySingleTrack = 18 [json_name = "play_single_track"];
-  .NAlice.TNumSlot TrackOffsetIndex = 19 [json_name = "track_offset_index"];
-  .NAlice.TStringSlot Playlist = 20 [json_name = "playlist"];
-  .NAlice.TStringSlot ObjectId = 21 [json_name = "object_id"];
-  .NAlice.TMusicPlayObjectTypeSlot ObjectType = 22 [json_name = "object_type"];
-  .NAlice.TStringSlot StartFromTrackId = 23 [json_name = "start_from_track_id"];
-  .NAlice.TDoubleSlot OffsetSec = 24 [json_name = "offset_sec"];
-  .NAlice.TStringSlot AlarmId = 25 [json_name = "alarm_id"];
-  .NAlice.TStringSlot From = 26 [json_name = "from"];
-  .NAlice.TBoolSlot DisableHistory = 27 [json_name = "disable_history"];
-  .NAlice.TMusicSlot Room = 28 [json_name = "room"];
-  .NAlice.TMusicSlot Stream = 29 [json_name = "stream"];
-  .NAlice.TMusicSlot GenerativeStation = 30 [json_name = "generative_station"];
-  .NAlice.TMusicSlot NeedSimilar = 31 [json_name = "need_similar"];
-  .NAlice.TLocationSlot Location = 32 [json_name = "location"];
-  .NAlice.TMusicSlot Offset = 33 [json_name = "offset"];
-  .NAlice.TBoolSlot DisableMultiroom = 34 [json_name = "disable_multiroom"];
-  .NAlice.TMusicContentTypeSlot ContentType = 35 [json_name = "content_type"];
-  .NAlice.TAmbientSoundSlot AmbientSound = 36 [json_name = "ambient_sound"];
-  .NAlice.TAliceShowConfigSlot ShowTailConfig = 37 [json_name = "show_tail_config"];
-  .NAlice.TAliceShowTypeSlot ShowType = 38 [json_name = "show_type"];
-  .NAlice.TMusicPlaybackSourceSlot PlaybackSource = 39 [json_name = "playback_source"];
-  .NAlice.TMusicSlot Provider = 40 [json_name = "provider"];
-  repeated .NAlice.TLocationSlot LocationGroup = 41 [json_name = "location_group"];
-  .NAlice.TInt64Slot SessionStartTimestamp = 42 [json_name = "session_start_timestamp"];
-  .NAlice.TBoolSlot DisableAutoflowSoft = 43 [json_name = "disable_autoflow_soft"];
-  .NAlice.TBoolSlot Karaoke = 44 [json_name = "karaoke"];
-  .NAlice.TFiltrationModeSlot FiltrationMode = 45 [json_name = "filtration_mode"];
-  .NAlice.TBoolSlot AnnounceTrack = 46 [json_name = "announce_track"];
+  .NAlice.TStringSlot SpecialPlaylist = 1 [json_name = "special_playlist", (.NYT.column_name) = "special_playlist", (.NAlice.SlotName) = "special_playlist"];
+  .NAlice.TStringSlot SpecialAnswerInfo = 3 [json_name = "special_answer_info", (.NYT.column_name) = "special_answer_info", (.NAlice.SlotName) = "special_answer_info"];
+  .NAlice.TStringSlot ActionRequest = 4 [json_name = "action_request", (.NYT.column_name) = "action_request", (.NAlice.SlotName) = "action_request"];
+  .NAlice.TStringSlot Epoch = 5 [json_name = "epoch", (.NYT.column_name) = "epoch", (.NAlice.SlotName) = "epoch"];
+  .NAlice.TStringSlot SearchText = 6 [json_name = "search_text", (.NYT.column_name) = "search_text", (.NAlice.SlotName) = "search_text"];
+  .NAlice.TMusicSlot Genre = 7 [json_name = "genre", (.NYT.column_name) = "genre", (.NAlice.SlotName) = "genre"];
+  .NAlice.TMusicSlot Mood = 8 [json_name = "mood", (.NYT.column_name) = "mood", (.NAlice.SlotName) = "mood"];
+  .NAlice.TMusicSlot Activity = 9 [json_name = "activity", (.NYT.column_name) = "activity", (.NAlice.SlotName) = "activity"];
+  .NAlice.TLanguageSlot Language = 10 [json_name = "language", (.NYT.column_name) = "language", (.NAlice.SlotName) = "language"];
+  .NAlice.TMusicSlot Vocal = 11 [json_name = "vocal", (.NYT.column_name) = "vocal", (.NAlice.SlotName) = "vocal"];
+  .NAlice.TMusicSlot Novelty = 12 [json_name = "novelty", (.NYT.column_name) = "novelty", (.NAlice.SlotName) = "novelty"];
+  .NAlice.TMusicSlot Personality = 13 [json_name = "personality", (.NYT.column_name) = "personality", (.NAlice.SlotName) = "personality"];
+  .NAlice.TMusicSlot Order = 14 [json_name = "order", (.NYT.column_name) = "order", (.NAlice.SlotName) = "order"];
+  .NAlice.TMusicSlot Repeat = 15 [json_name = "repeat", (.NYT.column_name) = "repeat", (.NAlice.SlotName) = "repeat"];
+  .NAlice.TBoolSlot DisableAutoflow = 16 [json_name = "disable_autoflow", (.NYT.column_name) = "disable_autoflow", (.NAlice.SlotName) = "disable_autoflow"];
+  .NAlice.TBoolSlot DisableNlg = 17 [json_name = "disable_nlg", (.NYT.column_name) = "disable_nlg", (.NAlice.SlotName) = "disable_nlg"];
+  .NAlice.TBoolSlot PlaySingleTrack = 18 [json_name = "play_single_track", (.NYT.column_name) = "play_single_track", (.NAlice.SlotName) = "play_single_track"];
+  .NAlice.TNumSlot TrackOffsetIndex = 19 [json_name = "track_offset_index", (.NYT.column_name) = "track_offset_index", (.NAlice.SlotName) = "track_offset_index"];
+  .NAlice.TStringSlot Playlist = 20 [json_name = "playlist", (.NYT.column_name) = "playlist", (.NAlice.SlotName) = "playlist"];
+  .NAlice.TStringSlot ObjectId = 21 [json_name = "object_id", (.NYT.column_name) = "object_id", (.NAlice.SlotName) = "object_id"];
+  .NAlice.TMusicPlayObjectTypeSlot ObjectType = 22 [json_name = "object_type", (.NYT.column_name) = "object_type", (.NAlice.SlotName) = "object_type"];
+  .NAlice.TStringSlot StartFromTrackId = 23 [json_name = "start_from_track_id", (.NYT.column_name) = "start_from_track_id", (.NAlice.SlotName) = "start_from_track_id"];
+  .NAlice.TDoubleSlot OffsetSec = 24 [json_name = "offset_sec", (.NYT.column_name) = "offset_sec", (.NAlice.SlotName) = "offset_sec"];
+  .NAlice.TStringSlot AlarmId = 25 [json_name = "alarm_id", (.NYT.column_name) = "alarm_id", (.NAlice.SlotName) = "alarm_id"];
+  .NAlice.TStringSlot From = 26 [json_name = "from", (.NYT.column_name) = "from", (.NAlice.SlotName) = "from"];
+  .NAlice.TBoolSlot DisableHistory = 27 [json_name = "disable_history", (.NYT.column_name) = "disable_history", (.NAlice.SlotName) = "disable_history"];
+  .NAlice.TMusicSlot Room = 28 [json_name = "room", (.NYT.column_name) = "room", (.NAlice.SlotName) = "room"];
+  .NAlice.TMusicSlot Stream = 29 [json_name = "stream", (.NYT.column_name) = "stream", (.NAlice.SlotName) = "stream"];
+  .NAlice.TMusicSlot GenerativeStation = 30 [json_name = "generative_station", (.NYT.column_name) = "generative_station", (.NAlice.SlotName) = "generative_station"];
+  .NAlice.TMusicSlot NeedSimilar = 31 [json_name = "need_similar", (.NYT.column_name) = "need_similar", (.NAlice.SlotName) = "need_similar"];
+  .NAlice.TLocationSlot Location = 32 [json_name = "location", (.NYT.column_name) = "location", (.NAlice.SlotName) = "location"];
+  .NAlice.TMusicSlot Offset = 33 [json_name = "offset", (.NYT.column_name) = "offset", (.NAlice.SlotName) = "offset"];
+  .NAlice.TBoolSlot DisableMultiroom = 34 [json_name = "disable_multiroom", (.NYT.column_name) = "disable_multiroom", (.NAlice.SlotName) = "disable_multiroom"];
+  .NAlice.TMusicContentTypeSlot ContentType = 35 [json_name = "content_type", (.NYT.column_name) = "content_type", (.NAlice.SlotName) = "content_type"];
+  .NAlice.TAmbientSoundSlot AmbientSound = 36 [json_name = "ambient_sound", (.NYT.column_name) = "ambient_sound", (.NAlice.SlotName) = "ambient_sound"];
+  .NAlice.TAliceShowConfigSlot ShowTailConfig = 37 [json_name = "show_tail_config", (.NYT.column_name) = "show_tail_config", (.NAlice.SlotName) = "show_tail_config"];
+  .NAlice.TAliceShowTypeSlot ShowType = 38 [json_name = "show_type", (.NYT.column_name) = "show_type", (.NAlice.SlotName) = "show_type"];
+  .NAlice.TMusicPlaybackSourceSlot PlaybackSource = 39 [json_name = "playback_source", (.NYT.column_name) = "playback_source", (.NAlice.SlotName) = "playback_source"];
+  .NAlice.TMusicSlot Provider = 40 [json_name = "provider", (.NYT.column_name) = "provider", (.NAlice.SlotName) = "provider"];
+  repeated .NAlice.TLocationSlot LocationGroup = 41 [json_name = "location_group", (.NYT.column_name) = "location_group", (.NAlice.SlotName) = "location_group"];
+  .NAlice.TInt64Slot SessionStartTimestamp = 42 [json_name = "session_start_timestamp", (.NYT.column_name) = "session_start_timestamp", (.NAlice.SlotName) = "session_start_timestamp"];
+  .NAlice.TBoolSlot DisableAutoflowSoft = 43 [json_name = "disable_autoflow_soft", (.NYT.column_name) = "disable_autoflow_soft", (.NAlice.SlotName) = "disable_autoflow_soft"];
+  .NAlice.TBoolSlot Karaoke = 44 [json_name = "karaoke", (.NYT.column_name) = "karaoke", (.NAlice.SlotName) = "karaoke"];
+  .NAlice.TFiltrationModeSlot FiltrationMode = 45 [json_name = "filtration_mode", (.NYT.column_name) = "filtration_mode", (.NAlice.SlotName) = "filtration_mode"];
+  .NAlice.TBoolSlot AnnounceTrack = 46 [json_name = "announce_track", (.NYT.column_name) = "announce_track", (.NAlice.SlotName) = "announce_track"];
 }
 
 message TGetEqualizerSettingsSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.get_equalizer_settings";
 }
 
 message TTurnOnBookmateSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.music.turn_on_bookmate";
 }
 

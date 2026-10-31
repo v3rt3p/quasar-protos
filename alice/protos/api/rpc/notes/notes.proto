@@ -15,96 +15,107 @@ import "alice/protos/data/tron/tags.proto";
 import "alice/protos/data/tron/tron_technical_info.proto";
 
 message TUserSettings {
-  bool SendMobileNotifications = 1 [json_name = "send_mobile_notifications"];
+  bool SendMobileNotifications = 1 [json_name = "send_mobile_notifications", (.NYT.column_name) = "send_mobile_notifications"];
 }
 
 message TSubtask {
-  string Text = 2 [json_name = "text"];
-  bool Done = 3 [json_name = "done"];
-  optional string SubtaskId = 1 [json_name = "subtask_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+  bool Done = 3 [json_name = "done", (.NYT.column_name) = "done"];
+  optional string SubtaskId = 1 [json_name = "subtask_id", (.NYT.column_name) = "subtask_id"];
 }
 
 message TReminder {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Trigger {
-    int64 OffsetSeconds = 2 [json_name = "offset_seconds"];
-    string LocalDateTime = 3 [json_name = "local_date_time"];
+    int64 OffsetSeconds = 2 [json_name = "offset_seconds", (.NYT.column_name) = "offset_seconds"];
+    string LocalDateTime = 3 [json_name = "local_date_time", (.NYT.column_name) = "local_date_time"];
   }
-  optional string ReminderId = 1 [json_name = "reminder_id"];
-  optional .NAlice.NData.NReminders.TPlaySettings PlaySettings = 4 [json_name = "play_settings"];
+  optional string ReminderId = 1 [json_name = "reminder_id", (.NYT.column_name) = "reminder_id"];
+  optional .NAlice.NData.NReminders.TPlaySettings PlaySettings = 4 [json_name = "play_settings", (.NYT.column_name) = "play_settings"];
 }
 
 message TTag {
-  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value"];
-  optional string TagId = 1 [json_name = "tag_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NData.NTron.TTronTagValue TagValue = 2 [json_name = "tag_value", (.NYT.column_name) = "tag_value"];
+  optional string TagId = 1 [json_name = "tag_id", (.NYT.column_name) = "tag_id"];
 }
 
 message TNote {
-  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 9 [json_name = "subtasks"];
-  repeated .NAlice.NNotes.NApi.TReminder Reminders = 10 [json_name = "reminders"];
-  repeated .NAlice.NNotes.NApi.TTag Tags = 15 [json_name = "tags"];
-  repeated string PublicHomeIds = 18 [json_name = "public_home_ids"];
-  optional string NoteId = 1 [json_name = "note_id"];
-  optional string Title = 2 [json_name = "title"];
-  optional string Text = 3 [json_name = "text"];
-  optional string Deadline = 4 [json_name = "deadline"];
-  optional bool Pinned = 5 [json_name = "pinned"];
-  optional .NAlice.NNotes.NApi.ENoteStatus Status = 6 [json_name = "status"];
-  optional string CreatedDateTime = 7 [json_name = "created_date_time"];
-  optional string UpdatedDateTime = 8 [json_name = "updated_date_time"];
-  optional string Schedule = 11 [json_name = "schedule"];
-  optional string NoteHash = 12 [json_name = "note_hash"];
-  optional string SheduleNoteId = 13 [json_name = "schedule_note_id"];
-  optional bool Doable = 14 [json_name = "doable"];
-  optional .NAlice.NData.NTron.NNotes.TTronTechnicalInfo TechnicalInfo = 16 [json_name = "technical_info"];
-  optional bool IsPersonal = 17 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 9 [json_name = "subtasks", (.NYT.column_name) = "subtasks"];
+  repeated .NAlice.NNotes.NApi.TReminder Reminders = 10 [json_name = "reminders", (.NYT.column_name) = "reminders"];
+  repeated .NAlice.NNotes.NApi.TTag Tags = 15 [json_name = "tags", (.NYT.column_name) = "tags"];
+  repeated string PublicHomeIds = 18 [json_name = "public_home_ids", (.NYT.column_name) = "public_home_ids"];
+  optional string NoteId = 1 [json_name = "note_id", (.NYT.column_name) = "note_id"];
+  optional string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  optional string Text = 3 [json_name = "text", (.NYT.column_name) = "text"];
+  optional string Deadline = 4 [json_name = "deadline", (.NYT.column_name) = "deadline"];
+  optional bool Pinned = 5 [json_name = "pinned", (.NYT.column_name) = "pinned"];
+  optional .NAlice.NNotes.NApi.ENoteStatus Status = 6 [json_name = "status", (.NYT.column_name) = "status"];
+  optional string CreatedDateTime = 7 [json_name = "created_date_time", (.NYT.column_name) = "created_date_time"];
+  optional string UpdatedDateTime = 8 [json_name = "updated_date_time", (.NYT.column_name) = "updated_date_time"];
+  optional string Schedule = 11 [json_name = "schedule", (.NYT.column_name) = "schedule"];
+  optional string NoteHash = 12 [json_name = "note_hash", (.NYT.column_name) = "note_hash"];
+  optional string SheduleNoteId = 13 [json_name = "schedule_note_id", (.NYT.column_name) = "schedule_note_id"];
+  optional bool Doable = 14 [json_name = "doable", (.NYT.column_name) = "doable"];
+  optional .NAlice.NData.NTron.NNotes.TTronTechnicalInfo TechnicalInfo = 16 [json_name = "technical_info", (.NYT.column_name) = "technical_info"];
+  optional bool IsPersonal = 17 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TNoteDraft {
-  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 5 [json_name = "subtasks"];
-  repeated .NAlice.NNotes.NApi.TTag Tags = 7 [json_name = "tags"];
-  optional string DraftId = 1 [json_name = "draft_id"];
-  optional string CreatedDateTime = 2 [json_name = "created_date_time"];
-  optional string Deadline = 10 [json_name = "deadline"];
-  optional string DraftTitle = 3 [json_name = "draft_title"];
-  optional string DraftText = 4 [json_name = "draft_text"];
-  optional string Schedule = 6 [json_name = "schedule"];
-  optional .NAlice.NData.NTron.EProgressStatus ProgressStatus = 8 [json_name = "progress_status"];
-  optional .NAlice.NData.NNotes.ETimeStatus TimeStatus = 9 [json_name = "time_status"];
-  optional bool IsPersonal = 11 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TSubtask Subtasks = 5 [json_name = "subtasks", (.NYT.column_name) = "subtasks"];
+  repeated .NAlice.NNotes.NApi.TTag Tags = 7 [json_name = "tags", (.NYT.column_name) = "tags"];
+  optional string DraftId = 1 [json_name = "draft_id", (.NYT.column_name) = "draft_id"];
+  optional string CreatedDateTime = 2 [json_name = "created_date_time", (.NYT.column_name) = "created_date_time"];
+  optional string Deadline = 10 [json_name = "deadline", (.NYT.column_name) = "deadline"];
+  optional string DraftTitle = 3 [json_name = "draft_title", (.NYT.column_name) = "draft_title"];
+  optional string DraftText = 4 [json_name = "draft_text", (.NYT.column_name) = "draft_text"];
+  optional string Schedule = 6 [json_name = "schedule", (.NYT.column_name) = "schedule"];
+  optional .NAlice.NData.NTron.EProgressStatus ProgressStatus = 8 [json_name = "progress_status", (.NYT.column_name) = "progress_status"];
+  optional .NAlice.NData.NNotes.ETimeStatus TimeStatus = 9 [json_name = "time_status", (.NYT.column_name) = "time_status"];
+  optional bool IsPersonal = 11 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TSyncEntry {
-  string NoteId = 1 [json_name = "note_id"];
-  string NoteHash = 2 [json_name = "note_hash"];
+  string NoteId = 1 [json_name = "note_id", (.NYT.column_name) = "note_id"];
+  string NoteHash = 2 [json_name = "note_hash", (.NYT.column_name) = "note_hash"];
 }
 
 message TSyncNotesRequest {
-  repeated .NAlice.NNotes.NApi.TSyncEntry SyncEntries = 1 [json_name = "sync_entries"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TSyncEntry SyncEntries = 1 [json_name = "sync_entries", (.NYT.column_name) = "sync_entries"];
 }
 
 message TSyncNotesResponse {
-  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToCreate = 1 [json_name = "notes_to_create"];
-  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToUpdate = 2 [json_name = "notes_to_update"];
-  repeated string NoteIdsToDelete = 3 [json_name = "note_ids_to_delete"];
-  .NAlice.NNotes.NApi.TUserSettings UserSettings = 4 [json_name = "user_settings"];
-  optional .NAlice.NNotes.NApi.EError Error = 5 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToCreate = 1 [json_name = "notes_to_create", (.NYT.column_name) = "notes_to_create"];
+  repeated .NAlice.NNotes.NApi.TSyncEntry NotesToUpdate = 2 [json_name = "notes_to_update", (.NYT.column_name) = "notes_to_update"];
+  repeated string NoteIdsToDelete = 3 [json_name = "note_ids_to_delete", (.NYT.column_name) = "note_ids_to_delete"];
+  .NAlice.NNotes.NApi.TUserSettings UserSettings = 4 [json_name = "user_settings", (.NYT.column_name) = "user_settings"];
+  optional .NAlice.NNotes.NApi.EError Error = 5 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetNotesBatchRequest {
-  repeated string NoteIds = 1 [json_name = "notes_ids"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string NoteIds = 1 [json_name = "notes_ids", (.NYT.column_name) = "notes_ids"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request", (.NYT.column_name) = "base_request"];
 }
 
 message TGetNotesBatchResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TSearchNotesRequest {
-  string SearchRequest = 1 [json_name = "search_request"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string SearchRequest = 1 [json_name = "search_request", (.NYT.column_name) = "search_request"];
 }
 
 message TSearchNotesResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum TEmptyNotesReason {
     ENR_UNSPECIFIED = 0;
     ENR_NOTES_COUNT_IS_0 = 1;
@@ -112,11 +123,12 @@ message TSearchNotesResponse {
     ENR_INTERNAL = 3;
   }
 
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  .NAlice.NNotes.NApi.TSearchNotesResponse.TEmptyNotesReason EmptyNotesReason = 2 [json_name = "empty_notes_reason"];
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  .NAlice.NNotes.NApi.TSearchNotesResponse.TEmptyNotesReason EmptyNotesReason = 2 [json_name = "empty_notes_reason", (.NYT.column_name) = "empty_notes_reason"];
 }
 
 message TGetNotesToolRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ESortOrder {
     SO_NOT_SPECIFIED = 0;
     SO_UPDATE_TIME_DESC = 1;
@@ -124,17 +136,18 @@ message TGetNotesToolRequest {
     SO_CREATION_TIME_DESC = 3;
   }
 
-  repeated string NotesIds = 4 [json_name = "notes_ids"];
-  repeated .NAlice.NData.NTron.EProgressStatus Status = 5 [json_name = "status"];
-  .NAlice.NNotes.NApi.TGetNotesToolRequest.ESortOrder SortOrder = 8 [json_name = "sort_order"];
-  optional string StartDatetime = 1 [json_name = "start_datetime"];
-  optional string EndDatetime = 2 [json_name = "end_datetime"];
-  optional string SearchQuery = 3 [json_name = "search_query"];
-  optional bool HasReminders = 6 [json_name = "has_reminders"];
-  optional string ContinuationToken = 7 [json_name = "continuation_token"];
+  repeated string NotesIds = 4 [json_name = "notes_ids", (.NYT.column_name) = "notes_ids"];
+  repeated .NAlice.NData.NTron.EProgressStatus Status = 5 [json_name = "status", (.NYT.column_name) = "status"];
+  .NAlice.NNotes.NApi.TGetNotesToolRequest.ESortOrder SortOrder = 8 [json_name = "sort_order", (.NYT.column_name) = "sort_order"];
+  optional string StartDatetime = 1 [json_name = "start_datetime", (.NYT.column_name) = "start_datetime"];
+  optional string EndDatetime = 2 [json_name = "end_datetime", (.NYT.column_name) = "end_datetime"];
+  optional string SearchQuery = 3 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+  optional bool HasReminders = 6 [json_name = "has_reminders", (.NYT.column_name) = "has_reminders"];
+  optional string ContinuationToken = 7 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
 }
 
 message TGetNotesToolResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EError {
     UNKNOWN = 0;
     INVALID_REQUEST = 1;
@@ -142,350 +155,405 @@ message TGetNotesToolResponse {
     INTERNAL = 3;
   }
 
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  string ContinuationToken = 2 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.TGetNotesToolResponse.EError Error = 3 [json_name = "error"];
-  optional string ErrorDescription = 4 [json_name = "error_description"];
-  optional uint64 TotalNotesCount = 5 [json_name = "total_notes_count"];
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TGetNotesToolResponse.EError Error = 3 [json_name = "error", (.NYT.column_name) = "error"];
+  optional string ErrorDescription = 4 [json_name = "error_description", (.NYT.column_name) = "error_description"];
+  optional uint64 TotalNotesCount = 5 [json_name = "total_notes_count", (.NYT.column_name) = "total_notes_count"];
 }
 
 message TProgressStatuses {
-  repeated .NAlice.NData.NTron.EProgressStatus Statuses = 1 [json_name = "statuses"];
+  repeated .NAlice.NData.NTron.EProgressStatus Statuses = 1 [json_name = "statuses", (.NYT.column_name) = "statuses"];
 }
 
 message TGetNotesRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ESortOrder {
     SO_UPDATE_TIME_DESC = 0;
     SO_CREATION_TIME_ASC = 1;
     SO_CREATION_TIME_DESC = 2;
   }
 
-  string ContinuationToken = 1 [json_name = "continuation_token"];
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 3 [json_name = "tag_filters"];
-  .NAlice.NNotes.NApi.TGetNotesRequest.ESortOrder SortOrder = 7 [json_name = "sort_order"];
+  string ContinuationToken = 1 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 3 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  .NAlice.NNotes.NApi.TGetNotesRequest.ESortOrder SortOrder = 7 [json_name = "sort_order", (.NYT.column_name) = "sort_order"];
   oneof CompletionFilter {
-    bool HideCompleted = 2 [json_name = "hide_completed"];
-    .NAlice.NNotes.NApi.TProgressStatuses ProgressStatuses = 6 [json_name = "progress_statuses"];
+    bool HideCompleted = 2 [json_name = "hide_completed", (.NYT.column_name) = "hide_completed"];
+    .NAlice.NNotes.NApi.TProgressStatuses ProgressStatuses = 6 [json_name = "progress_statuses", (.NYT.column_name) = "progress_statuses"];
   }
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request"];
-  optional bool IsPersonal = 5 [json_name = "is_personal"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 5 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TGetNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  string ContinuationToken = 3 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
-  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  string ContinuationToken = 3 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
+  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count", (.NYT.column_name) = "total_notes_count"];
 }
 
 message TCreateNoteRequest {
-  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
-  bool GenerateTitle = 2 [json_name = "generate_title"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+  bool GenerateTitle = 2 [json_name = "generate_title", (.NYT.column_name) = "generate_title"];
 }
 
 message TCreateNoteResponse {
-  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TUpdateNoteRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TPublicHomeIds {
-    repeated string HomeIds = 1 [json_name = "home_ids"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string HomeIds = 1 [json_name = "home_ids", (.NYT.column_name) = "home_ids"];
   }
 
-  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.TUpdateNoteRequest.TPublicHomeIds PublicHomeIds = 2 [json_name = "public_home_ids"];
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.TUpdateNoteRequest.TPublicHomeIds PublicHomeIds = 2 [json_name = "public_home_ids", (.NYT.column_name) = "public_home_ids"];
 }
 
 message TUpdateNoteResponse {
-  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TDeleteNotesRequest {
-  repeated string NoteIds = 1 [json_name = "note_ids"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string NoteIds = 1 [json_name = "note_ids", (.NYT.column_name) = "note_ids"];
 }
 
 message TDeleteNotesResponse {
-  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TForTestsOnlyPermanentlyEraseAllNotesRequest {
-  optional uint64 Limit = 1 [json_name = "limit"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional uint64 Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
 }
 
 message TForTestsOnlyPermanentlyEraseAllNotesResponse {
-  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TUpdateSubtaskRequest {
-  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
-  string NoteId = 2 [json_name = "note_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask", (.NYT.column_name) = "subtask"];
+  string NoteId = 2 [json_name = "note_id", (.NYT.column_name) = "note_id"];
 }
 
 message TUpdateSubtaskResponse {
-  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
-  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask", (.NYT.column_name) = "subtask"];
+  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TCreateSubtaskRequest {
-  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
-  string NoteId = 2 [json_name = "note_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask", (.NYT.column_name) = "subtask"];
+  string NoteId = 2 [json_name = "note_id", (.NYT.column_name) = "note_id"];
 }
 
 message TCreateSubtaskResponse {
-  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask"];
-  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TSubtask Subtask = 1 [json_name = "subtask", (.NYT.column_name) = "subtask"];
+  .NAlice.NNotes.NApi.TNote Note = 3 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TDeleteSubtaskRequest {
-  string NoteId = 1 [json_name = "note_id"];
-  string SubtaskId = 2 [json_name = "subtask_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string NoteId = 1 [json_name = "note_id", (.NYT.column_name) = "note_id"];
+  string SubtaskId = 2 [json_name = "subtask_id", (.NYT.column_name) = "subtask_id"];
 }
 
 message TDeleteSubtaskResponse {
-  .NAlice.NNotes.NApi.TNote Note = 2 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TNote Note = 2 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetCalendarNotesRequest {
-  bool HideCompleted = 4 [json_name = "hide_completed"];
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 5 [json_name = "tag_filters"];
-  bool NearestNotesOnly = 6 [json_name = "nearest_notes_only"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool HideCompleted = 4 [json_name = "hide_completed", (.NYT.column_name) = "hide_completed"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 5 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  bool NearestNotesOnly = 6 [json_name = "nearest_notes_only", (.NYT.column_name) = "nearest_notes_only"];
   oneof ContinuationToken {
-    string ForwardContinuationToken = 1 [json_name = "forward_continuation_token"];
-    string BackwardContinuationToken = 2 [json_name = "backward_continuation_token"];
+    string ForwardContinuationToken = 1 [json_name = "forward_continuation_token", (.NYT.column_name) = "forward_continuation_token"];
+    string BackwardContinuationToken = 2 [json_name = "backward_continuation_token", (.NYT.column_name) = "backward_continuation_token"];
   }
-  optional string LocalDateTime = 3 [json_name = "local_date_time"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 7 [json_name = "base_request"];
-  optional bool IsPersonal = 8 [json_name = "is_personal"];
+  optional string LocalDateTime = 3 [json_name = "local_date_time", (.NYT.column_name) = "local_date_time"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 7 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 8 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TGetCalendarNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  repeated .NAlice.NNotes.NApi.TNote UndatedNotes = 7 [json_name = "undated_notes"];
-  optional string ForwardContinuationToken = 2 [json_name = "forward_continuation_token"];
-  optional string BackwardContinuationToken = 3 [json_name = "backward_continuation_token"];
-  optional bool RunOutOfForwardNotes = 4 [json_name = "run_out_of_forward_notes"];
-  optional bool RunOutOfBackwardNotes = 5 [json_name = "run_out_of_backward_notes"];
-  optional .NAlice.NNotes.NApi.EError Error = 6 [json_name = "error"];
-  optional uint64 TotalNotesCount = 8 [json_name = "total_notes_count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  repeated .NAlice.NNotes.NApi.TNote UndatedNotes = 7 [json_name = "undated_notes", (.NYT.column_name) = "undated_notes"];
+  optional string ForwardContinuationToken = 2 [json_name = "forward_continuation_token", (.NYT.column_name) = "forward_continuation_token"];
+  optional string BackwardContinuationToken = 3 [json_name = "backward_continuation_token", (.NYT.column_name) = "backward_continuation_token"];
+  optional bool RunOutOfForwardNotes = 4 [json_name = "run_out_of_forward_notes", (.NYT.column_name) = "run_out_of_forward_notes"];
+  optional bool RunOutOfBackwardNotes = 5 [json_name = "run_out_of_backward_notes", (.NYT.column_name) = "run_out_of_backward_notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 6 [json_name = "error", (.NYT.column_name) = "error"];
+  optional uint64 TotalNotesCount = 8 [json_name = "total_notes_count", (.NYT.column_name) = "total_notes_count"];
 }
 
 message TDeleteAllNotesRequest {
-  repeated string ExcludedNoteIds = 1 [json_name = "excluded_note_ids"];
-  repeated .NAlice.NNotes.NApi.ENoteType NoteTypes = 2 [json_name = "note_types"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string ExcludedNoteIds = 1 [json_name = "excluded_note_ids", (.NYT.column_name) = "excluded_note_ids"];
+  repeated .NAlice.NNotes.NApi.ENoteType NoteTypes = 2 [json_name = "note_types", (.NYT.column_name) = "note_types"];
 }
 
 message TDeleteAllNotesResponse {
-  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TToggleNotesRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EToggleMode {
     TM_UNSPECIFIED = 0;
     TM_OVERDUE_REGULAR_INSTANCE = 1;
     TM_TARGETED = 2;
   }
 
-  repeated string NoteIds = 1 [json_name = "note_ids"];
-  bool IsDone = 2 [json_name = "is_done"];
-  .NAlice.NNotes.NApi.TToggleNotesRequest.EToggleMode ToggleMode = 3 [json_name = "toggle_mode"];
+  repeated string NoteIds = 1 [json_name = "note_ids", (.NYT.column_name) = "note_ids"];
+  bool IsDone = 2 [json_name = "is_done", (.NYT.column_name) = "is_done"];
+  .NAlice.NNotes.NApi.TToggleNotesRequest.EToggleMode ToggleMode = 3 [json_name = "toggle_mode", (.NYT.column_name) = "toggle_mode"];
 }
 
 message TToggleNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TUpdateNoteRemindersRequest {
-  string NoteId = 1 [json_name = "note_id"];
-  repeated .NAlice.NNotes.NApi.TReminder RemindersToAdd = 2 [json_name = "reminders_to_add"];
-  repeated .NAlice.NNotes.NApi.TReminder RemindersToDelete = 3 [json_name = "reminders_to_delete"];
-  repeated .NAlice.NNotes.NApi.TReminder RemindersToUpdate = 4 [json_name = "reminders_to_update"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string NoteId = 1 [json_name = "note_id", (.NYT.column_name) = "note_id"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToAdd = 2 [json_name = "reminders_to_add", (.NYT.column_name) = "reminders_to_add"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToDelete = 3 [json_name = "reminders_to_delete", (.NYT.column_name) = "reminders_to_delete"];
+  repeated .NAlice.NNotes.NApi.TReminder RemindersToUpdate = 4 [json_name = "reminders_to_update", (.NYT.column_name) = "reminders_to_update"];
 }
 
 message TUpdateNoteRemindersResponse {
-  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TNote Note = 1 [json_name = "note", (.NYT.column_name) = "note"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetCompletedNotesRequest {
-  string ContinuationToken = 1 [json_name = "continuation_token"];
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
-  optional bool IsPersonal = 4 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContinuationToken = 1 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TGetCompletedNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  string ContinuationToken = 2 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetPlainNoteDraftsRequest {
-  string ContinuationToken = 1 [json_name = "continuation_token"];
-  repeated .NAlice.NData.NTron.TTronTagValue Tags = 2;
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContinuationToken = 1 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue Tags = 2 [(.NYT.column_name) = "tags"];
 }
 
 message TGetPlainNoteDraftsResponse {
-  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
-  string ContinuationToken = 3 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts", (.NYT.column_name) = "drafts"];
+  string ContinuationToken = 3 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetNoteDraftsByIdsRequest {
-  repeated string DraftIds = 1 [json_name = "draft_ids"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string DraftIds = 1 [json_name = "draft_ids", (.NYT.column_name) = "draft_ids"];
 }
 
 message TGetNoteDraftsByIdsResponse {
-  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts", (.NYT.column_name) = "drafts"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetNotesDeviceInfoRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message THousehold {
-  string Id = 1 [json_name = "id"];
-  string Name = 2 [json_name = "name"];
-  bool IsOwn = 3 [json_name = "is_own"];
-  string Type = 4 [json_name = "type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  bool IsOwn = 3 [json_name = "is_own", (.NYT.column_name) = "is_own"];
+  string Type = 4 [json_name = "type", (.NYT.column_name) = "type"];
 }
 
 message TRoom {
-  string Id = 1 [json_name = "id"];
-  string HouseholdId = 2 [json_name = "household_id"];
-  string Name = 3 [json_name = "name"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string HouseholdId = 2 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+  string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
 }
 
 message TDevice {
-  string TargetId = 1 [json_name = "target_id"];
-  string Name = 2 [json_name = "name"];
-  string HouseholdId = 3 [json_name = "household_id"];
-  string RoomId = 4 [json_name = "room_id"];
-  string Type = 5 [json_name = "type"];
-  string IconUrl = 6 [json_name = "icon_url"];
-  optional bool IsOnline = 7 [json_name = "is_online"];
-  optional bool CanSelect = 8 [json_name = "can_select"];
-  optional string DisabledReason = 9 [json_name = "disabled_reason"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string TargetId = 1 [json_name = "target_id", (.NYT.column_name) = "target_id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string HouseholdId = 3 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+  string RoomId = 4 [json_name = "room_id", (.NYT.column_name) = "room_id"];
+  string Type = 5 [json_name = "type", (.NYT.column_name) = "type"];
+  string IconUrl = 6 [json_name = "icon_url", (.NYT.column_name) = "icon_url"];
+  optional bool IsOnline = 7 [json_name = "is_online", (.NYT.column_name) = "is_online"];
+  optional bool CanSelect = 8 [json_name = "can_select", (.NYT.column_name) = "can_select"];
+  optional string DisabledReason = 9 [json_name = "disabled_reason", (.NYT.column_name) = "disabled_reason"];
 }
 
 message TGetNotesDeviceInfoResponse {
-  repeated .NAlice.NNotes.NApi.THousehold Households = 1 [json_name = "households"];
-  repeated .NAlice.NNotes.NApi.TRoom Rooms = 2 [json_name = "rooms"];
-  repeated .NAlice.NNotes.NApi.TDevice Devices = 3 [json_name = "devices"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.THousehold Households = 1 [json_name = "households", (.NYT.column_name) = "households"];
+  repeated .NAlice.NNotes.NApi.TRoom Rooms = 2 [json_name = "rooms", (.NYT.column_name) = "rooms"];
+  repeated .NAlice.NNotes.NApi.TDevice Devices = 3 [json_name = "devices", (.NYT.column_name) = "devices"];
 }
 
 message TAcceptNoteDraftsRequest {
-  repeated string DraftIds = 1 [json_name = "draft_ids"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string DraftIds = 1 [json_name = "draft_ids", (.NYT.column_name) = "draft_ids"];
 }
 
 message TAcceptNoteDraftsResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TDeleteNoteDraftsRequest {
-  repeated string DraftIds = 1 [json_name = "draft_ids"];
-  repeated .NAlice.NData.NTron.TTronTagValue ContainingAllTags = 2 [json_name = "containing_all_tags"];
-  repeated .NAlice.NData.NTron.TTronTagValue ContainingAnyTags = 3 [json_name = "containing_any_tags"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string DraftIds = 1 [json_name = "draft_ids", (.NYT.column_name) = "draft_ids"];
+  repeated .NAlice.NData.NTron.TTronTagValue ContainingAllTags = 2 [json_name = "containing_all_tags", (.NYT.column_name) = "containing_all_tags"];
+  repeated .NAlice.NData.NTron.TTronTagValue ContainingAnyTags = 3 [json_name = "containing_any_tags", (.NYT.column_name) = "containing_any_tags"];
 }
 
 message TDeleteNoteDraftsResponse {
-  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.NNotes.NApi.EError Error = 1 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TGetOverdueNotesRequest {
-  string ContinuationToken = 1 [json_name = "continuation_token"];
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
-  optional bool IsPersonal = 4 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string ContinuationToken = 1 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TGetOverdueNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  string ContinuationToken = 2 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
-  optional uint64 TotalOverdueCount = 4 [json_name = "total_overdue_count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  string ContinuationToken = 2 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error", (.NYT.column_name) = "error"];
+  optional uint64 TotalOverdueCount = 4 [json_name = "total_overdue_count", (.NYT.column_name) = "total_overdue_count"];
 }
 
 message TGetDoableNotesRequest {
-  bool HideCompleted = 1 [json_name = "hide_completed"];
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters"];
-  string ContinuationToken = 5 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request"];
-  optional bool IsPersonal = 4 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool HideCompleted = 1 [json_name = "hide_completed", (.NYT.column_name) = "hide_completed"];
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 2 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  string ContinuationToken = 5 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 3 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 4 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TGetDoableNotesResponse {
-  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes"];
-  string ContinuationToken = 3 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
-  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNote Notes = 1 [json_name = "notes", (.NYT.column_name) = "notes"];
+  string ContinuationToken = 3 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
+  optional uint64 TotalNotesCount = 4 [json_name = "total_notes_count", (.NYT.column_name) = "total_notes_count"];
 }
 
 message TBaseBackendRequest {
-  string HashPuid = 1 [json_name = "hash_puid"];
-  .google.protobuf.Timestamp Timestamp = 2 [json_name = "timestamp"];
-  string Timezone = 3 [json_name = "timezone"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string HashPuid = 1 [json_name = "hash_puid", (.NYT.column_name) = "hash_puid"];
+  .google.protobuf.Timestamp Timestamp = 2 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
+  string Timezone = 3 [json_name = "timezone", (.NYT.column_name) = "timezone"];
 }
 
 message TBatchCreateNoteDraftsRequest {
-  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 1 [json_name = "base_request"];
-  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 2 [json_name = "drafts"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 1 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 2 [json_name = "drafts", (.NYT.column_name) = "drafts"];
 }
 
 message TBatchCreateNoteDraftsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TErrorDraft {
-    .NAlice.NNotes.NApi.TNoteDraft Draft = 1 [json_name = "draft"];
-    .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NNotes.NApi.TNoteDraft Draft = 1 [json_name = "draft", (.NYT.column_name) = "draft"];
+    .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
   }
 
-  repeated .NAlice.NNotes.NApi.TNoteDraft SuccessDrafts = 1 [json_name = "success_drafts"];
-  repeated .NAlice.NNotes.NApi.TBatchCreateNoteDraftsResponse.TErrorDraft ErrorDrafts = 2 [json_name = "error_drafts"];
+  repeated .NAlice.NNotes.NApi.TNoteDraft SuccessDrafts = 1 [json_name = "success_drafts", (.NYT.column_name) = "success_drafts"];
+  repeated .NAlice.NNotes.NApi.TBatchCreateNoteDraftsResponse.TErrorDraft ErrorDrafts = 2 [json_name = "error_drafts", (.NYT.column_name) = "error_drafts"];
 }
 
 message TDeleteAllNoteDraftsFromConversationsRequest {
-  repeated string ConversationIds = 1 [json_name = "conversation_ids"];
-  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string ConversationIds = 1 [json_name = "conversation_ids", (.NYT.column_name) = "conversation_ids"];
+  .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 2 [json_name = "base_request", (.NYT.column_name) = "base_request"];
 }
 
 message TDeleteAllNoteDraftsFromConversationsResponse {
-  uint32 Limit = 1 [json_name = "limit"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint32 Limit = 1 [json_name = "limit", (.NYT.column_name) = "limit"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 message TListNoteDraftsRequest {
-  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 1 [json_name = "tag_filters"];
-  .NAlice.NNotes.NApi.ENotesSection Section = 2 [json_name = "section"];
-  string ContinuationToken = 3 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request"];
-  optional bool IsPersonal = 5 [json_name = "is_personal"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NData.NTron.TTronTagValue TagFilters = 1 [json_name = "tag_filters", (.NYT.column_name) = "tag_filters"];
+  .NAlice.NNotes.NApi.ENotesSection Section = 2 [json_name = "section", (.NYT.column_name) = "section"];
+  string ContinuationToken = 3 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.TBaseBackendRequest BaseRequest = 4 [json_name = "base_request", (.NYT.column_name) = "base_request"];
+  optional bool IsPersonal = 5 [json_name = "is_personal", (.NYT.column_name) = "is_personal"];
 }
 
 message TListNoteDraftsResponse {
-  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts"];
-  string ContinuationToken = 2 [json_name = "continuation_token"];
-  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error"];
-  optional uint64 TotalDraftsCount = 4 [json_name = "total_drafts_count"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NNotes.NApi.TNoteDraft Drafts = 1 [json_name = "drafts", (.NYT.column_name) = "drafts"];
+  string ContinuationToken = 2 [json_name = "continuation_token", (.NYT.column_name) = "continuation_token"];
+  optional .NAlice.NNotes.NApi.EError Error = 3 [json_name = "error", (.NYT.column_name) = "error"];
+  optional uint64 TotalDraftsCount = 4 [json_name = "total_drafts_count", (.NYT.column_name) = "total_drafts_count"];
 }
 
 message TGetConversationCountersRequest {
-  repeated string ConversationIds = 1 [json_name = "conversation_ids"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string ConversationIds = 1 [json_name = "conversation_ids", (.NYT.column_name) = "conversation_ids"];
 }
 
 message TGetConversationCountersResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TConversationCounter {
-    string ConversationId = 1 [json_name = "conversation_id"];
-    uint64 TasksCount = 2 [json_name = "tasks_count"];
-    uint64 NotesCount = 3 [json_name = "notes_count"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ConversationId = 1 [json_name = "conversation_id", (.NYT.column_name) = "conversation_id"];
+    uint64 TasksCount = 2 [json_name = "tasks_count", (.NYT.column_name) = "tasks_count"];
+    uint64 NotesCount = 3 [json_name = "notes_count", (.NYT.column_name) = "notes_count"];
   }
 
-  repeated .NAlice.NNotes.NApi.TGetConversationCountersResponse.TConversationCounter Counters = 1 [json_name = "counters"];
-  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error"];
+  repeated .NAlice.NNotes.NApi.TGetConversationCountersResponse.TConversationCounter Counters = 1 [json_name = "counters", (.NYT.column_name) = "counters"];
+  optional .NAlice.NNotes.NApi.EError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 enum EError {

@@ -14,29 +14,41 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "alice/protos/data/iot/geometry.proto";
 
 message TIotPlanarViewCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotPlanarViewCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    .NAlice.NIot.TBounds Bounds = 1 [json_name = "bounds"];
-    .NAlice.NIot.TBasis Basis = 2 [json_name = "basis"];
-    optional .NAlice.NIot.TGrid Grid = 3 [json_name = "grid"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.NIot.TBounds Bounds = 1 [json_name = "bounds", (.NYT.column_name) = "bounds"];
+    .NAlice.NIot.TBasis Basis = 2 [json_name = "basis", (.NYT.column_name) = "basis"];
+    optional .NAlice.NIot.TGrid Grid = 3 [json_name = "grid", (.NYT.column_name) = "grid"];
   }
 
   message TIotSetPlanarViewBasisDirective {
-    .NAlice.NIot.TBasis Basis = 1 [json_name = "basis"];
+    option (.NAlice.SpeechKitName) = "iot_set_planar_view_basis_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetPlanarViewBasisDirectiveType;
+    .NAlice.NIot.TBasis Basis = 1 [json_name = "basis", (.NYT.column_name) = "basis"];
   }
 
   message TIotSetPlanarViewGridDirective {
-    .NAlice.NIot.TGrid Grid = 1 [json_name = "grid"];
+    option (.NAlice.SpeechKitName) = "iot_set_planar_view_grid_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetPlanarViewGridDirectiveType;
+    .NAlice.NIot.TGrid Grid = 1 [json_name = "grid", (.NYT.column_name) = "grid"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotPlanarViewCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotPlanarViewUpdateStateEventType;
+    .NAlice.TIotPlanarViewCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotPlanarViewCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotPlanarViewCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotPlanarViewCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotPlanarViewCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

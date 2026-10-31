@@ -8,20 +8,30 @@ option go_package = "a.yandex-team.ru/alice/protos/api/dialog_history/dialog_opt
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDialogOptions {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TRequest {
-    optional string RequestId = 1 [json_name = "request_id"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
   }
 
   message TEditOptions {
-    optional .NAlice.NApi.NDialogHistory.TDialogOptions.TRequest EditedRequest = 1 [json_name = "edited_request"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.NApi.NDialogHistory.TDialogOptions.TRequest EditedRequest = 1 [json_name = "edited_request", (.NYT.column_name) = "edited_request"];
   }
 
   message TCustomOptions {
-    optional string HistorySource = 1 [json_name = "history_source"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string HistorySource = 1 [json_name = "history_source", (.NYT.column_name) = "history_source"];
   }
 
-  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TEditOptions EditOptions = 1 [json_name = "edit_options"];
-  optional bool ResponseIsAlwaysRead = 2 [json_name = "always_read"];
-  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TCustomOptions CustomOptions = 3 [json_name = "custom_options"];
+  message TFolderOptions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string FolderId = 1 [json_name = "folder_id", (.NYT.column_name) = "folder_id"];
+  }
+
+  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TEditOptions EditOptions = 1 [json_name = "edit_options", (.NYT.column_name) = "edit_options"];
+  optional bool ResponseIsAlwaysRead = 2 [json_name = "always_read", (.NYT.column_name) = "always_read"];
+  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TCustomOptions CustomOptions = 3 [json_name = "custom_options", (.NYT.column_name) = "custom_options"];
+  optional .NAlice.NApi.NDialogHistory.TDialogOptions.TFolderOptions FolderOptions = 4 [json_name = "folder_options", (.NYT.column_name) = "folder_options"];
 }
 

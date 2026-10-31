@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "LumenStateCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/lumen;lumenspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TLumenStateCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LumenStateCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Avatar = 1 [json_name = "avatar", (.NYT.column_name) = "avatar"];
+    string Color = 2 [json_name = "color", (.NYT.column_name) = "color"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLumenStateCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLumenStateCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

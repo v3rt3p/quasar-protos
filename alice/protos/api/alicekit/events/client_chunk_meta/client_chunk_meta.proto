@@ -12,14 +12,17 @@ import "alice/protos/api/alicekit/events/audio_transcription_input/audio_transcr
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TClientChunkMeta {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TChunkTimings {
-    optional uint64 SendSteadyTimepointMs = 1 [json_name = "send_steady_timepoint_ms"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional uint64 SendSteadyTimepointMs = 1 [json_name = "send_steady_timepoint_ms", (.NYT.column_name) = "send_steady_timepoint_ms"];
   }
 
-  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header"];
-  .NAlice.NAliceApi.TClientChunkMeta.TChunkTimings Timings = 3 [json_name = "timings"];
+  .NAlice.NAliceApi.TChunkHeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
+  .NAlice.NAliceApi.TClientChunkMeta.TChunkTimings Timings = 3 [json_name = "timings", (.NYT.column_name) = "timings"];
   oneof ChunkMeta {
-    .NAlice.NAliceApi.TAudioTranscriptionInputMeta AudioTranscriptionInput = 2 [json_name = "audio_transcription_input"];
+    option (.NYT.variant_field_name) = "chunk_meta";
+    .NAlice.NAliceApi.TAudioTranscriptionInputMeta AudioTranscriptionInput = 2 [json_name = "audio_transcription_input", (.NYT.column_name) = "audio_transcription_input"];
   }
 }
 

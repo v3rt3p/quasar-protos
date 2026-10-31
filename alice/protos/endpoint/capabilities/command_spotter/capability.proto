@@ -11,30 +11,39 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCommandSpotterCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CommandSpotterCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.TCommandSpotterCapability.EFastCommand EnabledFastCommands = 1 [json_name = "enabled_fast_commands"];
+    repeated .NAlice.TCommandSpotterCapability.EFastCommand EnabledFastCommands = 1 [json_name = "enabled_fast_commands", (.NYT.column_name) = "enabled_fast_commands"];
   }
 
   message TEnableCommandPhrasesDirective {
+    option (.NAlice.SpeechKitName) = "enable_command_phrases_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = EnableCommandPhrasesDirectiveType;
     enum EPurpose {
       Undefined = 0;
       NextTTS = 1;
     }
 
-    string Name = 1 [json_name = "name"];
-    .NAlice.TCommandSpotterCapability.TEnableCommandPhrasesDirective.EPurpose Purpose = 2 [json_name = "purpose"];
-    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases"];
-    .NAlice.TCommandSpotterCapability.EThresholdType Threshold = 4 [json_name = "threshold"];
-    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 5 [json_name = "intent"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCommandSpotterCapability.TEnableCommandPhrasesDirective.EPurpose Purpose = 2 [json_name = "purpose", deprecated = true, (.NYT.column_name) = "purpose"];
+    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases", (.NYT.column_name) = "phrases"];
+    .NAlice.TCommandSpotterCapability.EThresholdType Threshold = 4 [json_name = "threshold", (.NYT.column_name) = "threshold"];
+    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 5 [json_name = "intent", (.NYT.column_name) = "intent"];
   }
 
   message TDisableCommandPhrasesDirective {
-    string Name = 1 [json_name = "name"];
-    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 2 [json_name = "intent"];
-    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases"];
+    option (.NAlice.SpeechKitName) = "disable_command_phrases_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = DisableCommandPhrasesDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCommandSpotterCapability.EDirectiveIntent Intent = 2 [json_name = "intent", (.NYT.column_name) = "intent"];
+    repeated .NAlice.TCommandSpotterCapability.EPhraseType Phrases = 3 [json_name = "phrases", (.NYT.column_name) = "phrases"];
   }
 
   enum EPhraseType {
@@ -65,8 +74,8 @@ message TCommandSpotterCapability {
     CallAnswer = 9;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TCommandSpotterCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TCommandSpotterCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCommandSpotterCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCommandSpotterCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

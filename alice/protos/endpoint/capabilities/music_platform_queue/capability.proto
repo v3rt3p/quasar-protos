@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "MusicPlatformQueueCapabilitiesProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/music_platform_queue;musicplatformqueuepb";
+
+import "alice/protos/data/scenario/music/music_platform_queue.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TMusicPlatformQueueCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = MusicPlatformQueueCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TApplyMusicPlatformQueueDirective {
+    option (.NAlice.SpeechKitName) = "apply_player_playback_queue_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ApplyMusicPlatformQueueDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.NData.NMusic.TMusicPlatformQueue MusicPlatformQueue = 1 [json_name = "music_platform_queue", (.NYT.column_name) = "music_platform_queue"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TMusicPlatformQueueCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TMusicPlatformQueueCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

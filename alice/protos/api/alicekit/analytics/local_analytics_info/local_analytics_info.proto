@@ -12,26 +12,27 @@ import "alice/protos/api/alicekit/events/alice_response/alice_response.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLocalAnalyticsInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "ErrorAnalytics";
   reserved "ResponseAnalytics";
   reserved 1;
   reserved 2;
   message TRequest {
-    .NAlice.TAliceRequestProto Payload = 1 [json_name = "payload"];
+    .NAlice.TAliceRequestProto Payload = 1 [json_name = "payload", (.NYT.column_name) = "payload"];
   }
 
   message TResponse {
-    .NAlice.NAliceApi.TAliceResponseProto Payload = 1 [json_name = "payload"];
+    .NAlice.NAliceApi.TAliceResponseProto Payload = 1 [json_name = "payload", (.NYT.column_name) = "payload"];
   }
 
   message TError {
-    string Message = 1 [json_name = "message"];
+    string Message = 1 [json_name = "message", (.NYT.column_name) = "message"];
   }
 
-  .NAlice.NAliceApi.TLocalAnalyticsInfo.TRequest LocalRequest = 3 [json_name = "local_request"];
-  .NAlice.NAliceApi.TLocalAnalyticsInfo.TResponse LocalResponse = 4 [json_name = "local_response"];
-  .NAlice.NAliceApi.TLocalAnalyticsInfo.TError LocalError = 5 [json_name = "local_error"];
-  bool UsedLocalResponse = 6 [json_name = "used_local_response"];
-  bool IsHybridRequest = 7 [json_name = "is_hybrid_request"];
+  .NAlice.NAliceApi.TLocalAnalyticsInfo.TRequest LocalRequest = 3 [json_name = "local_request", (.NYT.column_name) = "local_request"];
+  .NAlice.NAliceApi.TLocalAnalyticsInfo.TResponse LocalResponse = 4 [json_name = "local_response", (.NYT.column_name) = "local_response"];
+  .NAlice.NAliceApi.TLocalAnalyticsInfo.TError LocalError = 5 [json_name = "local_error", (.NYT.column_name) = "local_error"];
+  bool UsedLocalResponse = 6 [json_name = "used_local_response", (.NYT.column_name) = "used_local_response"];
+  bool IsHybridRequest = 7 [json_name = "is_hybrid_request", (.NYT.column_name) = "is_hybrid_request"];
 }
 

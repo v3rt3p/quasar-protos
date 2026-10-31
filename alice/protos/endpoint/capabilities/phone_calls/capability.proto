@@ -15,53 +15,62 @@ import "alice/library/yt/extensions/alice_options.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TPhoneCallsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PhoneCallCapabilityType;
   message TCredentials {
     oneof Credentials {
-      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 1 [json_name = "sip_credentials"];
-      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 2 [json_name = "mts_credentials"];
+      option (.NYT.variant_field_name) = "credentials";
+      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 1 [json_name = "sip_credentials", (.NYT.column_name) = "sip_credentials"];
+      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 2 [json_name = "mts_credentials", (.NYT.column_name) = "mts_credentials"];
     }
   }
 
   message TSupportedProtocol {
-    .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 1 [json_name = "provider"];
-    .NAlice.TPhoneCallsCapability.EProtocol Protocol = 2 [json_name = "protocol"];
-    .NAlice.NTelecom.EProvider TelecomProvider = 3 [json_name = "telecom_provider"];
-    bool OnDemandConnection = 4 [json_name = "require_connection"];
-    repeated .NAlice.TPhoneCallsCapability.EMediaType SupportedMedia = 5 [json_name = "supported_media"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TPhoneCallsCapability.ETelephoneServiceProvider Provider = 1 [json_name = "provider", (.NYT.column_name) = "provider"];
+    .NAlice.TPhoneCallsCapability.EProtocol Protocol = 2 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    .NAlice.NTelecom.EProvider TelecomProvider = 3 [json_name = "telecom_provider", (.NYT.column_name) = "telecom_provider"];
+    bool OnDemandConnection = 4 [json_name = "require_connection", (.NYT.column_name) = "require_connection"];
+    repeated .NAlice.TPhoneCallsCapability.EMediaType SupportedMedia = 5 [json_name = "supported_media", (.NYT.column_name) = "supported_media"];
   }
 
   message TParameters {
-    repeated .NAlice.TPhoneCallsCapability.TSupportedProtocol SupportedProtocols = 1 [json_name = "supported_protocols"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TPhoneCallsCapability.TSupportedProtocol SupportedProtocols = 1 [json_name = "supported_protocols", (.NYT.column_name) = "supported_protocols"];
   }
 
   message TMediaState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EMuteSource {
       UnknownMuteSource = 0;
       HardwareMute = 1;
       SoftwareMute = 2;
     }
 
-    bool IsMicMuted = 1 [json_name = "is_mic_muted"];
-    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 2 [json_name = "mute_source"];
+    bool IsMicMuted = 1 [json_name = "is_mic_muted", (.NYT.column_name) = "is_mic_muted"];
+    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 2 [json_name = "mute_source", (.NYT.column_name) = "mute_source"];
   }
 
   message TCallParams {
-    repeated .NAlice.TPhoneCallsCapability.EMediaType MediaTypes = 1 [json_name = "media_type"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TPhoneCallsCapability.EMediaType MediaTypes = 1 [json_name = "media_type", (.NYT.column_name) = "media_type"];
   }
 
   message TCall {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "PhoneNumber";
     reserved 2;
-    string Id = 1 [json_name = "call_id"];
-    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 3 [json_name = "provider_contact_info"];
-    bool IsConfirmed = 4 [json_name = "is_confirmed"];
-    string AccountId = 5 [json_name = "account_id"];
-    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info"];
-    .NAlice.TPhoneCallsCapability.TMediaState MediaState = 7 [json_name = "media_state"];
-    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 8 [json_name = "call_params"];
+    string Id = 1 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 3 [json_name = "provider_contact_info", (.NYT.column_name) = "provider_contact_info"];
+    bool IsConfirmed = 4 [json_name = "is_confirmed", (.NYT.column_name) = "is_confirmed"];
+    string AccountId = 5 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info", (.NYT.column_name) = "call_info"];
+    .NAlice.TPhoneCallsCapability.TMediaState MediaState = 7 [json_name = "media_state", (.NYT.column_name) = "media_state"];
+    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 8 [json_name = "call_params", (.NYT.column_name) = "call_params"];
   }
 
   message TAccount {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Number";
     reserved 1;
     enum EConnectStatus {
@@ -78,187 +87,230 @@ message TPhoneCallsCapability {
       ValidationFailed = 3;
     }
 
-    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 2 [json_name = "protocol"];
-    bool IsConnected = 3 [json_name = "is_connected"];
-    .NAlice.TPhoneCallsCapability.TAccount.EConnectStatus ConnectStatus = 6 [json_name = "connect_status"];
-    .NAlice.TPhoneCallsCapability.TAccount.EDisconnectReason DisconnectReason = 7 [json_name = "disconnect_reason"];
-    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 4 [json_name = "provider_contact_info"];
-    string Id = 5 [json_name = "id"];
+    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 2 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    bool IsConnected = 3 [json_name = "is_connected", deprecated = true, (.NYT.column_name) = "is_connected"];
+    .NAlice.TPhoneCallsCapability.TAccount.EConnectStatus ConnectStatus = 6 [json_name = "connect_status", (.NYT.column_name) = "connect_status"];
+    .NAlice.TPhoneCallsCapability.TAccount.EDisconnectReason DisconnectReason = 7 [json_name = "disconnect_reason", (.NYT.column_name) = "disconnect_reason"];
+    .NAlice.NTelecom.TProviderContactInfo ProviderContactInfo = 4 [json_name = "provider_contact_info", (.NYT.column_name) = "provider_contact_info"];
+    string Id = 5 [json_name = "id", (.NYT.column_name) = "id"];
   }
 
   message TState {
-    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account"];
-    .NAlice.TPhoneCallsCapability.TCall CurrentCall = 2 [json_name = "current_call"];
-    .NAlice.TPhoneCallsCapability.TCall IncomingCall = 3 [json_name = "incoming_call"];
-    .NAlice.TPhoneCallsCapability.TCall OutgoingCall = 4 [json_name = "outgoing_call"];
-    repeated .NAlice.TPhoneCallsCapability.TAccount Accounts = 5 [json_name = "accounts"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account", deprecated = true, (.NYT.column_name) = "account"];
+    .NAlice.TPhoneCallsCapability.TCall CurrentCall = 2 [json_name = "current_call", (.NYT.column_name) = "current_call"];
+    .NAlice.TPhoneCallsCapability.TCall IncomingCall = 3 [json_name = "incoming_call", (.NYT.column_name) = "incoming_call"];
+    .NAlice.TPhoneCallsCapability.TCall OutgoingCall = 4 [json_name = "outgoing_call", (.NYT.column_name) = "outgoing_call"];
+    repeated .NAlice.TPhoneCallsCapability.TAccount Accounts = 5 [json_name = "accounts", (.NYT.column_name) = "accounts"];
   }
 
   message TSipCredentials {
     reserved "OAuthToken";
     reserved 6;
     message THeader {
-      string Name = 1 [json_name = "name"];
-      string Value = 2 [json_name = "value"];
+      string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      string Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
     }
 
-    string Number = 1 [json_name = "number"];
-    string Password = 2 [json_name = "password"];
-    string Realm = 3 [json_name = "realm"];
-    string RegistrarIP = 4 [json_name = "registrar_ip"];
-    string AppID = 5 [json_name = "app_id"];
-    repeated .NAlice.TPhoneCallsCapability.TSipCredentials.THeader SipHeaders = 7 [json_name = "sip_headers"];
+    string Number = 1 [json_name = "number", (.NYT.column_name) = "number"];
+    string Password = 2 [json_name = "password", (.NYT.column_name) = "password"];
+    string Realm = 3 [json_name = "realm", (.NYT.column_name) = "realm"];
+    string RegistrarIP = 4 [json_name = "registrar_ip", (.NYT.column_name) = "registrar_ip"];
+    string AppID = 5 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+    repeated .NAlice.TPhoneCallsCapability.TSipCredentials.THeader SipHeaders = 7 [json_name = "sip_headers", (.NYT.column_name) = "sip_headers"];
   }
 
   message TMtsCredentials {
     message TAuthorization {
       message TPermanentCredentials {
-        string InstanceId = 1 [json_name = "instance_id"];
-        string MyConnectToken = 2 [json_name = "my_connect_token"];
-        string AcsToken = 3 [json_name = "acs_token"];
-        string Msisdn = 4 [json_name = "msisdn"];
-        string PartnerId = 5 [json_name = "partner_id"];
-        uint64 ExpirationTimestampSec = 6 [json_name = "expiration_timestamp_sec"];
+        string InstanceId = 1 [json_name = "instance_id", (.NYT.column_name) = "instance_id"];
+        string MyConnectToken = 2 [json_name = "my_connect_token", (.NYT.column_name) = "my_connect_token"];
+        string AcsToken = 3 [json_name = "acs_token", (.NYT.column_name) = "acs_token"];
+        string Msisdn = 4 [json_name = "msisdn", (.NYT.column_name) = "msisdn"];
+        string PartnerId = 5 [json_name = "partner_id", (.NYT.column_name) = "partner_id"];
+        uint64 ExpirationTimestampSec = 6 [json_name = "expiration_timestamp_sec", (.NYT.column_name) = "expiration_timestamp_sec"];
       }
 
       oneof Authorization {
-        string OttToken = 1 [json_name = "ott_token"];
-        .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization.TPermanentCredentials PermanentCredentials = 2 [json_name = "permanent_credentials"];
+        option (.NYT.variant_field_name) = "authorization";
+        string OttToken = 1 [json_name = "ott_token", (.NYT.column_name) = "ott_token"];
+        .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization.TPermanentCredentials PermanentCredentials = 2 [json_name = "permanent_credentials", (.NYT.column_name) = "permanent_credentials"];
       }
     }
 
     message TLocation {
-      .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon"];
-      uint64 TimestampSec = 2 [json_name = "timestamp_sec"];
+      .NAlice.NData.TLatLon LatLon = 1 [json_name = "lat_lon", (.NYT.column_name) = "lat_lon"];
+      uint64 TimestampSec = 2 [json_name = "timestamp_sec", (.NYT.column_name) = "timestamp_sec"];
     }
 
-    .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization Authorization = 1 [json_name = "authorization"];
-    string UserAgent = 2 [json_name = "user_agent"];
-    string DeviceId = 3 [json_name = "device_id"];
-    .NAlice.TPhoneCallsCapability.TMtsCredentials.TLocation Location = 4 [json_name = "location"];
-    string Server = 5 [json_name = "server"];
-    .NAlice.NData.TLatLon LaasRealLocation = 7 [json_name = "laas_real_location"];
-    optional string WssUrl = 6 [json_name = "wss_url"];
+    .NAlice.TPhoneCallsCapability.TMtsCredentials.TAuthorization Authorization = 1 [json_name = "authorization", (.NYT.column_name) = "authorization"];
+    string UserAgent = 2 [json_name = "user_agent", (.NYT.column_name) = "user_agent"];
+    string DeviceId = 3 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    .NAlice.TPhoneCallsCapability.TMtsCredentials.TLocation Location = 4 [json_name = "location", (.NYT.column_name) = "location"];
+    string Server = 5 [json_name = "server", (.NYT.column_name) = "server"];
+    .NAlice.NData.TLatLon LaasRealLocation = 7 [json_name = "laas_real_location", (.NYT.column_name) = "laas_real_location"];
+    optional string WssUrl = 6 [json_name = "wss_url", (.NYT.column_name) = "wss_url"];
   }
 
   message TAddAccountDirective {
-    string Name = 1 [json_name = "name"];
-    string CredentialsKey = 3 [json_name = "credentials_key"];
-    string AccountId = 4 [json_name = "account_id"];
-    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 6 [json_name = "protocol"];
-    .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 7 [json_name = "lifetime_policy"];
+    option (.NAlice.SpeechKitName) = "phone_calls_add_account";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsAddAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string CredentialsKey = 3 [json_name = "credentials_key", deprecated = true, (.NYT.column_name) = "credentials_key"];
+    string AccountId = 4 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    .NAlice.TPhoneCallsCapability.TSupportedProtocol Protocol = 6 [json_name = "protocol", (.NYT.column_name) = "protocol"];
+    .NAlice.TPhoneCallsCapability.ELifetimePolicy LifetimePolicy = 7 [json_name = "lifetime_policy", (.NYT.column_name) = "lifetime_policy"];
     oneof Credentials {
-      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 2 [json_name = "sip_credentials"];
-      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 5 [json_name = "mts_credentials"];
+      option (.NYT.variant_field_name) = "credentials";
+      .NAlice.TPhoneCallsCapability.TSipCredentials SipCredentials = 2 [json_name = "sip_credentials", (.NYT.column_name) = "sip_credentials"];
+      .NAlice.TPhoneCallsCapability.TMtsCredentials MtsCredentials = 5 [json_name = "mts_credentials", (.NYT.column_name) = "mts_credentials"];
     }
   }
 
   message TConnectDirective {
-    string Name = 1 [json_name = "name"];
-    string AccountId = 2 [json_name = "account_id"];
-    string ForcedTerminalId = 3 [json_name = "forced_terminal_id"];
+    option (.NAlice.SpeechKitName) = "phone_calls_connect_account";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsConnectAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string AccountId = 2 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    string ForcedTerminalId = 3 [json_name = "forced_terminal_id", (.NYT.column_name) = "forced_terminal_id"];
   }
 
   message TDeleteAccountDirective {
-    string Name = 1 [json_name = "name"];
-    string AccountId = 2 [json_name = "account_id"];
+    option (.NAlice.SpeechKitName) = "phone_calls_delete_account";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsDeleteAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string AccountId = 2 [json_name = "account_id", (.NYT.column_name) = "account_id"];
   }
 
   message TRefreshAccountDirective {
-    string Name = 1 [json_name = "name"];
-    string AccountId = 2 [json_name = "account_id"];
+    option (.NAlice.SpeechKitName) = "phone_calls_refresh_account";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsRefreshAccountDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string AccountId = 2 [json_name = "account_id", (.NYT.column_name) = "account_id"];
   }
 
   message TMakeCallDirective {
-    string Name = 1 [json_name = "name"];
-    string Number = 2 [json_name = "number"];
-    .NAlice.NTelecom.TProviderContact ProviderContact = 3 [json_name = "provider_contact"];
-    string CallId = 4 [json_name = "call_id"];
-    string AccountId = 5 [json_name = "account_id"];
-    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info"];
-    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 10 [json_name = "call_params"];
-    repeated .NAlice.NAliceApi.TDirective OnAccepted = 7 [json_name = "on_accepted"];
-    repeated .NAlice.NAliceApi.TDirective OnDeclined = 8 [json_name = "on_declined"];
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 9 [json_name = "on_ended"];
+    option (.NAlice.SpeechKitName) = "phone_calls_make_call";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsMakeCallDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Number = 2 [json_name = "number", deprecated = true, (.NYT.column_name) = "number"];
+    .NAlice.NTelecom.TProviderContact ProviderContact = 3 [json_name = "provider_contact", (.NYT.column_name) = "provider_contact"];
+    string CallId = 4 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    string AccountId = 5 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 6 [json_name = "call_info", (.NYT.column_name) = "call_info"];
+    .NAlice.TPhoneCallsCapability.TCallParams CallParams = 10 [json_name = "call_params", (.NYT.column_name) = "call_params"];
+    repeated .NAlice.NAliceApi.TDirective OnAccepted = 7 [json_name = "on_accepted", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_accepted"];
+    repeated .NAlice.NAliceApi.TDirective OnDeclined = 8 [json_name = "on_declined", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_declined"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 9 [json_name = "on_ended", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_ended"];
   }
 
   message TAcceptCallDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_accept_call";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsAcceptCallDirectiveType;
     reserved "Call";
     reserved 2;
-    string Name = 1 [json_name = "name"];
-    string CallId = 3 [json_name = "call_id"];
-    .NAlice.NTelecom.TCallInfo CallInfo = 4 [json_name = "call_info"];
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string CallId = 3 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 4 [json_name = "call_info", (.NYT.column_name) = "call_info"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_ended"];
   }
 
   message THangUpCallDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_hang_up_call";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsHangUpCallDirectiveType;
     reserved "Call";
     reserved 2;
-    string Name = 1 [json_name = "name"];
-    string CallId = 3 [json_name = "call_id"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string CallId = 3 [json_name = "call_id", (.NYT.column_name) = "call_id"];
   }
 
   message TProcessIncomingCallDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_process_incoming_call";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsProcessIncomingCallDirectiveType;
     reserved 4;
-    string Name = 1 [json_name = "name"];
-    string CallId = 2 [json_name = "call_id"];
-    .NAlice.NTelecom.TCallInfo CallInfo = 3 [json_name = "call_info"];
-    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended"];
-    repeated .NAlice.NAliceApi.TDirective OnAccepted = 6 [json_name = "on_accepted"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string CallId = 2 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    .NAlice.NTelecom.TCallInfo CallInfo = 3 [json_name = "call_info", (.NYT.column_name) = "call_info"];
+    repeated .NAlice.NAliceApi.TDirective OnEnded = 5 [json_name = "on_ended", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_ended"];
+    repeated .NAlice.NAliceApi.TDirective OnAccepted = 6 [json_name = "on_accepted", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "on_accepted"];
   }
 
   message TIgnoreIncomingCallDirective {
-    string Name = 1 [json_name = "name"];
-    string CallId = 2 [json_name = "call_id"];
+    option (.NAlice.SpeechKitName) = "phone_calls_ignore_incoming_call";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsIgnoreIncomingCallDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string CallId = 2 [json_name = "call_id", (.NYT.column_name) = "call_id"];
   }
 
   message TOpenDeviceCallUiDirective {
+    option (.NAlice.SpeechKitName) = "phone_calls_open_device_call_ui";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsOpenDeviceCallUiDirectiveType;
     message TCallableDeviceInfo {
-      string DeviceId = 1 [json_name = "device_id"];
-      string DeviceName = 2 [json_name = "device_name"];
-      string DevicePlatform = 3 [json_name = "device_platform"];
-      string RoomName = 4 [json_name = "room_name"];
-      string HouseholdName = 5 [json_name = "household_name"];
-      string DeviceIconUrl = 6 [json_name = "device_icon_url"];
-      bool RadioNannyEnabled = 7 [json_name = "radio_nanny_enabled"];
-      bool DropInEnabled = 8 [json_name = "drop_in_enabled"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+      string DeviceName = 2 [json_name = "device_name", (.NYT.column_name) = "device_name"];
+      string DevicePlatform = 3 [json_name = "device_platform", (.NYT.column_name) = "device_platform"];
+      string RoomName = 4 [json_name = "room_name", (.NYT.column_name) = "room_name"];
+      string HouseholdName = 5 [json_name = "household_name", (.NYT.column_name) = "household_name"];
+      string DeviceIconUrl = 6 [json_name = "device_icon_url", (.NYT.column_name) = "device_icon_url"];
+      bool RadioNannyEnabled = 7 [json_name = "radio_nanny_enabled", (.NYT.column_name) = "radio_nanny_enabled"];
+      bool DropInEnabled = 8 [json_name = "drop_in_enabled", (.NYT.column_name) = "drop_in_enabled"];
     }
 
-    string Name = 1 [json_name = "name"];
-    .NAlice.TPhoneCallsCapability.TOpenDeviceCallUiDirective.TCallableDeviceInfo DeviceInfo = 2 [json_name = "device_info"];
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPhoneCallsCapability.TOpenDeviceCallUiDirective.TCallableDeviceInfo DeviceInfo = 2 [json_name = "device_info", (.NYT.column_name) = "device_info"];
   }
 
   message TSetMicMuteDirective {
-    string Name = 1 [json_name = "name"];
-    bool IsMicMuted = 2 [json_name = "is_mic_muted"];
-    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 3 [json_name = "mute_source"];
-    string CallId = 4 [json_name = "call_id"];
+    option (.NAlice.SpeechKitName) = "phone_calls_set_mic_mute";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneCallsSetMicMuteDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    bool IsMicMuted = 2 [json_name = "is_mic_muted", (.NYT.column_name) = "is_mic_muted"];
+    .NAlice.TPhoneCallsCapability.TMediaState.EMuteSource MuteSource = 3 [json_name = "mute_source", (.NYT.column_name) = "mute_source"];
+    string CallId = 4 [json_name = "call_id", (.NYT.column_name) = "call_id"];
   }
 
   message TPhoneCallsAddAccountEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsAddAccountEventType;
     enum EStatus {
       OK = 0;
       Failed = 1;
     }
 
-    string CredentialsKey = 1 [json_name = "credentials_key"];
-    .NAlice.TPhoneCallsCapability.TPhoneCallsAddAccountEvent.EStatus Status = 2 [json_name = "status"];
-    string AccountId = 3 [json_name = "account_id"];
-    string Message = 4 [json_name = "message"];
+    string CredentialsKey = 1 [json_name = "credentials_key", deprecated = true, (.NYT.column_name) = "credentials_key"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsAddAccountEvent.EStatus Status = 2 [json_name = "status", (.NYT.column_name) = "status"];
+    string AccountId = 3 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    string Message = 4 [json_name = "message", (.NYT.column_name) = "message"];
   }
 
   message TPhoneCallsDeleteAccountEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsDeleteAccountEventType;
     enum EStatus {
       OK = 0;
       Failed = 1;
     }
 
-    .NAlice.TPhoneCallsCapability.TPhoneCallsDeleteAccountEvent.EStatus Status = 1 [json_name = "status"];
-    string AccountId = 2 [json_name = "account_id"];
-    string Message = 3 [json_name = "message"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsDeleteAccountEvent.EStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    string AccountId = 2 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    string Message = 3 [json_name = "message", (.NYT.column_name) = "message"];
   }
 
   message TPhoneCallsAccountInvalidateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsAccountInvalidateEventType;
     enum EReason {
       UnknownReason = 0;
       Expired = 1;
@@ -266,16 +318,20 @@ message TPhoneCallsCapability {
       WifiChange = 3;
     }
 
-    string AccountId = 1 [json_name = "account_id"];
-    .NAlice.TPhoneCallsCapability.TPhoneCallsAccountInvalidateEvent.EReason Reason = 3 [json_name = "reason"];
+    string AccountId = 1 [json_name = "account_id", (.NYT.column_name) = "account_id"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsAccountInvalidateEvent.EReason Reason = 3 [json_name = "reason", (.NYT.column_name) = "reason"];
   }
 
   message TPhoneCallsRegStateChangedEvent {
-    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account"];
-    int32 StatusCode = 2 [json_name = "status_code"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsRegStateChangedEvent;
+    .NAlice.TPhoneCallsCapability.TAccount Account = 1 [json_name = "account", (.NYT.column_name) = "account"];
+    int32 StatusCode = 2 [json_name = "status_code", (.NYT.column_name) = "status_code"];
   }
 
   message TPhoneCallsCallFailedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsCallFailedEventType;
     enum EReason {
       UnknownReason = 0;
       ConnectionTimeout = 1;
@@ -287,13 +343,15 @@ message TPhoneCallsCapability {
       InternalError = 7;
     }
 
-    .NAlice.TPhoneCallsCapability.TPhoneCallsCallFailedEvent.EReason Reason = 1 [json_name = "reason"];
-    string CallId = 2 [json_name = "call_id"];
+    .NAlice.TPhoneCallsCapability.TPhoneCallsCallFailedEvent.EReason Reason = 1 [json_name = "reason", (.NYT.column_name) = "reason"];
+    string CallId = 2 [json_name = "call_id", (.NYT.column_name) = "call_id"];
   }
 
   message TPhoneCallsCallEndedEvent {
-    string CallId = 1 [json_name = "call_id"];
-    int32 StatusCode = 2 [json_name = "status_code"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = PhoneCallsCallEndedEventType;
+    string CallId = 1 [json_name = "call_id", (.NYT.column_name) = "call_id"];
+    int32 StatusCode = 2 [json_name = "status_code", (.NYT.column_name) = "status_code"];
   }
 
   enum EProtocol {
@@ -321,8 +379,8 @@ message TPhoneCallsCapability {
     Video = 2;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TPhoneCallsCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TPhoneCallsCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPhoneCallsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPhoneCallsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

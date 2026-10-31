@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AutomotiveFragranceCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/automotive_fragrance;automotive_fragrancepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAutomotiveFragranceCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AutomotiveFragranceCapabilityType;
+  message TVehiclePropertyValueBounds {
+    message IntValueBounds {
+      int32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      int32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
+      int32 DefaultValue = 3 [json_name = "default_value", (.NYT.column_name) = "default_value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyValueBounds.IntValueBounds IntValue = 1 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TFragrance {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      int32 Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    }
+
+    message TPropertyConfigParameters {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      .NAlice.TAutomotiveFragranceCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+      .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyValueBounds PropertyValueBounds = 3 [json_name = "property_value_bounds", (.NYT.column_name) = "property_value_bounds"];
+    }
+
+    repeated .NAlice.TAutomotiveFragranceCapability.TParameters.TFragrance AvailableFragrances = 1 [json_name = "available_fragrances", (.NYT.column_name) = "available_fragrances"];
+    repeated .NAlice.TAutomotiveFragranceCapability.TParameters.TPropertyConfigParameters PropertyConfigParameters = 2 [json_name = "property_config_parameters", (.NYT.column_name) = "property_config_parameters"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyState VehiclePropertyStates = 1 [json_name = "vehicle_property_states", (.NYT.column_name) = "vehicle_property_states"];
+  }
+
+  message TVehiclePropertyState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TAutomotiveFragranceCapability.EPropertyId PropertyId = 1 [json_name = "property_id", (.NYT.column_name) = "property_id"];
+    .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyValue GlobalStateValue = 2 [json_name = "global_state_value", (.NYT.column_name) = "global_state_value"];
+  }
+
+  message TVehiclePropertyValue {
+    message TBoolValue {
+      bool Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    message TIntValue {
+      int32 Value = 1 [json_name = "value", (.NYT.column_name) = "value"];
+    }
+
+    oneof ValueType {
+      option (.NYT.variant_field_name) = "value_type";
+      .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyValue.TBoolValue BoolValue = 1 [json_name = "bool_value", (.NYT.column_name) = "bool_value"];
+      .NAlice.TAutomotiveFragranceCapability.TVehiclePropertyValue.TIntValue IntValue = 2 [json_name = "int_value", (.NYT.column_name) = "int_value"];
+    }
+  }
+
+  message TSetFragranceStateDirective {
+    option (.NAlice.SpeechKitName) = "set_fragrance_state_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFragranceStateDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bool Enabled = 1 [json_name = "enabled", (.NYT.column_name) = "enabled"];
+  }
+
+  message TChangeFragranceTypeDirective {
+    option (.NAlice.SpeechKitName) = "change_fragrance_type_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFragranceTypeDirectiveType;
+    reserved "FragranceId";
+    reserved 1;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TSetFragranceIntensityDirective {
+    option (.NAlice.SpeechKitName) = "set_fragrance_intensity_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetFragranceIntensityDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    int32 Intensity = 1 [json_name = "intensity", (.NYT.column_name) = "intensity"];
+  }
+
+  enum EPropertyId {
+    PROPERTY_UNKNOWN = 0;
+    FRAGRANCE_POWER_ON = 1;
+    FRAGRANCE_TYPE = 2;
+    FRAGRANCE_INTENSITY = 3;
+    FRAGRANCE_AVAILABLE = 4;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAutomotiveFragranceCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAutomotiveFragranceCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

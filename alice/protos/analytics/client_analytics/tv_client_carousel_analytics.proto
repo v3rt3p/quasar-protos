@@ -9,7 +9,8 @@ option go_package = "a.yandex-team.ru/alice/protos/analytics/client_analytics";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTvClientCarouselAnalytics {
-  optional string ScreenId = 1 [json_name = "screen_id"];
-  optional string CarouselId = 2 [json_name = "carousel_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string ScreenId = 1 [json_name = "screen_id", (.NYT.column_name) = "screen_id"];
+  optional string CarouselId = 2 [json_name = "carousel_id", (.NYT.column_name) = "carousel_id"];
 }
 

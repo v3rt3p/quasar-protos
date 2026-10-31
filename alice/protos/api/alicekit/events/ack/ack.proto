@@ -11,6 +11,7 @@ import "alice/protos/api/alicekit/events/common/event_header/event_header.proto"
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAck {
-  .NAlice.NAliceApi.TEventHeader ReceivedHeader = 1 [json_name = "header"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NAliceApi.TEventHeader ReceivedHeader = 1 [json_name = "header", (.NYT.column_name) = "header"];
 }
 

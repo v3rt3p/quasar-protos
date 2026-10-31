@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package NAlice.NRpc;
+
+option java_package = "ru.yandex.alice.protos.api.rpc.user_settings";
+option java_outer_classname = "UserSettingsRpcApi";
+option go_package = "a.yandex-team.ru/alice/protos/api/rpc/user_settings";
+
+import "alice/protos/data/scenario/order/config.proto";
+import "alice/protos/data/scenario/settings/config.proto";
+import "alice/protos/data/scenario/music/config.proto";
+import "alice/protos/data/scenario/connectors_consent/config.proto";
+import "alice/protos/data/memory/user_settings.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TUserSettings {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved "IoT";
+  reserved 1;
+  message TIoTConfig {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EResponseReactionType {
+      sound = 0;
+      nlg = 1;
+      silent = 2;
+    }
+
+    .NAlice.NRpc.TUserSettings.TIoTConfig.EResponseReactionType ResponseReactionType = 1 [json_name = "response_reaction_type", (.NYT.column_name) = "response_reaction_type"];
+  }
+
+  message TConnectorConsent {
+    .NAlice.NData.NConnectorsConsent.EConnectorType ConnectorType = 1 [json_name = "connector_type", (.NYT.column_name) = "connector_type"];
+    bool ConsentGranted = 2 [json_name = "consent_granted", (.NYT.column_name) = "consent_granted"];
+    bool TrainAllowed = 3 [json_name = "train_allowed", (.NYT.column_name) = "train_allowed"];
+  }
+
+  .NAlice.NData.NMusic.TUserConfig Music = 2 [json_name = "music", (.NYT.column_name) = "music"];
+  .NAlice.NData.NOrder.TOrderStatusUserConfig Order = 3 [json_name = "order", (.NYT.column_name) = "order"];
+  bool TtsWhisper = 4 [json_name = "tts_whisper", (.NYT.column_name) = "tts_whisper"];
+  bool TtsEmotional = 5 [json_name = "tts_emotional", (.NYT.column_name) = "tts_emotional"];
+  .NAlice.NRpc.TUserSettings.TIoTConfig IoTConfig = 6 [json_name = "iot", (.NYT.column_name) = "iot_config"];
+  bool AudioEmoji = 7 [json_name = "audio_emoji", (.NYT.column_name) = "audio_emoji"];
+  bool EnableAliceMemorySaving = 8 [json_name = "enable_alice_memory_saving", (.NYT.column_name) = "enable_alice_memory_saving"];
+  .NAlice.NData.NSettings.TModelSettingsConfig ModelSettings = 9 [json_name = "model_settings", (.NYT.column_name) = "model_settings"];
+  bool HighresSynthesis = 10 [json_name = "highres_synthesis", (.NYT.column_name) = "highres_synthesis"];
+  repeated .NAlice.NRpc.TUserSettings.TConnectorConsent ConnectorConsents = 11 [json_name = "connector_consents", (.NYT.column_name) = "connector_consents"];
+  .NAlice.NData.NMemory.TUserSettings Memory = 12 [json_name = "memory", (.NYT.column_name) = "memory"];
+}
+
+message TSetUserSettingsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved "Settings";
+  reserved 1;
+  .NAlice.NData.NMusic.TUserConfig Music = 2 [json_name = "music", (.NYT.column_name) = "music"];
+  .NAlice.NData.NOrder.TOrderStatusUserConfig Order = 3 [json_name = "order", (.NYT.column_name) = "order"];
+  .NAlice.NRpc.TUserSettings.TIoTConfig IoTConfig = 6 [json_name = "iot", (.NYT.column_name) = "iot_config"];
+  .NAlice.NData.NSettings.TModelSettingsConfig ModelSettings = 9 [json_name = "model_settings", (.NYT.column_name) = "model_settings"];
+  repeated .NAlice.NRpc.TUserSettings.TConnectorConsent ConnectorConsents = 11 [json_name = "connector_consents", (.NYT.column_name) = "connector_consents"];
+  .NAlice.NData.NMemory.TUserSettings Memory = 12 [json_name = "memory", (.NYT.column_name) = "memory"];
+  optional bool TtsWhisper = 4 [json_name = "tts_whisper", (.NYT.column_name) = "tts_whisper"];
+  optional bool TtsEmotional = 5 [json_name = "tts_emotional", (.NYT.column_name) = "tts_emotional"];
+  optional bool AudioEmoji = 7 [json_name = "audio_emoji", (.NYT.column_name) = "audio_emoji"];
+  optional bool EnableAliceMemorySaving = 8 [json_name = "enable_alice_memory_saving", (.NYT.column_name) = "enable_alice_memory_saving"];
+  optional bool HighresSynthesis = 10 [json_name = "highres_synthesis", (.NYT.column_name) = "highres_synthesis"];
+}
+
+message TSetUserSettingsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved "Status";
+  reserved 1;
+  enum EResponseStatus {
+    ok = 0;
+    error = 1;
+  }
+
+  string RequestId = 2 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+  .NAlice.NRpc.TSetUserSettingsResponse.EResponseStatus ResponseStatus = 3 [json_name = "status", (.NYT.column_name) = "response_status"];
+}
+
+message TGetUserSettingsRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+}
+
+message TGetUserSettingsResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  enum EResponseStatus {
+    ok = 0;
+    error = 1;
+  }
+
+  .NAlice.NRpc.TUserSettings Settings = 1 [json_name = "settings", (.NYT.column_name) = "settings"];
+  string RequestId = 2 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+  .NAlice.NRpc.TGetUserSettingsResponse.EResponseStatus ResponseStatus = 3 [json_name = "status", (.NYT.column_name) = "response_status"];
+}
+

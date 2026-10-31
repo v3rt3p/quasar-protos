@@ -20,74 +20,84 @@ import "alice/protos/data/video/video.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUntypedDirective {
-  optional string Name = 1 [json_name = "name"];
-  optional string Type = 2 [json_name = "type"];
-  optional string AnalyticsType = 3 [json_name = "sub_name"];
-  optional bool IgnoreAnswer = 4 [json_name = "ignore_answer"];
-  optional .google.protobuf.Struct Payload = 5 [json_name = "payload"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  optional string Type = 2 [json_name = "type", (.NYT.column_name) = "type"];
+  optional string AnalyticsType = 3 [json_name = "sub_name", (.NYT.column_name) = "sub_name"];
+  optional bool IgnoreAnswer = 4 [json_name = "ignore_answer", (.NYT.column_name) = "ignore_answer"];
+  optional .google.protobuf.Struct Payload = 5 [json_name = "payload", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload"];
 }
 
 message TNavigator {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TPoint {
-    optional float Lat = 1 [json_name = "lat"];
-    optional float Lon = 2 [json_name = "lon"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional float Lat = 1 [json_name = "lat", (.NYT.column_name) = "lat"];
+    optional float Lon = 2 [json_name = "lon", (.NYT.column_name) = "lon"];
   }
 
   message TFavorite {
-    optional string Name = 1 [json_name = "name"];
-    optional float Lat = 2 [json_name = "lat"];
-    optional float Lon = 3 [json_name = "lon"];
-    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 4 [json_name = "arrival_points"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    optional float Lat = 2 [json_name = "lat", (.NYT.column_name) = "lat"];
+    optional float Lon = 3 [json_name = "lon", (.NYT.column_name) = "lon"];
+    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 4 [json_name = "arrival_points", (.NYT.column_name) = "arrival_points"];
   }
 
   message TLocation {
-    optional float Lat = 1 [json_name = "lat"];
-    optional float Lon = 2 [json_name = "lon"];
-    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 3 [json_name = "arrival_points"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional float Lat = 1 [json_name = "lat", (.NYT.column_name) = "lat"];
+    optional float Lon = 2 [json_name = "lon", (.NYT.column_name) = "lon"];
+    repeated .NAlice.NAliceApi.TNavigator.TPoint ArrivalPoints = 3 [json_name = "arrival_points", (.NYT.column_name) = "arrival_points"];
   }
 
   message TMapView {
-    optional float BottomRightLon = 1 [json_name = "br_lon"];
-    optional float TopRightLon = 2 [json_name = "tr_lon"];
-    optional float TopLeftLon = 3 [json_name = "tl_lon"];
-    optional float BottomLeftLon = 4 [json_name = "bl_lon"];
-    optional float TopLeftLat = 5 [json_name = "tl_lat"];
-    optional float BottomLeftLat = 6 [json_name = "bl_lat"];
-    optional float BottomRightLat = 7 [json_name = "br_lat"];
-    optional float TopRightLat = 8 [json_name = "tr_lat"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional float BottomRightLon = 1 [json_name = "br_lon", (.NYT.column_name) = "br_lon"];
+    optional float TopRightLon = 2 [json_name = "tr_lon", (.NYT.column_name) = "tr_lon"];
+    optional float TopLeftLon = 3 [json_name = "tl_lon", (.NYT.column_name) = "tl_lon"];
+    optional float BottomLeftLon = 4 [json_name = "bl_lon", (.NYT.column_name) = "bl_lon"];
+    optional float TopLeftLat = 5 [json_name = "tl_lat", (.NYT.column_name) = "tl_lat"];
+    optional float BottomLeftLat = 6 [json_name = "bl_lat", (.NYT.column_name) = "bl_lat"];
+    optional float BottomRightLat = 7 [json_name = "br_lat", (.NYT.column_name) = "br_lat"];
+    optional float TopRightLat = 8 [json_name = "tr_lat", (.NYT.column_name) = "tr_lat"];
   }
 
   message TRoute {
-    repeated .NAlice.NAliceApi.TNavigator.TPoint Points = 1 [json_name = "points"];
-    optional float DistanceToDestination = 2 [json_name = "distance_to_destination"];
-    optional int64 RawTimeToDestination = 3 [json_name = "raw_time_to_destination"];
-    optional int64 ArrivalTimestamp = 4 [json_name = "arrival_timestamp"];
-    optional int64 TimeToDestination = 5 [json_name = "time_to_destination"];
-    optional int64 TimeInTrafficJam = 6 [json_name = "time_in_traffic_jam"];
-    optional float DistanceInTrafficJam = 7 [json_name = "distance_in_traffic_jam"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.NAliceApi.TNavigator.TPoint Points = 1 [json_name = "points", (.NYT.column_name) = "points", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+    optional float DistanceToDestination = 2 [json_name = "distance_to_destination", (.NYT.column_name) = "distance_to_destination"];
+    optional int64 RawTimeToDestination = 3 [json_name = "raw_time_to_destination", (.NYT.column_name) = "raw_time_to_destination"];
+    optional int64 ArrivalTimestamp = 4 [json_name = "arrival_timestamp", (.NYT.column_name) = "arrival_timestamp"];
+    optional int64 TimeToDestination = 5 [json_name = "time_to_destination", (.NYT.column_name) = "time_to_destination"];
+    optional int64 TimeInTrafficJam = 6 [json_name = "time_in_traffic_jam", (.NYT.column_name) = "time_in_traffic_jam"];
+    optional float DistanceInTrafficJam = 7 [json_name = "distance_in_traffic_jam", (.NYT.column_name) = "distance_in_traffic_jam"];
   }
 
   message TSpan {
-    optional .NAlice.NAliceApi.TNavigator.TPoint SouthWest = 1 [json_name = "south_west"];
-    optional .NAlice.NAliceApi.TNavigator.TPoint NorthEast = 2 [json_name = "north_east"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.NAliceApi.TNavigator.TPoint SouthWest = 1 [json_name = "south_west", (.NYT.column_name) = "south_west"];
+    optional .NAlice.NAliceApi.TNavigator.TPoint NorthEast = 2 [json_name = "north_east", (.NYT.column_name) = "north_east"];
   }
 
   message TSearchOptions {
-    optional .NAlice.NAliceApi.TNavigator.TSpan Span = 1 [json_name = "span"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.NAliceApi.TNavigator.TSpan Span = 1 [json_name = "span", (.NYT.column_name) = "span"];
   }
 
-  repeated .NAlice.NAliceApi.TNavigator.TFavorite UserFavorites = 1 [json_name = "user_favorites"];
-  optional .NAlice.NAliceApi.TNavigator.TLocation HomeLocation = 2 [json_name = "home"];
-  optional .NAlice.NAliceApi.TNavigator.TLocation WorkLocation = 3 [json_name = "work"];
-  optional .NAlice.NAliceApi.TNavigator.TMapView MapView = 4 [json_name = "map_view"];
-  repeated string AvailableVoiceIds = 5 [json_name = "available_voice_ids"];
-  optional bool ProjectedMode = 6 [json_name = "projected_mode"];
-  optional .NAlice.NAliceApi.TNavigator.TRoute CurrentRoute = 7 [json_name = "current_route"];
-  repeated string States = 8 [json_name = "states"];
-  optional .NAlice.NAliceApi.TNavigator.TSearchOptions SearchOptions = 9 [json_name = "search_options"];
+  repeated .NAlice.NAliceApi.TNavigator.TFavorite UserFavorites = 1 [json_name = "user_favorites", (.NYT.column_name) = "user_favorites", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional .NAlice.NAliceApi.TNavigator.TLocation HomeLocation = 2 [json_name = "home", (.NYT.column_name) = "home", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional .NAlice.NAliceApi.TNavigator.TLocation WorkLocation = 3 [json_name = "work", (.NYT.column_name) = "work", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  optional .NAlice.NAliceApi.TNavigator.TMapView MapView = 4 [json_name = "map_view", (.NYT.column_name) = "map_view"];
+  repeated string AvailableVoiceIds = 5 [json_name = "available_voice_ids", (.NYT.column_name) = "available_voice_ids"];
+  optional bool ProjectedMode = 6 [json_name = "projected_mode", (.NYT.column_name) = "projected_mode"];
+  optional .NAlice.NAliceApi.TNavigator.TRoute CurrentRoute = 7 [json_name = "current_route", (.NYT.column_name) = "current_route"];
+  repeated string States = 8 [json_name = "states", (.NYT.column_name) = "states"];
+  optional .NAlice.NAliceApi.TNavigator.TSearchOptions SearchOptions = 9 [json_name = "search_options", (.NYT.column_name) = "search_options"];
 }
 
 message TDeviceState {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "Actions";
   reserved "TvSet";
   reserved "CarOptions";
@@ -119,12 +129,14 @@ message TDeviceState {
   reserved 45;
   reserved 49;
   message TAudioPlayer {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TCurrentlyPlaying {
-      optional string StreamId = 1 [json_name = "stream_id"];
-      optional double LastPlayTimestamp = 2 [json_name = "last_play_timestamp"];
-      optional string Title = 3 [json_name = "title"];
-      optional string SubTitle = 4 [json_name = "subtitle"];
-      optional string StreamType = 5 [json_name = "stream_type"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string StreamId = 1 [json_name = "stream_id", (.NYT.column_name) = "stream_id"];
+      optional double LastPlayTimestamp = 2 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+      optional string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
+      optional string SubTitle = 4 [json_name = "subtitle", (.NYT.column_name) = "subtitle"];
+      optional string StreamType = 5 [json_name = "stream_type", (.NYT.column_name) = "stream_type"];
     }
 
     enum TPlayerState {
@@ -137,61 +149,67 @@ message TDeviceState {
       Finished = 6;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TPlayerState PlayerState = 1 [json_name = "player_state"];
-    optional int32 OffsetMs = 2 [json_name = "offset_ms"];
-    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "current_stream"];
-    map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta"];
-    optional double LastPlayTimestamp = 5 [json_name = "last_play_timestamp"];
-    optional int32 DurationMs = 6 [json_name = "duration_ms"];
-    optional double LastStopTimestamp = 7 [json_name = "last_stop_timestamp"];
-    optional int32 PlayedMs = 8 [json_name = "played_ms"];
+    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TPlayerState PlayerState = 1 [json_name = "player_state", (.NYT.column_name) = "player_state"];
+    optional int32 OffsetMs = 2 [json_name = "offset_ms", (.NYT.column_name) = "offset_ms"];
+    optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "current_stream", (.NYT.column_name) = "current_stream"];
+    map<string, string> ScenarioMeta = 4 [json_name = "scenario_meta", (.NYT.flags) = MAP_AS_DICT, (.NYT.column_name) = "scenario_meta"];
+    optional double LastPlayTimestamp = 5 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+    optional int32 DurationMs = 6 [json_name = "duration_ms", (.NYT.column_name) = "duration_ms"];
+    optional double LastStopTimestamp = 7 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
+    optional int32 PlayedMs = 8 [json_name = "played_ms", (.NYT.column_name) = "played_ms"];
   }
 
   message TMusic {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TCurrentlyPlaying {
-      optional string TrackId = 1 [json_name = "track_id"];
-      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info"];
-      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
+      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "track_info"];
+      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1 [json_name = "pause"];
-      optional uint64 TimestampDeprecated = 2;
-      optional double Timestamp = 3 [json_name = "timestamp"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional bool Pause = 1 [json_name = "pause", (.NYT.column_name) = "pause"];
+      optional uint64 TimestampDeprecated = 2 [deprecated = true, (.NYT.column_name) = "timestamp_deprecated"];
+      optional double Timestamp = 3 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TMusic.TCurrentlyPlaying CurrentlyPlaying = 1 [json_name = "currently_playing"];
-    optional string Uid = 2 [json_name = "uid"];
-    optional string PlaylistOwner = 3 [json_name = "playlist_owner"];
-    optional .NAlice.NAliceApi.TDeviceState.TMusic.TPlayer Player = 4 [json_name = "player"];
-    optional uint32 SoundLevel = 5 [json_name = "sound_level"];
-    optional bool SoundMuted = 6 [json_name = "sound_muted"];
-    optional string SessionId = 7 [json_name = "session_id"];
-    optional double LastPlayTimestamp = 8 [json_name = "last_play_timestamp"];
-    optional double LastStopTimestamp = 9 [json_name = "last_stop_timestamp"];
+    optional .NAlice.NAliceApi.TDeviceState.TMusic.TCurrentlyPlaying CurrentlyPlaying = 1 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+    optional string Uid = 2 [json_name = "uid", (.NYT.column_name) = "uid"];
+    optional string PlaylistOwner = 3 [json_name = "playlist_owner", (.NYT.column_name) = "playlist_owner"];
+    optional .NAlice.NAliceApi.TDeviceState.TMusic.TPlayer Player = 4 [json_name = "player", (.NYT.column_name) = "player"];
+    optional uint32 SoundLevel = 5 [json_name = "sound_level", (.NYT.column_name) = "sound_level"];
+    optional bool SoundMuted = 6 [json_name = "sound_muted", (.NYT.column_name) = "sound_muted"];
+    optional string SessionId = 7 [json_name = "session_id", (.NYT.column_name) = "session_id"];
+    optional double LastPlayTimestamp = 8 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+    optional double LastStopTimestamp = 9 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
   }
 
   message TVideo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "TvScreenState";
     reserved 4;
     reserved 6;
     reserved 7;
     reserved 12;
     message TScreenState {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved 1;
       reserved 3;
       reserved 4;
-      repeated uint32 VisibleItems = 2 [json_name = "visible_items"];
-      optional uint32 Season = 5 [json_name = "season"];
-      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items"];
-      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item"];
-      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item"];
-      optional string Scenario = 9 [json_name = "scenario"];
-      optional string ViewKey = 10 [json_name = "view_key"];
-      optional string ScenarioName = 11 [json_name = "scenario_name"];
+      repeated uint32 VisibleItems = 2 [json_name = "visible_items", (.NYT.column_name) = "visible_items"];
+      optional uint32 Season = 5 [json_name = "season", (.NYT.column_name) = "season"];
+      repeated .NAlice.TVideoItem RawItems = 6 [json_name = "items", (.NYT.column_name) = "items", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem RawItem = 7 [json_name = "item", (.NYT.column_name) = "item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem TvShowItem = 8 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional string Scenario = 9 [json_name = "scenario", deprecated = true, (.NYT.column_name) = "scenario"];
+      optional string ViewKey = 10 [json_name = "view_key", (.NYT.column_name) = "view_key"];
+      optional string ScenarioName = 11 [json_name = "scenario_name", (.NYT.column_name) = "scenario_name"];
     }
 
     message TCurrentlyPlaying {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       reserved "RawItemDeprecated";
       reserved "RawNextItemDeprecated";
       reserved 5;
@@ -200,34 +218,37 @@ message TDeviceState {
       reserved 3;
       reserved 4;
       message TProgress {
-        optional double Played = 1 [json_name = "played"];
-        optional double Duration = 2 [json_name = "duration"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        optional double Played = 1 [json_name = "played", (.NYT.column_name) = "played"];
+        optional double Duration = 2 [json_name = "duration", (.NYT.column_name) = "duration"];
       }
 
-      optional bool Paused = 1 [json_name = "paused"];
-      optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress"];
-      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item"];
-      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item"];
-      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item"];
-      optional string AudioLanguage = 11 [json_name = "audio_language"];
-      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language"];
-      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp"];
+      optional bool Paused = 1 [json_name = "paused", deprecated = true, (.NYT.column_name) = "paused"];
+      optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying.TProgress Progress = 2 [json_name = "progress", (.NYT.column_name) = "progress"];
+      optional .NAlice.TVideoItem RawItem = 8 [json_name = "item", (.NYT.column_name) = "item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem RawNextItem = 9 [json_name = "next_item", (.NYT.column_name) = "next_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional .NAlice.TVideoItem RawTvShowItem = 10 [json_name = "tv_show_item", (.NYT.column_name) = "tv_show_item", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+      optional string AudioLanguage = 11 [json_name = "audio_language", (.NYT.column_name) = "audio_language"];
+      optional string SubtitlesLanguage = 12 [json_name = "subtitles_language", (.NYT.column_name) = "subtitles_language"];
+      optional double LastPlayTimestamp = 13 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1 [json_name = "pause"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional bool Pause = 1 [json_name = "pause", (.NYT.column_name) = "pause"];
     }
 
     message TTvInterfaceState {
       message TSearchResultsScreen {
-        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries"];
-        optional string SearchQuery = 2 [json_name = "search_query"];
-        repeated string Suggests = 3 [json_name = "suggests"];
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        repeated .NAlice.TSearchResultGallery Galleries = 1 [json_name = "galleries", (.NYT.column_name) = "galleries"];
+        optional string SearchQuery = 2 [json_name = "search_query", (.NYT.column_name) = "search_query"];
+        repeated string Suggests = 3 [json_name = "suggests", (.NYT.column_name) = "suggests"];
       }
 
-      optional string InitialReqId = 1 [json_name = "initial_reqid"];
+      optional string InitialReqId = 1 [json_name = "initial_reqid", (.NYT.column_name) = "initial_reqid"];
       oneof Screen {
-        .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen"];
+        .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState.TSearchResultsScreen SearchResultsScreen = 21 [json_name = "search_results_screen", (.NYT.column_name) = "search_results_screen"];
       }
     }
 
@@ -244,119 +265,131 @@ message TDeviceState {
       play_pause = 9;
     }
 
-    optional string CurrentScreen = 1 [json_name = "current_screen"];
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state"];
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
-    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state"];
-    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state"];
-    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp"];
-    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp"];
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TPlayer Player = 11 [json_name = "player"];
-    optional .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state"];
-    repeated .NAlice.NAliceApi.TDeviceState.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities"];
-    optional string PlayerName = 15 [json_name = "player_name"];
+    optional string CurrentScreen = 1 [json_name = "current_screen", (.NYT.column_name) = "current_screen"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TScreenState ScreenState = 2 [json_name = "screen_state", (.NYT.column_name) = "screen_state"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+    optional .google.protobuf.Struct ViewState = 5 [json_name = "view_state", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "view_state"];
+    optional .google.protobuf.Struct PageState = 8 [json_name = "page_state", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "page_state", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+    optional double LastPlayTimestamp = 9 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
+    optional double LastStopTimestamp = 10 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TPlayer Player = 11 [json_name = "player", (.NYT.column_name) = "player"];
+    optional .NAlice.NAliceApi.TDeviceState.TVideo.TTvInterfaceState TvInterfaceState = 13 [json_name = "tv_interface_state", (.NYT.column_name) = "tv_interface_state"];
+    repeated .NAlice.NAliceApi.TDeviceState.TVideo.EPlayerCapability PlayerCapabilities = 14 [json_name = "player_capabilities", (.NYT.column_name) = "player_capabilities"];
+    optional string PlayerName = 15 [json_name = "player_name", (.NYT.column_name) = "player_name"];
   }
 
   message TLastWatched {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved 1;
     reserved 2;
     reserved 3;
-    repeated .NAlice.TWatchedVideoItem RawMovies = 4 [json_name = "movies"];
-    repeated .NAlice.TWatchedTvShowItem RawTvShows = 5 [json_name = "tv_shows"];
-    repeated .NAlice.TWatchedVideoItem RawVideos = 6 [json_name = "videos"];
+    repeated .NAlice.TWatchedVideoItem RawMovies = 4 [json_name = "movies", (.NYT.column_name) = "movies"];
+    repeated .NAlice.TWatchedTvShowItem RawTvShows = 5 [json_name = "tv_shows", (.NYT.column_name) = "tv_shows"];
+    repeated .NAlice.TWatchedVideoItem RawVideos = 6 [json_name = "videos", (.NYT.column_name) = "videos"];
   }
 
   message TTimers {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "AlarmState";
     reserved 2;
     message TTimer {
-      optional string TimerId = 1 [json_name = "timer_id"];
-      optional uint64 StartTimestamp = 2 [json_name = "start_timestamp"];
-      optional uint32 Duration = 3 [json_name = "duration"];
-      optional uint32 Remaining = 4 [json_name = "remaining"];
-      optional bool CurrentlyPlaying = 5 [json_name = "currently_playing"];
-      optional bool Paused = 6 [json_name = "paused"];
-      repeated .NAlice.NAliceApi.TUntypedDirective Directives = 7 [json_name = "directives"];
-      optional .NAlice.NData.TTimerDescription TimerDescription = 8 [json_name = "timer_descripion"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string TimerId = 1 [json_name = "timer_id", (.NYT.column_name) = "timer_id"];
+      optional uint64 StartTimestamp = 2 [json_name = "start_timestamp", (.NYT.column_name) = "start_timestamp"];
+      optional uint32 Duration = 3 [json_name = "duration", (.NYT.column_name) = "duration"];
+      optional uint32 Remaining = 4 [json_name = "remaining", (.NYT.column_name) = "remaining"];
+      optional bool CurrentlyPlaying = 5 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+      optional bool Paused = 6 [json_name = "paused", (.NYT.column_name) = "paused"];
+      repeated .NAlice.NAliceApi.TUntypedDirective Directives = 7 [json_name = "directives", (.NYT.column_name) = "directives"];
+      optional .NAlice.NData.TTimerDescription TimerDescription = 8 [json_name = "timer_descripion", (.NYT.column_name) = "timer_description"];
     }
 
-    repeated .NAlice.NAliceApi.TDeviceState.TTimers.TTimer ActiveTimers = 1 [json_name = "active_timers"];
+    repeated .NAlice.NAliceApi.TDeviceState.TTimers.TTimer ActiveTimers = 1 [json_name = "active_timers", (.NYT.column_name) = "active_timers"];
   }
 
   message TAlarmState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TSoundAlarmSetting {
-      optional string Type = 1 [json_name = "type"];
-      optional .google.protobuf.Struct RawInfo = 2 [json_name = "info"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+      optional .google.protobuf.Struct RawInfo = 2 [json_name = "info", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "info"];
     }
 
-    optional string ICalendar = 1 [json_name = "icalendar"];
-    optional bool CurrentlyPlaying = 2 [json_name = "currently_playing"];
-    optional .NAlice.NAliceApi.TDeviceState.TAlarmState.TSoundAlarmSetting SoundAlarmSetting = 3 [json_name = "sound_alarm_setting"];
-    optional uint32 MaxSoundLevel = 4 [json_name = "max_sound_level"];
-    optional uint32 MinSoundLevel = 5 [json_name = "min_sound_level"];
-    optional bool MediaCurrentlyPlaying = 6 [json_name = "media_currently_playing"];
+    optional string ICalendar = 1 [json_name = "icalendar", (.NYT.column_name) = "icalendar"];
+    optional bool CurrentlyPlaying = 2 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+    optional .NAlice.NAliceApi.TDeviceState.TAlarmState.TSoundAlarmSetting SoundAlarmSetting = 3 [json_name = "sound_alarm_setting", (.NYT.column_name) = "sound_alarm_setting"];
+    optional uint32 MaxSoundLevel = 4 [json_name = "max_sound_level", (.NYT.column_name) = "max_sound_level"];
+    optional uint32 MinSoundLevel = 5 [json_name = "min_sound_level", (.NYT.column_name) = "min_sound_level"];
+    optional bool MediaCurrentlyPlaying = 6 [json_name = "media_currently_playing", (.NYT.column_name) = "media_currently_playing"];
   }
 
   message TDeviceConfig {
-    optional .NAlice.EContentSettings ContentSettings = 1 [json_name = "content_settings"];
-    optional string Spotter = 2 [json_name = "spotter"];
-    optional .NAlice.EContentSettings ChildContentSettings = 3 [json_name = "child_content_settings"];
-    optional bool RadioNannyEnabled = 4 [json_name = "radio_nanny_enabled"];
-    optional bool SmartActivation = 5 [json_name = "smart_activation"];
-    optional bool SmartVolumeEnabled = 6 [json_name = "smart_volume_enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional .NAlice.EContentSettings ContentSettings = 1 [json_name = "content_settings", (.NYT.column_name) = "content_settings"];
+    optional string Spotter = 2 [json_name = "spotter", (.NYT.column_name) = "spotter"];
+    optional .NAlice.EContentSettings ChildContentSettings = 3 [json_name = "child_content_settings", (.NYT.column_name) = "child_content_settings"];
+    optional bool RadioNannyEnabled = 4 [json_name = "radio_nanny_enabled", (.NYT.column_name) = "radio_nanny_enabled"];
+    optional bool SmartActivation = 5 [json_name = "smart_activation", (.NYT.column_name) = "smart_activation"];
+    optional bool SmartVolumeEnabled = 6 [json_name = "smart_volume_enabled", (.NYT.column_name) = "smart_volume_enabled"];
   }
 
   message TBattery {
-    optional int32 Percent = 1 [json_name = "percent"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional int32 Percent = 1 [json_name = "percent", (.NYT.column_name) = "percent"];
   }
 
   message TMultiroom {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EMultiroomMode {
       Unknown = 0;
       Master = 1;
       Slave = 2;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TMultiroom.EMultiroomMode Mode = 1 [json_name = "mode"];
-    optional string MultiroomSessionId = 2 [json_name = "multiroom_session_id"];
-    optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 3 [json_name = "music"];
-    optional string MasterDeviceId = 4 [json_name = "master_device_id"];
-    repeated string VisiblePeerDeviceIds = 5 [json_name = "visible_peers"];
-    optional string MultiroomToken = 6 [json_name = "multiroom_token"];
-    repeated string RoomDeviceIds = 7 [json_name = "room_device_ids"];
+    optional .NAlice.NAliceApi.TDeviceState.TMultiroom.EMultiroomMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
+    optional string MultiroomSessionId = 2 [json_name = "multiroom_session_id", (.NYT.column_name) = "multiroom_session_id"];
+    optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 3 [json_name = "music", (.NYT.column_name) = "music"];
+    optional string MasterDeviceId = 4 [json_name = "master_device_id", (.NYT.column_name) = "master_device_id"];
+    repeated string VisiblePeerDeviceIds = 5 [json_name = "visible_peers", (.NYT.column_name) = "visible_peers"];
+    optional string MultiroomToken = 6 [json_name = "multiroom_token", (.NYT.column_name) = "multiroom_token"];
+    repeated string RoomDeviceIds = 7 [json_name = "room_device_ids", (.NYT.column_name) = "room_device_ids"];
   }
 
   message TBluetooth {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TConnection {
-      optional string Name = 1 [json_name = "name"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
     }
 
     message TCurrentlyPlaying {
-      optional string TrackId = 1 [json_name = "track_id"];
-      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info"];
-      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
+      optional .google.protobuf.Struct RawTrackInfo = 2 [json_name = "track_info", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "track_info"];
+      optional double LastPlayTimestamp = 3 [json_name = "last_play_timestamp", deprecated = true, (.NYT.column_name) = "last_play_timestamp"];
     }
 
     message TPlayer {
-      optional bool Pause = 1 [json_name = "pause"];
-      optional double Timestamp = 2 [json_name = "timestamp"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional bool Pause = 1 [json_name = "pause", (.NYT.column_name) = "pause"];
+      optional double Timestamp = 2 [json_name = "timestamp", deprecated = true, (.NYT.column_name) = "timestamp"];
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TPlayer Player = 1 [json_name = "player"];
-    repeated .NAlice.NAliceApi.TDeviceState.TBluetooth.TConnection CurrentConnections = 2 [json_name = "current_connections"];
-    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing"];
-    optional double LastPlayTimestamp = 4 [json_name = "last_play_timestamp"];
+    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TPlayer Player = 1 [json_name = "player", (.NYT.column_name) = "player"];
+    repeated .NAlice.NAliceApi.TDeviceState.TBluetooth.TConnection CurrentConnections = 2 [json_name = "current_connections", (.NYT.column_name) = "current_connections"];
+    optional .NAlice.NAliceApi.TDeviceState.TBluetooth.TCurrentlyPlaying CurrentlyPlaying = 3 [json_name = "currently_playing", (.NYT.column_name) = "currently_playing"];
+    optional double LastPlayTimestamp = 4 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
   }
 
   message TInternetConnection {
     message TWifiNetwork {
-      optional string Ssid = 1 [json_name = "ssid"];
-      optional string Bssid = 2 [json_name = "bssid"];
-      optional int32 Channel = 3 [json_name = "channel"];
-      optional int32 Rssi = 4 [json_name = "signal_strength"];
-      optional string Flags = 5 [json_name = "flags"];
-      optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.ENetworkSecurityType NetworkSecurityType = 6 [json_name = "network_security_type"];
-      optional bool IsCorporate = 7 [json_name = "is_corporate"];
+      optional string Ssid = 1 [json_name = "ssid", (.NYT.column_name) = "ssid"];
+      optional string Bssid = 2 [json_name = "bssid", (.NYT.column_name) = "bssid"];
+      optional int32 Channel = 3 [json_name = "channel", (.NYT.column_name) = "channel"];
+      optional int32 Rssi = 4 [json_name = "signal_strength", (.NYT.column_name) = "rssi"];
+      optional string Flags = 5 [json_name = "flags", (.NYT.column_name) = "flags"];
+      optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.ENetworkSecurityType NetworkSecurityType = 6 [json_name = "network_security_type", (.NYT.column_name) = "network_security_type"];
+      optional bool IsCorporate = 7 [json_name = "is_corporate", (.NYT.column_name) = "is_corporate"];
     }
 
     enum EType {
@@ -382,15 +415,16 @@ message TDeviceState {
       NotChosen = 4;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EType Type = 1 [json_name = "type"];
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Current = 2 [json_name = "current"];
-    repeated .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Neighbours = 3 [json_name = "neighbours"];
-    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EStatus Status = 4 [json_name = "status"];
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Current = 2 [json_name = "current", (.NYT.column_name) = "current"];
+    repeated .NAlice.NAliceApi.TDeviceState.TInternetConnection.TWifiNetwork Neighbours = 3 [json_name = "neighbours", (.NYT.flags) = SERIALIZATION_YT, (.NYT.column_name) = "neighbours"];
+    optional .NAlice.NAliceApi.TDeviceState.TInternetConnection.EStatus Status = 4 [json_name = "status", (.NYT.column_name) = "status"];
   }
 
   message TRcuState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRcuCapabilities {
-      optional bool CanMakeSounds = 1 [json_name = "can_make_sounds"];
+      optional bool CanMakeSounds = 1 [json_name = "can_make_sounds", (.NYT.column_name) = "can_make_sounds"];
     }
 
     enum ESetupState {
@@ -402,36 +436,42 @@ message TDeviceState {
       Manual = 5;
     }
 
-    optional bool IsRcuConnected = 1 [json_name = "is_rcu_connected"];
-    optional .NAlice.NAliceApi.TDeviceState.TRcuState.ESetupState SetupState = 2 [json_name = "setup_state"];
-    optional int32 TotalCodesets = 3 [json_name = "total_codesets"];
-    optional .NAlice.NAliceApi.TDeviceState.TRcuState.TRcuCapabilities RcuCapabilities = 4 [json_name = "rcu_capabilities"];
+    optional bool IsRcuConnected = 1 [json_name = "is_rcu_connected", (.NYT.column_name) = "is_rcu_connected"];
+    optional .NAlice.NAliceApi.TDeviceState.TRcuState.ESetupState SetupState = 2 [json_name = "setup_state", (.NYT.column_name) = "setup_state"];
+    optional int32 TotalCodesets = 3 [json_name = "total_codesets", (.NYT.column_name) = "total_codesets"];
+    optional .NAlice.NAliceApi.TDeviceState.TRcuState.TRcuCapabilities RcuCapabilities = 4 [json_name = "rcu_capabilities", (.NYT.column_name) = "rcu_capabilities"];
   }
 
   message TPackagesState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TPackage {
-      optional string Name = 1 [json_name = "name"];
-      optional string HumanReadableName = 2 [json_name = "human_readable_name"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+      optional string HumanReadableName = 2 [json_name = "human_readable_name", (.NYT.column_name) = "human_readable_name"];
     }
 
     message TInstalledPackage {
-      optional .NAlice.NAliceApi.TDeviceState.TPackagesState.TPackage PackageInfo = 1 [json_name = "package_info"];
-      optional string MainActivity = 2 [json_name = "main_activity"];
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional .NAlice.NAliceApi.TDeviceState.TPackagesState.TPackage PackageInfo = 1 [json_name = "package_info", (.NYT.column_name) = "package_info"];
+      optional string MainActivity = 2 [json_name = "main_activity", (.NYT.column_name) = "main_activity"];
     }
 
-    repeated .NAlice.NAliceApi.TDeviceState.TPackagesState.TInstalledPackage Installed = 1 [json_name = "installed"];
+    repeated .NAlice.NAliceApi.TDeviceState.TPackagesState.TInstalledPackage Installed = 1 [json_name = "installed", (.NYT.column_name) = "installed"];
   }
 
   message TClockDisplayState {
-    optional bool ClockEnabled = 1 [json_name = "clock_enabled"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional bool ClockEnabled = 1 [json_name = "clock_enabled", (.NYT.column_name) = "clock_enabled"];
   }
 
   message TActiveActions {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "SemanticFrames";
     reserved "ConditionalActions";
     reserved 1;
     reserved 2;
     message TScreenConditionalActions {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       message TConditionalAction {
         reserved 1;
         reserved 2;
@@ -440,10 +480,10 @@ message TDeviceState {
         reserved 5;
       }
 
-      repeated .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions.TConditionalAction ConditionalActions = 1 [json_name = "conditional_actions"];
+      repeated .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions.TConditionalAction ConditionalActions = 1 [json_name = "conditional_actions", (.NYT.column_name) = "conditional_actions"];
     }
 
-    map<string, .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions> ScreenConditionalActions = 3 [json_name = "screen_conditional_action"];
+    map<string, .NAlice.NAliceApi.TDeviceState.TActiveActions.TScreenConditionalActions> ScreenConditionalActions = 3 [json_name = "screen_conditional_action", (.NYT.column_name) = "screen_conditional_action"];
   }
 
   message TAppScreenInfo {
@@ -456,10 +496,11 @@ message TDeviceState {
       cloud_2_ui_keyboard = 4;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo.ESourceScreenId SourceScreenId = 3 [json_name = "source_screen_id"];
+    optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo.ESourceScreenId SourceScreenId = 3 [json_name = "source_screen_id", (.NYT.column_name) = "source_screen_id"];
   }
 
   message TStereoPair {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     enum EChannel {
       undefined_channel = 0;
       left = 1;
@@ -486,53 +527,54 @@ message TDeviceState {
       READY = 3;
     }
 
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EChannel Channel = 1 [json_name = "channel"];
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EConnected Connected = 2 [json_name = "connected"];
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.ERole Role = 3 [json_name = "role"];
-    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EStereoPlayerStatus StereoPlayerStatus = 4 [json_name = "stereo_player_status"];
-    optional string PartnerDeviceId = 5 [json_name = "partner_device_id"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EChannel Channel = 1 [json_name = "channel", (.NYT.column_name) = "channel"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EConnected Connected = 2 [json_name = "connected", (.NYT.column_name) = "connected"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.ERole Role = 3 [json_name = "role", (.NYT.column_name) = "role"];
+    optional .NAlice.NAliceApi.TDeviceState.TStereoPair.EStereoPlayerStatus StereoPlayerStatus = 4 [json_name = "stereo_player_status", (.NYT.column_name) = "stereo_player_status"];
+    optional string PartnerDeviceId = 5 [json_name = "partner_device_id", (.NYT.column_name) = "partner_device_id"];
   }
 
   message TTanker {
-    optional string GasStationId = 1 [json_name = "gas_station_id"];
-    optional string FuelType = 2 [json_name = "fuel_type"];
-    optional bool CreditCard = 3 [json_name = "credit_card"];
-    optional string XPayment = 4 [json_name = "xPayment"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    optional string GasStationId = 1 [json_name = "gas_station_id", (.NYT.column_name) = "gas_station_id"];
+    optional string FuelType = 2 [json_name = "fuel_type", (.NYT.column_name) = "fuel_type"];
+    optional bool CreditCard = 3 [json_name = "credit_card", (.NYT.column_name) = "credit_card"];
+    optional string XPayment = 4 [json_name = "xPayment", (.NYT.column_name) = "x_payment"];
   }
 
-  optional string DeviceId = 1 [json_name = "device_id"];
-  optional uint32 SoundLevel = 2 [json_name = "sound_level"];
-  optional bool SoundMuted = 3 [json_name = "sound_muted"];
-  optional bool IsTvPluggedIn = 4 [json_name = "is_tv_plugged_in"];
-  optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 5 [json_name = "music"];
-  optional .NAlice.NAliceApi.TDeviceState.TVideo Video = 6 [json_name = "video"];
-  optional string AlarmsState = 7 [json_name = "alarms_state"];
-  optional .NAlice.NAliceApi.TDeviceState.TAlarmState AlarmState = 8 [json_name = "alarm_state"];
-  optional .NAlice.NAliceApi.TDeviceState.TDeviceConfig DeviceConfig = 9 [json_name = "device_config"];
-  optional .NAlice.NAliceApi.TDeviceState.TTimers Timers = 10 [json_name = "timers"];
-  optional .google.protobuf.Struct Radio = 11 [json_name = "radio"];
-  optional .NAlice.NAliceApi.TNavigator Navigator = 12 [json_name = "navigator"];
-  optional .NAlice.NAliceApi.TDeviceState.TLastWatched LastWatched = 14 [json_name = "last_watched"];
-  optional .NAlice.NAliceApi.TDeviceState.TBattery Battery = 17 [json_name = "battery"];
-  optional .NAlice.NAliceApi.TDeviceState.TTanker Tanker = 19 [json_name = "tanker"];
-  optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer AudioPlayer = 22 [json_name = "audio_player"];
-  optional .NAlice.NAliceApi.TDeviceState.TMultiroom Multiroom = 23 [json_name = "multiroom"];
-  optional .NAlice.NAliceApi.TDeviceState.TBluetooth Bluetooth = 24 [json_name = "bluetooth"];
-  optional .NAlice.NAliceApi.TDeviceState.TInternetConnection InternetConnection = 25 [json_name = "internet_connection"];
-  optional bool MicsMuted = 26 [json_name = "mics_muted"];
-  optional .NAlice.NAliceApi.TDeviceState.TRcuState RcuState = 28 [json_name = "rcu"];
-  optional bool IsDefaultAssistant = 30 [json_name = "is_default_assistant"];
-  optional uint32 SoundMaxLevel = 32 [json_name = "sound_max_level"];
-  optional .NAlice.NAliceApi.TDeviceState.TActiveActions ActiveActions = 33 [json_name = "active_actions"];
-  optional .NAlice.TTandemState TandemState = 35 [json_name = "tandem_state"];
-  optional .NAlice.TSubscriptionState DeviceSubscriptionState = 36 [json_name = "subscription_state"];
-  optional .NAlice.NData.NReminders.TDeviceRemindersState DeviceReminders = 37 [json_name = "device_reminders"];
-  optional .NAlice.NAliceApi.TDeviceState.TPackagesState PackagesState = 38 [json_name = "packages"];
-  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescription = 42 [json_name = "external_entities_description"];
-  optional .NAlice.NAliceApi.TDeviceState.TClockDisplayState ClockDisplayState = 44 [json_name = "clock_display_state"];
-  optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo AppScreenInfo = 46 [json_name = "app_screen_info"];
-  optional .NAlice.NAliceApi.TDeviceState.TStereoPair StereoPair = 47 [json_name = "stereo_pair"];
-  optional bool DNDEnabled = 48 [json_name = "dnd_enabled"];
+  optional string DeviceId = 1 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+  optional uint32 SoundLevel = 2 [json_name = "sound_level", (.NYT.column_name) = "sound_level"];
+  optional bool SoundMuted = 3 [json_name = "sound_muted", (.NYT.column_name) = "sound_muted"];
+  optional bool IsTvPluggedIn = 4 [json_name = "is_tv_plugged_in", (.NYT.column_name) = "is_tv_plugged_in"];
+  optional .NAlice.NAliceApi.TDeviceState.TMusic Music = 5 [json_name = "music", (.NYT.column_name) = "music"];
+  optional .NAlice.NAliceApi.TDeviceState.TVideo Video = 6 [json_name = "video", (.NYT.column_name) = "video"];
+  optional string AlarmsState = 7 [json_name = "alarms_state", (.NYT.column_name) = "alarms_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TAlarmState AlarmState = 8 [json_name = "alarm_state", (.NYT.column_name) = "alarm_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TDeviceConfig DeviceConfig = 9 [json_name = "device_config", (.NYT.column_name) = "device_config"];
+  optional .NAlice.NAliceApi.TDeviceState.TTimers Timers = 10 [json_name = "timers", (.NYT.column_name) = "timers"];
+  optional .google.protobuf.Struct Radio = 11 [json_name = "radio", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "radio"];
+  optional .NAlice.NAliceApi.TNavigator Navigator = 12 [json_name = "navigator", (.NYT.column_name) = "navigator"];
+  optional .NAlice.NAliceApi.TDeviceState.TLastWatched LastWatched = 14 [json_name = "last_watched", (.NYT.column_name) = "last_watched", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST];
+  optional .NAlice.NAliceApi.TDeviceState.TBattery Battery = 17 [json_name = "battery", (.NYT.column_name) = "battery"];
+  optional .NAlice.NAliceApi.TDeviceState.TTanker Tanker = 19 [json_name = "tanker", (.NYT.column_name) = "tanker"];
+  optional .NAlice.NAliceApi.TDeviceState.TAudioPlayer AudioPlayer = 22 [json_name = "audio_player", (.NYT.column_name) = "audio_player"];
+  optional .NAlice.NAliceApi.TDeviceState.TMultiroom Multiroom = 23 [json_name = "multiroom", (.NYT.column_name) = "multiroom"];
+  optional .NAlice.NAliceApi.TDeviceState.TBluetooth Bluetooth = 24 [json_name = "bluetooth", (.NYT.column_name) = "bluetooth"];
+  optional .NAlice.NAliceApi.TDeviceState.TInternetConnection InternetConnection = 25 [json_name = "internet_connection", (.NYT.column_name) = "internet_connection"];
+  optional bool MicsMuted = 26 [json_name = "mics_muted", (.NYT.column_name) = "mics_muted"];
+  optional .NAlice.NAliceApi.TDeviceState.TRcuState RcuState = 28 [json_name = "rcu", (.NYT.column_name) = "rcu"];
+  optional bool IsDefaultAssistant = 30 [json_name = "is_default_assistant", (.NYT.column_name) = "is_default_assistant"];
+  optional uint32 SoundMaxLevel = 32 [json_name = "sound_max_level", (.NYT.column_name) = "sound_max_level"];
+  optional .NAlice.NAliceApi.TDeviceState.TActiveActions ActiveActions = 33 [json_name = "active_actions", (.NYT.column_name) = "active_actions"];
+  optional .NAlice.TTandemState TandemState = 35 [json_name = "tandem_state", (.NYT.column_name) = "tandem_state"];
+  optional .NAlice.TSubscriptionState DeviceSubscriptionState = 36 [json_name = "subscription_state", (.NYT.column_name) = "subscription_state"];
+  optional .NAlice.NData.NReminders.TDeviceRemindersState DeviceReminders = 37 [json_name = "device_reminders", (.NYT.column_name) = "device_reminders"];
+  optional .NAlice.NAliceApi.TDeviceState.TPackagesState PackagesState = 38 [json_name = "packages", (.NYT.column_name) = "packages"];
+  repeated .NAlice.NData.TExternalEntityDescription ExternalEntitiesDescription = 42 [json_name = "external_entities_description", (.NYT.column_name) = "external_entities_description"];
+  optional .NAlice.NAliceApi.TDeviceState.TClockDisplayState ClockDisplayState = 44 [json_name = "clock_display_state", (.NYT.column_name) = "clock_display_state"];
+  optional .NAlice.NAliceApi.TDeviceState.TAppScreenInfo AppScreenInfo = 46 [json_name = "app_screen_info", (.NYT.column_name) = "app_screen_info"];
+  optional .NAlice.NAliceApi.TDeviceState.TStereoPair StereoPair = 47 [json_name = "stereo_pair", (.NYT.column_name) = "stereo_pair"];
+  optional bool DNDEnabled = 48 [json_name = "dnd_enabled", deprecated = true, (.NYT.column_name) = "dnd_enabled"];
 }
 
 message TDeviceStatePart {

@@ -13,41 +13,58 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCategoryCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CategoryCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
-    repeated .NAlice.TCategoryCapability.Category Categories = 1 [json_name = "categories"];
-    optional .NAlice.TCategoryCapability.Category CurrentCategory = 2 [json_name = "current_category"];
-    optional bool IsCategoriesVisible = 3 [json_name = "is_categories_visible"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TCategoryCapability.Category Categories = 1 [json_name = "categories", (.NYT.column_name) = "categories"];
+    optional .NAlice.TCategoryCapability.Category CurrentCategory = 2 [json_name = "current_category", (.NYT.column_name) = "current_category"];
+    optional bool IsCategoriesVisible = 3 [json_name = "is_categories_visible", (.NYT.column_name) = "is_categories_visible"];
   }
 
   message Category {
-    string CategoryId = 1 [json_name = "category_id"];
-    optional string CategoryName = 2 [json_name = "category_name"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string CategoryId = 1 [json_name = "category_id", (.NYT.column_name) = "category_id"];
+    optional string CategoryName = 2 [json_name = "category_name", (.NYT.column_name) = "category_name"];
   }
 
   message TOpenCategoryDirective {
-    string Name = 1000 [json_name = "name"];
-    string CategoryId = 1 [json_name = "category_id"];
+    option (.NAlice.SpeechKitName) = "open_tv_category_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CategoryDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string CategoryId = 1 [json_name = "category_id", (.NYT.column_name) = "category_id"];
   }
 
   message TShowTvCategoriesDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "show_tv_categories_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowTvCategoriesDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message THideTvCategoriesDirective {
-    string Name = 1000 [json_name = "name"];
+    option (.NAlice.SpeechKitName) = "hide_tv_categories_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = HideTvCategoriesDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
   }
 
   message TShowWhatYouCanDirective {
-    string Name = 1000 [json_name = "name"];
-    string VideoUrl = 1 [json_name = "video_url"];
-    string PlaceholderUrl = 2 [json_name = "placeholder_url"];
+    option (.NAlice.SpeechKitName) = "show_what_you_can_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = ShowWhatYouCanDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string VideoUrl = 1 [json_name = "video_url", (.NYT.column_name) = "video_url"];
+    string PlaceholderUrl = 2 [json_name = "placeholder_url", (.NYT.column_name) = "placeholder_url"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TCategoryCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TCategoryCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCategoryCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCategoryCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

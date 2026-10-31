@@ -13,14 +13,15 @@ import "alice/protos/api/alicekit/events/sync_push/sync_request/get_device_state
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TSyncRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TGetClientInfoOptions {
   }
 
-  .NAlice.NAliceApi.TSyncRequest.TGetClientInfoOptions GetClientInfoOptions = 4 [json_name = "get_client_info_options"];
+  .NAlice.NAliceApi.TSyncRequest.TGetClientInfoOptions GetClientInfoOptions = 4 [json_name = "get_client_info_options", (.NYT.column_name) = "get_client_info_options"];
   oneof Request {
-    .NAlice.NAliceApi.TGetDeviceState GetDeviceState = 1 [json_name = "get_device_state"];
-    .NAlice.NAliceApi.TExecuteDirective ExecuteDirective = 2 [json_name = "execute_directive"];
-    .NAlice.NAliceApi.TExecuteDirectiveChain ExecuteDirectiveChain = 3 [json_name = "execute_directive_chain"];
+    .NAlice.NAliceApi.TGetDeviceState GetDeviceState = 1 [json_name = "get_device_state", (.NYT.column_name) = "get_device_state"];
+    .NAlice.NAliceApi.TExecuteDirective ExecuteDirective = 2 [json_name = "execute_directive", (.NYT.column_name) = "execute_directive"];
+    .NAlice.NAliceApi.TExecuteDirectiveChain ExecuteDirectiveChain = 3 [json_name = "execute_directive_chain", (.NYT.column_name) = "execute_directive_chain"];
   }
 }
 

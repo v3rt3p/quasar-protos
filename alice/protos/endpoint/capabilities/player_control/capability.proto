@@ -1,0 +1,343 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PlayerControlCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/player_control;player_controlpb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/struct.proto";
+import "alice/protos/data/music_entities/repeat_mode.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPlayerControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PlayerControlCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool SupportsResultAwarePlay = 1 [json_name = "supports_result_aware_play", (.NYT.column_name) = "supports_result_aware_play"];
+    repeated .NAlice.TPlayerControlCapability.EResultAwareAction ResultAwareActions = 2 [json_name = "result_aware_actions", (.NYT.column_name) = "result_aware_actions"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TPlayerControlCapability.TAudioPlayerState AudioPlayerState = 1 [json_name = "audio_player_state", (.NYT.column_name) = "audio_player_state"];
+  }
+
+  message TAvailableCommands {
+    bool CanPlayNext = 1 [json_name = "can_play_next", (.NYT.column_name) = "can_play_next"];
+    bool CanPlayPrev = 2 [json_name = "can_play_prev", (.NYT.column_name) = "can_play_prev"];
+    bool CanPause = 3 [json_name = "can_pause", (.NYT.column_name) = "can_pause"];
+    bool CanResume = 4 [json_name = "can_resume", (.NYT.column_name) = "can_resume"];
+    bool CanShuffle = 5 [json_name = "can_shuffle", (.NYT.column_name) = "can_shuffle"];
+    bool CanUnshuffle = 6 [json_name = "can_unshuffle", (.NYT.column_name) = "can_unshuffle"];
+    bool CanRepeat = 7 [json_name = "can_repeat", (.NYT.column_name) = "can_repeat"];
+    bool CanReplay = 8 [json_name = "can_replay", (.NYT.column_name) = "can_replay"];
+    bool CanRewind = 9 [json_name = "can_rewind", (.NYT.column_name) = "can_rewind"];
+    bool CanFastForward = 10 [json_name = "can_fast_forward", (.NYT.column_name) = "can_fast_forward"];
+    bool CanLike = 11 [json_name = "can_like", (.NYT.column_name) = "can_like"];
+    bool CanDislike = 12 [json_name = "can_dislike", (.NYT.column_name) = "can_dislike"];
+    bool CanUndoLike = 13 [json_name = "can_undo_like", (.NYT.column_name) = "can_undo_like"];
+    bool CanUndoDislike = 14 [json_name = "can_undo_dislike", (.NYT.column_name) = "can_undo_dislike"];
+    bool CanPlayFmRadio = 15 [json_name = "can_play_fm_radio", (.NYT.column_name) = "can_play_fm_radio"];
+  }
+
+  message TDuration {
+    message TUnlimited {
+    }
+
+    message TUnavailable {
+    }
+
+    message TExact {
+      double DurationSec = 1 [json_name = "duration_sec", (.NYT.column_name) = "duration_sec"];
+    }
+
+    oneof Duration {
+      option (.NYT.variant_field_name) = "duration";
+      .NAlice.TPlayerControlCapability.TDuration.TUnlimited Unlimited = 1 [json_name = "unlimited", (.NYT.column_name) = "unlimited"];
+      .NAlice.TPlayerControlCapability.TDuration.TUnavailable Unavailable = 2 [json_name = "unavailable", (.NYT.column_name) = "unavailable"];
+      .NAlice.TPlayerControlCapability.TDuration.TExact Exact = 3 [json_name = "exact", (.NYT.column_name) = "exact"];
+    }
+  }
+
+  message TContentId {
+    message TTrackId {
+      string CatalogId = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    }
+
+    message TAlbumId {
+      string CatalogId = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    }
+
+    message TArtistId {
+      string CatalogId = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    }
+
+    message TPlaylistId {
+      string Owner = 1 [json_name = "owner", (.NYT.column_name) = "owner"];
+      string Kind = 2 [json_name = "kind", (.NYT.column_name) = "kind"];
+    }
+
+    message TRecommendationsId {
+      repeated string Seeds = 1 [json_name = "seeds", (.NYT.column_name) = "seeds"];
+    }
+
+    message TFmRadio {
+      string Slug = 1 [json_name = "slug", (.NYT.column_name) = "slug"];
+    }
+
+    oneof ContentId {
+      option (.NYT.variant_field_name) = "content_id";
+      .NAlice.TPlayerControlCapability.TContentId.TTrackId TrackId = 1 [json_name = "track_id", (.NYT.column_name) = "track_id"];
+      .NAlice.TPlayerControlCapability.TContentId.TAlbumId AlbumId = 2 [json_name = "album_id", (.NYT.column_name) = "album_id"];
+      .NAlice.TPlayerControlCapability.TContentId.TArtistId ArtistId = 3 [json_name = "artist_id", (.NYT.column_name) = "artist_id"];
+      .NAlice.TPlayerControlCapability.TContentId.TPlaylistId PlaylistId = 4 [json_name = "playlist_id", (.NYT.column_name) = "playlist_id"];
+      .NAlice.TPlayerControlCapability.TContentId.TRecommendationsId RecommendationsId = 5 [json_name = "recommendations_id", (.NYT.column_name) = "recommendations_id"];
+      .NAlice.TPlayerControlCapability.TContentId.TFmRadio FmRadio = 6 [json_name = "fm_radio", (.NYT.column_name) = "fm_radio"];
+    }
+  }
+
+  message TArtistMeta {
+    string Id = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    optional string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TAlbumMeta {
+    string Id = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    optional string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    optional int32 Year = 3 [json_name = "year", (.NYT.column_name) = "year"];
+    optional string Type = 4 [json_name = "type", (.NYT.column_name) = "type"];
+    optional uint32 TracksCount = 5 [json_name = "tracks_count", (.NYT.column_name) = "tracks_count"];
+    optional string Genre = 6 [json_name = "genre", (.NYT.column_name) = "genre"];
+  }
+
+  message TTrackMeta {
+    string Id = 1 [json_name = "catalog_id", (.NYT.column_name) = "catalog_id"];
+    repeated .NAlice.TPlayerControlCapability.TArtistMeta Artists = 3 [json_name = "artists", (.NYT.column_name) = "artists"];
+    .NAlice.TPlayerControlCapability.TAlbumMeta Album = 4 [json_name = "album", (.NYT.column_name) = "album"];
+    optional string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  }
+
+  message TFmRadioMeta {
+    string Slug = 1 [json_name = "slug", (.NYT.column_name) = "slug"];
+    string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TStreamInfo {
+    .NAlice.TPlayerControlCapability.TDuration Duration = 1 [json_name = "duration", (.NYT.column_name) = "duration"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    repeated string Artists = 3 [json_name = "artists", (.NYT.column_name) = "artists"];
+    .NAlice.TPlayerControlCapability.TContentId ContentId = 4 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    oneof StreamMeta {
+      .NAlice.TPlayerControlCapability.TTrackMeta TrackMeta = 100 [json_name = "track_meta", (.NYT.column_name) = "track_meta"];
+      .NAlice.TPlayerControlCapability.TFmRadioMeta FmRadioMeta = 101 [json_name = "fm_radio_meta", (.NYT.column_name) = "fm_radio_meta"];
+    }
+  }
+
+  message TShuffleInfo {
+    oneof Shuffled {
+      option (.NYT.variant_field_name) = "shuffled";
+      bool IsShuffled = 1 [json_name = "is_shuffled", (.NYT.column_name) = "is_shuffled"];
+      uint64 ShuffleSeed = 2 [json_name = "shuffle_seed", (.NYT.column_name) = "shuffle_seed"];
+    }
+  }
+
+  message TPlaybackInfo {
+    double PositionSec = 1 [json_name = "position_sec", (.NYT.column_name) = "position_sec"];
+    .NAlice.TPlayerControlCapability.TShuffleInfo ShuffleInfo = 2 [json_name = "shuffle_info", (.NYT.column_name) = "shuffle_info"];
+    .NAlice.NData.ERepeatMode RepeatMode = 3 [json_name = "repeat_mode", (.NYT.column_name) = "repeat_mode"];
+  }
+
+  message TPlayingState {
+    message TPlaying {
+      .NAlice.TPlayerControlCapability.TStreamInfo StreamInfo = 1 [json_name = "stream_info", (.NYT.column_name) = "stream_info"];
+      .NAlice.TPlayerControlCapability.TPlaybackInfo PlaybackInfo = 2 [json_name = "playback_info", (.NYT.column_name) = "playback_info"];
+    }
+
+    message TPaused {
+      .NAlice.TPlayerControlCapability.TStreamInfo StreamInfo = 1 [json_name = "stream_info", (.NYT.column_name) = "stream_info"];
+      .NAlice.TPlayerControlCapability.TPlaybackInfo PlaybackInfo = 2 [json_name = "playback_info", (.NYT.column_name) = "playback_info"];
+    }
+
+    message TBuffering {
+      .NAlice.TPlayerControlCapability.TStreamInfo StreamInfo = 1 [json_name = "stream_info", (.NYT.column_name) = "stream_info"];
+      .NAlice.TPlayerControlCapability.TPlaybackInfo PlaybackInfo = 2 [json_name = "playback_info", (.NYT.column_name) = "playback_info"];
+    }
+
+    message TStopped {
+    }
+
+    message TFinished {
+    }
+
+    uint64 LastStopTimestampSec = 6 [json_name = "last_stop_timestamp_sec", (.NYT.column_name) = "last_stop_timestamp_sec"];
+    oneof PlayingState {
+      option (.NYT.variant_field_name) = "playing_state";
+      .NAlice.TPlayerControlCapability.TPlayingState.TPlaying Playing = 1 [json_name = "playing", (.NYT.column_name) = "playing"];
+      .NAlice.TPlayerControlCapability.TPlayingState.TPaused Paused = 2 [json_name = "paused", (.NYT.column_name) = "paused"];
+      .NAlice.TPlayerControlCapability.TPlayingState.TBuffering Buffering = 3 [json_name = "buffering", (.NYT.column_name) = "buffering"];
+      .NAlice.TPlayerControlCapability.TPlayingState.TStopped Stopped = 4 [json_name = "stopped", (.NYT.column_name) = "stopped"];
+      .NAlice.TPlayerControlCapability.TPlayingState.TFinished Finished = 5 [json_name = "finished", (.NYT.column_name) = "finished"];
+    }
+  }
+
+  message TAudioPlayerState {
+    .NAlice.TPlayerControlCapability.TPlayingState PlayingState = 1 [json_name = "playing_state", (.NYT.column_name) = "playing_state"];
+    .NAlice.TPlayerControlCapability.TAvailableCommands AvailableCommands = 2 [json_name = "available_commands", (.NYT.column_name) = "available_commands"];
+  }
+
+  message TPlayerControlPlayDirective {
+    option (.NAlice.SpeechKitName) = "player_control_play_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlPlayDirectiveType;
+    message TPlayerMeta {
+      message TYandexMusicSDK {
+        .google.protobuf.Struct PlaybackRequest = 1 [json_name = "playback_request", (.NYT.column_name) = "playback_request"];
+      }
+
+      oneof Meta {
+        option (.NYT.variant_field_name) = "meta";
+        .NAlice.TPlayerControlCapability.TPlayerControlPlayDirective.TPlayerMeta.TYandexMusicSDK YandexMusicSDK = 1 [json_name = "yandex_music_sdk", (.NYT.column_name) = "yandex_music_sdk"];
+      }
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPlayerControlCapability.TPlayerControlPlayDirective.TPlayerMeta PlayerMeta = 2 [json_name = "player_meta", (.NYT.column_name) = "player_meta"];
+  }
+
+  message TPlayerControlNextTrackDirective {
+    option (.NAlice.SpeechKitName) = "player_control_next_track_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlNextTrackDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlPrevTrackDirective {
+    option (.NAlice.SpeechKitName) = "player_control_prev_track_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlPrevTrackDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlPauseDirective {
+    option (.NAlice.SpeechKitName) = "player_control_pause_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlPauseDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlResumeDirective {
+    option (.NAlice.SpeechKitName) = "player_control_resume_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlResumeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlShuffleDirective {
+    option (.NAlice.SpeechKitName) = "player_control_shuffle_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlShuffleDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlUnshuffleDirective {
+    option (.NAlice.SpeechKitName) = "player_control_unshuffle_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlUnshuffleDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlRepeatDirective {
+    option (.NAlice.SpeechKitName) = "player_control_repeat_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlRepeatDirectiveType;
+    enum ERepeatMode {
+      UNKNOWN = 0;
+      NONE = 1;
+      ALL = 2;
+      ONE = 3;
+    }
+
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPlayerControlCapability.TPlayerControlRepeatDirective.ERepeatMode RepeatMode = 2 [json_name = "repeat_mode", (.NYT.column_name) = "repeat_mode"];
+  }
+
+  message TPlayerControlReplayDirective {
+    option (.NAlice.SpeechKitName) = "player_control_replay_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlReplayDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlRewindDirective {
+    option (.NAlice.SpeechKitName) = "player_control_rewind_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlRewindDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    double IntervalSec = 2 [json_name = "interval_sec", (.NYT.column_name) = "interval_sec"];
+  }
+
+  message TPlayerControlFastForwardDirective {
+    option (.NAlice.SpeechKitName) = "player_control_fast_forward_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlFastForwardDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    double IntervalSec = 2 [json_name = "interval_sec", (.NYT.column_name) = "interval_sec"];
+  }
+
+  message TPlayerControlLikeDirective {
+    option (.NAlice.SpeechKitName) = "player_control_like_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlLikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlDislikeDirective {
+    option (.NAlice.SpeechKitName) = "player_control_dislike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlDislikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlUndoLikeDirective {
+    option (.NAlice.SpeechKitName) = "player_control_undo_like_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlUndoLikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TPlayerControlUndoDislikeDirective {
+    option (.NAlice.SpeechKitName) = "player_control_undo_dislike_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PlayerControlUndoDislikeDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  enum EResultAwareAction {
+    ResultAwareActionUnknown = 0;
+    ResultAwareActionPlay = 1;
+    ResultAwareActionPause = 2;
+    ResultAwareActionResume = 3;
+    ResultAwareActionNextTrack = 4;
+    ResultAwareActionPrevTrack = 5;
+    ResultAwareActionRewind = 6;
+    ResultAwareActionFastForward = 7;
+    ResultAwareActionShuffle = 8;
+    ResultAwareActionUnshuffle = 9;
+    ResultAwareActionRepeat = 10;
+    ResultAwareActionLike = 11;
+    ResultAwareActionUndoLike = 12;
+    ResultAwareActionReplay = 13;
+    ResultAwareActionDislike = 14;
+    ResultAwareActionUndoDislike = 15;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPlayerControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPlayerControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

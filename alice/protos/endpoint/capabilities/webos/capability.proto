@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/webos;onoffpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TWebOSCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WebOSCapabilityType;
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ForegroundAppId = 1 [json_name = "foreground_app_id", (.NYT.column_name) = "foreground_app_id"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TAppInfo {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string AppId = 1 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+    }
+
+    repeated .NAlice.TWebOSCapability.TParameters.TAppInfo AvailableApps = 1 [json_name = "available_apps", (.NYT.column_name) = "available_apps"];
+    bool IsYoutubePlayerSupported = 2 [json_name = "is_youtube_player_supported", (.NYT.column_name) = "is_youtube_player_supported"];
+  }
+
+  message TWebOSLaunchAppDirective {
+    option (.NAlice.SpeechKitName) = "web_os_launch_app_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = WebOSLaunchAppDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string AppId = 1 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+    bytes ParamsJson = 2 [json_name = "params_json", (.NYT.column_name) = "params_json"];
+  }
+
+  message TWebOSShowGalleryDirective {
+    option (.NAlice.SpeechKitName) = "web_os_show_gallery_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = WebOSShowGalleryDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated bytes ItemsJson = 1 [json_name = "items_json", (.NYT.column_name) = "items_json"];
+  }
+
+  message TWebOSManageAppDirective {
+    option (.NAlice.SpeechKitName) = "web_os_manage_app_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = WebOSManageAppDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string AppId = 1 [json_name = "app_id", (.NYT.column_name) = "app_id"];
+    bytes ParamsJson = 2 [json_name = "params_json", (.NYT.column_name) = "params_json"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWebOSCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWebOSCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

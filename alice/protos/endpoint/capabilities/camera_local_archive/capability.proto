@@ -1,0 +1,180 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CameraLocalArchiveCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/camera_local_archive;camera_local_archivepb";
+
+import "google/protobuf/descriptor.proto";
+import "google/protobuf/timestamp.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCameraLocalArchiveCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CameraLocalArchiveCapabilityType;
+  message TIOSpeedDiagnostic {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TCameraLocalArchiveCapability.EStorageDiagnosticStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    uint64 SpeedBytesPerSecond = 2 [json_name = "speed_bytes_per_second", (.NYT.column_name) = "speed_bytes_per_second"];
+    uint64 ThresholdBytesPerSecond = 3 [json_name = "threshold_bytes_per_second", (.NYT.column_name) = "threshold_bytes_per_second"];
+  }
+
+  message TStorageSizeDiagnostic {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TCameraLocalArchiveCapability.EStorageDiagnosticStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    uint64 UsableSizeBytes = 2 [json_name = "usable_size_bytes", (.NYT.column_name) = "usable_size_bytes"];
+    uint64 AnnouncedSizeBytes = 3 [json_name = "announced_size_bytes", (.NYT.column_name) = "announced_size_bytes"];
+    uint64 ThresholdBytes = 4 [json_name = "threshold_bytes", (.NYT.column_name) = "threshold_bytes"];
+  }
+
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TCameraLocalArchiveCapability.EStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+    uint64 CapacityBytes = 2 [json_name = "capacity_bytes", (.NYT.column_name) = "capacity_bytes"];
+    uint64 UsedBytes = 3 [json_name = "used_bytes", (.NYT.column_name) = "used_bytes"];
+  }
+
+  message TTimeInterval {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .google.protobuf.Timestamp Start = 1 [json_name = "start", (.NYT.column_name) = "start"];
+    .google.protobuf.Timestamp End = 2 [json_name = "end", (.NYT.column_name) = "end"];
+  }
+
+  message TListFilesDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_list_files_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveListFilesDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    .NAlice.TCameraLocalArchiveCapability.TTimeInterval TimeInterval = 2 [json_name = "time_interval", (.NYT.column_name) = "time_interval"];
+  }
+
+  message TRemoveFilesDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_remove_files_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveRemoveFilesDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    .NAlice.TCameraLocalArchiveCapability.TTimeInterval TimeInterval = 2 [json_name = "time_interval", (.NYT.column_name) = "time_interval"];
+  }
+
+  message TGetFileDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_get_file_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveGetFileDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    string FileName = 2 [json_name = "file_name", (.NYT.column_name) = "file_name"];
+  }
+
+  message TGetManifestDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_get_manifest_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveGetManifestDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    .NAlice.TCameraLocalArchiveCapability.TTimeInterval TimeInterval = 2 [json_name = "time_interval", (.NYT.column_name) = "time_interval"];
+  }
+
+  message TGetFileHeaderDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_get_file_header_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveGetFileHeaderDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    string FileName = 2 [json_name = "file_name", (.NYT.column_name) = "file_name"];
+    int32 TrackNumber = 3 [json_name = "track_number", (.NYT.column_name) = "track_number"];
+  }
+
+  message TGetFileSegmentDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_get_file_segment_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveGetFileSegmentDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    int32 TrackNumber = 4 [json_name = "track_number", (.NYT.column_name) = "track_number"];
+    optional string FileName = 2 [json_name = "file_name", (.NYT.column_name) = "file_name"];
+    optional int32 SegmentNumber = 3 [json_name = "segment_number", (.NYT.column_name) = "segment_number"];
+    optional uint64 MediaTimebase = 7 [json_name = "media_timebase", (.NYT.column_name) = "media_timebase"];
+    optional uint64 MediaTimestamp = 5 [json_name = "media_timestamp", (.NYT.column_name) = "media_timestamp"];
+    optional uint32 MediaTimescale = 6 [json_name = "media_timescale", (.NYT.column_name) = "media_timescale"];
+  }
+
+  message TGetFileThumbnailDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_get_file_thumbnail_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveGetFileThumbnailDirectiveType;
+    message TSizeHint {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      optional uint32 Width = 1 [json_name = "width", (.NYT.column_name) = "width"];
+      optional uint32 Height = 2 [json_name = "height", (.NYT.column_name) = "height"];
+    }
+
+    enum EFormat {
+      FMT_UNKNOWN = 0;
+      FMT_JPEG = 1;
+    }
+
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    .NAlice.TCameraLocalArchiveCapability.TGetFileThumbnailDirective.EFormat Format = 2 [json_name = "format", (.NYT.column_name) = "format"];
+    .NAlice.TCameraLocalArchiveCapability.TGetFileThumbnailDirective.TSizeHint SizeHint = 3 [json_name = "size_hint", (.NYT.column_name) = "size_hint"];
+    string FileName = 4 [json_name = "file_name", (.NYT.column_name) = "file_name"];
+  }
+
+  message TFormatStorageDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_format_storage_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveFormatStorageDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TCameraLocalArchiveCapability.EFileSystem FileSystem = 1 [json_name = "file_system", (.NYT.column_name) = "file_system"];
+  }
+
+  message TUnmountStorageDirective {
+    option (.NAlice.SpeechKitName) = "camera_local_archive_unmount_storage_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CameraLocalArchiveUnmountStorageDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TUpdateStateEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CameraLocalArchiveUpdateStateEventType;
+    .NAlice.TCameraLocalArchiveCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
+  }
+
+  message TFormatStorageResultEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = CameraLocalArchiveFormatStorageResultEventType;
+    .NAlice.TCameraLocalArchiveCapability.TIOSpeedDiagnostic ReadIOSpeedDiagnostic = 1 [json_name = "read_io_speed_diagnostic", (.NYT.column_name) = "read_io_speed_diagnostic"];
+    .NAlice.TCameraLocalArchiveCapability.TIOSpeedDiagnostic WriteIOSpeedDiagnostic = 2 [json_name = "write_io_speed_diagnostic", (.NYT.column_name) = "write_io_speed_diagnostic"];
+    .NAlice.TCameraLocalArchiveCapability.TStorageSizeDiagnostic StorageSizeDiagnostic = 3 [json_name = "storage_size_diagnostic", (.NYT.column_name) = "storage_size_diagnostic"];
+  }
+
+  enum EStatus {
+    STATUS_UNKNOWN = 0;
+    STATUS_MISSING = 1;
+    STATUS_MOUNTED = 2;
+    STATUS_NEED_FORMAT = 3;
+    STATUS_BROKEN = 4;
+    STATUS_FORMATTING = 5;
+  }
+
+  enum EStorageDiagnosticStatus {
+    STORAGE_DIAGNOSTIC_STATUS_NONE = 0;
+    STORAGE_DIAGNOSTIC_STATUS_OK = 1;
+    STORAGE_DIAGNOSTIC_STATUS_FAIL = 2;
+  }
+
+  enum EFileSystem {
+    FILE_SYSTEM_UNKNOWN = 0;
+    FILE_SYSTEM_FAT32 = 1;
+    FILE_SYSTEM_EXFAT = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCameraLocalArchiveCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCameraLocalArchiveCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

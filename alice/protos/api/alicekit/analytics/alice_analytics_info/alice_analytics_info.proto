@@ -12,6 +12,7 @@ import "alice/protos/api/alicekit/scenarios/frames/frame.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAliceAnalyticsInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "FrameActions";
   reserved "Version";
   reserved "SemanticFrame";
@@ -24,7 +25,7 @@ message TAliceAnalyticsInfo {
   reserved 6;
   reserved 7;
   reserved 8;
-  .NAlice.NAliceApi.TScenarioAnalyticsInfo ScenarioAnalyticsInfo = 1 [json_name = "scenario_analytics_info"];
-  repeated .NAlice.NAliceApi.TSemanticFrame MatchedSemanticFrames = 5 [json_name = "matched_semantic_frames"];
+  .NAlice.NAliceApi.TScenarioAnalyticsInfo ScenarioAnalyticsInfo = 1 [json_name = "scenario_analytics_info", (.NYT.column_name) = "scenario_analytics_info"];
+  repeated .NAlice.NAliceApi.TSemanticFrame MatchedSemanticFrames = 5 [json_name = "matched_semantic_frames", (.NYT.column_name) = "matched_semantic_frames"];
 }
 

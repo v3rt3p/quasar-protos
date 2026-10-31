@@ -13,91 +13,107 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TTtlInfo {
-  bool HasTtl = 1 [json_name = "has_ttl"];
-  uint64 TtlMillis = 2 [json_name = "ttl_millis"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool HasTtl = 1 [json_name = "has_ttl", (.NYT.column_name) = "has_ttl"];
+  uint64 TtlMillis = 2 [json_name = "ttl_millis", (.NYT.column_name) = "ttl_millis"];
 }
 
 message THomeCarouselWrapper {
-  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
-  .google.protobuf.Struct AnalyticsInfoPayload = 2 [json_name = "analytics_info_payload"];
-  int32 Offset = 3 [json_name = "offset"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info", (.NYT.column_name) = "ttl_info"];
+  .google.protobuf.Struct AnalyticsInfoPayload = 2 [json_name = "analytics_info_payload", (.NYT.column_name) = "analytics_info_payload"];
+  int32 Offset = 3 [json_name = "offset", (.NYT.column_name) = "offset"];
   oneof Carousel {
-    .NAlice.NTv.TEmptyCarousel EmptyCarousel = 1001 [json_name = "empty_carousel"];
-    .NAlice.NTv.TCarousel HomeCarousel = 1002 [json_name = "home_carousel"];
-    .NAlice.NTv.TDivCarousel DivCarousel = 1003 [json_name = "div_carousel"];
+    option (.NYT.variant_field_name) = "carousel";
+    .NAlice.NTv.TEmptyCarousel EmptyCarousel = 1001 [json_name = "empty_carousel", (.NYT.column_name) = "empty_carousel"];
+    .NAlice.NTv.TCarousel HomeCarousel = 1002 [json_name = "home_carousel", (.NYT.column_name) = "home_carousel"];
+    .NAlice.NTv.TDivCarousel DivCarousel = 1003 [json_name = "div_carousel", (.NYT.column_name) = "div_carousel"];
   }
 }
 
 message TTvCarouselResultData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
   reserved "CacheHash";
   reserved 3;
-  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
-  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel"];
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info", (.NYT.column_name) = "ttl_info"];
+  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel", (.NYT.column_name) = "carousel"];
 }
 
 message TCentaurCarouselResultData {
-  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
-  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info", (.NYT.column_name) = "ttl_info"];
+  .NAlice.NTv.THomeCarouselWrapper Carousel = 2 [json_name = "carousel", (.NYT.column_name) = "carousel"];
 }
 
 message TTvFeedResultData {
-  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
-  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels"];
-  string CacheHash = 3 [json_name = "cache_hash"];
-  bool HasMore = 4 [json_name = "has_more"];
-  int32 Offset = 5 [json_name = "offset"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.java_marker_interface) = "ru.yandex.alice.protos.data.scenario.ScenarioData";
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info", (.NYT.column_name) = "ttl_info"];
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels", (.NYT.column_name) = "carousels"];
+  string CacheHash = 3 [json_name = "cache_hash", (.NYT.column_name) = "cache_hash"];
+  bool HasMore = 4 [json_name = "has_more", (.NYT.column_name) = "has_more"];
+  int32 Offset = 5 [json_name = "offset", (.NYT.column_name) = "offset"];
 }
 
 message TCentaurFeedResultData {
-  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info"];
-  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels"];
-  string CacheHash = 3 [json_name = "cache_hash"];
-  bool HasMore = 4 [json_name = "has_more"];
-  int32 Offset = 5 [json_name = "offset"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NTv.TTtlInfo TtlInfo = 1 [json_name = "ttl_info", (.NYT.column_name) = "ttl_info"];
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 2 [json_name = "carousels", (.NYT.column_name) = "carousels"];
+  string CacheHash = 3 [json_name = "cache_hash", (.NYT.column_name) = "cache_hash"];
+  bool HasMore = 4 [json_name = "has_more", (.NYT.column_name) = "has_more"];
+  int32 Offset = 5 [json_name = "offset", (.NYT.column_name) = "offset"];
 }
 
 message TWhatsNewCompleteWatchResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TSuccess {
   }
 
   message TError {
-    string ErrorMessage = 1 [json_name = "error_message"];
+    string ErrorMessage = 1 [json_name = "error_message", (.NYT.column_name) = "error_message"];
   }
 
   oneof Resp {
-    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TSuccess Success = 1 [json_name = "success"];
-    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TError Error = 2 [json_name = "error"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TSuccess Success = 1 [json_name = "success", (.NYT.column_name) = "success"];
+    .NAlice.NTv.TWhatsNewCompleteWatchResponse.TError Error = 2 [json_name = "error", (.NYT.column_name) = "error"];
   }
 }
 
 message TDeleteDelayedItemResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum EStatus {
     HIDDEN_FAIL = 0;
     HIDDEN_OK = 1;
   }
 
-  .NAlice.NTv.TDeleteDelayedItemResponse.EStatus Status = 1 [json_name = "status"];
-  string ErrorMessage = 2 [json_name = "error_message"];
+  .NAlice.NTv.TDeleteDelayedItemResponse.EStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+  string ErrorMessage = 2 [json_name = "error_message", (.NYT.column_name) = "error_message"];
 }
 
 message TGetMusicCategoryResponse {
-  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 1 [json_name = "carousels"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NTv.THomeCarouselWrapper Carousels = 1 [json_name = "carousels", (.NYT.column_name) = "carousels"];
 }
 
 message TWhatsNewItemWrapper {
-  .NAlice.NTv.TWhatsNewTile Tile = 1 [json_name = "tile"];
-  .NAlice.NTv.TWhatsNewContent Content = 2 [json_name = "content"];
-  bool Seen = 3 [json_name = "seen"];
-  bool Viewed = 4 [json_name = "viewed"];
+  .NAlice.NTv.TWhatsNewTile Tile = 1 [json_name = "tile", (.NYT.column_name) = "tile"];
+  .NAlice.NTv.TWhatsNewContent Content = 2 [json_name = "content", (.NYT.column_name) = "content"];
+  bool Seen = 3 [json_name = "seen", (.NYT.column_name) = "seen"];
+  bool Viewed = 4 [json_name = "viewed", (.NYT.column_name) = "viewed"];
 }
 
 message TGetWhatsNewResponse {
-  repeated .NAlice.NTv.TWhatsNewItemWrapper WhatsNew = 1 [json_name = "whats_new"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NTv.TWhatsNewItemWrapper WhatsNew = 1 [json_name = "whats_new", (.NYT.column_name) = "whats_new"];
 }
 
 message TWhatsNewCompleteShowResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 
 message TWhatsNewClearHistoryResponse {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
 }
 

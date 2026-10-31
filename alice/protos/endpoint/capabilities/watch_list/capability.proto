@@ -13,30 +13,40 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TWatchListCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = WatchListCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TAddToWatchListDirective {
-    string Name = 1000 [json_name = "name"];
-    string OntoId = 1 [json_name = "onto_id"];
-    string ContentId = 2 [json_name = "content_id"];
-    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 4 [json_name = "client_analytics"];
-    optional string Title = 3 [json_name = "title"];
+    option (.NAlice.SpeechKitName) = "add_to_watch_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddToWatchListDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string OntoId = 1 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    string ContentId = 2 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 4 [json_name = "client_analytics", (.NYT.column_name) = "client_analytics"];
+    optional string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
   }
 
   message TRemoveFromWatchListDirective {
-    string Name = 1000 [json_name = "name"];
-    string OntoId = 1 [json_name = "onto_id"];
-    string ContentId = 2 [json_name = "content_id"];
-    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 4 [json_name = "client_analytics"];
-    optional string Title = 3 [json_name = "title"];
+    option (.NAlice.SpeechKitName) = "remove_from_watch_list_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemoveFromWatchListDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string OntoId = 1 [json_name = "onto_id", (.NYT.column_name) = "onto_id"];
+    string ContentId = 2 [json_name = "content_id", (.NYT.column_name) = "content_id"];
+    .NAlice.NAnalytics.TTvClientCarouselAnalytics ClientAnalytics = 4 [json_name = "client_analytics", (.NYT.column_name) = "client_analytics"];
+    optional string Title = 3 [json_name = "title", (.NYT.column_name) = "title"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TWatchListCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TWatchListCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TWatchListCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TWatchListCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

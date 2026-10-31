@@ -17,10 +17,14 @@ import "alice/protos/endpoint/capability.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TDeviceStateCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DeviceStateCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "NetworkState";
     reserved 2;
     reserved 7;
@@ -75,23 +79,23 @@ message TDeviceStateCapability {
       bool IsOn = 1;
     }
 
-    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state"];
-    repeated string SupportedFeatures = 3 [json_name = "supported_features"];
-    repeated string UnsupportedFeatures = 4 [json_name = "unsupported_features"];
-    .NAlice.TExperimentsProto Experiments = 5 [json_name = "experiments"];
-    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 6 [json_name = "enrollment_headers"];
-    .NAlice.NAliceApi.TEnvironmentDeviceInfo EnvironmentDeviceInfo = 8 [json_name = "environment_device_info"];
-    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 12 [json_name = "bass_options"];
-    repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 13 [json_name = "permissions"];
-    .NAlice.TOndeviceBiometryOptions BiometryOptions = 14 [json_name = "biometry_options"];
-    .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus InternetConnectionStatus = 15 [json_name = "internet_connection_status"];
-    .NAlice.TDeviceStateCapability.TState.TConfigurationStatus ConfigurationStatus = 16 [json_name = "configuration_status"];
-    .NAlice.TDeviceStateCapability.TState.TUpdateStatus UpdateStatus = 17 [json_name = "update_status"];
-    .NAlice.TDeviceStateCapability.TState.TScreensaverState ScreensaverState = 18 [json_name = "screensaver_state"];
+    .NAlice.NAliceApi.TDeviceState DeviceState = 1 [json_name = "device_state", (.NYT.column_name) = "device_state"];
+    repeated string SupportedFeatures = 3 [json_name = "supported_features", (.NYT.column_name) = "supported_features"];
+    repeated string UnsupportedFeatures = 4 [json_name = "unsupported_features", (.NYT.column_name) = "unsupported_features"];
+    .NAlice.TExperimentsProto Experiments = 5 [json_name = "experiments", (.NYT.column_name) = "experiments"];
+    .NAlice.TEnrollmentHeaders EnrollmentHeaders = 6 [json_name = "enrollment_headers", (.NYT.column_name) = "enrollment_headers"];
+    .NAlice.NAliceApi.TEnvironmentDeviceInfo EnvironmentDeviceInfo = 8 [json_name = "environment_device_info", (.NYT.column_name) = "environment_device_info"];
+    .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TBassOptions BassOptions = 12 [json_name = "bass_options", (.NYT.column_name) = "bass_options"];
+    repeated .NAlice.TAliceRequestProto.TRequest.TAdditionalOptions.TPermission Permissions = 13 [json_name = "permissions", (.NYT.column_name) = "permissions"];
+    .NAlice.TOndeviceBiometryOptions BiometryOptions = 14 [json_name = "biometry_options", (.NYT.column_name) = "biometry_options"];
+    .NAlice.TDeviceStateCapability.TState.TInternetConnectionStatus InternetConnectionStatus = 15 [json_name = "internet_connection_status", (.NYT.column_name) = "internet_connection_status"];
+    .NAlice.TDeviceStateCapability.TState.TConfigurationStatus ConfigurationStatus = 16 [json_name = "configuration_status", (.NYT.column_name) = "configuration_status"];
+    .NAlice.TDeviceStateCapability.TState.TUpdateStatus UpdateStatus = 17 [json_name = "update_status", (.NYT.column_name) = "update_status"];
+    .NAlice.TDeviceStateCapability.TState.TScreensaverState ScreensaverState = 18 [json_name = "screensaver_state", (.NYT.column_name) = "screensaver_state"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TDeviceStateCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TDeviceStateCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDeviceStateCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDeviceStateCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

@@ -10,53 +10,57 @@ import "alice/protos/data/news_provider.proto";
 
 message TNewsItem {
   message TImage {
-    string Src = 1 [json_name = "src"];
-    int32 Width = 2 [json_name = "width"];
-    int32 Height = 3 [json_name = "height"];
+    string Src = 1 [json_name = "src", (.NYT.column_name) = "src"];
+    int32 Width = 2 [json_name = "width", (.NYT.column_name) = "width"];
+    int32 Height = 3 [json_name = "height", (.NYT.column_name) = "height"];
   }
 
-  string Text = 1 [json_name = "text"];
-  string Url = 2 [json_name = "url"];
-  .NAlice.NData.TNewsItem.TImage Image = 3 [json_name = "image"];
-  string Messages = 5 [json_name = "messages"];
-  string TurboIconUrl = 6 [json_name = "turbo_icon_url"];
-  string Agency = 7 [json_name = "agency"];
-  string Logo = 8 [json_name = "logo"];
-  uint64 PubDate = 9 [json_name = "pub_date"];
-  repeated .NAlice.NData.TNewsItem ExtendedNews = 10 [json_name = "extended_news"];
+  string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+  .NAlice.NData.TNewsItem.TImage Image = 3 [json_name = "image", (.NYT.column_name) = "image"];
+  string Messages = 5 [json_name = "messages", (.NYT.column_name) = "messages"];
+  string TurboIconUrl = 6 [json_name = "turbo_icon_url", (.NYT.column_name) = "turbo_icon_url"];
+  string Agency = 7 [json_name = "agency", (.NYT.column_name) = "agency"];
+  string Logo = 8 [json_name = "logo", (.NYT.column_name) = "logo"];
+  uint64 PubDate = 9 [json_name = "pub_date", (.NYT.column_name) = "pub_date"];
+  repeated .NAlice.NData.TNewsItem ExtendedNews = 10 [json_name = "extended_news", (.NYT.column_name) = "extended_news"];
 }
 
 message TNewsGalleryData {
-  repeated .NAlice.NData.TNewsItem NewsItems = 1 [json_name = "news_items"];
-  int32 CurrentNewsItem = 2 [json_name = "current_news_item"];
-  string Topic = 3 [json_name = "topic"];
-  string Tz = 4 [json_name = "tz"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NData.TNewsItem NewsItems = 1 [json_name = "news_items", (.NYT.column_name) = "news_items"];
+  int32 CurrentNewsItem = 2 [json_name = "current_news_item", (.NYT.column_name) = "current_news_item"];
+  string Topic = 3 [json_name = "topic", (.NYT.column_name) = "topic"];
+  string Tz = 4 [json_name = "tz", (.NYT.column_name) = "tz"];
 }
 
 message TNewsTeaserData {
-  .NAlice.NData.TNewsItem NewsItem = 1 [json_name = "news_item"];
-  string Topic = 2 [json_name = "topic"];
-  string Tz = 3 [json_name = "tz"];
-  bool NewsSourceSelected = 4 [json_name = "news_source_selected"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NData.TNewsItem NewsItem = 1 [json_name = "news_item", (.NYT.column_name) = "news_item"];
+  string Topic = 2 [json_name = "topic", (.NYT.column_name) = "topic"];
+  string Tz = 3 [json_name = "tz", (.NYT.column_name) = "tz"];
+  bool NewsSourceSelected = 4 [json_name = "news_source_selected", (.NYT.column_name) = "news_source_selected"];
 }
 
 message TNewsMainScreenData {
-  repeated .NAlice.NData.TNewsItem NewsItems = 1 [json_name = "news_items"];
-  string Topic = 2 [json_name = "topic"];
-  string Tz = 3 [json_name = "tz"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NData.TNewsItem NewsItems = 1 [json_name = "news_items", (.NYT.column_name) = "news_items"];
+  string Topic = 2 [json_name = "topic", (.NYT.column_name) = "topic"];
+  string Tz = 3 [json_name = "tz", (.NYT.column_name) = "tz"];
 }
 
 message TNewsSettingData {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TNewsProviderData {
-    .NAlice.NData.TNewsProvider ProviderConfig = 1 [json_name = "provider_config"];
-    string Agency = 2 [json_name = "agency"];
-    string Logo = 3 [json_name = "logo"];
-    bool IsChosen = 4 [json_name = "is_chosen"];
+    .NAlice.NData.TNewsProvider ProviderConfig = 1 [json_name = "provider_config", (.NYT.column_name) = "provider_config"];
+    string Agency = 2 [json_name = "agency", (.NYT.column_name) = "agency"];
+    string Logo = 3 [json_name = "logo", (.NYT.column_name) = "logo"];
+    bool IsChosen = 4 [json_name = "is_chosen", (.NYT.column_name) = "is_chosen"];
   }
 
-  repeated .NAlice.NData.TNewsSettingData.TNewsProviderData NewsProviderData = 1 [json_name = "news_providers"];
-  string ProviderNamePrefix = 2 [json_name = "provider_name_prefix"];
-  repeated string AvaliablePrefixes = 3 [json_name = "avaliable_prefixes"];
-  bool IsNewsRequest = 4 [json_name = "is_news_request"];
+  repeated .NAlice.NData.TNewsSettingData.TNewsProviderData NewsProviderData = 1 [json_name = "news_providers", (.NYT.column_name) = "news_providers"];
+  string ProviderNamePrefix = 2 [json_name = "provider_name_prefix", (.NYT.column_name) = "provider_name_prefix"];
+  repeated string AvaliablePrefixes = 3 [json_name = "avaliable_prefixes", (.NYT.column_name) = "avaliable_prefixes"];
+  bool IsNewsRequest = 4 [json_name = "is_news_request", (.NYT.column_name) = "is_news_request"];
 }
 

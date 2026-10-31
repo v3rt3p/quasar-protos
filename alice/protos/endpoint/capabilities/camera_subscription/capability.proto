@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "CameraSubscriptionCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/camera_subscription;camerasubscriptionpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TCameraSubscriptionCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = CameraSubscriptionCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    message TFeatures {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      message TCloudFeatures {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        enum EMode {
+          MODE_UNKNOWN = 0;
+          MODE_EVENTS_ONLY = 1;
+          MODE_ALWAYS_ON = 2;
+        }
+
+        bool Available = 1 [json_name = "available", (.NYT.column_name) = "available"];
+        uint32 ResolutionAvailable = 2 [json_name = "resolution_available", (.NYT.column_name) = "resolution_available"];
+        repeated .NAlice.TCameraSubscriptionCapability.TState.TFeatures.TCloudFeatures.EMode ModesAvailable = 3 [json_name = "modes_available", (.NYT.column_name) = "modes_available"];
+      }
+
+      message TPtzFeatures {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        bool FollowObjectAvailable = 1 [json_name = "follow_object_available", (.NYT.column_name) = "follow_object_available"];
+      }
+
+      message TDetectorsFeatures {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        bool DetectionZoneAvailable = 1 [json_name = "detection_zone_available", (.NYT.column_name) = "detection_zone_available"];
+      }
+
+      message TSnapshotFeatures {
+        option (.NYT.default_field_flags) = SERIALIZATION_YT;
+        bool SnapshotAvailable = 1 [json_name = "snapshot_available", (.NYT.column_name) = "snapshot_available"];
+      }
+
+      .NAlice.TCameraSubscriptionCapability.TState.TFeatures.TCloudFeatures CloudFeatures = 1 [json_name = "cloud_features", (.NYT.column_name) = "cloud_features"];
+      .NAlice.TCameraSubscriptionCapability.TState.TFeatures.TPtzFeatures PtzFeatures = 2 [json_name = "ptz_features", (.NYT.column_name) = "ptz_features"];
+      .NAlice.TCameraSubscriptionCapability.TState.TFeatures.TDetectorsFeatures DetectorsFeatures = 3 [json_name = "detectors_features", (.NYT.column_name) = "detectors_features"];
+      .NAlice.TCameraSubscriptionCapability.TState.TFeatures.TSnapshotFeatures SnapshotFeatures = 4 [json_name = "snapshot_features", (.NYT.column_name) = "snapshot_features"];
+    }
+
+    enum ESubscriptionStatus {
+      SUBSCRIPTION_STATUS_UNKNOWN = 0;
+      SUBSCRIPTION_STATUS_DISABLED = 1;
+      SUBSCRIPTION_STATUS_ACTIVE = 2;
+    }
+
+    .NAlice.TCameraSubscriptionCapability.TState.ESubscriptionStatus SubscriptionStatus = 1 [json_name = "subscription_status", (.NYT.column_name) = "subscription_status"];
+    .NAlice.TCameraSubscriptionCapability.TState.TFeatures Features = 2 [json_name = "features", (.NYT.column_name) = "features"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TCameraSubscriptionCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TCameraSubscriptionCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

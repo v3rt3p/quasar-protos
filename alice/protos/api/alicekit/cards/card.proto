@@ -14,105 +14,117 @@ import "yt/yt_proto/yt/formats/extension.proto";
 import "google/protobuf/struct.proto";
 
 message TTextCard {
-  string Text = 1 [json_name = "text"];
-  bool ProgressivePrinting = 2 [json_name = "progressive_printing"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  bool ProgressivePrinting = 2 [json_name = "progressive_printing", (.NYT.column_name) = "progressive_printing"];
 }
 
 message TDivCard {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "StringBody";
   reserved 1;
-  string Text = 2 [json_name = "text"];
-  .google.protobuf.Struct Body = 3 [json_name = "body"];
+  string Text = 2 [json_name = "text", (.NYT.column_name) = "text"];
+  .google.protobuf.Struct Body = 3 [json_name = "body", (.NYT.column_name) = "body"];
 }
 
 message TTextWithButtonsCard {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TButton {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TTheme {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
       enum EPlacement {
         UnknownPlacement = 0;
         NewLine = 1;
       }
 
-      string ImageUrl = 1 [json_name = "image_url"];
-      .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme.EPlacement Placement = 2 [json_name = "placement"];
+      string ImageUrl = 1 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+      .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme.EPlacement Placement = 2 [json_name = "placement", (.NYT.column_name) = "placement"];
     }
 
-    string Type = 1 [json_name = "type"];
-    string Title = 2 [json_name = "title"];
-    repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives"];
-    string Text = 4 [json_name = "text"];
-    .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme Theme = 5 [json_name = "theme"];
+    string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+    repeated .NAlice.NAliceApi.TDirective Directives = 3 [json_name = "directives", (.NYT.column_name) = "directives"];
+    string Text = 4 [json_name = "text", (.NYT.column_name) = "text", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+    .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme Theme = 5 [json_name = "theme", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "theme"];
   }
 
-  string Text = 1 [json_name = "text"];
-  repeated .NAlice.NAliceApi.TTextWithButtonsCard.TButton buttons = 2 [json_name = "buttons"];
+  string Text = 1 [json_name = "text", (.NYT.column_name) = "text", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  repeated .NAlice.NAliceApi.TTextWithButtonsCard.TButton buttons = 2 [json_name = "buttons", (.NYT.column_name) = "buttons"];
 }
 
 message TRichJsonCard {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "View";
   reserved 2;
-  string Body = 1 [json_name = "body"];
-  bool HideBorders = 3 [json_name = "hide_borders"];
+  string Body = 1 [json_name = "body", (.NYT.column_name) = "body"];
+  bool HideBorders = 3 [json_name = "hide_borders", (.NYT.column_name) = "hide_borders"];
 }
 
 message TNeuroStructuredBlocksCard {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   reserved "StructuredData";
   reserved 1;
-  string PlainText = 2 [json_name = "plain_text"];
-  string JsonStructuredData = 3 [json_name = "json_structured_data"];
-  string JsonRephraseItems = 4 [json_name = "json_rephrase_items"];
-  string JsonSourceData = 5 [json_name = "json_source_data"];
-  bool RenderEnableFlush = 6 [json_name = "render_enable_flush"];
-  string RenderItemsPerSecond = 7 [json_name = "render_items_per_second"];
+  string PlainText = 2 [json_name = "plain_text", (.NYT.column_name) = "plain_text"];
+  string JsonStructuredData = 3 [json_name = "json_structured_data", (.NYT.column_name) = "json_structured_data"];
+  string JsonRephraseItems = 4 [json_name = "json_rephrase_items", (.NYT.column_name) = "json_rephrase_items"];
+  string JsonSourceData = 5 [json_name = "json_source_data", (.NYT.column_name) = "json_source_data"];
+  bool RenderEnableFlush = 6 [json_name = "render_enable_flush", (.NYT.column_name) = "render_enable_flush"];
+  string RenderItemsPerSecond = 7 [json_name = "render_items_per_second", (.NYT.column_name) = "render_items_per_second"];
 }
 
 message TSourcesCard {
-  repeated string Sources = 1 [json_name = "sources"];
-  optional string JsonSourceData = 2 [json_name = "json_source_data"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated string Sources = 1 [json_name = "sources", (.NYT.column_name) = "sources"];
+  optional string JsonSourceData = 2 [json_name = "json_source_data", (.NYT.column_name) = "json_source_data"];
 }
 
 message TModeCard {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TRequestMode {
     enum EMode {
       UNKNOWN = 0;
       LIVE = 1;
     }
 
-    .NAlice.NAliceApi.TModeCard.TRequestMode.EMode Mode = 1 [json_name = "mode"];
+    .NAlice.NAliceApi.TModeCard.TRequestMode.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
   oneof Mode {
-    .NAlice.NAliceApi.TModeCard.TRequestMode RequestMode = 1 [json_name = "request_mode"];
+    option (.NYT.variant_field_name) = "mode";
+    .NAlice.NAliceApi.TModeCard.TRequestMode RequestMode = 1 [json_name = "request_mode", (.NYT.column_name) = "request_mode"];
   }
 }
 
 message TRichUICard {
   message TRenderData {
-    string JsonData = 1 [json_name = "json_data"];
+    string JsonData = 1 [json_name = "json_data", (.NYT.column_name) = "json_data"];
   }
 
   message TState {
-    string JsonData = 1 [json_name = "json_data"];
+    string JsonData = 1 [json_name = "json_data", (.NYT.column_name) = "json_data"];
   }
 
-  string UIComponentName = 1 [json_name = "uicomponent_name"];
-  .NAlice.NAliceApi.TRichUICard.TRenderData Data = 2 [json_name = "data"];
-  .NAlice.NAliceApi.TRichUICard.TState State = 3 [json_name = "state"];
+  string UIComponentName = 1 [json_name = "uicomponent_name", (.NYT.column_name) = "uicomponent_name"];
+  .NAlice.NAliceApi.TRichUICard.TRenderData Data = 2 [json_name = "data", (.NYT.column_name) = "data"];
+  .NAlice.NAliceApi.TRichUICard.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 
 message TCard {
-  string CardId = 1 [json_name = "card_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string CardId = 1 [json_name = "card_id", (.NYT.column_name) = "card_id"];
   oneof Card {
-    .NAlice.NAliceApi.TTextCard TextCard = 2 [json_name = "text_card"];
-    .NAlice.TDiv2Card Div2Card = 3 [json_name = "div2_card"];
-    .NAlice.NAliceApi.TDivCard DivCard = 4 [json_name = "div_card"];
-    .NAlice.NAliceApi.TTextWithButtonsCard TextWithButtonsCard = 5 [json_name = "text_with_buttons_card"];
-    .NAlice.NAliceApi.TRichJsonCard RichJsonCard = 6 [json_name = "rich_json_card"];
-    .NAlice.NAliceApi.TSourcesCard SourcesCard = 7 [json_name = "sources_card"];
-    .NAlice.NAliceApi.TModeCard ModeCard = 9 [json_name = "mode_card"];
-    .NAlice.NAliceApi.TNeuroStructuredBlocksCard NeuroStructuredBlocksCard = 10 [json_name = "neuro_structured_blocks_card"];
-    .NAlice.NAliceApi.TRichUICard RichUICard = 11 [json_name = "rich_uicard"];
+    option (.NYT.variant_field_name) = "card";
+    .NAlice.NAliceApi.TTextCard TextCard = 2 [json_name = "text_card", (.NYT.column_name) = "text_card"];
+    .NAlice.TDiv2Card Div2Card = 3 [json_name = "div2_card", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "div2_card"];
+    .NAlice.NAliceApi.TDivCard DivCard = 4 [json_name = "div_card", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "div_card"];
+    .NAlice.NAliceApi.TTextWithButtonsCard TextWithButtonsCard = 5 [json_name = "text_with_buttons_card", (.NYT.column_name) = "text_with_buttons_card"];
+    .NAlice.NAliceApi.TRichJsonCard RichJsonCard = 6 [json_name = "rich_json_card", deprecated = true, (.NYT.column_name) = "rich_json_card"];
+    .NAlice.NAliceApi.TSourcesCard SourcesCard = 7 [json_name = "sources_card", (.NYT.column_name) = "sources_card"];
+    .NAlice.NAliceApi.TModeCard ModeCard = 9 [json_name = "mode_card", (.NYT.column_name) = "mode_card"];
+    .NAlice.NAliceApi.TNeuroStructuredBlocksCard NeuroStructuredBlocksCard = 10 [json_name = "neuro_structured_blocks_card", (.NYT.column_name) = "neuro_structured_blocks_card"];
+    .NAlice.NAliceApi.TRichUICard RichUICard = 11 [json_name = "rich_uicard", (.NYT.column_name) = "rich_uicard"];
   }
-  optional bool DontAddToChatHistory = 8 [json_name = "dont_add_to_chat_history"];
+  optional bool DontAddToChatHistory = 8 [json_name = "dont_add_to_chat_history", (.NYT.column_name) = "dont_add_to_chat_history"];
 }
 

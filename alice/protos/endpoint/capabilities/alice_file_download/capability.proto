@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceFileDownloadProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_file_download;alicefiledownloadpb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceFileDownloadCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceFileDownloadCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TLaunchFileDownloadDirective {
+    option (.NAlice.SpeechKitName) = "launch_file_download";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = LaunchFileDownloadDirectiveType;
+    string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+    bool RequiresAuth = 2 [json_name = "requires_auth", (.NYT.column_name) = "requires_auth"];
+    string InteractionId = 3 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+  }
+
+  message TOpenDownloadedFileDirective {
+    option (.NAlice.SpeechKitName) = "open_downloaded_file";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenDownloadedFileDirectiveType;
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+  }
+
+  message TFileDownloadStatusEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = FileDownloadStatusEventType;
+    message TDownloadStart {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    message TDownloadFinish {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      string FileName = 1 [json_name = "file_name", (.NYT.column_name) = "file_name"];
+      string MimeType = 2 [json_name = "mime_type", (.NYT.column_name) = "mime_type"];
+      bool CanOpen = 3 [json_name = "can_open", (.NYT.column_name) = "can_open"];
+    }
+
+    message TDownloadError {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    }
+
+    string InteractionId = 1 [json_name = "interaction_id", (.NYT.column_name) = "interaction_id"];
+    string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+    oneof Status {
+      .NAlice.TAliceFileDownloadCapability.TFileDownloadStatusEvent.TDownloadStart DownloadStart = 3 [json_name = "download_start", (.NYT.column_name) = "download_start"];
+      .NAlice.TAliceFileDownloadCapability.TFileDownloadStatusEvent.TDownloadFinish DownloadFinish = 4 [json_name = "download_finish", (.NYT.column_name) = "download_finish"];
+      .NAlice.TAliceFileDownloadCapability.TFileDownloadStatusEvent.TDownloadError DownloadError = 5 [json_name = "download_error", (.NYT.column_name) = "download_error"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceFileDownloadCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceFileDownloadCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

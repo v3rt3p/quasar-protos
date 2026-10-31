@@ -10,6 +10,8 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TBrickStatusTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "BrickStatusTypedCallback";
   string DisabledReason = 1 [json_name = "disabled_reason"];
 }
 

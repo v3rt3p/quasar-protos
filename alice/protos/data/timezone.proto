@@ -8,12 +8,14 @@ option go_package = "a.yandex-team.ru/alice/protos/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TTimezone {
-  string TimezoneName = 1 [json_name = "timezone_name"];
-  int64 OffsetSeconds = 2 [json_name = "offset_seconds"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string TimezoneName = 1 [json_name = "timezone_name", (.NYT.column_name) = "timezone_name"];
+  int64 OffsetSeconds = 2 [json_name = "offset_seconds", (.NYT.column_name) = "offset_seconds"];
 }
 
 message TDateTime {
-  uint64 Epoch = 1 [json_name = "epoch"];
-  string TimeZone = 2 [json_name = "timezone"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  uint64 Epoch = 1 [json_name = "epoch", (.NYT.column_name) = "epoch"];
+  string TimeZone = 2 [json_name = "timezone", (.NYT.column_name) = "timezone"];
 }
 

@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/pay;paypb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/data/avatar/avatar.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPayCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PayCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TVideo {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string ProviderItemId = 1 [json_name = "provider_item_Id", (.NYT.column_name) = "provider_item_Id"];
+    string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+    string ContentType = 3 [json_name = "content_type", (.NYT.column_name) = "content_type"];
+    string ViewOptionsType = 4 [json_name = "view_options_type", (.NYT.column_name) = "view_options_type"];
+    string BillingFeatureName = 5 [json_name = "billing_feature_name", (.NYT.column_name) = "billing_feature_name"];
+    .NAlice.TAvatarMdsImage Poster = 6 [json_name = "poster", (.NYT.column_name) = "poster"];
+    .NAlice.TAvatarMdsImage Thumbnail = 7 [json_name = "thumbnail", (.NYT.column_name) = "thumbnail"];
+    .NAlice.TPayCapability.ETargetName Target = 8 [json_name = "target", (.NYT.column_name) = "target"];
+  }
+
+  message TPurchaseVideoDirective {
+    option (.NAlice.SpeechKitName) = "purchase_video_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TPurchaseVideoDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TPayCapability.TVideo video = 1 [json_name = "video", (.NYT.column_name) = "video"];
+  }
+
+  message TPurchaseSubscriptionDirective {
+    option (.NAlice.SpeechKitName) = "purchase_subscription_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = TPurchaseSubscriptionDirectiveType;
+    reserved "TargetName";
+    reserved 1;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    repeated string Features = 2 [json_name = "features", (.NYT.column_name) = "features"];
+    .NAlice.TPayCapability.ETargetName Target = 3 [json_name = "target", (.NYT.column_name) = "target"];
+  }
+
+  enum ETargetName {
+    GENERAL = 0;
+    CHANNELS = 1;
+    MUSIC = 2;
+    VIDEO = 3;
+    SPORT = 4;
+    AVOD_CONTENT_CARD = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPayCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPayCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

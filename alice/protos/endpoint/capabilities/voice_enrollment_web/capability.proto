@@ -1,0 +1,82 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "VoiceEnrollmentWebCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/voice_enrollment_web;voiceenrollmentwebpb";
+
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TVoiceEnrollmentWebCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = VoiceEnrollmentWebCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string UsersWithVoiceprints = 1 [json_name = "users_with_voiceprints", (.NYT.column_name) = "users_with_voiceprints", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    bool WebEnrollmentInProgress = 2 [json_name = "web_enrollment_in_progress", (.NYT.column_name) = "web_enrollment_in_progress"];
+  }
+
+  message TStartVoiceprintEnrollmentDirective {
+    option (.NAlice.SpeechKitName) = "start_voiceprint_enrollment";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartVoiceprintEnrollmentDirectiveType;
+    reserved "PersId";
+    reserved 3;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Uid = 2 [json_name = "uid", (.NYT.column_name) = "uid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    string UserName = 4 [json_name = "user_name", (.NYT.column_name) = "user_name"];
+    repeated string Aliases = 5 [json_name = "aliases", (.NYT.column_name) = "aliases"];
+  }
+
+  message TRemoveVoiceprintDirective {
+    option (.NAlice.SpeechKitName) = "remove_voiceprint";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RemoveVoiceprintDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Uid = 2 [json_name = "uid", (.NYT.column_name) = "uid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  }
+
+  message TGetUsersWithVoiceprintsDirective {
+    option (.NAlice.SpeechKitName) = "get_users_with_voiceprints";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = GetUsersWithVoiceprintsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  message TEnrollmentFinishedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VoiceEnrollmentWebFinishedEventType;
+    string Uid = 1 [json_name = "uid", (.NYT.column_name) = "uid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    string PersId = 2 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+  }
+
+  message TEnrollmentFailedEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = VoiceEnrollmentWebFailedEventType;
+    string Uid = 1 [json_name = "uid", (.NYT.column_name) = "uid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+    .NAlice.TVoiceEnrollmentWebCapability.EErrorCode ErrorCode = 2 [json_name = "error_code", (.NYT.column_name) = "error_code"];
+  }
+
+  enum EErrorCode {
+    UnknownError = 0;
+    BackendError = 1;
+    Cancelled = 2;
+    AlreadyStarted = 3;
+    EnrollmentWithStation = 4;
+    StorageError = 5;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TVoiceEnrollmentWebCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TVoiceEnrollmentWebCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

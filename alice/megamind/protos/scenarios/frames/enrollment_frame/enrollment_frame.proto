@@ -15,36 +15,50 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TEnrollmentStatusTypeSlot {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   oneof Value {
-    .NAlice.NData.NIoT.TEnrollmentStatus EnrollmentStatus = 1 [json_name = "enrollment_status"];
+    option (.NYT.variant_field_name) = "value";
+    .NAlice.NData.NIoT.TEnrollmentStatus EnrollmentStatus = 1 [json_name = "enrollment_status", (.NYT.column_name) = "enrollment_status", (.NAlice.SlotType) = "enrollment_status"];
   }
 }
 
 message TEnrollmentStatusSemanticFrame {
-  .NAlice.TStringSlot Puid = 1 [json_name = "puid"];
-  .NAlice.TEnrollmentStatusTypeSlot Status = 2 [json_name = "status"];
-  .NAlice.TStringSlot ActiveEnrollmentPersId = 3 [json_name = "active_enrollment_pers_id"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.multiaccount.enrollment_status";
+  .NAlice.TStringSlot Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.SlotName) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  .NAlice.TEnrollmentStatusTypeSlot Status = 2 [json_name = "status", (.NYT.column_name) = "status", (.NAlice.SlotName) = "status"];
+  .NAlice.TStringSlot ActiveEnrollmentPersId = 3 [json_name = "active_enrollment_pers_id", (.NYT.column_name) = "active_enrollment_pers_id", (.NAlice.SlotName) = "active_enrollment_pers_id"];
 }
 
 message TSelectEnrollmentTypeSemanticFrame {
-  .NAlice.TStringSlot EncryptedCode = 1 [json_name = "encrypted_code"];
-  .NAlice.TStringSlot Signature = 2 [json_name = "signature"];
-  .NAlice.TStringSlot EncryptedSessionKey = 3 [json_name = "encrypted_session_key"];
-  .NAlice.TStringSlot Puid = 4 [json_name = "puid"];
-  .NAlice.TTokenTypeSlot TokenType = 5 [json_name = "token_type"];
-  .NAlice.TStringSlot UserType = 6 [json_name = "user_type"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.multiaccount.select_enrollment_type";
+  .NAlice.TStringSlot EncryptedCode = 1 [json_name = "encrypted_code", (.NYT.column_name) = "encrypted_code", (.NAlice.SlotName) = "encrypted_code", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  .NAlice.TStringSlot Signature = 2 [json_name = "signature", (.NYT.column_name) = "signature", (.NAlice.SlotName) = "signature", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  .NAlice.TStringSlot EncryptedSessionKey = 3 [json_name = "encrypted_session_key", (.NYT.column_name) = "encrypted_session_key", (.NAlice.SlotName) = "encrypted_session_key", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  .NAlice.TStringSlot Puid = 4 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.SlotName) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  .NAlice.TTokenTypeSlot TokenType = 5 [json_name = "token_type", (.NYT.column_name) = "token_type", (.NAlice.SlotName) = "token_type"];
+  .NAlice.TStringSlot UserType = 6 [json_name = "user_type", (.NYT.column_name) = "user_type", (.NAlice.SlotName) = "user_type"];
 }
 
 message TCancelEnrollmentSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.voiceprint_enroll__cancel";
 }
 
 message TVoiceprintEnrollmentDoneSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "personal_assistant.scenarios.voiceprint_enroll.done";
 }
 
 message TGuestEnrollmentStartSemanticFrame {
-  .NAlice.TStringSlot Puid = 1 [json_name = "puid"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.guest.enrollment.start";
+  .NAlice.TStringSlot Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAlice.SlotName) = "puid", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE, (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
 }
 
 message TGuestEnrollmentFinishSemanticFrame {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.SemanticFrameName) = "alice.guest.enrollment.finish";
 }
 

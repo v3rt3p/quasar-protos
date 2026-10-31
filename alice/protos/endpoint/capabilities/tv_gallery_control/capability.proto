@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "TvGalleryControlCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/tv_gallery_control;tvgallerycontrolpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTvGalleryControlCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = TvGalleryControlCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool CanUseKpIdInHideFromDelayedDirective = 1 [json_name = "can_use_pd_id_in_hide_from_delayed_directive", (.NYT.column_name) = "can_use_pd_id_in_hide_from_delayed_directive"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message THideFromDelayedDirective {
+    option (.NAlice.SpeechKitName) = "hide_from_delayed_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = HideFromDelayedDirectiveType;
+    string Name = 6 [json_name = "name", (.NYT.column_name) = "name"];
+    oneof HideTarget {
+      string KpId = 1 [json_name = "kp_id", (.NYT.column_name) = "kp_id"];
+      string Url = 2 [json_name = "url", (.NYT.column_name) = "url"];
+      string Source = 3 [json_name = "source", (.NYT.column_name) = "source"];
+      string ChannelUri = 4 [json_name = "channel_uri", (.NYT.column_name) = "channel_uri"];
+      string AppPackage = 5 [json_name = "app_package", (.NYT.column_name) = "app_package"];
+      string ExternalAppVideoId = 7 [json_name = "external_app_video_id", (.NYT.column_name) = "external_app_video_id"];
+      string MusicId = 8 [json_name = "music_id", (.NYT.column_name) = "music_id"];
+      string ChannelContentId = 9 [json_name = "channel_content_id", (.NYT.column_name) = "channel_content_id"];
+    }
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TTvGalleryControlCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TTvGalleryControlCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

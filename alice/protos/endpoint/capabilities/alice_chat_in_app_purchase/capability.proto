@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceChatInAppPurchaseProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_chat_in_app_purchase;alicechatinapppurchasepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceChatInAppPurchaseCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceChatInAppPurchaseCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TError {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool Retryable = 2 [json_name = "retryable", (.NYT.column_name) = "retryable"];
+    optional int32 Code = 1 [json_name = "code", (.NYT.column_name) = "code"];
+  }
+
+  message TAnalyticData {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string BatchId = 1 [json_name = "batch_id", (.NYT.column_name) = "batch_id"];
+    string PositionId = 2 [json_name = "position_id", (.NYT.column_name) = "position_id"];
+  }
+
+  message TPurchaseContext {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string OfferToken = 1 [json_name = "offer_token", (.NYT.column_name) = "offer_token"];
+    string Target = 2 [json_name = "target", (.NYT.column_name) = "target"];
+    .NAlice.TAliceChatInAppPurchaseCapability.TAnalyticData AnalyticData = 3 [json_name = "analytic_data", (.NYT.column_name) = "analytic_data"];
+    repeated string OptionOfferNames = 4 [json_name = "option_offer_names", (.NYT.column_name) = "option_offer_names"];
+    repeated string RequestedFeatures = 6 [json_name = "requested_features", (.NYT.column_name) = "requested_features"];
+    optional string TariffOfferName = 5 [json_name = "tariff_offer_name", (.NYT.column_name) = "tariff_offer_name"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    reserved "OffersRequestId";
+    reserved "OffersStatus";
+    reserved "Offers";
+    reserved "Error";
+    reserved 1 to 4;
+    bool IsAppReviewVersion = 5 [json_name = "is_app_review_version", (.NYT.column_name) = "is_app_review_version"];
+  }
+
+  message TPurchaseOfferDirective {
+    option (.NAlice.SpeechKitName) = "purchase_in_app_offer";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PurchaseInAppOfferDirectiveType;
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    .NAlice.TAliceChatInAppPurchaseCapability.TPurchaseContext PurchaseContext = 2 [json_name = "purchase_context", (.NYT.column_name) = "purchase_context"];
+  }
+
+  message TInAppPurchaseResultEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = InAppPurchaseResultEventType;
+    string RequestId = 1 [json_name = "request_id", (.NYT.column_name) = "request_id"];
+    string OfferToken = 2 [json_name = "offer_token", (.NYT.column_name) = "offer_token"];
+    .NAlice.TAliceChatInAppPurchaseCapability.EPurchaseStatus Status = 3 [json_name = "status", (.NYT.column_name) = "status"];
+    .NAlice.TAliceChatInAppPurchaseCapability.TError Error = 4 [json_name = "error", (.NYT.column_name) = "error"];
+  }
+
+  enum EPurchaseStatus {
+    PURCHASE_STATUS_UNKNOWN = 0;
+    PURCHASE_STATUS_SUCCEEDED = 1;
+    PURCHASE_STATUS_CANCELLED = 2;
+    PURCHASE_STATUS_FAILED = 3;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceChatInAppPurchaseCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceChatInAppPurchaseCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

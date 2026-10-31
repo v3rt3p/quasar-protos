@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "AliceSatelliteDeviceProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/alice_satellite_device;alicesatellitedevicepb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TAliceSatelliteDeviceCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = AliceSatelliteDeviceCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TDeviceData {
+    reserved 5 to 9;
+    .NAlice.TAliceSatelliteDeviceCapability.EDeviceType DeviceType = 1 [json_name = "device_type", (.NYT.column_name) = "device_type"];
+    string DeviceId = 2 [json_name = "device_id", (.NYT.column_name) = "device_id"];
+    bytes Data = 10 [json_name = "data", (.NYT.column_name) = "data"];
+    .NAlice.TAliceSatelliteDeviceCapability.EConnectionState ConnectionState = 11 [json_name = "connection_state", (.NYT.column_name) = "connection_state"];
+    int64 Timestamp = 12 [json_name = "timestamp", (.NYT.column_name) = "timestamp"];
+    optional string PerId = 3 [json_name = "per_id", (.NYT.column_name) = "per_id"];
+    optional string MacAddress = 4 [json_name = "mac_address", (.NYT.column_name) = "mac_address"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TAliceSatelliteDeviceCapability.TDeviceData Devices = 1 [json_name = "devices", (.NYT.column_name) = "devices"];
+  }
+
+  message TOpenDeviceSettingsDirective {
+    option (.NAlice.SpeechKitName) = "open_device_settings";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = OpenDeviceSettingsDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string DeviceId = 2 [json_name = "device_id", deprecated = true, (.NYT.column_name) = "device_id"];
+    optional string Url = 3 [json_name = "url", (.NYT.column_name) = "url"];
+  }
+
+  message TAddDeviceDirective {
+    option (.NAlice.SpeechKitName) = "add_device";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = AddDeviceDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string Url = 3 [json_name = "url", (.NYT.column_name) = "url"];
+    optional .NAlice.TAliceSatelliteDeviceCapability.EDeviceType DeviceType = 4 [json_name = "device_type", (.NYT.column_name) = "device_type"];
+  }
+
+  message TRequestDeviceStateDirective {
+    option (.NAlice.SpeechKitName) = "request_device_state";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = RequestDeviceStateDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    optional string NativeDeviceId = 2 [json_name = "native_device_id", (.NYT.column_name) = "native_device_id"];
+  }
+
+  enum EDeviceType {
+    UNKNOWN_DEVICE_TYPE = 0;
+    CHERRY = 1;
+    NOTA = 2;
+    BLUEBERRY = 3;
+  }
+
+  enum EConnectionState {
+    DISCONNECTED = 0;
+    CONNECTED = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TAliceSatelliteDeviceCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TAliceSatelliteDeviceCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

@@ -153,7 +153,7 @@ message IOEvent {
     optional uint64 running_time_ns = 1;
     optional uint64 duration_ns = 2;
     optional uint32 rate = 3;
-    repeated float magnitudes = 4;
+    repeated float magnitudes = 4 [packed = true];
     optional int32 threshold = 5;
     optional int64 player_instance_id = 7;
     optional .quasar.proto.IOEvent.Spectrum.Type type = 8 [default = MUSIC];
@@ -281,8 +281,8 @@ message IOControlCommand {
   optional string change_account = 23;
   optional .quasar.proto.IOControlCommand.AllowUpdate allow_update = 25;
   optional .quasar.proto.IOControlCommand.RegisterDeviceInBackendInfo register_device_in_backend = 54;
-  optional .quasar.proto.IOControlCommand.UserAccountInfo provide_user_account_info = 44;
-  optional .quasar.proto.IOControlCommand.UserAccountInfo provide_active_user_account_info = 82;
+  optional .quasar.proto.IOControlCommand.UserAccountInfo provide_user_account_info = 44 [deprecated = true];
+  optional .quasar.proto.IOControlCommand.UserAccountInfo provide_active_user_account_info = 82 [deprecated = true];
   optional .quasar.proto.UserAccountList user_account_list = 94;
   optional .quasar.proto.EmptyMessage revoke_user_account_info = 52;
   optional .NAlice.TClientInfoProto.TMediaDeviceIdentifier media_device_identifier = 75;

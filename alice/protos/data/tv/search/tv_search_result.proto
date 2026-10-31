@@ -2,7 +2,54 @@ syntax = "proto3";
 
 package NAlice;
 
+option java_package = "ru.yandex.alice.protos.data.tv.search";
+option java_outer_classname = "TvSearchResult";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/search";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/common_multisearch/multisearch.proto";
+import "alice/protos/data/common_search/feature.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TTvSearchFilter {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  bool Selected = 3 [json_name = "selected", (.NYT.column_name) = "selected"];
+}
+
+message TTvSearchRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string SearchText = 1 [json_name = "search_text", (.NYT.column_name) = "search_text"];
+  string RestrictionMode = 2 [json_name = "restriction_mode", (.NYT.column_name) = "restriction_mode"];
+  string RestrictionAge = 3 [json_name = "restriction_age", (.NYT.column_name) = "restriction_age"];
+  string Entref = 4 [json_name = "entref", (.NYT.column_name) = "entref"];
+  repeated string ExcludeOntoIds = 5 [json_name = "exclude_onto_ids", (.NYT.column_name) = "exclude_onto_ids"];
+  string Provider = 6 [json_name = "provider", (.NYT.column_name) = "provider"];
+  bool WebItemsProhibited = 7 [json_name = "web_items_prohibited", (.NYT.column_name) = "web_items_prohibited"];
+  repeated .NAlice.EMultiSearchContent SupportedContentTypes = 8 [json_name = "supported_content_types", (.NYT.column_name) = "supported_content_types"];
+  repeated .NAlice.ESearchFeatures Features = 9 [json_name = "features", (.NYT.column_name) = "features"];
+  .NAlice.TMetaInfoVideo MetaInfoVideo = 10 [json_name = "meta_info_video", (.NYT.column_name) = "meta_info_video"];
+  repeated string SelectedFilters = 11 [json_name = "selected_filters", (.NYT.column_name) = "selected_filters"];
+}
+
+message TTvSearchCarouselWrapper {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  oneof Carousel {
+    option (.NYT.variant_field_name) = "carousel";
+    .NAlice.NTv.TCarousel BasicCarousel = 101 [json_name = "basic_gallery", (.NYT.column_name) = "basic_gallery"];
+  }
+}
+
 message TTvSearchResultData {
-  // stub
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.TTvSearchCarouselWrapper Galleries = 1 [json_name = "galleries", (.NYT.column_name) = "galleries"];
+  repeated .NAlice.TTvSearchCarouselWrapper Carousels = 2 [json_name = "carousels", deprecated = true, (.NYT.column_name) = "carousels"];
+  string SearchText = 3 [json_name = "search_text", (.NYT.column_name) = "search_text"];
+  repeated .NAlice.TVoiceControl VoiceControls = 4 [json_name = "voice_controls", (.NYT.column_name) = "voice_controls"];
+  .NAlice.TMetaInfoVideo MetaInfoVideo = 5 [json_name = "meta_info_video", (.NYT.column_name) = "meta_info_video"];
+  repeated .NAlice.TTvSearchFilter AvailableFilters = 6 [json_name = "available_filters", (.NYT.column_name) = "available_filters"];
 }
 

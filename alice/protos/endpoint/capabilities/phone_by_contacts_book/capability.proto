@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "PhoneByContactsBookCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/phone_by_contacts_book;phonebycontactsbookpb";
+
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TPhoneByContactsBookCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = PhoneByContactsBookCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsEnabled = 1 [json_name = "is_enabled", (.NYT.column_name) = "is_enabled"];
+  }
+
+  message TContactDirective {
+    option (.NAlice.SpeechKitName) = "phone_by_contacts_book_contact";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = PhoneByContactsBookContactDirectiveType;
+    message TContact {
+      option (.NYT.default_field_flags) = SERIALIZATION_YT;
+      uint32 Index = 1 [json_name = "index", (.NYT.column_name) = "index"];
+      .NAlice.TTypedCallbackRequest OnSelectCallback = 2 [json_name = "on_select_callback", (.NYT.column_name) = "on_select_callback"];
+      string Name = 3 [json_name = "name", (.NYT.column_name) = "name"];
+      repeated string Phones = 4 [json_name = "phones", (.NYT.column_name) = "phones"];
+    }
+
+    repeated .NAlice.TPhoneByContactsBookCapability.TContactDirective.TContact Contacts = 1 [json_name = "contacts", (.NYT.column_name) = "contacts"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TPhoneByContactsBookCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TPhoneByContactsBookCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

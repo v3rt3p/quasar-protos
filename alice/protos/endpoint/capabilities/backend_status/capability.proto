@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "BackendStatusCapabilityProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/backend_status;backendstatuspb";
+
+import "alice/protos/endpoint/capability.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TBackendStatusCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = BackendStatusCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TBackendStatusCapability.EStatus Status = 1 [json_name = "status", (.NYT.column_name) = "status"];
+  }
+
+  enum EStatus {
+    UnknownStatus = 0;
+    Available = 1;
+    Unavailable = 2;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TBackendStatusCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TBackendStatusCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

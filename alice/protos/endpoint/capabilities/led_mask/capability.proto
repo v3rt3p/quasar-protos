@@ -12,25 +12,34 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TLedMaskCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = LedMaskCapabilityType;
   message TParameters {
-    uint64 LedCount = 1 [json_name = "led_count"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint64 LedCount = 1 [json_name = "led_count", (.NYT.column_name) = "led_count"];
   }
 
   message TState {
-    bytes Bitmask = 1 [json_name = "bitmask"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bytes Bitmask = 1 [json_name = "bitmask", (.NYT.column_name) = "bitmask"];
   }
 
   message TSetLedMaskDirective {
-    string Name = 1000 [json_name = "name"];
-    bytes Bitmask = 1 [json_name = "bitmask"];
+    option (.NAlice.SpeechKitName) = "set_led_mask_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SetLedMaskDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    bytes Bitmask = 1 [json_name = "bitmask", (.NYT.column_name) = "bitmask"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TLedMaskCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = LedMaskUpdateStateEventType;
+    .NAlice.TLedMaskCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TLedMaskCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TLedMaskCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TLedMaskCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TLedMaskCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

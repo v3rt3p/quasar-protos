@@ -9,17 +9,33 @@ option go_package = "a.yandex-team.ru/alice/protos/endpoint;endpointpb";
 import "google/protobuf/descriptor.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
+extend .google.protobuf.MessageOptions {
+  .NAlice.TCapability.ECapabilityType CapabilityType = 58500;
+}
+extend .google.protobuf.MessageOptions {
+  .NAlice.TCapability.EDirectiveType DirectiveType = 58501;
+}
+extend .google.protobuf.MessageOptions {
+  .NAlice.TCapability.EEventType EventType = 58502;
+}
+extend .google.protobuf.MessageOptions {
+  repeated .NAlice.TCapability.EEventType ConditionEvents = 58503;
+}
 message TCapability {
   message TMeta {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "Private";
     reserved 5;
-    repeated .NAlice.TCapability.EDirectiveType SupportedDirectives = 1 [json_name = "supported_directives"];
-    repeated .NAlice.TCapability.EEventType SupportedEvents = 4 [json_name = "supported_events"];
-    bool Retrievable = 2 [json_name = "retrievable"];
-    bool Reportable = 3 [json_name = "reportable"];
+    repeated .NAlice.TCapability.EDirectiveType SupportedDirectives = 1 [json_name = "supported_directives", (.NYT.column_name) = "supported_directives"];
+    repeated .NAlice.TCapability.EEventType SupportedEvents = 4 [json_name = "supported_events", (.NYT.column_name) = "supported_events"];
+    bool Retrievable = 2 [json_name = "retrievable", (.NYT.column_name) = "retrievable"];
+    bool Reportable = 3 [json_name = "reportable", (.NYT.column_name) = "reportable"];
   }
 
   enum ECapabilityType {
+    reserved 308;
+    reserved 309;
+    reserved 310;
     UnknownCapabilityType = 0;
     OnOffCapabilityType = 1;
     IotDiscoveryCapabilityType = 2;
@@ -175,7 +191,7 @@ message TCapability {
     StandbyCapabilityType = 152;
     IotZoneCapabilityType = 153;
     IotPlanarViewCapabilityType = 154;
-    IotColorMusicCapabilityType = 155;
+    IotColorMusicCapabilityType = 155 [deprecated = true];
     IotAirQualityCapabilityType = 156;
     CameraSnapshotCapabilityType = 157;
     AppFunctionsCapabilityType = 158;
@@ -207,7 +223,7 @@ message TCapability {
     IotMotorDirectionCapabilityType = 184;
     TabContentCapabilityType = 185;
     IotZigbeeNeighborCapabilityType = 186;
-    MatterLocalityCapabilityType = 187;
+    MatterLocalityCapabilityType = 187 [deprecated = true];
     MetricaCapabilityType = 188;
     GoCapabilityType = 189;
     IotZigbeeCoordinatorCapabilityType = 190;
@@ -219,37 +235,37 @@ message TCapability {
     LightingReactionCapabilityType = 196;
     ColorMusicCapabilityType = 197;
     BestPriceCapabilityType = 198;
-    ZenohLocalityCapabilityType = 199;
+    ZenohLocalityCapabilityType = 199 [deprecated = true];
     ColorAnimationCapabilityType = 200;
     NotesCapabilityType = 201;
     AliceChatNativeAuthCapabilityType = 202;
     CameraVideoRecordingCapabilityType = 203;
     VoiceZoneCapabilityType = 204;
-    SmartScenariosCapabilityType = 205;
+    SmartScenariosCapabilityType = 205 [deprecated = true];
     NetworkCapabilityType = 206;
     SignalLevelCapabilityType = 207;
-    WaterWireLineCapabilityType = 208;
-    RadioDiscoveryCapabilityType = 209;
+    WaterWireLineCapabilityType = 208 [deprecated = true];
+    RadioDiscoveryCapabilityType = 209 [deprecated = true];
     AliceChatFilesCapabilityType = 210;
     ExternalMcpSkillCapabilityType = 211;
-    CommissioningCapabilityType = 212;
-    WaterMeterCapabilityType = 213;
-    SwitchCapabilityType = 214;
-    LeakProtectionDoNotDisturbCapabilityType = 215;
-    NeptuneRelayModeCapabilityType = 216;
-    PowerSourceCapabilityType = 217;
-    TapGroupCapabilityType = 218;
-    ConfigCapabilityType = 219;
+    CommissioningCapabilityType = 212 [deprecated = true];
+    WaterMeterCapabilityType = 213 [deprecated = true];
+    SwitchCapabilityType = 214 [deprecated = true];
+    LeakProtectionDoNotDisturbCapabilityType = 215 [deprecated = true];
+    NeptuneRelayModeCapabilityType = 216 [deprecated = true];
+    PowerSourceCapabilityType = 217 [deprecated = true];
+    TapGroupCapabilityType = 218 [deprecated = true];
+    ConfigCapabilityType = 219 [deprecated = true];
     DeviceNotificationsCapabilityType = 220;
     SoundAlarmCapabilityType = 221;
-    PermissionsCapabilityType = 222;
+    PermissionsCapabilityType = 222 [deprecated = true];
     CaptchaCapabilityType = 223;
-    DigitalMetersDiscoveryCapabilityType = 224;
+    DigitalMetersDiscoveryCapabilityType = 224 [deprecated = true];
     AliceSatelliteOtaCapabilityType = 225;
     AliceSatelliteDeviceCapabilityType = 226;
     ServerPermissionsCapabilityType = 227;
-    AppFacadeCapabilityType = 228;
-    AliceSatelliteCapabilityType = 229;
+    AppFacadeCapabilityType = 228 [deprecated = true];
+    AliceSatelliteCapabilityType = 229 [deprecated = true];
     IotExternalTemperatureMeasurementCapabilityType = 230;
     AppStateCapabilityType = 231;
     AliceAppsWidgetCapabilityType = 232;
@@ -257,10 +273,10 @@ message TCapability {
     PreferencesCapabilityType = 234;
     AliceAppsCapabilityType = 235;
     AliceChatShareCapabilityType = 236;
-    WaterWireLineHubCapabilityType = 237;
+    WaterWireLineHubCapabilityType = 237 [deprecated = true];
     MapsAgentCapabilityType = 238;
     YaBooksCapabilityType = 239;
-    DoorLockDiscoveryCapabilityType = 240;
+    DoorLockDiscoveryCapabilityType = 240 [deprecated = true];
     IotMatterNodeNetworkDiagnosticsCapabilityType = 241;
     PersonalDeviceCapabilityType = 242;
     CompanionScreenCapabilityType = 243;
@@ -275,13 +291,13 @@ message TCapability {
     CompanionScreenUISkinCapabilityType = 252;
     DefaultAssistantCapabilityType = 253;
     WebPlayerCapabilityType = 254;
-    IotNameViewCapabilityType = 255;
+    IotNameViewCapabilityType = 255 [deprecated = true];
     ContextSwitchCapabilityType = 256;
     TvPlayerCapabilityType = 257;
     MobileAgentCapabilityType = 258;
-    NeptuneUpsCapabilityType = 259;
+    NeptuneUpsCapabilityType = 259 [deprecated = true];
     ScreenSunriseCapabilityType = 260;
-    SystemPromptCapabilityType = 261;
+    SystemPromptCapabilityType = 261 [deprecated = true];
     BrowserControlCapabilityType = 262;
     TabContentHistoryCapabilityType = 263;
     DoorLockCapabilityType = 264;
@@ -309,7 +325,7 @@ message TCapability {
     VinylCapabilityType = 286;
     LifeLogAudioSyncCapabilityType = 287;
     VqeAudioFilterCapabilityType = 288;
-    AssistantResponseModeCapabilityType = 289;
+    AssistantResponseModeCapabilityType = 289 [deprecated = true];
     AliceLimitsCapabilityType = 290;
     AutomotiveSeatsCapabilityType = 291;
     RecordedAudioStorageCapabilityType = 292;
@@ -349,17 +365,19 @@ message TCapability {
     AliceWatchCapabilityType = 329;
     LumenMusicCapabilityType = 330;
     AutomotiveWallpaperCapabilityType = 331;
-    DoorLockDoNotDisturbCapabilityType = 332;
+    DoorLockDoNotDisturbCapabilityType = 332 [deprecated = true];
     FlexCapabilityType = 333;
     AutomotiveHvacScreenCapabilityType = 334;
     PowerSupplyCapabilityType = 335;
     RoutineRunCapabilityType = 336;
-    DoorLockCloseDirectionCapabilityType = 337;
+    DoorLockCloseDirectionCapabilityType = 337 [deprecated = true];
     AliceChatStateCapabilityType = 338;
     BackendStatusCapabilityType = 339;
   }
 
   enum EEventType {
+    reserved "IotOccupancyEventType";
+    reserved 88;
     UnknownEventType = 0;
     ButtonClickEventType = 1;
     ButtonDoubleClickEventType = 2;
@@ -589,6 +607,22 @@ message TCapability {
   }
 
   enum EDirectiveType {
+    reserved "AlarmRemoveDirectiveType";
+    reserved "GenerateViceprintDirectiveType";
+    reserved "TurnScreenOffDirectiveType";
+    reserved "FinishEnrollmentOnboardingDirectiveType";
+    reserved "SetSeatHeatingStateDirectiveType";
+    reserved "UpdateTtsPlaceholerDirectiveType";
+    reserved "UpdateVoiceprintsDirectiveType";
+    reserved "MatchVoiceprintDirectiveType";
+    reserved 33;
+    reserved 77;
+    reserved 78;
+    reserved 191;
+    reserved 255;
+    reserved 283;
+    reserved 296;
+    reserved 316;
     UnknownDirectiveType = 0;
     OnOffDirectiveType = 1;
     ToggleOnOffDirectiveType = 54;
@@ -1157,7 +1191,7 @@ message TCapability {
     ActivateSmartScenarioDirectiveType = 10001;
     DeactivateSmartScenarioDirectiveType = 10002;
     SetFeedBackDirectiveType = 526;
-    SetWorkModeDirectiveType = 527;
+    SetWorkModeDirectiveType = 527 [deprecated = true];
     SaveSensorsDirectiveType = 528;
     AddWireLineDirectiveType = 588;
     RemoveWireLineDirectiveType = 589;

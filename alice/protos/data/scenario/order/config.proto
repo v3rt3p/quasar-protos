@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NData.NOrder;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.order";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/order";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TOrderStatusUserConfig {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  bool HideItemNames = 1 [json_name = "hide_item_names", (.NYT.column_name) = "hide_item_names"];
+}
+

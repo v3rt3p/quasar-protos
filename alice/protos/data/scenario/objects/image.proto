@@ -11,25 +11,25 @@ message TSingleImage {
   reserved "HttpSorce";
   reserved 3;
   message TImageRef {
-    string Url = 1 [json_name = "url"];
-    int32 Width = 2 [json_name = "width"];
-    int32 Height = 3 [json_name = "height"];
+    string Url = 1 [json_name = "url", (.NYT.column_name) = "url"];
+    int32 Width = 2 [json_name = "width", (.NYT.column_name) = "width"];
+    int32 Height = 3 [json_name = "height", (.NYT.column_name) = "height"];
   }
 
-  .NAlice.NData.TSingleImage.TImageRef UrlAvatar = 1 [json_name = "url_avatar"];
-  .NAlice.NData.TSingleImage.TImageRef UrlSource = 2 [json_name = "url_source"];
-  string Text = 4 [json_name = "text"];
-  string HttpSource = 5 [json_name = "http_source"];
+  .NAlice.NData.TSingleImage.TImageRef UrlAvatar = 1 [json_name = "url_avatar", (.NYT.column_name) = "url_avatar"];
+  .NAlice.NData.TSingleImage.TImageRef UrlSource = 2 [json_name = "url_source", (.NYT.column_name) = "url_source"];
+  string Text = 4 [json_name = "text", (.NYT.column_name) = "text"];
+  string HttpSource = 5 [json_name = "http_source", (.NYT.column_name) = "http_source"];
 }
 
 message TImageGallery {
   reserved "Gallery";
   reserved 1;
-  repeated .NAlice.NData.TSingleImage Images = 2 [json_name = "images"];
+  repeated .NAlice.NData.TSingleImage Images = 2 [json_name = "images", (.NYT.column_name) = "images"];
 }
 
 message TImageGrid {
-  string Title = 1 [json_name = "title"];
-  .NAlice.NData.TImageGallery Images = 2 [json_name = "images"];
+  string Title = 1 [json_name = "title", (.NYT.column_name) = "title"];
+  .NAlice.NData.TImageGallery Images = 2 [json_name = "images", (.NYT.column_name) = "images"];
 }
 

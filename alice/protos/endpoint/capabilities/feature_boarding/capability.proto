@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "FeatureBoardingCapabilityProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/feature_boarding;featureboardingpb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TFeatureBoardingCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = FeatureBoardingCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated string EnabledFeatures = 1 [json_name = "enabled_features", (.NYT.column_name) = "enabled_features"];
+    repeated string SupportedFeatures = 2 [json_name = "supported_features", (.NYT.column_name) = "supported_features"];
+  }
+
+  message TStartFeatureBoardingDirective {
+    option (.NAlice.SpeechKitName) = "start_feature_boarding_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = StartFeatureBoardingDirectiveType;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string FeatureId = 2 [json_name = "feature_id", (.NYT.column_name) = "feature_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TFeatureBoardingCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TFeatureBoardingCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

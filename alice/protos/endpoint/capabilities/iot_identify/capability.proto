@@ -12,25 +12,32 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotIdentifyCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotIdentifyCapabilityType;
   message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     message TRange {
-      uint32 Min = 1 [json_name = "min"];
-      uint32 Max = 2 [json_name = "max"];
+      uint32 Min = 1 [json_name = "min", (.NYT.column_name) = "min"];
+      uint32 Max = 2 [json_name = "max", (.NYT.column_name) = "max"];
     }
 
-    .NAlice.TIotIdentifyCapability.TParameters.TRange IdentifyTimeRangeSec = 1 [json_name = "identify_time_range_sec"];
+    .NAlice.TIotIdentifyCapability.TParameters.TRange IdentifyTimeRangeSec = 1 [json_name = "identify_time_range_sec", (.NYT.column_name) = "identify_time_range_sec"];
   }
 
   message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
   }
 
   message TStartIdentifyDirective {
-    string Name = 1000 [json_name = "name"];
-    uint32 IdentifyTimeSec = 1 [json_name = "identify_time_sec"];
+    option (.NAlice.SpeechKitName) = "iot_start_identify_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotStartIdentifyDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint32 IdentifyTimeSec = 1 [json_name = "identify_time_sec", (.NYT.column_name) = "identify_time_sec"];
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotIdentifyCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotIdentifyCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotIdentifyCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotIdentifyCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

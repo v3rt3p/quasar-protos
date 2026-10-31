@@ -10,5 +10,7 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TAdhanUpdateActivationTimesTypedCallback {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.MMTypedCallbackName) = "AdhanUpdateActivationTimesTypedCallback";
 }
 

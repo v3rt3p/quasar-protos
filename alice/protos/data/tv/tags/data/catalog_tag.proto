@@ -9,6 +9,7 @@ option go_package = "a.yandex-team.ru/alice/protos/data/tv/tags/data";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TCatalogTag {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   enum ETagType {
     TT_UNKNOWN = 0;
     TT_CONTENT_TYPE = 1;
@@ -21,13 +22,14 @@ message TCatalogTag {
     TT_TOP = 8;
   }
 
-  string Name = 1 [json_name = "name"];
-  string Id = 2 [json_name = "id"];
-  uint32 Priority = 3 [json_name = "priority"];
-  .NAlice.NTv.TCatalogTag.ETagType TagType = 4 [json_name = "tag_type"];
+  string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+  string Id = 2 [json_name = "id", (.NYT.column_name) = "id"];
+  uint32 Priority = 3 [json_name = "priority", (.NYT.column_name) = "priority"];
+  .NAlice.NTv.TCatalogTag.ETagType TagType = 4 [json_name = "tag_type", (.NYT.column_name) = "tag_type"];
 }
 
 message TCatalogTags {
-  repeated .NAlice.NTv.TCatalogTag CatalogTagValue = 1 [json_name = "catalog_tag_value"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  repeated .NAlice.NTv.TCatalogTag CatalogTagValue = 1 [json_name = "catalog_tag_value", (.NYT.column_name) = "catalog_tag_value"];
 }
 

@@ -12,21 +12,30 @@ import "alice/protos/extensions/extensions.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TIotSwitchModeCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = IotSwitchModeCapabilityType;
   message TParameters {
-    repeated .NAlice.TIotSwitchModeCapability.EMode SupportedModes = 1 [json_name = "supported_modes"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    repeated .NAlice.TIotSwitchModeCapability.EMode SupportedModes = 1 [json_name = "supported_modes", (.NYT.column_name) = "supported_modes"];
   }
 
   message TState {
-    .NAlice.TIotSwitchModeCapability.EMode Mode = 1 [json_name = "mode"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TIotSwitchModeCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
   message TSetModeDirective {
-    string Name = 1000 [json_name = "name"];
-    .NAlice.TIotSwitchModeCapability.EMode Mode = 1 [json_name = "mode"];
+    option (.NAlice.SpeechKitName) = "iot_set_switch_mode_directive";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = IotSetSwitchModeDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    .NAlice.TIotSwitchModeCapability.EMode Mode = 1 [json_name = "mode", (.NYT.column_name) = "mode"];
   }
 
   message TUpdateStateEvent {
-    .NAlice.TIotSwitchModeCapability Capability = 1 [json_name = "capability"];
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.EventType) = IotSwitchModeUpdateStateEventType;
+    .NAlice.TIotSwitchModeCapability Capability = 1 [json_name = "capability", (.NYT.column_name) = "capability"];
   }
 
   enum EMode {
@@ -37,8 +46,8 @@ message TIotSwitchModeCapability {
     BottomRowMultifunction = 4;
   }
 
-  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta"];
-  .NAlice.TIotSwitchModeCapability.TParameters Parameters = 2 [json_name = "parameters"];
-  .NAlice.TIotSwitchModeCapability.TState State = 3 [json_name = "state"];
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TIotSwitchModeCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TIotSwitchModeCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
 }
 

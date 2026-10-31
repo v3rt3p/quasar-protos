@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "DiagnosticArtifactsProto";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/diagnostic_artifacts;diagnosticartifactspb";
+
+import "google/protobuf/descriptor.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TDiagnosticArtifactsCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = DiagnosticArtifactsCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    map<string, .NAlice.TDiagnosticArtifactsCapability.TArtifactState> Artifacts = 1 [json_name = "artifacts", (.NYT.column_name) = "artifacts"];
+  }
+
+  message TArtifactState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    oneof Status {
+      option (.NYT.variant_field_name) = "status";
+      .NAlice.TDiagnosticArtifactsCapability.TReady Ready = 1 [json_name = "ready", (.NYT.column_name) = "ready"];
+      .NAlice.TDiagnosticArtifactsCapability.TUnavailable Unavailable = 2 [json_name = "unavailable", (.NYT.column_name) = "unavailable"];
+      .NAlice.TDiagnosticArtifactsCapability.TPending Pending = 3 [json_name = "pending", (.NYT.column_name) = "pending"];
+    }
+  }
+
+  message TPending {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  }
+
+  message TReady {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Uri = 1 [json_name = "uri", (.NYT.column_name) = "uri"];
+  }
+
+  message TUnavailable {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    .NAlice.TDiagnosticArtifactsCapability.EErrorCode ErrorCode = 1 [json_name = "error_code", (.NYT.column_name) = "error_code"];
+  }
+
+  message TCollectDiagnosticArtifactDirective {
+    option (.NAlice.SpeechKitName) = "collect_diagnostic_artifact";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = CollectDiagnosticArtifactDirectiveType;
+    .NAlice.TDiagnosticArtifactsCapability.EArtifactType ArtifactType = 1 [json_name = "artifact_type", (.NYT.column_name) = "artifact_type"];
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+  }
+
+  enum EErrorCode {
+    ERROR_CODE_UNSPECIFIED = 0;
+    FEATURE_DISABLED = 1;
+    NO_DATA = 2;
+    BUSY = 3;
+    COLLECTION_FAILED = 4;
+    ARCHIVE_FAILED = 5;
+    SIZE_LIMIT_EXCEEDED = 6;
+    TIMEOUT = 7;
+    INTERNAL_ERROR = 8;
+  }
+
+  enum EArtifactType {
+    ARTIFACT_TYPE_UNSPECIFIED = 0;
+    MUSIC_SDK_LOGS = 1;
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TDiagnosticArtifactsCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TDiagnosticArtifactsCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

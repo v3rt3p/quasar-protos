@@ -2,10 +2,57 @@ syntax = "proto3";
 
 package NAlice.NTv;
 
-message TWhatsNewTile {
-  // stub
+option java_package = "ru.yandex.alice.protos.data.tv.whats_new";
+option java_outer_classname = "WhatsNewProto";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/whats_new";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "alice/protos/data/avatar/avatar.proto";
+
+message TSupportedWhatsNew {
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
 }
 
 message TWhatsNewContent {
-  // stub
+  message TButton {
+    reserved "Action";
+    reserved 3;
+    string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+    string Text = 2 [json_name = "button_text", (.NYT.column_name) = "button_text"];
+    .NAlice.TTypedCallbackRequest OnClick = 4 [json_name = "on_click", (.NYT.column_name) = "on_click"];
+  }
+
+  message TVoiceControlSerialized {
+    bytes Serialized = 1 [json_name = "serialized", (.NYT.column_name) = "serialized"];
+  }
+
+  message TVideoTemplate {
+    reserved "VoiceControls";
+    reserved 5;
+    string FirstFrameUrl = 1 [json_name = "first_frame_url", (.NYT.column_name) = "first_frame_url"];
+    string VideoUrl = 2 [json_name = "video_url", (.NYT.column_name) = "vide_url"];
+    string Video4KUrl = 3 [json_name = "video_4k_url", (.NYT.column_name) = "vide_4k_url"];
+    repeated .NAlice.NTv.TWhatsNewContent.TButton Buttons = 4 [json_name = "overlay_buttons", (.NYT.column_name) = "overlay_buttons"];
+    repeated .NAlice.NTv.TWhatsNewContent.TVoiceControlSerialized VoiceControlsSerialized = 6 [json_name = "voice_controls_serialized", (.NYT.column_name) = "voice_controls_serialized"];
+  }
+
+  string WhatsNewId = 2 [json_name = "whats_new_id", (.NYT.column_name) = "whats_new_id"];
+  string ImageUrl = 3 [json_name = "image_url", (.NYT.column_name) = "image_url"];
+  string PreviewUrl = 4 [json_name = "preview_url", (.NYT.column_name) = "preview_url"];
+  string PortraitImageUrl = 5 [json_name = "portrait_image_url", (.NYT.column_name) = "portrait_image_url"];
+  oneof WhatsNewTemplate {
+    option (.NYT.variant_field_name) = "whats_new_template";
+    .NAlice.NTv.TWhatsNewContent.TVideoTemplate VideoTemplate = 1 [json_name = "video_template", (.NYT.column_name) = "video_template"];
+  }
 }
+
+message TWhatsNewTile {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Title = 2 [json_name = "title", (.NYT.column_name) = "title"];
+  string PromoText = 3 [json_name = "promo_text", (.NYT.column_name) = "promo_text"];
+  string Label = 4 [json_name = "label", (.NYT.column_name) = "label"];
+  .NAlice.TAvatarMdsImage Background = 5 [json_name = "background", (.NYT.column_name) = "background"];
+}
+

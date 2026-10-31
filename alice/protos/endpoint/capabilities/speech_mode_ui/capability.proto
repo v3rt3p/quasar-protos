@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.endpoint.capabilities";
+option java_outer_classname = "SpeechModeUiProto";
+option go_package = "a.yandex-team.ru/alice/protos/endpoint/capabilities/speech_mode_ui;speechmodeuipb";
+
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/extensions/extensions.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSpeechModeUiCapability {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  option (.NAlice.CapabilityType) = SpeechModeUiCapabilityType;
+  message TParameters {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    bool IsVoiceCloningAvailable = 1 [json_name = "is_voice_cloning_available", (.NYT.column_name) = "is_voice_cloning_available"];
+  }
+
+  message TState {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum ESpeechGPTState {
+      Undefined = 0;
+      Off = 1;
+      On = 2;
+    }
+
+    enum EAvailabilityState {
+      Unknown = 0;
+      Available = 1;
+      Unavailable = 2;
+    }
+
+    .NAlice.TSpeechModeUiCapability.TState.ESpeechGPTState SpeechGPTState = 1 [json_name = "speechgpt_state", (.NYT.column_name) = "speechgpt_state"];
+    .NAlice.TSpeechModeUiCapability.TState.EAvailabilityState AvailabilityState = 2 [json_name = "availability_state", (.NYT.column_name) = "availability_state"];
+    bool IsAvailableAsOknyx = 3 [json_name = "is_available_as_oknyx", (.NYT.column_name) = "is_available_as_oknyx"];
+  }
+
+  message TShowTimeEndingBannerDirective {
+    option (.NAlice.SpeechKitName) = "speech_mode_show_time_ending_banner";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SpeechModeShowTimeEndingBannerDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    uint64 TimeRemaining = 1 [json_name = "time_remaining", (.NYT.column_name) = "time_remaining"];
+  }
+
+  message TSpeechModeShowDirective {
+    option (.NAlice.SpeechKitName) = "speech_mode_show";
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    option (.NAlice.DirectiveType) = SpeechModeShowDirectiveType;
+    string Name = 1000 [json_name = "name", (.NYT.column_name) = "name"];
+    string DialogId = 1 [json_name = "dialog_id", (.NYT.column_name) = "dialog_id"];
+    optional string CharacterId = 2 [json_name = "character_id", (.NYT.column_name) = "character_id"];
+  }
+
+  .NAlice.TCapability.TMeta Meta = 1 [json_name = "meta", (.NYT.column_name) = "meta"];
+  .NAlice.TSpeechModeUiCapability.TParameters Parameters = 2 [json_name = "parameters", (.NYT.column_name) = "parameters"];
+  .NAlice.TSpeechModeUiCapability.TState State = 3 [json_name = "state", (.NYT.column_name) = "state"];
+}
+

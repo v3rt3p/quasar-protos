@@ -39,7 +39,9 @@ import "google/protobuf/timestamp.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TServerMessage {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
   message TEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
     reserved "MatchVoicePrint";
     reserved "UpdateVoicePrints";
     reserved "DataProxyConnectResponse";
@@ -68,45 +70,47 @@ message TServerMessage {
     reserved 34;
     reserved 35;
     reserved 37;
-    .NAlice.NAliceApi.TEventHeader Header = 1 [json_name = "header"];
+    .NAlice.NAliceApi.TEventHeader Header = 1 [json_name = "header", (.NYT.column_name) = "header"];
     oneof Event {
-      .NAlice.NAliceApi.TAliceResponseProto AliceResponse = 2 [json_name = "alice_response"];
-      .NAlice.NAliceApi.TDeferedAliceResponseProto DeferredAliceResponse = 3 [json_name = "deferred_alice_response"];
-      .NAlice.NAliceApi.TGoAway GoAway = 4 [json_name = "go_away"];
-      .NAlice.NAliceApi.TPush Push = 5 [json_name = "push"];
-      .NAlice.NAliceApi.TSyncPush SyncPush = 8 [json_name = "sync_push"];
-      .NAlice.NAliceApi.TEventException EventException = 9 [json_name = "event_exception"];
-      .NAlice.NAliceApi.TInputStartAck InputStartAck = 10 [json_name = "input_start_ack"];
-      .NAlice.NAliceApi.TLogAck LogAck = 11 [json_name = "log_ack"];
-      .NAlice.NAliceApi.TPing Ping = 12 [json_name = "ping"];
-      .NAlice.NAliceApi.TAsrResult AsrResult = 13 [json_name = "asr_result"];
-      .NAlice.NAliceApi.TTtsSpeak TtsSpeak = 14 [json_name = "tts_speak"];
-      .NAlice.NAliceApi.TServerRequestReady ServerRequestReady = 15 [json_name = "server_request_ready"];
-      .NAlice.NAliceApi.TSpotterValidation SpotterValidation = 16 [json_name = "spotter_validation"];
-      .NAlice.NAliceApi.TInvalidAuth InvalidAuth = 17 [json_name = "invalid_auth"];
-      .NAlice.NAliceApi.TTtsTimings TtsTimings = 18 [json_name = "tts_timings"];
-      .NAlice.NAliceApi.TAsrMusicResult AsrMusicResult = 19 [json_name = "asr_music_result"];
-      .NAlice.NAliceApi.TDataProxyRequest DataProxyRequest = 22 [json_name = "data_proxy_request"];
-      .NAlice.NAliceApi.TFileUploadResponse FileUploadResponse = 23 [json_name = "file_upload_response"];
-      .NAlice.NAliceApi.TSynchronizeStateResponse SynchronizeStateResponse = 24 [json_name = "synchronize_state_response"];
-      .NAlice.NAliceApi.TSpeechControl SpeechControl = 25 [json_name = "speech_control"];
-      .NAlice.NAliceApi.TServerSubscriptionState ServerSubscriptionState = 32 [json_name = "server_subscription_state"];
-      .NAlice.NAliceApi.TRequestStatAck RequestStatAck = 36 [json_name = "request_stat_ack"];
-      .NAlice.NAliceApi.TAudioTranscriptionInputResponse AudioTranscriptionInputResponse = 38 [json_name = "audio_transcription_input_response"];
-      .NAlice.NAliceApi.TChunkAck ChunkAck = 39 [json_name = "chunk_ack"];
+      option (.NYT.variant_field_name) = "event";
+      .NAlice.NAliceApi.TAliceResponseProto AliceResponse = 2 [json_name = "alice_response", (.NYT.column_name) = "alice_response"];
+      .NAlice.NAliceApi.TDeferedAliceResponseProto DeferredAliceResponse = 3 [json_name = "deferred_alice_response", (.NYT.column_name) = "deferred_alice_response"];
+      .NAlice.NAliceApi.TGoAway GoAway = 4 [json_name = "go_away", (.NYT.column_name) = "go_away"];
+      .NAlice.NAliceApi.TPush Push = 5 [json_name = "push", (.NYT.column_name) = "push"];
+      .NAlice.NAliceApi.TSyncPush SyncPush = 8 [json_name = "sync_push", (.NYT.column_name) = "sync_push"];
+      .NAlice.NAliceApi.TEventException EventException = 9 [json_name = "event_exception", (.NYT.column_name) = "event_exception"];
+      .NAlice.NAliceApi.TInputStartAck InputStartAck = 10 [json_name = "input_start_ack", (.NYT.column_name) = "input_start_ack"];
+      .NAlice.NAliceApi.TLogAck LogAck = 11 [json_name = "log_ack", (.NYT.column_name) = "log_ack"];
+      .NAlice.NAliceApi.TPing Ping = 12 [json_name = "ping", (.NYT.column_name) = "ping"];
+      .NAlice.NAliceApi.TAsrResult AsrResult = 13 [json_name = "asr_result", (.NYT.column_name) = "asr_result"];
+      .NAlice.NAliceApi.TTtsSpeak TtsSpeak = 14 [json_name = "tts_speak", (.NYT.column_name) = "tts_speak"];
+      .NAlice.NAliceApi.TServerRequestReady ServerRequestReady = 15 [json_name = "server_request_ready", (.NYT.column_name) = "server_request_ready"];
+      .NAlice.NAliceApi.TSpotterValidation SpotterValidation = 16 [json_name = "spotter_validation", (.NYT.column_name) = "spotter_validation"];
+      .NAlice.NAliceApi.TInvalidAuth InvalidAuth = 17 [json_name = "invalid_auth", (.NYT.column_name) = "invalid_auth"];
+      .NAlice.NAliceApi.TTtsTimings TtsTimings = 18 [json_name = "tts_timings", (.NYT.column_name) = "tts_timings"];
+      .NAlice.NAliceApi.TAsrMusicResult AsrMusicResult = 19 [json_name = "asr_music_result", (.NYT.column_name) = "asr_music_result"];
+      .NAlice.NAliceApi.TDataProxyRequest DataProxyRequest = 22 [json_name = "data_proxy_request", (.NYT.column_name) = "data_proxy_request"];
+      .NAlice.NAliceApi.TFileUploadResponse FileUploadResponse = 23 [json_name = "file_upload_response", (.NYT.column_name) = "file_upload_response"];
+      .NAlice.NAliceApi.TSynchronizeStateResponse SynchronizeStateResponse = 24 [json_name = "synchronize_state_response", (.NYT.column_name) = "synchronize_state_response"];
+      .NAlice.NAliceApi.TSpeechControl SpeechControl = 25 [json_name = "speech_control", (.NYT.column_name) = "speech_control"];
+      .NAlice.NAliceApi.TServerSubscriptionState ServerSubscriptionState = 32 [json_name = "server_subscription_state", (.NYT.column_name) = "server_subscription_state"];
+      .NAlice.NAliceApi.TRequestStatAck RequestStatAck = 36 [json_name = "request_stat_ack", (.NYT.column_name) = "request_stat_ack"];
+      .NAlice.NAliceApi.TAudioTranscriptionInputResponse AudioTranscriptionInputResponse = 38 [json_name = "audio_transcription_input_response", (.NYT.column_name) = "audio_transcription_input_response"];
+      .NAlice.NAliceApi.TChunkAck ChunkAck = 39 [json_name = "chunk_ack", (.NYT.column_name) = "chunk_ack"];
     }
   }
 
   message TTimings {
-    .google.protobuf.Timestamp SendingTime = 1 [json_name = "sending_time"];
+    .google.protobuf.Timestamp SendingTime = 1 [json_name = "sending_time", (.NYT.column_name) = "sending_time"];
   }
 
-  .NAlice.NAliceApi.TServerMessage.TTimings Timings = 3 [json_name = "timings"];
-  .NAlice.NAliceApi.TStreaming Streaming = 4 [json_name = "streaming"];
-  .NAlice.NAliceApi.TMessageGroupInfo MessageGroup = 5 [json_name = "message_group"];
+  .NAlice.NAliceApi.TServerMessage.TTimings Timings = 3 [json_name = "timings", (.NYT.column_name) = "timings"];
+  .NAlice.NAliceApi.TStreaming Streaming = 4 [json_name = "streaming", (.NYT.column_name) = "streaming"];
+  .NAlice.NAliceApi.TMessageGroupInfo MessageGroup = 5 [json_name = "message_group", (.NYT.column_name) = "message_group"];
   oneof Message {
-    .NAlice.NAliceApi.TServerMessage.TEvent Event = 1 [json_name = "event"];
-    .NAlice.NAliceApi.TStreamControl StreamControl = 2 [json_name = "stream_control"];
+    option (.NYT.variant_field_name) = "message";
+    .NAlice.NAliceApi.TServerMessage.TEvent Event = 1 [json_name = "event", (.NYT.column_name) = "event"];
+    .NAlice.NAliceApi.TStreamControl StreamControl = 2 [json_name = "stream_control", (.NYT.column_name) = "stream_control"];
   }
 }
 

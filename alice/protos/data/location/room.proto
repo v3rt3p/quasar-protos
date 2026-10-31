@@ -10,11 +10,12 @@ import "alice/protos/data/device/info.proto";
 import "yt/yt_proto/yt/formats/extension.proto";
 
 message TUserRoom {
-  string Id = 1 [json_name = "id"];
-  string Name = 2 [json_name = "name"];
-  string HouseholdId = 3 [json_name = "household_id"];
-  .NAlice.TUserSharingInfo SharingInfo = 4 [json_name = "sharing_info"];
-  repeated string Aliases = 5 [json_name = "aliases"];
-  repeated string Permissions = 6 [json_name = "permissions"];
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string HouseholdId = 3 [json_name = "household_id", (.NYT.column_name) = "household_id"];
+  .NAlice.TUserSharingInfo SharingInfo = 4 [json_name = "sharing_info", (.NYT.column_name) = "sharing_info"];
+  repeated string Aliases = 5 [json_name = "aliases", (.NYT.column_name) = "aliases"];
+  repeated string Permissions = 6 [json_name = "permissions", (.NYT.column_name) = "permissions"];
 }
 

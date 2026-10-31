@@ -12,59 +12,61 @@ message TBlackBoxFullUserInfoProto {
   reserved "ClientId";
   reserved 3;
   message TUserInfo {
-    string Uid = 1 [json_name = "uid"];
-    string Email = 2 [json_name = "email"];
-    string FirstName = 3 [json_name = "firstName"];
-    string LastName = 4 [json_name = "lastName"];
-    string Phone = 5 [json_name = "phone"];
-    bool HasYandexPlus = 6 [json_name = "hasYandexPlus"];
-    bool IsStaff = 7 [json_name = "isStaff"];
-    bool IsBetaTester = 8 [json_name = "isBetaTester"];
-    bool HasMusicSubscription = 9 [json_name = "hasMusicSubscription"];
-    repeated string Subscriptions = 10 [json_name = "subscriptions"];
-    string LoginId = 11 [json_name = "login_id"];
-    uint64 MusicSubscriptionRegionId = 12 [json_name = "music_subscription_region_id"];
-    bool IsChildAccount = 13 [json_name = "isChildAccount"];
-    bool HasBookmate = 14 [json_name = "hasBookmate"];
-    bool HasAlicePro = 17 [json_name = "hasAlicePro"];
-    repeated string OAuthTokenScopes = 19 [json_name = "oAuthTokenScopes"];
-    bool HavePassword = 22 [json_name = "havePassword"];
-    bool IsFederal = 24 [json_name = "isFederal"];
-    repeated string Organizations = 25 [json_name = "organizations"];
-    bool HasStandalonePinPro = 34 [json_name = "hasStandalonePinPro"];
-    bool HasStandalonePinMaxi = 36 [json_name = "hasStandalonePinMaxi"];
-    repeated string Porganizations = 29 [json_name = "porganizations"];
-    bool IsIdentified = 38 [json_name = "isIdentified"];
-    optional string MusicRestriction = 15 [json_name = "musicRestriction"];
-    optional string VideoRestriction = 16 [json_name = "videoRestriction"];
-    optional string StaffLogin = 18 [json_name = "staffLogin"];
-    optional string AccountType = 23 [json_name = "accountType"];
-    optional uint64 AliceProEndTimeSeconds = 26 [json_name = "aliceProEndTimeSeconds"];
-    optional uint64 AliceDRBaseBoostEndTimeSeconds = 27 [json_name = "aliceDRBaseBoostEndTimeSeconds"];
-    optional uint64 AliceLPBaseBoostEndTimeSeconds = 28 [json_name = "aliceLPBaseBoostEndTimeSeconds"];
-    optional uint64 AliceNLBaseBoostEndTimeSeconds = 30 [json_name = "aliceNLBaseBoostEndTimeSeconds"];
-    optional uint64 AliceFIBaseBoostEndTimeSeconds = 31 [json_name = "aliceFIBaseBoostEndTimeSeconds"];
-    optional uint64 AliceCHBaseBoostEndTimeSeconds = 32 [json_name = "aliceCHBaseBoostEndTimeSeconds"];
-    optional uint64 StandalonePinProEndTimeSeconds = 35 [json_name = "standalonePinProEndTimeSeconds"];
-    optional uint64 StandalonePinMaxiEndTimeSeconds = 37 [json_name = "standalonePinMaxiEndTimeSeconds"];
-    optional string BirthDate = 33 [json_name = "birthDate"];
+    string Uid = 1 [json_name = "uid", (.NYT.column_name) = "uid", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Email = 2 [json_name = "email", (.NYT.column_name) = "email", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string FirstName = 3 [json_name = "firstName", (.NYT.column_name) = "first_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string LastName = 4 [json_name = "lastName", (.NYT.column_name) = "last_name", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    string Phone = 5 [json_name = "phone", (.NYT.column_name) = "phone", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    bool HasYandexPlus = 6 [json_name = "hasYandexPlus", (.NYT.column_name) = "has_yandex_plus"];
+    bool IsStaff = 7 [json_name = "isStaff", (.NYT.column_name) = "is_staff", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    bool IsBetaTester = 8 [json_name = "isBetaTester", (.NYT.column_name) = "is_beta_tester"];
+    bool HasMusicSubscription = 9 [json_name = "hasMusicSubscription", (.NYT.column_name) = "has_music_subscription"];
+    repeated string Subscriptions = 10 [json_name = "subscriptions", (.NYT.column_name) = "subscriptions"];
+    string LoginId = 11 [json_name = "login_id", (.NYT.column_name) = "login_id"];
+    uint64 MusicSubscriptionRegionId = 12 [json_name = "music_subscription_region_id", (.NYT.column_name) = "music_subscription_region_id"];
+    bool IsChildAccount = 13 [json_name = "isChildAccount", (.NYT.column_name) = "is_child_account", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    bool HasBookmate = 14 [json_name = "hasBookmate", (.NYT.column_name) = "has_bookmate"];
+    bool HasAlicePro = 17 [json_name = "hasAlicePro", (.NYT.column_name) = "has_alice_pro"];
+    repeated string OAuthTokenScopes = 19 [json_name = "oAuthTokenScopes", (.NYT.column_name) = "oauth_token_scopes"];
+    bool HavePassword = 22 [json_name = "havePassword", (.NYT.column_name) = "have_password"];
+    bool IsFederal = 24 [json_name = "isFederal", (.NYT.column_name) = "is_federal"];
+    repeated string Organizations = 25 [json_name = "organizations", (.NYT.column_name) = "organizations"];
+    bool HasStandalonePinPro = 34 [json_name = "hasStandalonePinPro", (.NYT.column_name) = "has_standalone_pin_pro"];
+    bool HasStandalonePinMaxi = 36 [json_name = "hasStandalonePinMaxi", (.NYT.column_name) = "has_standalone_pin_maxi"];
+    repeated string Porganizations = 29 [json_name = "porganizations", (.NYT.column_name) = "porganizations"];
+    bool IsIdentified = 38 [json_name = "isIdentified", (.NYT.column_name) = "is_identified", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+    optional string MusicRestriction = 15 [json_name = "musicRestriction", (.NYT.column_name) = "music_restriction"];
+    optional string VideoRestriction = 16 [json_name = "videoRestriction", (.NYT.column_name) = "video_restriction"];
+    optional string StaffLogin = 18 [json_name = "staffLogin", (.NYT.column_name) = "staff_login"];
+    optional string AccountType = 23 [json_name = "accountType", (.NYT.column_name) = "account_type"];
+    optional uint64 AliceProEndTimeSeconds = 26 [json_name = "aliceProEndTimeSeconds", (.NYT.column_name) = "alice_pro_end_time_seconds"];
+    optional uint64 AliceDRBaseBoostEndTimeSeconds = 27 [json_name = "aliceDRBaseBoostEndTimeSeconds", (.NYT.column_name) = "alice_dr_base_boost_end_time_seconds"];
+    optional uint64 AliceLPBaseBoostEndTimeSeconds = 28 [json_name = "aliceLPBaseBoostEndTimeSeconds", (.NYT.column_name) = "alice_lp_base_boost_end_time_seconds"];
+    optional uint64 AliceNLBaseBoostEndTimeSeconds = 30 [json_name = "aliceNLBaseBoostEndTimeSeconds", (.NYT.column_name) = "alice_nl_base_boost_end_time_seconds"];
+    optional uint64 AliceFIBaseBoostEndTimeSeconds = 31 [json_name = "aliceFIBaseBoostEndTimeSeconds", (.NYT.column_name) = "alice_fi_base_boost_end_time_seconds"];
+    optional uint64 AliceCHBaseBoostEndTimeSeconds = 32 [json_name = "aliceCHBaseBoostEndTimeSeconds", (.NYT.column_name) = "alice_ch_base_boost_end_time_seconds"];
+    optional uint64 StandalonePinProEndTimeSeconds = 35 [json_name = "standalonePinProEndTimeSeconds", (.NYT.column_name) = "standalone_pin_pro_end_time_seconds"];
+    optional uint64 StandalonePinMaxiEndTimeSeconds = 37 [json_name = "standalonePinMaxiEndTimeSeconds", (.NYT.column_name) = "standalone_pin_maxi_end_time_seconds"];
+    optional string BirthDate = 33 [json_name = "birthDate", (.NYT.column_name) = "birth_date", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
   }
 
   message TOAuth {
-    optional string ClientId = 1 [json_name = "clientId"];
-    optional string DeviceId = 2 [json_name = "deviceId"];
-    optional string DeviceName = 3 [json_name = "deviceName"];
-    optional bool ClientIsYandex = 4 [json_name = "clientIsYandex"];
-    optional string Scope = 5 [json_name = "scope"];
+    optional string ClientId = 1 [json_name = "clientId", (.NYT.column_name) = "client_id"];
+    optional string DeviceId = 2 [json_name = "deviceId", (.NYT.column_name) = "device_id"];
+    optional string DeviceName = 3 [json_name = "deviceName", (.NYT.column_name) = "device_name"];
+    optional bool ClientIsYandex = 4 [json_name = "clientIsYandex", (.NYT.column_name) = "client_is_yandex"];
+    optional string Scope = 5 [json_name = "scope", (.NYT.column_name) = "scope"];
   }
 
-  string UserTicket = 1 [json_name = "UserTicket"];
-  .NAlice.TBlackBoxFullUserInfoProto.TOAuth OAuth = 4 [json_name = "OAuth"];
-  .NAlice.ECredentialStatus Status = 5 [json_name = "status"];
+  string UserTicket = 1 [json_name = "UserTicket", (.NYT.column_name) = "user_ticket", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAliceYT.PrivateGroup) = PrivateGroupClose];
+  .NAlice.TBlackBoxFullUserInfoProto.TOAuth OAuth = 4 [json_name = "OAuth", (.NYT.column_name) = "oauth"];
+  .NAlice.ECredentialStatus Status = 5 [json_name = "status", (.NYT.column_name) = "status"];
   oneof OptionalUserInfo {
-    .NAlice.TBlackBoxFullUserInfoProto.TUserInfo UserInfo = 2 [json_name = "UserInfo"];
+    option (.NYT.oneof_flags) = VARIANT;
+    option (.NYT.variant_field_name) = "optional_user_info";
+    .NAlice.TBlackBoxFullUserInfoProto.TUserInfo UserInfo = 2 [json_name = "UserInfo", (.NYT.column_name) = "user_info"];
   }
-  optional string Error = 6 [json_name = "error"];
+  optional string Error = 6 [json_name = "error", (.NYT.column_name) = "error"];
 }
 
 enum ECredentialStatus {

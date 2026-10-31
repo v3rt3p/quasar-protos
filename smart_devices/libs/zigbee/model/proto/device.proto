@@ -27,7 +27,7 @@ message ZigbeeDevice {
   }
 
   message Cluster {
-    map<uint32, bytes> LegacyAttributes = 1;
+    map<uint32, bytes> LegacyAttributes = 1 [deprecated = true];
     map<uint32, .proto.ZigbeeDevice.Attribute> Attributes = 2;
   }
 

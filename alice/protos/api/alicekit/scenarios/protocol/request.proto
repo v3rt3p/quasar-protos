@@ -230,24 +230,24 @@ message TRuntimeSettings {
 }
 
 message TExactCapability {
-  .google.protobuf.Any Capability = 1 [json_name = "capability"];
+  .google.protobuf.Any Capability = 1 [json_name = "capability", (.NYT.column_name) = "\321\201apability"];
 }
 
 message TExactTypedSemanticFrame {
-  .google.protobuf.Any SemanticFrame = 1 [json_name = "semantic_frame"];
+  .google.protobuf.Any SemanticFrame = 1 [json_name = "semantic_frame", (.NYT.column_name) = "semantic_frame"];
 }
 
 message TLocalScenarioRunRequest {
-  .NAlice.NAliceApi.TScenarioRunRequest ScenarioRunRequest = 1 [json_name = "scenario_run_request"];
-  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities"];
-  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames"];
+  .NAlice.NAliceApi.TScenarioRunRequest ScenarioRunRequest = 1 [json_name = "scenario_run_request", (.NYT.column_name) = "scenario_run_request"];
+  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities", (.NYT.column_name) = "capabilities"];
+  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames", (.NYT.column_name) = "semantic_frames"];
   bool IsPureLocal = 4 [json_name = "is_pure_local"];
   .NAlice.NAliceApi.TRuntimeSettings RuntimeSettings = 5 [json_name = "runtime_settings"];
 }
 
 message TLocalScenarioApplyRequest {
-  .NAlice.NAliceApi.TScenarioApplyRequest ScenarioApplyRequest = 1 [json_name = "scenario_apply_request"];
-  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities"];
-  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames"];
+  .NAlice.NAliceApi.TScenarioApplyRequest ScenarioApplyRequest = 1 [json_name = "scenario_apply_request", (.NYT.column_name) = "scenario_apply_request"];
+  repeated .NAlice.NAliceApi.TExactCapability Capabilities = 2 [json_name = "capabilities", (.NYT.column_name) = "capabilities"];
+  repeated .NAlice.NAliceApi.TExactTypedSemanticFrame SemanticFrames = 3 [json_name = "semantic_frames", (.NYT.column_name) = "semantic_frames"];
 }
 

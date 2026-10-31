@@ -78,7 +78,7 @@ message AliceState {
   }
 
   optional .quasar.proto.AliceState.State state = 1;
-  optional string recognized_phrase = 2;
+  optional string recognized_phrase = 2 [deprecated = true];
   optional .quasar.proto.VinsResponse vins_response = 3;
   optional bool has_startup_requirements = 5 [default = false];
   optional string activation_spotter_model = 6;
@@ -88,7 +88,7 @@ message AliceState {
   optional .NAlice.TEventSource event_source = 10;
   optional bool is_connected = 11;
   optional bool is_reminder_active = 12;
-  optional .quasar.proto.AliceState.TextState text_state = 13;
+  optional .quasar.proto.AliceState.TextState text_state = 13 [deprecated = true];
   optional .quasar.proto.AliceState.ResponseState response_state = 14;
   optional .quasar.proto.AliceState.RequestState request_state = 15;
   optional bool spotter_configuring = 16 [default = false];

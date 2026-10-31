@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package NAlice.NData.NSettings;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.settings";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/settings";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TModelSettingsConfig {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  enum EReasoningModel {
+    ChooseAutomatically = 0;
+    YaGpt5ProReasoning = 1;
+    R1 = 2;
+  }
+
+  .NAlice.NData.NSettings.TModelSettingsConfig.EReasoningModel ReasoningModel = 1 [json_name = "reasoning_model", (.NYT.column_name) = "reasoning_model"];
+}
+
