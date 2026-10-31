@@ -3,7 +3,7 @@ syntax = "proto3";
 package NAlice;
 
 enum EMultiSearchContent {
-  UNKNOWN = 0;
+  EMULTISEARCHCONTENT_UNKNOWN = 0;
   // stub
 }
 

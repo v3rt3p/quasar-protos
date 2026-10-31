@@ -3,7 +3,7 @@ syntax = "proto3";
 package NAlice;
 
 enum ESearchFeatures {
-  UNKNOWN = 0;
+  ESEARCHFEATURES_UNKNOWN = 0;
   // stub
 }
 
