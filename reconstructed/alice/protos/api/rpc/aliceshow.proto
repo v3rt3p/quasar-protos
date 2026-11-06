@@ -1,0 +1,77 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "reconstructed/alice/protos/data/scenario/alice_show.proto";
+
+message TSingleBlockOptions {
+  string Name = 1 [json_name = "name"];
+  string Logo = 2 [json_name = "logo"];
+  repeated TSingleOption Options = 3 [json_name = "options"];
+  string Description = 4 [json_name = "description"];
+}
+
+message TSingleOption {
+  string Id = 1 [json_name = "id"];
+  string Logo = 2 [json_name = "logo"];
+  string Name = 3 [json_name = "name"];
+  string Description = 4 [json_name = "description"];
+  bool Popular = 5 [json_name = "popular"];
+  string Group = 6 [json_name = "group"];
+}
+
+message TGetAliceShowBlocksRequest {
+}
+
+message TGetAliceShowBlocksResponse {
+  repeated .NAlice.NData.TAliceShowBlock AliceShowBlocks = 1 [json_name = "alice_show_blocks"];
+  optional TAliceShowBlocksOptions AliceShowBlocksOptions = 2 [json_name = "alice_show_blocks_options"];
+  bool EqualToDefault = 3 [json_name = "equal_to_default"];
+  bool AddMusicPauses = 4 [json_name = "add_music_pauses"];
+  bool AnnounceTracks = 5 [json_name = "announce_tracks"];
+}
+
+message TAliceShowBlocksOptions {
+  optional TSingleBlockOptions WeatherBlockOptions = 1 [json_name = "weather_block_options"];
+  optional TSingleBlockOptions NewsBlockOptions = 2 [json_name = "news_block_options"];
+  optional TSingleBlockOptions SkillBlockOptions = 3 [json_name = "skill_block_options"];
+  optional TSingleBlockOptions PodcastBlockOptions = 4 [json_name = "podcast_block_options"];
+  optional TSingleBlockOptions TrackBlockOptions = 5 [json_name = "track_block_options"];
+  optional TSingleBlockOptions MusicBlockOptions = 6 [json_name = "music_block_options"];
+  optional TSingleBlockOptions FmRadioBlockOptions = 7 [json_name = "fm_radio_block_options"];
+}
+
+message TSetAliceShowBlocksRequest {
+  repeated .NAlice.NData.TAliceShowBlock AliceShowBlocks = 1 [json_name = "alice_show_blocks"];
+  bool AddMusicPauses = 2 [json_name = "add_music_pauses"];
+  bool AnnounceTracks = 3 [json_name = "announce_tracks"];
+}
+
+message TSetAliceShowBlocksResponse {
+  bool EqualToDefault = 1 [json_name = "equal_to_default"];
+}
+
+message TSearchAliceShowOptionsRequest {
+  .NAlice.NData.EAliceShowBlockType Type = 1 [json_name = "type"];
+  string SearchText = 2 [json_name = "search_text"];
+}
+
+message TSearchAliceShowOptionsResponse {
+  optional TSingleBlockOptions WeatherBlockOptions = 1 [json_name = "weather_block_options"];
+  optional TSingleBlockOptions NewsBlockOptions = 2 [json_name = "news_block_options"];
+  optional TSingleBlockOptions SkillBlockOptions = 3 [json_name = "skill_block_options"];
+  optional TSingleBlockOptions PodcastBlockOptions = 4 [json_name = "podcast_block_options"];
+  optional TSingleBlockOptions TrackBlockOptions = 5 [json_name = "track_block_options"];
+  optional TSingleBlockOptions MusicBlockOptions = 6 [json_name = "music_block_options"];
+  optional TSingleBlockOptions FmRadioBlockOptions = 7 [json_name = "fm_radio_block_options"];
+}
+
+message TResetAliceShowBlocksRequest {
+}
+
+message TResetAliceShowBlocksResponse {
+}
+

@@ -1,0 +1,181 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+import "alice/protos/api/rpc/user_settings/user_settings.proto";
+
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+import "alice/protos/data/tv/whats_new/whats_new.proto";
+
+enum ETeaserType {
+  UNKNOWN = 0;
+  STATIC = 1;
+  STATIC_DEEP = 2;
+  AFISHA = 3;
+  FEATUREBOARDING = 4;
+  TRETYAKOVKA = 5;
+  ALIVE = 6;
+  ALIVE_DEEP = 7;
+  DISK = 8;
+  WHATS_NEW = 9;
+}
+
+enum EPhotosOrientationType {
+  PhotosSquare = 0;
+  PhotosLandscapeOnly = 1;
+  PhotosPortraitOnly = 2;
+}
+
+message TBackgroundDeep {
+  optional TPhoto Bottom = 1 [json_name = "bottom"];
+  optional TPhoto Top = 2 [json_name = "top"];
+}
+
+message TBackgroundDeepWithOrientation {
+  optional TBackgroundDeep Landscape = 1 [json_name = "landscape"];
+  optional TBackgroundDeep Portrait = 2 [json_name = "portrait"];
+}
+
+message TBackgroundWithOrientation {
+  optional TPhoto Landscape = 1 [json_name = "landscape"];
+  optional TPhoto Portrait = 2 [json_name = "portrait"];
+}
+
+message TGetTeaserSettingsRequest {
+}
+
+message TGetTeaserSettingsResponse {
+  optional bool SettingsData = 1 [json_name = "settings_data"];
+}
+
+message TGetTeasersRequest {
+  double ScreenWidth = 1 [json_name = "screen_width"];
+  string StartFromTeaserType = 2 [json_name = "start_from_teaser_type"];
+  repeated .NAlice.NTv.TSupportedWhatsNew SupportedWhatsNew = 3 [json_name = "supported_whats_new"];
+}
+
+message TGetTeasersResponse {
+  repeated TTeaser Teasers = 1 [json_name = "teasers"];
+}
+
+message TLiveBackgroundDeep {
+  optional TLivePhoto Bottom = 1 [json_name = "bottom"];
+  optional TLivePhoto Top = 2 [json_name = "top"];
+}
+
+message TLiveBackgroundDeepWithOrientation {
+  optional TLiveBackgroundDeep Landscape = 1 [json_name = "landscape"];
+  optional TLiveBackgroundDeep Portrait = 2 [json_name = "portrait"];
+}
+
+message TLiveBackgroundWithOrientation {
+  optional TLivePhoto Landscape = 1 [json_name = "landscape"];
+  optional TLivePhoto Portrait = 2 [json_name = "portrait"];
+}
+
+message TLivePhoto {
+  string ImageUrl = 1 [json_name = "image_url"];
+  string VideoUrl = 2 [json_name = "video_url"];
+}
+
+message TPhoto {
+  string ImageUrl = 1 [json_name = "image_url"];
+}
+
+message TSaveTeaserSettingsRequest {
+  optional bool NewSettingsData = 1 [json_name = "new_settings_data"];
+}
+
+message TSaveTeaserSettingsResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+  string Message = 2 [json_name = "message"];
+}
+
+message TTeaser {
+  optional TTeaserStatic Static = 1 [json_name = "static"];
+  optional TTeaserStaticDeep StaticDeep = 2 [json_name = "static_deep"];
+  optional TTeaserAfisha Afisha = 3 [json_name = "afisha"];
+  optional TTeaserTretyakovka Tretyakovka = 5 [json_name = "tretyakovka"];
+  optional TTeaserAlive Alive = 6 [json_name = "alive"];
+  optional TTeaserAliveDeep AliveDeep = 7 [json_name = "alive_deep"];
+  optional TTeaserDisk Disk = 8 [json_name = "disk"];
+  optional TTeaserWhatsNew WhatsNew = 9 [json_name = "whats_new"];
+}
+
+message TTeaserAfisha {
+  string Id = 1 [json_name = "id"];
+  optional TPhoto Background = 2 [json_name = "background"];
+  string Title = 3 [json_name = "title"];
+  string Description = 4 [json_name = "description"];
+  string ContentRating = 5 [json_name = "content_rating"];
+  string EventId = 6 [json_name = "event_id"];
+  string Type = 7 [json_name = "type"];
+  string QrUrl = 8 [json_name = "qr_url"];
+  string AfishaUrl = 9 [json_name = "afisha_url"];
+}
+
+message TTeaserAlive {
+  string Id = 1 [json_name = "id"];
+  optional TLiveBackgroundWithOrientation Background = 2 [json_name = "background"];
+  string Category = 3 [json_name = "category"];
+}
+
+message TTeaserAliveDeep {
+  string Id = 1 [json_name = "id"];
+  optional TLiveBackgroundDeepWithOrientation Background = 2 [json_name = "background"];
+  string Category = 3 [json_name = "category"];
+}
+
+message TTeaserDisk {
+  string Id = 1 [json_name = "id"];
+  optional TPhoto FirstBackground = 2 [json_name = "first_background"];
+  optional TPhoto SecondBackground = 3 [json_name = "second_background"];
+  EPhotosOrientationType PhotosOrientation = 5 [json_name = "photos_orientation"];
+}
+
+message TTeaserFeatureboarding {
+  string Id = 1 [json_name = "id"];
+  optional TPhoto Background = 2 [json_name = "background"];
+}
+
+message TTeaserStatic {
+  string Id = 1 [json_name = "id"];
+  optional TPhoto Background = 2 [json_name = "background"];
+  string Category = 3 [json_name = "category"];
+}
+
+message TTeaserStaticDeep {
+  string Id = 1 [json_name = "id"];
+  optional TBackgroundDeepWithOrientation Background = 2 [json_name = "background"];
+  bool DarkWatch = 3 [json_name = "dark_watch"];
+  string Category = 4 [json_name = "category"];
+}
+
+message TTeaserTretyakovka {
+  string Id = 1 [json_name = "id"];
+  optional TBackgroundWithOrientation Background = 2 [json_name = "background"];
+  string PictureName = 4 [json_name = "picture_name"];
+  string Author = 5 [json_name = "author"];
+  string Date = 6 [json_name = "date"];
+  string Description = 7 [json_name = "description"];
+  string QrCode = 8 [json_name = "qr_code"];
+  string Preview = 9 [json_name = "preview"];
+  string TretykovkaUrl = 10 [json_name = "tretykovka_url"];
+  string GradientColor = 11 [json_name = "gradient_color"];
+  repeated .NAlice.TVoiceControl VoiceControls = 12 [json_name = "voice_controls"];
+}
+
+message TTeaserWhatsNew {
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Subtitle = 3 [json_name = "subtitle"];
+  optional TLiveBackgroundWithOrientation Background = 4 [json_name = "background"];
+  optional .NAlice.NTv.TWhatsNewContent WhatsNewContent = 5 [json_name = "whats_new_content"];
+}
+

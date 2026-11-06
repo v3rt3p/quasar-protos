@@ -1,0 +1,44 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NRpc;
+
+import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
+
+import "alice/protos/data/scenario/weather/weather.proto";
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+message TGetCurrentWeatherRequest {
+}
+
+message TGetCurrentWeatherResponse {
+  int32 Temperature = 1 [json_name = "temperature"];
+  string Icon128url = 2 [json_name = "icon128url"];
+  string Description = 3 [json_name = "description"];
+  optional TYaStaticIcon MonochromeIcon = 4 [json_name = "monochrome_icon"];
+  optional TYaStaticIcon ColorfulIcon = 5 [json_name = "colorful_icon"];
+}
+
+message TYaStaticIcon {
+  string BaseUrl = 1 [json_name = "base_url"];
+  string Icon = 2 [json_name = "icon"];
+  repeated string Sizes = 3 [json_name = "sizes"];
+}
+
+message TSetWeatherSettingsRequest {
+  optional .NAlice.NData.TWeatherUserConfig.TWeatherSettings WeatherSettings = 1 [json_name = "weather_settings"];
+}
+
+message TSetWeatherSettingsResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+}
+
+message TGetWeatherSettingsRequest {
+}
+
+message TGetWeatherSettingsResponse {
+  optional .NAlice.NData.TWeatherUserConfig.TWeatherSettings WeatherSettings = 1 [json_name = "weather_settings"];
+}
+

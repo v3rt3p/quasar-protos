@@ -1,0 +1,27 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NOnboarding;
+
+import "alice/protos/endpoint/capabilities/local_iot/capability.proto";
+
+message TReportActionsRequest {
+  message TAction {
+    string Channel = 1 [json_name = "channel"];
+    repeated string ItemIds = 2 [json_name = "item_ids"];
+    string Action = 3 [json_name = "action"];
+    string Source = 4 [json_name = "source"];
+    string Promotion = 5 [json_name = "promotion"];
+  }
+
+
+
+  repeated TAction Actions = 1 [json_name = "actions"];
+}
+
+message TReportActionsResponse {
+  uint32 ValidActionCount = 1 [json_name = "valid_action_count"];
+}
+

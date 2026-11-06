@@ -1,0 +1,65 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NInstructions;
+
+import "alice/protos/data/date/day_of_week.proto";
+
+enum EDayOfWeekResult {
+  Unknown = 0;
+  AllDays = 1;
+  WorkingDaysMonFri = 2;
+  WeekendsSatSun = 3;
+  WorkingDaysSunTue = 4;
+  WeekendsFriSat = 5;
+}
+
+message TMultiroom {
+  bool Active = 1 [json_name = "active"];
+  optional bool Everywhere = 2 [json_name = "everywhere"];
+  optional string RoomName = 3 [json_name = "room_name"];
+  optional string DeviceName = 4 [json_name = "device_name"];
+  string Roomlist = 5 [json_name = "roomlist"];
+}
+
+message TDate {
+  uint32 Day = 1 [json_name = "day"];
+  uint32 Month = 2 [json_name = "month"];
+  uint32 Year = 3 [json_name = "year"];
+}
+
+message TActivationDay {
+  optional TDate Date = 1 [json_name = "date"];
+  optional .NAlice.NData.TDayOfWeek.EDayOfWeek DayOfWeek = 2 [json_name = "day_of_week"];
+}
+
+message TTime {
+  uint32 Hour = 1 [json_name = "hour"];
+  uint32 Minute = 2 [json_name = "minute"];
+  uint32 Second = 3 [json_name = "second"];
+}
+
+message TDateTime {
+  optional TDate Date = 1 [json_name = "date"];
+  optional TTime Time = 2 [json_name = "time"];
+}
+
+message TRoomInfo {
+  string Name = 1 [json_name = "name"];
+  repeated string Devices = 2 [json_name = "devices"];
+}
+
+message TRoomList {
+  repeated TRoomInfo RoomInfos = 1 [json_name = "room_infos"];
+}
+
+message TAlarmSchedule {
+  optional TTime Time = 1 [json_name = "time"];
+  repeated TActivationDay ActivationDays = 2 [json_name = "activation_days"];
+  EDayOfWeekResult DayOfWeekResult = 3 [json_name = "day_of_week_result"];
+  uint32 Index = 4 [json_name = "index"];
+  bool IsSameSchedule = 5 [json_name = "is_same_schedule"];
+}
+

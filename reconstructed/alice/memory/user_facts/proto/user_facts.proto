@@ -1,0 +1,114 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NMemory;
+
+import "reconstructed/alice/protos/data/memory/version.proto";
+
+import "reconstructed/alice/protos/api/llm/model_info.proto";
+
+enum EFactType {
+  FT_UNKNOWN = 0;
+  FT_BIO = 1;
+  FT_INTENT = 2;
+  FT_FACTUAL_LONGTERM = 3;
+  FT_FACTUAL_PAST_GLOBAL = 4;
+  FT_FACTUAL_PAST_SHORT = 5;
+  FT_FACTUAL_CURRENT = 6;
+  FT_FACTUAL_PLAN_CURRENT = 7;
+  FT_FACTUAL_PLAN_GLOBAL = 8;
+  FT_OPINION = 9;
+  FT_USER_ACTION = 10;
+  FT_USER_INSTRUCTION = 11;
+  FT_EMOTIONAL = 12;
+}
+
+enum EVisibility {
+  V_UNKNOWN = 0;
+  V_SAFE = 1;
+  V_SENSITIVE = 2;
+  V_FORBIDDEN = 3;
+}
+
+enum EMergeStatus {
+  MS_UNKNOWN = 0;
+  MS_MERGED = 1;
+  MS_LLM_EMPTY_RESPONSE = 2;
+  MS_LLM_INVALID_JSON = 3;
+  MS_FAILED = 4;
+}
+
+enum EStructureStatus {
+  SS_UNKNOWN = 0;
+  SS_VALID = 1;
+  SS_EMPTY_RESPONSE = 2;
+  SS_INVALID_JSON = 3;
+}
+
+enum EFilterReason {
+  FR_NONE = 0;
+  FR_EMPTY_STATEMENT = 1;
+  FR_MAX_STATEMENT_LENGTH = 2;
+  FR_AGE_TTL = 3;
+  FR_VISIBILITY = 4;
+  FR_FACT_TYPE = 5;
+}
+
+message TFact {
+  optional string Content = 1 [json_name = "content"];
+  optional string Type = 2 [json_name = "type"];
+  optional string Timestamp = 3 [json_name = "timestamp"];
+  optional double Confidence = 4 [json_name = "confidence"];
+  optional string Reasoning = 5 [json_name = "reasoning"];
+  optional string Statement = 6 [json_name = "statement"];
+  optional EFactType FactType = 7 [json_name = "fact_type"];
+  optional EVisibility Visibility = 8 [json_name = "visibility"];
+  optional double RankingScore = 9 [json_name = "ranking_score"];
+  optional int64 Survivability = 10 [json_name = "survivability"];
+  optional double Priority = 11 [json_name = "priority"];
+  optional int64 TimeDeltaInDays = 12 [json_name = "time_delta_in_days"];
+  optional bool IsAnket = 13 [json_name = "is_anket"];
+  optional string Topic = 14 [json_name = "topic"];
+}
+
+message TValidationVerdict {
+  optional bool ParsableJson = 1 [json_name = "parsable_json"];
+  optional bool ValidJsonSchema = 2 [json_name = "valid_json_schema"];
+  optional bool ValidReasoning = 3 [json_name = "valid_reasoning"];
+  optional bool TopicPresence = 4 [json_name = "topic_presence"];
+  optional bool ValidFactIdRange = 5 [json_name = "valid_fact_id_range"];
+  optional bool FullCoverage = 6 [json_name = "full_coverage"];
+  optional bool NoDuplicates = 7 [json_name = "no_duplicates"];
+  optional string ValidationError = 8 [json_name = "validation_error"];
+}
+
+message TFactsStorage {
+  optional TFactsStorage.TVersion Version = 1 [json_name = "version"];
+  optional string UserFacts = 2 [json_name = "user_facts"];
+  repeated TFact StructuredFacts = 3 [json_name = "structured_facts"];
+  optional string Reasoning = 4 [json_name = "reasoning"];
+  optional TValidationVerdict ValidationVerdict = 5 [json_name = "validation_verdict"];
+  optional fixed32 LastUpdateTimestamp = 6 [json_name = "last_update_timestamp"];
+  optional .NAlice.NData.NMemory.TMemoryFormatVersion FormatVersion = 100 [json_name = "format_version"];
+  message TVersion {
+    optional .NAlice.NLlm.NModelInfo.TLlmModelInfo FactsExtractorModelInfo = 1 [json_name = "facts_extractor_model_info"];
+    optional .NAlice.NLlm.NModelInfo.TLlmModelInfo FactsMergerModelInfo = 2 [json_name = "facts_merger_model_info"];
+  }
+}
+
+message TUserMemory {
+  optional string HashPuid = 1 [json_name = "hash_puid"];
+  optional TFactsStorage FactsStorage = 2 [json_name = "facts_storage"];
+  optional fixed32 LastUpdateTimestamp = 3 [json_name = "last_update_timestamp"];
+  optional EMergeStatus MergeStatus = 4 [json_name = "merge_status"];
+  optional fixed32 LastMergeAttemptTimestamp = 5 [json_name = "last_merge_attempt_timestamp"];
+  optional EStructureStatus StructureStatus = 6 [json_name = "structure_status"];
+  optional uint64 ExpireAtServerTimestampMs = 7 [json_name = "expire_at_server_timestamp_ms"];
+}
+
+message TUserMemoryKey {
+  optional string HashPuid = 1 [json_name = "hash_puid"];
+}
+

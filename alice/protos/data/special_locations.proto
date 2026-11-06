@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package NAlice.NData;
+
+option java_package = "ru.yandex.alice.protos.data";
+option go_package = "a.yandex-team.ru/alice/protos/data";
+
+enum ESpecialLocation {
+  SPECIAL_LOCATION_UNDEFINED = 0;
+  SPECIAL_LOCATION_HOME = 1;
+  SPECIAL_LOCATION_WORK = 2;
+}
+

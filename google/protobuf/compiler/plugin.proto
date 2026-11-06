@@ -1,0 +1,47 @@
+syntax = "proto2";
+
+package google.protobuf.compiler;
+
+option java_package = "com.google.protobuf.compiler";
+option java_outer_classname = "PluginProtos";
+option go_package = "google.golang.org/protobuf/types/pluginpb";
+option csharp_namespace = "Google.Protobuf.Compiler";
+
+import "google/protobuf/descriptor.proto";
+
+message Version {
+  optional int32 major = 1 [json_name = "major"];
+  optional int32 minor = 2 [json_name = "minor"];
+  optional int32 patch = 3 [json_name = "patch"];
+  optional string suffix = 4 [json_name = "suffix"];
+}
+
+message CodeGeneratorRequest {
+  repeated string file_to_generate = 1 [json_name = "fileToGenerate"];
+  optional string parameter = 2 [json_name = "parameter"];
+  repeated .google.protobuf.FileDescriptorProto proto_file = 15 [json_name = "protoFile"];
+  repeated .google.protobuf.FileDescriptorProto source_file_descriptors = 17 [json_name = "sourceFileDescriptors"];
+  optional .google.protobuf.compiler.Version compiler_version = 3 [json_name = "compilerVersion"];
+}
+
+message CodeGeneratorResponse {
+  message File {
+    optional string name = 1 [json_name = "name"];
+    optional string insertion_point = 2 [json_name = "insertionPoint"];
+    optional string content = 15 [json_name = "content"];
+    optional .google.protobuf.GeneratedCodeInfo generated_code_info = 16 [json_name = "generatedCodeInfo"];
+  }
+
+  enum Feature {
+    FEATURE_NONE = 0;
+    FEATURE_PROTO3_OPTIONAL = 1;
+    FEATURE_SUPPORTS_EDITIONS = 2;
+  }
+
+  optional string error = 1 [json_name = "error"];
+  optional uint64 supported_features = 2 [json_name = "supportedFeatures"];
+  optional int32 minimum_edition = 3 [json_name = "minimumEdition"];
+  optional int32 maximum_edition = 4 [json_name = "maximumEdition"];
+  repeated .google.protobuf.compiler.CodeGeneratorResponse.File file = 15 [json_name = "file"];
+}
+

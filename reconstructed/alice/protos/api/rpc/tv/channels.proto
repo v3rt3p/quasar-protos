@@ -1,0 +1,115 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "reconstructed/alice/protos/data/tv/account_control.proto";
+
+import "reconstructed/alice/protos/data/tv/payment.proto";
+
+import "reconstructed/alice/protos/data/tv/offer.proto";
+
+import "alice/protos/endpoint/capabilities/tv_channel/capability.proto";
+
+import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
+import "alice/protos/data/tv/channels/common.proto";
+
+message TAddTvChannelToFavoritesRequest {
+  optional TSavedChannel Channel = 1 [json_name = "channel"];
+}
+
+message TAddTvChannelToFavoritesResponse {
+  enum EStatus {
+    Unknown = 0;
+    Ok = 1;
+    ErrorEmptyChannel = 2;
+    ErrorChannelAlreadyAdded = 3;
+  }
+
+  EStatus Status = 1 [json_name = "status"];
+  optional TSavedChannel Channel = 2 [json_name = "channel"];
+  optional .NAlice.NTv.TCategory CategoryAdded = 3 [json_name = "category_added"];
+}
+
+message TCheckChannelLicenseRequest {
+  string ContentId = 1 [json_name = "content_id"];
+  int32 OttServiceId = 2 [json_name = "ott_service_id"];
+}
+
+message TCheckChannelLicenseResponse {
+  optional TAvailable Available = 1 [json_name = "available"];
+  optional .NAlice.NTv.TOfferInfo OfferInfo = 2 [json_name = "offer_info"];
+}
+
+message TAvailable {
+}
+
+message TRemoveTvChannelFromFavoritesRequest {
+  optional TSavedChannel Channel = 1 [json_name = "channel"];
+}
+
+message TRemoveTvChannelFromFavoritesResponse {
+  enum EStatus {
+    Unknown = 0;
+    Ok = 1;
+    ErrorEmptyChannel = 2;
+    ErrorNoSuchChannel = 3;
+  }
+
+  EStatus Status = 1 [json_name = "status"];
+  optional TSavedChannel Channel = 2 [json_name = "channel"];
+  optional .NAlice.NTv.TCategory CategoryRemoved = 3 [json_name = "category_removed"];
+}
+
+message TSavedChannel {
+  optional TBackendChannel BackendChannel = 1 [json_name = "backend_channel"];
+  optional TLocalChannel LocalChannel = 2 [json_name = "local_channel"];
+}
+
+message TBackendChannel {
+  int32 ChannelId = 1 [json_name = "channel_id"];
+  string ContentId = 2 [json_name = "content_id"];
+}
+
+message TLocalChannel {
+  string InputId = 1 [json_name = "input_id"];
+  string ChannelUri = 2 [json_name = "channel_uri"];
+  int32 InternalId = 3 [json_name = "internal_id"];
+}
+
+message TSaveLocalTvChannelsRequest {
+  enum ERequestType {
+    FAVOURITES = 0;
+  }
+
+  ERequestType RequestType = 1 [json_name = "request_type"];
+  repeated TSavedChannel Channels = 2 [json_name = "channels"];
+}
+
+message TSaveLocalTvChannelsResponse {
+  enum EStatus {
+    UNKNOWN = 0;
+    OK = 1;
+  }
+
+  EStatus Status = 1 [json_name = "status"];
+}
+
+message TTvGetChannelsRequest {
+  bool KidModeEnabled = 1 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 2 [json_name = "restriction_age"];
+  bool TvGridEnabled = 3 [json_name = "tv_grid_enabled"];
+  bool MulticatSupported = 4 [json_name = "multicat_supported"];
+  bool TariffOptionsSupported = 5 [json_name = "tariff_options_supported"];
+  bool ProgramVoiceControlsSupported = 6 [json_name = "program_voice_controls_supported"];
+  bool FavouritesEnabled = 7 [json_name = "favourites_enabled"];
+  bool DisableAllVoiceButtons = 8 [json_name = "disable_all_voice_buttons"];
+  int32 LoadProgramsDurationMinutes = 9 [json_name = "load_programs_duration_minutes"];
+  bool ShowPurchasedOnly = 10 [json_name = "show_purchased_only"];
+  bool FavoritesFirst = 11 [json_name = "favorites_first"];
+  int32 OttServiceId = 12 [json_name = "ott_service_id"];
+  bool UseContentIdStrategy = 13 [json_name = "use_content_id_strategy"];
+}
+

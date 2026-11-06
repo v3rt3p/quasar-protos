@@ -1,0 +1,36 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+enum ComponentDataCase {
+  COMPONENTDATA_NOT_SET = 0;
+  WINDDIRECTIONDATA = 1;
+  HUMIDITYDATA = 2;
+  PRESSUREDATA = 3;
+  UVINDEXDATA = 4;
+  SUNRISEANDSUNSETDATA = 5;
+  MOONPHASEDATA = 6;
+  FEELSLIKEDATA = 7;
+  WATERTEMPERATUREDATA = 8;
+}
+
+
+
+

@@ -1,0 +1,26 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+import "alice/protos/data/video/video_track.proto";
+
+message TVideoPlayerControlsRequest {
+  repeated .NAlice.TTrackVariant VideoTrack = 1 [json_name = "video_track"];
+  repeated .NAlice.TTrackVariant AudioTrack = 2 [json_name = "audio_track"];
+  repeated .NAlice.TTrackVariant SubtitlesTrack = 3 [json_name = "subtitles_track"];
+  repeated .NAlice.TTrackVariant SpeedTrack = 4 [json_name = "speed_track"];
+}
+
+message TVideoPlayerControlsResponse {
+  repeated .NAlice.TVoiceControl VideoPlayerControls = 1 [json_name = "video_player_controls"];
+  repeated .NAlice.TVoiceControl VideoTrackControls = 2 [json_name = "video_track_controls"];
+  repeated .NAlice.TVoiceControl AudioTrackControls = 3 [json_name = "audio_track_controls"];
+  repeated .NAlice.TVoiceControl SubtitlesTrackControls = 4 [json_name = "subtitles_track_controls"];
+  repeated .NAlice.TVoiceControl SpeedTrackControls = 5 [json_name = "speed_track_controls"];
+}
+

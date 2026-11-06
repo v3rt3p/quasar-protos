@@ -1,0 +1,25 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/action/tv_action.proto";
+
+import "alice/protos/data/avatar/avatar.proto";
+
+import "alice/protos/data/video/video.proto";
+
+message TGetAllSubscriptionsListRequest {
+}
+
+message TGetAllSubscriptionsListResponse {
+  message TCinema {
+    string Id = 1 [json_name = "id"];
+    string Icon = 2 [json_name = "icon"];
+    string Name = 3 [json_name = "name"];
+  }
+
+  repeated TCinema AllSubscriptions = 1 [json_name = "all_subscriptions"];
+}

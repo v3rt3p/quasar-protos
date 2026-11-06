@@ -1,0 +1,98 @@
+// Reconstructed by hand from decompiled Yandex ry codegen
+// (HistoryRecord.java + CreateHistoryRecord.java getters, *_FIELD_NUMBER,
+// writeTo(); structure from DescriptorFactory FQNs).
+
+syntax = "proto3";
+
+package NAlice;
+
+message THistoryRecord {
+  message TContent {
+    message TMusic {
+      enum ECategory {
+        UnknownCategory = 0;
+        Music = 1;
+        Fairytale = 2;
+        Audiobook = 3;
+        Radio = 4;
+        Podcast = 5;
+      }
+
+      string Title = 1 [json_name = "title"];
+      repeated string Artists = 2 [json_name = "artists"];
+      bool IsAliceShow = 3 [json_name = "is_alice_show"];
+      ECategory Category = 4 [json_name = "category"];
+    }
+
+    message TVideo {
+      enum ECategory {
+        UnknownCategory = 0;
+        Kinopoisk = 1;
+        Youtube = 2;
+        TvChannel = 3;
+        InternetVideo = 4;
+      }
+
+      string Title = 1 [json_name = "title"];
+      bool InternetSource = 2 [json_name = "internet_source"];
+      ECategory Category = 3 [json_name = "category"];
+    }
+
+    message TTvChannel {
+      string Title = 1 [json_name = "title"];
+    }
+
+    message TInputDevice {
+      string Title = 1 [json_name = "title"];
+    }
+
+    message TExternalApp {
+      string Title = 1 [json_name = "title"];
+    }
+
+    string Type = 1 [json_name = "type"];
+    optional TMusic Music = 2 [json_name = "music"];
+    optional TVideo Video = 3 [json_name = "video"];
+    bool PlaybackStartedByOwner = 4 [json_name = "playback_started_by_owner"];
+    bool PlaybackStartedByChild = 5 [json_name = "playback_started_by_child"];
+    optional TTvChannel TvChannel = 6 [json_name = "tv_channel"];
+    optional TInputDevice InputDevice = 7 [json_name = "input_device"];
+    optional TExternalApp ExternalApp = 8 [json_name = "external_app"];
+  }
+
+  string DeviceId = 2 [json_name = "device_id"];
+  int64 ClientTimestamp = 3 [json_name = "client_timestamp"];
+  optional TContent Content = 5 [json_name = "content"];
+  int64 RequestIdHash = 8 [json_name = "request_id_hash"];
+  string PuidHash = 9 [json_name = "puid_hash"];
+}
+
+message TCreateHistoryRecordRequest {
+  optional .NAlice.THistoryRecord.TContent.TMusic Music = 1 [json_name = "music"];
+  optional .NAlice.THistoryRecord.TContent.TVideo Video = 2 [json_name = "video"];
+  optional .NAlice.THistoryRecord.TContent.TTvChannel TvChannel = 3 [json_name = "tv_channel"];
+  optional .NAlice.THistoryRecord.TContent.TInputDevice InputDevice = 4 [json_name = "input_device"];
+  optional .NAlice.THistoryRecord.TContent.TExternalApp ExternalApp = 5 [json_name = "external_app"];
+  uint64 ClientTimeMsGmt = 6 [json_name = "client_time_ms_gmt"];
+}
+
+message TCreateHistoryRecordResponse {
+}
+
+message TUsageHistory {
+  bool DisabledHistorySaving = 1 [json_name = "disabled_history_saving"];
+}
+
+message TSetDisabledHistorySavingRequest {
+  bool DisabledHistorySaving = 1 [json_name = "disabled_history_saving"];
+}
+
+message TSetDisabledHistorySavingResponse {
+}
+
+message TGetDisabledHistorySavingRequest {
+}
+
+message TGetDisabledHistorySavingResponse {
+  bool DisabledHistorySaving = 1 [json_name = "disabled_history_saving"];
+}

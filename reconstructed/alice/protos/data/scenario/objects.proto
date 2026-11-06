@@ -1,0 +1,184 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData;
+
+import "alice/protos/data/scenario/objects/image.proto";
+
+import "reconstructed/alice/protos/data/geo.proto";
+
+import "google/protobuf/any.proto";
+
+
+message TBook {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  string NameOrig = 3 [json_name = "name_orig"];
+  optional TSingleImage.TImageRef Image = 4 [json_name = "image"];
+  string Url = 5 [json_name = "url"];
+  string Description = 6 [json_name = "description"];
+  repeated TPerson Authors = 7 [json_name = "authors"];
+  string Rating = 8 [json_name = "rating"];
+  int32 ReleaseYear = 9 [json_name = "release_year"];
+  string SearchUrl = 10 [json_name = "search_url"];
+  string SearchRequest = 11 [json_name = "search_request"];
+}
+
+message TBooks {
+  repeated TBook Books = 1 [json_name = "books"];
+}
+
+message TCompany {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  optional TSingleImage.TImageRef Image = 3 [json_name = "image"];
+  string Url = 4 [json_name = "url"];
+  string Description = 5 [json_name = "description"];
+  string Rating = 6 [json_name = "rating"];
+  string Address = 7 [json_name = "address"];
+  string WorkingHours = 8 [json_name = "working_hours"];
+  string SearchUrl = 9 [json_name = "search_url"];
+  optional .google.protobuf.Any TypedAction = 10 [json_name = "typed_action"];
+  string SearchRequest = 11 [json_name = "search_request"];
+}
+
+message TCompanies {
+  repeated TCompany Companies = 1 [json_name = "companies"];
+}
+
+
+
+
+
+
+
+
+
+
+message TGeoPlace {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  optional TSingleImage.TImageRef Image = 3 [json_name = "image"];
+  string Url = 4 [json_name = "url"];
+  string Description = 5 [json_name = "description"];
+  string Rating = 6 [json_name = "rating"];
+  string SearchUrl = 7 [json_name = "search_url"];
+  string SearchRequest = 8 [json_name = "search_request"];
+  string WorkingHours = 9 [json_name = "working_hours"];
+  string RouteUri = 10 [json_name = "route_uri"];
+  string TaxiUri = 11 [json_name = "taxi_uri"];
+  string WebSite = 12 [json_name = "web_site"];
+  string Distance = 13 [json_name = "distance"];
+  optional TGeoPlace.TReviewsInfo ReviewsInfo = 14 [json_name = "reviews_info"];
+  string PhoneNumber = 15 [json_name = "phone_number"];
+  string Adress = 16 [json_name = "adress"];
+  optional TSingleImage.TImageRef MapImage = 17 [json_name = "map_image"];
+  optional TSingleImage.TImageRef WideMapImage = 18 [json_name = "wide_map_image"];
+  optional TAdvertInfo AdvertInfo = 19 [json_name = "advert_info"];
+  optional TGeoMetricsInfo GeoMetricsInfo = 20 [json_name = "geo_metrics_info"];
+  message TReviewsInfo {
+    uint32 ReviewsCount = 1 [json_name = "reviews_count"];
+    string ReviewsUrl = 2 [json_name = "reviews_url"];
+  }
+}
+
+message TGeoPlaces {
+  repeated TGeoPlace Places = 2 [json_name = "places"];
+}
+
+message TEnumText {
+  string Type = 1 [json_name = "type"];
+  string Text = 2 [json_name = "text"];
+}
+
+message TSimpleText {
+  string SnippetType = 1 [json_name = "snippet_type"];
+  string Text = 2 [json_name = "text"];
+  optional TSingleImage.TImageRef Image = 3 [json_name = "image"];
+  string SearchUrl = 4 [json_name = "search_url"];
+  string Url = 5 [json_name = "url"];
+  string Hostname = 6 [json_name = "hostname"];
+  string Title = 7 [json_name = "title"];
+  optional TSimpleText.TTextSymbol Symbol = 8 [json_name = "symbol"];
+  string OriginalLanguage = 9 [json_name = "original_language"];
+  string SearchRequest = 10 [json_name = "search_request"];
+  message TTextSymbol {
+    ESymbolType Type = 1 [json_name = "type"];
+    string Color = 2 [json_name = "color"];
+    string Text = 3 [json_name = "text"];
+  }
+}
+
+enum ESymbolType {
+  ESymbolType_Undefined = 0;  // renamed: sibling-collision in NAlice.NData
+  Subway = 1;
+}
+
+message TFactList {
+  message TFact {
+    optional string FactText = 1 [json_name = "fact_text"];
+    optional string TextAnswer = 3 [json_name = "text_answer"];
+    optional TMultiText MultiTextAnswer = 4 [json_name = "multi_text_answer"];
+    optional TEnumText FactEnumText = 5 [json_name = "fact_enum_text"];
+  }
+
+  message TMultiText {
+    repeated TSimpleText TextAnswer = 1 [json_name = "text_answer"];
+  }
+
+  repeated TFact Facts = 1 [json_name = "facts"];
+}
+
+enum FactNameCase {
+  FACTNAME_NOT_SET = 0;
+  FACTTEXT = 1;
+  FACTENUMTEXT = 5;
+}
+
+enum FactAnswerCase {
+  FACTANSWER_NOT_SET = 0;
+  TEXTANSWER = 3;
+  MULTITEXTANSWER = 4;
+}
+
+message TVideoObject {
+  string Id = 1 [json_name = "id"];
+  EVideoType VideoType = 2 [json_name = "video_type"];
+  string Title = 3 [json_name = "title"];
+  string Subtitle = 4 [json_name = "subtitle"];
+  optional TSingleImage.TImageRef Logo = 5 [json_name = "logo"];
+  int32 ReleaseYear = 6 [json_name = "release_year"];
+  string Description = 7 [json_name = "description"];
+  string Rating = 8 [json_name = "rating"];
+  int32 Duration = 9 [json_name = "duration"];
+  int32 AgeLimit = 10 [json_name = "age_limit"];
+  string HintInfo = 11 [json_name = "hint_info"];
+  string Kinopoisk = 12 [json_name = "kinopoisk"];
+  optional TSingleImage.TImageRef LogoKp = 13 [json_name = "logo_kp"];
+}
+
+enum EVideoType {
+  Unknown = 0;
+  Clip = 1;
+  Movie = 2;
+}
+
+message TVideoGallery {
+  repeated TVideoObject Videos = 1 [json_name = "videos"];
+}
+
+
+message TPerson {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  optional TSingleImage.TImageRef Image = 3 [json_name = "image"];
+  string Url = 4 [json_name = "url"];
+  string Description = 5 [json_name = "description"];
+  string SearchRequest = 6 [json_name = "search_request"];
+  optional .google.protobuf.Any TypedAction = 12 [json_name = "typed_action"];
+}
+
+
+

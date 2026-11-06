@@ -1,0 +1,149 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "reconstructed/alice/protos/data/memory.proto";
+
+import "alice/protos/endpoint/capabilities/navigator/capability.proto";
+
+import "google/protobuf/timestamp.proto";
+
+package NAlice.NData.NHealthData;
+
+import "alice/protos/data/iot/geometry.proto";
+import "alice/protos/data/health_data/enums.proto";
+import "alice/protos/data/health_data/user_agreements.proto";
+
+enum EHealthDataSource {
+  UNKNOWN = 0;
+  APPLE = 1;
+  ANDROID = 2;
+  WATCH = 3;
+}
+
+message TChart {
+  EChartType ChartType = 1 [json_name = "chart_type"];
+  EHealthMetricClassType ChartHealthMetric = 2 [json_name = "chart_health_metric"];
+  EHealthMetricUnit XAxisUnit = 3 [json_name = "x_axis_unit"];
+  EHealthMetricUnit YAxisUnit = 4 [json_name = "y_axis_unit"];
+  repeated TChartDataItem Data = 5 [json_name = "data"];
+}
+
+message TChartDataItem {
+  optional .NAlice.NIot.TPoint Point = 1 [json_name = "point"];
+  optional THorSegment HorSegment = 2 [json_name = "hor_segment"];
+  optional TVertSegment VertSegment = 3 [json_name = "vert_segment"];
+}
+
+message THealthAgentWorkflowShowReportCallback {
+  string ReportId = 1 [json_name = "report_id"];
+}
+
+message THealthData {
+  uint32 HealthDataTypeId = 1 [json_name = "health_data_type_id"];
+  repeated THealthDataItem HealthDataItems = 2 [json_name = "health_data_items"];
+  optional TSourceInfo SourceInfo = 3 [json_name = "source_info"];
+}
+
+message THealthDataItem {
+  uint32 TsSeconds = 1 [json_name = "ts_seconds"];
+  optional float FloatValue = 2 [json_name = "float_value"];
+}
+
+message THealthMetricClass {
+  EHealthMetricClassType Type = 1 [json_name = "type"];
+  optional TSummary Summary = 2 [json_name = "summary"];
+  string Submetrics = 3 [json_name = "submetrics"];
+  optional TChart Chart = 4 [json_name = "chart"];
+}
+
+message THealthMetricData {
+  EHealthMetricUnit Unit = 1 [json_name = "unit"];
+  string Aggregates = 2 [json_name = "aggregates"];
+  float Target = 3 [json_name = "target"];
+  EHealthMetricStatus Status = 4 [json_name = "status"];
+}
+
+message THealthTsData {
+  uint32 TsSeconds = 1 [json_name = "ts_seconds"];
+  repeated THealthTsDataItem HealthTsDataItems = 2 [json_name = "health_ts_data_items"];
+  optional TSourceInfo SourceInfo = 3 [json_name = "source_info"];
+}
+
+message THealthTsDataItem {
+  uint32 HealthDataTypeId = 1 [json_name = "health_data_type_id"];
+  optional float FloatValue = 2 [json_name = "float_value"];
+}
+
+message THorSegment {
+  EHealthMetricType HealthMetricType = 1 [json_name = "health_metric_type"];
+  uint32 StartTsSeconds = 2 [json_name = "start_ts_seconds"];
+  uint32 EndTsSeconds = 3 [json_name = "end_ts_seconds"];
+  float Value = 4 [json_name = "value"];
+  repeated THorSegment Subsegments = 5 [json_name = "subsegments"];
+}
+
+message TInsight {
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Text = 3 [json_name = "text"];
+  EAvatarState AvatarState = 4 [json_name = "avatar_state"];
+  EUserRating UserRating = 5 [json_name = "user_rating"];
+  string ReportId = 6 [json_name = "report_id"];
+  string TypedCallbackSerialized = 7 [json_name = "typed_callback_serialized"];
+  optional TTypedCallbackPayload TypedCallbackPayload = 8 [json_name = "typed_callback_payload"];
+}
+
+message TTypedCallbackPayload {
+  message TAnalytics {
+    string Purpose = 1 [json_name = "purpose"];
+    string Origin = 2 [json_name = "origin"];
+  }
+
+
+
+  string TypedCallbackSerialized = 1 [json_name = "typed_callback_serialized"];
+  optional TAnalytics Analytics = 2 [json_name = "analytics"];
+}
+
+message TOriginDevice {
+  string Package = 1 [json_name = "package"];
+  string DeviceId = 2 [json_name = "device_id"];
+  string DeviceName = 3 [json_name = "device_name"];
+}
+
+message TPeriod {
+  string StartDate = 1 [json_name = "start_date"];
+  string EndDate = 2 [json_name = "end_date"];
+  optional TSingleIntervalData PeriodData = 3 [json_name = "period_data"];
+}
+
+message TSingleIntervalData {
+  optional TSummary Summary = 1 [json_name = "summary"];
+  string Submetrics = 2 [json_name = "submetrics"];
+  optional string ReportId = 3 [json_name = "report_id"];
+}
+
+
+message TVertSegment {
+  EHealthMetricType HealthMetricType = 1 [json_name = "health_metric_type"];
+  float MinValue = 2 [json_name = "min_value"];
+  float MaxValue = 3 [json_name = "max_value"];
+  uint32 TsSeconds = 4 [json_name = "ts_seconds"];
+  repeated TVertSegment Subsegments = 5 [json_name = "subsegments"];
+}
+
+
+
+
+message TSummary {
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  string Text = 3 [json_name = "text"];
+}
+
+message TSourceInfo {
+  optional TOriginDevice Device = 1 [json_name = "device"];
+  int32 RecordingMethod = 2 [json_name = "recording_method"];
+}

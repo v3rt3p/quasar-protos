@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package NAlice.NData.NHealthData;
+
+option java_package = "ru.yandex.alice.protos.data.healthdata";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/health_data";
+
+enum EUserAgreement {
+  UNDEFINED_USER_AGREEMENT = 0;
+  HEALTH_DISCLAIMER = 1;
+  HEALTH_DATA_USAGE = 2;
+}
+

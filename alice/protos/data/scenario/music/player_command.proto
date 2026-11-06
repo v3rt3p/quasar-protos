@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package NAlice.NData.NMusic;
+
+option java_package = "ru.yandex.alice.protos.data.scenario.music";
+option go_package = "a.yandex-team.ru/alice/protos/data/scenario/music";
+
+enum EPlayerCommandProto {
+  Unknown = 0;
+  NextTrack = 1;
+  PrevTrack = 2;
+  Continue = 3;
+  WhatIsPlaying = 4;
+  Like = 5;
+  Dislike = 6;
+  Shuffle = 7;
+  Replay = 8;
+  Rewind = 9;
+  Repeat = 10;
+  Unshuffle = 11;
+  SendSongText = 12;
+  ChangeTrackNumber = 13;
+  ChangeTrackVersion = 14;
+  WhatYearIsThisSong = 15;
+  WhatAlbumIsThisSongFrom = 16;
+  WhatIsThisSongAbout = 17;
+  SongsByThisArtist = 18;
+  SongsFromThisAlbum = 19;
+  RemoveLike = 20;
+  RemoveDislike = 21;
+  AddToPlaylist = 22;
+  GetLyrics = 23;
+  MoveToTrackId = 24;
+  ChangeChapterNumber = 25;
+  ShowAlbumOfPlayingSong = 26;
+  ShowPlaylist = 27;
+  DisableLyrics = 28;
+  EnableKaraokeMode = 29;
+  DisableKaraokeMode = 30;
+  DisableRepeat = 31;
+}
+

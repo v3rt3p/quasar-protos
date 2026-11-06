@@ -1,0 +1,138 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "reconstructed/alice/protos/data/tv/video.proto";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+import "alice/protos/data/common_search/feature.proto";
+
+import "alice/protos/data/video/video.proto";
+
+import "alice/protos/data/avatar/avatar.proto";
+
+import "google/protobuf/wrappers.proto";
+import "reconstructed/alice/protos/data/video.proto";
+import "reconstructed/alice/protos/data/tv/offer.proto";
+import "alice/protos/data/serial_navigator/season_info.proto";
+
+message TCardDetailProgressRequest {
+  string ContentId = 1 [json_name = "content_id"];
+  optional string ProviderItemId = 2 [json_name = "provider_item_id"];
+  optional string OntoId = 3 [json_name = "onto_id"];
+}
+
+message TCardDetailProgressResponse {
+  int32 DurationSec = 1 [json_name = "duration_sec"];
+  optional .google.protobuf.Int32Value ProgressSec = 2 [json_name = "progress_sec"];
+  optional .NAlice.TAvatarMdsImage Thumbnail = 3 [json_name = "thumbnail"];
+  optional TEpisode Episode = 4 [json_name = "episode"];
+  optional string ProviderItemId = 5 [json_name = "provider_item_id"];
+  optional .NAlice.TWebVideoInfo WebVideoInfo = 6 [json_name = "web_video_info"];
+}
+
+message TEpisode {
+  int32 Number = 1 [json_name = "number"];
+  int32 Season = 2 [json_name = "season"];
+  optional .google.protobuf.StringValue Title = 3 [json_name = "title"];
+}
+
+message TCardDetailRequest {
+  string ContentId = 1 [json_name = "content_id"];
+  string OntoId = 2 [json_name = "onto_id"];
+  optional .NAlice.TMetaInfoVideo MetaInfoVideo = 3 [json_name = "meta_info_video"];
+  optional string PromotedCinemaCode = 4 [json_name = "promoted_cinema_code"];
+}
+
+message TCardDetailResponse {
+  optional .NAlice.TOttVideoItem Item = 1 [json_name = "item"];
+  repeated .NAlice.TVoiceControl ExternalCinemaControls = 2 [json_name = "external_cinema_controls"];
+  repeated .NAlice.TVoiceControl CardControls = 3 [json_name = "card_controls"];
+  optional .NAlice.TReviewSummary ReviewSummary = 4 [json_name = "review_summary"];
+  repeated .NAlice.TOttVideoItem RelatedItem = 5 [json_name = "related_item"];
+  string WebUrl = 6 [json_name = "web_url"];
+  string WebId = 7 [json_name = "web_id"];
+  optional .NAlice.TWebVideoInfo WebVideoInfo = 8 [json_name = "web_video_info"];
+}
+
+message TAdjacentEpisode {
+  string ContentId = 1 [json_name = "content_id"];
+  int32 SeasonNumber = 2 [json_name = "season_number"];
+  int32 EpisodeNumber = 3 [json_name = "episode_number"];
+  string Title = 4 [json_name = "title"];
+  string Thumbnail = 5 [json_name = "thumbnail"];
+  string RestrictionAge = 6 [json_name = "restriction_age"];
+  uint64 DurationSeconds = 7 [json_name = "duration_seconds"];
+  string PlayerId = 8 [json_name = "player_id"];
+  optional .NAlice.TAdConfig AdConfig = 9 [json_name = "ad_config"];
+}
+
+message TEpisodeOttParams {
+  string MonetizationModel = 1 [json_name = "monetization_model"];
+  string ServiceName = 2 [json_name = "service_name"];
+  string ContentPackage = 3 [json_name = "content_package"];
+  int32 ContentTypeId = 4 [json_name = "content_type_id"];
+  string Sid = 5 [json_name = "sid"];
+  string KpId = 6 [json_name = "kp_id"];
+}
+
+message TGetVideoMetaRequest {
+  string ContentId = 1 [json_name = "content_id"];
+}
+
+message TGetVideoMetaResponse {
+  optional TVideoMetaItem VideoMetaItem = 1 [json_name = "video_meta_item"];
+  repeated .NAlice.TSkippableFragment SkippableFragments = 2 [json_name = "skippable_fragments"];
+  optional TAdjacentEpisode PreviousEpisode = 4 [json_name = "previous_episode"];
+  optional TAdjacentEpisode NextEpisode = 5 [json_name = "next_episode"];
+  optional TSubscriptionOffer SubscriptionOffer = 6 [json_name = "subscription_offer"];
+  optional .NAlice.TAdConfig VideoAdConfig = 7 [json_name = "video_ad_config"];
+}
+
+message TSeriesInfo {
+  string Title = 1 [json_name = "title"];
+  string Id = 2 [json_name = "id"];
+  optional .NAlice.TSeasonInfo SeasonInfo = 3 [json_name = "season_info"];
+  int32 EpisodeNumber = 4 [json_name = "episode_number"];
+}
+
+message TSubscriptionOffer {
+  optional TShowOfferButton ShowOfferButton = 1 [json_name = "show_offer_button"];
+  optional .NAlice.NTv.TOfferInfo OfferInfo = 2 [json_name = "offer_info"];
+  optional .NAlice.NTv.TGiftInfo GiftInfo = 3 [json_name = "gift_info"];
+}
+
+message TShowOfferButton {
+  string ButtonText = 1 [json_name = "button_text"];
+  string ButtonSubText = 2 [json_name = "button_sub_text"];
+  repeated .NAlice.TVoiceControl VoiceControls = 3 [json_name = "voice_controls"];
+}
+
+message TVideoMetaItem {
+  string ContentId = 1 [json_name = "content_id"];
+  string Title = 2 [json_name = "title"];
+  string Genre = 3 [json_name = "genre"];
+  string ContentType = 4 [json_name = "content_type"];
+  string MonetizationModel = 5 [json_name = "monetization_model"];
+  int32 Duration = 6 [json_name = "duration"];
+  optional TSeriesInfo SeriesInfo = 7 [json_name = "series_info"];
+  optional int32 RestrictionAge = 8 [json_name = "restriction_age"];
+  optional .NAlice.TAvatarMdsImage Thumbnail = 9 [json_name = "thumbnail"];
+  string PlayerId = 10 [json_name = "player_id"];
+  string Poster = 11 [json_name = "poster"];
+  string OntoId = 12 [json_name = "onto_id"];
+  string ReleaseYear = 13 [json_name = "release_year"];
+  int32 ContentTypeId = 14 [json_name = "content_type_id"];
+  string Logo = 15 [json_name = "logo"];
+  repeated string SubscriptionTypes = 16 [json_name = "subscription_types"];
+  optional TEpisodeOttParams OttParams = 17 [json_name = "ott_params"];
+  string ShowTvPromo = 20 [json_name = "show_tv_promo"];
+  repeated .NAlice.TSkippableFragment SkippableFragments = 21 [json_name = "skippable_fragments"];
+  string EpisodeThumbnail = 22 [json_name = "episode_thumbnail"];
+  string ReleaseDate = 23 [json_name = "release_date"];
+  repeated string Directors = 25 [json_name = "directors"];
+  bool ShowRateScreen = 26 [json_name = "show_rate_screen"];
+}
+

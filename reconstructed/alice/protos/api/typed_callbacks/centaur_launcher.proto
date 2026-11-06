@@ -1,0 +1,21 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TCentaurCollectSkillsVerticalTypedCallback {
+  bool IsStashUpdate = 1 [json_name = "is_stash_update"];
+}
+
+message TCentaurCollectUpperShutterTypedCallback {
+  bool UseNewLayout = 1 [json_name = "use_new_layout"];
+}
+
+message TOpenSmartHomeTypedCallback {
+}
+
+message TScheduleLauncherWarmUpTypedCallback {
+}
+

@@ -1,0 +1,22 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NVideoCommon;
+
+message TVideoState {
+  message TError {
+    optional string Type = 1 [json_name = "type"];
+    optional string Text = 2 [json_name = "text"];
+  }
+
+  optional bool IsFinished = 1 [json_name = "is_finished"];
+  optional TError Error = 2 [json_name = "error"];
+  optional string ObjectTypeName = 3 [json_name = "object_type_name"];
+  optional string State = 4 [json_name = "state"];
+  optional string Meta = 5 [json_name = "meta"];
+  optional string IntentType = 6 [json_name = "intent_type"];
+
+}
+

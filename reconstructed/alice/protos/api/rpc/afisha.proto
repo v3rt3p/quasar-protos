@@ -1,0 +1,48 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/api/rpc/user_settings/user_settings.proto";
+
+import "alice/protos/data/scenario/afisha/afisha.proto";
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+message TAfishaSelectionsData {
+  repeated TAfishaSelection AfishaSelections = 1 [json_name = "afisha_selections"];
+}
+
+message TAfishaSelection {
+  optional .NAlice.NData.TAfishaSelectionSettingData SelectionSetting = 1 [json_name = "selection_setting"];
+  bool IsChosen = 2 [json_name = "is_chosen"];
+}
+
+message TAfishaSelectionsWithPreviewData {
+  repeated TAfishaSelectionWithPreview AfishaSelectionWithPreview = 1 [json_name = "afisha_selection_with_preview"];
+}
+
+message TAfishaSelectionWithPreview {
+  optional .NAlice.NData.TAfishaSelectionSettingData SelectionSetting = 1 [json_name = "selection_setting"];
+  bool IsChosen = 2 [json_name = "is_chosen"];
+  string SelectionName = 3 [json_name = "selection_name"];
+  string ImageUrl = 4 [json_name = "image_url"];
+}
+
+message TGetAfishaSettingsRequest {
+}
+
+message TGetAfishaSettingsResponse {
+  optional TAfishaSelectionsWithPreviewData SelectionsData = 1 [json_name = "selections_data"];
+}
+
+message TSaveAfishaSettingsRequest {
+  optional TAfishaSelectionsData NewSelectionsData = 1 [json_name = "new_selections_data"];
+}
+
+message TSaveAfishaSettingsResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+  string Message = 2 [json_name = "message"];
+}
+

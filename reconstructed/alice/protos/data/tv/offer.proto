@@ -1,0 +1,36 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "reconstructed/alice/protos/data/tv/payment.proto";
+
+message TCompositeOfferMeta {
+  optional .NAlice.NTv.TTariff Tariff = 1 [json_name = "tariff"];
+  repeated TOption Options = 2 [json_name = "options"];
+}
+
+message TGiftInfo {
+}
+
+message TOfferInfo {
+  optional TFullscreen Fullscreen = 1 [json_name = "fullscreen"];
+  optional TCompositeOfferMeta OfferMeta = 2 [json_name = "offer_meta"];
+  repeated string KinopoiskFeatures = 3 [json_name = "kinopoisk_features"];
+}
+
+message TFullscreen {
+  string BackgroundUrl = 1 [json_name = "background_url"];
+  string ContentIconUrl = 2 [json_name = "content_icon_url"];
+  string Title = 3 [json_name = "title"];
+  string Subtitle = 4 [json_name = "subtitle"];
+  string CardBackgroundUrl = 5 [json_name = "card_background_url"];
+  string TariffIconUrl = 6 [json_name = "tariff_icon_url"];
+  string TariffTitle = 7 [json_name = "tariff_title"];
+  string TariffSubtitle = 8 [json_name = "tariff_subtitle"];
+  string QrCodeUrl = 9 [json_name = "qr_code_url"];
+  string QrCardBackgroundUrl = 10 [json_name = "qr_card_background_url"];
+}
+

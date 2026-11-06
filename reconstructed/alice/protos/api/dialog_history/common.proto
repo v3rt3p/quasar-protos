@@ -1,0 +1,168 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NApi.NDialogHistory;
+
+import "alice/megamind/protos/common/events.proto";
+
+import "alice/protos/endpoint/capabilities/file_upload/capability.proto";
+
+import "alice_mode_info.proto";
+import "alice/protos/data/dialog_type/dialog_type.proto";
+
+enum ELanguage {
+  L_UNK = 0;
+  L_RUS = 1;
+  L_ENG = 2;
+}
+
+enum EMessageMark {
+  NOT_SET = 0;
+  GOOD = 1;
+  BAD = 2;
+}
+
+enum EExternalDialogState {
+  UNKNOWN = 0;
+  COMMON = 1;
+  INACTIVE = 2;
+  FINISHED = 3;
+}
+
+enum ECharacterSubtype {
+  CHARACTER_SUBTYPE_UNSPECIFIED = 0;
+  CHARACTER_SUBTYPE_CHARACTER = 1;
+  CHARACTER_SUBTYPE_STORY = 2;
+}
+
+
+message TImageInput {
+  string ImageUrl = 1 [json_name = "image_url"];
+  optional string RequestText = 2 [json_name = "request_text"];
+}
+
+message TFileInput {
+  repeated .NAlice.TFileDescription Files = 1 [json_name = "files"];
+}
+
+message TAdditional {
+  optional bool HasActiveRequest = 1 [json_name = "has_active_request"];
+  optional bool RequireAttention = 2 [json_name = "require_attention"];
+}
+
+message TExternalDialogMetaInfo {
+  optional TCharacter Character = 1 [json_name = "character"];
+}
+
+message TCharacter {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  string Slogan = 3 [json_name = "slogan"];
+  string Avatarurl = 4 [json_name = "avatarurl"];
+  bool Ispublic = 5 [json_name = "ispublic"];
+  string Status = 6 [json_name = "status"];
+  string Presetid = 7 [json_name = "presetid"];
+  string Roleplay = 8 [json_name = "roleplay"];
+  string Subtype = 10 [json_name = "subtype"];
+}
+
+message TSharedMessagesInfo {
+  optional TSourceMessage LastMessage = 1 [json_name = "last_message"];
+}
+
+message TSourceMessage {
+  uint64 Timestamp = 1 [json_name = "timestamp"];
+  string RequestId = 2 [json_name = "request_id"];
+  string HistoryMessageId = 3 [json_name = "history_message_id"];
+}
+
+message TFolder {
+  message TText {
+    string Message = 1 [json_name = "message"];
+    string Details = 2 [json_name = "details"];
+  }
+  string FolderId = 1 [json_name = "folder_id"];
+  string Title = 2 [json_name = "title"];
+  optional string Subtitle = 3 [json_name = "subtitle"];
+  int64 LastUpdateTsMs = 4 [json_name = "last_update_ts_ms"];
+  optional bool LastPinTsMs = 5 [json_name = "last_pin_ts_ms"];
+  optional .NAlice.NData.EDialogType DefaultDialogType = 7 [json_name = "default_dialog_type"];
+  optional string LogoUrl = 8 [json_name = "logo_url"];
+  bool CanBeDeleted = 9 [json_name = "can_be_deleted"];
+  optional string CreateChatButtonText = 10 [json_name = "create_chat_button_text"];
+  optional TTypedCallbacks TypedCallbacks = 11 [json_name = "typed_callbacks"];
+  optional TText Text = 13 [json_name = "text"];
+}
+
+
+
+message TTypedCallbacks {
+  optional string OnboardingTypedCallback = 1 [json_name = "onboarding_typed_callback"];
+}
+
+message TObjectId {
+  optional string DialogId = 1 [json_name = "dialog_id"];
+  optional string FolderId = 2 [json_name = "folder_id"];
+}
+
+message TShare {
+  message TMode {
+    optional uint32 Limit = 1 [json_name = "limit"];
+    optional string LastMessages = 3 [json_name = "last_messages"];
+    optional string SelectedMessages = 4 [json_name = "selected_messages"];
+  }
+
+  string ShareId = 1 [json_name = "share_id"];
+  int64 CreationTsMs = 2 [json_name = "creation_ts_ms"];
+  string SourceDialogId = 5 [json_name = "source_dialog_id"];
+  optional TMode CreationMode = 6 [json_name = "creation_mode"];
+}
+
+message TLastMessagesMode {
+  optional uint32 Limit = 1 [json_name = "limit"];
+}
+
+message TSelectedMessagesMode {
+  repeated string RequestIds = 1 [json_name = "request_ids"];
+}
+
+message TRoleplayHero {
+  string Name = 1 [json_name = "name"];
+  string AvatarUrl = 2 [json_name = "avatar_url"];
+}
+
+message TRoleplay {
+  string Id = 1 [json_name = "id"];
+  string Source = 2 [json_name = "source"];
+  optional string Setting = 3 [json_name = "setting"];
+  optional string UserRole = 4 [json_name = "user_role"];
+  repeated TRoleplayHero Heroes = 5 [json_name = "heroes"];
+  optional string CoverUrl = 6 [json_name = "cover_url"];
+}
+
+
+message TDialog {
+  string DialogId = 1 [json_name = "dialog_id"];
+  int64 CreationTsMs = 2 [json_name = "creation_ts_ms"];
+  string Title = 3 [json_name = "title"];
+  string Subtitle = 4 [json_name = "subtitle"];
+  optional string LogoUrl = 5 [json_name = "logo_url"];
+  int64 LastUpdateTsMs = 6 [json_name = "last_update_ts_ms"];
+  optional .quark.core.proto.TAlice2ModeInfo Alice2Settings = 7 [json_name = "alice2_settings"];
+  int64 LastPinTsMs = 8 [json_name = "last_pin_ts_ms"];
+  .NAlice.NData.EDialogType DialogType = 9 [json_name = "dialog_type"];
+  EExternalDialogState DialogState = 10 [json_name = "dialog_state"];
+  optional int64 LastReadTsMs = 11 [json_name = "last_read_ts_ms"];
+  optional string OriginalTitle = 12 [json_name = "original_title"];
+  optional TSharedMessagesInfo SharedMessagesInfo = 13 [json_name = "shared_messages_info"];
+  optional TExternalDialogMetaInfo ExternalDialogMetaInfo = 14 [json_name = "external_dialog_meta_info"];
+  optional string HistorySource = 15 [json_name = "history_source"];
+  optional TAdditional Additional = 1000 [json_name = "additional"];
+}
+
+message TObject {
+  optional TDialog Dialog = 1 [json_name = "dialog"];
+  optional TFolder Folder = 2 [json_name = "folder"];
+}

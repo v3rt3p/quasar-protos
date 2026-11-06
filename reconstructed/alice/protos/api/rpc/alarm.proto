@@ -1,0 +1,109 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NAlarm.NApi;
+
+import "alice/protos/data/scenario/alarm/alarm.proto";
+import "reconstructed/alice/protos/data/geo.proto";
+import "google/protobuf/struct.proto";
+
+message TErrorStatus {
+  enum EErrorStatus {
+    Undefined = 0;
+    NoDevicesResponded = 1;
+  }
+}
+
+message TDeviceAlarmId {
+  string DeviceId = 1 [json_name = "device_id"];
+  string AlarmId = 2 [json_name = "alarm_id"];
+}
+
+message TDeviceAlarm {
+  string DeviceId = 1 [json_name = "device_id"];
+  string AlarmId = 2 [json_name = "alarm_id"];
+  bool Enabled = 3 [json_name = "enabled"];
+  string Time = 4 [json_name = "time"];
+  optional string Date = 5 [json_name = "date"];
+  optional TDeviceAlarm.TActivationDays Recurring = 6 [json_name = "recurring"];
+  optional string Name = 7 [json_name = "name"];
+  optional TDeviceAlarmSettings.TMediaSettings MediaSettings = 8 [json_name = "media_settings"];
+  optional uint32 ApproachingOffset = 9 [json_name = "approaching_offset"];
+  message TActivationDays {
+    repeated .NAlice.NData.EDayOfWeek DaysOfWeek = 1 [packed = true, json_name = "days_of_week"];
+  }
+}
+
+message TDeviceAlarmSettings {
+  optional TDeviceAlarmSettings.TSoundSettings SoundSettings = 1 [json_name = "sound_settings"];
+  optional TDeviceAlarmSettings.TMediaSettings MediaSettings = 2 [json_name = "media_settings"];
+  repeated string SupportedDefaultSounds = 3 [json_name = "supported_default_sounds"];
+  message TSoundSettings {
+    uint32 Volume = 1 [json_name = "volume"];
+    bool GradualVolumeIncrease = 2 [json_name = "gradual_volume_increase"];
+  }
+  message TMediaSettings {
+    optional .google.protobuf.Struct RawInfo = 1 [json_name = "raw_info"];
+    optional TMediaSettings.TServerAction ServerAction = 2 [json_name = "server_action"];
+    optional .NAlice.NData.TDefaultSound DefaultSound = 4 [json_name = "default_sound"];
+    message TServerAction {
+      string Name = 1 [json_name = "name"];
+      optional .google.protobuf.Struct Payload = 2 [json_name = "payload"];
+      bool NotPrefetchable = 3 [json_name = "not_prefetchable"];
+    }
+  }
+}
+
+message TGetAlarmsRequest {
+  repeated string DeviceIds = 1 [json_name = "device_ids"];
+}
+
+message TGetAlarmsResponse {
+  repeated TDeviceAlarm Alarms = 1 [json_name = "alarms"];
+  repeated string FailedDeviceIds = 2 [json_name = "failed_device_ids"];
+  optional .NAlice.NAlarm.NApi.TErrorStatus.EErrorStatus ErrorStatus = 3 [json_name = "error_status"];
+}
+
+message TCreateAlarmRequest {
+  optional TDeviceAlarm Alarm = 1 [json_name = "alarm"];
+  string DeviceType = 2 [json_name = "device_type"];
+}
+
+message TCreateAlarmResponse {
+  optional TDeviceAlarm Alarm = 1 [json_name = "alarm"];
+}
+
+message TChangeAlarmRequest {
+  optional TDeviceAlarm Alarm = 1 [json_name = "alarm"];
+  string DeviceType = 2 [json_name = "device_type"];
+}
+
+message TChangeAlarmResponse {
+  optional TDeviceAlarm Alarm = 1 [json_name = "alarm"];
+}
+
+message TCancelAlarmsRequest {
+  repeated TDeviceAlarmId DeviceAlarmIds = 1 [json_name = "device_alarm_ids"];
+}
+
+message TCancelAlarmsResponse {
+}
+
+message TGetDeviceAlarmSettingsRequest {
+  string DeviceId = 1 [json_name = "device_id"];
+}
+
+message TGetDeviceAlarmSettingsResponse {
+  optional TDeviceAlarmSettings DeviceAlarmSettings = 1 [json_name = "device_alarm_settings"];
+}
+
+message TSetDeviceAlarmSettingsRequest {
+  string DeviceId = 1 [json_name = "device_id"];
+  optional TDeviceAlarmSettings DeviceAlarmSettings = 2 [json_name = "device_alarm_settings"];
+}
+
+message TSetDeviceAlarmSettingsResponse {
+}
+

@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option java_outer_classname = "DirectiveImportance";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+enum EDirectiveImportance {
+  DEFAULT = 0;
+  NOT_IMPORTANT = 1;
+  IMPORTANT = 2;
+}
+

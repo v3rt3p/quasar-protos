@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+enum EAppType {
+  AT_UNDEFINED = 0;
+  AT_SEARCH_APP = 1;
+  AT_SMART_SPEAKER = 2;
+  AT_MOBILE_BROWSER = 3;
+  AT_DESKTOP_BROWSER = 4;
+  AT_IOT_APP = 5;
+  AT_YASMINA_IOT_APP = 6;
+  AT_YANGO_ANDROID_APP = 7;
+  AT_YANGO_IOS_APP = 8;
+  AT_ALICE_APP = 9;
+}
+
+enum EPlatform {
+  P_UNDEFINED = 0;
+  P_ANDROID = 1;
+  P_IOS = 2;
+  P_BROWSER = 3;
+}
+

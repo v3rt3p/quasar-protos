@@ -1,0 +1,27 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NScenarios.NTvChannels;
+
+message TTvChannelsAddToFavouritesTypedCallback {
+  string ContentId = 1 [json_name = "content_id"];
+}
+
+message TTvChannelsCollectVerticalTypedCallback {
+  bool TariffOptionsSupported = 1 [json_name = "tariff_options_supported"];
+}
+
+message TTvChannelsShowProgramTypedCallback {
+  string YandexChannelId = 1 [json_name = "yandex_channel_id"];
+}
+
+message TTvChannelsSwitchChannelByContentIdTypedCallback {
+  string ContentId = 1 [json_name = "content_id"];
+  string Title = 2 [json_name = "title"];
+}
+
+message TTvChannelsSwitchToSportEventTypedCallback {
+}
+

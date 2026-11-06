@@ -1,0 +1,9 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/api/rpc/reminders/reminders.proto";
+

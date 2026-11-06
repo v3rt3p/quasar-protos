@@ -1,0 +1,68 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv.NSmartDeviceExternalApp;
+
+import "alice/protos/data/avatar/avatar.proto";
+import "alice/protos/data/dialogs/image_size.proto";
+import "alice/protos/data/dialogs/alice_app_category.proto";
+import "reconstructed/alice/protos/api/rpc/smartdeviceexternalapp/app/app.proto";
+
+
+enum EStoreType {
+  Unknown = 0;
+  Tv = 1;
+  SmartScreen = 2;
+  Auto = 3;
+}
+
+message TGetAppCatalogRequest {
+  repeated string InstalledPackageNames = 1 [json_name = "installed_package_names"];
+  EStoreType StoreType = 2 [json_name = "store_type"];
+  optional TAppStoreParentalControlsSettings AppStoreParentalControlsSettings = 3 [json_name = "app_store_parental_controls_settings"];
+  EStoreType AppStoreType = 4 [json_name = "app_store_type"];
+  repeated .NAlice.NSmartDeviceExternalApp.TAppApkIdentifier InstalledAppApkIdentifiers = 5 [json_name = "installed_app_apk_identifiers"];
+  bool CategoriesEnabled = 6 [json_name = "categories_enabled"];
+  .NAlice.NData.NDialogs.EImageSize LogoSize = 7 [json_name = "logo_size"];
+  bool InstalledFirstDisabled = 8 [json_name = "installed_first_disabled"];
+}
+
+message TGetAppCatalogResponse {
+  repeated TAppsByCategory AppsByCategory = 1 [json_name = "apps_by_category"];
+  repeated TAppCategory AppCategories = 2 [json_name = "app_categories"];
+  repeated .NAlice.NSmartDeviceExternalApp.TAppApkIdentifier AppsToHide = 3 [json_name = "apps_to_hide"];
+  optional TAppCategory PersonalAppsCategory = 4 [json_name = "personal_apps_category"];
+}
+
+message TAppsByCategory {
+  .NAlice.NData.NDialogs.EAliceAppCategory Category = 1 [json_name = "category"];
+  repeated TAppCatalogView Apps = 2 [json_name = "apps"];
+  string CategoryDisplayName = 3 [json_name = "category_display_name"];
+}
+
+message TAppCatalogView {
+  string Id = 1 [json_name = "id"];
+  string Title = 2 [json_name = "title"];
+  optional string Subtitle = 3 [json_name = "subtitle"];
+  string LogoUrl = 4 [json_name = "logo_url"];
+  string PackageName = 5 [json_name = "package_name"];
+  string ApkDownloadUrl = 6 [json_name = "apk_download_url"];
+  string ApkVersionName = 7 [json_name = "apk_version_name"];
+  uint64 ApkVersionCode = 8 [json_name = "apk_version_code"];
+  bool IsDeletionProhibited = 9 [json_name = "is_deletion_prohibited"];
+  bool ShouldMarkAppAsVoiced = 10 [json_name = "should_mark_app_as_voiced"];
+  optional TAvatarMdsImage SquareLogo = 11 [json_name = "square_logo"];
+}
+
+message TAppCategory {
+  .NAlice.NData.NDialogs.EAliceAppCategory Name = 1 [json_name = "name"];
+  string CategoryDisplayName = 2 [json_name = "category_display_name"];
+}
+
+message TAppStoreParentalControlsSettings {
+  bool AppWhitelistEnabled = 1 [json_name = "app_whitelist_enabled"];
+  repeated string PackageNameWhitelist = 2 [json_name = "package_name_whitelist"];
+}
+

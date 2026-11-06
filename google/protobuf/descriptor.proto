@@ -11,52 +11,72 @@ option objc_class_prefix = "GPB";
 option csharp_namespace = "Google.Protobuf.Reflection";
 
 message FileDescriptorSet {
-  repeated .google.protobuf.FileDescriptorProto file = 1;
+  extensions 536000000;
+  repeated .google.protobuf.FileDescriptorProto file = 1 [json_name = "file"];
 }
 
 message FileDescriptorProto {
-  optional string name = 1;
-  optional string package = 2;
-  repeated string dependency = 3;
-  repeated int32 public_dependency = 10;
-  repeated int32 weak_dependency = 11;
-  repeated .google.protobuf.DescriptorProto message_type = 4;
-  repeated .google.protobuf.EnumDescriptorProto enum_type = 5;
-  repeated .google.protobuf.ServiceDescriptorProto service = 6;
-  repeated .google.protobuf.FieldDescriptorProto extension = 7;
-  optional .google.protobuf.FileOptions options = 8;
-  optional .google.protobuf.SourceCodeInfo source_code_info = 9;
-  optional string syntax = 12;
-  optional string edition = 13;
+  optional string name = 1 [json_name = "name"];
+  optional string package = 2 [json_name = "package"];
+  repeated string dependency = 3 [json_name = "dependency"];
+  repeated int32 public_dependency = 10 [json_name = "publicDependency"];
+  repeated int32 weak_dependency = 11 [json_name = "weakDependency"];
+  repeated string option_dependency = 15 [json_name = "optionDependency"];
+  repeated .google.protobuf.DescriptorProto message_type = 4 [json_name = "messageType"];
+  repeated .google.protobuf.EnumDescriptorProto enum_type = 5 [json_name = "enumType"];
+  repeated .google.protobuf.ServiceDescriptorProto service = 6 [json_name = "service"];
+  repeated .google.protobuf.FieldDescriptorProto extension = 7 [json_name = "extension"];
+  optional .google.protobuf.FileOptions options = 8 [json_name = "options"];
+  optional .google.protobuf.SourceCodeInfo source_code_info = 9 [json_name = "sourceCodeInfo"];
+  optional string syntax = 12 [json_name = "syntax"];
+  optional .google.protobuf.Edition edition = 14 [json_name = "edition"];
 }
 
 message DescriptorProto {
   message ExtensionRange {
-    optional int32 start = 1;
-    optional int32 end = 2;
-    optional .google.protobuf.ExtensionRangeOptions options = 3;
+    optional int32 start = 1 [json_name = "start"];
+    optional int32 end = 2 [json_name = "end"];
+    optional .google.protobuf.ExtensionRangeOptions options = 3 [json_name = "options"];
   }
 
   message ReservedRange {
-    optional int32 start = 1;
-    optional int32 end = 2;
+    optional int32 start = 1 [json_name = "start"];
+    optional int32 end = 2 [json_name = "end"];
   }
 
-  optional string name = 1;
-  repeated .google.protobuf.FieldDescriptorProto field = 2;
-  repeated .google.protobuf.FieldDescriptorProto extension = 6;
-  repeated .google.protobuf.DescriptorProto nested_type = 3;
-  repeated .google.protobuf.EnumDescriptorProto enum_type = 4;
-  repeated .google.protobuf.DescriptorProto.ExtensionRange extension_range = 5;
-  repeated .google.protobuf.OneofDescriptorProto oneof_decl = 8;
-  optional .google.protobuf.MessageOptions options = 7;
-  repeated .google.protobuf.DescriptorProto.ReservedRange reserved_range = 9;
-  repeated string reserved_name = 10;
+  optional string name = 1 [json_name = "name"];
+  repeated .google.protobuf.FieldDescriptorProto field = 2 [json_name = "field"];
+  repeated .google.protobuf.FieldDescriptorProto extension = 6 [json_name = "extension"];
+  repeated .google.protobuf.DescriptorProto nested_type = 3 [json_name = "nestedType"];
+  repeated .google.protobuf.EnumDescriptorProto enum_type = 4 [json_name = "enumType"];
+  repeated .google.protobuf.DescriptorProto.ExtensionRange extension_range = 5 [json_name = "extensionRange"];
+  repeated .google.protobuf.OneofDescriptorProto oneof_decl = 8 [json_name = "oneofDecl"];
+  optional .google.protobuf.MessageOptions options = 7 [json_name = "options"];
+  repeated .google.protobuf.DescriptorProto.ReservedRange reserved_range = 9 [json_name = "reservedRange"];
+  repeated string reserved_name = 10 [json_name = "reservedName"];
+  optional .google.protobuf.SymbolVisibility visibility = 11 [json_name = "visibility"];
 }
 
 message ExtensionRangeOptions {
   extensions 1000 to max;
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  message Declaration {
+    reserved 4;
+    optional int32 number = 1 [json_name = "number"];
+    optional string full_name = 2 [json_name = "fullName"];
+    optional string type = 3 [json_name = "type"];
+    optional bool reserved = 5 [json_name = "reserved"];
+    optional bool repeated = 6 [json_name = "repeated"];
+  }
+
+  enum VerificationState {
+    DECLARATION = 0;
+    UNVERIFIED = 1;
+  }
+
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
+  repeated .google.protobuf.ExtensionRangeOptions.Declaration declaration = 2 [json_name = "declaration", retention = RETENTION_SOURCE];
+  optional .google.protobuf.FeatureSet features = 50 [json_name = "features"];
+  optional .google.protobuf.ExtensionRangeOptions.VerificationState verification = 3 [default = UNVERIFIED, json_name = "verification", retention = RETENTION_SOURCE];
 }
 
 message FieldDescriptorProto {
@@ -83,64 +103,69 @@ message FieldDescriptorProto {
 
   enum Label {
     LABEL_OPTIONAL = 1;
-    LABEL_REQUIRED = 2;
     LABEL_REPEATED = 3;
+    LABEL_REQUIRED = 2;
   }
 
-  optional string name = 1;
-  optional int32 number = 3;
-  optional .google.protobuf.FieldDescriptorProto.Label label = 4;
-  optional .google.protobuf.FieldDescriptorProto.Type type = 5;
-  optional string type_name = 6;
-  optional string extendee = 2;
-  optional string default_value = 7;
-  optional int32 oneof_index = 9;
-  optional string json_name = 10;
-  optional .google.protobuf.FieldOptions options = 8;
-  optional bool proto3_optional = 17;
+  optional string name = 1 [json_name = "name"];
+  optional int32 number = 3 [json_name = "number"];
+  optional .google.protobuf.FieldDescriptorProto.Label label = 4 [json_name = "label"];
+  optional .google.protobuf.FieldDescriptorProto.Type type = 5 [json_name = "type"];
+  optional string type_name = 6 [json_name = "typeName"];
+  optional string extendee = 2 [json_name = "extendee"];
+  optional string default_value = 7 [json_name = "defaultValue"];
+  optional int32 oneof_index = 9 [json_name = "oneofIndex"];
+  optional string json_name = 10 [json_name = "jsonName"];
+  optional .google.protobuf.FieldOptions options = 8 [json_name = "options"];
+  optional bool proto3_optional = 17 [json_name = "proto3Optional"];
 }
 
 message OneofDescriptorProto {
-  optional string name = 1;
-  optional .google.protobuf.OneofOptions options = 2;
+  optional string name = 1 [json_name = "name"];
+  optional .google.protobuf.OneofOptions options = 2 [json_name = "options"];
 }
 
 message EnumDescriptorProto {
   message EnumReservedRange {
-    optional int32 start = 1;
-    optional int32 end = 2;
+    optional int32 start = 1 [json_name = "start"];
+    optional int32 end = 2 [json_name = "end"];
   }
 
-  optional string name = 1;
-  repeated .google.protobuf.EnumValueDescriptorProto value = 2;
-  optional .google.protobuf.EnumOptions options = 3;
-  repeated .google.protobuf.EnumDescriptorProto.EnumReservedRange reserved_range = 4;
-  repeated string reserved_name = 5;
+  optional string name = 1 [json_name = "name"];
+  repeated .google.protobuf.EnumValueDescriptorProto value = 2 [json_name = "value"];
+  optional .google.protobuf.EnumOptions options = 3 [json_name = "options"];
+  repeated .google.protobuf.EnumDescriptorProto.EnumReservedRange reserved_range = 4 [json_name = "reservedRange"];
+  repeated string reserved_name = 5 [json_name = "reservedName"];
+  optional .google.protobuf.SymbolVisibility visibility = 6 [json_name = "visibility"];
 }
 
 message EnumValueDescriptorProto {
-  optional string name = 1;
-  optional int32 number = 2;
-  optional .google.protobuf.EnumValueOptions options = 3;
+  optional string name = 1 [json_name = "name"];
+  optional int32 number = 2 [json_name = "number"];
+  optional .google.protobuf.EnumValueOptions options = 3 [json_name = "options"];
 }
 
 message ServiceDescriptorProto {
-  optional string name = 1;
-  repeated .google.protobuf.MethodDescriptorProto method = 2;
-  optional .google.protobuf.ServiceOptions options = 3;
+  reserved "stream";
+  reserved 4;
+  optional string name = 1 [json_name = "name"];
+  repeated .google.protobuf.MethodDescriptorProto method = 2 [json_name = "method"];
+  optional .google.protobuf.ServiceOptions options = 3 [json_name = "options"];
 }
 
 message MethodDescriptorProto {
-  optional string name = 1;
-  optional string input_type = 2;
-  optional string output_type = 3;
-  optional .google.protobuf.MethodOptions options = 4;
-  optional bool client_streaming = 5 [default = false];
-  optional bool server_streaming = 6 [default = false];
+  optional string name = 1 [json_name = "name"];
+  optional string input_type = 2 [json_name = "inputType"];
+  optional string output_type = 3 [json_name = "outputType"];
+  optional .google.protobuf.MethodOptions options = 4 [json_name = "options"];
+  optional bool client_streaming = 5 [default = false, json_name = "clientStreaming"];
+  optional bool server_streaming = 6 [default = false, json_name = "serverStreaming"];
 }
 
 message FileOptions {
   extensions 1000 to max;
+  reserved "php_generic_services";
+  reserved 42;
   reserved 38;
   enum OptimizeMode {
     SPEED = 1;
@@ -148,27 +173,27 @@ message FileOptions {
     LITE_RUNTIME = 3;
   }
 
-  optional string java_package = 1;
-  optional string java_outer_classname = 8;
-  optional bool java_multiple_files = 10 [default = false];
-  optional bool java_generate_equals_and_hash = 20 [deprecated = true];
-  optional bool java_string_check_utf8 = 27 [default = false];
-  optional .google.protobuf.FileOptions.OptimizeMode optimize_for = 9 [default = SPEED];
-  optional string go_package = 11;
-  optional bool cc_generic_services = 16 [default = false];
-  optional bool java_generic_services = 17 [default = false];
-  optional bool py_generic_services = 18 [default = false];
-  optional bool php_generic_services = 42 [default = false];
-  optional bool deprecated = 23 [default = false];
-  optional bool cc_enable_arenas = 31 [default = true];
-  optional string objc_class_prefix = 36;
-  optional string csharp_namespace = 37;
-  optional string swift_prefix = 39;
-  optional string php_class_prefix = 40;
-  optional string php_namespace = 41;
-  optional string php_metadata_namespace = 44;
-  optional string ruby_package = 45;
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional string java_package = 1 [json_name = "javaPackage"];
+  optional string java_outer_classname = 8 [json_name = "javaOuterClassname"];
+  optional bool java_multiple_files = 10 [default = false, json_name = "javaMultipleFiles"];
+  optional bool java_generate_equals_and_hash = 20 [json_name = "javaGenerateEqualsAndHash", deprecated = true];
+  optional bool java_string_check_utf8 = 27 [default = false, json_name = "javaStringCheckUtf8"];
+  optional .google.protobuf.FileOptions.OptimizeMode optimize_for = 9 [default = SPEED, json_name = "optimizeFor"];
+  optional string go_package = 11 [json_name = "goPackage"];
+  optional bool cc_generic_services = 16 [default = false, json_name = "ccGenericServices"];
+  optional bool java_generic_services = 17 [default = false, json_name = "javaGenericServices"];
+  optional bool py_generic_services = 18 [default = false, json_name = "pyGenericServices"];
+  optional bool deprecated = 23 [default = false, json_name = "deprecated"];
+  optional bool cc_enable_arenas = 31 [default = true, json_name = "ccEnableArenas"];
+  optional string objc_class_prefix = 36 [json_name = "objcClassPrefix"];
+  optional string csharp_namespace = 37 [json_name = "csharpNamespace"];
+  optional string swift_prefix = 39 [json_name = "swiftPrefix"];
+  optional string php_class_prefix = 40 [json_name = "phpClassPrefix"];
+  optional string php_namespace = 41 [json_name = "phpNamespace"];
+  optional string php_metadata_namespace = 44 [json_name = "phpMetadataNamespace"];
+  optional string ruby_package = 45 [json_name = "rubyPackage"];
+  optional .google.protobuf.FeatureSet features = 50 [json_name = "features"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message MessageOptions {
@@ -178,17 +203,31 @@ message MessageOptions {
   reserved 6;
   reserved 8;
   reserved 9;
-  optional bool message_set_wire_format = 1 [default = false];
-  optional bool no_standard_descriptor_accessor = 2 [default = false];
-  optional bool deprecated = 3 [default = false];
-  optional bool map_entry = 7;
-  optional bool deprecated_legacy_json_field_conflicts = 11 [deprecated = true];
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional bool message_set_wire_format = 1 [default = false, json_name = "messageSetWireFormat"];
+  optional bool no_standard_descriptor_accessor = 2 [default = false, json_name = "noStandardDescriptorAccessor"];
+  optional bool deprecated = 3 [default = false, json_name = "deprecated"];
+  optional bool map_entry = 7 [json_name = "mapEntry"];
+  optional bool deprecated_legacy_json_field_conflicts = 11 [json_name = "deprecatedLegacyJsonFieldConflicts", deprecated = true];
+  optional .google.protobuf.FeatureSet features = 12 [json_name = "features"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message FieldOptions {
   extensions 1000 to max;
   reserved 4;
+  reserved 18;
+  message EditionDefault {
+    optional .google.protobuf.Edition edition = 3 [json_name = "edition"];
+    optional string value = 2 [json_name = "value"];
+  }
+
+  message FeatureSupport {
+    optional .google.protobuf.Edition edition_introduced = 1 [json_name = "editionIntroduced"];
+    optional .google.protobuf.Edition edition_deprecated = 2 [json_name = "editionDeprecated"];
+    optional string deprecation_warning = 3 [json_name = "deprecationWarning"];
+    optional .google.protobuf.Edition edition_removed = 4 [json_name = "editionRemoved"];
+  }
+
   enum CType {
     STRING = 0;
     CORD = 1;
@@ -220,43 +259,52 @@ message FieldOptions {
     TARGET_TYPE_METHOD = 9;
   }
 
-  optional .google.protobuf.FieldOptions.CType ctype = 1 [default = STRING];
-  optional bool packed = 2;
-  optional .google.protobuf.FieldOptions.JSType jstype = 6 [default = JS_NORMAL];
-  optional bool lazy = 5 [default = false];
-  optional bool unverified_lazy = 15 [default = false];
-  optional bool deprecated = 3 [default = false];
-  optional bool weak = 10 [default = false];
-  optional bool debug_redact = 16 [default = false];
-  optional .google.protobuf.FieldOptions.OptionRetention retention = 17;
-  optional .google.protobuf.FieldOptions.OptionTargetType target = 18;
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional .google.protobuf.FieldOptions.CType ctype = 1 [default = STRING, json_name = "ctype"];
+  optional bool packed = 2 [json_name = "packed"];
+  optional .google.protobuf.FieldOptions.JSType jstype = 6 [default = JS_NORMAL, json_name = "jstype"];
+  optional bool lazy = 5 [default = false, json_name = "lazy"];
+  optional bool unverified_lazy = 15 [default = false, json_name = "unverifiedLazy"];
+  optional bool deprecated = 3 [default = false, json_name = "deprecated"];
+  optional bool weak = 10 [default = false, json_name = "weak", deprecated = true];
+  optional bool debug_redact = 16 [default = false, json_name = "debugRedact"];
+  optional .google.protobuf.FieldOptions.OptionRetention retention = 17 [json_name = "retention"];
+  repeated .google.protobuf.FieldOptions.OptionTargetType targets = 19 [json_name = "targets"];
+  repeated .google.protobuf.FieldOptions.EditionDefault edition_defaults = 20 [json_name = "editionDefaults"];
+  optional .google.protobuf.FeatureSet features = 21 [json_name = "features"];
+  optional .google.protobuf.FieldOptions.FeatureSupport feature_support = 22 [json_name = "featureSupport"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message OneofOptions {
   extensions 1000 to max;
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional .google.protobuf.FeatureSet features = 1 [json_name = "features"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message EnumOptions {
   extensions 1000 to max;
   reserved 5;
-  optional bool allow_alias = 2;
-  optional bool deprecated = 3 [default = false];
-  optional bool deprecated_legacy_json_field_conflicts = 6 [deprecated = true];
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional bool allow_alias = 2 [json_name = "allowAlias"];
+  optional bool deprecated = 3 [default = false, json_name = "deprecated"];
+  optional bool deprecated_legacy_json_field_conflicts = 6 [json_name = "deprecatedLegacyJsonFieldConflicts", deprecated = true];
+  optional .google.protobuf.FeatureSet features = 7 [json_name = "features"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message EnumValueOptions {
   extensions 1000 to max;
-  optional bool deprecated = 1 [default = false];
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional bool deprecated = 1 [default = false, json_name = "deprecated"];
+  optional .google.protobuf.FeatureSet features = 2 [json_name = "features"];
+  optional bool debug_redact = 3 [default = false, json_name = "debugRedact"];
+  optional .google.protobuf.FieldOptions.FeatureSupport feature_support = 4 [json_name = "featureSupport"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message ServiceOptions {
   extensions 1000 to max;
-  optional bool deprecated = 33 [default = false];
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional .google.protobuf.FeatureSet features = 34 [json_name = "features"];
+  optional bool deprecated = 33 [default = false, json_name = "deprecated"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message MethodOptions {
@@ -267,36 +315,124 @@ message MethodOptions {
     IDEMPOTENT = 2;
   }
 
-  optional bool deprecated = 33 [default = false];
-  optional .google.protobuf.MethodOptions.IdempotencyLevel idempotency_level = 34 [default = IDEMPOTENCY_UNKNOWN];
-  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999;
+  optional bool deprecated = 33 [default = false, json_name = "deprecated"];
+  optional .google.protobuf.MethodOptions.IdempotencyLevel idempotency_level = 34 [default = IDEMPOTENCY_UNKNOWN, json_name = "idempotencyLevel"];
+  optional .google.protobuf.FeatureSet features = 35 [json_name = "features"];
+  repeated .google.protobuf.UninterpretedOption uninterpreted_option = 999 [json_name = "uninterpretedOption"];
 }
 
 message UninterpretedOption {
   message NamePart {
-    required string name_part = 1;
-    required bool is_extension = 2;
+    required string name_part = 1 [json_name = "namePart"];
+    required bool is_extension = 2 [json_name = "isExtension"];
   }
 
-  repeated .google.protobuf.UninterpretedOption.NamePart name = 2;
-  optional string identifier_value = 3;
-  optional uint64 positive_int_value = 4;
-  optional int64 negative_int_value = 5;
-  optional double double_value = 6;
-  optional bytes string_value = 7;
-  optional string aggregate_value = 8;
+  repeated .google.protobuf.UninterpretedOption.NamePart name = 2 [json_name = "name"];
+  optional string identifier_value = 3 [json_name = "identifierValue"];
+  optional uint64 positive_int_value = 4 [json_name = "positiveIntValue"];
+  optional int64 negative_int_value = 5 [json_name = "negativeIntValue"];
+  optional double double_value = 6 [json_name = "doubleValue"];
+  optional bytes string_value = 7 [json_name = "stringValue"];
+  optional string aggregate_value = 8 [json_name = "aggregateValue"];
+}
+
+message FeatureSet {
+  extensions 1000 to 9994;
+  extensions 9995 to 9999;
+  extensions 10000;
+  reserved 999;
+  message VisibilityFeature {
+    reserved 1 to max;
+    enum DefaultSymbolVisibility {
+      DEFAULT_SYMBOL_VISIBILITY_UNKNOWN = 0;
+      EXPORT_ALL = 1;
+      EXPORT_TOP_LEVEL = 2;
+      LOCAL_ALL = 3;
+      STRICT = 4;
+    }
+
+  }
+
+  enum FieldPresence {
+    FIELD_PRESENCE_UNKNOWN = 0;
+    EXPLICIT = 1;
+    IMPLICIT = 2;
+    LEGACY_REQUIRED = 3;
+  }
+
+  enum EnumType {
+    ENUM_TYPE_UNKNOWN = 0;
+    OPEN = 1;
+    CLOSED = 2;
+  }
+
+  enum RepeatedFieldEncoding {
+    REPEATED_FIELD_ENCODING_UNKNOWN = 0;
+    PACKED = 1;
+    EXPANDED = 2;
+  }
+
+  enum Utf8Validation {
+    reserved 1;
+    UTF8_VALIDATION_UNKNOWN = 0;
+    VERIFY = 2;
+    NONE = 3;
+  }
+
+  enum MessageEncoding {
+    MESSAGE_ENCODING_UNKNOWN = 0;
+    LENGTH_PREFIXED = 1;
+    DELIMITED = 2;
+  }
+
+  enum JsonFormat {
+    JSON_FORMAT_UNKNOWN = 0;
+    ALLOW = 1;
+    LEGACY_BEST_EFFORT = 2;
+  }
+
+  enum EnforceNamingStyle {
+    ENFORCE_NAMING_STYLE_UNKNOWN = 0;
+    STYLE2024 = 1;
+    STYLE_LEGACY = 2;
+  }
+
+  optional .google.protobuf.FeatureSet.FieldPresence field_presence = 1 [json_name = "fieldPresence", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"EXPLICIT" }, edition_defaults = { edition:EDITION_PROTO3  value:"IMPLICIT" }, edition_defaults = { edition:EDITION_2023  value:"EXPLICIT" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.EnumType enum_type = 2 [json_name = "enumType", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_ENUM, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"CLOSED" }, edition_defaults = { edition:EDITION_PROTO3  value:"OPEN" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.RepeatedFieldEncoding repeated_field_encoding = 3 [json_name = "repeatedFieldEncoding", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"EXPANDED" }, edition_defaults = { edition:EDITION_PROTO3  value:"PACKED" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.Utf8Validation utf8_validation = 4 [json_name = "utf8Validation", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"NONE" }, edition_defaults = { edition:EDITION_PROTO3  value:"VERIFY" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.MessageEncoding message_encoding = 5 [json_name = "messageEncoding", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"LENGTH_PREFIXED" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.JsonFormat json_format = 6 [json_name = "jsonFormat", retention = RETENTION_RUNTIME, targets = TARGET_TYPE_MESSAGE, targets = TARGET_TYPE_ENUM, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"LEGACY_BEST_EFFORT" }, edition_defaults = { edition:EDITION_PROTO3  value:"ALLOW" }, feature_support = { edition_introduced:EDITION_2023 }];
+  optional .google.protobuf.FeatureSet.EnforceNamingStyle enforce_naming_style = 7 [json_name = "enforceNamingStyle", retention = RETENTION_SOURCE, targets = TARGET_TYPE_FILE, targets = TARGET_TYPE_EXTENSION_RANGE, targets = TARGET_TYPE_MESSAGE, targets = TARGET_TYPE_FIELD, targets = TARGET_TYPE_ONEOF, targets = TARGET_TYPE_ENUM, targets = TARGET_TYPE_ENUM_ENTRY, targets = TARGET_TYPE_SERVICE, targets = TARGET_TYPE_METHOD, edition_defaults = { edition:EDITION_LEGACY  value:"STYLE_LEGACY" }, edition_defaults = { edition:EDITION_2024  value:"STYLE2024" }, feature_support = { edition_introduced:EDITION_2024 }];
+  optional .google.protobuf.FeatureSet.VisibilityFeature.DefaultSymbolVisibility default_symbol_visibility = 8 [json_name = "defaultSymbolVisibility", retention = RETENTION_SOURCE, targets = TARGET_TYPE_FILE, edition_defaults = { edition:EDITION_LEGACY  value:"EXPORT_ALL" }, edition_defaults = { edition:EDITION_2024  value:"EXPORT_TOP_LEVEL" }, feature_support = { edition_introduced:EDITION_2024 }];
+}
+
+message FeatureSetDefaults {
+  message FeatureSetEditionDefault {
+    reserved "features";
+    reserved 1;
+    reserved 2;
+    optional .google.protobuf.Edition edition = 3 [json_name = "edition"];
+    optional .google.protobuf.FeatureSet overridable_features = 4 [json_name = "overridableFeatures"];
+    optional .google.protobuf.FeatureSet fixed_features = 5 [json_name = "fixedFeatures"];
+  }
+
+  repeated .google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault defaults = 1 [json_name = "defaults"];
+  optional .google.protobuf.Edition minimum_edition = 4 [json_name = "minimumEdition"];
+  optional .google.protobuf.Edition maximum_edition = 5 [json_name = "maximumEdition"];
 }
 
 message SourceCodeInfo {
+  extensions 536000000;
   message Location {
-    repeated int32 path = 1 [packed = true];
-    repeated int32 span = 2 [packed = true];
-    optional string leading_comments = 3;
-    optional string trailing_comments = 4;
-    repeated string leading_detached_comments = 6;
+    repeated int32 path = 1 [json_name = "path", packed = true];
+    repeated int32 span = 2 [json_name = "span", packed = true];
+    optional string leading_comments = 3 [json_name = "leadingComments"];
+    optional string trailing_comments = 4 [json_name = "trailingComments"];
+    repeated string leading_detached_comments = 6 [json_name = "leadingDetachedComments"];
   }
 
-  repeated .google.protobuf.SourceCodeInfo.Location location = 1;
+  repeated .google.protobuf.SourceCodeInfo.Location location = 1 [json_name = "location"];
 }
 
 message GeneratedCodeInfo {
@@ -307,13 +443,34 @@ message GeneratedCodeInfo {
       ALIAS = 2;
     }
 
-    repeated int32 path = 1 [packed = true];
-    optional string source_file = 2;
-    optional int32 begin = 3;
-    optional int32 end = 4;
-    optional .google.protobuf.GeneratedCodeInfo.Annotation.Semantic semantic = 5;
+    repeated int32 path = 1 [json_name = "path", packed = true];
+    optional string source_file = 2 [json_name = "sourceFile"];
+    optional int32 begin = 3 [json_name = "begin"];
+    optional int32 end = 4 [json_name = "end"];
+    optional .google.protobuf.GeneratedCodeInfo.Annotation.Semantic semantic = 5 [json_name = "semantic"];
   }
 
-  repeated .google.protobuf.GeneratedCodeInfo.Annotation annotation = 1;
+  repeated .google.protobuf.GeneratedCodeInfo.Annotation annotation = 1 [json_name = "annotation"];
+}
+
+enum Edition {
+  EDITION_UNKNOWN = 0;
+  EDITION_LEGACY = 900;
+  EDITION_PROTO2 = 998;
+  EDITION_PROTO3 = 999;
+  EDITION_2023 = 1000;
+  EDITION_2024 = 1001;
+  EDITION_1_TEST_ONLY = 1;
+  EDITION_2_TEST_ONLY = 2;
+  EDITION_99997_TEST_ONLY = 99997;
+  EDITION_99998_TEST_ONLY = 99998;
+  EDITION_99999_TEST_ONLY = 99999;
+  EDITION_MAX = 2147483647;
+}
+
+enum SymbolVisibility {
+  VISIBILITY_UNSET = 0;
+  VISIBILITY_LOCAL = 1;
+  VISIBILITY_EXPORT = 2;
 }
 

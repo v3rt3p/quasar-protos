@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.library.field_differ.protos";
+option go_package = "a.yandex-team.ru/alice/library/field_differ/protos";
+
+import "google/protobuf/descriptor.proto";
+
+extend .google.protobuf.FieldOptions {
+  .NAlice.EImportantFieldCheck ImportantFieldCheck = 80087;
+}
+enum EImportantFieldCheck {
+  IFC_NOTHING = 0;
+  IFC_DIFF = 1;
+  IFC_PRESENCE = 2;
+}
+

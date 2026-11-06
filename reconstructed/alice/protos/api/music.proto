@@ -1,0 +1,65 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package Alice.Music;
+
+import "alice/protos/data/music_provider/provider_meta.proto";
+import "google/protobuf/struct.proto";
+
+enum ContentError {
+  CONTENT_ERROR_UNKNOWN = 0;
+  CONTENT_ERROR_UNAVAILABLE = 1;
+}
+
+enum CallbackType {
+  CALLBACK_TYPE_UNKNOWN = 0;
+  CALLBACK_TYPE_ON_STARTED = 1;
+  CALLBACK_TYPE_ON_STOPPED = 2;
+  CALLBACK_TYPE_ON_FINISHED = 3;
+  CALLBACK_TYPE_ON_FAILED = 4;
+}
+
+message Config {
+  .Alice.Music.MusicProvider MusicProvider = 1 [json_name = "music_provider"];
+  bool UseIdAsRealId = 2 [json_name = "use_id_as_real_id"];
+}
+
+message ClientUserInfo {
+  string Uid = 1 [json_name = "uid"];
+  uint64 ClientTimeMsGmt = 3 [json_name = "client_time_ms_gmt"];
+  string EncryptedAccessToken = 4 [json_name = "encrypted_access_token"];
+  optional ClientUserInfo.ClientExperiments client_experiments = 5 [json_name = "client_experiments"];
+  message ClientExperiments {
+    bool UseIdForTrackId = 1 [json_name = "use_id_for_track_id"];
+  }
+}
+
+message SearchResultAttention {
+  optional SearchResultAttention.NotFound not_found = 1 [json_name = "not_found"];
+  message NotFound {
+  }
+}
+
+message ContentAttention {
+  optional ContentAttention.PaymentRequired payment_required = 1 [json_name = "payment_required"];
+  message PaymentRequired {
+  }
+}
+
+message ProgressFeedbackPayload {
+  float TotalPlayedSeconds = 1 [json_name = "total_played_seconds"];
+  float CurrentPositionSeconds = 2 [json_name = "current_position_seconds"];
+  float TrackDurationSeconds = 3 [json_name = "track_duration_seconds"];
+  CallbackType CallbackType = 4 [json_name = "callback_type"];
+  optional .google.protobuf.Struct ProviderCallbackPayload = 5 [json_name = "provider_callback_payload"];
+}
+
+message ProgressCallbacks {
+  optional .google.protobuf.Struct OnStartedPayload = 1 [json_name = "on_started_payload"];
+  optional .google.protobuf.Struct OnStoppedPayload = 2 [json_name = "on_stopped_payload"];
+  optional .google.protobuf.Struct OnFinishedPayload = 3 [json_name = "on_finished_payload"];
+  optional .google.protobuf.Struct OnFailedPayload = 4 [json_name = "on_failed_payload"];
+}
+

@@ -1,0 +1,212 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "alice/protos/data/lat_lon.proto";
+
+package NAlice.NData;
+
+enum EDayOfWeek {
+  Sunday = 0;
+  Monday = 1;
+  Tuesday = 2;
+  Wednesday = 3;
+  Thursday = 4;
+  Friday = 5;
+  Saturday = 6;
+  Everyday = 7;
+}
+
+enum EClosed {
+  ClosedUnknown = 0;
+  ClosedPermanent = 1;
+  ClosedTemporary = 2;
+}
+
+enum EKind {
+  Country = 0;
+  Region = 1;
+  Province = 2;
+  Area = 3;
+  Locality = 4;
+  District = 5;
+  Street = 6;
+  House = 7;
+  Route = 8;
+  Station = 9;
+  MetroStation = 10;
+  RailwayStation = 11;
+  Vegetation = 12;
+  Hydro = 13;
+  Airport = 14;
+  Other = 15;
+  Entrance = 16;
+  Level = 17;
+  Apartment = 18;
+}
+
+enum EVehicleType {
+  VehicleTypeUnknown = 0;
+  VehicleTypeUnderground = 1;
+  VehicleTypeCityTransport = 2;
+  VehicleTypeRailway = 3;
+  VehicleTypeWater = 4;
+  VehicleTypeAero = 5;
+  VehicleTypeCable = 6;
+}
+
+message TPhone {
+  string Formatted = 1 [json_name = "formatted"];
+  string Flat = 2 [json_name = "flat"];
+}
+
+message TAdvertInfo {
+  optional TOrdInfo OrdInfo = 1 [json_name = "ord_info"];
+  string Text = 2 [json_name = "text"];
+  repeated string BannerFlags = 3 [json_name = "banner_flags"];
+  optional TLinks Links = 4 [json_name = "links"];
+  string Yclid = 5 [json_name = "yclid"];
+  string BannerId = 6 [json_name = "banner_id"];
+}
+
+message TOrdInfo {
+  string ClientId = 1 [json_name = "client_id"];
+  string ClientTin = 2 [json_name = "client_tin"];
+  string ClientName = 3 [json_name = "client_name"];
+  string Token = 4 [json_name = "token"];
+}
+
+message TLinks {
+  string OnShow = 1 [json_name = "on_show"];
+  string OnClick = 2 [json_name = "on_click"];
+  string EventSpecificTemplate = 3 [json_name = "event_specific_template"];
+}
+
+message TPoiObject {
+  enum EType {
+    TypeUndefined = 0;
+    TypeAddress = 1;
+    TypeOrganization = 2;
+  }
+
+  message TAddress {
+    enum EKind {
+      Country = 0;
+      Region = 1;
+      Province = 2;
+      Area = 3;
+      Locality = 4;
+      District = 5;
+      Street = 6;
+      House = 7;
+      Route = 8;
+      Station = 9;
+      MetroStation = 10;
+      RailwayStation = 11;
+    }
+
+    message TDetail {
+      EKind Kind = 1 [json_name = "kind"];
+      string Value = 2 [json_name = "value"];
+    }
+
+    string FormattedAddress = 1 [json_name = "formatted_address"];
+    repeated TDetail AddressDetails = 2 [json_name = "address_details"];
+    int64 GeoId = 3 [json_name = "geo_id"];
+    int64 GeoIdCity = 4 [json_name = "geo_id_city"];
+    string CityPrepcase = 5 [json_name = "city_prepcase"];
+    bool InUserCity = 6 [json_name = "in_user_city"];
+    string TimeZone = 7 [json_name = "time_zone"];
+  }
+  string CompanyName = 1 [json_name = "company_name"];
+  string Name = 2 [json_name = "name"];
+  string Id = 3 [json_name = "id"];
+  optional TAddress Address = 4 [json_name = "address"];
+  string Description = 5 [json_name = "description"];
+  repeated string Category = 6 [json_name = "category"];
+  optional .NAlice.NData.TLatLon LatLon = 7 [json_name = "lat_lon"];
+  repeated string Logos = 8 [json_name = "logos"];
+  repeated string WebSites = 9 [json_name = "web_sites"];
+  string YandexMapsLink = 10 [json_name = "yandex_maps_link"];
+  repeated string Gallery = 12 [json_name = "gallery"];
+  string Rating = 13 [json_name = "rating"];
+  optional TWorkingHours WorkingHours = 14 [json_name = "working_hours"];
+  string SeoName = 15 [json_name = "seo_name"];
+  double Distance = 16 [json_name = "distance"];
+  bool Unreliable = 17 [json_name = "unreliable"];
+  EType Type = 18 [json_name = "type"];
+  string References = 19 [json_name = "references"];
+  repeated TExtraOption ExtraOptions = 20 [json_name = "extra_options"];
+  repeated string Subtitles = 21 [json_name = "subtitles"];
+  repeated TPoiObject RelatedPlaces = 22 [json_name = "related_places"];
+  repeated TNearestStop NearestStops = 23 [json_name = "nearest_stops"];
+  string DistanceFormatted = 24 [json_name = "distance_formatted"];
+  string RouteUri = 25 [json_name = "route_uri"];
+  string ObjectUri = 26 [json_name = "object_uri"];
+  repeated TPhone PhoneList = 27 [json_name = "phone_list"];
+  string TaxiUri = 28 [json_name = "taxi_uri"];
+  string MapImageUrl = 29 [json_name = "map_image_url"];
+  string WideMapImageUrl = 30 [json_name = "wide_map_image_url"];
+  int32 Reviews = 31 [json_name = "reviews"];
+  string ReviewsUrl = 32 [json_name = "reviews_url"];
+  float Accuracy = 33 [json_name = "accuracy"];
+  string PhotosUrl = 34 [json_name = "photos_url"];
+  repeated string CategoryClass = 35 [json_name = "category_class"];
+  optional TAdvertInfo AdvertInfo = 36 [json_name = "advert_info"];
+  optional TGeoMetricsInfo GeoMetricsInfo = 37 [json_name = "geo_metrics_info"];
+}
+
+message TWorkingHours {
+  repeated TTimeRange TimeRange = 1 [json_name = "time_range"];
+  EClosed CloseState = 2 [json_name = "close_state"];
+  bool OpenNow = 3 [json_name = "open_now"];
+  bool Open24h = 4 [json_name = "open24h"];
+  optional TTimeRange TimeToday = 5 [json_name = "time_today"];
+  string FormattedText = 6 [json_name = "formatted_text"];
+  string CurrentText = 7 [json_name = "current_text"];
+}
+
+message TTimeRange {
+  EDayOfWeek Day = 1 [json_name = "day"];
+  uint32 FromSec = 2 [json_name = "from_sec"];
+  uint32 ToSec = 3 [json_name = "to_sec"];
+}
+
+message TDetail {
+  EKind Kind = 1 [json_name = "kind"];
+  string Value = 2 [json_name = "value"];
+}
+
+message TExtraOption {
+  string Key = 1 [json_name = "key"];
+  string Title = 2 [json_name = "title"];
+  repeated string Value = 3 [json_name = "value"];
+}
+
+message TNearestStop {
+  string Name = 1 [json_name = "name"];
+  string Id = 2 [json_name = "id"];
+  optional .NAlice.NData.TLatLon LatLon = 4 [json_name = "lat_lon"];
+  double Distance = 5 [json_name = "distance"];
+  string DistanceFormatted = 6 [json_name = "distance_formatted"];
+  repeated TVehicleType VehicleTypes = 7 [json_name = "vehicle_types"];
+}
+
+message TVehicleType {
+  string Name = 1 [json_name = "name"];
+  string Id = 2 [json_name = "id"];
+  bool ColorSet = 3 [json_name = "color_set"];
+  uint32 Color = 4 [json_name = "color"];
+  repeated EVehicleType VehicleTypes = 5 [packed = true, json_name = "vehicle_types"];
+}
+
+message TPoiObjectList {
+  repeated TPoiObject PoiObjects = 1 [json_name = "poi_objects"];
+  string GeosearchReqId = 2 [json_name = "geosearch_req_id"];
+}
+
+message TGeoMetricsInfo {
+  string EventSpecificTemplate = 1 [json_name = "event_specific_template"];
+}
+

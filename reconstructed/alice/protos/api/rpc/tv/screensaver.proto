@@ -1,0 +1,70 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "reconstructed/alice/video_common/video_state.proto";
+
+import "alice/protos/endpoint/capabilities/multi_account/capability.proto";
+
+import "alice/protos/endpoint/capabilities/widget_stack/capability.proto";
+
+import "alice/protos/api/alicekit/cards/card.proto";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+import "alice/protos/data/avatar/avatar.proto";
+
+import "alice/protos/data/scenario/objects/image.proto";
+
+message TGetScreensaverThemesRequest {
+  int32 UnseenNewHighlight = 1 [json_name = "unseen_new_highlight"];
+  bool IsLottieAnimatedClockSupported = 2 [json_name = "is_lottie_animated_clock_supported"];
+}
+
+message TGetScreensaverThemesResponse {
+  message TThemeWrapper {
+    message TSingleImage {
+      optional .NAlice.NData.TSingleImage.TImageRef Image = 1 [json_name = "image"];
+    }
+
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    string Description = 3 [json_name = "description"];
+    string NumberBadge = 4 [json_name = "number_badge"];
+    optional .NAlice.TAvatarMdsImage Thumbnail = 5 [json_name = "thumbnail"];
+    repeated .NAlice.TVoiceControl VoiceControls = 6 [json_name = "voice_controls"];
+    optional TSingleImage SingleImagePreview = 7 [json_name = "single_image_preview"];
+    optional .NAlice.TAvatarMdsImage CategoryIcon = 8 [json_name = "category_icon"];
+    optional TSingleImage SelectedImagePreview = 9 [json_name = "selected_image_preview"];
+  }
+
+  message TNewHighlight {
+    optional .NAlice.NAliceApi.TTextWithButtonsCard.TButton.TTheme Theme = 1 [json_name = "theme"];
+  }
+
+  repeated TThemeWrapper Themes = 1 [json_name = "themes"];
+  string CurrentTheme = 2 [json_name = "current_theme"];
+  repeated TNewHighlight NewHighlights = 3 [json_name = "new_highlights"];
+  repeated .NAlice.TWidgetStackCapability.TWidget Widgets = 4 [json_name = "widgets"];
+}
+
+message TSaveScreensaverThemeRequest {
+  string Id = 1 [json_name = "id"];
+  repeated .NAlice.TWidgetStackCapability.TWidget Widgets = 2 [json_name = "widgets"];
+}
+
+message TSaveScreensaverThemeResponse {
+  optional .NAlice.TMultiAccountCapability.TAuthActionResultEvent.TSuccess Success = 1 [json_name = "success"];
+  optional .NAlice.NVideoCommon.TVideoState.TError Error = 2 [json_name = "error"];
+}
+
+message TSetupYaDiskScreensaverAlbumRequest {
+}
+
+message TSetupYaDiskScreensaverAlbumResponse {
+  string AlbumUrl = 1 [json_name = "album_url"];
+}
+

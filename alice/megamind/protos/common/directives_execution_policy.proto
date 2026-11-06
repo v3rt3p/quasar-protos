@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.megamind.protos.common";
+option java_outer_classname = "DirectivesExecutionPolicy";
+option go_package = "a.yandex-team.ru/alice/megamind/protos/common";
+
+enum EDirectivesExecutionPolicy {
+  BeforeSpeech = 0;
+  AfterSpeech = 1;
+}
+

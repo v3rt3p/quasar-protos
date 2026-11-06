@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package NMatrix.NApi.NNotifications;
+
+option java_package = "ru.yandex.alice.protos.api.matrix.common";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/api/matrix/common";
+
+enum EDefaultNotificationType {
+  DNT_UNKNOWN = 0;
+  DNT_ALICE_DIGEST = 1;
+  DNT_NEW_EPISODES_OF_THE_SERIES = 2;
+  DNT_NEW_MUSIC = 3;
+  DNT_NEW_ON_KINOPOISK = 4;
+  DNT_NEW_PODCASTS = 5;
+}
+
+enum EProactiveNotificationType {
+  PNT_UNKNOWN = 0;
+  PNT_YANDEX_LAVKA_ORDER_STATUS = 1;
+  PNT_YANDEX_MARKET_15_ORDER_STATUS = 2;
+}
+

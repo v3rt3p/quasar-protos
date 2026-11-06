@@ -1,0 +1,48 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+package NAlice.NAliceApi.NStreamingToMultipleUserConnections;
+
+import "alice/protos/api/alicekit/events/stream_control/stream_control.proto";
+
+import "alice/protos/api/alicekit/events/tts_speak/tts_speak.proto";
+
+import "alice/protos/api/alicekit/events/server_chunk_meta/server_chunk_meta.proto";
+
+import "google/protobuf/timestamp.proto";
+
+
+message TBinaryChunk {
+  bytes Data = 1 [json_name = "data"];
+  optional .NAlice.NAliceApi.TServerChunkMeta ServerChunkMeta = 2 [json_name = "server_chunk_meta"];
+}
+
+message TBinaryProtocolMessage {
+  optional .NAlice.NAliceApi.TTtsSpeak TtsSpeak = 1 [json_name = "tts_speak"];
+  optional TBinaryChunk Chunk = 2 [json_name = "chunk"];
+  optional .NAlice.NAliceApi.TStreamControl StreamControl = 3 [json_name = "stream_control"];
+  uint32 StreamId = 4 [json_name = "stream_id"];
+  optional TBinaryProtocolMessageMeta Meta = 5 [json_name = "meta"];
+}
+
+message TBinaryProtocolMessageMeta {
+  uint32 RequestIndex = 1 [json_name = "request_index"];
+  uint32 ChunkIndex = 2 [json_name = "chunk_index"];
+  bool IsLastChunk = 3 [json_name = "is_last_chunk"];
+  bool IsLastRequest = 4 [json_name = "is_last_request"];
+  uint64 DedupKey = 5 [json_name = "dedup_key"];
+  optional .google.protobuf.Timestamp AttemptStartTime = 6 [json_name = "attempt_start_time"];
+}
+
+message TInflightMessages {
+  string LockId = 1 [json_name = "lock_id"];
+  repeated .NAlice.NRpc.TUpsertNeuroexpertMessagesRequest.TMessage Messages = 2 [json_name = "messages"];
+  string StreamId = 3 [json_name = "stream_id"];
+  string RefMessageId = 4 [json_name = "ref_message_id"];
+  string HashPuid = 5 [json_name = "hash_puid"];
+}
+

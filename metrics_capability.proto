@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package com.yandex.devices.iocom.capability.metrics;
+
+option java_outer_classname = "MetricsIoComCapabilityProto";
+
+import "google/protobuf/struct.proto";
+
+message TState {
+  optional string metrica_uuid = 1;
+  optional string metrica_device_id = 2;
+}
+
+message TEvent {
+  oneof event {
+    .com.yandex.devices.iocom.capability.metrics.TDirective.TReportEvent report_event = 1;
+  }
+}
+
+message TEventArgs {
+  message TReportEventArgs {
+    repeated string id = 1;
+  }
+
+  oneof args {
+    .com.yandex.devices.iocom.capability.metrics.TEventArgs.TReportEventArgs report_event_args = 1;
+  }
+}
+
+message TEventSource {
+  string package_name = 1;
+  string package_version = 2;
+  string package_version_code = 3;
+}
+
+message TDirective {
+  message TReportEvent {
+    .com.yandex.devices.iocom.capability.metrics.TEventSource source = 1;
+    string identifier = 2;
+    .google.protobuf.Struct params = 3;
+    bool is_processed = 4;
+    bool is_local = 5;
+  }
+
+  message TProvideEnvironment {
+    string package_name = 1;
+    map<string, string> environment = 2;
+  }
+
+  oneof directive {
+    .com.yandex.devices.iocom.capability.metrics.TDirective.TReportEvent report_event = 1;
+    .com.yandex.devices.iocom.capability.metrics.TDirective.TProvideEnvironment provide_environment = 2;
+  }
+}
+

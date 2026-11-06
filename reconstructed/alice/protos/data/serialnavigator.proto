@@ -1,0 +1,34 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/video/video.proto";
+
+import "alice/protos/data/avatar/avatar.proto";
+
+import "google/protobuf/struct.proto";
+
+enum ETvPromoType {
+  post = 0;
+}
+
+
+
+message TSerialEpisodeInfo {
+  string ContentId = 1 [json_name = "content_id"];
+  int32 SeasonNumber = 2 [json_name = "season_number"];
+  int32 EpisodeNumber = 3 [json_name = "episode_number"];
+  string Title = 4 [json_name = "title"];
+  string Thumbnail = 5 [json_name = "thumbnail"];
+  ETvPromoType TvPromoType = 6 [json_name = "tv_promo_type"];
+  string RestrictionAge = 7 [json_name = "restriction_age"];
+  string ContentType = 8 [json_name = "content_type"];
+  uint64 DurationSeconds = 9 [json_name = "duration_seconds"];
+  string PlayerId = 10 [json_name = "player_id"];
+  optional .google.protobuf.Struct AdConfig = 11 [json_name = "ad_config"];
+}
+
+

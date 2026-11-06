@@ -1,0 +1,21 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TGetRestrictionsRequest {
+}
+
+message TGetRestrictionsResponse {
+  string RestrictionMode = 1 [json_name = "restriction_mode"];
+}
+
+message TSetRestrictionsRequest {
+  string RestrictionMode = 1 [json_name = "restriction_mode"];
+}
+
+message TSetRestrictionsResponse {
+}
+

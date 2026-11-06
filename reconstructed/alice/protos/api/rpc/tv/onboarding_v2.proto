@@ -1,0 +1,28 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/div/div2card.proto";
+
+message THintV2 {
+  message TData {
+    string OnboardingItemId = 1 [json_name = "onboarding_item_id"];
+    string ScreenParamsTemplateId = 2 [json_name = "screen_params_template_id"];
+    optional .NAlice.TDiv2Card Card = 3 [json_name = "card"];
+  }
+
+  string TriggerId = 1 [json_name = "trigger_id"];
+  repeated TData Data = 2 [json_name = "data"];
+}
+
+message TGetScreenHintsV2Request {
+  repeated string TriggerId = 1 [json_name = "trigger_id"];
+}
+
+message TGetScreenHintsV2Response {
+  repeated THintV2 Hints = 1 [json_name = "hints"];
+}
+

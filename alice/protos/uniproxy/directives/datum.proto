@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NUniproxyDirectives;
+
+option java_package = "ru.yandex.alice.protos.uniproxy.directives";
+option go_package = "a.yandex-team.ru/alice/protos/uniproxy/directives";
+
+import "alice/protos/api/datum/addresses.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TUpdateDatumAddressContextSaveDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.NDatumApi.TUpdateDatumAddressRequest Request = 1 [json_name = "request", (.NYT.column_name) = "request"];
+}
+

@@ -1,0 +1,12 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TSearchRequestTypedCallback {
+  string Query = 1 [json_name = "query"];
+  bool ForceSerp = 2 [json_name = "force_serp"];
+}
+

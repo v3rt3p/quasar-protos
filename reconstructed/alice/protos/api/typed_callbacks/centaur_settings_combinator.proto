@@ -1,0 +1,24 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+enum ETabType {
+  ETabType_Default = 0;
+  Display = 1;
+  Calls = 2;
+  WiFi = 3;
+  YandexAccount = 4;
+  Support = 5;
+}
+
+message TCentaurCollectSettingScreenTypedCallback {
+  ETabType ActiveTab = 1 [json_name = "active_tab"];
+  bool OnlyTabPatch = 2 [json_name = "only_tab_patch"];
+}
+
+message TCheckYandexPlusSubscriptionTypedCallback {
+}
+

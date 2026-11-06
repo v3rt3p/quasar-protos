@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package NAlice.NUniproxyDirectives;
+
+option java_package = "ru.yandex.alice.protos.uniproxy.directives";
+option go_package = "a.yandex-team.ru/alice/protos/uniproxy/directives";
+
+import "alice/protos/data/agents/agent_start.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+
+message TSwitchToAgentModeDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  .NAlice.TAgentStartRequest AgentStartRequest = 1 [json_name = "agent_start_request", (.NYT.column_name) = "agent_start_request"];
+  bool IsMirrorOnly = 2 [json_name = "is_mirror_only", (.NYT.column_name) = "is_mirror_only"];
+}
+

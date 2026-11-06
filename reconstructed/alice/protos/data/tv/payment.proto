@@ -1,0 +1,79 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+message TTariff {
+  string Name = 1 [json_name = "name"];
+}
+
+message TOption {
+  string Name = 1 [json_name = "name"];
+}
+
+message TLegalInfo {
+  string Text = 1 [json_name = "text"];
+  repeated TLegalInfoItem Items = 2 [json_name = "items"];
+}
+
+message TLegalInfoItem {
+  string Key = 1 [json_name = "key"];
+  string Type = 2 [json_name = "type"];
+  optional TLegalInfoData Data = 3 [json_name = "data"];
+}
+
+message TLegalInfoData {
+  string Text = 1 [json_name = "text"];
+  string Link = 2 [json_name = "link"];
+}
+
+message TInvoice {
+  optional TOfferPrice TotalPrice = 1 [json_name = "total_price"];
+  int64 Timestamp = 2 [json_name = "timestamp"];
+}
+
+message TOptionOffer {
+  string Name = 1 [json_name = "name"];
+  optional TOption Option = 2 [json_name = "option"];
+  string Title = 3 [json_name = "title"];
+  optional string Text = 4 [json_name = "text"];
+  optional string AdditionText = 5 [json_name = "addition_text"];
+  optional string Description = 6 [json_name = "description"];
+  string CommonPeriod = 7 [json_name = "common_period"];
+  optional TOfferPrice CommonPrice = 8 [json_name = "common_price"];
+  repeated TOfferPlan Plans = 9 [json_name = "plans"];
+  optional TOfferPayload Payload = 10 [json_name = "payload"];
+}
+
+message TTariffOffer {
+  string Name = 1 [json_name = "name"];
+  optional TTariff Tariff = 2 [json_name = "tariff"];
+  string Title = 3 [json_name = "title"];
+  optional string Text = 4 [json_name = "text"];
+  optional string AdditionText = 5 [json_name = "addition_text"];
+  optional string Description = 6 [json_name = "description"];
+  repeated TOfferPlan Plans = 7 [json_name = "plans"];
+  optional TOfferPayload Payload = 8 [json_name = "payload"];
+  string CommonPeriod = 9 [json_name = "common_period"];
+  optional TOfferPrice CommonPrice = 10 [json_name = "common_price"];
+}
+
+message TOfferPayload {
+  string Props = 1 [json_name = "props"];
+}
+
+message TOfferPlan {
+  string Typename = 1 [json_name = "typename"];
+  string Period = 2 [json_name = "period"];
+  int32 RepetitionCount = 3 [json_name = "repetition_count"];
+  string Until = 4 [json_name = "until"];
+  optional TOfferPrice Price = 5 [json_name = "price"];
+}
+
+message TOfferPrice {
+  int64 Amount = 1 [json_name = "amount"];
+  string Currency = 2 [json_name = "currency"];
+}
+

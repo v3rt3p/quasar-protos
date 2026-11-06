@@ -1,0 +1,32 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NSmartDeviceExternalApp;
+
+import "reconstructed/alice/protos/api/rpc/smartdeviceexternalapp/app/app.proto";
+import "alice/protos/api/typed_callbacks/typed_callback_request.proto";
+import "alice/protos/api/dialogs/store_type.proto";
+
+message TAppVoiceControlsSettings {
+  bool IsAccessibilityTreeProcessingEnabled = 1 [json_name = "is_accessibility_tree_processing_enabled"];
+  bool IsAppFunctionsEnabled = 2 [json_name = "is_app_functions_enabled"];
+  bool IsMediaSessionEnabled = 3 [json_name = "is_media_session_enabled"];
+}
+
+message TClientSettingsForApp {
+  optional .NAlice.NSmartDeviceExternalApp.TAppApkIdentifier AppApkIdentifier = 1 [json_name = "app_apk_identifier"];
+  optional TAppVoiceControlsSettings VoiceControlsSettings = 2 [json_name = "voice_controls_settings"];
+  repeated TTypedCallbackRequest TypedCallbackRequests = 3 [json_name = "typed_callback_requests"];
+}
+
+message TGetClientSettingsForAppsRequest {
+  .NAlice.NApi.NDialogs.EStoreType AppStoreType = 1 [json_name = "app_store_type"];
+  repeated .NAlice.NSmartDeviceExternalApp.TAppApkIdentifier AppApkIdentifiers = 2 [json_name = "app_apk_identifiers"];
+}
+
+message TGetClientSettingsForAppsResponse {
+  repeated TClientSettingsForApp ClientSettingsForApps = 1 [json_name = "client_settings_for_apps"];
+}
+

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package NAlice.NClient;
+
+option java_package = "ru.yandex.alice.library.client.protos";
+option go_package = "a.yandex-team.ru/alice/library/client/protos";
+
+enum EPromoType {
+  PT_NO_TYPE = 0;
+  PT_GREEN_PERSONALITY = 1;
+  PT_TIFFANY_PERSONALITY = 2;
+  PT_PURPLE_PERSONALITY = 3;
+  PT_RED_PERSONALITY = 4;
+  PT_BEIGE_PERSONALITY = 5;
+  PT_YELLOW_PERSONALITY = 6;
+  PT_PINK_PERSONALITY = 7;
+}
+

@@ -1,0 +1,19 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NVideo;
+
+import "reconstructed/alice/protos/data/serialnavigator.proto";
+
+message TAdjacentEpisodesRequest {
+  string SeriesEntityId = 1 [json_name = "series_entity_id"];
+  string ContentId = 2 [json_name = "content_id"];
+}
+
+message TAdjacentEpisodesResponse {
+  optional .NAlice.TSerialEpisodeInfo NextEpisode = 1 [json_name = "next_episode"];
+  optional .NAlice.TSerialEpisodeInfo PreviousEpisode = 2 [json_name = "previous_episode"];
+}
+

@@ -1,0 +1,23 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/tv/carousel.proto";
+
+enum TFilmographyFeatures {
+  UnknownFilmographyFeature = 0;
+  FilmographyVoiceControls = 1;
+}
+
+message TGetFilmographyRequest {
+  string PersonId = 1 [json_name = "person_id"];
+  repeated TFilmographyFeatures Features = 2 [packed = true, json_name = "features"];
+}
+
+message TGetFilmographyResponse {
+  optional .NAlice.NTv.TCarousel Carousel = 1 [json_name = "carousel"];
+}
+

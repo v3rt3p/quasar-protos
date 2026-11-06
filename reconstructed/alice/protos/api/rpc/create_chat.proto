@@ -1,0 +1,65 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NRpc;
+
+import "reconstructed/alice/video_common/video_state.proto";
+
+import "reconstructed/alice/protos/data/memory.proto";
+
+import "alice/protos/endpoint/capabilities/tab_content/capability.proto";
+
+message TActivateChatRequest {
+  string DialogId = 1 [json_name = "dialog_id"];
+}
+
+message TActivateChatResponse {
+}
+
+message TCreateChatFromNeuroRequest {
+  string EncryptedNeuroContext = 1 [json_name = "encrypted_neuro_context"];
+  string TargetQuery = 2 [json_name = "target_query"];
+  string Secret = 3 [json_name = "secret"];
+  optional TCreateChatFromNeuroRequest.TSecretValidationInfo SecretValidationInfo = 4 [json_name = "secret_validation_info"];
+  message TSecretValidationInfo {
+    string AesHexIv = 1 [json_name = "aes_hex_iv"];
+    uint32 SecretKeyId = 2 [json_name = "secret_key_id"];
+    string HmacDigest = 3 [json_name = "hmac_digest"];
+    string HmacDigestAesHexIv = 4 [json_name = "hmac_digest_aes_hex_iv"];
+  }
+}
+
+message TCreateChatFromNeuroResponse {
+  optional TCreateChatFromNeuroResponse.TNewChat NewChat = 1 [json_name = "new_chat"];
+  optional .NAlice.NVideoCommon.TVideoState.TError Error = 2 [json_name = "error"];
+  message TNewChat {
+    string Url = 1 [json_name = "url"];
+  }
+}
+
+message TUpsertNeuroexpertMessagesRequest {
+  optional string DialogId = 1 [json_name = "dialog_id"];
+  optional TUpsertNeuroexpertMessagesRequest.TMessage Request = 2 [json_name = "request"];
+  optional TUpsertNeuroexpertMessagesRequest.TMessage Response = 3 [json_name = "response"];
+  message TMessage {
+    optional .NAlice.TTabContentCapability.TState.TContent Content = 1 [json_name = "content"];
+    optional .NAlice.NData.NMemory.TMessage.TMetadata MessageMetadata = 3 [json_name = "message_metadata"];
+    message TMetadata {
+      string DialogId = 1 [json_name = "dialog_id"];
+      optional uint64 LastMessageServerTimestampMs = 2 [json_name = "last_message_server_timestamp_ms"];
+      optional uint64 FirstMessageServerTimestampMs = 3 [json_name = "first_message_server_timestamp_ms"];
+    }
+  }
+}
+
+message TUpsertNeuroexpertMessagesResponse {
+  string DialogId = 1 [json_name = "dialog_id"];
+}
+
+
+enum EResponseStatus {
+  ok = 0;
+  error = 1;
+}

@@ -104,7 +104,6 @@ message TDeviceState {
   reserved "Browser";
   reserved "InstalledApps";
   reserved "MessengerCall";
-  reserved "Screen";
   reserved "UniversalMediaApp";
   reserved "SubscriptionState";
   reserved "EndpointId";
@@ -118,7 +117,6 @@ message TDeviceState {
   reserved 18;
   reserved 20;
   reserved 21;
-  reserved 27;
   reserved 29;
   reserved 31;
   reserved 34;
@@ -184,6 +182,36 @@ message TDeviceState {
     optional string SessionId = 7 [json_name = "session_id", (.NYT.column_name) = "session_id"];
     optional double LastPlayTimestamp = 8 [json_name = "last_play_timestamp", (.NYT.column_name) = "last_play_timestamp"];
     optional double LastStopTimestamp = 9 [json_name = "last_stop_timestamp", (.NYT.column_name) = "last_stop_timestamp"];
+  }
+
+  message TScreen {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EScreenResolution {
+      video_format_unknown = 0;
+      video_format_SD = 1;
+      video_format_HD = 2;
+      video_format_UHD = 3;
+    }
+
+    enum EHdcpLevel {
+      current_HDCP_level_unknown = 0;
+      current_HDCP_level_none = 1;
+      current_HDCP_level_1X = 2;
+      current_HDCP_level_2X = 3;
+    }
+
+    enum EDynamicRange {
+      dynamic_range_unknown = 0;
+      dynamic_range_SDR = 1;
+      dynamic_range_HDR10 = 2;
+      dynamic_range_HDR10Plus = 3;
+      dynamic_range_DV = 4;
+      dynamic_range_HLG = 5;
+    }
+
+    repeated .NAlice.NAliceApi.TDeviceState.TScreen.EScreenResolution SupportedScreenResolutions = 1 [json_name = "supported_screen_resolutions", (.NYT.column_name) = "supported_screen_resolutions"];
+    optional .NAlice.NAliceApi.TDeviceState.TScreen.EHdcpLevel HdcpLevel = 2 [json_name = "hdcp_level", (.NYT.column_name) = "hdcp_level"];
+    repeated .NAlice.NAliceApi.TDeviceState.TScreen.EDynamicRange DynamicRanges = 3 [json_name = "dynamic_ranges", (.NYT.column_name) = "dynamic_ranges"];
   }
 
   message TVideo {
@@ -562,6 +590,7 @@ message TDeviceState {
   optional .NAlice.NAliceApi.TDeviceState.TBluetooth Bluetooth = 24 [json_name = "bluetooth", (.NYT.column_name) = "bluetooth"];
   optional .NAlice.NAliceApi.TDeviceState.TInternetConnection InternetConnection = 25 [json_name = "internet_connection", (.NYT.column_name) = "internet_connection"];
   optional bool MicsMuted = 26 [json_name = "mics_muted", (.NYT.column_name) = "mics_muted"];
+  optional .NAlice.NAliceApi.TDeviceState.TScreen Screen = 27 [json_name = "screen", (.NYT.column_name) = "screen"];
   optional .NAlice.NAliceApi.TDeviceState.TRcuState RcuState = 28 [json_name = "rcu", (.NYT.column_name) = "rcu"];
   optional bool IsDefaultAssistant = 30 [json_name = "is_default_assistant", (.NYT.column_name) = "is_default_assistant"];
   optional uint32 SoundMaxLevel = 32 [json_name = "sound_max_level", (.NYT.column_name) = "sound_max_level"];

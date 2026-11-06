@@ -1,0 +1,61 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice;
+
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+enum EErrorStatus {
+  EErrorStatus_Undefined = 0;  // renamed: sibling-collision in NAlice
+  NoDevicesResponded = 1;
+}
+
+message TStartFaceEnrollmentRequest {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+  string DeviceId = 3 [json_name = "device_id"];
+  string OwnerPuid = 4 [json_name = "owner_puid"];
+}
+
+message TStartFaceEnrollmentResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+  string Message = 2 [json_name = "message"];
+}
+
+message TForgetFaceEnrollmentRequest {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+  string DeviceId = 3 [json_name = "device_id"];
+  string OwnerPuid = 4 [json_name = "owner_puid"];
+}
+
+message TForgetFaceEnrollmentResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+  string Message = 2 [json_name = "message"];
+}
+
+message TGetDeviceFaceEnrollmentsRequest {
+  string OwnerPuid = 2 [json_name = "owner_puid"];
+  repeated string DeviceIds = 3 [json_name = "device_ids"];
+}
+
+
+message TDeviceEnrollment {
+  string DeviceId = 1 [json_name = "device_id"];
+  repeated TEnrollment Enrollments = 2 [json_name = "enrollments"];
+}
+
+message TGetDeviceFaceEnrollmentsResponse {
+  .NAlice.NRpc.EResponseStatus Status = 2 [json_name = "status"];
+  string Message = 3 [json_name = "message"];
+  repeated string FailedDeviceIds = 4 [json_name = "failed_device_ids"];
+  repeated TDeviceEnrollment DeviceEnrollments = 5 [json_name = "device_enrollments"];
+}
+
+
+message TEnrollment {
+  string Puid = 1 [json_name = "puid"];
+  string PersId = 2 [json_name = "pers_id"];
+}

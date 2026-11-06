@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package NAlice.NTv;
+
+option java_package = "ru.yandex.alice.protos.data.tv.ugc";
+option java_outer_classname = "TvUgcTypes";
+option go_package = "a.yandex-team.ru/alice/protos/data/tv/ugc";
+
+enum EUgcFlag {
+  EUF_AlreadySeen = 0;
+  EUF_NotInterested = 1;
+  EUF_Like = 2;
+  EUF_WillWatch = 99;
+}
+
+enum EItemType {
+  EIT_Film = 0;
+  EIT_Series = 1;
+  EIT_UndefinedType = 100;
+}
+

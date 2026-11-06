@@ -1,0 +1,35 @@
+// Reconstructed from YandexQcApp.apk (magritte 5000001628 firmware),
+// SerialNavigatorRequestProto.java / SerialNavigatorResponseProto.java
+// (Yandex "ry" codegen — no embedded descriptors; schema rebuilt from
+// generated Java). Called via POST {gproxyUrl}/serial_navigator.
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/tv/serial_navigator/wrappers.proto";
+
+option java_package = "ru.yandex.alice.protos.api.rpc.serialnavigator";
+
+message TSerialNavigatorRequest {
+  string provider_item_id = 1;
+  string onto_id = 2;
+  uint64 limit = 3;
+  optional uint32 season_number = 4;
+  optional uint32 episode_number = 5;
+  string kinopoisk_id = 6;
+}
+
+message TSerialNavigatorResponse {
+  message TSerialNavigatorPosition {
+    uint32 season_index = 1;
+    uint32 episode_index = 2;
+    reserved 3;
+    uint32 progress = 4;
+  }
+
+  optional .NAlice.NTv.TSerialInfoWrapper serial_info = 1;
+  repeated .NAlice.NTv.TCarouselItemWrapper episodes = 2;
+  optional .NAlice.TSerialNavigatorResponse.TSerialNavigatorPosition position = 3;
+}

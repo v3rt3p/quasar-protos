@@ -1,0 +1,29 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/endpoint/capabilities/iot_discovery/capability.proto";
+
+message TClearMementoFeatureBoardingTypedCallback {
+}
+
+message TSetFeatureBoardingStatusTypedCallback {
+  enum EStatus {
+    Undefined = 0;
+    Completed = 1;
+    Skipped = 2;
+  }
+
+
+
+  EStatus Status = 1 [json_name = "status"];
+  string FeatureId = 2 [json_name = "feature_id"];
+}
+
+message TStartTeaserFeatureBoardingTypedCallback {
+  string FeatureId = 1 [json_name = "feature_id"];
+}
+

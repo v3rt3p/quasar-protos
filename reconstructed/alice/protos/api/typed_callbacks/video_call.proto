@@ -1,0 +1,47 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NScenarios.NVideoCall;
+
+import "alice/protos/endpoint/capabilities/video_call/capability.proto";
+
+import "alice/protos/endpoint/capabilities/auto_head_text_messaging/capability.proto";
+
+message TCollectCallsVerticalTypedCallback {
+  bool IsStashUpdate = 1 [json_name = "is_stash_update"];
+}
+
+message TContactChooseTypedCallback {
+  repeated TProviderContactItem ContactItem = 1 [json_name = "contact_item"];
+}
+
+message TContactsUploadedTypedCallback {
+  optional .NAlice.TVideoCallCapability.TProviderState ProviderState = 1 [json_name = "provider_state"];
+}
+
+message TIncomingCallAcceptedTypedCallback {
+  optional TProviderContactItem ContactItem = 1 [json_name = "contact_item"];
+}
+
+message TLoginedTypedCallback {
+  optional .NAlice.TVideoCallCapability.TProviderState ProviderState = 1 [json_name = "provider_state"];
+}
+
+message TLogoutedTypedCallback {
+}
+
+message TProviderContactItem {
+  optional TTelegramContactItem TelegramContactItem = 1 [json_name = "telegram_contact_item"];
+}
+
+message TTelegramContactItem {
+  string UserId = 1 [json_name = "user_id"];
+  string DisplayName = 2 [json_name = "display_name"];
+}
+
+message TRecentContactsUpdatedTypedCallback {
+  optional .NAlice.TVideoCallCapability.TProviderState ProviderState = 1 [json_name = "provider_state"];
+}
+

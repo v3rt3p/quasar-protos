@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NData.NDialogs;
+
+option java_package = "ru.yandex.alice.protos.data.dialogs";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/dialogs";
+
+enum EChannel {
+  UnknownChannel = 0;
+  TvApp = 1;
+  SmartScreenApp = 2;
+  AutoApp = 3;
+}
+

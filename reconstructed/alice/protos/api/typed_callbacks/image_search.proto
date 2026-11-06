@@ -1,0 +1,13 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TImageSearchTypedCallback {
+  string Query = 1 [json_name = "query"];
+  optional string ScreenshotUrl = 2 [json_name = "screenshot_url"];
+  bytes Screenshotbytes = 3 [json_name = "screenshotbytes"];
+}
+

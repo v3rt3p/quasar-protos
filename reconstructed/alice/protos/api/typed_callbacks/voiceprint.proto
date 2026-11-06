@@ -1,0 +1,60 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "voicetech/bio/ondevice/proto_api/bio.proto";
+
+import "alice/protos/endpoint/capabilities/make_order/capability.proto";
+
+
+message TFaceEnrollmentProcessErrorTypedCallback {
+  enum EErrorType {
+    Unknown = 0;
+    TooFarAway = 1;
+    NoOneInSight = 2;
+    DisplayRotated = 3;
+  }
+
+  EErrorType ErrorType = 1 [json_name = "error_type"];
+}
+
+message TFaceEnrollmentRequestTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+  bool NeedNlg = 3 [json_name = "need_nlg"];
+}
+
+message TFaceEnrollmentRotationScanTypedCallback {
+}
+
+message TForgetFaceEnrollmentCancelTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+}
+
+message TForgetFaceEnrollmentConfirmTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+}
+
+message TForgetFaceEnrollmentTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+}
+
+message TOnFaceEnrollmentStartedTypedCallback {
+}
+
+
+message TRegisterFaceEnrollmentTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+}
+
+message TStartFaceRecordingTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+  string Puid = 2 [json_name = "puid"];
+}
+

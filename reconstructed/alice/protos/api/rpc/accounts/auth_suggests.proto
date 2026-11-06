@@ -1,0 +1,37 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/avatar/avatar.proto";
+
+
+message TGetAuthSuggestsRequest {
+  bool DontSendPassportAdults = 1 [json_name = "dont_send_passport_adults"];
+}
+
+message TGetAuthSuggestsResponse {
+  message TUserInfo {
+    string Puid = 1 [json_name = "puid"];
+    string FirstName = 2 [json_name = "first_name"];
+    string LastName = 3 [json_name = "last_name"];
+    bool IsChildAccount = 4 [json_name = "is_child_account"];
+    optional .NAlice.TAvatarMdsImage Avatar = 5 [json_name = "avatar"];
+    string DisplayName = 6 [json_name = "display_name"];
+    ESource Source = 7 [json_name = "source"];
+    string Email = 8 [json_name = "email"];
+    bool IsPupa = 9 [json_name = "is_pupa"];
+  }
+
+  repeated TUserInfo Users = 1 [json_name = "users"];
+}
+
+
+
+enum ESource {
+  ESource_Undefined = 0;  // renamed from Undefined: sibling-collision in NAlice
+  PassportFamily = 1;
+  IotFamily = 2;
+}

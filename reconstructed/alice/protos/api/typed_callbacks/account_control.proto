@@ -1,0 +1,28 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TAccountPinCodeActionConfirmationCodeTypedCallback {
+  string ConfirmationCode = 1 [json_name = "confirmation_code"];
+}
+
+message TAuthorizePupaTypedCallback {
+  string Puid = 1 [json_name = "puid"];
+}
+
+message TConfirmDeviceFamilyNoticeTypedCallback {
+}
+
+message TExpandAccountListTypedCallback {
+}
+
+message TShowLoginScreenTypedCallback {
+}
+
+message TSwitchAccountTypedCallback {
+  string PersId = 1 [json_name = "pers_id"];
+}
+

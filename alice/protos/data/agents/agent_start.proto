@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package NAlice;
+
+option java_package = "ru.yandex.alice.protos.data.agents";
+option java_outer_classname = "AgentStartRequest";
+option go_package = "a.yandex-team.ru/alice/protos/data/agents";
+
+import "alice/library/censor/protos/extension.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/any.proto";
+
+message TAgentStartRequest {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message THttpHeader {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string Name = 1 [json_name = "name", (.NYT.column_name) = "name"];
+    string Value = 2 [json_name = "value", (.NYT.column_name) = "value"];
+  }
+
+  .google.protobuf.Any Body = 1 [json_name = "body", (.NYT.column_name) = "body"];
+  repeated .NAlice.TAgentStartRequest.THttpHeader AdditionalHeaders = 2 [json_name = "additional_headers", (.NYT.column_name) = "additional_headers", (.NAlice.FieldAccess) = A_PRIVATE_REQUEST, (.NAlice.FieldAccess) = A_PRIVATE_EVENTLOG, (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  bool UseAtsV2 = 3 [json_name = "use_ats_v2", (.NYT.column_name) = "use_ats_v2"];
+}
+

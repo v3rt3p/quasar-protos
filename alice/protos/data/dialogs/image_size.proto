@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package NAlice.NData.NDialogs;
+
+option java_package = "ru.yandex.alice.protos.data.dialogs";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/protos/data/dialogs";
+
+enum EImageSize {
+  UNKNOWN_IMAGE_SIZE = 0;
+  SIZE_144X144 = 1;
+  SIZE_124X124 = 2;
+  SIZE_1024X500 = 3;
+}
+

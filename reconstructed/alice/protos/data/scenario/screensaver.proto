@@ -1,0 +1,180 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData;
+
+import "alice/protos/endpoint/capabilities/widget_stack/capability.proto";
+
+import "alice/protos/endpoint/capabilities/alice_chat/capability.proto";
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+import "alice/protos/data/scenario/weather/weather.proto";
+
+message TMementoConfig {
+  string SelectedTheme = 1 [json_name = "selected_theme"];
+  optional TNYWidgetsList NyWidgetsState = 2 [json_name = "ny_widgets_state"];
+  repeated TUserWidget UserWidgets = 3 [json_name = "user_widgets"];
+}
+
+message TNYWidgetsList {
+  repeated string EnabledWidgets = 1 [json_name = "enabled_widgets"];
+}
+
+message TScreensaverLlmContext {
+  optional TScreensaverLlmContext.TUniversal Universal = 1 [json_name = "universal"];
+  optional TScreensaverLlmContext.TTretyakovka Tretyakovka = 2 [json_name = "tretyakovka"];
+  message TTretyakovka {
+    string Author = 1 [json_name = "author"];
+    string Title = 2 [json_name = "title"];
+    string Year = 3 [json_name = "year"];
+    string Description = 4 [json_name = "description"];
+  }
+  message TUniversal {
+    string UniversalDescription = 1 [json_name = "universal_description"];
+  }
+}
+
+enum TTypeCase {
+  TTYPE_NOT_SET = 0;
+  UNIVERSAL = 1;
+  TRETYAKOVKA = 2;
+}
+
+message TScreensaverOverlayConfig {
+  repeated TScreensaverOverlayWidgetData ChosenWidgets = 1 [json_name = "chosen_widgets"];
+  string GradientColor = 2 [json_name = "gradient_color"];
+}
+
+message TScreensaverOverlayWidgetData {
+  optional TScreensaverOverlayWidgetData.TAliceSuggest AliceSuggest = 1 [json_name = "alice_suggest"];
+  optional TScreensaverOverlayWidgetData.TDescription Description = 2 [json_name = "description"];
+  optional TScreensaverOverlayWidgetData.TClockWeather ClockWeather = 3 [json_name = "clock_weather"];
+  optional .NAlice.TAliceChatCapability.TShowFullscreenImageGalleryDirective.TImage Image = 4 [json_name = "image"];
+  optional TScreensaverOverlayWidgetData.TInteractiveWidget widget = 5;
+  optional TScreensaverOverlayWidgetData.TUserWidgetsData UserWidgetsData = 7 [json_name = "user_widgets_data"];
+  // music = 8;  // TODO: NQuasar.NProto.NDeviceConfigService.TConfig.TEnabledCommandSpotters.TMusic not available in any dump
+  message TAliceSuggest {
+    string SuggestPhrase = 1 [json_name = "suggest_phrase"];
+    repeated string SuggestPhrases = 2 [json_name = "suggest_phrases"];
+  }
+  message TDescription {
+    string TitleText = 1 [json_name = "title_text"];
+    string SubtitleText = 2 [json_name = "subtitle_text"];
+  }
+  message TClockWeather {
+    optional .NAlice.NData.TWeatherTeaserData WeatherData = 1 [json_name = "weather_data"];
+    EPosition WidgetPosition = 2 [json_name = "widget_position"];
+    bool HideClock = 3 [json_name = "hide_clock"];
+    bool HideDate = 4 [json_name = "hide_date"];
+    bool HideWeather = 5 [json_name = "hide_weather"];
+  }
+  message TInteractiveWidget {
+    string Url = 1 [json_name = "url"];
+    // position = 2;  // TODO: TIotPositionCapability proto not available in any dump
+    string Id = 3 [json_name = "id"];
+  }
+  message TUserWidgetsData {
+    repeated .NAlice.TWidgetStackCapability.TWidget UserWidgets = 1 [json_name = "user_widgets"];
+  }
+}
+
+enum EPosition {
+  START_TOP = 0;
+  CENTER_BOTTOM = 1;
+}
+
+enum TOverlayTypeWidgetDataCase {
+  TOVERLAYTYPEWIDGETDATA_NOT_SET = 0;
+  ALICESUGGEST = 1;
+  DESCRIPTION = 2;
+  CLOCKWEATHER = 3;
+  IMAGE = 4;
+  WIDGET = 5;
+  USERWIDGETSDATA = 7;
+  MUSIC = 8;
+}
+
+message TScreensaverThemeConfig {
+  message MediaItem {
+    string Id = 1 [json_name = "id"];
+    optional Links links = 2;
+    string Title = 3 [json_name = "title"];
+    string Subtitle = 4 [json_name = "subtitle"];
+    repeated string AliceSuggests = 5 [json_name = "alice_suggests"];
+    string GradientColor = 6 [json_name = "gradient_color"];
+    repeated Widget Widgets = 7 [json_name = "widgets"];
+    repeated .NAlice.TVoiceControl VoiceControls = 8 [json_name = "voice_controls"];
+    string RephraserContext = 9 [json_name = "rephraser_context"];
+    string AnimatedClockUrl = 10 [json_name = "animated_clock_url"];
+    uint64 ShowDurationSeconds = 11 [json_name = "show_duration_seconds"];
+    bool HasSound = 12 [json_name = "has_sound"];
+  }
+
+  repeated MediaItem MediaItems = 1 [json_name = "media_items"];
+  int32 HighlightVersion = 2 [json_name = "highlight_version"];
+  repeated .NAlice.TWidgetStackCapability.TWidget UserWidgets = 3 [json_name = "user_widgets"];
+  bool HasDynamicContent = 4 [json_name = "has_dynamic_content"];
+  message Links {
+    string VideoFhdUrl = 1 [json_name = "video_fhd_url"];
+    string VideoUhdUrl = 2 [json_name = "video_uhd_url"];
+    string ImageUrl = 3 [json_name = "image_url"];
+    string VideoUrl = 4 [json_name = "video_url"];
+  }
+  message Widget {
+    string Id = 1 [json_name = "id"];
+    string Type = 2 [json_name = "type"];
+    int32 X = 3 [json_name = "x"];
+    int32 Y = 4 [json_name = "y"];
+    optional Links links = 5;
+  }
+}
+
+message TScreensaverVoiceDescriptionData {
+  string Card = 1 [json_name = "card"];
+  string Title = 2 [json_name = "title"];
+  string Subtitle = 3 [json_name = "subtitle"];
+  string Text = 4 [json_name = "text"];
+  string QrCode = 5 [json_name = "qr_code"];
+  string Author = 6 [json_name = "author"];
+  string Date = 7 [json_name = "date"];
+  string Preview = 8 [json_name = "preview"];
+  string TretykovkaUrl = 9 [json_name = "tretykovka_url"];
+  string GradientColor = 10 [json_name = "gradient_color"];
+}
+
+message TSingleWidgetAction {
+  optional TSingleWidgetAction.TAddWidgetAction AddAction = 1 [json_name = "add_action"];
+  optional TSingleWidgetAction.TRemoveWidgetAction RemoveAction = 2 [json_name = "remove_action"];
+  optional TSingleWidgetAction.TRemoveAllWidgetsAction RemoveAllAction = 3 [json_name = "remove_all_action"];
+  message TAddWidgetAction {
+    string WidgetId = 1 [json_name = "widget_id"];
+  }
+  message TRemoveWidgetAction {
+    string WidgetId = 1 [json_name = "widget_id"];
+  }
+  message TRemoveAllWidgetsAction {
+  }
+}
+
+message TTretyakovkaTeaserData {
+  string ScreensaverId = 1 [json_name = "screensaver_id"];
+  string ImageUrlHorizontal = 2 [json_name = "image_url_horizontal"];
+  string ImageUrlVertical = 3 [json_name = "image_url_vertical"];
+  string PictureName = 4 [json_name = "picture_name"];
+  string Author = 5 [json_name = "author"];
+  string Date = 6 [json_name = "date"];
+  string Description = 7 [json_name = "description"];
+  string QrCode = 8 [json_name = "qr_code"];
+  string Preview = 9 [json_name = "preview"];
+  string TretykovkaUrl = 10 [json_name = "tretykovka_url"];
+  string GradientColor = 11 [json_name = "gradient_color"];
+}
+
+message TUserWidget {
+  string WidgetId = 1 [json_name = "widget_id"];
+  bool IsEnabled = 2 [json_name = "is_enabled"];
+}
+

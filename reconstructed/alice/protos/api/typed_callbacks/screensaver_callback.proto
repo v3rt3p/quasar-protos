@@ -1,0 +1,30 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "google/protobuf/timestamp.proto";
+
+import "reconstructed/alice/protos/data/scenario/screensaver.proto";
+
+message TScreensaverClearInteractiveWidgetsTypedCallback {
+}
+
+message TScreensaverCompletedTretyakovkaOnboardingTypedCallback {
+  bool ResetConfig = 1 [json_name = "reset_config"];
+}
+
+message TScreensaverGetConfigTypedCallback {
+  repeated .NAlice.NData.TSingleWidgetAction Actions = 1 [json_name = "actions"];
+  optional .google.protobuf.Timestamp UnsuccessfulSince = 2 [json_name = "unsuccessful_since"];
+}
+
+message TScreensaverTrapInteractiveWidgetsTypedCallback {
+}
+
+message TScreensaverVoiceDescriptionTypedCallback {
+  string ScreensaverId = 1 [json_name = "screensaver_id"];
+}
+

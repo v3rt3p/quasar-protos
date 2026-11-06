@@ -1,0 +1,121 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData.NTron.NReminders;
+
+message TMetaInfo {
+  repeated TModelMetaInfo Models = 1 [json_name = "models"];
+  message TOriginDeviceInfo {
+    string Uuid = 1 [json_name = "uuid"];
+    string DeviceId = 2 [json_name = "device_id"];
+    repeated string SupportedFeatures = 3 [json_name = "supported_features"];
+  }
+}
+
+message TPersonProto {
+  optional float HeadScore = 1 [json_name = "head_score"];
+  optional TPersonProto.THeadBBox HeadBbox = 2 [json_name = "head_bbox"];
+  optional TPersonProto.THeadAngles HeadAngles = 3 [json_name = "head_angles"];
+  optional TPersonProto.TEyesInfo EyesIsEye = 4 [json_name = "eyes_is_eye"];
+  optional TPersonProto.TEyesInfo EyesOpenClosed = 5 [json_name = "eyes_open_closed"];
+  optional TPersonProto.TEyesGaze EyesGaze = 6 [json_name = "eyes_gaze"];
+  optional TPersonProto.TEyesBBox LeftEyeBbox = 7 [json_name = "left_eye_bbox"];
+  optional TPersonProto.TEyesBBox RightEyeBbox = 8 [json_name = "right_eye_bbox"];
+  optional TPersonProto.TEmbedding BiometryEmbedding = 9 [json_name = "biometry_embedding"];
+  optional TPersonProto.TEmbedding FaceLandmarks = 10 [json_name = "face_landmarks"];
+  optional TPersonProto.TSpeech SpeechResult = 11 [json_name = "speech_result"];
+  message THeadBBox {
+    optional float LeftX = 1 [json_name = "left_x"];
+    optional float LeftY = 2 [json_name = "left_y"];
+    optional float RightX = 3 [json_name = "right_x"];
+    optional float RightY = 4 [json_name = "right_y"];
+  }
+  message THeadAngles {
+    optional float Pitch = 1 [json_name = "pitch"];
+    optional float Yaw = 2 [json_name = "yaw"];
+    optional float Roll = 3 [json_name = "roll"];
+  }
+  message TEyesInfo {
+    optional float Left = 1 [json_name = "left"];
+    optional float Right = 2 [json_name = "right"];
+  }
+  message TEyesGaze {
+    optional float Pitch = 1 [json_name = "pitch"];
+    optional float Yaw = 2 [json_name = "yaw"];
+    optional float GazeProb = 3 [json_name = "gaze_prob"];
+  }
+  message TEyesBBox {
+    optional int64 LeftX = 1 [json_name = "left_x"];
+    optional int64 LeftY = 2 [json_name = "left_y"];
+    optional int64 RightX = 3 [json_name = "right_x"];
+    optional int64 RightY = 4 [json_name = "right_y"];
+  }
+  message TEmbedding {
+    repeated float Value = 1 [json_name = "value"];
+  }
+  message TSpeech {
+    optional float Score = 1 [json_name = "score"];
+  }
+}
+
+message THandProto {
+  optional THandProto.THandBBox HandBbox = 1 [json_name = "hand_bbox"];
+  optional float HandScore = 2 [json_name = "hand_score"];
+  optional THandProto.THandStaticGestureProto StaticGesture = 3 [json_name = "static_gesture"];
+  optional THandProto.THandDynamicGestureProto DynamicGesture = 4 [json_name = "dynamic_gesture"];
+  optional int64 TrackId = 5 [json_name = "track_id"];
+  optional float GestureScore = 6 [json_name = "gesture_score"];
+  optional int64 GestureId = 7 [json_name = "gesture_id"];
+  repeated float FullGestureProbs = 8 [json_name = "full_gesture_probs"];
+  message THandBBox {
+    optional float LeftX = 1 [json_name = "left_x"];
+    optional float LeftY = 2 [json_name = "left_y"];
+    optional float RightX = 3 [json_name = "right_x"];
+    optional float RightY = 4 [json_name = "right_y"];
+  }
+  message THandStaticGestureProto {
+    optional float Score = 1 [json_name = "score"];
+    optional int64 Id = 2 [json_name = "id"];
+    repeated float FullProbs = 3 [json_name = "full_probs"];
+  }
+  message THandDynamicGestureProto {
+    optional int64 CurrentId = 1 [json_name = "current_id"];
+    optional int64 CurrentIdCount = 2 [json_name = "current_id_count"];
+    optional int64 PredictedId = 3 [json_name = "predicted_id"];
+    repeated float FullProbs = 4 [json_name = "full_probs"];
+    optional int64 CurrentLabelId = 5 [json_name = "current_label_id"];
+    optional int64 CurrentLabelCount = 6 [json_name = "current_label_count"];
+    optional int64 PredictedLabelId = 7 [json_name = "predicted_label_id"];
+    repeated float FullGestureProbs = 8 [json_name = "full_gesture_probs"];
+  }
+}
+
+message TFullFrameDynamicGestureProto {
+  optional int64 Id = 1 [json_name = "id"];
+  repeated float FullProbs = 2 [json_name = "full_probs"];
+}
+
+message TDynamicGestureProto {
+  optional int64 GestureId = 1 [json_name = "gesture_id"];
+  repeated float FullGestureProbs = 2 [json_name = "full_gesture_probs"];
+}
+
+message TModelMetaInfo {
+  optional string Model = 1 [json_name = "model"];
+  optional int64 InferenceTimeMs = 2 [json_name = "inference_time_ms"];
+}
+
+message TFullResultProto {
+  repeated TPersonProto People = 1 [json_name = "people"];
+  repeated THandProto Hands = 2 [json_name = "hands"];
+  optional TMetaInfo Meta = 3 [json_name = "meta"];
+  optional TFullFrameDynamicGestureProto DynamicGesture = 4 [json_name = "dynamic_gesture"];
+  repeated TDynamicGestureProto DynamicHands = 5 [json_name = "dynamic_hands"];
+}
+
+message TYandexFaceRunParams {
+  repeated string Models2run = 1 [json_name = "models2run"];
+}
+

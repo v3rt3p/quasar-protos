@@ -1,0 +1,23 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/screen/screen.proto";
+
+import "alice/protos/endpoint/capabilities/webos/capability.proto";
+
+import "alice/protos/endpoint/capabilities/apps_market/capability.proto";
+import "alice/protos/api/dialogs/store_type.proto";
+
+message TGetAppsForWhitelistRequest {
+  .NAlice.NApi.NDialogs.EStoreType StoreType = 1 [json_name = "store_type"];
+  repeated string InstalledAppsPackageNames = 2 [json_name = "installed_apps_package_names"];
+}
+
+message TGetAppsForWhitelistResponse {
+  repeated .NAlice.TAppInfo Apps = 1 [json_name = "apps"];
+}
+

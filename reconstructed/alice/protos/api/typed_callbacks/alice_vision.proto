@@ -1,0 +1,21 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TAskForHdcpInstructionCallback {
+}
+
+message TSendVideoFrameTypedCallback {
+  string SessionId = 1 [json_name = "session_id"];
+  bytes Image = 2 [json_name = "image"];
+  optional string UserQuery = 3 [json_name = "user_query"];
+  bool NeedNeuroInfoContext = 4 [json_name = "need_neuro_info_context"];
+}
+
+message TStartVisionModeTypedCallback {
+  string SessionId = 1 [json_name = "session_id"];
+}
+

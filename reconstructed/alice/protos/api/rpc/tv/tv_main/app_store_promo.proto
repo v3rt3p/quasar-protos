@@ -1,0 +1,57 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/avatar/avatar.proto";
+
+enum EViewType {
+  UNKNOWN = 0;
+  FEATURE = 1;
+  BANNER = 2;
+}
+
+message TAppStorePromoRequest {
+  repeated string InstalledApps = 1 [json_name = "installed_apps"];
+}
+
+message TAppStorePromoResponse {
+  message TDeeplink {
+    string PackageName = 1 [json_name = "package_name"];
+    optional string Deeplink = 2 [json_name = "deeplink"];
+  }
+
+  message TBrowserLink {
+    string Link = 1 [json_name = "link"];
+  }
+
+  message TPromo {
+    optional .NAlice.TAvatarMdsImage Poster = 1 [json_name = "poster"];
+    optional .NAlice.TAvatarMdsImage AppLogo = 2 [json_name = "app_logo"];
+    string Title = 3 [json_name = "title"];
+    string Description = 4 [json_name = "description"];
+    string AppTitle = 5 [json_name = "app_title"];
+    string AppDescription = 6 [json_name = "app_description"];
+    string ButtonText = 7 [json_name = "button_text"];
+    EViewType ViewType = 8 [json_name = "view_type"];
+    oneof click_event {
+      TDeeplink OpenApp = 9 [json_name = "open_app"];
+      TBrowserLink OpenWeb = 10 [json_name = "open_web"];
+    }
+  }
+
+  repeated TPromo PromoItems = 1 [json_name = "promo_items"];
+}
+
+message TDeeplink {
+  string PackageName = 1 [json_name = "package_name"];
+  optional string Deeplink = 2 [json_name = "deeplink"];
+}
+
+message TBrowserLink {
+  string Link = 1 [json_name = "link"];
+}
+
+

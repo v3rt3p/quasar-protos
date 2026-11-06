@@ -1,0 +1,86 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NScenarios.NTvMain;
+
+import "alice/protos/endpoint/capabilities/companion_screen/capability.proto";
+
+message TColdStartPromoTypedCallback {
+}
+
+message TCollectVideoVerticalTypedCallback {
+  bool IsStashUpdate = 1 [json_name = "is_stash_update"];
+}
+
+message TCompanionScreenRequestWeatherTypedCallback {
+  enum ETarget {
+    Unknown = 0;
+    ShowWeatherScreen = 1;
+    UpdateWeather = 2;
+  }
+
+
+
+  ETarget Target = 1 [json_name = "target"];
+}
+
+message TGetGalleriesTypedCallback {
+  string CategoryId = 1 [json_name = "category_id"];
+  int32 MaxItemsPerGallery = 2 [json_name = "max_items_per_gallery"];
+  int32 Offset = 3 [json_name = "offset"];
+  int32 Limit = 4 [json_name = "limit"];
+  string CacheHash = 5 [json_name = "cache_hash"];
+  bool KidModeEnabled = 6 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 7 [json_name = "restriction_age"];
+}
+
+message TGetGalleryTypedCallback {
+  string Id = 1 [json_name = "id"];
+  int32 Limit = 2 [json_name = "limit"];
+  int32 Offset = 3 [json_name = "offset"];
+  string CacheHash = 4 [json_name = "cache_hash"];
+  bool KidModeEnabled = 5 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 6 [json_name = "restriction_age"];
+}
+
+message TOpenPromoTypedCallback {
+  string PromoId = 1 [json_name = "promo_id"];
+  string ButtonId = 2 [json_name = "button_id"];
+  repeated string ClickCountUrl = 3 [json_name = "click_count_url"];
+  optional TPromoData PromoData = 4 [json_name = "promo_data"];
+}
+
+message TPromoData {
+  string Deeplink = 1 [json_name = "deeplink"];
+  string PackageName = 2 [json_name = "package_name"];
+  string FullLinkUrl = 3 [json_name = "full_link_url"];
+  string DirectivesBase64 = 4 [json_name = "directives_base64"];
+}
+
+message TShowPromoTypedCallback {
+  string PromoId = 1 [json_name = "promo_id"];
+  repeated string ShowCountUrl = 2 [json_name = "show_count_url"];
+  repeated string ExternalCounterUrls = 3 [json_name = "external_counter_urls"];
+  optional string HitRequestId = 4 [json_name = "hit_request_id"];
+}
+
+message TSportPromoEventReminderTypedCallback {
+  string AnnounceDate = 1 [json_name = "announce_date"];
+  string ReminderTitle = 2 [json_name = "reminder_title"];
+}
+
+message TStationMaxTvPromoTypedCallback {
+}
+
+message TWhatsNewSelectButtonTypedCallback {
+  string WhatsNewId = 1 [json_name = "whats_new_id"];
+  string ButtonId = 2 [json_name = "button_id"];
+}
+
+message TWhatsNewStartTypedCallback {
+  string WhatsNewId = 1 [json_name = "whats_new_id"];
+  bool IsRepeat = 2 [json_name = "is_repeat"];
+}
+

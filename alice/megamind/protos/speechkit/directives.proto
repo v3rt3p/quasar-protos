@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package NAlice.NSpeechKit;
+
+option java_package = "ru.yandex.alice.megamind.protos.speechkit";
+option java_multiple_files = true;
+option go_package = "a.yandex-team.ru/alice/megamind/protos/speechkit";
+
+import "alice/library/censor/protos/extension.proto";
+import "alice/library/yt/extensions/alice_options.proto";
+import "alice/megamind/protos/common/directive_importance.proto";
+import "alice/protos/api/source/source.proto";
+import "alice/protos/endpoint/capability.proto";
+import "alice/protos/uniproxy/directives/agents.proto";
+import "alice/protos/uniproxy/directives/datum.proto";
+import "alice/protos/uniproxy/directives/prepare_cache_tts_response.proto";
+import "yt/yt_proto/yt/formats/extension.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/wrappers.proto";
+
+message TUniproxyDirectiveMeta {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  string Puid = 1 [json_name = "puid", (.NYT.column_name) = "puid", (.NAliceYT.PrivateGroup) = PrivateGroupPuid];
+  .EDirectiveImportance DirectiveImportance = 2 [json_name = "directive_importance", (.NYT.column_name) = "directive_importance"];
+  string HashPuid = 3 [json_name = "hash_puid", (.NYT.column_name) = "hash_puid"];
+}
+
+message TDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  reserved 56788;
+  message TOnFinishEvent {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    oneof Event {
+      option (.NYT.variant_field_name) = "event";
+      .google.protobuf.Struct TypedCallbackRequest = 1 [json_name = "typed_callback_request", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "typed_callback_request"];
+    }
+  }
+
+  message TChannel {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    enum EType {
+      Unknown = 0;
+      Dialog = 1;
+    }
+
+    .NAlice.NSpeechKit.TDirective.TChannel.EType Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  }
+
+  string Type = 1 [json_name = "type", (.NYT.column_name) = "type"];
+  string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
+  string AnalyticsType = 3 [json_name = "sub_name", (.NYT.column_name) = "sub_name"];
+  bool IgnoreAnswer = 4 [json_name = "ignore_answer", (.NYT.column_name) = "ignore_answer"];
+  repeated string RoomDeviceIds = 7 [json_name = "room_device_ids", (.NYT.column_name) = "room_device_ids", (.NAliceYT.PrivateGroup) = PrivateGroupLevel1];
+  bool IsLedSilent = 8 [json_name = "is_led_silent", (.NYT.column_name) = "is_led_silent"];
+  .google.protobuf.StringValue EndpointId = 9 [json_name = "endpoint_id", (.NYT.column_name) = "endpoint_id"];
+  .NAlice.NSpeechKit.TUniproxyDirectiveMeta UniproxyDirectiveMeta = 10 [json_name = "uniproxy_directive_meta", (.NYT.column_name) = "uniproxy_directive_meta"];
+  bool IsParallel = 11 [json_name = "is_parallel", (.NYT.column_name) = "is_parallel"];
+  uint32 TimeBeforeDropMs = 12 [json_name = "time_before_drop_ms", (.NYT.column_name) = "time_before_drop_ms"];
+  .NAlice.NSpeechKit.TDirective.TOnFinishEvent OnFinish = 14 [json_name = "on_finish_event", (.NYT.column_name) = "on_finish_event"];
+  .NAlice.NAliceApi.TSourceInfo SourceInfo = 17 [json_name = "source_info", (.NYT.column_name) = "source_info"];
+  bool AttachToMultiroom = 18 [json_name = "attach_to_multiroom", (.NYT.column_name) = "attach_to_multiroom"];
+  .NAlice.TCapability.EDirectiveType DirectiveType = 20 [json_name = "directive_type", (.NYT.column_name) = "directive_type"];
+  .NAlice.NSpeechKit.TDirective.TChannel Channel = 21 [json_name = "channel", (.NYT.column_name) = "channel"];
+  oneof PayloadType {
+    option (.NYT.oneof_flags) = SEPARATE_FIELDS;
+    .google.protobuf.Struct Payload = 5 [json_name = "payload", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+    bytes PayloadRaw = 15 [json_name = "payload_raw", (.NYT.flags) = SERIALIZATION_PROTOBUF, (.NYT.column_name) = "payload_raw", (.NAlice.FieldAccess) = A_PRIVATE_RESPONSE];
+  }
+  oneof OptionalMultiroomSessionId {
+    string MultiroomSessionId = 6 [json_name = "multiroom_session_id", (.NYT.column_name) = "multiroom_session_id"];
+  }
+  oneof OptionalPersId {
+    option (.NYT.variant_field_name) = "optional_pers_id";
+    string PersId = 13 [json_name = "pers_id", (.NYT.column_name) = "pers_id"];
+  }
+  optional string Id = 16 [json_name = "id", (.NYT.column_name) = "id"];
+}
+
+message TProtobufUniproxyDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TContextSaveDirective {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    string DirectiveId = 1 [json_name = "directive_id", (.NYT.column_name) = "directive_id"];
+    .google.protobuf.Any Payload = 2 [json_name = "payload", (.NYT.column_name) = "payload"];
+  }
+
+  message TNonTransparentContextSaveDirective {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    oneof Directive {
+      option (.NYT.variant_field_name) = "directive";
+      .NAlice.NUniproxyDirectives.TUpdateDatumAddressContextSaveDirective UpdateDatumAddress = 1 [json_name = "update_datum_address", (.NYT.column_name) = "update_datum_address"];
+      .NAlice.NUniproxyDirectives.TPrepareCacheTtsResponseContextSaveDirective PrepareCacheTtsResponse = 2 [json_name = "prepare_cache_tts_response", (.NYT.column_name) = "prepare_cache_tts_response"];
+      .NAlice.NUniproxyDirectives.TSwitchToAgentModeDirective SwitchToAgentMode = 3 [json_name = "switch_to_agent_mode", (.NYT.column_name) = "switch_to_agent_mode"];
+    }
+  }
+
+  .NAlice.NSpeechKit.TUniproxyDirectiveMeta UniproxyDirectiveMeta = 2 [json_name = "uniproxy_directive_meta", (.NYT.column_name) = "uniproxy_directive_meta"];
+  oneof Directives {
+    option (.NYT.variant_field_name) = "directives";
+    .NAlice.NSpeechKit.TProtobufUniproxyDirective.TContextSaveDirective ContextSaveDirective = 1 [json_name = "context_save_directive", (.NYT.column_name) = "context_save_directive"];
+    .NAlice.NSpeechKit.TProtobufUniproxyDirective.TNonTransparentContextSaveDirective NonTransparentContextSaveDirective = 3 [json_name = "non_transparent_context_save_directive", (.NYT.column_name) = "non_transparent_context_save_directive"];
+  }
+}
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package NQuasar.NCgiParser.NExtensions;
+
+option java_package = "ru.yandex.quasar.apphost.libs.cgi_parser.proto.extensions";
+option java_outer_classname = "CgiParser";
+option go_package = "a.yandex-team.ru/quasar/apphost/libs/cgi_parser/proto/extensions";
+
+import "google/protobuf/descriptor.proto";
+
+extend .google.protobuf.FieldOptions {
+  repeated string cgi_name = 239239;
+}
+extend .google.protobuf.FieldOptions {
+  repeated string cgi_default_value = 239240;
+}
+extend .google.protobuf.FieldOptions {
+  string cgi_repeated_delimiter = 239241;
+}

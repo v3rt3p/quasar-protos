@@ -1,0 +1,27 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/api/rpc/user_settings/user_settings.proto";
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+message TGetYaDiskSettingsRequest {
+}
+
+message TGetYaDiskSettingsResponse {
+  bool IsAlbumConfigured = 1 [json_name = "is_album_configured"];
+  string AlbumUrl = 2 [json_name = "album_url"];
+}
+
+message TYaDiskCreateAlbumRequest {
+}
+
+message TYaDiskCreateAlbumResponse {
+  .NAlice.NRpc.EResponseStatus Status = 1 [json_name = "status"];
+  string Message = 2 [json_name = "message"];
+  string AlbumUrl = 3 [json_name = "album_url"];
+}
+

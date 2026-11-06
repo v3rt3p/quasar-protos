@@ -1,0 +1,41 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+enum ECurrentScreen {
+  UNKNOWN_SCREEN = 0;
+  UP_TO_DATE_SCREEN = 1;
+  DOWNLOADING_SCREEN = 2;
+  READY_FOR_DOWNLOAD_SCREEN = 3;
+  DOWNLOAD_FAILED_SCREEN = 4;
+  READY_FOR_INSTALL_SCREEN = 5;
+  INSTALL_FAILED_SCREEN = 6;
+  INSTALL_FINISHED_SCREEN = 7;
+}
+
+enum EVisibleButton {
+  UNKNOWN_BUTTON = 0;
+  DOWNLOAD_BUTTON = 1;
+  INSTALL_BUTTON = 2;
+  OK_BUTTON = 3;
+  LATER_BUTTON = 4;
+  HIDE_BUTTON = 5;
+  SKIP_BUTTON = 6;
+  RETRY_BUTTON = 7;
+  NETWORK_SETTINGS_BUTTON = 8;
+}
+
+message TReportNewTvUpdateRequest {
+  ECurrentScreen Screen = 1 [json_name = "screen"];
+  repeated EVisibleButton Buttons = 2 [packed = true, json_name = "buttons"];
+}
+
+message TReportNewTvUpdateResponse {
+  repeated .NAlice.TVoiceControl VoiceControls = 1 [json_name = "voice_controls"];
+}
+

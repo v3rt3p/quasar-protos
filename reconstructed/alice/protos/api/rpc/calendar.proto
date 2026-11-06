@@ -1,0 +1,60 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TCalendarLayer {
+  optional string Id = 1 [json_name = "id"];
+  bool IsDummyAliceLayer = 2 [json_name = "is_dummy_alice_layer"];
+  string Name = 3 [json_name = "name"];
+  bool CalendarReadOnly = 4 [json_name = "calendar_read_only"];
+  bool ToggleOn = 5 [json_name = "toggle_on"];
+  bool IsMain = 6 [json_name = "is_main"];
+  string Color = 7 [json_name = "color"];
+}
+
+message TCalendarAccount {
+  repeated TCalendarLayer Layers = 1 [json_name = "layers"];
+  string Email = 2 [json_name = "email"];
+  optional string Name = 3 [json_name = "name"];
+  optional string EmailLogoUrl = 4 [json_name = "email_logo_url"];
+}
+
+message TGetCalendarAccountsRequest {
+}
+
+message TGetCalendarAccountsResponse {
+  repeated TCalendarAccount Accounts = 1 [json_name = "accounts"];
+}
+
+message TGetCalendarSettingsRequest {
+}
+
+message TGetCalendarSettingsResponse {
+  bool HasMain = 1 [json_name = "has_main"];
+}
+
+message TSetCalendarSettingsRequest {
+  bool HasMain = 1 [json_name = "has_main"];
+}
+
+message TSetCalendarSettingsResponse {
+}
+
+message TCalendarLayerSettings {
+  optional string Id = 1 [json_name = "id"];
+  bool IsDummyAliceLayer = 2 [json_name = "is_dummy_alice_layer"];
+  bool ToggleOn = 3 [json_name = "toggle_on"];
+  bool IsMain = 4 [json_name = "is_main"];
+}
+
+message TChangeCalendarLayerRequest {
+  string Email = 1 [json_name = "email"];
+  optional TCalendarLayerSettings Layer = 2 [json_name = "layer"];
+}
+
+message TChangeCalendarLayerResponse {
+}
+

@@ -1,0 +1,96 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/common_multisearch/multisearch.proto";
+
+
+
+
+message TCategoryAspect {
+  string KeyText = 1 [json_name = "key_text"];
+  uint32 ReviewsCount = 2 [json_name = "reviews_count"];
+}
+
+message TReviewSummary {
+  string Summary = 1 [json_name = "summary"];
+  uint32 ReviewsCount = 2 [json_name = "reviews_count"];
+  repeated TCategoryAspect PositiveAspects = 3 [json_name = "positive_aspects"];
+  repeated TCategoryAspect NegativeAspects = 4 [json_name = "negative_aspects"];
+}
+
+message TContentDetailsItem {
+  string ProviderItemId = 1 [json_name = "provider_item_id"];
+  string MainTrailerId = 2 [json_name = "main_trailer_id"];
+  string ProviderName = 3 [json_name = "provider_name"];
+  string ItemType = 4 [json_name = "item_type"];
+  optional uint32 AgeLimit = 5 [json_name = "age_limit"];
+  string SearchQuery = 6 [json_name = "search_query"];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+message TParseOptions {
+  optional bool EnablePiratesInCollectionsParse = 1 [json_name = "enable_pirates_in_collections_parse"];
+  optional bool EnableContentTypeParse = 2 [json_name = "enable_content_type_parse"];
+  optional bool EnablePiratesInBaseInfoParse = 3 [json_name = "enable_pirates_in_base_info_parse"];
+}
+
+message TVideoSearchRequest {
+  string SearchText = 1 [json_name = "search_text"];
+  string RestrictionMode = 2 [json_name = "restriction_mode"];
+  string RestrictionAge = 3 [json_name = "restriction_age"];
+  string Entref = 4 [json_name = "entref"];
+  repeated string ExcludeOntoIds = 5 [json_name = "exclude_onto_ids"];
+  string Provider = 6 [json_name = "provider"];
+  optional TParseOptions ParseOptions = 7 [json_name = "parse_options"];
+  repeated EMultiSearchContent SupportedContentTypes = 8 [json_name = "supported_content_types", packed = true];
+  string Doc2docUrl = 9 [json_name = "doc2doc_url"];
+  repeated string SelectedFilters = 10 [json_name = "selected_filters"];
+  bool IsPornRequested = 11 [json_name = "is_porn_requested"];
+}
+
+
+

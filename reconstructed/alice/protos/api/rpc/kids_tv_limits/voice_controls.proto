@@ -1,0 +1,19 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/api/voice_control/voice_control.proto";
+
+message TGetVoiceControlsKidsLimitRequest {
+}
+
+message TGetVoiceControlsKidsLimitResponse {
+  repeated .NAlice.TVoiceControl BlockPage = 1 [json_name = "block_page"];
+  repeated .NAlice.TVoiceControl ProlongationPage = 2 [json_name = "prolongation_page"];
+  repeated .NAlice.TVoiceControl PinCodePage = 3 [json_name = "pin_code_page"];
+  repeated .NAlice.TVoiceControl PinCodeCooldownPage = 4 [json_name = "pin_code_cooldown_page"];
+}
+

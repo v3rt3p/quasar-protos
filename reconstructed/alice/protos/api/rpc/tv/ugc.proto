@@ -1,0 +1,41 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/tv/ugc/types.proto";
+
+import "alice/protos/data/search_result/search_result.proto";
+
+message TRequestItem {
+  string OntoId = 1 [json_name = "onto_id"];
+  .NAlice.NTv.EItemType ContentType = 2 [json_name = "content_type"];
+}
+
+message TSetUnsetUgcFlagRequest {
+  .NAlice.NTv.EUgcFlag Flag = 1 [json_name = "flag"];
+  repeated TRequestItem Items = 2 [json_name = "items"];
+}
+
+message TUgcFlagSetted {
+  .NAlice.NTv.EUgcFlag Flag = 1 [json_name = "flag"];
+  repeated string OntoId = 2 [json_name = "onto_id"];
+}
+
+message TUgcFlagUnsetted {
+  .NAlice.NTv.EUgcFlag Flag = 1 [json_name = "flag"];
+  repeated string OntoId = 2 [json_name = "onto_id"];
+}
+
+message TUgcFlagFailure {
+  string Message = 1 [json_name = "message"];
+}
+
+message TSetUnsetUgcFlagResponse {
+  optional TUgcFlagSetted SuccessfulSet = 1 [json_name = "successful_set"];
+  optional TUgcFlagUnsetted SuccessfulUnset = 2 [json_name = "successful_unset"];
+  optional TUgcFlagFailure Failure = 3 [json_name = "failure"];
+}
+

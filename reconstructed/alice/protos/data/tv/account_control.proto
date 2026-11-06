@@ -1,0 +1,31 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "reconstructed/alice/protos/api/rpc/create_chat.proto";
+
+package NAlice.NTv;
+
+
+
+message TTvCheckSubscriptionRequest {
+  enum ERequestType {
+    UNDEFINED = 0;
+    CHECK_OFFER_PAYMENT = 1;
+  }
+
+  string CheckKey = 1 [json_name = "check_key"];
+  ERequestType RequestType = 2 [json_name = "request_type"];
+}
+
+message TTvCheckSubscriptionResponse {
+  bool HasYaPlus = 1 [json_name = "has_ya_plus"];
+  bool HasAmediateka = 2 [json_name = "has_amediateka"];
+  optional TOfferPaymentResult OfferPaymentResult = 3 [json_name = "offer_payment_result"];
+}
+
+message TOfferPaymentResult {
+  .NAlice.NRpc.EResponseStatus ResponseStatus = 1 [json_name = "response_status"];
+}
+

@@ -1,0 +1,21 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TGenerateDialogTitleByHistoryRequest {
+  string DialogId = 1 [json_name = "dialog_id"];
+  repeated TMessageContent Messages = 2 [json_name = "messages"];
+}
+
+message TGenerateDialogTitleByHistoryResponse {
+  string Title = 1 [json_name = "title"];
+}
+
+message TMessageContent {
+  string RequestText = 1 [json_name = "request_text"];
+  string ResponseText = 2 [json_name = "response_text"];
+}
+

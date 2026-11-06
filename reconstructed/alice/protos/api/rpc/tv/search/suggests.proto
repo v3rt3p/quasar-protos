@@ -1,0 +1,29 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+enum ESuggestDomain {
+  ESD_VIDEO = 0;
+}
+
+message TGetSearchSuggestsRequest {
+  ESuggestDomain SuggestDomain = 1 [json_name = "suggest_domain"];
+  string Text = 2 [json_name = "text"];
+  uint32 SuggestCount = 3 [json_name = "suggest_count"];
+  bool KidMode = 4 [json_name = "kid_mode"];
+}
+
+message TGetSearchSuggestsResponse {
+  message TSuggest {
+    string Title = 1 [json_name = "title"];
+    bool IsHistory = 2 [json_name = "is_history"];
+    uint32 EqualStartPos = 3 [json_name = "equal_start_pos"];
+  }
+
+  repeated TSuggest Suggests = 1 [json_name = "suggests"];
+}
+
+

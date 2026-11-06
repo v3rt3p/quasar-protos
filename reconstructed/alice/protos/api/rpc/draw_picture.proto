@@ -1,0 +1,504 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NRpc;
+
+message TDrawPictureCombiningDiscardRequest {
+  optional string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureCombiningDiscardResponse {
+  optional TSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  string GenerationId = 3 [json_name = "generation_id"];
+}
+
+message TSuccessResponse {
+}
+
+message TDrawPictureCombiningGenerateResponse {
+  optional TImageCombiningGeneration ImageCombiningGeneration = 1 [json_name = "image_combining_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureCombiningGetRequest {
+  optional string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureCombiningGetResponse {
+  optional TImageCombiningGeneration ImageCombiningGeneration = 1 [json_name = "image_combining_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureGenerationReadyPushSendRequest {
+  optional string DialogId = 1 [json_name = "dialog_id"];
+  string PushTitle = 2 [json_name = "push_title"];
+  string PushText = 3 [json_name = "push_text"];
+  optional string Puid = 4 [json_name = "puid"];
+  optional string Uuid = 5 [json_name = "uuid"];
+  optional string GenerationType = 6 [json_name = "generation_type"];
+  optional string ContentId = 7 [json_name = "content_id"];
+}
+
+message TDrawPictureGenerationReadyPushSendResponse {
+}
+
+message TDrawPictureWowGenerationStatusesRequest {
+  string Kind = 1 [json_name = "kind"];
+  repeated string Kinds = 2 [json_name = "kinds"];
+}
+
+message TDrawPictureWowGenerationStatusesResponse {
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  optional TEditingGeneration EditingGeneration = 3 [json_name = "editing_generation"];
+  optional TImageCombiningGeneration ImageCombiningGeneration = 4 [json_name = "image_combining_generation"];
+  optional TVideoGeneration VideoGeneration = 5 [json_name = "video_generation"];
+  optional TVideoFromTextGeneration VideoFromTextGeneration = 6 [json_name = "video_from_text_generation"];
+  optional TImageGroup VideoFromTextImageGroup = 7 [json_name = "video_from_text_image_group"];
+  optional TImageGroup ImageGroup = 8 [json_name = "image_group"];
+  optional bool IsFirstGeneration = 9 [json_name = "is_first_generation"];
+}
+
+message TVideoGeneration {
+  string Id = 1 [json_name = "id"];
+  string Status = 2 [json_name = "status"];
+  string Prompt = 3 [json_name = "prompt"];
+  string FirstFrameUrl = 4 [json_name = "first_frame_url"];
+  int32 RemainingTimeSec = 5 [json_name = "remaining_time_sec"];
+  string VideoId = 6 [json_name = "video_id"];
+  string VideoUrl = 7 [json_name = "video_url"];
+  string PostId = 8 [json_name = "post_id"];
+  uint32 PreviewWidth = 9 [json_name = "preview_width"];
+  uint32 PreviewHeight = 10 [json_name = "preview_height"];
+  string LastReadAt = 11 [json_name = "last_read_at"];
+  uint32 EstimateTimeSec = 12 [json_name = "estimate_time_sec"];
+}
+
+message TVideoFromTextGeneration {
+  string Id = 1 [json_name = "id"];
+  string Status = 2 [json_name = "status"];
+  string Prompt = 3 [json_name = "prompt"];
+  string FirstFrameUrl = 4 [json_name = "first_frame_url"];
+  int32 RemainingTimeSec = 5 [json_name = "remaining_time_sec"];
+  string VideoId = 6 [json_name = "video_id"];
+  string VideoUrl = 7 [json_name = "video_url"];
+  string PostId = 8 [json_name = "post_id"];
+  uint32 PreviewWidth = 9 [json_name = "preview_width"];
+  uint32 PreviewHeight = 10 [json_name = "preview_height"];
+  string LastReadAt = 11 [json_name = "last_read_at"];
+  uint32 EstimateTimeSec = 12 [json_name = "estimate_time_sec"];
+  string UserId = 13 [json_name = "user_id"];
+}
+
+message TLimits {
+  int32 AvailableCount = 1 [json_name = "available_count"];
+  int32 MaxCount = 2 [json_name = "max_count"];
+  int32 UsedCount = 3 [json_name = "used_count"];
+}
+
+message TDrawPictureVideoGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  string Url = 2 [json_name = "url"];
+  optional string DialogId = 3 [json_name = "dialog_id"];
+  optional int64 IsTemplate = 4 [json_name = "is_template"];
+  optional string TemplateName = 5 [json_name = "template_name"];
+  optional string Preset = 6 [json_name = "preset"];
+  optional TMetaInfo MetaInfo = 7 [json_name = "meta_info"];
+}
+
+message TErrorResponse {
+  int32 Status = 1 [json_name = "status"];
+  string Reason = 2 [json_name = "reason"];
+  string GenerationId = 3 [json_name = "generation_id"];
+}
+
+message TImageGroupAspectRatio {
+  int32 Width = 1 [json_name = "width"];
+  int32 Height = 2 [json_name = "height"];
+}
+
+message TImageGroupImage {
+  string Id = 1 [json_name = "id"];
+  string ImageGroupId = 2 [json_name = "image_group_id"];
+  string Status = 3 [json_name = "status"];
+  string Url = 4 [json_name = "url"];
+  string UpscaledUrl = 5 [json_name = "upscaled_url"];
+  uint64 Seed = 6 [json_name = "seed"];
+  string UsedPrompt = 7 [json_name = "used_prompt"];
+}
+
+message TImageGroup {
+  string Id = 1 [json_name = "id"];
+  string Status = 2 [json_name = "status"];
+  string Prompt = 3 [json_name = "prompt"];
+  string TranslatedPrompt = 4 [json_name = "translated_prompt"];
+  optional TImageGroupAspectRatio AspectRatio = 5 [json_name = "aspect_ratio"];
+  uint32 EstimateTimeSec = 6 [json_name = "estimate_time_sec"];
+  uint32 ImagesNumber = 7 [json_name = "images_number"];
+  repeated TImageGroupImage Images = 8 [json_name = "images"];
+  uint64 Seed = 9 [json_name = "seed"];
+  string Service = 10 [json_name = "service"];
+  string UserId = 11 [json_name = "user_id"];
+  string CreatedAt = 12 [json_name = "created_at"];
+  optional string ModelVersionId = 13 [json_name = "model_version_id"];
+  optional string PostId = 14 [json_name = "post_id"];
+}
+
+message TDrawPictureGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  uint32 ImagesNumber = 2 [json_name = "images_number"];
+  optional TImageGroupAspectRatio AspectRatio = 3 [json_name = "aspect_ratio"];
+}
+
+message TDrawPictureGenerateResponse {
+  string ImageGroupId = 1 [json_name = "image_group_id"];
+  optional TImageGroup ImageGroup = 2 [json_name = "image_group"];
+  optional TErrorResponse ErrorResponse = 3 [json_name = "error_response"];
+}
+
+message TDrawPictureGetRequest {
+  string ImageGroupId = 1 [json_name = "image_group_id"];
+}
+
+message TDrawPictureGetResponse {
+  optional TImageGroup ImageGroup = 1 [json_name = "image_group"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureDiscardRequest {
+  string ImageGroupId = 1 [json_name = "image_group_id"];
+}
+
+message TDrawPictureDiscardResponse {
+  optional TSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureVideoGenerateResponse {
+  optional TVideoGeneration VideoGeneration = 1 [json_name = "video_generation"];
+  optional TLimits Limits = 3 [json_name = "limits"];
+  optional TErrorResponse ErrorResponse = 4 [json_name = "error_response"];
+}
+
+message TDrawPictureVideoGetRequest {
+  string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureVideoGetResponse {
+  optional TVideoGeneration VideoGeneration = 1 [json_name = "video_generation"];
+  optional TLimits Limits = 3 [json_name = "limits"];
+  optional TErrorResponse ErrorResponse = 4 [json_name = "error_response"];
+}
+
+message TDrawPictureUpdateGenerationLastReadRequest {
+  string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureUpdateGenerationLastReadResponse {
+}
+
+message TDrawPictureVideoDiscardRequest {
+  string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureVideoDiscardResponse {
+  string GenerationId = 1 [json_name = "generation_id"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureVideoFromTextImageGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  uint32 ImagesNumber = 2 [json_name = "images_number"];
+  optional TImageGroupAspectRatio AspectRatio = 3 [json_name = "aspect_ratio"];
+}
+
+message TDrawPictureVideoFromTextImageGenerateResponse {
+  string ImageGroupId = 1 [json_name = "image_group_id"];
+  optional TImageGroup ImageGroup = 2 [json_name = "image_group"];
+  optional TErrorResponse ErrorResponse = 3 [json_name = "error_response"];
+}
+
+message TDrawPictureVideoFromTextGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  string Url = 2 [json_name = "url"];
+}
+
+message TDrawPictureVideoFromTextGenerateResponse {
+  optional TVideoFromTextGeneration VideoGeneration = 1 [json_name = "video_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  optional TLimits Limits = 3 [json_name = "limits"];
+}
+
+message TDrawPictureVideoFromTextGetRequest {
+  string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureVideoFromTextGetResponse {
+  optional TVideoFromTextGeneration VideoGeneration = 1 [json_name = "video_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureVideoFromTextDiscardRequest {
+  string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureVideoFromTextDiscardResponse {
+  optional TSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  string GenerationId = 3 [json_name = "generation_id"];
+}
+
+message TDrawPictureWowPromptSuggestionGetRequest {
+}
+
+message TDrawPictureWowPromptSuggestionGetResponse {
+  optional string Suggestion = 1 [json_name = "suggestion"];
+}
+
+message TDrawPictureWowSharingPostRequest {
+  string VideoId = 1 [json_name = "video_id"];
+}
+
+message TDrawPictureWowSharingPostResponse {
+  optional string SharingId = 1 [json_name = "sharing_id"];
+  optional TErrorResponse ErrorResponse = 3 [json_name = "error_response"];
+}
+
+message TDrawPictureWowSharingGetRequest {
+  string SharingId = 1 [json_name = "sharing_id"];
+}
+
+message TDrawPictureWowSharingGetResponse {
+  message TVideo {
+    string ID = 1 [json_name = "id"];
+    string Prompt = 2 [json_name = "prompt"];
+    string FirstFrameURL = 3 [json_name = "first_frame_url"];
+    string VideoURL = 4 [json_name = "video_url"];
+  }
+
+  optional TVideo Video = 1 [json_name = "video"];
+  optional TErrorResponse ErrorResponse = 3 [json_name = "error_response"];
+}
+
+message TDrawPictureWowUploadImageRequest {
+  bytes Content = 1 [json_name = "content"];
+}
+
+message TUploadedImageInfo {
+  string Id = 1 [json_name = "id"];
+  string ImageUrl = 2 [json_name = "image_url"];
+  string UserId = 3 [json_name = "user_id"];
+}
+
+message TDrawPictureWowUploadImageResponse {
+  optional TUploadedImageInfo UploadedImageInfo = 1 [json_name = "uploaded_image_info"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureWowTemplatesRequest {
+  string Kind = 1 [json_name = "kind"];
+}
+
+message TWowTemplate {
+  string Prompt = 2 [json_name = "prompt"];
+  string Image = 3 [json_name = "image"];
+  string VideoWebm = 4 [json_name = "video_webm"];
+  string VideoMp4 = 5 [json_name = "video_mp4"];
+  string Gif = 6 [json_name = "gif"];
+  string Title = 7 [json_name = "title"];
+  string SourceImage = 8 [json_name = "source_image"];
+  bool IsNew = 9 [json_name = "is_new"];
+}
+
+message TDrawPictureWowTemplatesResponse {
+  repeated TWowTemplate Templates = 1 [json_name = "templates"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureWowVideoDownloadLinkRequest {
+  string VideoId = 1 [json_name = "video_id"];
+}
+
+message TDrawPictureWowVideoDownloadLinkResponse {
+  optional string DownloadLink = 1 [json_name = "download_link"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureWowPostRequest {
+  string PostId = 1 [json_name = "post_id"];
+}
+
+message TDrawPictureWowPostResponse {
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  optional TWowFeedPost WowPost = 3 [json_name = "wow_post"];
+}
+
+message TWowFeedPost {
+  message TImage {
+    string Id = 1 [json_name = "id"];
+    string ImageURL = 2 [json_name = "image_url"];
+  }
+
+
+
+  string PostId = 1 [json_name = "post_id"];
+  string CreatedAt = 2 [json_name = "created_at"];
+  string UserId = 3 [json_name = "user_id"];
+  string Kind = 4 [json_name = "kind"];
+  string VideoId = 5 [json_name = "video_id"];
+  string VideoUrl = 6 [json_name = "video_url"];
+  string Prompt = 7 [json_name = "prompt"];
+  string FirstFrameUrl = 8 [json_name = "first_frame_url"];
+  string EditingGroupId = 9 [json_name = "editing_group_id"];
+  string TranslatedPrompt = 10 [json_name = "translated_prompt"];
+  string OriginalUrl = 11 [json_name = "original_url"];
+  repeated TImage Images = 12 [json_name = "images"];
+  uint32 PreviewWidth = 13 [json_name = "preview_width"];
+  uint32 PreviewHeight = 14 [json_name = "preview_height"];
+  string CombiningGroupId = 15 [json_name = "combining_group_id"];
+  repeated string OriginalUrLs = 16 [json_name = "original_ur_ls"];
+}
+
+message TDrawPictureWowUsersFeedRequest {
+  string StartFrom = 1 [json_name = "start_from"];
+  uint32 Amount = 2 [json_name = "amount"];
+  string Kind = 3 [json_name = "kind"];
+  string SortBy = 4 [json_name = "sort_by"];
+}
+
+message TDrawPictureWowUsersFeedResponse {
+  optional TSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureDeleteWowPostRequest {
+  string PostId = 1 [json_name = "post_id"];
+}
+
+message TDrawPictureDeleteWowPostResponse {
+  optional string PostId = 1 [json_name = "post_id"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureWowEditingDownloadRequest {
+  string EditingId = 1 [json_name = "editing_id"];
+  string ImageId = 2 [json_name = "image_id"];
+}
+
+message TDrawPictureWowEditingDownloadResponse {
+  optional string DownloadLink = 1 [json_name = "download_link"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TEditingGeneration {
+  message TResults {
+    message TImage {
+      string Id = 1 [json_name = "id"];
+      string ImageURL = 2 [json_name = "image_url"];
+    }
+
+    string PostId = 1 [json_name = "post_id"];
+    repeated TImage Images = 2 [json_name = "images"];
+  }
+
+  string Id = 1 [json_name = "id"];
+  string Status = 2 [json_name = "status"];
+  string Prompt = 3 [json_name = "prompt"];
+  string TranslatedPrompt = 4 [json_name = "translated_prompt"];
+  string OriginalUrl = 5 [json_name = "original_url"];
+  int32 EstimateTimeSec = 6 [json_name = "estimate_time_sec"];
+  int32 RemainingTimeSec = 7 [json_name = "remaining_time_sec"];
+  optional TResults Results = 8 [json_name = "results"];
+  int32 PreviewWidth = 9 [json_name = "preview_width"];
+  int32 PreviewHeight = 10 [json_name = "preview_height"];
+  string LastReadAt = 11 [json_name = "last_read_at"];
+  int32 ImageCount = 12 [json_name = "image_count"];
+  string ModelVersion = 13 [json_name = "model_version"];
+  string PromptModelName = 14 [json_name = "prompt_model_name"];
+  repeated string Prompts = 15 [json_name = "prompts"];
+  repeated string UsedPrompts = 16 [json_name = "used_prompts"];
+}
+
+
+message TDrawPictureEditingGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  string Url = 2 [json_name = "url"];
+  uint32 ImageCount = 3 [json_name = "image_count"];
+  optional string DialogId = 4 [json_name = "dialog_id"];
+  optional int64 IsTemplate = 5 [json_name = "is_template"];
+  optional string TemplateName = 6 [json_name = "template_name"];
+  optional TMetaInfo MetaInfo = 7 [json_name = "meta_info"];
+}
+
+message TDrawPictureEditingGenerateResponse {
+  optional TEditingGeneration EditingGeneration = 1 [json_name = "editing_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureEditingGetRequest {
+  optional string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureEditingGetResponse {
+  optional TEditingGeneration EditingGeneration = 1 [json_name = "editing_generation"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TDrawPictureEditingDiscardRequest {
+  optional string GenerationId = 1 [json_name = "generation_id"];
+}
+
+message TDrawPictureEditingDiscardResponse {
+  optional TSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+  string GenerationId = 3 [json_name = "generation_id"];
+}
+
+message TDrawPictureCombiningGenerateRequest {
+  string Prompt = 1 [json_name = "prompt"];
+  repeated string UrLs = 2 [json_name = "ur_ls"];
+  uint32 ImageCount = 3 [json_name = "image_count"];
+  optional bool Edit = 4 [json_name = "edit"];
+  optional string DialogId = 5 [json_name = "dialog_id"];
+  optional int64 IsTemplate = 6 [json_name = "is_template"];
+  optional string TemplateName = 7 [json_name = "template_name"];
+  optional TMetaInfo MetaInfo = 8 [json_name = "meta_info"];
+}
+
+message TImageCombiningGeneration {
+  message TImage {
+    string Id = 1 [json_name = "id"];
+    string ImageURL = 2 [json_name = "image_url"];
+  }
+
+
+
+  string Id = 1 [json_name = "id"];
+  string Kind = 2 [json_name = "kind"];
+  string Status = 3 [json_name = "status"];
+  repeated string OriginalUrLs = 4 [json_name = "original_ur_ls"];
+  uint32 PreviewWidth = 5 [json_name = "preview_width"];
+  uint32 PreviewHeight = 6 [json_name = "preview_height"];
+  string Prompt = 7 [json_name = "prompt"];
+  uint32 RemainingTimeSec = 8 [json_name = "remaining_time_sec"];
+  uint32 EstimateTimeSec = 9 [json_name = "estimate_time_sec"];
+  repeated TImage Images = 10 [json_name = "images"];
+  string PostId = 11 [json_name = "post_id"];
+  uint64 Seed = 12 [json_name = "seed"];
+  string Service = 13 [json_name = "service"];
+  string TranslatedPrompt = 14 [json_name = "translated_prompt"];
+  string UserId = 15 [json_name = "user_id"];
+  string CreatedAt = 16 [json_name = "created_at"];
+  string LastReadAt = 17 [json_name = "last_read_at"];
+}
+
+
+message TMetaInfo {
+  string DialogId = 1 [json_name = "dialog_id"];
+  int64 IsTemplate = 2 [json_name = "is_template"];
+  string TemplateName = 3 [json_name = "template_name"];
+  string Preset = 4 [json_name = "preset"];
+}
+

@@ -1,0 +1,16 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TIoTGoloomUpdateSDPRequest {
+  string LocalSdp = 1 [json_name = "local_sdp"];
+  string RoomId = 2 [json_name = "room_id"];
+}
+
+message TIoTGoloomUpdateSDPResponse {
+  bytes RemoteSdp = 1 [json_name = "remote_sdp"];
+}
+

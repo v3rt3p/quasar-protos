@@ -1,0 +1,67 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+import "reconstructed/alice/library/proto_eval/proto/expression.proto";
+
+package NAlice.NData.NProactivity;
+
+import "alice/protos/api/alicekit/common/device_state/device_state.proto";
+
+import "alice/protos/api/alicekit/scenarios/frames/frame.proto";
+
+enum ESkillRecQuotaType {
+  Default = 0;
+  Marketing = 1;
+  Tts = 2;
+}
+
+message TSuccessCondition {
+  optional .NAlice.NAliceApi.TSemanticFrame Frame = 1 [json_name = "frame"];
+  optional .NAlice.NAliceApi.TDeviceState DeviceState = 2 [json_name = "device_state"];
+  optional TProtoEvalExpression Check = 3 [json_name = "check"];
+  bool IsTrigger = 4 [json_name = "is_trigger"];
+}
+
+message TSuccessConditionInfo {
+  optional TSuccessCondition SuccessCondition = 1 [json_name = "success_condition"];
+  string HashId = 2 [json_name = "hash_id"];
+  repeated string SkillIds = 3 [json_name = "skill_ids"];
+}
+
+message TSkill {
+  string SkillId = 1 [json_name = "skill_id"];
+  string Name = 2 [json_name = "name"];
+  string GenericScenario = 3 [json_name = "generic_scenario"];
+  optional string Intent = 4 [json_name = "intent"];
+  repeated string Tags = 5 [json_name = "tags"];
+  string LaunchDate = 6 [json_name = "launch_date"];
+  bool NoPromo = 7 [json_name = "no_promo"];
+  bool NoSuccessCondition = 8 [json_name = "no_success_condition"];
+}
+
+message TCapabilitiesSupport {
+  bool CloudUiFilling = 1 [json_name = "cloud_ui_filling"];
+  bool StreamingResponse = 2 [json_name = "streaming_response"];
+  bool Notifications = 3 [json_name = "notifications"];
+  bool RenderDiv2cards = 4 [json_name = "render_div2cards"];
+}
+
+message TSurfaceAspects {
+  string AppId = 2 [json_name = "app_id"];
+  bool IsTvPlugged = 3 [json_name = "is_tv_plugged"];
+  bool SupportsCloudUiFilling = 4 [json_name = "supports_cloud_ui_filling"];
+  string SurfaceId = 5 [json_name = "surface_id"];
+  string DeviceModel = 6 [json_name = "device_model"];
+  string Uuid = 7 [json_name = "uuid"];
+  string PuidSurfaceKey = 8 [json_name = "puid_surface_key"];
+  optional TCapabilitiesSupport Support = 9 [json_name = "support"];
+}
+
+message TSurfaceClass {
+  bool SameAppId = 2 [json_name = "same_app_id"];
+  bool ItemViewable = 3 [json_name = "item_viewable"];
+  bool SameSurfaceId = 4 [json_name = "same_surface_id"];
+}
+

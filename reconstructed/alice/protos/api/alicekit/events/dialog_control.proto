@@ -1,0 +1,47 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NAliceApi;
+
+import "reconstructed/alice/protos/api/dialog_history/common.proto";
+
+message TDialogControl {
+  optional TCreate Create = 2 [json_name = "create"];
+  optional TRemove Remove = 3 [json_name = "remove"];
+  optional TUpdateTimeLastRead UpdateTimeLastRead = 4 [json_name = "update_time_last_read"];
+  optional .NAlice.NApi.NDialogHistory.TObjectId ObjectId = 5 [json_name = "object_id"];
+  optional TCreateWithFullInfo CreateWithFullInfo = 6 [json_name = "create_with_full_info"];
+  optional TEnrichWithFullInfo EnrichWithFullInfo = 7 [json_name = "enrich_with_full_info"];
+  optional TRemoveMessages RemoveMessages = 8 [json_name = "remove_messages"];
+  optional TSbsMakeChoice SbsMakeChoice = 9 [json_name = "sbs_make_choice"];
+}
+
+message TCreateWithFullInfo {
+  optional .NAlice.NApi.NDialogHistory.TObject Object = 1 [json_name = "object"];
+}
+
+message TCreate {
+}
+
+message TEnrichWithFullInfo {
+  optional .NAlice.NApi.NDialogHistory.TObject Object = 1 [json_name = "object"];
+}
+
+message TRemove {
+}
+
+message TRemoveMessages {
+  repeated string RequestIds = 2 [json_name = "request_ids"];
+}
+
+message TUpdateTimeLastRead {
+  uint64 TimeLastRead = 1 [json_name = "time_last_read"];
+}
+
+message TSbsMakeChoice {
+  string RequestId = 1 [json_name = "request_id"];
+  string WinnerMessageId = 2 [json_name = "winner_message_id"];
+}
+

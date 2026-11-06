@@ -1,0 +1,92 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData;
+
+enum EAliceShowBlockType {
+  UndefinedBlock = 0;
+  Weather = 1;
+  News = 2;
+  Skill = 3;
+  Podcast = 4;
+  Track = 5;
+  Music = 6;
+  Greeting = 7;
+  Time = 8;
+  FmRadio = 9;
+  Traffic = 10;
+}
+
+message TDayPart {
+  enum EValue {
+    Undefined = 0;
+    Morning = 1;
+    Evening = 2;
+    Night = 3;
+    Ambiguous = 100;
+  }
+
+  EValue Value = 1 [json_name = "value"];
+}
+
+message TAge {
+  enum EValue {
+    Undefined = 0;
+    Children = 1;
+    Adult = 2;
+    Ambiguous = 100;
+  }
+
+  EValue Value = 1 [json_name = "value"];
+}
+
+message TAliceShowBlock {
+  string Uuid = 1 [json_name = "uuid"];
+  EAliceShowBlockType Type = 2 [json_name = "type"];
+  optional TAliceShowBlock.TWeatherBlockOptions WeatherBlockOptions = 3 [json_name = "weather_block_options"];
+  optional TAliceShowBlock.TNewsBlockOptions NewsBlockOptions = 4 [json_name = "news_block_options"];
+  optional TAliceShowBlock.TSkillBlockOptions SkillBlockOptions = 5 [json_name = "skill_block_options"];
+  optional TAliceShowBlock.TPodcastBlockOptions PodcastBlockOptions = 6 [json_name = "podcast_block_options"];
+  optional TAliceShowBlock.TTrackBlockOptions TrackBlockOptions = 7 [json_name = "track_block_options"];
+  optional TAliceShowBlock.TMusicBlockOptions MusicBlockOptions = 8 [json_name = "music_block_options"];
+  optional TAliceShowBlock.TFmRadioBlockOptions FmRadioBlockOptions = 9 [json_name = "fm_radio_block_options"];
+  message TWeatherBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TNewsBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TSkillBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TPodcastBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TTrackBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TMusicBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+  message TFmRadioBlockOptions {
+    repeated string OptionsIds = 1 [json_name = "options_ids"];
+  }
+}
+
+enum AliceShowBlockOptionsCase {
+  ALICESHOWBLOCKOPTIONS_NOT_SET = 0;
+  WEATHERBLOCKOPTIONS = 3;
+  NEWSBLOCKOPTIONS = 4;
+  SKILLBLOCKOPTIONS = 5;
+  PODCASTBLOCKOPTIONS = 6;
+  TRACKBLOCKOPTIONS = 7;
+  MUSICBLOCKOPTIONS = 8;
+  FMRADIOBLOCKOPTIONS = 9;
+}
+
+message TAliceShowShotData {
+  string Text = 1 [json_name = "text"];
+}
+

@@ -1,0 +1,118 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen
+// (TMessage family and EStatus rebuilt by hand from MessageProto.java /
+// RawResponseLogsProto.java getters, *_FIELD_NUMBER and writeTo()).
+
+syntax = "proto3";
+
+package NAlice.NData.NMemory;
+
+import "reconstructed/alice/protos/data/memory/version.proto";
+import "reconstructed/alice/protos/data/scenario/objects.proto";
+import "reconstructed/alice/memory/user_facts/proto/user_facts.proto";
+
+message TContextualMemory {
+  message TFact {
+    optional string FactText = 1 [json_name = "fact_text"];
+    optional string TextAnswer = 3 [json_name = "text_answer"];
+    optional .NAlice.NData.TFactList.TMultiText MultiTextAnswer = 4 [json_name = "multi_text_answer"];
+    optional .NAlice.NData.TEnumText FactEnumText = 5 [json_name = "fact_enum_text"];
+  }
+
+  optional .NAlice.NData.NMemory.TMemoryFormatVersion FormatVersion = 1 [json_name = "format_version"];
+  repeated TFact Facts = 2 [json_name = "facts"];
+}
+
+message TMessage {
+  message TRequest {
+    optional string Text = 1 [json_name = "text"];
+  }
+
+  message TResponse {
+    optional string Text = 1 [json_name = "text"];
+  }
+
+  message TContent {
+    oneof content {
+      TRequest Request = 1 [json_name = "request"];
+      TResponse Response = 2 [json_name = "response"];
+    }
+  }
+
+  message TMetadata {
+    optional string DialogId = 2 [json_name = "dialog_id"];
+    optional string MessageId = 3 [json_name = "message_id"];
+    optional int64 ServerTimestampMs = 1 [json_name = "server_timestamp_ms"];
+  }
+
+  optional TContent content = 1;
+  optional TMetadata MessageMetadata = 3 [json_name = "message_metadata"];
+}
+
+message TDialog {
+  message TSummary {
+    optional string Text = 1 [json_name = "text"];
+  }
+
+  message TMetadata {
+    optional string DialogId = 1 [json_name = "dialog_id"];
+    optional int64 LastMessageServerTimestampMs = 2 [json_name = "last_message_server_timestamp_ms"];
+    optional int64 FirstMessageServerTimestampMs = 3 [json_name = "first_message_server_timestamp_ms"];
+  }
+
+  optional TMessage.TMetadata DialogMetadata = 4 [json_name = "dialog_metadata"];
+  repeated TMessage Messages = 5 [json_name = "messages"];
+  optional TSummary Summary = 6 [json_name = "summary"];
+}
+
+message TPersonalizationProfile {
+  optional string UserName = 1 [json_name = "user_name"];
+  optional string City = 2 [json_name = "city"];
+}
+
+message TPersonalizationProfileInput {
+  optional string UserName = 1 [json_name = "user_name"];
+  optional string City = 2 [json_name = "city"];
+  optional string Interests = 3 [json_name = "interests"];
+  optional string About = 4 [json_name = "about"];
+}
+
+message TProfileSummaryData {
+  message TTopic {
+    string Podcast = 1 [json_name = "podcast"];
+  }
+
+  repeated TTopic Topics = 1 [json_name = "topics"];
+}
+
+message TMemoryRawResponses {
+  enum EStatus {
+    Unknown = 0;
+    Present = 1;
+    ValidAbsent = 2;
+    DisabledByUser = 3;
+  }
+
+  message TRecentDialogsRawResponseLog {
+    optional TRecentDialogs Response = 1 [json_name = "response"];
+    optional EStatus Status = 2 [json_name = "status"];
+  }
+
+  message TUserFactsRawResponseLog {
+    optional .NAlice.NMemory.TFactsStorage Response = 1 [json_name = "response"];
+    optional EStatus Status = 2 [json_name = "status"];
+  }
+
+  message TContextualMemoryRawResponseLog {
+    optional TContextualMemory Response = 1 [json_name = "response"];
+    optional EStatus Status = 2 [json_name = "status"];
+  }
+
+  optional TRecentDialogsRawResponseLog RecentDialogsRawResponseLog = 1 [json_name = "recent_dialogs_raw_response_log"];
+  optional TUserFactsRawResponseLog UserFactsRawResponseLog = 2 [json_name = "user_facts_raw_response_log"];
+  optional TContextualMemoryRawResponseLog ContextualMemoryRawResponseLog = 3 [json_name = "contextual_memory_raw_response_log"];
+}
+
+message TRecentDialogs {
+  repeated TDialog Dialogs = 1 [json_name = "dialogs"];
+  optional .NAlice.NData.NMemory.TMemoryFormatVersion FormatVersion = 100 [json_name = "format_version"];
+}

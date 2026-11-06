@@ -1,0 +1,147 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/tv/recent/recent_usage_info.proto";
+import "alice/protos/data/tv/whats_new/whats_new.proto";
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/tv/tags/data/catalog_tag.proto";
+import "alice/protos/div/div_actions.proto";
+import "alice/protos/div/div_customs.proto";
+import "alice/protos/div/div_extensions.proto";
+import "alice/protos/div/div_variables.proto";
+
+enum TGalleryFeatures {
+  UnknownFeature = 0;
+  BlendedTop10 = 1;
+  Catchups = 2;
+  MusicItems = 3;
+  NoVoiceControls = 4;
+  Organic = 5;
+  BookshelfItems = 6;
+  TypedCallbackRequest = 7;
+  RecentOrganic = 8;
+  RemoveFromRecent = 9;
+}
+
+enum ELandingType {
+  Tv = 0;
+  Centaur = 1;
+}
+
+message TGetGalleriesRequest {
+  string CategoryId = 1 [json_name = "category_id"];
+  uint32 MaxItemsPerGallery = 2 [json_name = "max_items_per_gallery"];
+  uint32 Offset = 3 [json_name = "offset"];
+  uint32 Limit = 4 [json_name = "limit"];
+  string CacheHash = 5 [json_name = "cache_hash"];
+  string FromScreenId = 6 [json_name = "from_screen_id"];
+  string ParentFromScreenId = 7 [json_name = "parent_from_screen_id"];
+  bool KidModeEnabled = 8 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 9 [json_name = "restriction_age"];
+  repeated .NAlice.NTv.TRecentUsageInfo RecentUsageInfo = 10 [json_name = "recent_usage_info"];
+  optional TDivParameters DivParameters = 11 [json_name = "div_parameters"];
+  repeated TGalleryFeatures Features = 12 [packed = true, json_name = "features"];
+  repeated .NAlice.NTv.TSupportedWhatsNew SupportedWhatsNew = 13 [json_name = "supported_whats_new"];
+  optional .NAlice.NTv.TDivMetaInfo DivMetaInfo = 14 [json_name = "div_meta_info"];
+}
+
+message TCentaurGetGalleriesRequest {
+  string CategoryId = 1 [json_name = "category_id"];
+  uint32 MaxItemsPerGallery = 2 [json_name = "max_items_per_gallery"];
+  uint32 Offset = 3 [json_name = "offset"];
+  uint32 Limit = 4 [json_name = "limit"];
+  string CacheHash = 5 [json_name = "cache_hash"];
+  bool KidModeEnabled = 6 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 7 [json_name = "restriction_age"];
+  repeated .NAlice.NTv.TRecentUsageInfo RecentUsageInfo = 8 [json_name = "recent_usage_info"];
+  bool HideCarouselItemsEnabled = 9 [json_name = "hide_carousel_items_enabled"];
+}
+
+message TGetGalleryRequest {
+  string Id = 1 [json_name = "id"];
+  uint32 Offset = 2 [json_name = "offset"];
+  uint32 Limit = 3 [json_name = "limit"];
+  string CacheHash = 4 [json_name = "cache_hash"];
+  string FromScreenId = 5 [json_name = "from_screen_id"];
+  string ParentFromScreenId = 6 [json_name = "parent_from_screen_id"];
+  uint32 CarouselPosition = 7 [json_name = "carousel_position"];
+  string CarouselTitle = 8 [json_name = "carousel_title"];
+  bool KidModeEnabled = 9 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 10 [json_name = "restriction_age"];
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 11 [json_name = "selected_tags"];
+  repeated .NAlice.NTv.TRecentUsageInfo RecentUsageInfo = 12 [json_name = "recent_usage_info"];
+  repeated TGalleryFeatures Features = 13 [packed = true, json_name = "features"];
+  repeated .NAlice.NTv.TSupportedWhatsNew SupportedWhatsNew = 14 [json_name = "supported_whats_new"];
+}
+
+message TCentaurGetGalleryRequest {
+  string Id = 1 [json_name = "id"];
+  uint32 Offset = 2 [json_name = "offset"];
+  uint32 Limit = 3 [json_name = "limit"];
+  string CacheHash = 4 [json_name = "cache_hash"];
+  repeated .NAlice.NTv.TRecentUsageInfo RecentUsageInfo = 5 [json_name = "recent_usage_info"];
+  bool KidModeEnabled = 9 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 10 [json_name = "restriction_age"];
+  bool ShouldIncludeOrganic = 11 [json_name = "should_include_organic"];
+  bool HideMainCarouselItemsEnabled = 12 [json_name = "hide_main_carousel_items_enabled"];
+}
+
+message TGetTaggedGalleryRequest {
+  string Id = 1 [json_name = "id"];
+  uint32 Offset = 2 [json_name = "offset"];
+  uint32 Limit = 3 [json_name = "limit"];
+  string CacheHash = 4 [json_name = "cache_hash"];
+  string FromScreenId = 5 [json_name = "from_screen_id"];
+  string ParentFromScreenId = 6 [json_name = "parent_from_screen_id"];
+  uint32 CarouselPosition = 7 [json_name = "carousel_position"];
+  string CarouselTitle = 8 [json_name = "carousel_title"];
+  bool KidModeEnabled = 9 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 10 [json_name = "restriction_age"];
+  repeated .NAlice.NTv.TCatalogTag SelectedTags = 11 [json_name = "selected_tags"];
+}
+
+message TWhatsNewCompleteWatchRequest {
+  string WhatsNewId = 1 [json_name = "whats_new_id"];
+}
+
+message TDeleteDelayedItemRequest {
+  optional .NAlice.NTv.TDeleteOttCandidate OttItem = 1 [json_name = "ott_item"];
+  optional TDeleteWebCandidate WebItem = 2 [json_name = "web_item"];
+  optional TDeleteMusicCandidate MusicItem = 3 [json_name = "music_item"];
+}
+
+message TGetMusicCategoryRequest {
+  ELandingType LandingType = 1 [json_name = "landing_type"];
+}
+
+message TGetWhatsNewRequest {
+  repeated .NAlice.NTv.TSupportedWhatsNew SupportedWhatsNew = 1 [json_name = "supported_whats_new"];
+  uint32 Limit = 2 [json_name = "limit"];
+}
+
+message TWhatsNewCompleteShowRequest {
+  repeated string WhatsNewId = 1 [json_name = "whats_new_id"];
+}
+
+message TWhatsNewClearHistoryRequest {
+  repeated string WhatsNewId = 1 [json_name = "whats_new_id"];
+}
+
+
+enum EPlaceType {
+  PT_UNKNOWN = 0;
+  PT_PROMOBLOCK = 1;
+  PT_FEATURE = 2;
+}
+
+message TDivParameters {
+  EPlaceType PlaceType = 1 [json_name = "place_type"];
+  optional .NAlice.TDivActions SupportedDivActions = 2 [json_name = "supported_div_actions"];
+  optional .NAlice.TDivCustoms SupportedDivCustoms = 3 [json_name = "supported_div_customs"];
+  optional .NAlice.TDivExtensions SupportedDivExtensions = 4 [json_name = "supported_div_extensions"];
+  optional .NAlice.TDivVariables SupportedDivVariables = 5 [json_name = "supported_div_variables"];
+}

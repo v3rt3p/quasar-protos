@@ -31,6 +31,7 @@ message TAutomotiveFragranceCapability {
     message TFragrance {
       option (.NYT.default_field_flags) = SERIALIZATION_YT;
       int32 Id = 1 [json_name = "id", (.NYT.column_name) = "id"];
+      string Name = 2 [json_name = "name", (.NYT.column_name) = "name"];
     }
 
     message TPropertyConfigParameters {
@@ -79,7 +80,7 @@ message TAutomotiveFragranceCapability {
   }
 
   message TChangeFragranceTypeDirective {
-    option (.NAlice.SpeechKitName) = "change_fragrance_type_directive";
+    option (.NAlice.SpeechKitName) = "set_fragrance_type_directive";
     option (.NYT.default_field_flags) = SERIALIZATION_YT;
     option (.NAlice.DirectiveType) = SetFragranceTypeDirectiveType;
     reserved "FragranceId";

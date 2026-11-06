@@ -1,0 +1,22 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/news_provider.proto";
+
+message TCollectNewsSettingScreenTypedCallback {
+  string ProviderNamePrefix = 1 [json_name = "provider_name_prefix"];
+  bool AdditionalLoading = 2 [json_name = "additional_loading"];
+  bool IsNewsRequest = 3 [json_name = "is_news_request"];
+}
+
+message TDeleteNewsSourceTypedCallback {
+}
+
+message TSetNewsSourceTypedCallback {
+  optional .NAlice.NData.TNewsProvider NewsProvider = 1 [json_name = "news_provider"];
+}
+

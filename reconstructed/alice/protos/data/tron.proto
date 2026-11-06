@@ -1,0 +1,79 @@
+// Reconstructed by ry_reconstruct2.py from decompiled Yandex ry protobuf codegen.
+// Structure from DescriptorFactory FQNs; names from getters; numbers/wire types from Java.
+
+syntax = "proto3";
+
+package NAlice.NData.NTron.NReminders;
+
+import "alice/protos/data/scenario/reminders/state.proto";
+
+import "reconstructed/alice/protos/data/tron/meta_info.proto";
+
+import "google/protobuf/timestamp.proto";
+import "alice/protos/api/rpc/reminders/reminders.proto";
+
+message TSubtask {
+  string SubtaskId = 1 [json_name = "subtask_id"];
+}
+
+
+
+
+
+
+
+message TNoteState {
+  string Subtasks = 1 [json_name = "subtasks"];
+  repeated TSubtask OrderedSubtask = 2 [json_name = "ordered_subtask"];
+}
+
+message TReminderPreset {
+  string PresetId = 1 [json_name = "preset_id"];
+  optional .NAlice.NData.NTron.NReminders.TMetaInfo MetaInfo = 3 [json_name = "meta_info"];
+  optional .NAlice.NReminders.NRpcApi.TPlaySettings PlaySettings = 4 [json_name = "play_settings"];
+  optional int64 OffsetSeconds = 5 [json_name = "offset_seconds"];
+}
+
+message TConnectedReminderSettings {
+  uint64 Offset = 1 [json_name = "offset"];
+  repeated TReminderPreset ReminderPresets = 2 [json_name = "reminder_presets"];
+}
+
+message TSubject {
+  message TText {
+    string Value = 1 [json_name = "value"];
+  }
+
+  message TTask {
+    message TNote {
+      string NoteId = 1 [json_name = "note_id"];
+    }
+
+    message TSubtask {
+      string SubtaskId = 1 [json_name = "subtask_id"];
+    }
+
+    optional TNote Note = 1 [json_name = "note"];
+    optional TSubtask Subtask = 2 [json_name = "subtask"];
+  }
+
+  optional TText Text = 1 [json_name = "text"];
+  optional TTask Task = 2 [json_name = "task"];
+}
+
+enum TaskTypeCase {
+  TASKTYPE_NOT_SET = 0;
+  NOTE = 1;
+  SUBTASK = 2;
+}
+
+
+message TUserReminderSettings {
+  optional .NAlice.NData.NReminders.TRemindersSettings RemindersSettings = 4 [json_name = "reminders_settings"];
+}
+
+message TTronTechnicalInfo {
+  string OriginalUuid = 1 [json_name = "original_uuid"];
+  string OriginalDeviceId = 2 [json_name = "original_device_id"];
+}
+

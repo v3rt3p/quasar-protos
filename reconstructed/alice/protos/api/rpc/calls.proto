@@ -1,0 +1,86 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/endpoint/capabilities/iot_error_list/capability.proto";
+
+import "alice/protos/endpoint/capabilities/make_order/capability.proto";
+
+message TRPCCallQualityRequest {
+  string CallId = 1 [json_name = "call_id"];
+  string DeviceId = 2 [json_name = "device_id"];
+  uint32 Grade = 4 [json_name = "grade"];
+}
+
+message TRPCCallQualityResponse {
+  message TSuccess {
+  }
+
+
+
+  optional TFail Fail = 1 [json_name = "fail"];
+  optional TSuccess Success = 2 [json_name = "success"];
+}
+
+message TFail {
+}
+
+message TRPCMakeCallRequest {
+  optional TTarget Target = 1 [json_name = "target"];
+  optional TInitiator Initiator = 2 [json_name = "initiator"];
+}
+
+message TTarget {
+  optional TTargetStation Station = 1 [json_name = "station"];
+  optional TTargetPhone Phone = 2 [json_name = "phone"];
+}
+
+message TTargetStation {
+  string DeviceId = 1 [json_name = "device_id"];
+  string Puid = 2 [json_name = "puid"];
+}
+
+message TTargetPhone {
+  string Puid = 1 [json_name = "puid"];
+}
+
+message TInitiator {
+  optional TIntercomDevice Intercom = 1 [json_name = "intercom"];
+}
+
+message TIntercomDevice {
+  string Id = 1 [json_name = "id"];
+  string Name = 2 [json_name = "name"];
+  string Login = 3 [json_name = "login"];
+  string VideoUrl = 4 [json_name = "video_url"];
+  string HouseholdName = 5 [json_name = "household_name"];
+  string ComplexName = 6 [json_name = "complex_name"];
+}
+
+message TRPCMakeCallResponse {
+  optional TMakeCallSuccess Success = 1 [json_name = "success"];
+  optional TMakeCallFail Fail = 2 [json_name = "fail"];
+}
+
+message TMakeCallSuccess {
+  string CallId = 1 [json_name = "call_id"];
+}
+
+message TMakeCallFail {
+  enum EError {
+    Undefined = 0;
+    IncorrectInput = 1;
+    InternalError = 2;
+    AtsError = 3;
+    MatrixError = 4;
+  }
+
+
+
+  EError Error = 1 [json_name = "error"];
+  string TextError = 2 [json_name = "text_error"];
+}
+

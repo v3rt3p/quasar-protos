@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package google.protobuf;
+
+option java_package = "com.google.protobuf";
+option java_outer_classname = "ApiProto";
+option java_multiple_files = true;
+option go_package = "google.golang.org/protobuf/types/known/apipb";
+option objc_class_prefix = "GPB";
+option csharp_namespace = "Google.Protobuf.WellKnownTypes";
+
+import "google/protobuf/source_context.proto";
+import "google/protobuf/type.proto";
+
+message Api {
+  string name = 1 [json_name = "name"];
+  repeated .google.protobuf.Method methods = 2 [json_name = "methods"];
+  repeated .google.protobuf.Option options = 3 [json_name = "options"];
+  string version = 4 [json_name = "version"];
+  .google.protobuf.SourceContext source_context = 5 [json_name = "sourceContext"];
+  repeated .google.protobuf.Mixin mixins = 6 [json_name = "mixins"];
+  .google.protobuf.Syntax syntax = 7 [json_name = "syntax"];
+  string edition = 8 [json_name = "edition"];
+}
+
+message Method {
+  string name = 1 [json_name = "name"];
+  string request_type_url = 2 [json_name = "requestTypeUrl"];
+  bool request_streaming = 3 [json_name = "requestStreaming"];
+  string response_type_url = 4 [json_name = "responseTypeUrl"];
+  bool response_streaming = 5 [json_name = "responseStreaming"];
+  repeated .google.protobuf.Option options = 6 [json_name = "options"];
+  .google.protobuf.Syntax syntax = 7 [json_name = "syntax", deprecated = true];
+  string edition = 8 [json_name = "edition", deprecated = true];
+}
+
+message Mixin {
+  string name = 1 [json_name = "name"];
+  string root = 2 [json_name = "root"];
+}
+

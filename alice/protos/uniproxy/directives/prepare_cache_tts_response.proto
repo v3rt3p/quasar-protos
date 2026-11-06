@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package NAlice.NUniproxyDirectives;
+
+option java_package = "ru.yandex.alice.protos.uniproxy.directives";
+option go_package = "a.yandex-team.ru/alice/protos/uniproxy/directives";
+
+import "yt/yt_proto/yt/formats/extension.proto";
+import "alice/protos/data/language/language.proto";
+
+message TTtsLanguageInfo {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  optional .NAlice.ELang MainRequestLanguage = 1 [json_name = "main_request_language", (.NYT.column_name) = "main_request_language"];
+  optional .NAlice.ELang EffectiveLanguage = 2 [json_name = "effective_language", (.NYT.column_name) = "effective_language"];
+}
+
+message TPrepareCacheTtsResponseContextSaveDirective {
+  option (.NYT.default_field_flags) = SERIALIZATION_YT;
+  message TRequest {
+    option (.NYT.default_field_flags) = SERIALIZATION_YT;
+    uint64 Ttl = 2 [json_name = "ttl", (.NYT.column_name) = "ttl"];
+    optional string Text = 1 [json_name = "text", (.NYT.column_name) = "text"];
+  }
+
+  .NAlice.NUniproxyDirectives.TPrepareCacheTtsResponseContextSaveDirective.TRequest PrepareCacheTtsResponseDirective = 1 [json_name = "prepare_cache_tts_response_directive", (.NYT.column_name) = "prepare_cache_tts_response_directive"];
+  optional .NAlice.NUniproxyDirectives.TTtsLanguageInfo TtsLanguageInfo = 2 [json_name = "tts_language_info", (.NYT.column_name) = "tts_language_info"];
+}
+

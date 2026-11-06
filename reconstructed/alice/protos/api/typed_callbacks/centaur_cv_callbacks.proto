@@ -1,0 +1,16 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice;
+
+message TCentaurCVSettingsChangeTypedCallback {
+  optional bool GesturesPauseResumeEnabled = 1 [json_name = "gestures_pause_resume_enabled"];
+  optional bool GesturesPreviousNextEnabled = 2 [json_name = "gestures_previous_next_enabled"];
+  optional bool VisualSpottingEnabled = 3 [json_name = "visual_spotting_enabled"];
+  optional bool IntonationSpottingEnabled = 4 [json_name = "intonation_spotting_enabled"];
+  optional bool IntonationInterruptingEnabled = 5 [json_name = "intonation_interrupting_enabled"];
+  optional bool CameraStreamingEnabled = 6 [json_name = "camera_streaming_enabled"];
+}
+

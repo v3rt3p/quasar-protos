@@ -1,0 +1,40 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+message TTvWatchListAddItemRequest {
+  string Uuid = 1 [json_name = "uuid"];
+  string OntoId = 2 [json_name = "onto_id"];
+}
+
+message TTvWatchListDeleteItemRequest {
+  string Uuid = 1 [json_name = "uuid"];
+  string OntoId = 2 [json_name = "onto_id"];
+}
+
+message TTvWatchListCheckItemRequest {
+  string Uuid = 1 [json_name = "uuid"];
+  string OntoId = 2 [json_name = "onto_id"];
+}
+
+message TTvWatchListSwitchSuccess {
+}
+
+message TTvWatchListSwitchFailure {
+  string Reason = 1 [json_name = "reason"];
+}
+
+message TTvWatchListSwitchItemResultData {
+  optional TTvWatchListSwitchSuccess Success = 1 [json_name = "success"];
+  optional TTvWatchListSwitchFailure Failure = 2 [json_name = "failure"];
+}
+
+message TTvWatchListCheckItemResultData {
+  string Uuid = 1 [json_name = "uuid"];
+  string OntoId = 2 [json_name = "onto_id"];
+  bool WillWatchState = 3 [json_name = "will_watch_state"];
+}
+

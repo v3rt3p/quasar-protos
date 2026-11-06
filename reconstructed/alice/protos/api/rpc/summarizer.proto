@@ -1,0 +1,49 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NRpc;
+
+enum TErrorType {
+  UnknownErrorTyppe = 0;
+  InternalRpcError = 1;
+  IncorrectResponse = 2;
+}
+
+message TSummarizerGenerateRequest {
+  string Query = 1 [json_name = "query"];
+}
+
+message TSummarizerGenerateResponse {
+  optional TGenerateSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TGenerateErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TGenerateSuccessResponse {
+  string RequestId = 1 [json_name = "request_id"];
+}
+
+message TGenerateErrorResponse {
+  TErrorType ErrorType = 1 [json_name = "error_type"];
+}
+
+message TSummarizerStatusRequest {
+  string RequestId = 1 [json_name = "request_id"];
+}
+
+message TSummarizerStatusResponse {
+  optional TStatusSuccessResponse SuccessResponse = 1 [json_name = "success_response"];
+  optional TStatusErrorResponse ErrorResponse = 2 [json_name = "error_response"];
+}
+
+message TStatusSuccessResponse {
+  string Text = 1 [json_name = "text"];
+  bool IsLast = 2 [json_name = "is_last"];
+  bool IsEthicsBan = 3 [json_name = "is_ethics_ban"];
+}
+
+message TStatusErrorResponse {
+  TErrorType ErrorType = 1 [json_name = "error_type"];
+}
+

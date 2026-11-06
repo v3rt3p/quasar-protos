@@ -1,0 +1,16 @@
+// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
+// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+
+syntax = "proto3";
+
+package NAlice.NSmartTv;
+
+message TGetTvPromoPhrasesRequest {
+  bool KidModeEnabled = 1 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 2 [json_name = "restriction_age"];
+}
+
+message TGetTvPromoPhrasesResponse {
+  repeated string PromoText = 1 [json_name = "promo_text"];
+}
+
