@@ -9,6 +9,7 @@ import "alice/protos/data/avatar/avatar.proto";
 import "alice/protos/data/dialogs/image_size.proto";
 import "alice/protos/data/dialogs/alice_app_category.proto";
 import "reconstructed/alice/protos/api/rpc/smartdeviceexternalapp/app/app.proto";
+import "alice/protos/api/dialogs/store_type.proto";
 
 
 enum EStoreType {
@@ -66,3 +67,26 @@ message TAppStoreParentalControlsSettings {
   repeated string PackageNameWhitelist = 2 [json_name = "package_name_whitelist"];
 }
 
+
+message TAppCatalogSearchRequest {
+  string Query = 1 [json_name = "query"];
+  .NAlice.NApi.NDialogs.EStoreType AppStoreType = 2 [json_name = "app_store_type"];
+}
+
+message TAppCatalogSearchResponse {
+  message TAppSearchResult {
+    string Id = 1 [json_name = "id"];
+    string Title = 2 [json_name = "title"];
+    string LogoUrl = 3 [json_name = "logo_url"];
+    string PackageName = 4 [json_name = "package_name"];
+    string Subtitle = 5 [json_name = "subtitle"];
+    string ApkDownloadUrl = 6 [json_name = "apk_download_url"];
+    string ApkVersionName = 7 [json_name = "apk_version_name"];
+    uint64 ApkVersionCode = 8 [json_name = "apk_version_code"];
+    bool IsDeletionProhibited = 9 [json_name = "is_deletion_prohibited"];
+    bool ShouldMarkAppAsVoiced = 10 [json_name = "should_mark_app_as_voiced"];
+    optional .NAlice.TAvatarMdsImage SquareLogo = 11 [json_name = "square_logo"];
+  }
+
+  repeated TAppSearchResult AppSearchResults = 1 [json_name = "app_search_results"];
+}
