@@ -1,0 +1,48 @@
+// Reconstructed from YandexQcApp.apk (magritte 5000001628 firmware).
+// Original file is compiled into the app with Yandex's "ry" protobuf codegen,
+// which strips the embedded FileDescriptorProto — the schema below was rebuilt
+// from the generated Java (TvCategoriesProto.java): field names from the
+// OrBuilder interfaces, numbers from *_FIELD_NUMBER constants, types and
+// presence from writeTo()/getSerializedSize().
+//
+// Wire format cross-checked against YandexTvHome.apk (the caller):
+// POST {gproxyUrl}/get_tv_categories  (gproxyUrl = https://rpc.alice.yandex.net/gproxy/)
+
+syntax = "proto3";
+
+package NAlice.NTv;
+
+import "alice/protos/data/avatar/avatar.proto";
+
+option java_package = "ru.yandex.alice.protos.data.tv.categories";
+option java_outer_classname = "TvCategoriesProto";
+
+enum ECategoriesFeatures {
+  UnknownCategoryFeature = 0;
+  SupportSportEvents = 1;
+  SportSection = 2;
+}
+
+message TGetTvCategoriesRequest {
+  bool KidModeEnabled = 1 [json_name = "kid_mode_enabled"];
+  string RestrictionAge = 2 [json_name = "restriction_age"];
+  repeated ECategoriesFeatures CategoriesFeatures = 3 [packed = true, json_name = "categories_features"];
+}
+
+message TGetTvCategoriesResponse {
+  repeated TTvCategory AvailableCategories = 1 [json_name = "available_categories"];
+  optional string ICookie = 2 [json_name = "i_cookie"];
+}
+
+message TTvCategory {
+  string CategoryId = 1 [json_name = "category_id"];
+  string Title = 2 [json_name = "title"];
+  optional uint32 Rank = 3 [json_name = "rank"];
+  optional string Icon = 4 [json_name = "icon"];
+  optional string PersistentClientCategoryId = 5 [json_name = "persistent_client_category_id"];
+  optional string RequestTag = 6 [json_name = "request_tag"];
+  optional string SelectedIcon = 7 [json_name = "selected_icon"];
+  optional .NAlice.TAvatarMdsImage MdsIcon = 8 [json_name = "mds_icon"];
+  optional .NAlice.TAvatarMdsImage SelectedMdsIcon = 9 [json_name = "selected_mds_icon"];
+  optional bool PreserveIconColors = 10 [json_name = "preserve_icon_colors"];
+}

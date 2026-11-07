@@ -1,0 +1,35 @@
+// Reconstructed from YandexQcApp.apk (magritte 5000001628 firmware),
+// SerialNavigatorRequestProto.java / SerialNavigatorResponseProto.java
+// (Yandex "ry" codegen — no embedded descriptors; schema rebuilt from
+// generated Java). Called via POST {gproxyUrl}/serial_navigator.
+
+syntax = "proto3";
+
+package NAlice;
+
+import "alice/protos/data/tv/carousel.proto";
+import "alice/protos/data/tv/serial_navigator/wrappers.proto";
+
+option java_package = "ru.yandex.alice.protos.api.rpc.serialnavigator";
+
+message TSerialNavigatorRequest {
+  string ProviderItemId = 1 [json_name = "provider_item_id"];
+  string OntoId = 2 [json_name = "onto_id"];
+  uint64 Limit = 3 [json_name = "limit"];
+  optional uint32 SeasonNumber = 4 [json_name = "season_number"];
+  optional uint32 EpisodeNumber = 5 [json_name = "episode_number"];
+  string KinopoiskId = 6 [json_name = "kinopoisk_id"];
+}
+
+message TSerialNavigatorResponse {
+  message TSerialNavigatorPosition {
+    uint32 SeasonIndex = 1 [json_name = "season_index"];
+    uint32 EpisodeIndex = 2 [json_name = "episode_index"];
+    reserved 3;
+    uint32 Progress = 4 [json_name = "progress"];
+  }
+
+  optional .NAlice.NTv.TSerialInfoWrapper SerialInfo = 1 [json_name = "serial_info"];
+  repeated .NAlice.NTv.TCarouselItemWrapper Episodes = 2 [json_name = "episodes"];
+  optional .NAlice.TSerialNavigatorResponse.TSerialNavigatorPosition Position = 3 [json_name = "position"];
+}

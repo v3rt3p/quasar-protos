@@ -1,5 +1,5 @@
-// Reconstructed by ry_reconstruct.py from decompiled Yandex ry protobuf codegen.
-// Names from OrBuilder getters, numbers from *_FIELD_NUMBER, wire types from writeTo().
+// Reconstructed from decompiled Yandex ry protobuf codegen (launcher og1/TvPromoPhrasesProto
+// + QcApp TvPromoPhrasesProto oracle). POST {gproxyUrl}/get_tv_promo_phrases
 
 syntax = "proto3";
 
@@ -13,4 +13,3 @@ message TGetTvPromoPhrasesRequest {
 message TGetTvPromoPhrasesResponse {
   repeated string PromoText = 1 [json_name = "promo_text"];
 }
-

@@ -5,6 +5,8 @@ syntax = "proto3";
 
 package NAlice.NTv;
 
+import "alice/protos/api/voice_control/voice_control.proto";
+
 import "reconstructed/alice/protos/data/tv/account_control.proto";
 
 import "reconstructed/alice/protos/data/tv/payment.proto";
@@ -113,3 +115,21 @@ message TTvGetChannelsRequest {
   bool UseContentIdStrategy = 13 [json_name = "use_content_id_strategy"];
 }
 
+
+message TProgramWrapper {
+  optional .NAlice.NTv.TProgramItem Program = 1 [json_name = "program"];
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+}
+
+message TChannelWrapper {
+  optional .NAlice.NTv.TChannel Channel = 1;
+  repeated .NAlice.TVoiceControl VoiceControls = 2 [json_name = "voice_controls"];
+  repeated TProgramWrapper Programs = 3 [json_name = "programs"];
+  optional TLocalChannel LocalChannel = 4 [json_name = "local_channel"];
+}
+
+message TTvGetChannelsResponse {
+  repeated .NAlice.NTv.TChannel Channels = 1 [json_name = "channels"];
+  repeated .NAlice.NTv.TCategory Categories = 2 [json_name = "categories"];
+  repeated TChannelWrapper ChannelWrappers = 3 [json_name = "channel_wrappers"];
+}
