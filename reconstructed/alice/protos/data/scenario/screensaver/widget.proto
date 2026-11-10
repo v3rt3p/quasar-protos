@@ -1,0 +1,9 @@
+// Reconstructed from decompiled Yandex ry protobuf codegen (data/scenario/screensaver/TWidget.java).
+
+syntax = "proto3";
+
+package NAlice.NData.NScreensaver;
+
+message TWidget {
+  string Id = 1 [json_name = "id"];
+}
